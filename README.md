@@ -18,6 +18,8 @@ interaction with each type of action bar.
 `ActionBarSherlock` is also 100% compatible with the [Fragments][3] API, both
 natively and using the [compatability package][4].
 
+![Example Image][5]
+
 
 
 Example
@@ -32,7 +34,7 @@ in the `onCreate` method of an `Activity`.
 
 
     public class HelloActionBarActivity extends Activity {
-        &#064;Override
+        @Override
         public void onCreate(Bundle savedInstanceState) {
             ActionBarSherlock.newInstance()
                     .setActivity(this, savedInstanceState)
@@ -44,7 +46,7 @@ in the `onCreate` method of an `Activity`.
         
         public static final class HelloHoneycombActionBarHandler
                 extends ActionBarSherlock.HoneycombActionBarHandler {
-            &#064;Override
+            @Override
             public void onCreate(Bundle savedInstanceState) {
                 Toast.makeText(
                     this.getActivity(),
@@ -55,7 +57,7 @@ in the `onCreate` method of an `Activity`.
         }
         public static final class HelloPreHoneycombActionBarHandler
                 extends ActionBarSherlock.PreHoneycombActionBarHandler {
-            &#064;Override
+            @Override
             public void onCreate(Bundle savedInstanceState) {
                 Toast.makeText(
                     this.getActivity(),
@@ -72,7 +74,7 @@ Developed By
 ============
 * Jake Wharton - <jakewharton@gmail.com>
 
-Git repository located at [github.com/JakeWharton/ActionBarSherlock][5].
+Git repository located at [github.com/JakeWharton/ActionBarSherlock][6].
 
 
 
@@ -101,4 +103,5 @@ License
  [2]: https://github.com/cyrilmottier/GreenDroid/
  [3]: http://developer.android.com/guide/topics/fundamentals/fragments.html
  [4]: http://android-developers.blogspot.com/2011/03/fragments-for-all.html
- [5]: https://github.com/JakeWharton/ActionBarSherlock/
+ [5]: http://img.jakewharton.com/ActionBarSherlock01.png
+ [6]: https://github.com/JakeWharton/ActionBarSherlock/
