@@ -21,9 +21,7 @@ import greendroid.widget.GDActionBar;
 import greendroid.widget.GDActionBar.OnActionBarListener;
 import android.app.ActionBar;
 import android.app.Activity;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.FrameLayout;
@@ -39,8 +37,8 @@ import android.widget.Toast;
  * 
  * <p>All interaction with these action bars is handled through two static
  * classes which should be implemented in each Activity as inner-classes. The
- * two classes should extend from HoneycombActionBarHandler and
- * PreHoneycombActionBarHandler. Each will allow for overriding various methods
+ * two classes should extend from NativeActionBarHandler and
+ * GreenDroidActionBarHandler. Each will allow for overriding various methods
  * to handle the creation of and interaction with each type of action bar.</p>
  * 
  * <p>Example:
@@ -52,28 +50,28 @@ import android.widget.Toast;
  *                 .setActivity(this, savedInstanceState)
  *                 .setLayout(R.layout.activity_hello)
  *                 .setTitle("Hello, ActionBar!")
- *                 .setHoneycombHandler(HelloHoneycombActionBarHandler.class)
- *                 .setPreHoneycombHandler(HelloPreHoneycombActionBarHandler.class);
+ *                 .setNativeHandler(HelloNativeActionBarHandler.class)
+ *                 .setGreenDroidHandler(HelloGreenDroidActionBarHandler.class);
  *     }
  *     
- *     public static final class HelloHoneycombActionBarHandler
- *             extends ActionBarSherlock.HoneycombActionBarHandler {
+ *     public static final class HelloNativeActionBarHandler
+ *             extends ActionBarSherlock.NativeActionBarHandler {
  *         &#064;Override
  *         public void onCreate(Bundle savedInstanceState) {
  *             Toast.makeText(
  *                 this.getActivity(),
- *                 "Hello, Honeycomb ActionBar!",
+ *                 "Hello, Native ActionBar!",
  *                 Toast.LENGTH_SHORT
  *             ).show();
  *         }
  *     }
- *     public static final class HelloPreHoneycombActionBarHandler
- *             extends ActionBarSherlock.PreHoneycombActionBarHandler {
+ *     public static final class HelloGreenDroidActionBarHandler
+ *             extends ActionBarSherlock.GreenDroidActionBarHandler {
  *         &#064;Override
  *         public void onCreate(Bundle savedInstanceState) {
  *             Toast.makeText(
  *                 this.getActivity(),
- *                 "Hello, Pre-Honeycomb ActionBar!",
+ *                 "Hello, GreenDroid ActionBar!",
  *                 Toast.LENGTH_SHORT
  *             ).show();
  *         }
@@ -84,6 +82,21 @@ import android.widget.Toast;
  * @version 1.0.0
  */
 public abstract class ActionBarSherlock {
+	/**
+	 * Constant denoting whether or not the device has access to the native
+	 * ActionBar implementation.
+	 */
+	private static final boolean HAS_NATIVE_ACTION_BAR;
+	
+	static {
+		boolean hasNativeActionBar = false;
+		try {
+			hasNativeActionBar = (android.app.ActionBar.class != null);
+		} catch (NoClassDefFoundError e) {}
+		
+		HAS_NATIVE_ACTION_BAR = hasNativeActionBar;
+	}
+	
 	/**
 	 * Parent Activity instance.
 	 */
@@ -96,31 +109,34 @@ public abstract class ActionBarSherlock {
 	/**
 	 * Create a new instance of the handler. This will determine the appropriate
 	 * implementation based off of your Android version.
+	 * 
 	 * @return Implementing instance of ActionBarSherlock.
 	 */
 	public static ActionBarSherlock newInstance() {
-		//Build.VERSION.SDK allows for all versions where SDK_INT is 1.6+ only.
-		if (Integer.parseInt(Build.VERSION.SDK) < Build.VERSION_CODES.HONEYCOMB) {
-			return new PreHoneycomb();
+		if (HAS_NATIVE_ACTION_BAR) {
+			return new NativeActionBarSherlock();
 		} else {
-			return new Honeycomb();
+			return new GreenDroidActionBarSherlock();
 		}
 	}
 	
 	/**
 	 * Inflate a resource as the content layout.
+	 * 
 	 * @param layoutResourceId Layout resource identifier.
 	 * @return Current instance
 	 */
 	public abstract ActionBarSherlock setLayout(int layoutResourceId);
 	/**
 	 * Set the content layout to an already instantiated View.
+	 * 
 	 * @param view View.
 	 * @return Current instance.
 	 */
 	public abstract ActionBarSherlock setLayout(View view);
 	/**
 	 * Convenience method to set the ActionBar title for both implementations.
+	 * 
 	 * @param title String title
 	 * @return Current instance.
 	 */
@@ -151,36 +167,35 @@ public abstract class ActionBarSherlock {
 		return this;
 	}
 	/**
-	 * Set the class which will handle callbacks for the Honeycomb ActionBar.
-	 * @param handler Honeycomb handler class.
-	 * @return Current instance.
-	 */
-	public ActionBarSherlock setHoneycombHandler(Class<? extends HoneycombActionBarHandler> handler) {
-		return this;
-	}
-	/**
-	 * Set the class which will handle callbacks for the pre-Honeycomb ActionBar.
-	 * @param handler Pre-Honeycomb handler class.
-	 * @return Current instance.
-	 */
-	public ActionBarSherlock setPreHoneycombHandler(Class<? extends PreHoneycombActionBarHandler> handler) {
-		return this;
-	}
-	
-	
-	
-	/**
-	 * Implementation of the GreenDroid GDActionBar for pre-honeycomb devices.
-	 * This will automatically wrap your layout to include this action bar
-	 * on the top of the screen.
+	 * Set the class which will handle callbacks for the native action bar.
 	 * 
-	 * @author Jake Wharton <jakewharton@gmail.com>
+	 * @param handler Native handler class.
+	 * @return Current instance.
 	 */
-	private static final class PreHoneycomb extends ActionBarSherlock {
+	public ActionBarSherlock setNativeHandler(Class<? extends NativeActionBarHandler> handler) {
+		return this;
+	}
+	/**
+	 * Set the class which will handle callbacks for the GreenDroid action bar.
+	 * 
+	 * @param handler GreenDroid handler class.
+	 * @return Current instance.
+	 */
+	public ActionBarSherlock setGreenDroidHandler(Class<? extends GreenDroidActionBarHandler> handler) {
+		return this;
+	}
+	
+	
+	
+	/**
+	 * Implementation of the GreenDroid GDActionBar. This will automatically
+	 * wrap your layout to include this action bar on the top of the screen.
+	 */
+	private static final class GreenDroidActionBarSherlock extends ActionBarSherlock {
 		/**
-		 * Instance of parent Activity's pre-honeycomb handler.
+		 * Instance of parent Activity's GreenDroid handler.
 		 */
-		private PreHoneycombActionBarHandler mHandler;
+		private GreenDroidActionBarHandler mHandler;
 		/**
 		 * GDActionBar instance.
 		 */
@@ -208,7 +223,7 @@ public abstract class ActionBarSherlock {
 		}
 
 		@Override
-		public ActionBarSherlock setPreHoneycombHandler(Class<? extends PreHoneycombActionBarHandler> handler) {
+		public ActionBarSherlock setGreenDroidHandler(Class<? extends GreenDroidActionBarHandler> handler) {
 			//Setting activity will also get action bar instance.
 			assert this.mActivity != null : "Activity must first be set.";
 			
@@ -231,8 +246,7 @@ public abstract class ActionBarSherlock {
 		public ActionBarSherlock setLayout(int layoutResourceId) {
 			//Setting activity will also get content instance.
 			assert this.mActivity != null : "Activity must first be set.";
-			
-			LayoutInflater.from(this.mActivity).inflate(layoutResourceId, this.mContent);
+			this.mActivity.getLayoutInflater().inflate(layoutResourceId, this.mContent);
 			return this;
 		}
 		
@@ -257,19 +271,17 @@ public abstract class ActionBarSherlock {
 	}
 	
 	/**
-	 * Implementation of the post-honeycomb native ActionBar. This class has
-	 * no logic other than marshaling calls down to their native counterparts.
-	 * 
-	 * @author Jake Wharton <jakewharton@gmail.com>
+	 * Implementation of the native ActionBar. This class has very little logic
+	 * other than marshaling calls down to their native counterparts.
 	 */
-	private static final class Honeycomb extends ActionBarSherlock {
+	private static final class NativeActionBarSherlock extends ActionBarSherlock {
 		/**
-		 * Instance of parent Activity's honeycomb handler.
+		 * Instance of parent Activity's native handler.
 		 */
-		private HoneycombActionBarHandler mHandler;
+		private NativeActionBarHandler mHandler;
 		
 		@Override
-		public ActionBarSherlock setHoneycombHandler(Class<? extends HoneycombActionBarHandler> handler) {
+		public ActionBarSherlock setNativeHandler(Class<? extends NativeActionBarHandler> handler) {
 			assert this.mActivity != null : "Activity must be first set.";
 			assert this.mActivity.getActionBar() != null : "Layout must be first set.";
 			
@@ -366,13 +378,13 @@ public abstract class ActionBarSherlock {
 	}
 	
 	/**
-	 * <p>Base class for the pre-honeycomb action bar implementation handler.</p>
+	 * <p>Base class for the GreenDroid action bar implementation handler.</p>
 	 * 
 	 * <p>This class should be extended as a static inner-class of your Activity
 	 * and then passed to the ActionBarSherlock instance via the 
-	 * setPreHoneycombHandler method.</p>
+	 * setGreenDroidHandler method.</p>
 	 */
-	public static abstract class PreHoneycombActionBarHandler extends ActionBarHandler {
+	public static abstract class GreenDroidActionBarHandler extends ActionBarHandler {
 		/**
 		 * Parent Activity's GDActionBar instance.
 		 */
@@ -442,13 +454,13 @@ public abstract class ActionBarSherlock {
 	}
 	
 	/**
-	 * <p>Base class for the honeycomb action bar implementation handler.</p>
+	 * <p>Base class for the native action bar implementation handler.</p>
 	 * 
 	 * <p>This class should be extended as a static inner-class of your Activity
 	 * and then passed to the ActionBarSherlock instance via the 
-	 * setHoneycombHandler method.</p>
+	 * setNativeHandler method.</p>
 	 */
-	public static abstract class HoneycombActionBarHandler extends ActionBarHandler {
+	public static abstract class NativeActionBarHandler extends ActionBarHandler {
 		/**
 		 * Parent Activity's ActionBar instance.
 		 */

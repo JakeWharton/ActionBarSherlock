@@ -17,8 +17,8 @@ public class HelloActionBarActivity extends Activity {
 			.setActivity(this, savedInstanceState)
 			.setLayout(R.layout.activity_hello)
 			.setTitle("Hello, ActionBar!")
-			.setHoneycombHandler(HelloHoneycombActionBarHandler.class)
-			.setPreHoneycombHandler(HelloPreHoneycombActionBarHandler.class);
+			.setNativeHandler(HelloNativeActionBarHandler.class)
+			.setGreenDroidHandler(HelloGreenDroidActionBarHandler.class);
 	}
 
 	@Override
@@ -31,23 +31,23 @@ public class HelloActionBarActivity extends Activity {
 		}
 	}
 
-	public static final class HelloHoneycombActionBarHandler extends ActionBarSherlock.HoneycombActionBarHandler {
+	public static final class HelloNativeActionBarHandler extends ActionBarSherlock.NativeActionBarHandler {
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
 			Toast.makeText(
 					this.getActivity(),
-					"Hello, Honeycomb ActionBar!",
+					"Hello, Native ActionBar!",
 					Toast.LENGTH_SHORT
 			).show();
 		}
 	}
 
-	public static final class HelloPreHoneycombActionBarHandler extends ActionBarSherlock.PreHoneycombActionBarHandler {
+	public static final class HelloGreenDroidActionBarHandler extends ActionBarSherlock.GreenDroidActionBarHandler {
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
 			Toast.makeText(
 					this.getActivity(),
-					"Hello, Pre-Honeycomb ActionBar!",
+					"Hello, GreenDroid ActionBar!",
 					Toast.LENGTH_SHORT
 			).show();
 			
