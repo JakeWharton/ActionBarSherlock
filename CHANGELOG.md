@@ -1,5 +1,5 @@
-Version 2.0.0 *(In Development)*
---------------------------------
+Version 2.0.0 *(2011-03-09)*
+----------------------------
 Complete rewrite!
 
  * New and better API.
