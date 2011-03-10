@@ -39,6 +39,9 @@ the parent directory.
  * `git clone git://github.com/johannilsson/android-actionbar.git`
  * `git clone git://github.com/hameno/GreenDroid.git`
 
+You can also download pre-built .apks for each of these samples from the
+[project download page][7] for demonstration.
+
 
 _* NOTE: The GreenDroid implementation currently requires a fork of the official
 repository and NOT the official repository itself. This is because the current
@@ -51,7 +54,7 @@ Developed By
 ============
 * Jake Wharton - <jakewharton@gmail.com>
 
-Git repository located at [github.com/JakeWharton/ActionBarSherlock][7].
+Git repository located at [github.com/JakeWharton/ActionBarSherlock][8].
 
 
 
@@ -82,4 +85,5 @@ License
  [4]: http://img.jakewharton.com/ActionBarSherlock01.png
  [5]: https://github.com/hameno/GreenDroid
  [6]: https://github.com/johannilsson/android-actionbar
- [7]: https://github.com/JakeWharton/ActionBarSherlock/
+ [7]: https://github.com/JakeWharton/ActionBarSherlock/downloads
+ [8]: https://github.com/JakeWharton/ActionBarSherlock/
