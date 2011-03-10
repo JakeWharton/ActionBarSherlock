@@ -1,5 +1,6 @@
 package com.jakewharton.android.actionbarsherlock.sample.greendroid;
 
+import greendroid.widget.GDActionBarItem;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock;
 import android.app.Activity;
 import android.os.Bundle;
@@ -22,7 +23,7 @@ public class HelloActionBarActivity extends Activity {
 			.layout(R.layout.activity_hello)
 		    .title("Hello, ActionBar!")
 			.handleNative(HelloNativeActionBarHandler.class)
-		    .handleCustom(GreenDroidActionBar.Handler.class)
+		    .handleCustom(HelloGreenDroidActionBarHandler.class)
 			.attach();
 	}
 
@@ -62,7 +63,9 @@ public class HelloActionBarActivity extends Activity {
 	public static final class HelloGreenDroidActionBarHandler extends GreenDroidActionBar.Handler {
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
-			//TODO: this is where you would set up the buttons
+			this.getActionBar().addItem(GDActionBarItem.Type.Compose);
+			this.getActionBar().addItem(GDActionBarItem.Type.Search);
+			this.getActionBar().addItem(GDActionBarItem.Type.Refresh);
 			
 			Toast.makeText(
 					this.getActivity(),

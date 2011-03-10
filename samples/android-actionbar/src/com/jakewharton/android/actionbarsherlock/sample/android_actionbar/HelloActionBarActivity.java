@@ -1,7 +1,7 @@
 package com.jakewharton.android.actionbarsherlock.sample.android_actionbar;
 
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock;
-import com.markupartist.android.widget.ActionBar;
+import com.markupartist.android.widget.ActionBar.IntentAction;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -66,9 +66,11 @@ public class HelloActionBarActivity extends Activity {
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
 			//Home button won't show unless we partially set it up.
-			this.getActionBar().setHomeAction(new ActionBar.IntentAction(this.getActivity(), new Intent(), R.drawable.ic_title_home_default));
+			this.getActionBar().setHomeAction(new IntentAction(this.getActivity(), new Intent(), R.drawable.ic_title_home_default));
 			
-			//TODO: this is where you would set up the buttons
+			this.getActionBar().addAction(new IntentAction(this.getActivity(), new Intent(), R.drawable.gd_action_bar_compose));
+			this.getActionBar().addAction(new IntentAction(this.getActivity(), new Intent(), R.drawable.gd_action_bar_search));
+			this.getActionBar().addAction(new IntentAction(this.getActivity(), new Intent(), R.drawable.gd_action_bar_refresh));
 			
 			Toast.makeText(
 					this.getActivity(),
