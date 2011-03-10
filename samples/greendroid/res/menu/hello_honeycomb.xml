@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_compose"
+          android:title="Save"
+          android:showAsAction="ifRoom|withText" />
+    <item android:id="@+id/menu_search"
+          android:title="Search"
+          android:showAsAction="ifRoom|withText" />
+    <item android:id="@+id/menu_refresh"
+          android:title="Refresh"
+          android:showAsAction="ifRoom|withText" />
+</menu>
