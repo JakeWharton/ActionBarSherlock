@@ -7,74 +7,51 @@ APIs available.
 
 The class will automatically use the [native ActionBar][1] implementation on
 Android 3.0 or later. For previous versions which do not include ActionBar, a
-[GreenDroid][2] GDActionBar will automatically be wrapped around the layout.
+custom action bar implementation can automatically be wrapped around the
+layout.
 
-All interaction with these action bars is handled through two static classes
-which should be implemented in each Activity as inner-classes. The two classes
-should extend `HoneycombActionBarHandler` and `PreHoneycombActionBarHandler`.
-Each will allow for overriding various methods to handle the creation of and
-interaction with each type of action bar.
+All interaction with these action bars is handled through the optional
+extension of static classes which should be implemented in each Activity as
+inner-classes.
 
-`ActionBarSherlock` is also 100% compatible with the [Fragments][3] API, both
-natively and using the [compatability package][4].
+Examples of third-party implementations can be found in the `samples/` folder
+of this repository.
 
-![Example Image][5]
+`ActionBarSherlock` is also 100% compatible with the [Fragments][2] API, both
+natively and using the [compatability package][3].
 
-
-
-Example
-=======
-The following example will set up a simple `Activity` that contains an action
-bar and show a toast upon its creation.
-
-From within each handler, you can call `getActivity()` for the parent activity
-instance and `getActionBar()` for the action bar instance. While this example
-only shows a toast you should perform the action bar setup exactly as you would
-in the `onCreate` method of an `Activity`.
+![Example Image][4]
 
 
-    public class HelloActionBarActivity extends Activity {
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            ActionBarSherlock.newInstance()
-                    .setActivity(this, savedInstanceState)
-                    .setLayout(R.layout.activity_hello)
-                    .setTitle("Hello, ActionBar!")
-                    .setHoneycombHandler(HelloHoneycombActionBarHandler.class)
-                    .setPreHoneycombHandler(HelloPreHoneycombActionBarHandler.class);
-        }
-        
-        public static final class HelloHoneycombActionBarHandler
-                extends ActionBarSherlock.HoneycombActionBarHandler {
-            @Override
-            public void onCreate(Bundle savedInstanceState) {
-                Toast.makeText(
-                    this.getActivity(),
-                    "Hello, Honeycomb ActionBar!"
-                    Toast.LENGTH_SHORT
-                ).show();
-            }
-        }
-        public static final class HelloPreHoneycombActionBarHandler
-                extends ActionBarSherlock.PreHoneycombActionBarHandler {
-            @Override
-            public void onCreate(Bundle savedInstanceState) {
-                Toast.makeText(
-                    this.getActivity(),
-                    "Hello, Pre-Honeycomb ActionBar!"
-                    Toast.LENGTH_SHORT
-                ).show();
-            }
-        }
-    }
 
+Examples
+========
+Two sample applications are included which demonstrate implementing custom
+action bar handlers for [GreenDroid][5]* and [Android-ActionBar][6]. These are
+located in the `samples/` folder of this repository.
+
+In order for these sample applications to properly work, the respective library
+that they depend on needs to be cloned in the same parent folder as this one.
+
+This can be accomplished by executing one or both of the following commands in
+the parent directory.
+
+ * `git clone git://github.com/johannilsson/android-actionbar.git`
+ * `git clone git://github.com/hameno/GreenDroid.git`
+
+
+_* NOTE: The GreenDroid implementation currently requires a fork of the official
+repository and NOT the official repository itself. This is because the current
+official GreenDroid library has API conflicts with Android 3.0. Until the changes
+implemented in the fork are merged upstream, this is the only way to achieve
+the GreenDroid implementation._
 
 
 Developed By
 ============
 * Jake Wharton - <jakewharton@gmail.com>
 
-Git repository located at [github.com/JakeWharton/ActionBarSherlock][6].
+Git repository located at [github.com/JakeWharton/ActionBarSherlock][7].
 
 
 
@@ -100,8 +77,9 @@ License
 
 
  [1]: http://developer.android.com/guide/topics/ui/actionbar.html
- [2]: https://github.com/cyrilmottier/GreenDroid/
- [3]: http://developer.android.com/guide/topics/fundamentals/fragments.html
- [4]: http://android-developers.blogspot.com/2011/03/fragments-for-all.html
- [5]: http://img.jakewharton.com/ActionBarSherlock01.png
- [6]: https://github.com/JakeWharton/ActionBarSherlock/
+ [2]: http://developer.android.com/guide/topics/fundamentals/fragments.html
+ [3]: http://android-developers.blogspot.com/2011/03/fragments-for-all.html
+ [4]: http://img.jakewharton.com/ActionBarSherlock01.png
+ [5]: https://github.com/hameno/GreenDroid
+ [6]: https://github.com/johannilsson/android-actionbar
+ [7]: https://github.com/JakeWharton/ActionBarSherlock/
