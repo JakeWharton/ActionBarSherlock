@@ -58,10 +58,13 @@ public final class ActionBarSherlock {
 	static {
 		boolean hasNativeActionBar = false;
 		try {
-			hasNativeActionBar = (android.app.ActionBar.class != null);
-		} catch (NoClassDefFoundError e) {}
-		
-		HAS_NATIVE_ACTION_BAR = hasNativeActionBar;
+			Class.forName("android.app.ActionBar");
+			hasNativeActionBar = true;
+		} catch (NoClassDefFoundError e) {
+		} catch (ClassNotFoundException e) {
+		} finally {
+			HAS_NATIVE_ACTION_BAR = hasNativeActionBar;
+		}
 	}
 	
 	
