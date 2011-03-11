@@ -2,13 +2,13 @@ Action Bar Sherlock
 ===================
 
 The `ActionBarSherlock` class is a helper designed to facilitate the use of
-the action bar design pattern across all version of Android leveraging the best
-APIs available.
+the action bar design pattern across all versions of Android leveraging the
+best APIs available.
 
 The class will automatically use the [native ActionBar][1] implementation on
 Android 3.0 or later. For previous versions which do not include ActionBar, a
 custom action bar implementation can automatically be wrapped around the
-layout.
+layout. Support for this goes all the way back to Android 1.5.
 
 All interaction with these action bars is handled through the optional
 extension of static classes which should be implemented in each Activity as
@@ -42,6 +42,8 @@ the parent directory.
 You can also download pre-built .apks for each of these samples from the
 [project download page][7] for demonstration.
 
+Due the use of third-party libraries, the samples have a minimum requirement of
+Android 1.6.
 
 _* NOTE: The GreenDroid implementation currently requires a fork of the official
 repository and NOT the official repository itself. This is because the current
