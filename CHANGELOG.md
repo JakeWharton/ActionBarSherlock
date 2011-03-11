@@ -1,8 +1,8 @@
 Change Log
 ===============================================================================
 
-Version 2.0.1 *(In Development)*
---------------------------------
+Version 2.0.1 *(2011-03-11)*
+----------------------------
 
  * Use `Class.forName()` for detection of native action bar. This provides
    compatability all the way back to Android 1.5.
