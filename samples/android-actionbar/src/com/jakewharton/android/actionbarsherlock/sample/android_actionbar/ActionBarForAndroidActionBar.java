@@ -90,6 +90,11 @@ public final class ActionBarForAndroidActionBar {
 		}
 
 		@Override
+		public void setHomeAsUpEnabled(boolean enabled) {
+			this.getActionBar().setDisplayHomeAsUpEnabled(enabled);
+		}
+
+		@Override
 		public void inflateMenu(ActionBarMenu menu) {
 			for (ActionBarMenuItem item : menu.getItems()) {
 				this.getActionBar().addAction(new Action(this, item));
