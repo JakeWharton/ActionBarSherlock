@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 
 /*
- * See: com.android.internal.view.menu.MenuItemItmpl
+ * See: com.android.internal.view.menu.MenuItemImpl
  */
 public final class ActionBarMenuItem implements MenuItem {
 	private final Context mContext;
@@ -28,10 +28,8 @@ public final class ActionBarMenuItem implements MenuItem {
 	private boolean mIsVisible;
 	private char mNumericalShortcut;
 	private char mAlphabeticalShortcut;
-
-	public ActionBarMenuItem(Context context, int itemId, int groupId, int order, int titleResourceId) {
-		this(context, itemId, groupId, order, context.getResources().getString(titleResourceId));
-	}
+	
+	
 	public ActionBarMenuItem(Context context, int itemId, int groupId, int order, CharSequence title) {
 		this.mContext = context;
 		
@@ -44,6 +42,7 @@ public final class ActionBarMenuItem implements MenuItem {
 		this.mOrder = order;
 		this.mTitle = title;
 	}
+	
 	
 	@Override
 	public Intent getIntent() {

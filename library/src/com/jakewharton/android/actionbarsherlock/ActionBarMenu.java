@@ -29,28 +29,23 @@ public final class ActionBarMenu implements Menu {
 	
 	@Override
 	public MenuItem add(CharSequence title) {
-		ActionBarMenuItem item = new ActionBarMenuItem(this.mContext, DEFAULT_ITEM_ID, DEFAULT_GROUP_ID, DEFAULT_ORDER, title);
-		this.mItems.add(item);
-		return item;
+		return this.add(DEFAULT_ITEM_ID, DEFAULT_GROUP_ID, DEFAULT_ORDER, title);
 	}
 
 	@Override
 	public MenuItem add(int titleResourceId) {
-		ActionBarMenuItem item = new ActionBarMenuItem(this.mContext, 0, 0, 0, titleResourceId);
-		this.mItems.add(item);
-		return item;
+		return this.add(DEFAULT_GROUP_ID, DEFAULT_ITEM_ID, DEFAULT_ORDER, titleResourceId);
+	}
+
+	@Override
+	public MenuItem add(int groupId, int itemId, int order, int titleResourceId) {
+		String title = this.mContext.getResources().getString(titleResourceId);
+		return this.add(groupId, itemId, order, title);
 	}
 
 	@Override
 	public MenuItem add(int groupId, int itemId, int order, CharSequence title) {
 		ActionBarMenuItem item = new ActionBarMenuItem(this.mContext, itemId, groupId, order, title);
-		this.mItems.add(item);
-		return item;
-	}
-
-	@Override
-	public MenuItem add(int groupId, int itemId, int order, int titleResourceId) {
-		ActionBarMenuItem item = new ActionBarMenuItem(this.mContext, itemId, groupId, order, titleResourceId);
 		this.mItems.add(item);
 		return item;
 	}
