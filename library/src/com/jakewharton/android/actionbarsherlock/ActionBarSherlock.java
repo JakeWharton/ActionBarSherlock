@@ -470,7 +470,7 @@ public final class ActionBarSherlock {
 	}
 	
 	public static interface ActionBarMenuHandler {
-		public void addItem(ActionBarMenuItem item);
+		public void inflateMenu(ActionBarMenu menu);
 	}
 
 	/**
@@ -493,9 +493,7 @@ public final class ActionBarSherlock {
 				this.getMenuInflater().inflate(this.mMenuResourceId, menu);
 				
 				//Delegate to the handler for addition to the action bar
-				for (ActionBarMenuItem item : menu.getItems()) {
-					menuHandler.addItem(item);
-				}
+				menuHandler.inflateMenu(menu);
 			}
 		}
 
@@ -515,7 +513,7 @@ public final class ActionBarSherlock {
 	/*
 	 * See: com.android.internal.view.menu.MenuBuilder
 	 */
-	private static class ActionBarMenu implements Menu {
+	public static final class ActionBarMenu implements Menu {
 		private static final int DEFAULT_ITEM_ID = 0;
 		private static final int DEFAULT_GROUP_ID = 0;
 		private static final int DEFAULT_ORDER = 0;

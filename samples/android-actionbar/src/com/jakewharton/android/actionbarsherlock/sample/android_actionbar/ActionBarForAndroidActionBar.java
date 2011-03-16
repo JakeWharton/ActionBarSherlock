@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.FrameLayout;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.ActionBarHandler;
+import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.ActionBarMenu;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.ActionBarMenuHandler;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.ActionBarMenuItem;
 import com.markupartist.android.widget.ActionBar;
@@ -75,8 +76,10 @@ public final class ActionBarForAndroidActionBar {
 		}
 
 		@Override
-		public void addItem(ActionBarMenuItem item) {
-			this.getActionBar().addAction(new ActionBar.IntentAction(this.getActivity(), new Intent(), item.getIconId()));
+		public void inflateMenu(ActionBarMenu menu) {
+			for (ActionBarMenuItem item : menu.getItems()) {
+				this.getActionBar().addAction(new ActionBar.IntentAction(this.getActivity(), new Intent(), item.getIconId()));
+			}
 		}
 	}
 }
