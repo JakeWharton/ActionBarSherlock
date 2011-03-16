@@ -13,7 +13,6 @@ import android.view.ContextMenu.ContextMenuInfo;
  */
 public final class ActionBarMenuItem implements MenuItem {
 	private final Context mContext;
-	
 	private Intent mIntent;
 	private int mIconId;
 	private int mItemId;
@@ -32,7 +31,6 @@ public final class ActionBarMenuItem implements MenuItem {
 	
 	public ActionBarMenuItem(Context context, int itemId, int groupId, int order, CharSequence title) {
 		this.mContext = context;
-		
 		this.mIsCheckable = false;
 		this.mIsChecked = false;
 		this.mIsEnabled = true;

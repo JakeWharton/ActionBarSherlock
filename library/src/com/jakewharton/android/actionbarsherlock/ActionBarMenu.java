@@ -18,8 +18,10 @@ public final class ActionBarMenu implements Menu {
 	private static final int DEFAULT_GROUP_ID = 0;
 	private static final int DEFAULT_ORDER = 0;
 	
+	
 	private final Context mContext;
 	private final List<ActionBarMenuItem> mItems;
+	
 	
 	public ActionBarMenu(Context context) {
 		this.mContext = context;

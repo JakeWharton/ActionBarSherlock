@@ -106,6 +106,11 @@ public final class ActionBarSherlock {
 	private Integer mMenuResourceId;
 	
 	/**
+	 * Whether or not home should be displayed as an "up" affordance.
+	 */
+	private boolean mHomeAsUpEnabled;
+	
+	/**
 	 * The class which will handle the native action bar.
 	 */
 	private Class<? extends NativeActionBarHandler> mNativeHandler;
@@ -218,14 +223,25 @@ public final class ActionBarSherlock {
 	 * Resource ID of a menu to inflate as buttons onto the action bar. This
 	 * will fall back to 
 	 * 
-	 * @param menuResourceId
-	 * @return
+	 * @param menuResourceId Resource ID for menu XML.
+	 * @return Current instance for builder pattern.
 	 */
 	public ActionBarSherlock menu(int menuResourceId) {
 		assert this.mAttached == false;
 		assert this.mMenuResourceId == null;
 		
 		this.mMenuResourceId = menuResourceId;
+		return this;
+	}
+	
+	/**
+	 * Set home should be displayed as an "up" affordance.
+	 * 
+	 * @param enabled Whether or not this is enabled.
+	 * @return Current instance for builder pattern.
+	 */
+	public ActionBarSherlock homeAsUp(boolean enabled) {
+		this.mHomeAsUpEnabled = enabled;
 		return this;
 	}
 	
@@ -311,6 +327,8 @@ public final class ActionBarSherlock {
 		if (this.mTitle != null) {
 			handler.setTitle(this.mTitle);
 		}
+		
+		handler.setHomeAsUpEnabled(this.mHomeAsUpEnabled);
 		
 		handler.onCreate(this.mSavedInstanceState);
 	}
@@ -441,6 +459,15 @@ public final class ActionBarSherlock {
 		protected void clicked(MenuItem item) {
 			this.getActivity().onOptionsItemSelected(item);
 		}
+		
+		/**
+		 * Set whether or not home should be displayed as an "up" affordance.
+		 * 
+		 * @param enabled Whether or not this is enabled.
+		 */
+		public void setHomeAsUpEnabled(boolean enabled) {
+			//Grumble, grumble... OVERRIDE ME!
+		}
 	}
 	
 	/**
@@ -466,6 +493,11 @@ public final class ActionBarSherlock {
 		@Override
 		public void setTitle(CharSequence title) {
 			this.getActionBar().setTitle(title);
+		}
+		
+		@Override
+		public void setHomeAsUpEnabled(boolean enabled) {
+			this.getActionBar().setDisplayHomeAsUpEnabled(enabled);
 		}
 	}
 	
