@@ -16,7 +16,6 @@
 
 package com.jakewharton.android.actionbarsherlock;
 
-import android.app.ActionBar;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -447,9 +446,9 @@ public final class ActionBarSherlock {
 	/**
 	 * Minimal handler for Android's native {@link android.app.ActionBar}.
 	 */
-	public static class NativeActionBarHandler extends ActionBarHandler<ActionBar> {
+	public static class NativeActionBarHandler extends ActionBarHandler<android.app.ActionBar> {
 		@Override
-		public ActionBar initialize(int layoutResourceId) {
+		public android.app.ActionBar initialize(int layoutResourceId) {
 			//For native action bars assigning a layout is all that is required
 			this.getActivity().setContentView(layoutResourceId);
 			
@@ -457,7 +456,7 @@ public final class ActionBarSherlock {
 		}
 		
 		@Override
-		public ActionBar initialize(View view) {
+		public android.app.ActionBar initialize(View view) {
 			//For native action bars assigning a layout is all that is required
 			this.getActivity().setContentView(view);
 			
