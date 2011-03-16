@@ -470,6 +470,7 @@ public final class ActionBarSherlock {
 		}
 	}
 	
+	
 	/**
 	 * Minimal handler for Android's native {@link android.app.ActionBar}.
 	 */
@@ -501,27 +502,53 @@ public final class ActionBarSherlock {
 		}
 	}
 	
+	
+	/**
+	 * Interface which denotes a third-party action bar handler implementation
+	 * supports populating the action bar from an inflated XML menu.
+	 */
 	public static interface ActionBarMenuHandler {
+		/**
+		 * Populate the action bar with items from the inflated XML menu.
+		 * 
+		 * @param menu Inflated XML menu.
+		 */
 		public void inflateMenu(ActionBarMenu menu);
 	}
-
+	
+	
 	/**
 	 * Special activity wrapper which will allow for unifying common
 	 * functionality via the {@link ActionBarSherlock} activity API.
 	 */
 	public static abstract class Activity extends android.app.Activity {
+		/**
+		 * Resource ID of menu XML.
+		 */
 		private Integer mMenuResourceId;
+		
+		/**
+		 * Whether or not the handler support inflation of XML menus.
+		 */
 		private boolean mHasMenuHandler;
 		
+		/**
+		 * Set the menu XML resource ID. This will also attempt inflation to
+		 * a third-party action bar if it supports XML menus.
+		 * 
+		 * @param menuResourceId Resource ID of menu XML.
+		 * @param handler Action bar handler.
+		 */
 		public void setActionBarMenu(int menuResourceId, ActionBarHandler<?> handler) {
 			this.mMenuResourceId = menuResourceId;
-			this.mHasMenuHandler = handler instanceof ActionBarMenuHandler;
 			
 			if (!ActionBarSherlock.HAS_NATIVE_ACTION_BAR) {
 				if (handler.getActionBar() instanceof Menu) {
 					//If the action bar implements menu, inflate directly
 					this.getMenuInflater().inflate(this.mMenuResourceId, (Menu)handler.getActionBar());
-				} else if (this.mHasMenuHandler) {
+					
+					this.mHasMenuHandler = true;
+				} else if (handler instanceof ActionBarMenuHandler) {
 					//Has menu, not native, handler handles menu
 					ActionBarMenuHandler menuHandler = (ActionBarMenuHandler)handler;
 					
@@ -530,6 +557,8 @@ public final class ActionBarSherlock {
 					
 					//Delegate to the handler for addition to the action bar
 					menuHandler.inflateMenu(menu);
+					
+					this.mHasMenuHandler = true;
 				}
 			}
 		}

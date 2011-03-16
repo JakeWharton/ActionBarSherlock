@@ -1,3 +1,19 @@
+/*
+ * Copyright 2011 Jake Wharton
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.jakewharton.android.actionbarsherlock;
 
 import android.content.Context;
@@ -8,11 +24,19 @@ import android.view.SubMenu;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 
-/*
- * See: com.android.internal.view.menu.MenuItemImpl
+/**
+ * An implementation of the {@link MenuItem} interface for use in inflating menu
+ * XML resources to be added to a third-party action bar. 
+ * 
+ * @author Jake Wharton <jakewharton@gmail.com>
+ * @see {@link com.android.internal.view.MenuItemImpl}
  */
 public final class ActionBarMenuItem implements MenuItem {
+	/**
+	 * Context used for resolving any resources.
+	 */
 	private final Context mContext;
+	
 	private Intent mIntent;
 	private int mIconId;
 	private int mItemId;
@@ -20,7 +44,7 @@ public final class ActionBarMenuItem implements MenuItem {
 	private int mOrder;
 	private CharSequence mTitle;
 	private CharSequence mTitleCondensed;
-	private SubMenu mSubMenu;
+	private ActionBarSubMenu mSubMenu;
 	private boolean mIsCheckable;
 	private boolean mIsChecked;
 	private boolean mIsEnabled;
@@ -29,6 +53,15 @@ public final class ActionBarMenuItem implements MenuItem {
 	private char mAlphabeticalShortcut;
 	
 	
+	/**
+	 * Create a new action bar menu item.
+	 * 
+	 * @param context Context used if resource resolution is required.
+	 * @param itemId A unique ID. Used in the activity callback.
+	 * @param groupId Group ID. Currently unused.
+	 * @param order Item order. Currently unused.
+	 * @param title Title of the item.
+	 */
 	public ActionBarMenuItem(Context context, int itemId, int groupId, int order, CharSequence title) {
 		this.mContext = context;
 		this.mIsCheckable = false;
@@ -47,6 +80,11 @@ public final class ActionBarMenuItem implements MenuItem {
 		return this.mIntent;
 	}
 	
+	/**
+	 * Get the current icon resource ID.
+	 * 
+	 * @return Icon resource ID.
+	 */
 	public int getIconId() {
 		return this.mIconId;
 	}
@@ -72,36 +110,36 @@ public final class ActionBarMenuItem implements MenuItem {
 	}
 
 	@Override
-	public MenuItem setEnabled(boolean enabled) {
+	public ActionBarMenuItem setEnabled(boolean enabled) {
 		this.mIsEnabled = enabled;
 		return this;
 	}
 
 	@Override
-	public MenuItem setIcon(int iconResourceId) {
+	public ActionBarMenuItem setIcon(int iconResourceId) {
 		this.mIconId = iconResourceId;
 		return this;
 	}
 
 	@Override
-	public MenuItem setIntent(Intent intent) {
+	public ActionBarMenuItem setIntent(Intent intent) {
 		this.mIntent = intent;
 		return this;
 	}
 
 	@Override
-	public MenuItem setTitle(CharSequence title) {
+	public ActionBarMenuItem setTitle(CharSequence title) {
 		this.mTitle = title;
 		return this;
 	}
 
 	@Override
-	public MenuItem setTitle(int titleResourceId) {
+	public ActionBarMenuItem setTitle(int titleResourceId) {
 		return this.setTitle(this.mContext.getResources().getString(titleResourceId));
 	}
 
 	@Override
-	public MenuItem setVisible(boolean visible) {
+	public ActionBarMenuItem setVisible(boolean visible) {
 		this.mIsVisible = visible;
 		return this;
 	}
@@ -112,7 +150,7 @@ public final class ActionBarMenuItem implements MenuItem {
 	}
 
 	@Override
-	public MenuItem setChecked(boolean checked) {
+	public ActionBarMenuItem setChecked(boolean checked) {
 		this.mIsChecked = checked;
 		return this;
 	}
@@ -123,7 +161,7 @@ public final class ActionBarMenuItem implements MenuItem {
 	}
 
 	@Override
-	public MenuItem setCheckable(boolean checkable) {
+	public ActionBarMenuItem setCheckable(boolean checkable) {
 		this.mIsCheckable = checkable;
 		return this;
 	}
@@ -134,7 +172,7 @@ public final class ActionBarMenuItem implements MenuItem {
 	}
 
 	@Override
-	public MenuItem setTitleCondensed(CharSequence title) {
+	public ActionBarMenuItem setTitleCondensed(CharSequence title) {
 		this.mTitleCondensed = title;
 		return this;
 	}
@@ -150,8 +188,23 @@ public final class ActionBarMenuItem implements MenuItem {
 	}
 
 	@Override
-	public SubMenu getSubMenu() {
+	public ActionBarSubMenu getSubMenu() {
 		return this.mSubMenu;
+	}
+	
+	/**
+	 * Set the sub-menu of this item.
+	 * 
+	 * @param subMenu Sub-menu instance.
+	 * @return This Item so additional setters can be called. 
+	 */
+	public ActionBarMenuItem setSubMenu(ActionBarSubMenu subMenu) {
+		if ((subMenu != null) && (subMenu instanceof SubMenu)) {
+			throw new UnsupportedOperationException("Attempting to add sub-menu to a sub-menu.");
+		}
+		
+		this.mSubMenu = subMenu;
+		return this;
 	}
 
 	@Override
@@ -170,19 +223,19 @@ public final class ActionBarMenuItem implements MenuItem {
 	}
 
 	@Override
-	public MenuItem setAlphabeticShortcut(char alphaChar) {
+	public ActionBarMenuItem setAlphabeticShortcut(char alphaChar) {
 		this.mAlphabeticalShortcut = Character.toLowerCase(alphaChar);
 		return this;
 	}
 
 	@Override
-	public MenuItem setNumericShortcut(char numericChar) {
+	public ActionBarMenuItem setNumericShortcut(char numericChar) {
 		this.mNumericalShortcut = numericChar;
 		return this;
 	}
 
 	@Override
-	public MenuItem setShortcut(char numericChar, char alphaChar) {
+	public ActionBarMenuItem setShortcut(char numericChar, char alphaChar) {
 		return this.setNumericShortcut(numericChar).setAlphabeticShortcut(alphaChar);
 	}
 	
@@ -203,22 +256,22 @@ public final class ActionBarMenuItem implements MenuItem {
 	}
 
 	@Override
-	public MenuItem setActionView(View view) {
+	public ActionBarMenuItem setActionView(View view) {
 		throw new RuntimeException("Method not supported.");
 	}
 
 	@Override
-	public MenuItem setActionView(int resId) {
+	public ActionBarMenuItem setActionView(int resId) {
 		throw new RuntimeException("Method not supported.");
 	}
 
 	@Override
-	public MenuItem setIcon(Drawable icon) {
+	public ActionBarMenuItem setIcon(Drawable icon) {
 		throw new RuntimeException("Method not supported.");
 	}
 
 	@Override
-	public MenuItem setOnMenuItemClickListener(OnMenuItemClickListener menuItemClickListener) {
+	public ActionBarMenuItem setOnMenuItemClickListener(OnMenuItemClickListener menuItemClickListener) {
 		throw new RuntimeException("Method not supported.");
 	}
 
