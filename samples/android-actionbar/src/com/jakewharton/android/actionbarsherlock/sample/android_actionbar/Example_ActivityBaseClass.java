@@ -14,7 +14,8 @@ public class Example_ActivityBaseClass extends ActionBarSherlock.Activity {
 			.with(savedInstanceState)
 			.layout(R.layout.activity_hello)
 			.menu(R.menu.hello)
-			.title("Hello, ActionBar!")
+			.homeAsUp(true)
+			.title(R.string.hello)
 			.handleCustom(ActionBarForAndroidActionBar.Handler.class)
 			.attach();
 	}
