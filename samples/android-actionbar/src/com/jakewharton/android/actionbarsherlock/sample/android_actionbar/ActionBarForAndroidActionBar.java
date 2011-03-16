@@ -4,10 +4,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.FrameLayout;
+import com.jakewharton.android.actionbarsherlock.ActionBarMenu;
+import com.jakewharton.android.actionbarsherlock.ActionBarMenuItem;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.ActionBarHandler;
-import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.ActionBarMenu;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.ActionBarMenuHandler;
-import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.ActionBarMenuItem;
 import com.markupartist.android.widget.ActionBar;
 
 /**
@@ -29,10 +29,8 @@ public final class ActionBarForAndroidActionBar {
 		public ActionBar initialize(int layoutResourceId) {
 			this.initialize();
 			this.getActivity().getLayoutInflater().inflate(layoutResourceId, this.findContent());
-			
-			ActionBar actionBar = this.findActionBar();
-			
-			return actionBar;
+
+			return this.findActionBar();
 		}
 
 		@Override
@@ -51,6 +49,20 @@ public final class ActionBarForAndroidActionBar {
 		private void initialize() {
 			this.getActivity().requestWindowFeature(Window.FEATURE_NO_TITLE);
 			this.getActivity().setContentView(R.layout.actionbarforandroid);
+			
+			//Add home action
+			ActionBarMenuItem home = new ActionBarMenuItem(this.getActivity(), android.R.id.home, 0, 0, null);
+			home.setIcon(this.getHomeIcon());
+			this.findActionBar().setHomeAction(new Action(this, home));
+		}
+		
+		/**
+		 * Return the drawable resource ID of the icon used for the home button.
+		 * 
+		 * @return Drawable resource ID.
+		 */
+		protected int getHomeIcon() {
+			return R.drawable.icon;
 		}
 		
 		/**
