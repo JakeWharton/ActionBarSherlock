@@ -441,6 +441,16 @@ public final class ActionBarSherlock {
 		public void onCreate(Bundle savedInstanceState) {
 			//Grumble, grumble... OVERRIDE ME!
 		}
+		
+		/**
+		 * This should be called when an action bar button is clicked. This
+		 * method will automatically pass the call on to the parent activity.
+		 * 
+		 * @param item Clicked MenuItem.
+		 */
+		protected void clicked(MenuItem item) {
+			this.getActivity().onOptionsItemSelected(item);
+		}
 	}
 	
 	/**

@@ -1,6 +1,6 @@
 package com.jakewharton.android.actionbarsherlock.sample.android_actionbar;
 
-import android.content.Intent;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.FrameLayout;
@@ -30,7 +30,9 @@ public final class ActionBarForAndroidActionBar {
 			this.initialize();
 			this.getActivity().getLayoutInflater().inflate(layoutResourceId, this.findContent());
 			
-			return this.findActionBar();
+			ActionBar actionBar = this.findActionBar();
+			
+			return actionBar;
 		}
 
 		@Override
@@ -78,7 +80,27 @@ public final class ActionBarForAndroidActionBar {
 		@Override
 		public void inflateMenu(ActionBarMenu menu) {
 			for (ActionBarMenuItem item : menu.getItems()) {
-				this.getActionBar().addAction(new ActionBar.IntentAction(this.getActivity(), new Intent(), item.getIconId()));
+				this.getActionBar().addAction(new Action(this, item));
+			}
+		}
+		
+		/**
+		 * Custom Action which marshals the event on to the activity.
+		 */
+		private static class Action extends ActionBar.AbstractAction {
+			private final Handler mHandler;
+			private final MenuItem mMenuItem;
+			
+			public Action(Handler handler, ActionBarMenuItem item) {
+				super(item.getIconId());
+				
+				this.mHandler = handler;
+				this.mMenuItem = item;
+			}
+
+			@Override
+			public void performAction(View view) {
+				this.mHandler.clicked(mMenuItem);
 			}
 		}
 	}

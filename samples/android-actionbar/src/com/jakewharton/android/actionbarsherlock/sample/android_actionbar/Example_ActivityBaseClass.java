@@ -1,10 +1,9 @@
 package com.jakewharton.android.actionbarsherlock.sample.android_actionbar;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Toast;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock;
-import com.markupartist.android.widget.ActionBar.IntentAction;
 
 public class Example_ActivityBaseClass extends ActionBarSherlock.Activity {
 	@Override
@@ -16,21 +15,28 @@ public class Example_ActivityBaseClass extends ActionBarSherlock.Activity {
 			.layout(R.layout.activity_hello)
 			.menu(R.menu.hello)
 			.title("Hello, ActionBar!")
-			.handleCustom(HelloActionBarForAndroidActionBarHandler.class)
+			.handleCustom(ActionBarForAndroidActionBar.Handler.class)
 			.attach();
 	}
 
-	public static final class HelloActionBarForAndroidActionBarHandler extends ActionBarForAndroidActionBar.Handler {
-		@Override
-		public void onCreate(Bundle savedInstanceState) {
-			//Home button won't show unless we partially set it up.
-			this.getActionBar().setHomeAction(new IntentAction(this.getActivity(), new Intent(), R.drawable.ic_title_home_default));
-			
-			Toast.makeText(
-					this.getActivity(),
-					"Hello, Android-ActionBar ActionBar!",
-					Toast.LENGTH_SHORT
-			).show();
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		//Check it out, this works for both 3.0 and pre-3.0!!
+		switch (item.getItemId()) {
+			case android.R.id.home:
+				Toast.makeText(this, "Home Clicked!", Toast.LENGTH_SHORT).show();
+				return true;
+			case R.id.menu_compose:
+				Toast.makeText(this, "Compose Clicked!", Toast.LENGTH_SHORT).show();
+				return true;
+			case R.id.menu_refresh:
+				Toast.makeText(this, "Refresh Clicked!", Toast.LENGTH_SHORT).show();
+				return true;
+			case R.id.menu_search:
+				Toast.makeText(this, "Search Clicked!", Toast.LENGTH_SHORT).show();
+				return true;
+			default:
+				return false;
 		}
 	}
 }
