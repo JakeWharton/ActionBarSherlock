@@ -1,9 +1,12 @@
 package com.jakewharton.android.actionbarsherlock.sample.android_actionbar;
 
+import android.content.Intent;
 import android.view.View;
 import android.view.Window;
 import android.widget.FrameLayout;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.ActionBarHandler;
+import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.ActionBarMenuHandler;
+import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.ActionBarMenuItem;
 import com.markupartist.android.widget.ActionBar;
 
 /**
@@ -20,7 +23,7 @@ public final class ActionBarForAndroidActionBar {
 	 * 
 	 * @author Jake Wharton <jakewharton@gmail.com>
 	 */
-	public static class Handler extends ActionBarHandler<ActionBar> {
+	public static class Handler extends ActionBarHandler<ActionBar> implements ActionBarMenuHandler {
 		@Override
 		public ActionBar initialize(int layoutResourceId) {
 			this.initialize();
@@ -69,6 +72,11 @@ public final class ActionBarForAndroidActionBar {
 		@Override
 		public void setTitle(CharSequence title) {
 			this.getActionBar().setTitle(title);
+		}
+
+		@Override
+		public void addItem(ActionBarMenuItem item) {
+			this.getActionBar().addAction(new ActionBar.IntentAction(this.getActivity(), new Intent(), item.getIconId()));
 		}
 	}
 }

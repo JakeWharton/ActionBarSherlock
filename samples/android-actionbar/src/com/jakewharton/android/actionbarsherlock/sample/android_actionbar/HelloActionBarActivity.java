@@ -34,7 +34,7 @@ public class HelloActionBarActivity extends Activity {
 		//Only inflate the menu if we have a native ActionBar. This would then
 		//be applied to that action bar to become the buttons.
 		if (ActionBarSherlock.HAS_NATIVE_ACTION_BAR) {
-			this.getMenuInflater().inflate(R.menu.hello_honeycomb, menu);
+			this.getMenuInflater().inflate(R.menu.hello, menu);
 			return true;
 		} else {
 			return super.onCreateOptionsMenu(menu);

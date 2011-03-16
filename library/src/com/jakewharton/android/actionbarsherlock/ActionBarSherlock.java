@@ -16,10 +16,20 @@
 
 package com.jakewharton.android.actionbarsherlock;
 
+import java.util.ArrayList;
+import java.util.List;
 import android.app.ActionBar;
-import android.app.Activity;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
 
 /**
  * <p>Helper for implementing the action bar design pattern across all versions
@@ -78,7 +88,7 @@ public final class ActionBarSherlock {
 	/**
 	 * The {@link android.app.Activity} on which we are binding.
 	 */
-	private final Activity mActivity;
+	private final android.app.Activity mActivity;
 	
 	/**
 	 * A persisted instance to forward to the implementing onCreate method.
@@ -88,7 +98,7 @@ public final class ActionBarSherlock {
 	/**
 	 * Resource ID of the layout to use for the activitiy's content.
 	 */
-	private Integer mLayoutResource;
+	private Integer mLayoutResourceId;
 	
 	/**
 	 * View instance to use for the activity's content.
@@ -99,6 +109,11 @@ public final class ActionBarSherlock {
 	 * Title to automatically set on whichever type of action bar is selected.
 	 */
 	private CharSequence mTitle;
+	
+	/**
+	 * Resource ID of the menu to inflate to the action bar.
+	 */
+	private Integer mMenuResourceId;
 	
 	/**
 	 * The class which will handle the native action bar.
@@ -118,7 +133,7 @@ public final class ActionBarSherlock {
 	 * @param activity Activity instance.
 	 * @return ActionBarSherlock instance for builder pattern.
 	 */
-	public static ActionBarSherlock from(Activity activity) {
+	public static ActionBarSherlock from(android.app.Activity activity) {
 		return new ActionBarSherlock(activity);
 	}
 	
@@ -131,7 +146,7 @@ public final class ActionBarSherlock {
 	 * 
 	 * @param activity Activity on which to bind.
 	 */
-	private ActionBarSherlock(Activity activity) {
+	private ActionBarSherlock(android.app.Activity activity) {
 		this.mAttached = false;
 		this.mActivity = activity;
 	}
@@ -161,10 +176,10 @@ public final class ActionBarSherlock {
 	 */
 	public ActionBarSherlock layout(int layoutResource) {
 		assert this.mAttached == false;
-		assert this.mLayoutResource == null;
+		assert this.mLayoutResourceId == null;
 		assert this.mView == null;
 		
-		this.mLayoutResource = layoutResource;
+		this.mLayoutResourceId = layoutResource;
 		return this;
 	}
 	
@@ -176,7 +191,7 @@ public final class ActionBarSherlock {
 	 */
 	public ActionBarSherlock layout(View view) {
 		assert this.mAttached == false;
-		assert this.mLayoutResource == null;
+		assert this.mLayoutResourceId == null;
 		assert this.mView == null;
 		
 		this.mView = view;
@@ -206,6 +221,21 @@ public final class ActionBarSherlock {
 		assert this.mTitle == null;
 		
 		this.mTitle = title;
+		return this;
+	}
+	
+	/**
+	 * Resource ID of a menu to inflate as buttons onto the action bar. This
+	 * will fall back to 
+	 * 
+	 * @param menuResourceId
+	 * @return
+	 */
+	public ActionBarSherlock menu(int menuResourceId) {
+		assert this.mAttached == false;
+		assert this.mMenuResourceId == null;
+		
+		this.mMenuResourceId = menuResourceId;
 		return this;
 	}
 	
@@ -248,7 +278,7 @@ public final class ActionBarSherlock {
 	 */
 	public void attach() {
 		assert this.mAttached == false;
-		assert (this.mLayoutResource != null)
+		assert (this.mLayoutResourceId != null)
 			|| (this.mView != null);
 		
 		if (this.mNativeHandler == null) {
@@ -263,8 +293,8 @@ public final class ActionBarSherlock {
 				handler = this.mCustomHandler.newInstance();
 			} else {
 				//No custom handler so pass the view directly to the activity
-				if (this.mLayoutResource != null) {
-					this.mActivity.setContentView(this.mLayoutResource);
+				if (this.mLayoutResourceId != null) {
+					this.mActivity.setContentView(this.mLayoutResourceId);
 				} else {
 					this.mActivity.setContentView(this.mView);
 				}
@@ -278,10 +308,14 @@ public final class ActionBarSherlock {
 		
 		handler.setActivity(this.mActivity);
 		
-		if (this.mLayoutResource != null) {
-			handler.setLayout(this.mLayoutResource);
+		if (this.mLayoutResourceId != null) {
+			handler.setLayout(this.mLayoutResourceId);
 		} else {
 			handler.setLayout(this.mView);
+		}
+		
+		if ((this.mActivity instanceof ActionBarSherlock.Activity) && (this.mMenuResourceId != null)) {
+			((ActionBarSherlock.Activity)this.mActivity).setActionBarMenu(this.mMenuResourceId, handler);
 		}
 		
 		if (this.mTitle != null) {
@@ -291,6 +325,7 @@ public final class ActionBarSherlock {
 		handler.onCreate(this.mSavedInstanceState);
 	}
 	
+	
 	/**
 	 * Base class for handling an action bar that has been created by a
 	 * {@link ActionBarSherlock} attachment.
@@ -298,7 +333,7 @@ public final class ActionBarSherlock {
 	 * @param <T> Action bar class.
 	 */
 	public static abstract class ActionBarHandler<T> {
-		private Activity mActivity;
+		private android.app.Activity mActivity;
 		private T mActionBar;
 
 		/**
@@ -306,7 +341,7 @@ public final class ActionBarSherlock {
 		 * 
 		 * @return Activity instance.
 		 */
-		public final Activity getActivity() {
+		public final android.app.Activity getActivity() {
 			return this.mActivity;
 		}
 		
@@ -318,7 +353,7 @@ public final class ActionBarSherlock {
 		 * 
 		 * @param activity Activity instance.
 		 */
-		private void setActivity(Activity activity) {
+		private void setActivity(android.app.Activity activity) {
 			this.mActivity = activity;
 		}
 		
@@ -431,6 +466,437 @@ public final class ActionBarSherlock {
 		@Override
 		public void setTitle(CharSequence title) {
 			this.getActionBar().setTitle(title);
+		}
+	}
+	
+	public static interface ActionBarMenuHandler {
+		public void addItem(ActionBarMenuItem item);
+	}
+
+	/**
+	 * Special activity wrapper which will allow for unifying common
+	 * functionality via the {@link ActionBarSherlock} activity API.
+	 */
+	public static abstract class Activity extends android.app.Activity {
+		private Integer mMenuResourceId;
+		private boolean mHasMenuHandler;
+		
+		public void setActionBarMenu(int menuResourceId, ActionBarHandler<?> handler) {
+			this.mMenuResourceId = menuResourceId;
+			this.mHasMenuHandler = handler instanceof ActionBarMenuHandler;
+			
+			if (!ActionBarSherlock.HAS_NATIVE_ACTION_BAR && this.mHasMenuHandler) {
+				//Has menu, not native, handler handles menu
+				ActionBarMenuHandler menuHandler = (ActionBarMenuHandler)handler;
+				
+				ActionBarMenu menu = new ActionBarMenu(handler.getActivity());
+				this.getMenuInflater().inflate(this.mMenuResourceId, menu);
+				
+				//Delegate to the handler for addition to the action bar
+				for (ActionBarMenuItem item : menu.getItems()) {
+					menuHandler.addItem(item);
+				}
+			}
+		}
+
+		@Override
+		public final boolean onCreateOptionsMenu(Menu menu) {
+			if ((this.mMenuResourceId != null) && (ActionBarSherlock.HAS_NATIVE_ACTION_BAR || !this.mHasMenuHandler)) {
+				//Inflate to native action bar or native menu if no handler
+				this.getMenuInflater().inflate(this.mMenuResourceId, menu);
+				return true;
+			} else {
+				//No applicable inflation targets
+				return false;
+			}
+		}
+	}
+	
+	/*
+	 * See: com.android.internal.view.menu.MenuBuilder
+	 */
+	private static class ActionBarMenu implements Menu {
+		private static final int DEFAULT_ITEM_ID = 0;
+		private static final int DEFAULT_GROUP_ID = 0;
+		private static final int DEFAULT_ORDER = 0;
+		
+		private final Context mContext;
+		private final List<ActionBarMenuItem> mItems;
+		
+		private ActionBarMenu(Context context) {
+			this.mContext = context;
+			this.mItems = new ArrayList<ActionBarMenuItem>();
+		}
+		
+		
+		@Override
+		public MenuItem add(CharSequence title) {
+			ActionBarMenuItem item = new ActionBarMenuItem(this.mContext, DEFAULT_ITEM_ID, DEFAULT_GROUP_ID, DEFAULT_ORDER, title);
+			this.mItems.add(item);
+			return item;
+		}
+
+		@Override
+		public MenuItem add(int titleResourceId) {
+			ActionBarMenuItem item = new ActionBarMenuItem(this.mContext, 0, 0, 0, titleResourceId);
+			this.mItems.add(item);
+			return item;
+		}
+
+		@Override
+		public MenuItem add(int groupId, int itemId, int order, CharSequence title) {
+			ActionBarMenuItem item = new ActionBarMenuItem(this.mContext, itemId, groupId, order, title);
+			this.mItems.add(item);
+			return item;
+		}
+
+		@Override
+		public MenuItem add(int groupId, int itemId, int order, int titleResourceId) {
+			ActionBarMenuItem item = new ActionBarMenuItem(this.mContext, itemId, groupId, order, titleResourceId);
+			this.mItems.add(item);
+			return item;
+		}
+
+		@Override
+		public void clear() {
+			this.mItems.clear();
+		}
+
+		@Override
+		public void close() {}
+
+		@Override
+		public MenuItem findItem(int itemId) {
+			for (MenuItem item : this.mItems) {
+				if (item.getItemId() == itemId) {
+					return item;
+				}
+			}
+			throw new IndexOutOfBoundsException("No item with id " + itemId);
+		}
+
+		@Override
+		public MenuItem getItem(int index) {
+			return this.mItems.get(index);
+		}
+
+		@Override
+		public boolean hasVisibleItems() {
+			for (MenuItem item : this.mItems) {
+				if (item.isVisible()) {
+					return true;
+				}
+			}
+			return false;
+		}
+
+		@Override
+		public void removeItem(int itemId) {
+			final int size = this.mItems.size();
+			for (int i = 0; i < size; i++) {
+				if (this.mItems.get(i).getItemId() == itemId) {
+					this.mItems.remove(i);
+					return;
+				}
+			}
+			throw new IndexOutOfBoundsException("No item with id " + itemId);
+		}
+
+		@Override
+		public int size() {
+			return this.mItems.size();
+		}
+		
+		public List<ActionBarMenuItem> getItems() {
+			return this.mItems;
+		}
+
+		@Override
+		public int addIntentOptions(int groupId, int itemId, int order, ComponentName caller, Intent[] specifics, Intent intent, int flags, MenuItem[] outSpecificItems) {
+			throw new RuntimeException("Method not supported.");
+		}
+
+		@Override
+		public SubMenu addSubMenu(CharSequence title) {
+			throw new RuntimeException("Method not supported.");
+		}
+
+		@Override
+		public SubMenu addSubMenu(int titleResourceId) {
+			throw new RuntimeException("Method not supported.");
+		}
+
+		@Override
+		public SubMenu addSubMenu(int groupId, int itemId, int order, CharSequence title) {
+			throw new RuntimeException("Method not supported.");
+		}
+
+		@Override
+		public SubMenu addSubMenu(int groupId, int itemId, int order, int titleResourceId) {
+			throw new RuntimeException("Method not supported.");
+		}
+
+		@Override
+		public boolean isShortcutKey(int keyCode, KeyEvent event) {
+			throw new RuntimeException("Method not supported.");
+		}
+
+		@Override
+		public boolean performIdentifierAction(int id, int flags) {
+			throw new RuntimeException("Method not supported.");
+		}
+
+		@Override
+		public boolean performShortcut(int keyCode, KeyEvent event, int flags) {
+			throw new RuntimeException("Method not supported.");
+		}
+
+		@Override
+		public void removeGroup(int groupId) {
+			throw new RuntimeException("Method not supported.");
+		}
+
+		@Override
+		public void setGroupCheckable(int groupId, boolean checkable, boolean exclusive) {
+			throw new RuntimeException("Method not supported.");
+		}
+
+		@Override
+		public void setGroupEnabled(int groupId, boolean enabled) {
+			throw new RuntimeException("Method not supported.");
+		}
+
+		@Override
+		public void setGroupVisible(int groupId, boolean visible) {
+			throw new RuntimeException("Method not supported.");
+		}
+
+		@Override
+		public void setQwertyMode(boolean isQwerty) {
+			throw new RuntimeException("Method not supported.");
+		}
+	}
+	
+	/*
+	 * See: com.android.internal.view.menu.MenuItemItmpl
+	 */
+	public static final class ActionBarMenuItem implements MenuItem {
+		private final Context mContext;
+		
+		private Intent mIntent;
+		private int mIconId;
+		private int mItemId;
+		private int mGroupId;
+		private int mOrder;
+		private CharSequence mTitle;
+		private CharSequence mTitleCondensed;
+		private SubMenu mSubMenu;
+		private boolean mIsCheckable;
+		private boolean mIsChecked;
+		private boolean mIsEnabled;
+		private boolean mIsVisible;
+		private char mNumericalShortcut;
+		private char mAlphabeticalShortcut;
+
+		private ActionBarMenuItem(Context context, int itemId, int groupId, int order, int titleResourceId) {
+			this(context, itemId, groupId, order, context.getResources().getString(titleResourceId));
+		}
+		private ActionBarMenuItem(Context context, int itemId, int groupId, int order, CharSequence title) {
+			this.mContext = context;
+			
+			this.mIsCheckable = false;
+			this.mIsChecked = false;
+			this.mIsEnabled = true;
+			this.mIsVisible = true;
+			this.mItemId = itemId;
+			this.mGroupId = groupId;
+			this.mOrder = order;
+			this.mTitle = title;
+		}
+		
+		@Override
+		public Intent getIntent() {
+			return this.mIntent;
+		}
+		
+		public int getIconId() {
+			return this.mIconId;
+		}
+
+		@Override
+		public int getItemId() {
+			return this.mItemId;
+		}
+
+		@Override
+		public CharSequence getTitle() {
+			return this.mTitle;
+		}
+
+		@Override
+		public boolean isEnabled() {
+			return this.mIsEnabled;
+		}
+
+		@Override
+		public boolean isVisible() {
+			return this.mIsVisible;
+		}
+
+		@Override
+		public MenuItem setEnabled(boolean enabled) {
+			this.mIsEnabled = enabled;
+			return this;
+		}
+
+		@Override
+		public MenuItem setIcon(int iconResourceId) {
+			this.mIconId = iconResourceId;
+			return this;
+		}
+
+		@Override
+		public MenuItem setIntent(Intent intent) {
+			this.mIntent = intent;
+			return this;
+		}
+
+		@Override
+		public MenuItem setTitle(CharSequence title) {
+			this.mTitle = title;
+			return this;
+		}
+
+		@Override
+		public MenuItem setTitle(int titleResourceId) {
+			return this.setTitle(this.mContext.getResources().getString(titleResourceId));
+		}
+
+		@Override
+		public MenuItem setVisible(boolean visible) {
+			this.mIsVisible = visible;
+			return this;
+		}
+
+		@Override
+		public boolean isChecked() {
+			return this.mIsChecked;
+		}
+
+		@Override
+		public MenuItem setChecked(boolean checked) {
+			this.mIsChecked = checked;
+			return this;
+		}
+
+		@Override
+		public boolean isCheckable() {
+			return this.mIsCheckable;
+		}
+
+		@Override
+		public MenuItem setCheckable(boolean checkable) {
+			this.mIsCheckable = checkable;
+			return this;
+		}
+
+		@Override
+		public CharSequence getTitleCondensed() {
+			return this.mTitleCondensed;
+		}
+
+		@Override
+		public MenuItem setTitleCondensed(CharSequence title) {
+			this.mTitleCondensed = title;
+			return this;
+		}
+
+		@Override
+		public int getGroupId() {
+			return this.mGroupId;
+		}
+
+		@Override
+		public int getOrder() {
+			return this.mOrder;
+		}
+
+		@Override
+		public SubMenu getSubMenu() {
+			return this.mSubMenu;
+		}
+
+		@Override
+		public boolean hasSubMenu() {
+			return this.mSubMenu != null;
+		}
+
+		@Override
+		public char getAlphabeticShortcut() {
+			return this.mAlphabeticalShortcut;
+		}
+
+		@Override
+		public char getNumericShortcut() {
+			return this.mNumericalShortcut;
+		}
+
+		@Override
+		public MenuItem setAlphabeticShortcut(char alphaChar) {
+			this.mAlphabeticalShortcut = Character.toLowerCase(alphaChar);
+			return this;
+		}
+
+		@Override
+		public MenuItem setNumericShortcut(char numericChar) {
+			this.mNumericalShortcut = numericChar;
+			return this;
+		}
+
+		@Override
+		public MenuItem setShortcut(char numericChar, char alphaChar) {
+			return this.setNumericShortcut(numericChar).setAlphabeticShortcut(alphaChar);
+		}
+		
+		
+		@Override
+		public View getActionView() {
+			throw new RuntimeException("Method not supported.");
+		}
+
+		@Override
+		public Drawable getIcon() {
+			throw new RuntimeException("Method not supported.");
+		}
+
+		@Override
+		public ContextMenuInfo getMenuInfo() {
+			throw new RuntimeException("Method not supported.");
+		}
+
+		@Override
+		public MenuItem setActionView(View view) {
+			throw new RuntimeException("Method not supported.");
+		}
+
+		@Override
+		public MenuItem setActionView(int resId) {
+			throw new RuntimeException("Method not supported.");
+		}
+
+		@Override
+		public MenuItem setIcon(Drawable icon) {
+			throw new RuntimeException("Method not supported.");
+		}
+
+		@Override
+		public MenuItem setOnMenuItemClickListener(OnMenuItemClickListener menuItemClickListener) {
+			throw new RuntimeException("Method not supported.");
+		}
+
+		@Override
+		public void setShowAsAction(int actionEnum) {
+			throw new RuntimeException("Method not supported.");
 		}
 	}
 }

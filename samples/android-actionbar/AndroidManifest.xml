@@ -15,7 +15,7 @@
     	android:label="@string/app_name">
 		
         <activity
-        	android:name=".HelloActionBarActivity"
+        	android:name=".Example_ActivityBaseClass"
         	android:label="@string/app_name">
         	
             <intent-filter>
