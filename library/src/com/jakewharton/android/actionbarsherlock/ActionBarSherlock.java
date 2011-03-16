@@ -486,15 +486,20 @@ public final class ActionBarSherlock {
 			this.mMenuResourceId = menuResourceId;
 			this.mHasMenuHandler = handler instanceof ActionBarMenuHandler;
 			
-			if (!ActionBarSherlock.HAS_NATIVE_ACTION_BAR && this.mHasMenuHandler) {
-				//Has menu, not native, handler handles menu
-				ActionBarMenuHandler menuHandler = (ActionBarMenuHandler)handler;
-				
-				ActionBarMenu menu = new ActionBarMenu(handler.getActivity());
-				this.getMenuInflater().inflate(this.mMenuResourceId, menu);
-				
-				//Delegate to the handler for addition to the action bar
-				menuHandler.inflateMenu(menu);
+			if (!ActionBarSherlock.HAS_NATIVE_ACTION_BAR) {
+				if (handler.getActionBar() instanceof Menu) {
+					//If the action bar implements menu, inflate directly
+					this.getMenuInflater().inflate(this.mMenuResourceId, (Menu)handler.getActionBar());
+				} else if (this.mHasMenuHandler) {
+					//Has menu, not native, handler handles menu
+					ActionBarMenuHandler menuHandler = (ActionBarMenuHandler)handler;
+					
+					ActionBarMenu menu = new ActionBarMenu(handler.getActivity());
+					this.getMenuInflater().inflate(this.mMenuResourceId, menu);
+					
+					//Delegate to the handler for addition to the action bar
+					menuHandler.inflateMenu(menu);
+				}
 			}
 		}
 
