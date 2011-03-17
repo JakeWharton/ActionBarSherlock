@@ -223,7 +223,8 @@ public final class ActionBarSherlock {
 	
 	/**
 	 * Resource ID of a menu to inflate as buttons onto the action bar. This
-	 * will fall back to 
+	 * requires that the implementing activity class be extended from
+	 * {@link Activity} or {@link ListActivity}.
 	 * 
 	 * @param menuResourceId Resource ID for menu XML.
 	 * @return Current instance for builder pattern.
@@ -231,6 +232,7 @@ public final class ActionBarSherlock {
 	public ActionBarSherlock menu(int menuResourceId) {
 		assert this.mAttached == false;
 		assert this.mMenuResourceId == null;
+		assert this.mActivity instanceof IsSherlockActivity;
 		
 		this.mMenuResourceId = menuResourceId;
 		return this;
@@ -322,8 +324,25 @@ public final class ActionBarSherlock {
 			handler.setLayout(this.mView);
 		}
 		
-		if ((this.mActivity instanceof ActionBarSherlock.Activity) && (this.mMenuResourceId != null)) {
-			((ActionBarSherlock.Activity)this.mActivity).setActionBarMenu(this.mMenuResourceId, handler);
+		if (this.mMenuResourceId != null) {
+			if (ActionBarSherlock.HAS_NATIVE_ACTION_BAR) {
+				//FYI: instanceof IsSherlockActivity was checked in menu(int)
+				IsSherlockActivity activity = (IsSherlockActivity)this.mActivity;
+				//Delegate inflation to the activity for native implementation
+				activity.setActionBarMenu(this.mMenuResourceId);
+			} else if (handler.getActionBar() instanceof Menu) {
+				//If the custom action bar implements Menu, inflate directly
+				this.mActivity.getMenuInflater().inflate(this.mMenuResourceId, (Menu)handler.getActionBar());
+			} else if (handler instanceof ActionBarMenuHandler) {
+				//Inflate to our Menu implementation
+				ActionBarMenu menu = new ActionBarMenu(handler.getActivity());
+				this.mActivity.getMenuInflater().inflate(this.mMenuResourceId, menu);
+				
+				//Delegate to the handler for addition to the action bar
+				((ActionBarMenuHandler)handler).inflateMenu(menu);
+			} else {
+				throw new IllegalStateException("Neither the third-party action bar nor its handler accept XML menus.");
+			}
 		}
 		
 		if (this.mTitle != null) {
@@ -519,62 +538,71 @@ public final class ActionBarSherlock {
 	}
 	
 	
+	private interface IsSherlockActivity {
+		/**
+		 * Set the menu XML resource ID for inflation to the native action bar.
+		 * If a third-party action bar is being used it will be automatically
+		 * inflated in the {@link ActionBarSherlock#attach()} method.
+		 * 
+		 * @param menuResourceId Resource ID of menu XML.
+		 */
+		void setActionBarMenu(int menuResourceId);
+	}
+	
+	
 	/**
-	 * Special activity wrapper which will allow for unifying common
-	 * functionality via the {@link ActionBarSherlock} activity API.
+	 * Special {@link android.app.Activity} wrapper which will allow for
+	 * unifying common functionality via the {@link ActionBarSherlock} API.
 	 */
-	public static abstract class Activity extends android.app.Activity {
+	public static abstract class Activity extends android.app.Activity implements IsSherlockActivity {
 		/**
 		 * Resource ID of menu XML.
 		 */
 		private Integer mMenuResourceId;
 		
-		/**
-		 * Whether or not the handler support inflation of XML menus.
-		 */
-		private boolean mHasMenuHandler;
 		
-		/**
-		 * Set the menu XML resource ID. This will also attempt inflation to
-		 * a third-party action bar if it supports XML menus.
-		 * 
-		 * @param menuResourceId Resource ID of menu XML.
-		 * @param handler Action bar handler.
-		 */
-		public void setActionBarMenu(int menuResourceId, ActionBarHandler<?> handler) {
+		@Override
+		public void setActionBarMenu(int menuResourceId) {
 			this.mMenuResourceId = menuResourceId;
-			
-			if (!ActionBarSherlock.HAS_NATIVE_ACTION_BAR) {
-				if (handler.getActionBar() instanceof Menu) {
-					//If the action bar implements menu, inflate directly
-					this.getMenuInflater().inflate(this.mMenuResourceId, (Menu)handler.getActionBar());
-					
-					this.mHasMenuHandler = true;
-				} else if (handler instanceof ActionBarMenuHandler) {
-					//Has menu, not native, handler handles menu
-					ActionBarMenuHandler menuHandler = (ActionBarMenuHandler)handler;
-					
-					ActionBarMenu menu = new ActionBarMenu(handler.getActivity());
-					this.getMenuInflater().inflate(this.mMenuResourceId, menu);
-					
-					//Delegate to the handler for addition to the action bar
-					menuHandler.inflateMenu(menu);
-					
-					this.mHasMenuHandler = true;
-				}
-			}
 		}
 
 		@Override
 		public final boolean onCreateOptionsMenu(Menu menu) {
-			if ((this.mMenuResourceId != null) && (ActionBarSherlock.HAS_NATIVE_ACTION_BAR || !this.mHasMenuHandler)) {
-				//Inflate to native action bar or native menu if no handler
+			if (this.mMenuResourceId != null) {
 				this.getMenuInflater().inflate(this.mMenuResourceId, menu);
 				return true;
-			} else {
-				//No applicable inflation targets
-				return false;
 			}
+			return false;
+		}
+	}
+	
+	/**
+	 * Special {@link ListActivity} wrapper which will allow for unifying common
+	 * functionality via the {@link ActionBarSherlock} API.
+	 * 
+	 * @deprecated The use of {@link Fragment}s and {@link ListFragment} is
+	 * suggested for working with lists. It provides a much nicer experience
+	 * when scaled up to the large tablet-sized screens.
+	 */
+	public static abstract class ListActivity extends android.app.ListActivity implements IsSherlockActivity {
+		/**
+		 * Resource ID of menu XML.
+		 */
+		private Integer mMenuResourceId;
+		
+		
+		@Override
+		public void setActionBarMenu(int menuResourceId) {
+			this.mMenuResourceId = menuResourceId;
+		}
+
+		@Override
+		public final boolean onCreateOptionsMenu(Menu menu) {
+			if (this.mMenuResourceId != null) {
+				this.getMenuInflater().inflate(this.mMenuResourceId, menu);
+				return true;
+			}
+			return false;
 		}
 	}
 }

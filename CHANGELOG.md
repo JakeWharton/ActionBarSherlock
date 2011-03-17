@@ -4,7 +4,8 @@ Change Log
 Version 2.1.0 *(In Development)*
 --------------------------------
 
- * Add `ActionBarSherlock.Activity` for extension by implementing activities.
+ * Added `ActionBarSherlock.Activity` and `ActionBarSherlock.ListActivity` for
+   extension by implementing activities, the latter of which is deprecated.
    This affords a much tighter integration and allows for the use of other new
    features listed below.
  * New API method: `menu(int)` allows for the inflation of menu XMLs from a
