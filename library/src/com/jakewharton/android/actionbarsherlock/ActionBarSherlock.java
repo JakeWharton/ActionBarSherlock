@@ -232,7 +232,7 @@ public final class ActionBarSherlock {
 	public ActionBarSherlock menu(int menuResourceId) {
 		assert this.mAttached == false;
 		assert this.mMenuResourceId == null;
-		assert this.mActivity instanceof IsSherlockActivity;
+		assert this.mActivity instanceof SherlockActivity;
 		
 		this.mMenuResourceId = menuResourceId;
 		return this;
@@ -327,19 +327,19 @@ public final class ActionBarSherlock {
 		if (this.mMenuResourceId != null) {
 			if (ActionBarSherlock.HAS_NATIVE_ACTION_BAR) {
 				//FYI: instanceof IsSherlockActivity was checked in menu(int)
-				IsSherlockActivity activity = (IsSherlockActivity)this.mActivity;
+				SherlockActivity activity = (SherlockActivity)this.mActivity;
 				//Delegate inflation to the activity for native implementation
 				activity.setActionBarMenu(this.mMenuResourceId);
 			} else if (handler.getActionBar() instanceof Menu) {
 				//If the custom action bar implements Menu, inflate directly
 				this.mActivity.getMenuInflater().inflate(this.mMenuResourceId, (Menu)handler.getActionBar());
-			} else if (handler instanceof ActionBarMenuHandler) {
+			} else if (handler instanceof MenuHandler) {
 				//Inflate to our Menu implementation
 				ActionBarMenu menu = new ActionBarMenu(handler.getActivity());
 				this.mActivity.getMenuInflater().inflate(this.mMenuResourceId, menu);
 				
 				//Delegate to the handler for addition to the action bar
-				((ActionBarMenuHandler)handler).inflateMenu(menu);
+				((MenuHandler)handler).inflateMenu(menu);
 			} else {
 				throw new IllegalStateException("Neither the third-party action bar nor its handler accept XML menus.");
 			}
@@ -528,7 +528,7 @@ public final class ActionBarSherlock {
 	 * Interface which denotes a third-party action bar handler implementation
 	 * supports populating the action bar from an inflated XML menu.
 	 */
-	public static interface ActionBarMenuHandler {
+	public static interface MenuHandler {
 		/**
 		 * Populate the action bar with items from the inflated XML menu.
 		 * 
@@ -538,7 +538,10 @@ public final class ActionBarSherlock {
 	}
 	
 	
-	private interface IsSherlockActivity {
+	/**
+	 * Interface of helper methods implemented by all helper classes.
+	 */
+	private interface SherlockActivity {
 		/**
 		 * Set the menu XML resource ID for inflation to the native action bar.
 		 * If a third-party action bar is being used it will be automatically
@@ -554,7 +557,7 @@ public final class ActionBarSherlock {
 	 * Special {@link android.app.Activity} wrapper which will allow for
 	 * unifying common functionality via the {@link ActionBarSherlock} API.
 	 */
-	public static abstract class Activity extends android.app.Activity implements IsSherlockActivity {
+	public static abstract class Activity extends android.app.Activity implements SherlockActivity {
 		/**
 		 * Resource ID of menu XML.
 		 */
@@ -584,7 +587,7 @@ public final class ActionBarSherlock {
 	 * suggested for working with lists. It provides a much nicer experience
 	 * when scaled up to the large tablet-sized screens.
 	 */
-	public static abstract class ListActivity extends android.app.ListActivity implements IsSherlockActivity {
+	public static abstract class ListActivity extends android.app.ListActivity implements SherlockActivity {
 		/**
 		 * Resource ID of menu XML.
 		 */
