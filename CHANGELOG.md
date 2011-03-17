@@ -1,6 +1,20 @@
 Change Log
 ===============================================================================
 
+Version 2.1.0 *(In Development)*
+--------------------------------
+
+ * Add `ActionBarSherlock.Activity` for extension by implementing activities.
+   This affords a much tighter integration and allows for the use of other new
+   features listed below.
+ * Support the inflation of menu XMLs. For the non-native implementation, the
+   XML is inflated to a custom Menu which can then be applied appropriately to
+   the third-party action bar. Sub-menus are also supported.
+ * New API method: `homeAsUp(boolean)`. This mimics the native method
+   `setDisplayHomeAsUpEnalbed` which will be called for the native action bar
+   and sent as a callback to third-party handler implementations.
+
+
 Version 2.0.1 *(2011-03-11)*
 ----------------------------
 
