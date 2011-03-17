@@ -21,6 +21,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+//NOTE: Unqualified references to Activity in this file are to the inner-class!
+
 /**
  * <p>Helper for implementing the action bar design pattern across all versions
  * of Android.</p>

@@ -25,19 +25,24 @@ public class Example_ActivityBaseClass extends ActionBarSherlock.Activity {
 		//Check it out, this works for both 3.0 and pre-3.0!!
 		switch (item.getItemId()) {
 			case android.R.id.home:
-				Toast.makeText(this, "Home Clicked!", Toast.LENGTH_SHORT).show();
+				this.toast("Home");
 				return true;
-			case R.id.menu_compose:
-				Toast.makeText(this, "Compose Clicked!", Toast.LENGTH_SHORT).show();
-				return true;
+			
 			case R.id.menu_refresh:
-				Toast.makeText(this, "Refresh Clicked!", Toast.LENGTH_SHORT).show();
-				return true;
 			case R.id.menu_search:
-				Toast.makeText(this, "Search Clicked!", Toast.LENGTH_SHORT).show();
+			case R.id.menu_compose_sms:
+			case R.id.menu_compose_mms:
+			case R.id.menu_compose_email:
+			case R.id.menu_compose_gmail:
+				this.toast(item.getTitle());
 				return true;
+			
 			default:
 				return false;
 		}
+	}
+	
+	private void toast(CharSequence title) {
+		Toast.makeText(this, "\"" + title + "\" Clicked!", Toast.LENGTH_SHORT).show();
 	}
 }

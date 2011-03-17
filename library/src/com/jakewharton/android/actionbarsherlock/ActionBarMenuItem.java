@@ -20,7 +20,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.view.MenuItem;
-import android.view.SubMenu;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 
@@ -199,17 +198,13 @@ public final class ActionBarMenuItem implements MenuItem {
 	 * @return This Item so additional setters can be called. 
 	 */
 	public ActionBarMenuItem setSubMenu(ActionBarSubMenu subMenu) {
-		if ((subMenu != null) && (subMenu instanceof SubMenu)) {
-			throw new UnsupportedOperationException("Attempting to add sub-menu to a sub-menu.");
-		}
-		
 		this.mSubMenu = subMenu;
 		return this;
 	}
 
 	@Override
 	public boolean hasSubMenu() {
-		return this.mSubMenu != null;
+		return (this.mSubMenu != null) && (this.mSubMenu.size() > 0);
 	}
 
 	@Override

@@ -1,6 +1,8 @@
 package com.jakewharton.android.actionbarsherlock.sample.android_actionbar;
 
-import android.view.MenuItem;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.view.View;
 import android.view.Window;
 import android.widget.FrameLayout;
@@ -106,18 +108,30 @@ public final class ActionBarForAndroidActionBar {
 		 */
 		private static class Action extends ActionBar.AbstractAction {
 			private final Handler mHandler;
-			private final MenuItem mMenuItem;
+			private final ActionBarMenuItem mItem;
 			
 			public Action(Handler handler, ActionBarMenuItem item) {
 				super(item.getIconId());
 				
 				this.mHandler = handler;
-				this.mMenuItem = item;
+				this.mItem = item;
 			}
 
 			@Override
 			public void performAction(View view) {
-				this.mHandler.clicked(mMenuItem);
+				if (this.mItem.hasSubMenu()) {
+					AlertDialog.Builder dialog = new AlertDialog.Builder(this.mHandler.getActivity());
+					dialog.setTitle(this.mItem.getTitle());
+					dialog.setItems(this.mItem.getSubMenu().getTitles(), new OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int index) {
+							mHandler.clicked(mItem.getSubMenu().getItem(index));
+						}
+					});
+					dialog.show();
+				} else {
+					this.mHandler.clicked(mItem);
+				}
 			}
 		}
 	}

@@ -58,7 +58,31 @@ public class ActionBarMenu implements Menu {
 		this.mContext = context;
 		this.mItems = new ArrayList<ActionBarMenuItem>();
 	}
+
 	
+	/**
+	 * Get a list of the items contained in this menu.
+	 * 
+	 * @return List of {@link ActionBarMenuItem}s.
+	 */
+	public List<ActionBarMenuItem> getItems() {
+		return this.mItems;
+	}
+	
+	/**
+	 * Get a list of the titles contained in the menu.
+	 * 
+	 * @return String list.
+	 */
+	public String[] getTitles() {
+		String[] result = new String[this.mItems.size()];
+		for (int i = 0; i < result.length; i++) {
+			result[i] = this.mItems.get(i).getTitle().toString();
+		}
+		return result;
+	}
+	
+	// ** Menu Methods ** \\
 	
 	@Override
 	public ActionBarMenuItem add(CharSequence title) {
@@ -155,15 +179,6 @@ public class ActionBarMenu implements Menu {
 	@Override
 	public int size() {
 		return this.mItems.size();
-	}
-	
-	/**
-	 * Iterate over the items contained in this menu.
-	 * 
-	 * @return List of {@link ActionBarMenuItem}s.
-	 */
-	public List<ActionBarMenuItem> getItems() {
-		return this.mItems;
 	}
 
 	@Override
