@@ -16,6 +16,10 @@
 
 package com.jakewharton.android.actionbarsherlock;
 
+import android.content.pm.ActivityInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -113,6 +117,11 @@ public final class ActionBarSherlock {
 	private boolean mHomeAsUpEnabled;
 	
 	/**
+	 * Whether or not to use the activity logo instead of the icon and title.
+	 */
+	private boolean mUseLogo;
+	
+	/**
 	 * The class which will handle the native action bar.
 	 */
 	private Class<? extends NativeActionBarHandler> mNativeHandler;
@@ -144,8 +153,11 @@ public final class ActionBarSherlock {
 	 * @param activity Activity on which to bind.
 	 */
 	private ActionBarSherlock(android.app.Activity activity) {
-		this.mAttached = false;
 		this.mActivity = activity;
+		
+		//Defaults
+		this.mAttached = false;
+		this.mUseLogo = false;
 	}
 	
 	
@@ -250,6 +262,17 @@ public final class ActionBarSherlock {
 	}
 	
 	/**
+	 * Use logo instead of application icon and activity title.
+	 * 
+	 * @param enabled Whether or not this is enabled.
+	 * @return Current instance for builder pattern.
+	 */
+	public ActionBarSherlock userLogo(boolean enabled) {
+		this.mUseLogo = enabled;
+		return this;
+	}
+	
+	/**
 	 * Class to use for handling the native action bar creation.
 	 * 
 	 * @param handler Class which extends {@link NativeActionBarHandler}. If
@@ -347,6 +370,41 @@ public final class ActionBarSherlock {
 		
 		if (this.mTitle != null) {
 			handler.setTitle(this.mTitle);
+		}
+		
+		if (this.mUseLogo) {
+			if (ActionBarSherlock.HAS_NATIVE_ACTION_BAR) {
+				((NativeActionBarHandler)handler).useLogo();
+			} else if (handler instanceof LogoHandler) {
+				Integer logoResourceId = null;
+				
+				try {
+					//Attempt to obtain the logo from the activity's entry in its manifest
+					String appPackage = this.mActivity.getApplicationInfo().packageName;
+					String activityPackage = this.mActivity.getPackageName().substring(appPackage.length());
+					PackageInfo info = this.mActivity.getPackageManager().getPackageInfo(appPackage, PackageManager.GET_ACTIVITIES);
+					for (ActivityInfo activityInfo : info.activities) {
+						if (activityInfo.packageName.equals(activityPackage)) {
+							logoResourceId = activityInfo.logo;
+							break;
+						}
+					}
+				} catch (NameNotFoundException e) {}
+				
+				if (logoResourceId == null) {
+					//If no activity logo was found, try to get the application's logo
+					logoResourceId = this.mActivity.getApplicationInfo().icon;
+				}
+				
+				if (logoResourceId == null) {
+					throw new IllegalStateException("Neither the activity nor the application entry in the manifest contains a logo.");
+				}
+				
+				
+				((LogoHandler)handler).setLogo(logoResourceId);
+			} else {
+				throw new IllegalStateException("Custom handler does not implement the ActionBarSherlock.LogoHandler interface.");
+			}
 		}
 		
 		handler.setHomeAsUpEnabled(this.mHomeAsUpEnabled);
@@ -521,6 +579,13 @@ public final class ActionBarSherlock {
 		public void setHomeAsUpEnabled(boolean enabled) {
 			this.getActionBar().setDisplayHomeAsUpEnabled(enabled);
 		}
+		
+		/**
+		 * Convenience method to tell the ActionBar to use the activity logo.
+		 */
+		public final void useLogo() {
+			this.getActionBar().setDisplayUseLogoEnabled(true);
+		}
 	}
 	
 	
@@ -535,6 +600,23 @@ public final class ActionBarSherlock {
 		 * @param menu Inflated XML menu.
 		 */
 		public void inflateMenu(ActionBarMenu menu);
+	}
+	
+	
+	/**
+	 * Interface which denotes a third-party action bar handler implementation
+	 * supports using the activity logo rather than just the home icon and a
+	 * title.
+	 */
+	public static interface LogoHandler {
+		/**
+		 * Set the resource for the logo. The calling of this method implies
+		 * that the activity wants the logo to be displayed rather than the
+		 * home icon and title.
+		 * 
+		 * @param logoResourceId Drawable logo resource ID.
+		 */
+		public void setLogo(int logoResourceId);
 	}
 	
 	
