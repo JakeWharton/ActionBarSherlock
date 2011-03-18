@@ -16,6 +16,10 @@ Version 2.1.0 *(In Development)*
  * New API method: `homeAsUp(boolean)`. This mimics the native method
    `setDisplayHomeAsUpEnalbed` which will be called for the native action bar
    and sent as a callback to third-party handler implementations.
+ * New API method: `useLogo(boolean)` will trigger the action bar to hide the
+   application icon/home button and title and show a larger logo representing
+   the application. Third-party action bar handlers should implement
+   `ActionBarSherlock.LogoHandler` for this functionality.
 
 
 Version 2.0.1 *(2011-03-11)*

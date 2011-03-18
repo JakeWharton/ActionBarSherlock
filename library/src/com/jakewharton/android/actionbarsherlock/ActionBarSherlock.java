@@ -380,15 +380,7 @@ public final class ActionBarSherlock {
 				
 				try {
 					//Attempt to obtain the logo from the activity's entry in its manifest
-					String appPackage = this.mActivity.getApplicationInfo().packageName;
-					String activityPackage = this.mActivity.getPackageName().substring(appPackage.length());
-					PackageInfo info = this.mActivity.getPackageManager().getPackageInfo(appPackage, PackageManager.GET_ACTIVITIES);
-					for (ActivityInfo activityInfo : info.activities) {
-						if (activityInfo.packageName.equals(activityPackage)) {
-							logoResourceId = activityInfo.logo;
-							break;
-						}
-					}
+					logoResourceId = this.mActivity.getPackageManager().getActivityInfo(this.mActivity.getComponentName(), 0).icon;
 				} catch (NameNotFoundException e) {}
 				
 				if (logoResourceId == null) {
@@ -399,7 +391,6 @@ public final class ActionBarSherlock {
 				if (logoResourceId == null) {
 					throw new IllegalStateException("Neither the activity nor the application entry in the manifest contains a logo.");
 				}
-				
 				
 				((LogoHandler)handler).setLogo(logoResourceId);
 			} else {

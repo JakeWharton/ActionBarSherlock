@@ -59,6 +59,10 @@ Developed By
 Git repository located at [github.com/JakeWharton/ActionBarSherlock][8].
 
 
+Contributors
+============
+ * [smith324](http://stackoverflow.com/users/413575/smith324) via StackOverflow
+
 
 License
 =======
