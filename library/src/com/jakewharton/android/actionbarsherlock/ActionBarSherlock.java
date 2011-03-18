@@ -264,7 +264,7 @@ public final class ActionBarSherlock {
 	 * @param enabled Whether or not this is enabled.
 	 * @return Current instance for builder pattern.
 	 */
-	public ActionBarSherlock userLogo(boolean enabled) {
+	public ActionBarSherlock useLogo(boolean enabled) {
 		this.mUseLogo = enabled;
 		return this;
 	}
