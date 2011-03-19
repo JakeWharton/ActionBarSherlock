@@ -650,14 +650,40 @@ public final class ActionBarSherlock {
 	}
 	
 	/**
-	 * Special {@link ListActivity} wrapper which will allow for unifying common
-	 * functionality via the {@link ActionBarSherlock} API.
+	 * Special {@link ListActivity} wrapper which will allow for unifying
+	 * common functionality via the {@link ActionBarSherlock} API.
 	 * 
 	 * @deprecated The use of {@link Fragment}s and {@link ListFragment} is
 	 * suggested for working with lists. It provides a much nicer experience
 	 * when scaled up to the large tablet-sized screens.
 	 */
 	public static abstract class ListActivity extends android.app.ListActivity implements SherlockActivity {
+		/**
+		 * Resource ID of menu XML.
+		 */
+		private Integer mMenuResourceId;
+		
+		
+		@Override
+		public void setActionBarMenu(int menuResourceId) {
+			this.mMenuResourceId = menuResourceId;
+		}
+
+		@Override
+		public final boolean onCreateOptionsMenu(Menu menu) {
+			if (this.mMenuResourceId != null) {
+				this.getMenuInflater().inflate(this.mMenuResourceId, menu);
+				return true;
+			}
+			return false;
+		}
+	}
+	
+	/**
+	 * <p>Special {@link FragmentActivity} wrapper which will allow for
+	 * unifying common functionality via the {@link ActionBarSherlock} API.</p>
+	 */
+	public static abstract class FragmentActivity extends android.support.v4.app.FragmentActivity implements SherlockActivity {
 		/**
 		 * Resource ID of menu XML.
 		 */
