@@ -30,6 +30,10 @@ Two sample applications are included which demonstrate implementing custom
 action bar handlers for [GreenDroid][5]* and [Android-ActionBar][6]. These are
 located in the `samples/` folder of this repository.
 
+There is also a port of the Shakespeare fragments demo from the Android 3.0 API
+demos which has been converted to use this library for more of a real-world
+implementation. It depends on the Android-ActionBar library as well.
+
 In order for these sample applications to properly work, the respective library
 that they depend on needs to be cloned in the same parent folder as this one.
 

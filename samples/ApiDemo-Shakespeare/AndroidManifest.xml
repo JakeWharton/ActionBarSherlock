@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<manifest
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	package="com.jakewharton.android.actionbarsherlock.sample.shakespeare"
+	android:versionCode="1"
+	android:versionName="1.0">
+
+    <uses-sdk
+    	android:minSdkVersion="4"
+    	android:targetSdkVersion="11"/>
+
+    <application
+    	android:icon="@drawable/icon"
+    	android:label="@string/application_label">
+
+		<activity
+			android:name=".activities.TitlesActivity"
+			android:label="@string/activity_titles">
+			
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		
+		<activity
+			android:name=".activities.DetailsActivity"
+			android:label="@string/activity_details" />
+		
+    </application>
+</manifest>
