@@ -9,7 +9,7 @@ import android.widget.FrameLayout;
 import com.jakewharton.android.actionbarsherlock.ActionBarMenu;
 import com.jakewharton.android.actionbarsherlock.ActionBarMenuItem;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.ActionBarHandler;
-import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.ActionBarMenuHandler;
+import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.MenuHandler;
 import com.markupartist.android.widget.ActionBar;
 
 /**
@@ -26,7 +26,7 @@ public final class ActionBarForAndroidActionBar {
 	 * 
 	 * @author Jake Wharton <jakewharton@gmail.com>
 	 */
-	public static class Handler extends ActionBarHandler<ActionBar> implements ActionBarMenuHandler {
+	public static class Handler extends ActionBarHandler<ActionBar> implements MenuHandler {
 		@Override
 		public ActionBar initialize(int layoutResourceId) {
 			this.initialize();
