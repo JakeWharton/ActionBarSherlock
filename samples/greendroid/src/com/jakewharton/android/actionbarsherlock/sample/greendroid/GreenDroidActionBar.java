@@ -2,6 +2,8 @@ package com.jakewharton.android.actionbarsherlock.sample.greendroid;
 
 import greendroid.widget.GDActionBar;
 import greendroid.widget.GDActionBar.OnActionBarListener;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.view.Window;
 import android.widget.FrameLayout;
@@ -35,6 +37,17 @@ public final class GreenDroidActionBar {
 		public GDActionBar initialize(View view) {
 			this.initialize();
 			this.findContent().addView(view);
+			
+			return this.findActionBar();
+		}
+
+		@Override
+		public GDActionBar initialize(Fragment fragment, FragmentManager manager) {
+			this.initialize();
+			
+			manager.beginTransaction()
+			       .replace(R.id.gd_action_bar_content_view, fragment)
+			       .commit();
 			
 			return this.findActionBar();
 		}

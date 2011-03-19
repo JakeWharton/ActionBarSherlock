@@ -3,6 +3,8 @@ package com.jakewharton.android.actionbarsherlock.sample.android_actionbar;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.view.Window;
 import android.widget.FrameLayout;
@@ -39,6 +41,17 @@ public final class ActionBarForAndroidActionBar {
 		public ActionBar initialize(View view) {
 			this.initialize();
 			this.findContent().addView(view);
+			
+			return this.findActionBar();
+		}
+
+		@Override
+		public ActionBar initialize(Fragment fragment, FragmentManager manager) {
+			this.initialize();
+			
+			manager.beginTransaction()
+			       .replace(R.id.actionbar_content_view, fragment)
+			       .commit();
 			
 			return this.findActionBar();
 		}

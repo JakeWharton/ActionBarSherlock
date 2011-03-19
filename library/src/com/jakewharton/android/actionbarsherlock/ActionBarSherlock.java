@@ -18,6 +18,8 @@ package com.jakewharton.android.actionbarsherlock;
 
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -99,6 +101,11 @@ public final class ActionBarSherlock {
 	private View mView;
 	
 	/**
+	 * Fragment to load as activity's content.
+	 */
+	private Fragment mFragment;
+	
+	/**
 	 * Title to automatically set on whichever type of action bar is selected.
 	 */
 	private CharSequence mTitle;
@@ -175,22 +182,24 @@ public final class ActionBarSherlock {
 	}
 	
 	/**
-	 * Layout resource to use for the activity's content.
+	 * Set layout resource to use for the activity's content.
 	 * 
-	 * @param layoutResource Layout resource.
+	 * @param layoutResourceId Layout resource.
 	 * @return Current instance for builder pattern.
 	 */
-	public ActionBarSherlock layout(int layoutResource) {
+	public ActionBarSherlock layout(int layoutResourceId) {
 		assert this.mAttached == false;
 		assert this.mLayoutResourceId == null;
 		assert this.mView == null;
+		assert this.mFragment == null;
+		assert layoutResourceId != 0;
 		
-		this.mLayoutResourceId = layoutResource;
+		this.mLayoutResourceId = layoutResourceId;
 		return this;
 	}
 	
 	/**
-	 * View to use for the activity's content.
+	 * Set view to use for the activity's content.
 	 * 
 	 * @param view Content view instance.
 	 * @return Current instance for builder pattern.
@@ -199,9 +208,28 @@ public final class ActionBarSherlock {
 		assert this.mAttached == false;
 		assert this.mLayoutResourceId == null;
 		assert this.mView == null;
+		assert this.mFragment == null;
+		assert view != null;
 		
 		this.mView = view;
+		return this;
+	}
+	
+	/**
+	 * Set fragment to use for the activity's content.
+	 * 
+	 * @param fragment Fragment instance.
+	 * @return Current instance for builder pattern.
+	 */
+	public ActionBarSherlock layout(Fragment fragment) {
+		assert this.mAttached == false;
+		assert this.mActivity instanceof android.support.v4.app.FragmentActivity;
+		assert this.mLayoutResourceId == null;
+		assert this.mView == null;
+		assert this.mFragment == null;
+		assert fragment != null;
 		
+		this.mFragment = fragment;
 		return this;
 	}
 	
@@ -309,7 +337,8 @@ public final class ActionBarSherlock {
 	public void attach() {
 		assert this.mAttached == false;
 		assert (this.mLayoutResourceId != null)
-			|| (this.mView != null);
+			|| (this.mView != null)
+			|| (this.mFragment != null);
 		
 		if (this.mNativeHandler == null) {
 			this.mNativeHandler = NativeActionBarHandler.class;
@@ -340,6 +369,10 @@ public final class ActionBarSherlock {
 		
 		if (this.mLayoutResourceId != null) {
 			handler.setLayout(this.mLayoutResourceId);
+		} else if (this.mFragment != null) {
+			//Already checked activity was FragmentActivity in layout(Fragment)
+			FragmentManager manager = ((android.support.v4.app.FragmentActivity)this.mActivity).getSupportFragmentManager();
+			handler.setLayout(this.mFragment, manager);
 		} else {
 			handler.setLayout(this.mView);
 		}
@@ -456,9 +489,9 @@ public final class ActionBarSherlock {
 		/**
 		 * <p>Initialize the activity's layout.</p>
 		 * 
-		 *  <p>This method will assign the current action bar instance with the
-		 *  return value of a call to the extending class' initialize
-		 *  method.</p>
+		 * <p>This method will assign the current action bar instance with the
+		 * return value of a call to the extending class' initialize
+		 * method.</p>
 		 * 
 		 * @param layoutResourceId Layout resource ID.
 		 */
@@ -469,14 +502,28 @@ public final class ActionBarSherlock {
 		/**
 		 * <p>Initialize the activity's layout.</p>
 		 * 
-		 *  <p>This method will assign the current action bar instance with the
-		 *  return value of a call to the extending class' initialize
-		 *  method.</p>
+		 * <p>This method will assign the current action bar instance with the
+		 * return value of a call to the extending class' initialize
+		 * method.</p>
 		 *  
 		 * @param view View instance.
 		 */
 		private void setLayout(View view) {
 			this.setActionBar(this.initialize(view));
+		}
+		
+		/**
+		 * <p>Initialize the activity's layout.</p>
+		 * 
+		 * <p>This method will assign the current action bar instance with the
+		 * return value of a call to the extending class' initialize
+		 * method.</p>
+		 * 
+		 * @param fragment Fragment instance.
+		 * @param manager Activity's fragment manager.
+		 */
+		private void setLayout(Fragment fragment, FragmentManager manager) {
+			this.setActionBar(this.initialize(fragment, manager));
 		}
 		
 		/**
@@ -494,6 +541,15 @@ public final class ActionBarSherlock {
 		 * @return Action bar instance.
 		 */
 		public abstract T initialize(View view);
+		
+		/**
+		 * Initialize the activity's layout using a {@link Fragment}.
+		 * 
+		 * @param fragment Fragment instance.
+		 * @param manager Activity's fragment manager.
+		 * @return Action bar instance.
+		 */
+		public abstract T initialize(Fragment fragment, FragmentManager manager);
 		
 		/**
 		 * Set the title of the action bar.
@@ -554,6 +610,15 @@ public final class ActionBarSherlock {
 		public android.app.ActionBar initialize(View view) {
 			//For native action bars assigning a layout is all that is required
 			this.getActivity().setContentView(view);
+			
+			return this.getActivity().getActionBar();
+		}
+		
+		@Override
+		public android.app.ActionBar initialize(Fragment fragment, FragmentManager manager) {
+			manager.beginTransaction()
+			       .add(android.R.id.content, fragment)
+			       .commit();
 			
 			return this.getActivity().getActionBar();
 		}
