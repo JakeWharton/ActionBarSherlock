@@ -74,6 +74,34 @@ public final class ActionBarSherlock {
 	}
 	
 	
+	private static final String ERROR_ACTIVITY_NULL = "Activity must not be null.";
+	private static final String ERROR_ACTIVITY_FRAGMENT = "Activity must extend from android.support.v4.app.Fragment.";
+	private static final String ERROR_ACTIVITY_SHERLOCK = "Activity must extend from one of the base classes within ActionBarSherlock.";
+	private static final String ERROR_ATTACHED = "Sherlock has already been attached to the activity.";
+	private static final String ERROR_BUNDLE = "A Bundle has already been specified.";
+	private static final String ERROR_DROPDOWN_ADAPTER = "A drop-down adapter has already been specified.";
+	private static final String ERROR_DROPDOWN_ADAPTER_NULL = "Drop-down adapter must not be null.";
+	private static final String ERROR_DROPDOWN_HANDLER = "Handler does not implement the ActionBarSherlock.DropDownHandler interface.";
+	private static final String ERROR_DROPDOWN_LISTENER = "A drop-down listener has already been specified.";
+	private static final String ERROR_DROPDOWN_LISTENER_NULL = "Drop-down listener must not be null.";
+	private static final String ERROR_HANDLER_CUSTOM = "A custom handler has already been specified.";
+	private static final String ERROR_HANDLER_CUSTOM_NULL = "Custom handler must not be null.";
+	private static final String ERROR_HANDLER_NATIVE = "A native handler has already been specified.";
+	private static final String ERROR_HANDLER_NATIVE_NULL = "Native handler must not be null.";
+	private static final String ERROR_LAYOUT_FRAGMENT = "A layout fragment has already been specified.";
+	private static final String ERROR_LAYOUT_ID = "A layout ID has already been specified.";
+	private static final String ERROR_LAYOUT_NULL = "Layout must not be null.";
+	private static final String ERROR_LAYOUT_VIEW = "A layout view has already been specified.";
+	private static final String ERROR_LAYOUT_ZERO = "Layout ID must not be zero.";
+	private static final String ERROR_LAYOUTS_NULL = "At least one type of layout must be specified.";
+	private static final String ERROR_LOGO_HANDLER = "Handler does not implement the ActionBarSherlock.LogoHandler interface.";
+	private static final String ERROR_LOGO_MISSING = "Neither the activity nor the application entry in the manifest contains a logo.";
+	private static final String ERROR_MENU = "A menu has already been specified.";
+	private static final String ERROR_MENU_HANDLER = "Handler does not implement the ActionBarSherlock.MenuHandler interface.";
+	private static final String ERROR_MENU_ZERO = "Menu ID must not be zero.";
+	private static final String ERROR_TITLE = "A title has already been specified.";
+	private static final String ERROR_TITLE_NULL = "Title must not be null.";
+	
 	
 	/**
 	 * Whether or not this instance has been attached to the
@@ -155,7 +183,7 @@ public final class ActionBarSherlock {
 	 * @return ActionBarSherlock instance for builder pattern.
 	 */
 	public static ActionBarSherlock from(android.app.Activity activity) {
-		assert activity != null;
+		assert activity != null : ERROR_ACTIVITY_NULL;
 		
 		return new ActionBarSherlock(activity);
 	}
@@ -187,8 +215,8 @@ public final class ActionBarSherlock {
 	 * @return Current instance for builder pattern.
 	 */
 	public ActionBarSherlock with(Bundle savedInstanceState) {
-		assert this.mAttached == false;
-		assert this.mSavedInstanceState == null;
+		assert this.mAttached == false : ERROR_ATTACHED;
+		assert this.mSavedInstanceState == null : ERROR_BUNDLE;
 		
 		this.mSavedInstanceState = savedInstanceState;
 		return this;
@@ -201,11 +229,11 @@ public final class ActionBarSherlock {
 	 * @return Current instance for builder pattern.
 	 */
 	public ActionBarSherlock layout(int layoutResourceId) {
-		assert this.mAttached == false;
-		assert this.mLayoutResourceId == null;
-		assert this.mView == null;
-		assert this.mFragment == null;
-		assert layoutResourceId != 0;
+		assert this.mAttached == false : ERROR_ATTACHED;
+		assert this.mLayoutResourceId == null : ERROR_LAYOUT_ID;
+		assert this.mView == null : ERROR_LAYOUT_VIEW;
+		assert this.mFragment == null : ERROR_LAYOUT_FRAGMENT;
+		assert layoutResourceId != 0 : ERROR_LAYOUT_ZERO;
 		
 		this.mLayoutResourceId = layoutResourceId;
 		return this;
@@ -218,11 +246,11 @@ public final class ActionBarSherlock {
 	 * @return Current instance for builder pattern.
 	 */
 	public ActionBarSherlock layout(View view) {
-		assert this.mAttached == false;
-		assert this.mLayoutResourceId == null;
-		assert this.mView == null;
-		assert this.mFragment == null;
-		assert view != null;
+		assert this.mAttached == false : ERROR_ATTACHED;
+		assert this.mLayoutResourceId == null : ERROR_LAYOUT_ID;
+		assert this.mView == null : ERROR_LAYOUT_VIEW;
+		assert this.mFragment == null : ERROR_LAYOUT_FRAGMENT;
+		assert view != null : ERROR_LAYOUT_NULL;
 		
 		this.mView = view;
 		return this;
@@ -235,12 +263,12 @@ public final class ActionBarSherlock {
 	 * @return Current instance for builder pattern.
 	 */
 	public ActionBarSherlock layout(Fragment fragment) {
-		assert this.mAttached == false;
-		assert this.mActivity instanceof android.support.v4.app.FragmentActivity;
-		assert this.mLayoutResourceId == null;
-		assert this.mView == null;
-		assert this.mFragment == null;
-		assert fragment != null;
+		assert this.mAttached == false : ERROR_ATTACHED;
+		assert this.mActivity instanceof android.support.v4.app.FragmentActivity : ERROR_ACTIVITY_FRAGMENT;
+		assert this.mLayoutResourceId == null : ERROR_LAYOUT_ID;
+		assert this.mView == null : ERROR_LAYOUT_VIEW;
+		assert this.mFragment == null : ERROR_LAYOUT_FRAGMENT;
+		assert fragment != null : ERROR_LAYOUT_NULL;
 		
 		this.mFragment = fragment;
 		return this;
@@ -264,9 +292,9 @@ public final class ActionBarSherlock {
 	 * @return Current instance for builder pattern.
 	 */
 	public ActionBarSherlock title(CharSequence title) {
-		assert this.mAttached == false;
-		assert this.mTitle == null;
-		assert title != null;
+		assert this.mAttached == false : ERROR_ATTACHED;
+		assert this.mTitle == null : ERROR_TITLE;
+		assert title != null : ERROR_TITLE_NULL;
 		
 		this.mTitle = title;
 		return this;
@@ -281,10 +309,10 @@ public final class ActionBarSherlock {
 	 * @return Current instance for builder pattern.
 	 */
 	public ActionBarSherlock menu(int menuResourceId) {
-		assert this.mAttached == false;
-		assert this.mMenuResourceId == null;
-		assert this.mActivity instanceof SherlockActivity;
-		assert menuResourceId != 0;
+		assert this.mAttached == false : ERROR_ATTACHED;
+		assert this.mMenuResourceId == null : ERROR_MENU;
+		assert this.mActivity instanceof SherlockActivity : ERROR_ACTIVITY_SHERLOCK;
+		assert menuResourceId != 0 : ERROR_MENU_ZERO;
 		
 		this.mMenuResourceId = menuResourceId;
 		return this;
@@ -297,7 +325,7 @@ public final class ActionBarSherlock {
 	 * @return Current instance for builder pattern.
 	 */
 	public ActionBarSherlock homeAsUp(boolean enabled) {
-		assert this.mAttached == false;
+		assert this.mAttached == false : ERROR_ATTACHED;
 		
 		this.mHomeAsUpEnabled = enabled;
 		return this;
@@ -310,7 +338,7 @@ public final class ActionBarSherlock {
 	 * @return Current instance for builder pattern.
 	 */
 	public ActionBarSherlock useLogo(boolean enabled) {
-		assert this.mAttached == false;
+		assert this.mAttached == false : ERROR_ATTACHED;
 		
 		this.mUseLogo = enabled;
 		return this;
@@ -324,11 +352,11 @@ public final class ActionBarSherlock {
 	 * @return Current instance for builder pattern.
 	 */
 	public ActionBarSherlock dropDown(SpinnerAdapter adapter, OnNavigationListener listener) {
-		assert this.mAttached == false;
-		assert this.mDropDownAdapter == null;
-		assert this.mDropDownListener == null;
-		assert adapter != null;
-		assert listener != null;
+		assert this.mAttached == false : ERROR_ATTACHED;
+		assert this.mDropDownAdapter == null : ERROR_DROPDOWN_ADAPTER;
+		assert this.mDropDownListener == null : ERROR_DROPDOWN_LISTENER;
+		assert adapter != null : ERROR_DROPDOWN_ADAPTER_NULL;
+		assert listener != null : ERROR_DROPDOWN_LISTENER_NULL;
 		
 		this.mDropDownAdapter = adapter;
 		this.mDropDownListener = listener;
@@ -344,9 +372,9 @@ public final class ActionBarSherlock {
 	 * @return Current instance for builder pattern.
 	 */
 	public ActionBarSherlock handleNative(Class<? extends NativeActionBarHandler> handler) {
-		assert this.mAttached == false;
-		assert this.mNativeHandler == null;
-		assert handler != null;
+		assert this.mAttached == false : ERROR_ATTACHED;
+		assert this.mNativeHandler == null : ERROR_HANDLER_NATIVE;
+		assert handler != null : ERROR_HANDLER_NATIVE_NULL;
 		
 		this.mNativeHandler = handler;
 		return this;
@@ -362,9 +390,9 @@ public final class ActionBarSherlock {
 	 * @return Current instance for builder pattern.
 	 */
 	public ActionBarSherlock handleCustom(Class<? extends ActionBarHandler<?>> handler) {
-		assert this.mAttached == false;
-		assert this.mCustomHandler == null;
-		assert handler != null;
+		assert this.mAttached == false : ERROR_ATTACHED;
+		assert this.mCustomHandler == null : ERROR_HANDLER_CUSTOM;
+		assert handler != null : ERROR_HANDLER_CUSTOM_NULL;
 		
 		this.mCustomHandler = handler;
 		return this;
@@ -375,10 +403,10 @@ public final class ActionBarSherlock {
 	 * onCreate callback to a handler.
 	 */
 	public void attach() {
-		assert this.mAttached == false;
+		assert this.mAttached == false : ERROR_ATTACHED;
 		assert (this.mLayoutResourceId != null)
 			|| (this.mView != null)
-			|| (this.mFragment != null);
+			|| (this.mFragment != null) : ERROR_LAYOUTS_NULL;
 		
 		this.mAttached = true;
 		
@@ -419,7 +447,7 @@ public final class ActionBarSherlock {
 				//Delegate to the handler for addition to the action bar
 				((MenuHandler)handler).setMenuResourceId(this.mMenuResourceId);
 			} else {
-				throw new IllegalStateException("Neither the third-party action bar nor its handler accept XML menus.");
+				throw new IllegalStateException(ERROR_MENU_HANDLER);
 			}
 		}
 		
@@ -431,7 +459,7 @@ public final class ActionBarSherlock {
 			if (handler instanceof LogoHandler) {
 				((LogoHandler)handler).useLogo();
 			} else {
-				throw new IllegalStateException("Custom handler does not implement the ActionBarSherlock.LogoHandler interface.");
+				throw new IllegalStateException(ERROR_LOGO_HANDLER);
 			}
 		}
 		
@@ -439,7 +467,7 @@ public final class ActionBarSherlock {
 			if (handler instanceof DropDownHandler) {
 				((DropDownHandler)handler).setDropDown(this.mDropDownAdapter, this.mDropDownListener);
 			} else {
-				throw new IllegalStateException("Handler does not implement the ActionBarSherlock.DropDownHandler interface.");
+				throw new IllegalStateException(ERROR_DROPDOWN_HANDLER);
 			}
 		}
 		
@@ -647,7 +675,7 @@ public final class ActionBarSherlock {
 			}
 			
 			if (logoResourceId == null) {
-				throw new IllegalStateException("Neither the activity nor the application entry in the manifest contains a logo.");
+				throw new IllegalStateException(ERROR_LOGO_MISSING);
 			}
 			
 			return logoResourceId;
