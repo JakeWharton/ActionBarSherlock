@@ -23,6 +23,7 @@ import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.SpinnerAdapter;
 
 //NOTE: Unqualified references to Activity in this file are to the inner-class!
 
@@ -124,6 +125,16 @@ public final class ActionBarSherlock {
 	 * Whether or not to use the activity logo instead of the icon and title.
 	 */
 	private boolean mUseLogo;
+	
+	/**
+	 * List of items for drop-down navigation.
+	 */
+	private SpinnerAdapter mDropDownAdapter;
+	
+	/**
+	 * Callback listener for when a drop-down item is clicked.
+	 */
+	private OnNavigationListener mDropDownListener;
 	
 	/**
 	 * The class which will handle the native action bar.
@@ -298,6 +309,25 @@ public final class ActionBarSherlock {
 	}
 	
 	/**
+	 * Use drop-down navigation.
+	 * 
+	 * @param adapter List of drop-down items.
+	 * @param listener Callback listener for when an item is selected.
+	 * @return Current instance for builder pattern.
+	 */
+	public ActionBarSherlock dropDown(SpinnerAdapter adapter, OnNavigationListener listener) {
+		assert this.mAttached == false;
+		assert this.mDropDownAdapter == null;
+		assert this.mDropDownListener == null;
+		assert adapter != null;
+		assert listener != null;
+		
+		this.mDropDownAdapter = adapter;
+		this.mDropDownListener = listener;
+		return this;
+	}
+	
+	/**
 	 * Class to use for handling the native action bar creation.
 	 * 
 	 * @param handler Class which extends {@link NativeActionBarHandler}. If
@@ -425,6 +455,14 @@ public final class ActionBarSherlock {
 				((LogoHandler)handler).setLogo(logoResourceId);
 			} else {
 				throw new IllegalStateException("Custom handler does not implement the ActionBarSherlock.LogoHandler interface.");
+			}
+		}
+		
+		if (this.mDropDownAdapter != null) {
+			if (handler instanceof DropDownHandler) {
+				((DropDownHandler)handler).setDropDown(this.mDropDownAdapter, this.mDropDownListener);
+			} else {
+				throw new IllegalStateException("Handler does not implement the ActionBarSherlock.DropDownHandler interface.");
 			}
 		}
 		
@@ -597,7 +635,7 @@ public final class ActionBarSherlock {
 	/**
 	 * Minimal handler for Android's native {@link android.app.ActionBar}.
 	 */
-	public static class NativeActionBarHandler extends ActionBarHandler<android.app.ActionBar> {
+	public static class NativeActionBarHandler extends ActionBarHandler<android.app.ActionBar> implements DropDownHandler {
 		@Override
 		public android.app.ActionBar initialize(int layoutResourceId) {
 			//For native action bars assigning a layout is all that is required
@@ -639,6 +677,17 @@ public final class ActionBarSherlock {
 		public final void useLogo() {
 			this.getActionBar().setDisplayUseLogoEnabled(true);
 		}
+
+		@Override
+		public void setDropDown(SpinnerAdapter adapter, final OnNavigationListener listener) {
+			this.getActionBar().setNavigationMode(android.app.ActionBar.NAVIGATION_MODE_LIST);
+			this.getActionBar().setListNavigationCallbacks(adapter, new android.app.ActionBar.OnNavigationListener() {
+				@Override
+				public boolean onNavigationItemSelected(int itemPosition, long itemId) {
+					return listener.onNavigationItemSelected(itemPosition, itemId);
+				}
+			});
+		}
 	}
 	
 	
@@ -670,6 +719,38 @@ public final class ActionBarSherlock {
 		 * @param logoResourceId Drawable logo resource ID.
 		 */
 		public void setLogo(int logoResourceId);
+	}
+	
+	
+	/**
+	 * Interface which denotes a handler supports using a drop-down list for
+	 * navigation.
+	 */
+	public static interface DropDownHandler {
+		/**
+		 * Use drop-down navigation.
+		 * 
+		 * @param adapter List of drop-down items.
+		 * @param listener Callback listener for when an item is clicked.
+		 */
+		public void setDropDown(SpinnerAdapter adapter, OnNavigationListener listener);
+	}
+	
+	
+	/**
+	 * <p>Listener interface for ActionBar navigation events.</p>
+	 * 
+	 * <p>Emulates {@link android.app.ActionBar.OnNavigationListener}.</p>
+	 */
+	public static interface OnNavigationListener {
+		/**
+		 * This method is called whenever a navigation item in your action bar is selected.
+		 * 
+		 * @param itemPosition Position of the item clicked.
+		 * @param itemId ID of the item clicked.
+		 * @return True if the event was handled, false otherwise.
+		 */
+		boolean onNavigationItemSelected(int itemPosition, long itemId);
 	}
 	
 	

@@ -26,6 +26,9 @@ Version 2.1.0 *(In Development)*
  * New API method: `layout(Fragment)` will use the fragment argument as the
    content to the activity. *This feature requires that your activity extends
    from `ActionBarSherlock.FragmentActivity`*.
+ * New API method: `dropDown(SpinnerAdapter, OnNavigationListener)`. Tells the
+   action bar to use drop-down style navigation with the specified list of
+   items and callback listener.
 
 
 Version 2.0.1 *(2011-03-11)*
