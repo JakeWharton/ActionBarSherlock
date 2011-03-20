@@ -445,26 +445,8 @@ public final class ActionBarSherlock {
 		}
 		
 		if (this.mUseLogo) {
-			if (ActionBarSherlock.HAS_NATIVE_ACTION_BAR) {
-				((NativeActionBarHandler)handler).useLogo();
-			} else if (handler instanceof LogoHandler) {
-				Integer logoResourceId = null;
-				
-				try {
-					//Attempt to obtain the logo from the activity's entry in its manifest
-					logoResourceId = this.mActivity.getPackageManager().getActivityInfo(this.mActivity.getComponentName(), 0).icon;
-				} catch (NameNotFoundException e) {}
-				
-				if (logoResourceId == null) {
-					//If no activity logo was found, try to get the application's logo
-					logoResourceId = this.mActivity.getApplicationInfo().icon;
-				}
-				
-				if (logoResourceId == null) {
-					throw new IllegalStateException("Neither the activity nor the application entry in the manifest contains a logo.");
-				}
-				
-				((LogoHandler)handler).setLogo(logoResourceId);
+			if (handler instanceof LogoHandler) {
+				((LogoHandler)handler).useLogo();
 			} else {
 				throw new IllegalStateException("Custom handler does not implement the ActionBarSherlock.LogoHandler interface.");
 			}
@@ -520,7 +502,7 @@ public final class ActionBarSherlock {
 		 * 
 		 * @return Action bar instance.
 		 */
-		public T getActionBar() {
+		public final T getActionBar() {
 			return this.mActionBar;
 		}
 		
@@ -629,7 +611,7 @@ public final class ActionBarSherlock {
 		 * 
 		 * @param item Clicked MenuItem.
 		 */
-		protected void clicked(MenuItem item) {
+		protected final void clicked(MenuItem item) {
 			this.getActivity().onOptionsItemSelected(item);
 		}
 		
@@ -641,15 +623,43 @@ public final class ActionBarSherlock {
 		public void setHomeAsUpEnabled(boolean enabled) {
 			//Grumble, grumble... OVERRIDE ME!
 		}
+		
+		/**
+		 * Attempt to fetch the logo for the specified activity. If no logo has
+		 * been set for the activity, attempt to fetch the application logo. If
+		 * that too cannot be found then an {@link IllegalStateException} will
+		 * be thrown.
+		 * 
+		 * @return Drawable resource ID of logo.
+		 */
+		protected final int getActivityLogo() {
+			Integer logoResourceId = null;
+			
+			try {
+				//Attempt to obtain the logo from the activity's entry in its manifest
+				logoResourceId = this.getActivity().getPackageManager().getActivityInfo(this.getActivity().getComponentName(), 0).icon;
+			} catch (NameNotFoundException e) {}
+			
+			if (logoResourceId == null) {
+				//If no activity logo was found, try to get the application's logo
+				logoResourceId = this.getActivity().getApplicationInfo().icon;
+			}
+			
+			if (logoResourceId == null) {
+				throw new IllegalStateException("Neither the activity nor the application entry in the manifest contains a logo.");
+			}
+			
+			return logoResourceId;
+		}
 	}
 	
 	
 	/**
 	 * Minimal handler for Android's native {@link android.app.ActionBar}.
 	 */
-	public static class NativeActionBarHandler extends ActionBarHandler<android.app.ActionBar> implements DropDownHandler {
+	public static class NativeActionBarHandler extends ActionBarHandler<android.app.ActionBar> implements DropDownHandler, LogoHandler {
 		@Override
-		public android.app.ActionBar initialize(int layoutResourceId) {
+		public final android.app.ActionBar initialize(int layoutResourceId) {
 			//For native action bars assigning a layout is all that is required
 			this.getActivity().setContentView(layoutResourceId);
 			
@@ -657,7 +667,7 @@ public final class ActionBarSherlock {
 		}
 		
 		@Override
-		public android.app.ActionBar initialize(View view) {
+		public final android.app.ActionBar initialize(View view) {
 			//For native action bars assigning a layout is all that is required
 			this.getActivity().setContentView(view);
 			
@@ -665,7 +675,7 @@ public final class ActionBarSherlock {
 		}
 		
 		@Override
-		public android.app.ActionBar initialize(Fragment fragment, FragmentManager manager) {
+		public final android.app.ActionBar initialize(Fragment fragment, FragmentManager manager) {
 			manager.beginTransaction()
 			       .add(android.R.id.content, fragment)
 			       .commit();
@@ -674,24 +684,22 @@ public final class ActionBarSherlock {
 		}
 
 		@Override
-		public void setTitle(CharSequence title) {
+		public final void setTitle(CharSequence title) {
 			this.getActionBar().setTitle(title);
 		}
 		
 		@Override
-		public void setHomeAsUpEnabled(boolean enabled) {
+		public final void setHomeAsUpEnabled(boolean enabled) {
 			this.getActionBar().setDisplayHomeAsUpEnabled(enabled);
 		}
 		
-		/**
-		 * Convenience method to tell the ActionBar to use the activity logo.
-		 */
+		@Override
 		public final void useLogo() {
 			this.getActionBar().setDisplayUseLogoEnabled(true);
 		}
 
 		@Override
-		public void setDropDown(SpinnerAdapter adapter, final OnNavigationListener listener) {
+		public final void setDropDown(SpinnerAdapter adapter, final OnNavigationListener listener) {
 			this.getActionBar().setNavigationMode(android.app.ActionBar.NAVIGATION_MODE_LIST);
 			this.getActionBar().setListNavigationCallbacks(adapter, new android.app.ActionBar.OnNavigationListener() {
 				@Override
@@ -724,13 +732,13 @@ public final class ActionBarSherlock {
 	 */
 	public static interface LogoHandler {
 		/**
-		 * Set the resource for the logo. The calling of this method implies
-		 * that the activity wants the logo to be displayed rather than the
-		 * home icon and title.
+		 * <p>Display the logo for the activity rather than a title.</p>
 		 * 
-		 * @param logoResourceId Drawable logo resource ID.
+		 * <p>A convenience method, {@link ActionBarHandler#getActivityLogo()},
+		 * is available which will automatically fetch and return a drawable
+		 * resource ID.</p> 
 		 */
-		public void setLogo(int logoResourceId);
+		public void useLogo();
 	}
 	
 	
