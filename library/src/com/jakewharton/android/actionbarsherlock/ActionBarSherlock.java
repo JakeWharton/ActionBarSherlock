@@ -410,10 +410,12 @@ public final class ActionBarSherlock {
 		
 		this.mAttached = true;
 		
+		//If no extended native handler, just use the default one
 		if (this.mNativeHandler == null) {
 			this.mNativeHandler = NativeActionBarHandler.class;
 		}
 		
+		//Instantiate the appropriate handler
 		ActionBarHandler<?> handler;
 		try {
 			if (HAS_NATIVE_ACTION_BAR) {
@@ -430,8 +432,10 @@ public final class ActionBarSherlock {
 			throw new RuntimeException(e);
 		}
 		
+		//First, assign the activity to which the handler is attached
 		handler.setActivity(this.mActivity);
 		
+		//Set up the layout of the activity
 		if (this.mLayoutResourceId != null) {
 			handler.setLayout(this.mLayoutResourceId);
 		} else if (this.mFragment != null) {
@@ -442,6 +446,7 @@ public final class ActionBarSherlock {
 			handler.setLayout(this.mView);
 		}
 		
+		//Perform menu inflation, if specified
 		if (this.mMenuResourceId != null) {
 			if (handler instanceof MenuHandler) {
 				//Delegate to the handler for addition to the action bar
@@ -451,10 +456,12 @@ public final class ActionBarSherlock {
 			}
 		}
 		
+		//Set the title, if specified
 		if (this.mTitle != null) {
 			handler.setTitle(this.mTitle);
 		}
 		
+		//If the use of the logo is desired, tell the handler
 		if (this.mUseLogo) {
 			if (handler instanceof LogoHandler) {
 				((LogoHandler)handler).useLogo();
@@ -463,6 +470,7 @@ public final class ActionBarSherlock {
 			}
 		}
 		
+		//If a drop-down is wanted, pass the adapter and listener for setup
 		if (this.mDropDownAdapter != null) {
 			if (handler instanceof DropDownHandler) {
 				((DropDownHandler)handler).setDropDown(this.mDropDownAdapter, this.mDropDownListener);
@@ -471,8 +479,10 @@ public final class ActionBarSherlock {
 			}
 		}
 		
+		//Set whether or not the home button functions as "up"
 		handler.setHomeAsUpEnabled(this.mHomeAsUpEnabled);
 		
+		//Execute the onCreate callback for any additional setup
 		handler.onCreate(this.mSavedInstanceState);
 	}
 	
@@ -502,8 +512,16 @@ public final class ActionBarSherlock {
 	 * @param <T> Action bar class.
 	 */
 	public static abstract class ActionBarHandler<T> {
+		/**
+		 * Activity to which we are attached.
+		 */
 		private android.app.Activity mActivity;
+		
+		/**
+		 * Activity's action bar instance.
+		 */
 		private T mActionBar;
+
 
 		/**
 		 * Get the activity to which the action bar is bound.
@@ -663,14 +681,14 @@ public final class ActionBarSherlock {
 		 */
 		protected final int getActivityLogo() {
 			Integer logoResourceId = null;
-			
+
+			//Attempt to obtain the logo from the activity's entry in its manifest
 			try {
-				//Attempt to obtain the logo from the activity's entry in its manifest
 				logoResourceId = this.getActivity().getPackageManager().getActivityInfo(this.getActivity().getComponentName(), 0).icon;
 			} catch (NameNotFoundException e) {}
 			
+			//If no activity logo was found, try to get the application's logo
 			if (logoResourceId == null) {
-				//If no activity logo was found, try to get the application's logo
 				logoResourceId = this.getActivity().getApplicationInfo().icon;
 			}
 			
@@ -700,17 +718,13 @@ public final class ActionBarSherlock {
 	public static class NativeActionBarHandler extends ActionBarHandler<android.app.ActionBar> implements DropDownHandler, LogoHandler, MenuHandler {
 		@Override
 		public final android.app.ActionBar initialize(int layoutResourceId) {
-			//For native action bars assigning a layout is all that is required
 			this.getActivity().setContentView(layoutResourceId);
-			
 			return this.getActivity().getActionBar();
 		}
 		
 		@Override
 		public final android.app.ActionBar initialize(View view) {
-			//For native action bars assigning a layout is all that is required
 			this.getActivity().setContentView(view);
-			
 			return this.getActivity().getActionBar();
 		}
 		
