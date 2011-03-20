@@ -420,21 +420,9 @@ public final class ActionBarSherlock {
 		}
 		
 		if (this.mMenuResourceId != null) {
-			if (ActionBarSherlock.HAS_NATIVE_ACTION_BAR) {
-				//FYI: instanceof IsSherlockActivity was checked in menu(int)
-				SherlockActivity activity = (SherlockActivity)this.mActivity;
-				//Delegate inflation to the activity for native implementation
-				activity.setActionBarMenu(this.mMenuResourceId);
-			} else if (handler.getActionBar() instanceof Menu) {
-				//If the custom action bar implements Menu, inflate directly
-				this.mActivity.getMenuInflater().inflate(this.mMenuResourceId, (Menu)handler.getActionBar());
-			} else if (handler instanceof MenuHandler) {
-				//Inflate to our Menu implementation
-				ActionBarMenu menu = new ActionBarMenu(handler.getActivity());
-				this.mActivity.getMenuInflater().inflate(this.mMenuResourceId, menu);
-				
+			if (handler instanceof MenuHandler) {
 				//Delegate to the handler for addition to the action bar
-				((MenuHandler)handler).inflateMenu(menu);
+				((MenuHandler)handler).setMenuResourceId(this.mMenuResourceId);
 			} else {
 				throw new IllegalStateException("Neither the third-party action bar nor its handler accept XML menus.");
 			}
@@ -651,13 +639,24 @@ public final class ActionBarSherlock {
 			
 			return logoResourceId;
 		}
+		
+		/**
+		 * Inflate an XML menu into a {@link ActionBarMenu}.
+		 * @param menuResourceId Resource ID of XML menu.
+		 * @return Inflated menu.
+		 */
+		protected final ActionBarMenu inflateMenu(int menuResourceId) {
+			ActionBarMenu menu = new ActionBarMenu(this.getActivity());
+			this.getActivity().getMenuInflater().inflate(menuResourceId, menu);
+			return menu;
+		}
 	}
 	
 	
 	/**
 	 * Minimal handler for Android's native {@link android.app.ActionBar}.
 	 */
-	public static class NativeActionBarHandler extends ActionBarHandler<android.app.ActionBar> implements DropDownHandler, LogoHandler {
+	public static class NativeActionBarHandler extends ActionBarHandler<android.app.ActionBar> implements DropDownHandler, LogoHandler, MenuHandler {
 		@Override
 		public final android.app.ActionBar initialize(int layoutResourceId) {
 			//For native action bars assigning a layout is all that is required
@@ -708,20 +707,32 @@ public final class ActionBarSherlock {
 				}
 			});
 		}
+
+		@Override
+		public void setMenuResourceId(int menuResourceId) {
+			//FYI: instanceof IsSherlockActivity was checked in ActionBarSherlock#menu(int)
+			SherlockActivity activity = (SherlockActivity)this.getActivity();
+			//Delegate inflation to the activity for native implementation
+			activity.setActionBarMenu(menuResourceId);
+		}
 	}
 	
 	
 	/**
 	 * Interface which denotes a third-party action bar handler implementation
-	 * supports populating the action bar from an inflated XML menu.
+	 * supports populating the action bar from an XML menu.
 	 */
 	public static interface MenuHandler {
 		/**
-		 * Populate the action bar with items from the inflated XML menu.
+		 * <p>Populate the action bar with items from an XML menu.</p>
 		 * 
-		 * @param menu Inflated XML menu.
+		 * <p>A convenience method, {@link ActionBarHandler#inflateMenu(int)},
+		 * is available which will perform the inflation and return an
+		 * {@link ActionBarMenu}.
+		 * 
+		 * @param menuResourceId Resource ID of menu XML.
 		 */
-		public void inflateMenu(ActionBarMenu menu);
+		public void setMenuResourceId(int menuResourceId);
 	}
 	
 	

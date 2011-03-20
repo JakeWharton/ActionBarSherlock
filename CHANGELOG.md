@@ -12,10 +12,10 @@ Version 2.1.0 *(In Development)*
    activities, the latter of which is deprecated. This affords a much tighter
    integration and allows for the use of other new features listed below.
  * New API method: `menu(int)` allows for the inflation of menu XMLs from a
-   resource. For the non-native implementation, the XML is inflated to a custom
-   Menu which can then be applied appropriately to the third-party action bar.
-   Sub-menus are also supported. *This feature requires that activities extend
-   from `ActionBarSherlock.Activity`*.
+   resource. For the non-native implementation, the XML can be inflated to a
+   custom Menu which can then be applied appropriately to the third-party
+   action bar. Sub-menus are also supported. *This feature requires that
+   activities extend from one of the provided activity base classes.*
  * New API method: `homeAsUp(boolean)`. This mimics the native method
    `setDisplayHomeAsUpEnalbed` which will be called for the native action bar
    and sent as a callback to third-party handler implementations.
