@@ -155,6 +155,8 @@ public final class ActionBarSherlock {
 	 * @return ActionBarSherlock instance for builder pattern.
 	 */
 	public static ActionBarSherlock from(android.app.Activity activity) {
+		assert activity != null;
+		
 		return new ActionBarSherlock(activity);
 	}
 	
@@ -251,8 +253,8 @@ public final class ActionBarSherlock {
 	 * @return Current instance for builder pattern.
 	 */
 	public ActionBarSherlock title(int stringResourceId) {
-		assert this.mAttached == false;
-		return this.title(this.mActivity.getResources().getString(stringResourceId));
+		String title = this.mActivity.getResources().getString(stringResourceId);
+		return this.title(title);
 	}
 	
 	/**
@@ -264,6 +266,7 @@ public final class ActionBarSherlock {
 	public ActionBarSherlock title(CharSequence title) {
 		assert this.mAttached == false;
 		assert this.mTitle == null;
+		assert title != null;
 		
 		this.mTitle = title;
 		return this;
@@ -281,6 +284,7 @@ public final class ActionBarSherlock {
 		assert this.mAttached == false;
 		assert this.mMenuResourceId == null;
 		assert this.mActivity instanceof SherlockActivity;
+		assert menuResourceId != 0;
 		
 		this.mMenuResourceId = menuResourceId;
 		return this;
@@ -293,6 +297,8 @@ public final class ActionBarSherlock {
 	 * @return Current instance for builder pattern.
 	 */
 	public ActionBarSherlock homeAsUp(boolean enabled) {
+		assert this.mAttached == false;
+		
 		this.mHomeAsUpEnabled = enabled;
 		return this;
 	}
@@ -304,6 +310,8 @@ public final class ActionBarSherlock {
 	 * @return Current instance for builder pattern.
 	 */
 	public ActionBarSherlock useLogo(boolean enabled) {
+		assert this.mAttached == false;
+		
 		this.mUseLogo = enabled;
 		return this;
 	}
@@ -338,6 +346,7 @@ public final class ActionBarSherlock {
 	public ActionBarSherlock handleNative(Class<? extends NativeActionBarHandler> handler) {
 		assert this.mAttached == false;
 		assert this.mNativeHandler == null;
+		assert handler != null;
 		
 		this.mNativeHandler = handler;
 		return this;
@@ -355,6 +364,7 @@ public final class ActionBarSherlock {
 	public ActionBarSherlock handleCustom(Class<? extends ActionBarHandler<?>> handler) {
 		assert this.mAttached == false;
 		assert this.mCustomHandler == null;
+		assert handler != null;
 		
 		this.mCustomHandler = handler;
 		return this;
@@ -369,6 +379,8 @@ public final class ActionBarSherlock {
 		assert (this.mLayoutResourceId != null)
 			|| (this.mView != null)
 			|| (this.mFragment != null);
+		
+		this.mAttached = true;
 		
 		if (this.mNativeHandler == null) {
 			this.mNativeHandler = NativeActionBarHandler.class;
