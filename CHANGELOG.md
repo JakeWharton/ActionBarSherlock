@@ -7,8 +7,8 @@ Version 2.1.0 *(In Development)*
 **WARNING**: The [Android Compatibility Library (v4)][1] is now required.
 
 
- * Added `ActionBarSherlock.Activity`, `ActionBarSherlock.ListActivity`,
-   and `ActionBarSherlock.FragmentActivity` for extension by implementing
+ * Added `ActionBarSherlock.Activity`, `ActionBarSherlock.FragmentActivity`,
+   and `ActionBarSherlock.ListActivity` for extension by implementing
    activities, the latter of which is deprecated. This affords a much tighter
    integration and allows for the use of other new features listed below.
  * New API method: `menu(int)` allows for the inflation of menu XMLs from a
