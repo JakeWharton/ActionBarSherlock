@@ -393,12 +393,7 @@ public final class ActionBarSherlock {
 			} else if (this.mCustomHandler != null) {
 				handler = this.mCustomHandler.newInstance();
 			} else {
-				//No custom handler so pass the view directly to the activity
-				if (this.mLayoutResourceId != null) {
-					this.mActivity.setContentView(this.mLayoutResourceId);
-				} else {
-					this.mActivity.setContentView(this.mView);
-				}
+				this.attachDirectly();
 				return;
 			}
 		} catch (InstantiationException e) {
@@ -451,6 +446,24 @@ public final class ActionBarSherlock {
 		handler.setHomeAsUpEnabled(this.mHomeAsUpEnabled);
 		
 		handler.onCreate(this.mSavedInstanceState);
+	}
+	
+	/**
+	 * Attach the specified layout directly to the activity.
+	 */
+	private void attachDirectly() {
+		//No custom handler so pass the view directly to the activity
+		if (this.mLayoutResourceId != null) {
+			this.mActivity.setContentView(this.mLayoutResourceId);
+		} else if (this.mFragment != null) {
+			//Already instanceof FragmentActivity in layout(Fragment)
+			FragmentManager manager = ((android.support.v4.app.FragmentActivity)this.mActivity).getSupportFragmentManager();
+			manager.beginTransaction()
+			       .add(android.R.id.content, this.mFragment)
+			       .commit();
+		} else {
+			this.mActivity.setContentView(this.mView);
+		}
 	}
 	
 	
