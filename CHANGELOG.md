@@ -24,8 +24,7 @@ Version 2.1.0 *(In Development)*
    the application. Third-party action bar handlers should implement
    `ActionBarSherlock.LogoHandler` for this functionality.
  * New API method: `layout(Fragment)` will use the fragment argument as the
-   content to the activity. *This feature requires that your activity extends
-   from `ActionBarSherlock.FragmentActivity`*.
+   content to the activity.
  * New API method: `dropDown(SpinnerAdapter, OnNavigationListener)`. Tells the
    action bar to use drop-down style navigation with the specified list of
    items and callback listener.
