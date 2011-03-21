@@ -24,8 +24,15 @@ natively and using the [compatability package][3].
 
 
 
+Documentation
+=============
+
+There are a variety of ways to get started with `ActionBarSherlock`.
+
+
 Examples
-========
+--------
+
 Two sample applications are included which demonstrate implementing custom
 action bar handlers for [GreenDroid][5]* and [Android-ActionBar][6]. These are
 located in the `samples/` folder of this repository.
@@ -56,16 +63,25 @@ implemented in the fork are merged upstream, this is the only way to achieve
 the GreenDroid implementation._
 
 
+Other Resources
+---------------
+
+ * Git repository located at [github.com/JakeWharton/ActionBarSherlock][8].
+ * Javadoc site located at [jakewharton.github.com/actionbarsherlock][9].
+
+
+
 Developed By
 ============
-* Jake Wharton - <jakewharton@gmail.com>
 
-Git repository located at [github.com/JakeWharton/ActionBarSherlock][8].
+* Jake Wharton - <jakewharton@gmail.com>
 
 
 Contributors
-============
+------------
+
  * [smith324](http://stackoverflow.com/users/413575/smith324) via StackOverflow
+
 
 
 License
@@ -97,3 +113,4 @@ License
  [6]: https://github.com/johannilsson/android-actionbar
  [7]: https://github.com/JakeWharton/ActionBarSherlock/downloads
  [8]: https://github.com/JakeWharton/ActionBarSherlock/
+ [9]: https://jakewharton.github.com/actionbarsherlock/
