@@ -26,8 +26,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 /**
- * An implementation of the {@link Menu} interface for use in inflating menu
- * XML resources to be added to a third-party action bar. 
+ * An implementation of the {@link android.view.Menu} interface for use in
+ * inflating menu XML resources to be added to a third-party action bar. 
  * 
  * @author Jake Wharton <jakewharton@gmail.com>
  * @see {@link com.android.internal.view.MenuBuilder}

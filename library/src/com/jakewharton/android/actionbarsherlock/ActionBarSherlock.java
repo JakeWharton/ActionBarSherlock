@@ -43,7 +43,7 @@ import android.widget.SpinnerAdapter;
  * of and interaction with each type of action bar.</p>
  * 
  * <p>Examples of third-party implementations can be found in the
- * <code>samples</code> folder of this repository, or by visiting the
+ * <code>samples</code> folder of the repository, or by visiting the
  * <a href="https://github.com/JakeWharton/ActionBarSherlock/">GitHub project
  * page</a>.</p>
  * 
@@ -193,7 +193,7 @@ public final class ActionBarSherlock {
 	/**
 	 * Internal-only constructor to initialize this class for the builder
 	 * pattern. Implementing activities should use the
-	 * {@link from(android.app.Activity)} method to create a new instance.
+	 * {@link #from(android.app.Activity)} method to create a new instance.
 	 * 
 	 * @param activity Activity on which to bind.
 	 */
@@ -303,7 +303,7 @@ public final class ActionBarSherlock {
 	/**
 	 * Resource ID of a menu to inflate as buttons onto the action bar. This
 	 * requires that the implementing activity class be extended from
-	 * {@link Activity} or {@link ListActivity}.
+	 * {@link Activity}, {@link ListActivity}, or {@link FragmentActivity}.
 	 * 
 	 * @param menuResourceId Resource ID for menu XML.
 	 * @return Current instance for builder pattern.
@@ -674,8 +674,8 @@ public final class ActionBarSherlock {
 		/**
 		 * Attempt to fetch the logo for the specified activity. If no logo has
 		 * been set for the activity, attempt to fetch the application logo. If
-		 * that too cannot be found then an {@link IllegalStateException} will
-		 * be thrown.
+		 * that too cannot be found then a
+		 * {@link java.lang.IllegalStateException} will be thrown.
 		 * 
 		 * @return Drawable resource ID of logo.
 		 */
@@ -700,7 +700,7 @@ public final class ActionBarSherlock {
 		}
 		
 		/**
-		 * Inflate an XML menu into a {@link ActionBarMenu}.
+		 * Inflate an XML menu into an {@link ActionBarMenu}.
 		 * @param menuResourceId Resource ID of XML menu.
 		 * @return Inflated menu.
 		 */
@@ -882,7 +882,7 @@ public final class ActionBarSherlock {
 	}
 	
 	/**
-	 * Special {@link ListActivity} wrapper which will allow for unifying
+	 * Special {@link android.app.ListActivity} wrapper which will allow for unifying
 	 * common functionality via the {@link ActionBarSherlock} API.
 	 * 
 	 * @deprecated The use of {@link Fragment}s and {@link ListFragment} is
@@ -912,8 +912,9 @@ public final class ActionBarSherlock {
 	}
 	
 	/**
-	 * <p>Special {@link FragmentActivity} wrapper which will allow for
-	 * unifying common functionality via the {@link ActionBarSherlock} API.</p>
+	 * Special {@link android.support.v4.app.FragmentActivity} wrapper which
+	 * will allow for unifying common functionality via the
+	 * {@link ActionBarSherlock} API.
 	 */
 	public static abstract class FragmentActivity extends android.support.v4.app.FragmentActivity implements SherlockActivity {
 		/**
