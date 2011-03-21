@@ -113,4 +113,4 @@ License
  [6]: https://github.com/johannilsson/android-actionbar
  [7]: https://github.com/JakeWharton/ActionBarSherlock/downloads
  [8]: https://github.com/JakeWharton/ActionBarSherlock/
- [9]: https://jakewharton.github.com/actionbarsherlock/
+ [9]: https://jakewharton.github.com/ActionBarSherlock/
