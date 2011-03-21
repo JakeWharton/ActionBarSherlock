@@ -111,7 +111,8 @@ public final class ActionBarForAndroidActionBar {
 		}
 
 		@Override
-		public void inflateMenu(ActionBarMenu menu) {
+		public void setMenuResourceId(int menuResourceId) {
+			ActionBarMenu menu = this.inflateMenu(menuResourceId);
 			for (ActionBarMenuItem item : menu.getItems()) {
 				this.getActionBar().addAction(new Action(this, item));
 			}

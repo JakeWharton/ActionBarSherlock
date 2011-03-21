@@ -1,13 +1,17 @@
 package com.jakewharton.android.actionbarsherlock.sample.greendroid;
 
 import greendroid.widget.GDActionBar;
+import greendroid.widget.NormalActionBarItem;
 import greendroid.widget.GDActionBar.OnActionBarListener;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.view.Window;
 import android.widget.FrameLayout;
+import com.jakewharton.android.actionbarsherlock.ActionBarMenu;
+import com.jakewharton.android.actionbarsherlock.ActionBarMenuItem;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.ActionBarHandler;
+import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.MenuHandler;
 
 /**
  * Container class. See {@link Handler}.
@@ -24,7 +28,7 @@ public final class GreenDroidActionBar {
 	 * 
 	 * @author Jake Wharton <jakewharton@gmail.com>
 	 */
-	public static class Handler extends ActionBarHandler<GDActionBar> {
+	public static class Handler extends ActionBarHandler<GDActionBar> implements MenuHandler {
 		@Override
 		public GDActionBar initialize(int layoutResourceId) {
 			this.initialize();
@@ -103,6 +107,14 @@ public final class GreenDroidActionBar {
 		public void setTitle(CharSequence title) {
 			this.getActionBar().setTitle(title);
 		}
+
+		@Override
+		public void setMenuResourceId(int menuResourceId) {
+			ActionBarMenu menu = this.inflateMenu(menuResourceId);
+			for (ActionBarMenuItem item : menu.getItems()) {
+				this.getActionBar().addItem(new Item(item));
+			}
+		}
 		
 		/**
 		 * Convenience method to toggle the visibility of the home button.
@@ -132,6 +144,24 @@ public final class GreenDroidActionBar {
 		 */
 		public void onItemClicked(int itemId) {
 			//Grumble, grumble... OVERRIDE ME!
+		}
+		
+		
+		/**
+		 * Custom action bar item used when inflating a menu from XML.
+		 */
+		private static final class Item extends NormalActionBarItem {
+			private final int mItemId;
+			
+			public Item(ActionBarMenuItem item) {
+				this.mItemId = item.getItemId();
+				this.setDrawable(item.getIconId());
+			}
+			
+			@Override
+			public int getItemId() {
+				return this.mItemId;
+			}
 		}
 	}
 }
