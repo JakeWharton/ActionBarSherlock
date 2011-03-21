@@ -10,3 +10,6 @@ gen
 #IntelliJ IDEA
 .idea
 *.iml
+
+#Maven
+target
