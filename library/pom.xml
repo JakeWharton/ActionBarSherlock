@@ -7,17 +7,82 @@
 
 	<groupId>com.jakewharton</groupId>
 	<artifactId>android-actionbarsherlock</artifactId>
-	<version>2.1.0</version>
+	<version>2.1.0-SNAPSHOT</version>
 	<name>ActionBarSherlock</name>
+	<packaging>jar</packaging>
+
+        <distributionManagement>
+                <repository>
+                        <id>personal-repository</id>
+                        <name>JakeWharton.com Maven Repository</name>
+                        <url>scp://masseria.dreamhost.com/home/jakewharton_repository/repository.jakewharton.com</url>
+                </repository>
+                <snapshotRepository>
+                        <id>personal-repository</id>
+                        <name>JakeWharton.com Maven Repository</name>
+                        <url>scp://masseria.dreamhost.com/home/jakewharton_repository/repository.jakewharton.com</url>
+                </snapshotRepository>
+        </distributionManagement>
+
+	<properties>
+		<java.version>1.6</java.version>
+		<android.version>3.0_r1</android.version>
+		<android.sdk.version>11</android.sdk.version>
+		<android.support.version>4</android.support.version>
+
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 
 	<build>
 		<sourceDirectory>src</sourceDirectory>
+
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>com.jayway.maven.plugins.android.generation2</groupId>
+				<artifactId>maven-android-plugin</artifactId>
+				<version>2.9.0-beta-2</version>
+				<configuration>
+					<sdk>
+						<platform>${android.sdk.version}</platform>
+					</sdk>
+				</configuration>
+			</plugin>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>2.7</version>
 			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.1</version>
+			</plugin>
 		</plugins>
 	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>android</groupId>
+			<artifactId>android</artifactId>
+			<version>${android.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>android.support</groupId>
+			<artifactId>V4</artifactId>
+			<version>${android.support.version}</version>
+		</dependency>
+	</dependencies>
 </project>
