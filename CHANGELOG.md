@@ -31,6 +31,7 @@ Version 2.1.0 *(In Development)*
    action bar to use drop-down style navigation with the specified list of
    items and callback listener. Third-party action bar handlers should
    implement `ActionBarSherlock.DropDownHandler` for this functionality.
+ * Javadocs are now available at [jakewharton.github.com/ActionBarSherlock][2].
 
 
 Version 2.0.1 *(2011-03-11)*
@@ -60,3 +61,4 @@ Initial release.
 
 
  [1]: http://android-developers.blogspot.com/2011/03/fragments-for-all.html
+ [2]: http://jakewharton.github.com/ActionBarSherlock/
