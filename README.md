@@ -67,7 +67,7 @@ Other Resources
 ---------------
 
  * Git repository located at [github.com/JakeWharton/ActionBarSherlock][8].
- * Javadoc site located at [jakewharton.github.com/actionbarsherlock][9].
+ * Javadoc site located at [jakewharton.github.com/ActionBarSherlock][9].
 
 
 
@@ -113,4 +113,4 @@ License
  [6]: https://github.com/johannilsson/android-actionbar
  [7]: https://github.com/JakeWharton/ActionBarSherlock/downloads
  [8]: https://github.com/JakeWharton/ActionBarSherlock/
- [9]: https://jakewharton.github.com/ActionBarSherlock/
+ [9]: http://jakewharton.github.com/ActionBarSherlock/
