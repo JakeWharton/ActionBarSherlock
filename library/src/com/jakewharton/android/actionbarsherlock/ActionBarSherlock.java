@@ -38,7 +38,7 @@ import android.widget.SpinnerAdapter;
  * implementation of your choice.</p>
  * 
  * <p>Further interaction with these action bars can be handled through
- * extending the default handler in an activity as an inner-classes. The
+ * extending the default handlers as inner-classes of your activity. The
  * classes will allow for overriding various methods to handle the creation
  * of and interaction with each type of action bar.</p>
  * 
