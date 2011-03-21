@@ -11,6 +11,7 @@ import android.widget.FrameLayout;
 import com.jakewharton.android.actionbarsherlock.ActionBarMenu;
 import com.jakewharton.android.actionbarsherlock.ActionBarMenuItem;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.ActionBarHandler;
+import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HomeAsUpHandler;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.MenuHandler;
 import com.jakewharton.android.actionbarsherlock.sample.shakespeare.R;
 import com.markupartist.android.widget.ActionBar;
@@ -29,7 +30,7 @@ public final class ActionBarForAndroidActionBar {
 	 * 
 	 * @author Jake Wharton <jakewharton@gmail.com>
 	 */
-	public static class Handler extends ActionBarHandler<ActionBar> implements MenuHandler {
+	public static class Handler extends ActionBarHandler<ActionBar> implements MenuHandler, HomeAsUpHandler {
 		@Override
 		public ActionBar initialize(int layoutResourceId) {
 			this.initialize();
@@ -106,8 +107,8 @@ public final class ActionBarForAndroidActionBar {
 		}
 
 		@Override
-		public void setHomeAsUpEnabled(boolean enabled) {
-			this.getActionBar().setDisplayHomeAsUpEnabled(enabled);
+		public void useHomeAsUp() {
+			this.getActionBar().setDisplayHomeAsUpEnabled(true);
 		}
 
 		@Override

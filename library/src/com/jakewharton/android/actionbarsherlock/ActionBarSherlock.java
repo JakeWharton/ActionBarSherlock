@@ -88,6 +88,7 @@ public final class ActionBarSherlock {
 	private static final String ERROR_HANDLER_CUSTOM_NULL = "Custom handler must not be null.";
 	private static final String ERROR_HANDLER_NATIVE = "A native handler has already been specified.";
 	private static final String ERROR_HANDLER_NATIVE_NULL = "Native handler must not be null.";
+	private static final String ERROR_HOMEASUP_HANDLER = "Handler does not implement ActionBarSherlock.HomeAsUpHandler interface.";
 	private static final String ERROR_LAYOUT_FRAGMENT = "A layout fragment has already been specified.";
 	private static final String ERROR_LAYOUT_ID = "A layout ID has already been specified.";
 	private static final String ERROR_LAYOUT_NULL = "Layout must not be null.";
@@ -479,8 +480,14 @@ public final class ActionBarSherlock {
 			}
 		}
 		
-		//Set whether or not the home button functions as "up"
-		handler.setHomeAsUpEnabled(this.mHomeAsUpEnabled);
+		//If the home as up is desired, tell the handler
+		if (this.mHomeAsUpEnabled) {
+			if (handler instanceof HomeAsUpHandler) {
+				((HomeAsUpHandler)handler).useHomeAsUp();
+			} else {
+				throw new IllegalStateException(ERROR_HOMEASUP_HANDLER);
+			}
+		}
 		
 		//Execute the onCreate callback for any additional setup
 		handler.onCreate(this.mSavedInstanceState);
@@ -663,15 +670,6 @@ public final class ActionBarSherlock {
 		}
 		
 		/**
-		 * Set whether or not home should be displayed as an "up" affordance.
-		 * 
-		 * @param enabled Whether or not this is enabled.
-		 */
-		public void setHomeAsUpEnabled(boolean enabled) {
-			//Grumble, grumble... OVERRIDE ME!
-		}
-		
-		/**
 		 * Attempt to fetch the logo for the specified activity. If no logo has
 		 * been set for the activity, attempt to fetch the application logo. If
 		 * that too cannot be found then a
@@ -715,7 +713,7 @@ public final class ActionBarSherlock {
 	/**
 	 * Minimal handler for Android's native {@link android.app.ActionBar}.
 	 */
-	public static class NativeActionBarHandler extends ActionBarHandler<android.app.ActionBar> implements DropDownHandler, LogoHandler, MenuHandler {
+	public static class NativeActionBarHandler extends ActionBarHandler<android.app.ActionBar> implements DropDownHandler, LogoHandler, MenuHandler, HomeAsUpHandler {
 		@Override
 		public final android.app.ActionBar initialize(int layoutResourceId) {
 			this.getActivity().setContentView(layoutResourceId);
@@ -741,10 +739,10 @@ public final class ActionBarSherlock {
 		public final void setTitle(CharSequence title) {
 			this.getActionBar().setTitle(title);
 		}
-		
+
 		@Override
-		public final void setHomeAsUpEnabled(boolean enabled) {
-			this.getActionBar().setDisplayHomeAsUpEnabled(enabled);
+		public void useHomeAsUp() {
+			this.getActionBar().setDisplayHomeAsUpEnabled(true);
 		}
 		
 		@Override
@@ -820,6 +818,18 @@ public final class ActionBarSherlock {
 		 * @param listener Callback listener for when an item is clicked.
 		 */
 		public void setDropDown(SpinnerAdapter adapter, OnNavigationListener listener);
+	}
+	
+	
+	/**
+	 * Interface which denotes a handler supports setting the home action item
+	 * as an "up" affordance.
+	 */
+	public static interface HomeAsUpHandler {
+		/**
+		 * Home should be displayed as an "up" affordance.
+		 */
+		public void useHomeAsUp();
 	}
 	
 	

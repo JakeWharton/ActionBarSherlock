@@ -6,28 +6,31 @@ Version 2.1.0 *(In Development)*
 
 **WARNING**: The [Android Compatibility Library (v4)][1] is now required.
 
-
  * Added `ActionBarSherlock.Activity`, `ActionBarSherlock.FragmentActivity`,
    and `ActionBarSherlock.ListActivity` for extension by implementing
    activities, the latter of which is deprecated. This affords a much tighter
    integration and allows for the use of other new features listed below.
+ * New API method: `layout(Fragment)` will use the fragment argument as the
+   content to the activity.
  * New API method: `menu(int)` allows for the inflation of menu XMLs from a
    resource. For the non-native implementation, the XML can be inflated to a
    custom Menu which can then be applied appropriately to the third-party
-   action bar. Sub-menus are also supported. *This feature requires that
-   activities extend from one of the provided activity base classes.*
+   action bar. Sub-menus are also supported. Third-party action bar handlers
+   should implement `ActionBarSherlock.MenuHandler` for this functionality.
+   *This feature requires that activities extend from one of the provided
+   activity base classes.*
  * New API method: `homeAsUp(boolean)`. This mimics the native method
-   `setDisplayHomeAsUpEnalbed` which will be called for the native action bar
-   and sent as a callback to third-party handler implementations.
+   `setDisplayHomeAsUpEnalbed` on the native action bar. Third-party action bar
+   handlers should implement `ActionBarSherlock.HomeAsUpHandler` for this
+   functionality.
  * New API method: `useLogo(boolean)` will trigger the action bar to hide the
    application icon/home button and title and show a larger logo representing
    the application. Third-party action bar handlers should implement
    `ActionBarSherlock.LogoHandler` for this functionality.
- * New API method: `layout(Fragment)` will use the fragment argument as the
-   content to the activity.
  * New API method: `dropDown(SpinnerAdapter, OnNavigationListener)`. Tells the
    action bar to use drop-down style navigation with the specified list of
-   items and callback listener.
+   items and callback listener. Third-party action bar handlers should
+   implement `ActionBarSherlock.DropDownHandler` for this functionality.
 
 
 Version 2.0.1 *(2011-03-11)*
