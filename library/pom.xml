@@ -11,18 +11,24 @@
 	<name>ActionBarSherlock</name>
 	<packaging>jar</packaging>
 
-        <distributionManagement>
-                <repository>
-                        <id>personal-repository</id>
-                        <name>JakeWharton.com Maven Repository</name>
-                        <url>scp://masseria.dreamhost.com/home/jakewharton_repository/repository.jakewharton.com</url>
-                </repository>
-                <snapshotRepository>
-                        <id>personal-repository</id>
-                        <name>JakeWharton.com Maven Repository</name>
-                        <url>scp://masseria.dreamhost.com/home/jakewharton_repository/repository.jakewharton.com</url>
-                </snapshotRepository>
-        </distributionManagement>
+	<scm>
+		<url>http://github.com/JakeWharton/ActionBarSherlock/</url>
+		<connection>scm:git:git@github.com:JakeWharton/ActionBarSherlock.git</connection>
+		<developerConnection>scm:git:git@github.com:JakeWharton/ActionBarSherlock.git</developerConnection>
+	</scm>
+
+	<distributionManagement>
+		<repository>
+			<id>personal-repository</id>
+			<name>JakeWharton.com Maven Repository</name>
+			<url>scp://masseria.dreamhost.com/home/jakewharton_repository/repository.jakewharton.com</url>
+		</repository>
+		<snapshotRepository>
+			<id>personal-repository</id>
+			<name>JakeWharton.com Maven Repository</name>
+			<url>scp://masseria.dreamhost.com/home/jakewharton_repository/repository.jakewharton.com</url>
+		</snapshotRepository>
+	</distributionManagement>
 
 	<properties>
 		<java.version>1.6</java.version>
