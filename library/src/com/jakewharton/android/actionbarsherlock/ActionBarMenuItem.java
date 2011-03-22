@@ -28,7 +28,7 @@ import android.view.ContextMenu.ContextMenuInfo;
  * inflating menu XML resources to be added to a third-party action bar. 
  * 
  * @author Jake Wharton <jakewharton@gmail.com>
- * @see {@link com.android.internal.view.MenuItemImpl}
+ * @see <a href="http://android.git.kernel.org/?p=platform/frameworks/base.git;a=blob;f=core/java/com/android/internal/view/menu/MenuItemImpl.java">com.android.internal.view.menu.MenuItemImpl</a>
  */
 public final class ActionBarMenuItem implements MenuItem {
 	/**

@@ -30,7 +30,7 @@ import android.view.MenuItem;
  * inflating menu XML resources to be added to a third-party action bar. 
  * 
  * @author Jake Wharton <jakewharton@gmail.com>
- * @see {@link com.android.internal.view.MenuBuilder}
+ * @see <a href="http://android.git.kernel.org/?p=platform/frameworks/base.git;a=blob;f=core/java/com/android/internal/view/menu/MenuBuilder.java">com.android.internal.view.menu.MenuBuilder</a>
  */
 public class ActionBarMenu implements Menu {
 	private static final int DEFAULT_ITEM_ID = 0;

@@ -48,7 +48,7 @@ import android.widget.SpinnerAdapter;
  * page</a>.</p>
  * 
  * @author Jake Wharton <jakewharton@gmail.com>
- * @verion 2.0.0
+ * @version 2.1.0
  */
 public final class ActionBarSherlock {
 	/**
@@ -384,7 +384,7 @@ public final class ActionBarSherlock {
 	/**
 	 * Class to use for handling the custom action bar creation.
 	 * 
-	 * @param handler Class which extends {@link ActionBarHandler<?>}. If you
+	 * @param handler Class which extends {@link ActionBarHandler}. If you
 	 *                do not want an action bar on devices which do not have
 	 *                the native version you may omit this for a normal
 	 *                activity.
@@ -892,12 +892,13 @@ public final class ActionBarSherlock {
 	}
 	
 	/**
-	 * Special {@link android.app.ListActivity} wrapper which will allow for unifying
-	 * common functionality via the {@link ActionBarSherlock} API.
+	 * Special {@link android.app.ListActivity} wrapper which will allow for
+	 * unifying common functionality via the {@link ActionBarSherlock} API.
 	 * 
-	 * @deprecated The use of {@link Fragment}s and {@link ListFragment} is
-	 * suggested for working with lists. It provides a much nicer experience
-	 * when scaled up to the large tablet-sized screens.
+	 * @deprecated The use of {@link android.support.v4.app.Fragment}s and
+	 * {@link android.support.v4.app.ListFragment} is suggested for working
+	 * with lists. It provides a much nicer experience when scaled up to the
+	 * large tablet-sized screens.
 	 */
 	public static abstract class ListActivity extends android.app.ListActivity implements SherlockActivity {
 		/**
