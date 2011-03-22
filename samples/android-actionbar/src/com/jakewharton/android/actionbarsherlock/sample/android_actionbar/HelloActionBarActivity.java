@@ -1,82 +1,48 @@
 package com.jakewharton.android.actionbarsherlock.sample.android_actionbar;
 
-import com.jakewharton.android.actionbarsherlock.ActionBarSherlock;
-import com.markupartist.android.widget.ActionBar.IntentAction;
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
+import com.jakewharton.android.actionbarsherlock.ActionBarSherlock;
 
-/**
- * Simple activity to demonstrate using Android-ActionBar as a third-party
- * action bar.
- * 
- * @author Jake Wharton <jakewharton@gmail.com>
- */
-public class HelloActionBarActivity extends Activity {
+public class HelloActionBarActivity extends ActionBarSherlock.Activity {
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		//Attach sherlock and set up the action bar.
 		ActionBarSherlock.from(this)
 			.with(savedInstanceState)
 			.layout(R.layout.activity_hello)
-		    .title("Hello, ActionBar!")
-			.handleNative(HelloNativeActionBarHandler.class)
-		    .handleCustom(HelloActionBarForAndroidActionBarHandler.class)
+			.menu(R.menu.hello)
+			.homeAsUp(true)
+			.title(R.string.hello)
+			.handleCustom(ActionBarForAndroidActionBar.Handler.class)
 			.attach();
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		//Only inflate the menu if we have a native ActionBar. This would then
-		//be applied to that action bar to become the buttons.
-		if (ActionBarSherlock.HAS_NATIVE_ACTION_BAR) {
-			this.getMenuInflater().inflate(R.menu.hello, menu);
-			return true;
-		} else {
-			return super.onCreateOptionsMenu(menu);
-		}
-	}
-
-	
-	/**
-	 * Extension of the native action bar handler which allows us to display a
-	 * {@link android.widget.Toast} upon successful attachment.
-	 */
-	public static final class HelloNativeActionBarHandler extends ActionBarSherlock.NativeActionBarHandler {
-		@Override
-		public void onCreate(Bundle savedInstanceState) {
-			Toast.makeText(
-					this.getActivity(),
-					"Hello, Native ActionBar!",
-					Toast.LENGTH_SHORT
-			).show();
+	public boolean onOptionsItemSelected(MenuItem item) {
+		//Check it out, this works for both 3.0 and pre-3.0!!
+		switch (item.getItemId()) {
+			case android.R.id.home:
+				this.toast("Home");
+				return true;
+			
+			case R.id.menu_refresh:
+			case R.id.menu_search:
+			case R.id.menu_compose_sms:
+			case R.id.menu_compose_mms:
+			case R.id.menu_compose_email:
+			case R.id.menu_compose_gmail:
+				this.toast(item.getTitle());
+				return true;
+			
+			default:
+				return false;
 		}
 	}
 	
-
-	/**
-	 * Extension of the Android-ActionBar action bar handler which allows us to
-	 * display a {@link android.widget.Toast} upon successful attachment.
-	 */
-	public static final class HelloActionBarForAndroidActionBarHandler extends ActionBarForAndroidActionBar.Handler {
-		@Override
-		public void onCreate(Bundle savedInstanceState) {
-			//Home button won't show unless we partially set it up.
-			this.getActionBar().setHomeAction(new IntentAction(this.getActivity(), new Intent(), R.drawable.ic_title_home_default));
-			
-			this.getActionBar().addAction(new IntentAction(this.getActivity(), new Intent(), R.drawable.gd_action_bar_compose));
-			this.getActionBar().addAction(new IntentAction(this.getActivity(), new Intent(), R.drawable.gd_action_bar_search));
-			this.getActionBar().addAction(new IntentAction(this.getActivity(), new Intent(), R.drawable.gd_action_bar_refresh));
-			
-			Toast.makeText(
-					this.getActivity(),
-					"Hello, Android-ActionBar ActionBar!",
-					Toast.LENGTH_SHORT
-			).show();
-		}
+	private void toast(CharSequence title) {
+		Toast.makeText(this, "\"" + title + "\" Clicked!", Toast.LENGTH_SHORT).show();
 	}
 }

@@ -1,8 +1,8 @@
 Change Log
 ===============================================================================
 
-Version 2.1.0 *(In Development)*
---------------------------------
+Version 2.1.0 *(2010-03-21)*
+----------------------------
 
 **WARNING**: The [Android Compatibility Library (v4)][1] is now required.
 
