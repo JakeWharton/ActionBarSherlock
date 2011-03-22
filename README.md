@@ -42,7 +42,7 @@ There are three ways to leverage `ActionBarSherlock` in your projects:
         <dependency>
           <groupId>com.jakewharton</groupId>
           <artifactId>android-actionbarsherlock</artifactId>
-          <version>2.1.0</version>
+          <version>2.1.1</version>
         </dependency>
     
     *Make sure you also include [repository.jakewharton.com][8] in the
