@@ -24,6 +24,32 @@ natively and using the [compatability package][3].
 
 
 
+Usage
+=====
+
+There are three ways to leverage `ActionBarSherlock` in your projects:
+
+ 1. Download the JAR file from the [downloads page][5] and add it to your
+    project's build path (commonly the `libs/` directory).
+ 2. If you're using the [Eclipse Development Environment][6] with the [ADT
+    plugin][7] version 0.9.7 or greater you can include this as a library
+    project. Create a new Android project in Eclipse using the repository folder
+    as the existing source. Then, in your project properties, add the created
+    project under the 'Libraries' section of the 'Android' category.
+ 3. If you use maven to build you Android project, you can simply add a
+    dependency for this project.
+    
+        <dependency>
+          <groupId>com.jakewharton</groupId>
+          <artifactId>android-actionbarsherlock</artifactId>
+          <version>2.1.0</version>
+        </dependency>
+    
+    *Make sure you also include [repository.jakewharton.com][8] in the
+    repositories section of your `pom.xml`.*
+
+
+
 Documentation
 =============
 
@@ -34,7 +60,7 @@ Examples
 --------
 
 Two sample applications are included which demonstrate implementing custom
-action bar handlers for [GreenDroid][5]* and [Android-ActionBar][6]. These are
+action bar handlers for [GreenDroid][9]* and [Android-ActionBar][10]. These are
 located in the `samples/` folder of this repository.
 
 There is also a port of the Shakespeare fragments demo from the Android 3.0 API
@@ -51,7 +77,7 @@ the parent directory.
  * `git clone git://github.com/hameno/GreenDroid.git`
 
 You can also download pre-built .apks for each of these samples from the
-[project download page][7] for demonstration.
+[project download page][11] for demonstration.
 
 Due the use of third-party libraries, the samples have a minimum requirement of
 Android 1.6.
@@ -66,8 +92,8 @@ the GreenDroid implementation._
 Other Resources
 ---------------
 
- * Git repository located at [github.com/JakeWharton/ActionBarSherlock][8].
- * Javadoc site located at [jakewharton.github.com/ActionBarSherlock][9].
+ * Git repository located at [github.com/JakeWharton/ActionBarSherlock][12].
+ * Javadoc site located at [jakewharton.github.com/ActionBarSherlock][13].
 
 
 
@@ -109,8 +135,12 @@ License
  [2]: http://developer.android.com/guide/topics/fundamentals/fragments.html
  [3]: http://android-developers.blogspot.com/2011/03/fragments-for-all.html
  [4]: http://img.jakewharton.com/ActionBarSherlock01.png
- [5]: https://github.com/hameno/GreenDroid
- [6]: https://github.com/johannilsson/android-actionbar
- [7]: https://github.com/JakeWharton/ActionBarSherlock/downloads
- [8]: https://github.com/JakeWharton/ActionBarSherlock/
- [9]: http://jakewharton.github.com/ActionBarSherlock/
+ [5]: https://github.com/JakeWharton/ActionBarSherlock/downloads
+ [6]: http://www.eclipse.org
+ [7]: http://developer.android.com/sdk/eclipse-adt.html
+ [8]: http://repository.jakewharton.com
+ [9]: https://github.com/hameno/GreenDroid
+ [10]: https://github.com/johannilsson/android-actionbar
+ [11]: https://github.com/JakeWharton/ActionBarSherlock/downloads
+ [12]: https://github.com/JakeWharton/ActionBarSherlock/
+ [13]: http://jakewharton.github.com/ActionBarSherlock/
