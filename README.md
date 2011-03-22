@@ -33,7 +33,7 @@ There are three ways to leverage `ActionBarSherlock` in your projects:
     project's build path (commonly the `libs/` directory).
  2. If you're using the [Eclipse Development Environment][6] with the [ADT
     plugin][7] version 0.9.7 or greater you can include this as a library
-    project. Create a new Android project in Eclipse using the repository folder
+    project. Create a new Android project in Eclipse using the `library/` folder
     as the existing source. Then, in your project properties, add the created
     project under the 'Libraries' section of the 'Android' category.
  3. If you use maven to build you Android project, you can simply add a
@@ -69,7 +69,8 @@ implementation. It depends on the Android-ActionBar library as well.
 
 In order for these sample applications to properly work, the respective library
 that they depend on needs to be downloaded. This can be done automatically by
-executing `python dependencies.py` in the `samples` directory.
+executing `python dependencies.py`. This script requires that you have both Git
+and Apache Maven installed.
 
 You can also download pre-built .apks for each of these samples from the
 [project download page][11] for demonstration.

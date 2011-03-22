@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.jakewharton</groupId>
+	<artifactId>android-actionbarsherlock-sample-greendroid</artifactId>
+	<name>Sample: GreenDroid</name>
+	<packaging>apk</packaging>
+
+	<parent>
+		<groupId>com.jakewharton</groupId>
+		<artifactId>root</artifactId>
+		<version>2.1.2-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.jakewharton</groupId>
+			<artifactId>android-actionbarsherlock</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github</groupId>
+			<artifactId>hameno-greendroid</artifactId>
+			<version>0.0.0</version>
+			<type>apklib</type>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<sourceDirectory>src</sourceDirectory>
+	</build>
+</project>

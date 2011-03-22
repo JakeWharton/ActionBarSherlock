@@ -17,4 +17,4 @@ release.properties
 pom.xml.*
 
 #Vendor Libraries
-samples/vendor
+vendor

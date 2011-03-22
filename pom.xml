@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.jakewharton</groupId>
-	<artifactId>android-actionbarsherlock</artifactId>
+	<artifactId>root</artifactId>
 	<version>2.1.2-SNAPSHOT</version>
 	<name>ActionBarSherlock</name>
-	<packaging>jar</packaging>
+	<packaging>pom</packaging>
 
 	<scm>
 		<url>http://github.com/JakeWharton/ActionBarSherlock/</url>
@@ -29,18 +28,35 @@
 		</snapshotRepository>
 	</distributionManagement>
 
+	<modules>
+		<module>library</module>
+		
+		<module>sample-android_actionbar</module>
+		<module>sample-greendroid</module>
+		<module>sample-shakespeare</module>
+	</modules>
+
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
 		<java.version>1.6</java.version>
 		<android.version>3.0_r1</android.version>
-		<android.sdk.version>11</android.sdk.version>
-		<android.support.version>4</android.support.version>
+		<android.platform>11</android.platform>
 
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven-android.version>2.9.0-beta-2</maven-android.version>
 	</properties>
 
-	<build>
-		<sourceDirectory>src</sourceDirectory>
+	<dependencies>
+		<dependency>
+			<groupId>android</groupId>
+			<artifactId>android</artifactId>
+			<version>${android.version}</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
 
+	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -55,18 +71,13 @@
 			<plugin>
 				<groupId>com.jayway.maven.plugins.android.generation2</groupId>
 				<artifactId>maven-android-plugin</artifactId>
-				<version>2.9.0-beta-2</version>
+				<version>${maven-android.version}</version>
 				<configuration>
 					<sdk>
-						<platform>${android.sdk.version}</platform>
+						<platform>${android.platform}</platform>
 					</sdk>
 				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.7</version>
+				<extensions>true</extensions>
 			</plugin>
 
 			<plugin>
@@ -76,18 +87,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
-	<dependencies>
-		<dependency>
-			<groupId>android</groupId>
-			<artifactId>android</artifactId>
-			<version>${android.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>android.support</groupId>
-			<artifactId>V4</artifactId>
-			<version>${android.support.version}</version>
-		</dependency>
-	</dependencies>
 </project>
