@@ -1,7 +1,17 @@
 Change Log
 ===============================================================================
 
-Version 2.1.0 *(2010-03-21)*
+Version 2.1.1 *(2011-03-21)*
+----------------------------
+
+**No changes to library code.**
+
+ * Moved library to the root of the repository.
+ * Added `samples/dependencies.py` script to automatically download the needed
+   dependencies for the sample projects.
+
+
+Version 2.1.0 *(2011-03-21)*
 ----------------------------
 
 **WARNING**: The [Android Compatibility Library (v4)][1] is now required.
