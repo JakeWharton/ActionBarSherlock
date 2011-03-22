@@ -6,7 +6,7 @@
 
 	<groupId>com.jakewharton</groupId>
 	<artifactId>android-actionbarsherlock</artifactId>
-	<version>2.1.0</version>
+	<version>2.1.1-SNAPSHOT</version>
 	<name>ActionBarSherlock</name>
 	<packaging>jar</packaging>
 
