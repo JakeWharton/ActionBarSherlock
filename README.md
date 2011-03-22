@@ -68,13 +68,8 @@ demos which has been converted to use this library for more of a real-world
 implementation. It depends on the Android-ActionBar library as well.
 
 In order for these sample applications to properly work, the respective library
-that they depend on needs to be cloned in the same parent folder as this one.
-
-This can be accomplished by executing one or both of the following commands in
-the parent directory.
-
- * `git clone git://github.com/johannilsson/android-actionbar.git`
- * `git clone git://github.com/hameno/GreenDroid.git`
+that they depend on needs to be downloaded. This can be done automatically by
+executing `python dependencies.py` in the `samples` directory.
 
 You can also download pre-built .apks for each of these samples from the
 [project download page][11] for demonstration.
