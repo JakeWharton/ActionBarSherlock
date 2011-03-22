@@ -32,6 +32,9 @@ Version 2.1.0 *(In Development)*
    items and callback listener. Third-party action bar handlers should
    implement `ActionBarSherlock.DropDownHandler` for this functionality.
  * Javadocs are now available at [jakewharton.github.com/ActionBarSherlock][2].
+ * A standalone JAR is now available via the [GitHub downloads page][3] or in my
+   [personal maven repository][4] as
+   `com.jakewharton:android-actionbarsherlock:2.1.0`.
 
 
 Version 2.0.1 *(2011-03-11)*
@@ -62,3 +65,5 @@ Initial release.
 
  [1]: http://android-developers.blogspot.com/2011/03/fragments-for-all.html
  [2]: http://jakewharton.github.com/ActionBarSherlock/
+ [3]: https://github.com/JakeWharton/ActionBarSherlock/downloads
+ [4]: http://repository.jakewharton.com
