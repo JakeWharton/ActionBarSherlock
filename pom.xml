@@ -24,13 +24,13 @@
 		<snapshotRepository>
 			<id>personal-repository</id>
 			<name>JakeWharton.com Maven Repository</name>
-			<url>scp://masseria.dreamhost.com/home/jakewharton_repository/repository.jakewharton.com</url>
+			<url>scp://masseria.dreamhost.com/home/jakewharton_repository/snapshots.repository.jakewharton.com</url>
 		</snapshotRepository>
 	</distributionManagement>
 
 	<modules>
 		<module>library</module>
-		
+
 		<module>sample-android_actionbar</module>
 		<module>sample-greendroid</module>
 		<module>sample-shakespeare</module>
