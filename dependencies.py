@@ -14,7 +14,7 @@ dependencies = [
         'name': 'greendroid',
         'user': 'hameno',
         'repo': 'GreenDroid',
-        'sha' : 'b96aa400e31d386b7afd2dc6eee14ca42b2a22ae',
+        'sha' : '63eae89e17524dba33328685ca65fb19e05bf715',
         'path': 'GreenDroid',
     },
 ]
