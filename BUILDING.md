@@ -2,16 +2,26 @@ Building ActionBarSherlock
 ==========================
 
 The `ActionBarSherlock` library along with its sample applications are all built
-using Apache Maven as well as Git for dependencies.
+using Apache Maven as well as Git for dependencies. Maven will automate the
+process of compiling and assembling the JAR and APKs for each project.
 
-Maven will automate the process of compiling and assembling the JAR and APKs for
-each project. If you want to use a development environment such as Eclipse, each
-folder still maintains the standard Android project layout. By specifying the
-desired folder as an existing source for a new Android project, you should be
-able to successfully import the sources.
 
-If you are working on a sample, you will still need to set up a project for the
-library as well as one for the third-party action bar library, if needed.
+IDE
+---
+
+If you want to use the Eclipse development environment the easiest route is to
+import the root of the repository as a Maven project. Eclipse will automatically
+detect and import the library as well as all of the samples as individual
+projects with their correct dependencies.
+
+Make sure you have the latest version of the [m2eclipse plugin][1] installed as
+well as [m2eclipse-android-integration][2].
+
+Alternatively, each folder within the repository still maintains the standard
+Android project layout. By specifying the desired folder as an existing source
+for a new Android project, you should be able to successfully import the
+sources. With this method you will have to resolve any missing dependencies
+manually, however.
 
 
 Prerequisites
@@ -19,7 +29,7 @@ Prerequisites
 
 Maven compilation requires that you have installed the Android SDK as well as
 the compatibility library into your local maven repository. This can be done
-automatically by the [SDK Deployer][1].
+automatically by the [SDK Deployer][3].
 
 Follow the instructions on setting up the SDK Deployer and then execute the
 following command in the SDK Deployer folder:
@@ -56,4 +66,6 @@ will compile a website of the documentation in the
 
 
 
- [1]: https://github.com/mosabua/maven-android-sdk-deployer
+ [1]: http://m2eclipse.sonatype.org/
+ [2]: http://code.google.com/a/eclipselabs.org/p/m2eclipse-android-integration/
+ [3]: https://github.com/mosabua/maven-android-sdk-deployer
