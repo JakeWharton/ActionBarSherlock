@@ -17,6 +17,12 @@
 	
 	<dependencies>
 		<dependency>
+			<groupId>android</groupId>
+			<artifactId>android</artifactId>
+			<version>${android.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
 			<groupId>android.support</groupId>
 			<artifactId>V4</artifactId>
 			<version>4</version>

@@ -17,6 +17,13 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>android</groupId>
+			<artifactId>android</artifactId>
+			<version>${android.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
 			<groupId>com.jakewharton</groupId>
 			<artifactId>android-actionbarsherlock</artifactId>
 			<version>${project.version}</version>

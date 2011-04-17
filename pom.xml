@@ -82,15 +82,6 @@
 		<maven-android.version>2.9.0-beta-4</maven-android.version>
 	</properties>
 
-	<dependencies>
-		<dependency>
-			<groupId>android</groupId>
-			<artifactId>android</artifactId>
-			<version>${android.version}</version>
-			<scope>provided</scope>
-		</dependency>
-	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
