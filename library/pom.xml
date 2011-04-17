@@ -5,16 +5,16 @@
 
 	<groupId>com.jakewharton</groupId>
 	<artifactId>android-actionbarsherlock</artifactId>
-	<name>Library</name>
+	<name>ActionBarSherlock</name>
 	<packaging>jar</packaging>
 
 	<parent>
 		<groupId>com.jakewharton</groupId>
-		<artifactId>root</artifactId>
+		<artifactId>android-actionbarsherlock-parent</artifactId>
 		<version>2.1.2-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-
+	
 	<dependencies>
 		<dependency>
 			<groupId>android.support</groupId>

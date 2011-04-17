@@ -4,16 +4,49 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.jakewharton</groupId>
-	<artifactId>root</artifactId>
-	<version>2.1.2-SNAPSHOT</version>
-	<name>ActionBarSherlock</name>
+	<artifactId>android-actionbarsherlock-parent</artifactId>
 	<packaging>pom</packaging>
+	<version>2.1.2-SNAPSHOT</version>
+
+	<name>ActionBarSherlock (Parent)</name>
+	<description>Android library for implementing the action bar design pattern using the native ActionBar on 3.0+ and a third-party library on pre-3.0.</description>
+	<url>https://github.com/JakeWharton/ActionBarSherlock</url>
+	<inceptionYear>2011</inceptionYear>
+
+	<modules>
+		<module>library</module>
+
+		<module>sample-android_actionbar</module>
+		<module>sample-greendroid</module>
+		<module>sample-shakespeare</module>
+	</modules>
 
 	<scm>
 		<url>http://github.com/JakeWharton/ActionBarSherlock/</url>
-		<connection>scm:git:git@github.com:JakeWharton/ActionBarSherlock.git</connection>
+		<connection>scm:git:git://github.com/JakeWharton/ActionBarSherlock.git</connection>
 		<developerConnection>scm:git:git@github.com:JakeWharton/ActionBarSherlock.git</developerConnection>
 	</scm>
+	
+	<developers>
+		<developer>
+			<name>Jake Wharton</name>
+			<email>jakewharton@gmail.com</email>
+			<id>jakewharton</id>
+			<url>http://jakewharton.com</url>
+			<timezone>-5</timezone>
+			<roles>
+				<role>developer</role>
+			</roles>
+		</developer>
+	</developers>
+	
+	<licenses>
+		<license>
+			<name>Apache License Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
 
 	<distributionManagement>
 		<repository>
@@ -28,13 +61,15 @@
 		</snapshotRepository>
 	</distributionManagement>
 
-	<modules>
-		<module>library</module>
+	<organization>
+		<name>Jake Wharton</name>
+		<url>http://jakewharton.com</url>
+	</organization>
 
-		<module>sample-android_actionbar</module>
-		<module>sample-greendroid</module>
-		<module>sample-shakespeare</module>
-	</modules>
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/JakeWharton/ActionBarSherlock/issues</url>
+	</issueManagement>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -84,6 +119,9 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
 				<version>2.1</version>
+				<configuration>
+					<autoVersionSubmodules>true</autoVersionSubmodules>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
