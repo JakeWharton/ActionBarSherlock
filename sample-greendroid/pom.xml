@@ -31,7 +31,7 @@
 		<dependency>
 			<groupId>com.github</groupId>
 			<artifactId>hameno-greendroid</artifactId>
-			<version>0.0.0</version>
+			<version>0.0.0-63eae89</version>
 			<type>apklib</type>
 		</dependency>
 	</dependencies>

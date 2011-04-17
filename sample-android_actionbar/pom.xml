@@ -31,7 +31,7 @@
 		<dependency>
 			<groupId>com.github</groupId>
 			<artifactId>johannilsson-android-actionbar</artifactId>
-			<version>0.0.0</version>
+			<version>0.0.0-9df99aa</version>
 			<type>apklib</type>
 		</dependency>
 	</dependencies>

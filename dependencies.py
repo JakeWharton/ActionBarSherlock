@@ -55,7 +55,7 @@ for dependency in dependencies:
         'mvn', 'install:install-file',
         '-Dfile=' + zip_name,
         '-DgroupId=com.github', '-DartifactId=' + dependency['user'] + '-' + dependency['name'],
-        '-Dversion=0.0.0',
+        '-Dversion=0.0.0-' + dependency['sha'][:7],
         '-Dpackaging=apklib',
     ], cwd=vendor_dir).wait()
 
