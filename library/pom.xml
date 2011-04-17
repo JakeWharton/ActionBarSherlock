@@ -47,13 +47,9 @@
 								<type>jar</type>
 							</types>
 						</configuration>
-						<executions>
-							<execution>
-								<goals>
-									<goal>deploy</goal>
-								</goals>
-							</execution>
-						</execution>
+						<goals>
+							<goal>deploy</goal>
+						</goals>
 					</plugin>
 				</plugins>
 			</build>
