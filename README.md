@@ -17,8 +17,8 @@ inner-classes.
 Examples of third-party implementations can be found in the `samples/` folder
 of this repository.
 
-`ActionBarSherlock` is also 100% compatible with the [Fragments][2] API, both
-natively and using the [compatability package][3].
+`ActionBarSherlock` is also 100% compatible with the [Fragments][2] API using
+the [compatability package][3].
 
 ![Example Image][4]
 
