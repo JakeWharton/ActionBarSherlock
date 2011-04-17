@@ -25,13 +25,38 @@
 
 	<build>
 		<sourceDirectory>src</sourceDirectory>
-		
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.7</version>
-			</plugin>
-		</plugins>
 	</build>
+	
+	<profiles>
+		<profile>
+			<id>release-sign-artifacts</id>
+			<activation>
+				<property>
+					<name>performRelease</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.jakewharton</groupId>
+						<artifactId>github-deploy-maven-plugin</artifactId>
+						<version>1.0.1</version>
+						<configuration>
+							<types>
+								<type>jar</type>
+							</types>
+						</configuration>
+						<executions>
+							<execution>
+								<goals>
+									<goal>deploy</goal>
+								</goals>
+							</execution>
+						</execution>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
