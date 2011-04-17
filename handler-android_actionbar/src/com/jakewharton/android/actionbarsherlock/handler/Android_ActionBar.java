@@ -1,4 +1,4 @@
-package com.jakewharton.android.actionbarsherlock.sample.shakespeare;
+package com.jakewharton.android.actionbarsherlock.handler;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -13,15 +13,14 @@ import com.jakewharton.android.actionbarsherlock.ActionBarMenuItem;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.ActionBarHandler;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HomeAsUpHandler;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.MenuHandler;
-import com.jakewharton.android.actionbarsherlock.sample.shakespeare.R;
 import com.markupartist.android.widget.ActionBar;
 
 /**
  * Container class. See {@link Handler}.
  */
-public final class ActionBarForAndroidActionBar {
+public final class Android_ActionBar {
 	//No instances
-	private ActionBarForAndroidActionBar() {}
+	private Android_ActionBar() {}
 	
 	/**
 	 * Implementation for using Android-ActionBar as a third-party fallback
@@ -65,7 +64,7 @@ public final class ActionBarForAndroidActionBar {
 		 */
 		private void initialize() {
 			this.getActivity().requestWindowFeature(Window.FEATURE_NO_TITLE);
-			this.getActivity().setContentView(R.layout.actionbarforandroid);
+			this.getActivity().setContentView(R.layout.android_actionbar);
 			
 			//Add home action
 			ActionBarMenuItem home = new ActionBarMenuItem(this.getActivity(), android.R.id.home, 0, 0, null);

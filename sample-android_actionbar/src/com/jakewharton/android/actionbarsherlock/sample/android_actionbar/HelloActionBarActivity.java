@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock;
+import com.jakewharton.android.actionbarsherlock.handler.Android_ActionBar;
 
 public class HelloActionBarActivity extends ActionBarSherlock.Activity {
 	@Override
@@ -16,7 +17,7 @@ public class HelloActionBarActivity extends ActionBarSherlock.Activity {
 			.menu(R.menu.hello)
 			.homeAsUp(true)
 			.title(R.string.hello)
-			.handleCustom(ActionBarForAndroidActionBar.Handler.class)
+			.handleCustom(Android_ActionBar.Handler.class)
 			.attach();
 	}
 

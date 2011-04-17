@@ -2,6 +2,7 @@ package com.jakewharton.android.actionbarsherlock.sample.greendroid;
 
 import greendroid.widget.GDActionBarItem;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock;
+import com.jakewharton.android.actionbarsherlock.handler.GreenDroid;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -21,9 +22,9 @@ public class HelloActionBarActivity extends Activity {
 		ActionBarSherlock.from(this)
 			.with(savedInstanceState)
 			.layout(R.layout.activity_hello)
-		    .title("Hello, ActionBar!")
+			.title("Hello, ActionBar!")
 			.handleNative(HelloNativeActionBarHandler.class)
-		    .handleCustom(HelloGreenDroidActionBarHandler.class)
+			.handleCustom(HelloGreenDroidActionBarHandler.class)
 			.attach();
 	}
 
@@ -60,7 +61,7 @@ public class HelloActionBarActivity extends Activity {
 	 * Extension of the GreenDroid action bar handler which allows us to
 	 * display a {@link android.widget.Toast} upon successful attachment.
 	 */
-	public static final class HelloGreenDroidActionBarHandler extends GreenDroidActionBar.Handler {
+	public static final class HelloGreenDroidActionBarHandler extends GreenDroid.Handler {
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
 			this.getActionBar().addItem(GDActionBarItem.Type.Compose);

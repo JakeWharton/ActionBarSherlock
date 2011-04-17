@@ -4,9 +4,9 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.jakewharton</groupId>
-	<artifactId>android-actionbarsherlock-sample-android_actionbar</artifactId>
-	<name>Sample: Android-ActionBar</name>
-	<packaging>apk</packaging>
+	<artifactId>android-actionbarsherlock-handler-greendroid</artifactId>
+	<name>Handler: GreenDroid</name>
+	<packaging>apklib</packaging>
 
 	<parent>
 		<groupId>com.jakewharton</groupId>
@@ -29,9 +29,9 @@
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.jakewharton</groupId>
-			<artifactId>android-actionbarsherlock-handler-android_actionbar</artifactId>
-			<version>${project.version}</version>
+			<groupId>com.github</groupId>
+			<artifactId>hameno-greendroid</artifactId>
+			<version>0.0.0-63eae89</version>
 			<type>apklib</type>
 		</dependency>
 	</dependencies>
@@ -57,7 +57,7 @@
 						<version>1.0.1</version>
 						<configuration>
 							<types>
-								<type>apk</type>
+								<type>apklib</type>
 							</types>
 						</configuration>
 						<goals>

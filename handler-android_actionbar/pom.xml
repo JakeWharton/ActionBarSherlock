@@ -4,9 +4,9 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.jakewharton</groupId>
-	<artifactId>android-actionbarsherlock-sample-android_actionbar</artifactId>
-	<name>Sample: Android-ActionBar</name>
-	<packaging>apk</packaging>
+	<artifactId>android-actionbarsherlock-handler-android_actionbar</artifactId>
+	<name>Handler: Android-ActionBar</name>
+	<packaging>apklib</packaging>
 
 	<parent>
 		<groupId>com.jakewharton</groupId>
@@ -22,16 +22,15 @@
 			<version>${android.version}</version>
 			<scope>provided</scope>
 		</dependency>
-		
 		<dependency>
 			<groupId>com.jakewharton</groupId>
 			<artifactId>android-actionbarsherlock</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.jakewharton</groupId>
-			<artifactId>android-actionbarsherlock-handler-android_actionbar</artifactId>
-			<version>${project.version}</version>
+			<groupId>com.github</groupId>
+			<artifactId>johannilsson-android-actionbar</artifactId>
+			<version>0.0.0-9df99aa</version>
 			<type>apklib</type>
 		</dependency>
 	</dependencies>
@@ -57,7 +56,7 @@
 						<version>1.0.1</version>
 						<configuration>
 							<types>
-								<type>apk</type>
+								<type>apklib</type>
 							</types>
 						</configuration>
 						<goals>

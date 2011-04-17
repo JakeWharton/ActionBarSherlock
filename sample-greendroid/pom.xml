@@ -29,9 +29,9 @@
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.github</groupId>
-			<artifactId>hameno-greendroid</artifactId>
-			<version>0.0.0-63eae89</version>
+			<groupId>com.jakewharton</groupId>
+			<artifactId>android-actionbarsherlock-handler-greendroid</artifactId>
+			<version>${project.version}</version>
 			<type>apklib</type>
 		</dependency>
 	</dependencies>

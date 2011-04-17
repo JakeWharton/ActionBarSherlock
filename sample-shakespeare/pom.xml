@@ -29,9 +29,9 @@
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.github</groupId>
-			<artifactId>johannilsson-android-actionbar</artifactId>
-			<version>0.0.0-9df99aa</version>
+			<groupId>com.jakewharton</groupId>
+			<artifactId>android-actionbarsherlock-handler-android_actionbar</artifactId>
+			<version>${project.version}</version>
 			<type>apklib</type>
 		</dependency>
 	</dependencies>

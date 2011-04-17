@@ -1,4 +1,4 @@
-package com.jakewharton.android.actionbarsherlock.sample.greendroid;
+package com.jakewharton.android.actionbarsherlock.handler;
 
 import greendroid.widget.GDActionBar;
 import greendroid.widget.NormalActionBarItem;
@@ -16,9 +16,9 @@ import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.MenuHandler;
 /**
  * Container class. See {@link Handler}.
  */
-public final class GreenDroidActionBar {
+public final class GreenDroid {
 	//No instances
-	private GreenDroidActionBar() {}
+	private GreenDroid() {}
 	
 
 	/**
