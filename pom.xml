@@ -79,7 +79,7 @@
 		<android.version>3.0_r1</android.version>
 		<android.platform>11</android.platform>
 
-		<maven-android.version>2.9.0-beta-2</maven-android.version>
+		<maven-android.version>2.9.0-beta-4</maven-android.version>
 	</properties>
 
 	<dependencies>
