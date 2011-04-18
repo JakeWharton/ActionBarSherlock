@@ -3,7 +3,8 @@ Building ActionBarSherlock
 
 The `ActionBarSherlock` library along with its sample applications are all built
 using Apache Maven as well as Git for dependencies. Maven will automate the
-process of compiling and assembling the JAR and APKs for each project.
+process of compiling and assembling the `jar`, `apklib`s, and `apk`s for each
+project.
 
 
 IDE
@@ -11,8 +12,8 @@ IDE
 
 If you want to use the Eclipse development environment the easiest route is to
 import the root of the repository as a Maven project. Eclipse will automatically
-detect and import the library as well as all of the samples as individual
-projects with their correct dependencies.
+detect and import the library as well as all of the handlers and samples as
+individual projects with their correct dependencies.
 
 Make sure you have the latest version of the [m2eclipse plugin][1] installed as
 well as [m2eclipse-android-integration][2].
@@ -23,6 +24,9 @@ for a new Android project, you should be able to successfully import the
 sources. With this method you will have to resolve any missing dependencies
 manually, however.
 
+This should just consist of creating new Android projects using the existing
+sources for each dependency.
+
 
 Prerequisites
 -------------
@@ -31,8 +35,9 @@ Maven compilation requires that you have installed the Android SDK as well as
 the compatibility library into your local maven repository. This can be done
 automatically by the [SDK Deployer][3].
 
-Follow the instructions on setting up the SDK Deployer and then execute the
-following command in the SDK Deployer folder:
+Follow the instructions on setting up the SDK Deployer. Make sure you have the
+3.0 SDK, the Google APIs of the same revision, and the compatibility add-on.
+Then, execute the following command in the SDK Deployer folder:
 
     mvn install -P 3.0
 
@@ -53,7 +58,7 @@ Once the prerequisites have been successfully installed, building is as easy
 as running `mvn clean package`. The final JAR will be located in the
 `library/target/` folder.
 
-APKs for the samples are their respective `target/` folders.
+`apk`s for the samples are their respective `target/` folders.
 
 
 Javadoc Generation
