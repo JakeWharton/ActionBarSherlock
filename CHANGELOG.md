@@ -15,6 +15,8 @@ Version 2.1.2 *(In Development)*
    > to implement a custom interface with your interaction methods in both the
    > native and custom handlers and then cast this return value to your
    > interface.
+ * If a title is not explicitly specified, the library will attempt to load the
+   `name` attribute of the corresponding `<activity>` entry in the manifest.
 
 
 Version 2.1.1 *(2011-03-21)*

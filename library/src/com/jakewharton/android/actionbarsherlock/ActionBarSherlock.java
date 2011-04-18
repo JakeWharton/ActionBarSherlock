@@ -466,7 +466,13 @@ public final class ActionBarSherlock {
 			}
 		}
 		
-		//Set the title, if specified
+		//Try to load the title from the activity's manifest entry if missing
+		if (this.mTitle == null) {
+			try {
+				this.mTitle = this.mActivity.getPackageManager().getActivityInfo(this.mActivity.getComponentName(), 0).name;
+			} catch (NameNotFoundException e) {}
+		}
+		//Set the title, if specified or found in the manifest
 		if (this.mTitle != null) {
 			handler.setTitle(this.mTitle);
 		}
