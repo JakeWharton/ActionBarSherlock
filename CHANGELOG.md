@@ -1,6 +1,22 @@
 Change Log
 ===============================================================================
 
+Version 2.1.2 *(In Development)*
+--------------------------------
+
+ * The `attach()` method will now return the instance of the selected handler.
+   This will allow for asynchronous interaction with the action bar rather than
+   only through methods and callbacks in the appropriate handler.
+   
+   Snippet from the `attach()` JavaDoc regarding returned instance:
+   
+   > **Interacting with this instance directly should be considered highly
+   > volatile and is not encouraged.** The recommended method of interaction is
+   > to implement a custom interface with your interaction methods in both the
+   > native and custom handlers and then cast this return value to your
+   > interface.
+
+
 Version 2.1.1 *(2011-03-21)*
 ----------------------------
 

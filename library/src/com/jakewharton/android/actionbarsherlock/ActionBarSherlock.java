@@ -400,10 +400,19 @@ public final class ActionBarSherlock {
 	}
 	
 	/**
-	 * Perform the attachment to the activity and execute the appropriate
-	 * onCreate callback to a handler.
+	 * <p>Perform the attachment to the activity and execute the appropriate
+	 * onCreate callback to a handler.</p>
+	 * 
+	 * <p>This method will return an instance of the appropriate handler based
+	 * on the Android version. <strong>Interacting with this instance directly
+	 * should be considered highly volatile and is not encouraged.</strong> The
+	 * recommended method of interaction is to implement a custom interface with
+	 * your interaction methods in both the native and custom handlers and then
+	 * cast this return value to your interface.</p>
+	 * 
+	 * @return Handler instance.
 	 */
-	public void attach() {
+	public ActionBarHandler<?> attach() {
 		assert this.mAttached == false : ERROR_ATTACHED;
 		assert (this.mLayoutResourceId != null)
 			|| (this.mView != null)
@@ -425,7 +434,7 @@ public final class ActionBarSherlock {
 				handler = this.mCustomHandler.newInstance();
 			} else {
 				this.attachDirectly();
-				return;
+				return null;
 			}
 		} catch (InstantiationException e) {
 			throw new RuntimeException(e);
@@ -491,6 +500,9 @@ public final class ActionBarSherlock {
 		
 		//Execute the onCreate callback for any additional setup
 		handler.onCreate(this.mSavedInstanceState);
+		
+		//Return handler instance to allow direct (yet abstracted) interaction
+		return handler;
 	}
 	
 	/**
