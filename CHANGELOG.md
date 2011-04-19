@@ -1,7 +1,7 @@
 Change Log
 ===============================================================================
 
-Version 2.1.2 *(In Development)*
+Version 3.0.0 *(In Development)*
 --------------------------------
 
  * The `attach()` method will now return the instance of the selected handler.
