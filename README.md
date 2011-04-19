@@ -88,8 +88,11 @@ the GreenDroid implementation._
 Other Resources
 ---------------
 
- * Git repository located at [github.com/JakeWharton/ActionBarSherlock][12].
- * Javadoc site located at [jakewharton.github.com/ActionBarSherlock][13].
+Questions, comments, and suggestions should be posted on the [Google Group][12]
+for Jake Wharton's projects.
+
+ * Git repository located at [github.com/JakeWharton/ActionBarSherlock][13].
+ * Javadoc site located at [jakewharton.github.com/ActionBarSherlock][14].
 
 
 
@@ -138,5 +141,6 @@ License
  [9]: https://github.com/hameno/GreenDroid
  [10]: https://github.com/johannilsson/android-actionbar
  [11]: https://github.com/JakeWharton/ActionBarSherlock/downloads
- [12]: https://github.com/JakeWharton/ActionBarSherlock/
- [13]: http://jakewharton.github.com/ActionBarSherlock/
+ [12]: https://groups.google.com/forum/#!forum/jakewharton-projects
+ [13]: https://github.com/JakeWharton/ActionBarSherlock/
+ [14]: http://jakewharton.github.com/ActionBarSherlock/
