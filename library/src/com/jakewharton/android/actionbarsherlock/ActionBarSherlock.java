@@ -16,6 +16,8 @@
 
 package com.jakewharton.android.actionbarsherlock;
 
+import java.util.LinkedList;
+import java.util.List;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -100,6 +102,7 @@ public final class ActionBarSherlock {
 	private static final String ERROR_MENU = "A menu has already been specified.";
 	private static final String ERROR_MENU_HANDLER = "Handler does not implement the ActionBarSherlock.MenuHandler interface.";
 	private static final String ERROR_MENU_ZERO = "Menu ID must not be zero.";
+	private static final String ERROR_TAB_HANDLER = "Handler does not implement the ActionBarSherlock.TabHandler interface.";
 	private static final String ERROR_TITLE = "A title has already been specified.";
 	private static final String ERROR_TITLE_NULL = "Title must not be null.";
 	
@@ -166,6 +169,11 @@ public final class ActionBarSherlock {
 	private OnNavigationListener mDropDownListener;
 	
 	/**
+	 * List of tabs to be added to the action bar.
+	 */
+	private List<ActionBarTab> mTabs;
+	
+	/**
 	 * The class which will handle the native action bar.
 	 */
 	private Class<? extends NativeActionBarHandler> mNativeHandler;
@@ -204,6 +212,7 @@ public final class ActionBarSherlock {
 		//Defaults
 		this.mAttached = false;
 		this.mUseLogo = false;
+		this.mTabs = new LinkedList<ActionBarTab>();
 	}
 	
 	
@@ -365,6 +374,22 @@ public final class ActionBarSherlock {
 	}
 	
 	/**
+	 * Add tabs to the action bar.
+	 * 
+	 * @param tabs Tabs to add.
+	 * @return Current instance for builder pattern.
+	 */
+	public ActionBarSherlock tab(ActionBarTab... tabs) {
+		assert this.mAttached == false : ERROR_ATTACHED;
+		assert this.mActivity instanceof SherlockActivity : ERROR_ACTIVITY_SHERLOCK;
+		
+		for (ActionBarTab tab : tabs) {
+			this.mTabs.add(tab);
+		}
+		return this;
+	}
+	
+	/**
 	 * Class to use for handling the native action bar creation.
 	 * 
 	 * @param handler Class which extends {@link NativeActionBarHandler}. If
@@ -501,6 +526,15 @@ public final class ActionBarSherlock {
 				((HomeAsUpHandler)handler).useHomeAsUp();
 			} else {
 				throw new IllegalStateException(ERROR_HOMEASUP_HANDLER);
+			}
+		}
+		
+		//If there are tabs pass them to the handler for setup
+		if (this.mTabs.size() > 0) {
+			if (handler instanceof TabHandler) {
+				((TabHandler)handler).setTabs(this.mTabs);
+			} else {
+				throw new IllegalStateException(ERROR_TAB_HANDLER);
 			}
 		}
 		
@@ -731,7 +765,7 @@ public final class ActionBarSherlock {
 	/**
 	 * Minimal handler for Android's native {@link android.app.ActionBar}.
 	 */
-	public static class NativeActionBarHandler extends ActionBarHandler<android.app.ActionBar> implements DropDownHandler, LogoHandler, MenuHandler, HomeAsUpHandler {
+	public static class NativeActionBarHandler extends ActionBarHandler<android.app.ActionBar> implements DropDownHandler, LogoHandler, MenuHandler, HomeAsUpHandler, TabHandler, android.app.ActionBar.TabListener {
 		@Override
 		public final android.app.ActionBar initialize(int layoutResourceId) {
 			this.getActivity().setContentView(layoutResourceId);
@@ -759,7 +793,7 @@ public final class ActionBarSherlock {
 		}
 
 		@Override
-		public void useHomeAsUp() {
+		public final void useHomeAsUp() {
 			this.getActionBar().setDisplayHomeAsUpEnabled(true);
 		}
 		
@@ -780,11 +814,51 @@ public final class ActionBarSherlock {
 		}
 
 		@Override
-		public void setMenuResourceId(int menuResourceId) {
-			//FYI: instanceof IsSherlockActivity was checked in ActionBarSherlock#menu(int)
+		public final void setMenuResourceId(int menuResourceId) {
+			//FYI: instanceof SherlockActivity was checked in ActionBarSherlock#menu(int)
 			SherlockActivity activity = (SherlockActivity)this.getActivity();
 			//Delegate inflation to the activity for native implementation
 			activity.setActionBarMenu(menuResourceId);
+		}
+		
+		@Override
+		public final void setTabs(List<ActionBarTab> tabs) {
+			//Set the natigation mode to tabs
+			this.getActionBar().setNavigationMode(android.app.ActionBar.NAVIGATION_MODE_TABS);
+			//Wrap all of our ActionBarTabs in a native ActionBar.Tab and add to ActionBar
+			for (ActionBarTab tab : tabs) {
+				this.getActionBar().addTab(
+						this.getActionBar().newTab()
+								.setTabListener(this)
+								.setIcon(tab.getIcon())
+								.setText(tab.getText())
+								.setTag(tab) //Unwrapped in callbacks below
+				);
+			}
+		}
+
+		@Override
+		public final void onTabReselected(android.app.ActionBar.Tab tab, android.app.FragmentTransaction transaction) {
+			//FYI: instanceof SherlockActivity was checked in ActionBarSherlock#tab(ActionBarTab)
+			SherlockActivity activity = (SherlockActivity)this.getActivity();
+			//Delegate tab reselection handling to our common API
+			activity.onTabReselected((ActionBarTab)tab.getTag());
+		}
+
+		@Override
+		public final void onTabSelected(android.app.ActionBar.Tab tab, android.app.FragmentTransaction transaction) {
+			//FYI: instanceof SherlockActivity was checked in ActionBarSherlock#tab(ActionBarTab)
+			SherlockActivity activity = (SherlockActivity)this.getActivity();
+			//Delegate tab selection handling to our common API
+			activity.onTabSelected((ActionBarTab)tab.getTag());
+		}
+
+		@Override
+		public final void onTabUnselected(android.app.ActionBar.Tab tab, android.app.FragmentTransaction transaction) {
+			//FYI: instanceof SherlockActivity was checked in ActionBarSherlock#tab(ActionBarTab)
+			SherlockActivity activity = (SherlockActivity)this.getActivity();
+			//Delegate tab unselection handling to our common API
+			activity.onTabUnselected((ActionBarTab)tab.getTag());
 		}
 	}
 	
@@ -852,6 +926,20 @@ public final class ActionBarSherlock {
 	
 	
 	/**
+	 * Interface which denotes a handler supports the adding of tabs to its
+	 * action bar.
+	 */
+	public static interface TabHandler {
+		/**
+		 * List of tabs which should be added to the action bar.
+		 * 
+		 * @param tabs Tab list.
+		 */
+		public void setTabs(List<ActionBarTab> tabs);
+	}
+	
+	
+	/**
 	 * <p>Listener interface for ActionBar navigation events.</p>
 	 * 
 	 * <p>Emulates {@link android.app.ActionBar.OnNavigationListener}.</p>
@@ -880,6 +968,29 @@ public final class ActionBarSherlock {
 		 * @param menuResourceId Resource ID of menu XML.
 		 */
 		void setActionBarMenu(int menuResourceId);
+		
+		/**
+		 * Called when a tab that is already selected is chosen again by the
+		 * user. Some applications may use this action to return to the top
+		 * level of a category.
+		 * 
+		 * @param tab The tab that was reselected.
+		 */
+		void onTabReselected(ActionBarTab tab);
+		
+		/**
+		 * Called when a tab enters the selected state.
+		 * 
+		 * @param tab The tab that was selected.
+		 */
+		void onTabSelected(ActionBarTab tab);
+		
+		/**
+		 * Called when a tab exits the selected state.
+		 * 
+		 * @param tab The tab that was unselected.
+		 */
+		void onTabUnselected(ActionBarTab tab);
 	}
 	
 	
@@ -906,6 +1017,22 @@ public final class ActionBarSherlock {
 				return true;
 			}
 			return false;
+		}
+
+		
+		@Override
+		public void onTabReselected(ActionBarTab tab) {
+			//Grumble, grumble... OVERRIDE ME!
+		}
+
+		@Override
+		public void onTabSelected(ActionBarTab tab) {
+			//Grumble, grumble... OVERRIDE ME!
+		}
+
+		@Override
+		public void onTabUnselected(ActionBarTab tab) {
+			//Grumble, grumble... OVERRIDE ME!
 		}
 	}
 	
@@ -938,6 +1065,21 @@ public final class ActionBarSherlock {
 			}
 			return false;
 		}
+		
+		@Override
+		public void onTabReselected(ActionBarTab tab) {
+			//Grumble, grumble... OVERRIDE ME!
+		}
+		
+		@Override
+		public void onTabSelected(ActionBarTab tab) {
+			//Grumble, grumble... OVERRIDE ME!
+		}
+		
+		@Override
+		public void onTabUnselected(ActionBarTab tab) {
+			//Grumble, grumble... OVERRIDE ME!
+		}
 	}
 	
 	/**
@@ -964,6 +1106,21 @@ public final class ActionBarSherlock {
 				return true;
 			}
 			return false;
+		}
+		
+		@Override
+		public void onTabReselected(ActionBarTab tab) {
+			//Grumble, grumble... OVERRIDE ME!
+		}
+		
+		@Override
+		public void onTabSelected(ActionBarTab tab) {
+			//Grumble, grumble... OVERRIDE ME!
+		}
+		
+		@Override
+		public void onTabUnselected(ActionBarTab tab) {
+			//Grumble, grumble... OVERRIDE ME!
 		}
 	}
 }

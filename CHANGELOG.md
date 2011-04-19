@@ -17,6 +17,12 @@ Version 2.1.2 *(In Development)*
    > interface.
  * If a title is not explicitly specified, the library will attempt to load the
    `name` attribute of the corresponding `<activity>` entry in the manifest.
+ * New API method: `tab(ActionBarTab)`. This will provide the tabbed navigation
+   to the action bar. In order to use this feature your activity will need to
+   extend from one of the activity helper-classes of `ActionBarSherlock`. This
+   feature also requires that your custom handler implements the
+   `ActionBarSherlock.TabHandler` interface. (The native handler already has an
+   implementation)
 
 
 Version 2.1.1 *(2011-03-21)*
