@@ -1337,7 +1337,7 @@ public final class ActionBarSherlock {
 	/**
 	 * Interface of helper methods implemented by all helper classes.
 	 */
-	private interface SherlockActivity {
+	private static interface SherlockActivity {
 		/**
 		 * Set the menu XML resource ID for inflation to the native action bar.
 		 * If a third-party action bar is being used it will be automatically
