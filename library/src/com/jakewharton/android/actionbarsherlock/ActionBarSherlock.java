@@ -79,31 +79,33 @@ public final class ActionBarSherlock {
 	private static final String ERROR_ACTIVITY_NULL = "Activity must not be null.";
 	private static final String ERROR_ACTIVITY_FRAGMENT = "Activity must extend from android.support.v4.app.Fragment.";
 	private static final String ERROR_ACTIVITY_SHERLOCK = "Activity must extend from one of the base classes within ActionBarSherlock.";
+	private static final String ERROR_ACTIVITY_TAB_LISTENER = "Activity must implement the ActionBarSherlock.TabListener interface.";
 	private static final String ERROR_ATTACHED = "Sherlock has already been attached to the activity.";
 	private static final String ERROR_BUNDLE = "A Bundle has already been specified.";
 	private static final String ERROR_DROPDOWN_ADAPTER = "A drop-down adapter has already been specified.";
 	private static final String ERROR_DROPDOWN_ADAPTER_NULL = "Drop-down adapter must not be null.";
-	private static final String ERROR_DROPDOWN_HANDLER = "Handler does not implement the ActionBarSherlock.DropDownHandler interface.";
+	private static final String ERROR_DROPDOWN_HANDLER = "Handler does not implement the ActionBarSherlock.HasListNavigation interface.";
 	private static final String ERROR_DROPDOWN_LISTENER = "A drop-down listener has already been specified.";
 	private static final String ERROR_DROPDOWN_LISTENER_NULL = "Drop-down listener must not be null.";
 	private static final String ERROR_HANDLER_CUSTOM = "A custom handler has already been specified.";
 	private static final String ERROR_HANDLER_CUSTOM_NULL = "Custom handler must not be null.";
 	private static final String ERROR_HANDLER_NATIVE = "A native handler has already been specified.";
 	private static final String ERROR_HANDLER_NATIVE_NULL = "Native handler must not be null.";
-	private static final String ERROR_HOMEASUP_HANDLER = "Handler does not implement ActionBarSherlock.HomeAsUpHandler interface.";
+	private static final String ERROR_HOMEASUP_HANDLER = "Handler does not implement ActionBarSherlock.HasHomeAsUp interface.";
 	private static final String ERROR_LAYOUT_FRAGMENT = "A layout fragment has already been specified.";
 	private static final String ERROR_LAYOUT_ID = "A layout ID has already been specified.";
 	private static final String ERROR_LAYOUT_NULL = "Layout must not be null.";
 	private static final String ERROR_LAYOUT_VIEW = "A layout view has already been specified.";
 	private static final String ERROR_LAYOUT_ZERO = "Layout ID must not be zero.";
 	private static final String ERROR_LAYOUTS_NULL = "At least one type of layout must be specified.";
-	private static final String ERROR_LOGO_HANDLER = "Handler does not implement the ActionBarSherlock.LogoHandler interface.";
+	private static final String ERROR_LOGO_HANDLER = "Handler does not implement the ActionBarSherlock.HasLogo interface.";
 	private static final String ERROR_LOGO_MISSING = "Neither the activity nor the application entry in the manifest contains a logo.";
 	private static final String ERROR_MENU = "A menu has already been specified.";
-	private static final String ERROR_MENU_HANDLER = "Handler does not implement the ActionBarSherlock.MenuHandler interface.";
+	private static final String ERROR_MENU_HANDLER = "Handler does not implement the ActionBarSherlock.HasMenu interface.";
 	private static final String ERROR_MENU_ZERO = "Menu ID must not be zero.";
-	private static final String ERROR_TAB_HANDLER = "Handler does not implement the ActionBarSherlock.TabHandler interface.";
+	private static final String ERROR_TAB_HANDLER = "Handler does not implement the ActionBarSherlock.HasTabNavigation interface.";
 	private static final String ERROR_TITLE = "A title has already been specified.";
+	private static final String ERROR_TITLE_HANDLER = "Handler does not implement the ActionBarSherlock.HasTitle interface";
 	private static final String ERROR_TITLE_NULL = "Title must not be null.";
 	
 	
@@ -149,6 +151,11 @@ public final class ActionBarSherlock {
 	private Integer mMenuResourceId;
 	
 	/**
+	 * Callback listener for when the menu visibility changes.
+	 */
+	private OnMenuVisibilityListener mMenuListener;
+	
+	/**
 	 * Whether or not home should be displayed as an "up" affordance.
 	 */
 	private boolean mHomeAsUpEnabled;
@@ -159,14 +166,14 @@ public final class ActionBarSherlock {
 	private boolean mUseLogo;
 	
 	/**
-	 * List of items for drop-down navigation.
+	 * List of items for list navigation.
 	 */
-	private SpinnerAdapter mDropDownAdapter;
+	private SpinnerAdapter mListAdapter;
 	
 	/**
-	 * Callback listener for when a drop-down item is clicked.
+	 * Callback listener for when a list item is clicked.
 	 */
-	private OnNavigationListener mDropDownListener;
+	private OnNavigationListener mListListener;
 	
 	/**
 	 * List of tabs to be added to the action bar.
@@ -329,6 +336,27 @@ public final class ActionBarSherlock {
 	}
 	
 	/**
+	 * Resource ID of a menu to inflate as buttons onto the action bar. This
+	 * requires that the implementing activity class be extended from
+	 * {@link Activity}, {@link ListActivity}, or {@link FragmentActivity}.
+	 * 
+	 * @param menuResourceId ResourceID for menu XML.
+	 * @param listener Callback listener for when menu visibility changes.
+	 * @return Current instance for builder pattern.
+	 */
+	public ActionBarSherlock menu(int menuResourceId, OnMenuVisibilityListener listener) {
+		assert this.mAttached == false: ERROR_ATTACHED;
+		assert this.mMenuResourceId == null : ERROR_MENU;
+		assert this.mMenuListener == null : ERROR_MENU;
+		assert this.mActivity instanceof SherlockActivity : ERROR_ACTIVITY_SHERLOCK;
+		assert menuResourceId != 0 : ERROR_MENU_ZERO;
+		
+		this.mMenuResourceId = menuResourceId;
+		this.mMenuListener = listener;
+		return this;
+	}
+	
+	/**
 	 * Set home should be displayed as an "up" affordance.
 	 * 
 	 * @param enabled Whether or not this is enabled.
@@ -361,15 +389,15 @@ public final class ActionBarSherlock {
 	 * @param listener Callback listener for when an item is selected.
 	 * @return Current instance for builder pattern.
 	 */
-	public ActionBarSherlock dropDown(SpinnerAdapter adapter, OnNavigationListener listener) {
+	public ActionBarSherlock listNavigation(SpinnerAdapter adapter, OnNavigationListener listener) {
 		assert this.mAttached == false : ERROR_ATTACHED;
-		assert this.mDropDownAdapter == null : ERROR_DROPDOWN_ADAPTER;
-		assert this.mDropDownListener == null : ERROR_DROPDOWN_LISTENER;
+		assert this.mListAdapter == null : ERROR_DROPDOWN_ADAPTER;
+		assert this.mListListener == null : ERROR_DROPDOWN_LISTENER;
 		assert adapter != null : ERROR_DROPDOWN_ADAPTER_NULL;
 		assert listener != null : ERROR_DROPDOWN_LISTENER_NULL;
 		
-		this.mDropDownAdapter = adapter;
-		this.mDropDownListener = listener;
+		this.mListAdapter = adapter;
+		this.mListListener = listener;
 		return this;
 	}
 	
@@ -379,9 +407,9 @@ public final class ActionBarSherlock {
 	 * @param tabs Tabs to add.
 	 * @return Current instance for builder pattern.
 	 */
-	public ActionBarSherlock tab(ActionBarTab... tabs) {
+	public ActionBarSherlock tabNavigation(ActionBarTab... tabs) {
 		assert this.mAttached == false : ERROR_ATTACHED;
-		assert this.mActivity instanceof SherlockActivity : ERROR_ACTIVITY_SHERLOCK;
+		assert this.mActivity instanceof TabListener : ERROR_ACTIVITY_TAB_LISTENER;
 		
 		for (ActionBarTab tab : tabs) {
 			this.mTabs.add(tab);
@@ -483,9 +511,15 @@ public final class ActionBarSherlock {
 		
 		//Perform menu inflation, if specified
 		if (this.mMenuResourceId != null) {
-			if (handler instanceof MenuHandler) {
+			if (handler instanceof HasMenu) {
+				HasMenu menuHandler = (HasMenu)handler;
 				//Delegate to the handler for addition to the action bar
-				((MenuHandler)handler).setMenuResourceId(this.mMenuResourceId);
+				menuHandler.setMenuResourceId(this.mMenuResourceId);
+				
+				//If a menu listener was passed in then set that as well
+				if (this.mMenuListener != null) {
+					menuHandler.setMenuVisiblityListener(this.mMenuListener);
+				}
 			} else {
 				throw new IllegalStateException(ERROR_MENU_HANDLER);
 			}
@@ -499,22 +533,26 @@ public final class ActionBarSherlock {
 		}
 		//Set the title, if specified or found in the manifest
 		if (this.mTitle != null) {
-			handler.setTitle(this.mTitle);
+			if (handler instanceof HasTitle) {
+				((HasTitle)handler).setTitle(this.mTitle);
+			} else {
+				throw new IllegalStateException(ERROR_TITLE_HANDLER);
+			}
 		}
 		
 		//If the use of the logo is desired, tell the handler
 		if (this.mUseLogo) {
-			if (handler instanceof LogoHandler) {
-				((LogoHandler)handler).useLogo();
+			if (handler instanceof HasLogo) {
+				((HasLogo)handler).useLogo(this.mUseLogo);
 			} else {
 				throw new IllegalStateException(ERROR_LOGO_HANDLER);
 			}
 		}
 		
 		//If a drop-down is wanted, pass the adapter and listener for setup
-		if (this.mDropDownAdapter != null) {
-			if (handler instanceof DropDownHandler) {
-				((DropDownHandler)handler).setDropDown(this.mDropDownAdapter, this.mDropDownListener);
+		if (this.mListAdapter != null) {
+			if (handler instanceof HasListNavigation) {
+				((HasListNavigation)handler).setList(this.mListAdapter, this.mListListener);
 			} else {
 				throw new IllegalStateException(ERROR_DROPDOWN_HANDLER);
 			}
@@ -522,8 +560,8 @@ public final class ActionBarSherlock {
 		
 		//If the home as up is desired, tell the handler
 		if (this.mHomeAsUpEnabled) {
-			if (handler instanceof HomeAsUpHandler) {
-				((HomeAsUpHandler)handler).useHomeAsUp();
+			if (handler instanceof HasHomeAsUp) {
+				((HasHomeAsUp)handler).useHomeAsUp(this.mHomeAsUpEnabled);
 			} else {
 				throw new IllegalStateException(ERROR_HOMEASUP_HANDLER);
 			}
@@ -531,8 +569,11 @@ public final class ActionBarSherlock {
 		
 		//If there are tabs pass them to the handler for setup
 		if (this.mTabs.size() > 0) {
-			if (handler instanceof TabHandler) {
-				((TabHandler)handler).setTabs(this.mTabs);
+			if (handler instanceof HasTabNavigation) {
+				HasTabNavigation tabHandler = (HasTabNavigation)handler;
+				for (ActionBarTab tab : this.mTabs) {
+					tabHandler.addTab(tab);
+				}
 			} else {
 				throw new IllegalStateException(ERROR_TAB_HANDLER);
 			}
@@ -587,7 +628,7 @@ public final class ActionBarSherlock {
 		 * 
 		 * @return Activity instance.
 		 */
-		public final android.app.Activity getActivity() {
+		protected final android.app.Activity getActivity() {
 			return this.mActivity;
 		}
 		
@@ -608,7 +649,7 @@ public final class ActionBarSherlock {
 		 * 
 		 * @return Action bar instance.
 		 */
-		public final T getActionBar() {
+		protected final T getActionBar() {
 			return this.mActionBar;
 		}
 		
@@ -670,7 +711,7 @@ public final class ActionBarSherlock {
 		 * @param layoutResourceId Layout resource ID.
 		 * @return Action bar instance.
 		 */
-		public abstract T initialize(int layoutResourceId);
+		protected abstract T initialize(int layoutResourceId);
 		
 		/**
 		 * Initialize the activity's layout using an existing view.
@@ -678,7 +719,7 @@ public final class ActionBarSherlock {
 		 * @param view View instance.
 		 * @return Action bar instance.
 		 */
-		public abstract T initialize(View view);
+		protected abstract T initialize(View view);
 		
 		/**
 		 * Initialize the activity's layout using a {@link Fragment}.
@@ -687,14 +728,7 @@ public final class ActionBarSherlock {
 		 * @param manager Activity's fragment manager.
 		 * @return Action bar instance.
 		 */
-		public abstract T initialize(Fragment fragment, FragmentManager manager);
-		
-		/**
-		 * Set the title of the action bar.
-		 * 
-		 * @param title Title string.
-		 */
-		public abstract void setTitle(CharSequence title);
+		protected abstract T initialize(Fragment fragment, FragmentManager manager);
 		
 		/**
 		 * <p>Callback method for when the attachment is complete and the
@@ -707,7 +741,7 @@ public final class ActionBarSherlock {
 		 * 
 		 * @param savedInstanceState Saved activity instance.
 		 */
-		public void onCreate(Bundle savedInstanceState) {
+		protected void onCreate(Bundle savedInstanceState) {
 			//Grumble, grumble... OVERRIDE ME!
 		}
 		
@@ -765,7 +799,7 @@ public final class ActionBarSherlock {
 	/**
 	 * Minimal handler for Android's native {@link android.app.ActionBar}.
 	 */
-	public static class NativeActionBarHandler extends ActionBarHandler<android.app.ActionBar> implements DropDownHandler, LogoHandler, MenuHandler, HomeAsUpHandler, TabHandler, android.app.ActionBar.TabListener {
+	public static class NativeActionBarHandler extends ActionBarHandler<android.app.ActionBar> implements HasTitle, HasSubtitle, HasHomeAsUp, HasLogo, HasListNavigation, HasTabNavigation, HasMenu, android.app.ActionBar.TabListener {
 		@Override
 		public final android.app.ActionBar initialize(int layoutResourceId) {
 			this.getActivity().setContentView(layoutResourceId);
@@ -788,22 +822,63 @@ public final class ActionBarSherlock {
 		}
 
 		@Override
+		public final CharSequence getTitle() {
+			return this.getActionBar().getTitle();
+		}
+		
+		@Override
 		public final void setTitle(CharSequence title) {
 			this.getActionBar().setTitle(title);
 		}
 
 		@Override
-		public final void useHomeAsUp() {
-			this.getActionBar().setDisplayHomeAsUpEnabled(true);
-		}
-		
-		@Override
-		public final void useLogo() {
-			this.getActionBar().setDisplayUseLogoEnabled(true);
+		public void setTitle(int resourceId) {
+			this.getActionBar().setTitle(resourceId);
 		}
 
 		@Override
-		public final void setDropDown(SpinnerAdapter adapter, final OnNavigationListener listener) {
+		public CharSequence getSubtitle() {
+			return this.getActionBar().getSubtitle();
+		}
+
+		@Override
+		public void setSubtitle(CharSequence subtitle) {
+			this.getActionBar().setSubtitle(subtitle);
+		}
+
+		@Override
+		public void setSubtitle(int resourceId) {
+			this.getActionBar().setSubtitle(resourceId);
+		}
+		
+		@Override
+		public final void useHomeAsUp(boolean showHomeAsUp) {
+			this.getActionBar().setDisplayHomeAsUpEnabled(showHomeAsUp);
+		}
+
+		@Override
+		public void useLogo(boolean useLogo) {
+			this.getActionBar().setDisplayUseLogoEnabled(useLogo);
+		}
+
+		@Override
+		public int getItemCount() {
+			return this.getActionBar().getNavigationItemCount();
+		}
+
+		@Override
+		public int getSelectedItemIndex() {
+			return this.getActionBar().getSelectedNavigationIndex();
+		}
+
+		@Override
+		public void selectItem(int position) {
+			this.getActionBar().setSelectedNavigationItem(position);
+		}
+
+		@Override
+		public final void setList(SpinnerAdapter adapter, final OnNavigationListener listener) {
+			//Set the navigation mode to a list
 			this.getActionBar().setNavigationMode(android.app.ActionBar.NAVIGATION_MODE_LIST);
 			this.getActionBar().setListNavigationCallbacks(adapter, new android.app.ActionBar.OnNavigationListener() {
 				@Override
@@ -822,41 +897,103 @@ public final class ActionBarSherlock {
 		}
 		
 		@Override
-		public final void setTabs(List<ActionBarTab> tabs) {
-			//Set the natigation mode to tabs
-			this.getActionBar().setNavigationMode(android.app.ActionBar.NAVIGATION_MODE_TABS);
-			//Wrap all of our ActionBarTabs in a native ActionBar.Tab and add to ActionBar
-			for (ActionBarTab tab : tabs) {
-				this.getActionBar().addTab(
-						this.getActionBar().newTab()
-								.setTabListener(this)
-								.setIcon(tab.getIcon())
-								.setText(tab.getText())
-								.setTag(tab) //Unwrapped in callbacks below
-				);
+		public void setMenuVisiblityListener(final OnMenuVisibilityListener listener) {
+			this.getActionBar().addOnMenuVisibilityListener(new android.app.ActionBar.OnMenuVisibilityListener() {
+				@Override
+				public void onMenuVisibilityChanged(boolean isVisible) {
+					listener.onMenuVisibilityChanged(isVisible);
+				}
+			});
+		}
+
+		@Override
+		public void addTab(ActionBarTab tab) {
+			this.getActionBar().addTab(
+				this.getActionBar().newTab()
+						.setTabListener(this)
+						.setIcon(tab.getIcon())
+						.setText(tab.getText())
+						.setTag(tab) //Unwrapped in callbacks below
+			);
+		}
+
+		@Override
+		public ActionBarTab getSelectedTab() {
+			return (ActionBarTab)this.getActionBar().getSelectedTab().getTag();
+		}
+
+		@Override
+		public int getSelectedTabIndex() {
+			return this.getActionBar().getSelectedNavigationIndex();
+		}
+
+		@Override
+		public ActionBarTab getTabAt(int position) {
+			return (ActionBarTab)this.getActionBar().getTabAt(position).getTag();
+		}
+
+		@Override
+		public int getTabCount() {
+			return this.getActionBar().getTabCount();
+		}
+
+		@Override
+		public void removeAllTabs() {
+			this.getActionBar().removeAllTabs();
+		}
+
+		@Override
+		public void removeTab(ActionBarTab tab) {
+			//Iterate until we match and remove by index
+			final int tabCount = this.getTabCount();
+			for (int i = 0; i < tabCount; i++) {
+				if (this.getTabAt(i).equals(tab)) {
+					this.removeTabAt(i);
+				}
+			}
+		}
+
+		@Override
+		public void removeTabAt(int position) {
+			this.getActionBar().removeTabAt(position);
+		}
+
+		@Override
+		public void selectTab(int position) {
+			this.getActionBar().setSelectedNavigationItem(position);
+		}
+
+		@Override
+		public void selectTab(ActionBarTab tab) {
+			//Iterate until we match and select by index
+			final int tabCount = this.getTabCount();
+			for (int i = 0; i < tabCount; i++) {
+				if (this.getTabAt(i).equals(tab)) {
+					this.selectTab(i);
+				}
 			}
 		}
 
 		@Override
 		public final void onTabReselected(android.app.ActionBar.Tab tab, android.app.FragmentTransaction transaction) {
-			//FYI: instanceof SherlockActivity was checked in ActionBarSherlock#tab(ActionBarTab)
-			SherlockActivity activity = (SherlockActivity)this.getActivity();
+			//FYI: instanceof TabListener was checked in ActionBarSherlock#tab(ActionBarTab)
+			TabListener activity = (TabListener)this.getActivity();
 			//Delegate tab reselection handling to our common API
 			activity.onTabReselected((ActionBarTab)tab.getTag());
 		}
 
 		@Override
 		public final void onTabSelected(android.app.ActionBar.Tab tab, android.app.FragmentTransaction transaction) {
-			//FYI: instanceof SherlockActivity was checked in ActionBarSherlock#tab(ActionBarTab)
-			SherlockActivity activity = (SherlockActivity)this.getActivity();
+			//FYI: instanceof TabListener was checked in ActionBarSherlock#tab(ActionBarTab)
+			TabListener activity = (TabListener)this.getActivity();
 			//Delegate tab selection handling to our common API
 			activity.onTabSelected((ActionBarTab)tab.getTag());
 		}
 
 		@Override
 		public final void onTabUnselected(android.app.ActionBar.Tab tab, android.app.FragmentTransaction transaction) {
-			//FYI: instanceof SherlockActivity was checked in ActionBarSherlock#tab(ActionBarTab)
-			SherlockActivity activity = (SherlockActivity)this.getActivity();
+			//FYI: instanceof TabListener was checked in ActionBarSherlock#tab(ActionBarTab)
+			TabListener activity = (TabListener)this.getActivity();
 			//Delegate tab unselection handling to our common API
 			activity.onTabUnselected((ActionBarTab)tab.getTag());
 		}
@@ -867,7 +1004,7 @@ public final class ActionBarSherlock {
 	 * Interface which denotes a third-party action bar handler implementation
 	 * supports populating the action bar from an XML menu.
 	 */
-	public static interface MenuHandler {
+	public static interface HasMenu {
 		/**
 		 * <p>Populate the action bar with items from an XML menu.</p>
 		 * 
@@ -878,64 +1015,219 @@ public final class ActionBarSherlock {
 		 * @param menuResourceId Resource ID of menu XML.
 		 */
 		public void setMenuResourceId(int menuResourceId);
+		
+		/**
+		 * Add a listener that will respond to menu visibility change events.
+		 * 
+		 * @param listener The new listener to add.
+		 */
+		public void setMenuVisiblityListener(OnMenuVisibilityListener listener);
 	}
-	
 	
 	/**
 	 * Interface which denotes a third-party action bar handler implementation
 	 * supports using the activity logo rather than just the home icon and a
 	 * title.
 	 */
-	public static interface LogoHandler {
+	public static interface HasLogo {
 		/**
-		 * <p>Display the logo for the activity rather than a title.</p>
+		 * <p>Set whether to display the activity logo rather than the activity
+		 * icon. A logo is often a wider, more detailed image.</p>
 		 * 
-		 * <p>A convenience method, {@link ActionBarHandler#getActivityLogo()},
-		 * is available which will automatically fetch and return a drawable
-		 * resource ID.</p> 
+		 * <p>For handlers: A convenience method,
+		 * {@link ActionBarHandler#getActivityLogo()}, is available which will
+		 * automatically fetch and return a drawable resource ID.</p>
+		 * 
+		 * @param useLogo Value.
 		 */
-		public void useLogo();
+		public void useLogo(boolean useLogo);
 	}
-	
 	
 	/**
 	 * Interface which denotes a handler supports using a drop-down list for
 	 * navigation.
 	 */
-	public static interface DropDownHandler {
+	public static interface HasListNavigation {
 		/**
 		 * Use drop-down navigation.
 		 * 
 		 * @param adapter List of drop-down items.
 		 * @param listener Callback listener for when an item is clicked.
 		 */
-		public void setDropDown(SpinnerAdapter adapter, OnNavigationListener listener);
+		public void setList(SpinnerAdapter adapter, OnNavigationListener listener);
+		
+		/**
+		 * Set the selected list item.
+		 * 
+		 * @param position Item position.
+		 */
+		public void selectItem(int position);
+
+		/**
+		 * Get the position of the selected item.
+		 * 
+		 * @return Selected item index.
+		 */
+		public int getSelectedItemIndex();
+
+		/**
+		 * Returns the number of items currently registered with the list.
+		 * 
+		 * @return Item count.
+		 */
+		public int getItemCount();
 	}
-	
 	
 	/**
 	 * Interface which denotes a handler supports setting the home action item
 	 * as an "up" affordance.
 	 */
-	public static interface HomeAsUpHandler {
+	public static interface HasHomeAsUp {
 		/**
-		 * Home should be displayed as an "up" affordance.
+		 * Set whether home should be displayed as an "up" affordance. Set this
+		 * to true if selecting "home" returns up by a single level in your UI
+		 * rather than back to the top level or front page.
+		 * 
+		 * @param showHomeAsUp True to show the user that selecting home will
+		 * return one level up rather than to the top level of the application.
 		 */
-		public void useHomeAsUp();
+		public void useHomeAsUp(boolean showHomeAsUp);
 	}
-	
 	
 	/**
 	 * Interface which denotes a handler supports the adding of tabs to its
 	 * action bar.
 	 */
-	public static interface TabHandler {
+	public static interface HasTabNavigation {
 		/**
-		 * List of tabs which should be added to the action bar.
-		 * 
-		 * @param tabs Tab list.
+		 * Remove all tabs from the action bar and deselect the current tab.
 		 */
-		public void setTabs(List<ActionBarTab> tabs);
+		public void removeAllTabs();
+		
+		/**
+		 * Remove a tab from the action bar. If the removed tab was selected it
+		 * will be deselected and another tab will be selected if present.
+		 * 
+		 * @param tab The tab to remove.
+		 */
+		public void removeTab(ActionBarTab tab);
+		
+		/**
+		 * Remove a tab from the action bar. If the removed tab was selected it
+		 * will be deselected and another tab will be selected if present.
+		 * 
+		 * @param position Position of tab to remove.
+		 */
+		public void removeTabAt(int position);
+
+		/**
+		 * Set the selected tab position.
+		 * 
+		 * @param position Tab position.
+		 */
+		public void selectTab(int position);
+		
+		/**
+		 * <p>Select the specified tab. If it is not a child of this action bar
+		 * it will be added.</p>
+		 * 
+		 * <p>Note: if you want to select a tab by index use
+		 * {@link #selectTab(int)}.</p>
+		 * 
+		 * @param tab Tab to select.
+		 */
+		public void selectTab(ActionBarTab tab);
+		
+		/**
+		 * Add a tab for use in tabbed navigation mode. The tab will be added
+		 * at the end of the list. If this is the first tab to be added it will
+		 * become the selected tab.
+		 * 
+		 * @param tab Tab to add.
+		 */
+		public void addTab(ActionBarTab tab);
+		
+		/**
+		 * Returns the number of tabs currently registered with the action bar.
+		 * 
+		 * @return Tab count.
+		 */
+		public int getTabCount();
+		
+		/**
+		 * Returns the tab at the specified index.
+		 * 
+		 * @param position Index value in the range 0-get.
+		 * @return Tab instance.
+		 */
+		public ActionBarTab getTabAt(int position);
+		
+		/**
+		 * Returns the currently selected tab if in tabbed navigation mode and
+		 * there is at least one tab present.
+		 * 
+		 * @return The currently selected tab or null.
+		 */
+		public ActionBarTab getSelectedTab();
+		
+		/**
+		 * Get the position of the selected tab.
+		 * 
+		 * @return Selected tab index.
+		 */
+		public int getSelectedTabIndex();
+	}
+	
+	/**
+	 * Interface which denotes a handler supports a title.
+	 */
+	public static interface HasTitle {
+		/**
+		 * Returns the current action bar title in standard mode.
+		 * 
+		 * @return The current action bar title or null.
+		 */
+		public CharSequence getTitle();
+		
+		/**
+		 * Set the action bar's title.
+		 * 
+		 * @param title Title to set.
+		 */
+		public void setTitle(CharSequence title);
+		
+		/**
+		 * Set the action bar's title.
+		 * 
+		 * @param resourceId Resource ID of title string to set.
+		 */
+		public void setTitle(int resourceId);
+	}
+	
+	/**
+	 * Interface which denotes a handler supports a subtitle.
+	 */
+	public static interface HasSubtitle {
+		/**
+		 * Returns the current ActionBar subtitle in standard mode.
+		 * 
+		 * @return The current ActionBar subtitle or null.
+		 */
+		public CharSequence getSubtitle();
+		
+		/**
+		 * Set the action bar's subtitle.
+		 * 
+		 * @param subtitle Title to set.
+		 */
+		public void setSubtitle(CharSequence subtitle);
+		
+		/**
+		 * Set the action bar's subtitle.
+		 * 
+		 * @param resourceId Resource ID of title string to set.
+		 */
+		public void setSubtitle(int resourceId);
 	}
 	
 	
@@ -955,6 +1247,55 @@ public final class ActionBarSherlock {
 		boolean onNavigationItemSelected(int itemPosition, long itemId);
 	}
 	
+	/**
+	 * Listener for receiving events when action bar menus are shown or hidden.
+	 * 
+	 * <p>Emulates {@link android.app.ActionBar.OnMenuVisibilityListener}.</p>
+	 */
+	public static interface OnMenuVisibilityListener {
+		/**
+		 * Called when an action bar menu is shown or hidden. Applications may
+		 * want to use this to tune auto-hiding behavior for the action bar or
+		 * pause/resume video playback, gameplay, or other activity within the
+		 * main content area.
+		 * 
+		 * @param isVisible True if an action bar menu is now visible, false
+		 * if no action bar menus are visible.
+		 */
+		void onMenuVisibilityChanged(boolean isVisible);
+	}
+	
+	/**
+	 * <p>Callback interface invoked when a tab is focused, unfocused, added, or
+	 * removed.</p>
+	 * 
+	 * <p>Emulates {@link android.app.ActionBar.TabListener}.</p>
+	 */
+	public static interface TabListener {
+		/**
+		 * Called when a tab that is already selected is chosen again by the
+		 * user. Some applications may use this action to return to the top
+		 * level of a category.
+		 * 
+		 * @param tab The tab that was reselected.
+		 */
+		public void onTabReselected(ActionBarTab tab);
+		
+		/**
+		 * Called when a tab enters the selected state.
+		 * 
+		 * @param tab The tab that was selected.
+		 */
+		public void onTabSelected(ActionBarTab tab);
+		
+		/**
+		 * Called when a tab exits the selected state.
+		 * 
+		 * @param tab The tab that was unselected.
+		 */
+		public void onTabUnselected(ActionBarTab tab);
+	}
+	
 	
 	/**
 	 * Interface of helper methods implemented by all helper classes.
@@ -967,30 +1308,7 @@ public final class ActionBarSherlock {
 		 * 
 		 * @param menuResourceId Resource ID of menu XML.
 		 */
-		void setActionBarMenu(int menuResourceId);
-		
-		/**
-		 * Called when a tab that is already selected is chosen again by the
-		 * user. Some applications may use this action to return to the top
-		 * level of a category.
-		 * 
-		 * @param tab The tab that was reselected.
-		 */
-		void onTabReselected(ActionBarTab tab);
-		
-		/**
-		 * Called when a tab enters the selected state.
-		 * 
-		 * @param tab The tab that was selected.
-		 */
-		void onTabSelected(ActionBarTab tab);
-		
-		/**
-		 * Called when a tab exits the selected state.
-		 * 
-		 * @param tab The tab that was unselected.
-		 */
-		void onTabUnselected(ActionBarTab tab);
+		public void setActionBarMenu(int menuResourceId);
 	}
 	
 	
@@ -1017,22 +1335,6 @@ public final class ActionBarSherlock {
 				return true;
 			}
 			return false;
-		}
-
-		
-		@Override
-		public void onTabReselected(ActionBarTab tab) {
-			//Grumble, grumble... OVERRIDE ME!
-		}
-
-		@Override
-		public void onTabSelected(ActionBarTab tab) {
-			//Grumble, grumble... OVERRIDE ME!
-		}
-
-		@Override
-		public void onTabUnselected(ActionBarTab tab) {
-			//Grumble, grumble... OVERRIDE ME!
 		}
 	}
 	
@@ -1065,21 +1367,6 @@ public final class ActionBarSherlock {
 			}
 			return false;
 		}
-		
-		@Override
-		public void onTabReselected(ActionBarTab tab) {
-			//Grumble, grumble... OVERRIDE ME!
-		}
-		
-		@Override
-		public void onTabSelected(ActionBarTab tab) {
-			//Grumble, grumble... OVERRIDE ME!
-		}
-		
-		@Override
-		public void onTabUnselected(ActionBarTab tab) {
-			//Grumble, grumble... OVERRIDE ME!
-		}
 	}
 	
 	/**
@@ -1106,21 +1393,6 @@ public final class ActionBarSherlock {
 				return true;
 			}
 			return false;
-		}
-		
-		@Override
-		public void onTabReselected(ActionBarTab tab) {
-			//Grumble, grumble... OVERRIDE ME!
-		}
-		
-		@Override
-		public void onTabSelected(ActionBarTab tab) {
-			//Grumble, grumble... OVERRIDE ME!
-		}
-		
-		@Override
-		public void onTabUnselected(ActionBarTab tab) {
-			//Grumble, grumble... OVERRIDE ME!
 		}
 	}
 }

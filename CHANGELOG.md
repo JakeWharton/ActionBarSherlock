@@ -3,6 +3,7 @@ Change Log
 
 Version 3.0.0 *(In Development)*
 --------------------------------
+Handler API rewrite!
 
  * The `attach()` method will now return the instance of the selected handler.
    This will allow for asynchronous interaction with the action bar rather than
@@ -19,10 +20,9 @@ Version 3.0.0 *(In Development)*
    `name` attribute of the corresponding `<activity>` entry in the manifest.
  * New API method: `tab(ActionBarTab)`. This will provide the tabbed navigation
    to the action bar. In order to use this feature your activity will need to
-   extend from one of the activity helper-classes of `ActionBarSherlock`. This
-   feature also requires that your custom handler implements the
-   `ActionBarSherlock.TabHandler` interface. (The native handler already has an
-   implementation)
+   implement `ActionBarSherlock.TabListener`. This feature also requires that
+   your custom handler implements the `ActionBarSherlock.HasTabNavigation`
+   interface. (The native handler already has an implementation)
 
 
 Version 2.1.1 *(2011-03-21)*
@@ -50,21 +50,21 @@ Version 2.1.0 *(2011-03-21)*
    resource. For the non-native implementation, the XML can be inflated to a
    custom Menu which can then be applied appropriately to the third-party
    action bar. Sub-menus are also supported. Third-party action bar handlers
-   should implement `ActionBarSherlock.MenuHandler` for this functionality.
-   *This feature requires that activities extend from one of the provided
-   activity base classes.*
+   should implement `ActionBarSherlock.HasMenu` for this functionality. *This
+   feature requires that activities extend from one of the provided activity
+   base classes.*
  * New API method: `homeAsUp(boolean)`. This mimics the native method
    `setDisplayHomeAsUpEnalbed` on the native action bar. Third-party action bar
-   handlers should implement `ActionBarSherlock.HomeAsUpHandler` for this
+   handlers should implement `ActionBarSherlock.HasHomeAsUp` for this
    functionality.
  * New API method: `useLogo(boolean)` will trigger the action bar to hide the
    application icon/home button and title and show a larger logo representing
    the application. Third-party action bar handlers should implement
-   `ActionBarSherlock.LogoHandler` for this functionality.
- * New API method: `dropDown(SpinnerAdapter, OnNavigationListener)`. Tells the
-   action bar to use drop-down style navigation with the specified list of
+   `ActionBarSherlock.HasLogo` for this functionality.
+ * New API method: `listNavigation(SpinnerAdapter, OnNavigationListener)`. Tells
+   the action bar to use drop-down style navigation with the specified list of
    items and callback listener. Third-party action bar handlers should
-   implement `ActionBarSherlock.DropDownHandler` for this functionality.
+   implement `ActionBarSherlock.HasListNavigation` for this functionality.
  * Javadocs are now available at [jakewharton.github.com/ActionBarSherlock][2].
  * A standalone JAR is now available via the [GitHub downloads page][3] or in my
    [personal maven repository][4] as
