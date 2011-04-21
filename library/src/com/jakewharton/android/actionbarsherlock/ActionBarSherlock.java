@@ -88,6 +88,7 @@ public final class ActionBarSherlock {
 	private static final String ERROR_DROPDOWN_LISTENER = "A drop-down listener has already been specified.";
 	private static final String ERROR_DROPDOWN_LISTENER_NULL = "Drop-down listener must not be null.";
 	private static final String ERROR_HANDLER_CUSTOM = "A custom handler has already been specified.";
+	private static final String ERROR_HANDLER_CUSTOM_NATIVE = "Custom handler must not extend from NativeActionBarHandler.";
 	private static final String ERROR_HANDLER_CUSTOM_NULL = "Custom handler must not be null.";
 	private static final String ERROR_HANDLER_NATIVE = "A native handler has already been specified.";
 	private static final String ERROR_HANDLER_NATIVE_NULL = "Native handler must not be null.";
@@ -447,6 +448,7 @@ public final class ActionBarSherlock {
 		assert this.mAttached == false : ERROR_ATTACHED;
 		assert this.mCustomHandler == null : ERROR_HANDLER_CUSTOM;
 		assert handler != null : ERROR_HANDLER_CUSTOM_NULL;
+		assert !NativeActionBarHandler.class.isAssignableFrom(handler) : ERROR_HANDLER_CUSTOM_NATIVE;
 		
 		this.mCustomHandler = handler;
 		return this;
