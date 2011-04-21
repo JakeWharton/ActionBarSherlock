@@ -799,7 +799,7 @@ public final class ActionBarSherlock {
 	/**
 	 * Minimal handler for Android's native {@link android.app.ActionBar}.
 	 */
-	public static class NativeActionBarHandler extends ActionBarHandler<android.app.ActionBar> implements HasTitle, HasSubtitle, HasHomeAsUp, HasLogo, HasListNavigation, HasTabNavigation, HasMenu, android.app.ActionBar.TabListener {
+	public static class NativeActionBarHandler extends ActionBarHandler<android.app.ActionBar> implements HasTitle, HasSubtitle, HasHomeAsUp, HasLogo, HasListNavigation, HasTabNavigation, HasMenu, HasVisibility, android.app.ActionBar.TabListener {
 		@Override
 		public final android.app.ActionBar initialize(int layoutResourceId) {
 			this.getActivity().setContentView(layoutResourceId);
@@ -973,7 +973,22 @@ public final class ActionBarSherlock {
 				}
 			}
 		}
+		
+		@Override
+		public void hide() {
+			this.getActionBar().hide();
+		}
 
+		@Override
+		public boolean isShowing() {
+			return this.getActionBar().isShowing();
+		}
+
+		@Override
+		public void show() {
+			this.getActionBar().show();
+		}
+		
 		@Override
 		public final void onTabReselected(android.app.ActionBar.Tab tab, android.app.FragmentTransaction transaction) {
 			//FYI: instanceof TabListener was checked in ActionBarSherlock#tab(ActionBarTab)
@@ -1230,6 +1245,28 @@ public final class ActionBarSherlock {
 		public void setSubtitle(int resourceId);
 	}
 	
+	/**
+	 * Interface which denotes a handler supports changing action bar
+	 * visibility.
+	 */
+	public static interface HasVisibility {
+		/**
+		 * Hide the ActionBar if it is not currently showing.
+		 */
+		public void hide();
+		
+		/**
+		 * Get action bar visibility state.
+		 * 
+		 * @return True if the ActionBar is showing, false otherwise.
+		 */
+		public boolean isShowing();
+		
+		/**
+		 * Show the ActionBar if it is not currently showing.
+		 */
+		public void show();
+	}
 	
 	/**
 	 * <p>Listener interface for ActionBar navigation events.</p>
