@@ -1347,7 +1347,12 @@ public final class ActionBarSherlock {
 		 * 
 		 * @param menuResourceId Resource ID of menu XML.
 		 */
-		public void setActionBarMenu(int menuResourceId);
+		void setActionBarMenu(int menuResourceId);
+		
+		/**
+		 * Callback for after the menu has been successfully loaded.
+		 */
+		void onOptionsMenuCreated(Menu menu);
 	}
 	
 	
@@ -1363,7 +1368,7 @@ public final class ActionBarSherlock {
 		
 		
 		@Override
-		public void setActionBarMenu(int menuResourceId) {
+		public final void setActionBarMenu(int menuResourceId) {
 			this.mMenuResourceId = menuResourceId;
 		}
 
@@ -1371,9 +1376,15 @@ public final class ActionBarSherlock {
 		public final boolean onCreateOptionsMenu(Menu menu) {
 			if (this.mMenuResourceId != null) {
 				this.getMenuInflater().inflate(this.mMenuResourceId, menu);
+				this.onOptionsMenuCreated(menu);
 				return true;
 			}
 			return false;
+		}
+
+		@Override
+		public void onOptionsMenuCreated(Menu menu) {
+			//Grumble, grumble... OVERRIDE ME!
 		}
 	}
 	
@@ -1402,9 +1413,15 @@ public final class ActionBarSherlock {
 		public final boolean onCreateOptionsMenu(Menu menu) {
 			if (this.mMenuResourceId != null) {
 				this.getMenuInflater().inflate(this.mMenuResourceId, menu);
+				this.onOptionsMenuCreated(menu);
 				return true;
 			}
 			return false;
+		}
+
+		@Override
+		public void onOptionsMenuCreated(Menu menu) {
+			//Grumble, grumble... OVERRIDE ME!
 		}
 	}
 	
@@ -1429,9 +1446,15 @@ public final class ActionBarSherlock {
 		public final boolean onCreateOptionsMenu(Menu menu) {
 			if (this.mMenuResourceId != null) {
 				this.getMenuInflater().inflate(this.mMenuResourceId, menu);
+				this.onOptionsMenuCreated(menu);
 				return true;
 			}
 			return false;
+		}
+
+		@Override
+		public void onOptionsMenuCreated(Menu menu) {
+			//Grumble, grumble... OVERRIDE ME!
 		}
 	}
 }
