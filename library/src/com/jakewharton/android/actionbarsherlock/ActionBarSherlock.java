@@ -801,7 +801,7 @@ public final class ActionBarSherlock {
 	/**
 	 * Minimal handler for Android's native {@link android.app.ActionBar}.
 	 */
-	public static class NativeActionBarHandler extends ActionBarHandler<android.app.ActionBar> implements HasTitle, HasSubtitle, HasHomeAsUp, HasLogo, HasListNavigation, HasTabNavigation, HasMenu, HasVisibility, android.app.ActionBar.TabListener {
+	public static class NativeActionBarHandler extends ActionBarHandler<android.app.ActionBar> implements HasTitle, HasSubtitle, HasHomeAsUp, HasLogo, HasListNavigation, HasTabNavigation, HasMenu, HasVisibility, HasNavigationState, android.app.ActionBar.TabListener {
 		@Override
 		public final android.app.ActionBar initialize(int layoutResourceId) {
 			this.getActivity().setContentView(layoutResourceId);
@@ -989,6 +989,16 @@ public final class ActionBarSherlock {
 		@Override
 		public void show() {
 			this.getActionBar().show();
+		}
+		
+		@Override
+		public int getNavigationMode() {
+			return this.getActionBar().getNavigationMode();
+		}
+
+		@Override
+		public void setNavigationMode(int navigationMode) {
+			this.getActionBar().setNavigationMode(navigationMode);
 		}
 		
 		@Override
@@ -1269,6 +1279,62 @@ public final class ActionBarSherlock {
 		 */
 		public void show();
 	}
+	
+	/**
+	 * Interface which denotes a handler supports maintaining navigation state.
+	 */
+	public static interface HasNavigationState {
+		/**
+		 * Returns the current navigation mode. The result will be one of:
+		 * <ul>
+		 *   <li>{@link #MODE_STANDARD}</li>
+		 *   <li>{@link #MODE_LIST}</li>
+		 *   <li>{@link #MODE_TABS}</li>
+		 * </ul>
+		 * 
+		 * @return The current navigation mode.
+		 */
+		public int getNavigationMode();
+		
+		/**
+		 * Set the current navigation mode.
+		 * 
+		 * @param navigationMode The new mode to set.
+		 * 
+		 * @see #MODE_STANDARD
+		 * @see #MODE_LIST
+		 * @see #MODE_TABS
+		 */
+		public void setNavigationMode(int navigationMode);
+		
+		
+		//NOTE: The following values will be inlined by the compiler so it does
+		//      not matter that we reference android.app.ActionBar directly.
+		
+		/**
+		 * List navigation mode. Instead of static title text this mode
+		 * presents a list menu for navigation within the activity. e.g. this
+		 * might be presented to the user as a drop-down list.
+		 */
+		public static final int MODE_LIST = android.app.ActionBar.NAVIGATION_MODE_LIST;
+		
+		/**
+		 * Standard navigation mode. Consists of either a logo or icon and
+		 * title text with an optional subtitle. Clicking any of these
+		 * elements will dispatch
+		 * {@link OnNavigationListener#onNavigationItemSelected(int, long)}
+		 * to the host activity with a menu item with item ID
+		 * <code>android.R.id.home</code>.
+		 */
+		public static final int MODE_STANDARD = android.app.ActionBar.NAVIGATION_MODE_STANDARD;
+		
+		/**
+		 * Tab navigation mode. Instead of static title text this mode presents
+		 * a series of tabs for navigation within the activity.
+		 */
+		public static final int MODE_TABS = android.app.ActionBar.NAVIGATION_MODE_TABS;
+	}
+	
 	
 	/**
 	 * <p>Listener interface for ActionBar navigation events.</p>
