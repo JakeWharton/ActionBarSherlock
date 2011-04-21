@@ -458,14 +458,14 @@ public final class ActionBarSherlock {
 	 * <p>Perform the attachment to the activity and execute the appropriate
 	 * onCreate callback to a handler.</p>
 	 * 
-	 * <p>This method will return an instance of the appropriate handler based
-	 * on the Android version. <strong>Interacting with this instance directly
-	 * should be considered highly volatile and is not encouraged.</strong> The
-	 * recommended method of interaction is to implement a custom interface with
-	 * your interaction methods in both the native and custom handlers and then
-	 * cast this return value to your interface.</p>
+	 * <p>The class returned exposes no methods itself. Instead, you must test
+	 * its feature set by calling <code>instanceof HasXXX</code> where
+	 * <code>HasXXX</code> any possible interface (either defined in the
+	 * {@link ActionBarSherlock} class or custom implemeneted. You should then
+	 * case this instance to the interface type and interact using its
+	 * methods.</p>
 	 * 
-	 * @return Handler instance.
+	 * @return Appropriate handler instance based on the Android version.
 	 */
 	public ActionBarHandler<?> attach() {
 		assert this.mAttached == false : ERROR_ATTACHED;
