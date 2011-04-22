@@ -11,8 +11,11 @@ import android.widget.FrameLayout;
 import com.jakewharton.android.actionbarsherlock.ActionBarMenu;
 import com.jakewharton.android.actionbarsherlock.ActionBarMenuItem;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.ActionBarHandler;
-import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HomeAsUpHandler;
-import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.MenuHandler;
+import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasHomeAsUp;
+import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasMenu;
+import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasTitle;
+import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasVisibility;
+import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.OnMenuVisibilityListener;
 import com.markupartist.android.widget.ActionBar;
 
 /**
@@ -29,7 +32,7 @@ public final class Android_ActionBar {
 	 * 
 	 * @author Jake Wharton <jakewharton@gmail.com>
 	 */
-	public static class Handler extends ActionBarHandler<ActionBar> implements MenuHandler, HomeAsUpHandler {
+	public static class Handler extends ActionBarHandler<ActionBar> implements HasTitle, HasMenu, HasHomeAsUp, HasVisibility {
 		@Override
 		public ActionBar initialize(int layoutResourceId) {
 			this.initialize();
@@ -101,13 +104,23 @@ public final class Android_ActionBar {
 		}
 
 		@Override
+		public CharSequence getTitle() {
+			throw new RuntimeException("Not implemented");
+		}
+
+		@Override
 		public void setTitle(CharSequence title) {
 			this.getActionBar().setTitle(title);
 		}
 
 		@Override
-		public void useHomeAsUp() {
-			this.getActionBar().setDisplayHomeAsUpEnabled(true);
+		public void setTitle(int resourceId) {
+			this.getActionBar().setTitle(resourceId);
+		}
+
+		@Override
+		public void showTitle(boolean value) {
+			throw new RuntimeException("Not implemented");
 		}
 
 		@Override
@@ -116,6 +129,31 @@ public final class Android_ActionBar {
 			for (ActionBarMenuItem item : menu.getItems()) {
 				this.getActionBar().addAction(new Action(this, item));
 			}
+		}
+
+		@Override
+		public void setMenuVisiblityListener(OnMenuVisibilityListener listener) {
+			throw new RuntimeException("Not implemented");
+		}
+
+		@Override
+		public void useHomeAsUp(boolean showHomeAsUp) {
+			this.getActionBar().setDisplayHomeAsUpEnabled(showHomeAsUp);
+		}
+
+		@Override
+		public void hide() {
+			this.getActionBar().setVisibility(View.GONE);
+		}
+
+		@Override
+		public boolean isShowing() {
+			return this.getActionBar().getVisibility() == View.VISIBLE;
+		}
+
+		@Override
+		public void show() {
+			this.getActionBar().setVisibility(View.VISIBLE);
 		}
 		
 		/**
