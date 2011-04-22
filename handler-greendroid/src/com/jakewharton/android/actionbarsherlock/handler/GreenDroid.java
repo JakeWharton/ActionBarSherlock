@@ -1,17 +1,22 @@
 package com.jakewharton.android.actionbarsherlock.handler;
 
 import greendroid.widget.GDActionBar;
+import greendroid.widget.GDActionBarItem;
 import greendroid.widget.NormalActionBarItem;
 import greendroid.widget.GDActionBar.OnActionBarListener;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.FrameLayout;
 import com.jakewharton.android.actionbarsherlock.ActionBarMenu;
 import com.jakewharton.android.actionbarsherlock.ActionBarMenuItem;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.ActionBarHandler;
-import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.MenuHandler;
+import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasMenu;
+import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasTitle;
+import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasVisibility;
+import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.OnMenuVisibilityListener;
 
 /**
  * Container class. See {@link Handler}.
@@ -28,7 +33,22 @@ public final class GreenDroid {
 	 * 
 	 * @author Jake Wharton <jakewharton@gmail.com>
 	 */
-	public static class Handler extends ActionBarHandler<GDActionBar> implements MenuHandler {
+	public static class Handler extends ActionBarHandler<GDActionBar> implements HasTitle, HasVisibility, HasMenu {
+		/**
+		 * {@link MenuItem} corresponding to the home action.
+		 */
+		private final ActionBarMenuItem mHome;
+		
+		
+		/**
+		 * Initialize this handler.
+		 */
+		public Handler() {
+			this.mHome = new ActionBarMenuItem(this.getActivity(), android.R.id.home, 0, 0, null);
+		
+		}
+		
+		
 		@Override
 		public GDActionBar initialize(int layoutResourceId) {
 			this.initialize();
@@ -76,9 +96,14 @@ public final class GreenDroid {
 				@Override
 				public void onActionBarItemClicked(int position) {
 					if (position == OnActionBarListener.HOME_ITEM) {
-						onHomeClicked();
+						clicked(mHome);
 					} else {
-						onItemClicked(getActionBar().getItem(position).getItemId());
+						GDActionBarItem item = getActionBar().getItem(position);
+						if (item instanceof Item) {
+							clicked(((Item)item).getMenuItem());
+						} else {
+							throw new RuntimeException("Non-handler created action bar item clicked (" + item.getClass().getName() + "[id=" + item.getItemId() + "])");
+						}
 					}
 				}
 			});
@@ -102,10 +127,40 @@ public final class GreenDroid {
 		private GDActionBar findActionBar() {
 			return (GDActionBar)this.getActivity().findViewById(R.id.gd_action_bar);
 		}
-	
+		
+		@Override
+		public CharSequence getTitle() {
+			throw new RuntimeException("Not implemented.");
+		}
+		
 		@Override
 		public void setTitle(CharSequence title) {
 			this.getActionBar().setTitle(title);
+		}
+
+		@Override
+		public void setTitle(int resourceId) {
+			this.getActionBar().setTitle(this.getActivity().getResources().getString(resourceId));
+		}
+
+		@Override
+		public void showTitle(boolean value) {
+			throw new RuntimeException("Not implemented.");
+		}
+		
+		@Override
+		public void hide() {
+			this.getActionBar().setVisibility(View.GONE);
+		}
+
+		@Override
+		public boolean isShowing() {
+			return this.getActionBar().getVisibility() == View.VISIBLE;
+		}
+
+		@Override
+		public void show() {
+			this.getActionBar().setVisibility(View.VISIBLE);
 		}
 
 		@Override
@@ -114,6 +169,11 @@ public final class GreenDroid {
 			for (ActionBarMenuItem item : menu.getItems()) {
 				this.getActionBar().addItem(new Item(item));
 			}
+		}
+		
+		@Override
+		public void setMenuVisiblityListener(OnMenuVisibilityListener listener) {
+			throw new RuntimeException("Not implemented.");
 		}
 		
 		/**
@@ -128,39 +188,25 @@ public final class GreenDroid {
 			this.getActionBar().getChildAt(1).setVisibility(visible ? View.VISIBLE : View.GONE);
 		}
 		
-		/**
-		 * Method executed when the home button is clicked. This should be
-		 * overridden in each activity. 
-		 */
-		public void onHomeClicked() {
-			//Grumble, grumble... OVERRIDE ME!
-		}
-		
-		/**
-		 * Method executed when an action button is clicked. This should be
-		 * overridden in each activity.
-		 * 
-		 * @param itemId ID of the item clicked.
-		 */
-		public void onItemClicked(int itemId) {
-			//Grumble, grumble... OVERRIDE ME!
-		}
-		
 		
 		/**
 		 * Custom action bar item used when inflating a menu from XML.
 		 */
 		private static final class Item extends NormalActionBarItem {
-			private final int mItemId;
+			private final MenuItem mItem;
 			
 			public Item(ActionBarMenuItem item) {
-				this.mItemId = item.getItemId();
+				this.mItem = item;
 				this.setDrawable(item.getIconId());
 			}
 			
 			@Override
 			public int getItemId() {
-				return this.mItemId;
+				return this.mItem.getItemId();
+			}
+			
+			public MenuItem getMenuItem() {
+				return this.mItem;
 			}
 		}
 	}
