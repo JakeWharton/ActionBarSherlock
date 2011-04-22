@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.jakewharton</groupId>
+	<artifactId>android-actionbarsherlock-sample-styled</artifactId>
+	<name>Sample: Styled</name>
+	<packaging>apk</packaging>
+
+	<parent>
+		<groupId>com.jakewharton</groupId>
+		<artifactId>android-actionbarsherlock-parent</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<dependencies>
+		<dependency>
+			<groupId>android</groupId>
+			<artifactId>android</artifactId>
+			<version>${android.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.jakewharton</groupId>
+			<artifactId>android-actionbarsherlock</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<!--dependency>
+			<groupId>com.jakewharton</groupId>
+			<artifactId>android-actionbarsherlock-handler-android_actionbar</artifactId>
+			<version>${project.version}</version>
+			<type>apklib</type>
+		</dependency-->
+	</dependencies>
+
+	<build>
+		<sourceDirectory>src</sourceDirectory>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>release-sign-artifacts</id>
+			<activation>
+				<property>
+					<name>performRelease</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.jakewharton</groupId>
+						<artifactId>github-deploy-maven-plugin</artifactId>
+						<version>1.0.1</version>
+						<configuration>
+							<types>
+								<type>apk</type>
+							</types>
+						</configuration>
+						<goals>
+							<goal>deploy</goal>
+						</goals>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+</project>
