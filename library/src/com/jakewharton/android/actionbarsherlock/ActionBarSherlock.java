@@ -837,6 +837,11 @@ public final class ActionBarSherlock {
 		public void setTitle(int resourceId) {
 			this.getActionBar().setTitle(resourceId);
 		}
+		
+		@Override
+		public void showTitle(boolean value) {
+			this.getActionBar().setDisplayShowTitleEnabled(value);
+		}
 
 		@Override
 		public CharSequence getSubtitle() {
@@ -1229,6 +1234,13 @@ public final class ActionBarSherlock {
 		 * @param resourceId Resource ID of title string to set.
 		 */
 		public void setTitle(int resourceId);
+
+		/**
+		 * Set whether an activity title/subtitle should be displayed.
+		 * 
+		 * @param value True to display a title/subtitle if present.
+		 */
+		public void showTitle(boolean value);
 	}
 	
 	/**
