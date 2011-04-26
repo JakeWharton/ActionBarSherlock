@@ -19,8 +19,8 @@
 		<module>handler-android_actionbar</module>
 		<module>handler-greendroid</module>
 
-		<!--module>sample-android_actionbar</module-->
-		<!--module>sample-greendroid</module-->
+		<module>sample-android_actionbar</module>
+		<module>sample-greendroid</module>
 		<module>sample-shakespeare</module>
 		<module>sample-styled</module>
 	</modules>

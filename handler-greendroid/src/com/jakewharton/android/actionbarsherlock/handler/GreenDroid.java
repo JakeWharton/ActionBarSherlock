@@ -45,7 +45,6 @@ public final class GreenDroid {
 		 */
 		public Handler() {
 			this.mHome = new ActionBarMenuItem(this.getActivity(), android.R.id.home, 0, 0, null);
-		
 		}
 		
 		
