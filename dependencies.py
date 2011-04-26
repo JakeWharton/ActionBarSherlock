@@ -4,7 +4,7 @@
 
 dependencies = [
     {
-        'name': 'android-actionbar',
+        'name': 'android_actionbar',
         'user': 'johannilsson',
         'repo': 'android-actionbar',
         'sha' : '9df99aa71e228b00be6aecb634f94d3d0744dc9d',
@@ -18,6 +18,45 @@ dependencies = [
         'path': 'GreenDroid',
     },
 ]
+
+classpath = '''<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+    <classpathentry kind="src" path="src"/>
+    <classpathentry kind="src" path="gen"/>
+    <classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+    <classpathentry kind="output" path="bin"/>
+</classpath>
+'''
+
+project = '''<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+    <name>android-actionbarsherlock-vendor-%s</name>
+    <comment></comment>
+    <projects></projects>
+    <buildSpec>
+        <buildCommand>
+            <name>com.android.ide.eclipse.adt.ResourceManagerBuilder</name>
+            <arguments></arguments>
+        </buildCommand>
+        <buildCommand>
+            <name>com.android.ide.eclipse.adt.PreCompilerBuilder</name>
+            <arguments></arguments>
+        </buildCommand>
+        <buildCommand>
+            <name>org.eclipse.jdt.core.javabuilder</name>
+            <arguments></arguments>
+        </buildCommand>
+        <buildCommand>
+            <name>com.android.ide.eclipse.adt.ApkBuilder</name>
+            <arguments></arguments>
+        </buildCommand>
+    </buildSpec>
+    <natures>
+        <nature>com.android.ide.eclipse.adt.AndroidNature</nature>
+        <nature>org.eclipse.jdt.core.javanature</nature>
+    </natures>
+</projectDescription>
+'''
 
 import shutil
 import os
@@ -39,7 +78,7 @@ for dependency in dependencies:
     subprocess.Popen(['git', 'clone', 'git://github.com/%s/%s.git' % (dependency['user'], dependency['repo']), dependency['name']], cwd=vendor_dir).wait()
     #Checkout the desired version
     subprocess.Popen(['git', 'checkout', dependency['sha']], cwd=repo_dir).wait()
-    
+
     #Zip target path
     zip_file = zipfile.ZipFile(zip_file_name, 'w', compression=zipfile.ZIP_DEFLATED)
     cwd = os.getcwd()
@@ -61,3 +100,9 @@ for dependency in dependencies:
 
     #Remove .apklib file
     os.remove(zip_file_name)
+
+    #Create .classpath and .project files
+    with open(os.path.join(zip_dir, '.classpath'), 'w') as f:
+        f.write(classpath)
+    with open(os.path.join(zip_dir, '.project'), 'w') as f:
+        f.write(project % dependency['name'])

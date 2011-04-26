@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" output="target/classes" path="src"/>
+	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="con" path="org.maven.ide.eclipse.MAVEN2_CLASSPATH_CONTAINER"/>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry kind="src" path="android-actionbarsherlock_src"/>
+	<classpathentry kind="src" path="android-actionbarsherlock-vendor-android_actionbar_src"/>
+	<classpathentry kind="src" path="android-actionbarsherlock-handler-android_actionbar_src"/>
+	<classpathentry kind="output" path="target/android-classes"/>
+</classpath>
