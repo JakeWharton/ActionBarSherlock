@@ -6,7 +6,7 @@
 	<classpathentry kind="con" path="org.maven.ide.eclipse.MAVEN2_CLASSPATH_CONTAINER"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="src" path="android-actionbarsherlock_src"/>
-	<classpathentry kind="src" path="android-actionbarsherlock-vendor-greendroid_src"/>
 	<classpathentry kind="src" path="android-actionbarsherlock-handler-greendroid_src"/>
+	<classpathentry kind="src" path="android-actionbarsherlock-vendor-greendroid_src"/>
 	<classpathentry kind="output" path="target/android-classes"/>
 </classpath>
