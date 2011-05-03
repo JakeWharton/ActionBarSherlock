@@ -168,7 +168,7 @@ public final class ActionBarSherlock {
 	/**
 	 * The class which will handle the native action bar.
 	 */
-	private Class<? extends NativeActionBarHandler> mNativeHandler;
+	private Class<? extends ActionBarHandler<android.app.ActionBar>> mNativeHandler;
 	
 	/**
 	 * The class which will handle a custom action bar.
@@ -372,7 +372,7 @@ public final class ActionBarSherlock {
 	 *                this declaration
 	 * @return Current instance for builder pattern.
 	 */
-	public ActionBarSherlock handleNative(Class<? extends NativeActionBarHandler> handler) {
+	public ActionBarSherlock handleNative(Class<? extends ActionBarHandler<android.app.ActionBar>> handler) {
 		assert this.mAttached == false : ERROR_ATTACHED;
 		assert this.mNativeHandler == null : ERROR_HANDLER_NATIVE;
 		assert handler != null : ERROR_HANDLER_NATIVE_NULL;
