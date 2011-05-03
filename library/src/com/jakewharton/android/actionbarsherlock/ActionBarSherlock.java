@@ -799,7 +799,15 @@ public final class ActionBarSherlock {
 	
 	
 	/**
-	 * Minimal handler for Android's native {@link android.app.ActionBar}.
+	 * <p>Handler for Android's native {@link android.app.ActionBar}.</p>
+	 * 
+	 * <p>All of the implementations of the interfaces are marked as final to
+	 * prevent tampering with the functionality. Most methods simple marshal
+	 * the method call down to the native action bar method anyways.</p>
+	 * 
+	 * <p>Extending the native action bar should be done by implementing custom
+	 * interfaces so the new-style interaction as described in the
+	 * {@link ActionBarSherlock#attach()} method.</p>
 	 */
 	public static class NativeActionBarHandler extends ActionBarHandler<android.app.ActionBar> implements HasTitle, HasSubtitle, HasHomeAsUp, HasLogo, HasListNavigation, HasTabNavigation, HasMenu, HasVisibility, HasNavigationState, android.app.ActionBar.TabListener {
 		@Override
@@ -834,27 +842,27 @@ public final class ActionBarSherlock {
 		}
 
 		@Override
-		public void setTitle(int resourceId) {
+		public final void setTitle(int resourceId) {
 			this.getActionBar().setTitle(resourceId);
 		}
 		
 		@Override
-		public void showTitle(boolean value) {
+		public final void showTitle(boolean value) {
 			this.getActionBar().setDisplayShowTitleEnabled(value);
 		}
 
 		@Override
-		public CharSequence getSubtitle() {
+		public final CharSequence getSubtitle() {
 			return this.getActionBar().getSubtitle();
 		}
 
 		@Override
-		public void setSubtitle(CharSequence subtitle) {
+		public final void setSubtitle(CharSequence subtitle) {
 			this.getActionBar().setSubtitle(subtitle);
 		}
 
 		@Override
-		public void setSubtitle(int resourceId) {
+		public final void setSubtitle(int resourceId) {
 			this.getActionBar().setSubtitle(resourceId);
 		}
 		
@@ -864,22 +872,22 @@ public final class ActionBarSherlock {
 		}
 
 		@Override
-		public void useLogo(boolean useLogo) {
+		public final void useLogo(boolean useLogo) {
 			this.getActionBar().setDisplayUseLogoEnabled(useLogo);
 		}
 
 		@Override
-		public int getItemCount() {
+		public final int getItemCount() {
 			return this.getActionBar().getNavigationItemCount();
 		}
 
 		@Override
-		public int getSelectedItemIndex() {
+		public final int getSelectedItemIndex() {
 			return this.getActionBar().getSelectedNavigationIndex();
 		}
 
 		@Override
-		public void selectItem(int position) {
+		public final void selectItem(int position) {
 			this.getActionBar().setSelectedNavigationItem(position);
 		}
 
@@ -904,7 +912,7 @@ public final class ActionBarSherlock {
 		}
 		
 		@Override
-		public void setMenuVisiblityListener(final OnMenuVisibilityListener listener) {
+		public final void setMenuVisiblityListener(final OnMenuVisibilityListener listener) {
 			this.getActionBar().addOnMenuVisibilityListener(new android.app.ActionBar.OnMenuVisibilityListener() {
 				@Override
 				public void onMenuVisibilityChanged(boolean isVisible) {
@@ -914,7 +922,7 @@ public final class ActionBarSherlock {
 		}
 
 		@Override
-		public void addTab(ActionBarTab tab) {
+		public final void addTab(ActionBarTab tab) {
 			this.getActionBar().addTab(
 				this.getActionBar().newTab()
 						.setTabListener(this)
@@ -925,32 +933,32 @@ public final class ActionBarSherlock {
 		}
 
 		@Override
-		public ActionBarTab getSelectedTab() {
+		public final ActionBarTab getSelectedTab() {
 			return (ActionBarTab)this.getActionBar().getSelectedTab().getTag();
 		}
 
 		@Override
-		public int getSelectedTabIndex() {
+		public final int getSelectedTabIndex() {
 			return this.getActionBar().getSelectedNavigationIndex();
 		}
 
 		@Override
-		public ActionBarTab getTabAt(int position) {
+		public final ActionBarTab getTabAt(int position) {
 			return (ActionBarTab)this.getActionBar().getTabAt(position).getTag();
 		}
 
 		@Override
-		public int getTabCount() {
+		public final int getTabCount() {
 			return this.getActionBar().getTabCount();
 		}
 
 		@Override
-		public void removeAllTabs() {
+		public final void removeAllTabs() {
 			this.getActionBar().removeAllTabs();
 		}
 
 		@Override
-		public void removeTab(ActionBarTab tab) {
+		public final void removeTab(ActionBarTab tab) {
 			//Iterate until we match and remove by index
 			final int tabCount = this.getTabCount();
 			for (int i = 0; i < tabCount; i++) {
@@ -961,17 +969,17 @@ public final class ActionBarSherlock {
 		}
 
 		@Override
-		public void removeTabAt(int position) {
+		public final void removeTabAt(int position) {
 			this.getActionBar().removeTabAt(position);
 		}
 
 		@Override
-		public void selectTab(int position) {
+		public final void selectTab(int position) {
 			this.getActionBar().setSelectedNavigationItem(position);
 		}
 
 		@Override
-		public void selectTab(ActionBarTab tab) {
+		public final void selectTab(ActionBarTab tab) {
 			//Iterate until we match and select by index
 			final int tabCount = this.getTabCount();
 			for (int i = 0; i < tabCount; i++) {
@@ -982,27 +990,27 @@ public final class ActionBarSherlock {
 		}
 		
 		@Override
-		public void hide() {
+		public final void hide() {
 			this.getActionBar().hide();
 		}
 
 		@Override
-		public boolean isShowing() {
+		public final boolean isShowing() {
 			return this.getActionBar().isShowing();
 		}
 
 		@Override
-		public void show() {
+		public final void show() {
 			this.getActionBar().show();
 		}
 		
 		@Override
-		public int getNavigationMode() {
+		public final int getNavigationMode() {
 			return this.getActionBar().getNavigationMode();
 		}
 
 		@Override
-		public void setNavigationMode(int navigationMode) {
+		public final void setNavigationMode(int navigationMode) {
 			this.getActionBar().setNavigationMode(navigationMode);
 		}
 		
