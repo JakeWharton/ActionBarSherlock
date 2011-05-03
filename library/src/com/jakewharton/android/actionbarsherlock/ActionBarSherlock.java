@@ -462,7 +462,7 @@ public final class ActionBarSherlock {
 	 * its feature set by calling <code>instanceof HasXXX</code> where
 	 * <code>HasXXX</code> any possible interface (either defined in the
 	 * {@link ActionBarSherlock} class or custom implemeneted. You should then
-	 * case this instance to the interface type and interact using its
+	 * cast this instance to the interface type and interact using its
 	 * methods.</p>
 	 * 
 	 * @return Appropriate handler instance based on the Android version.
