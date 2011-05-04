@@ -475,15 +475,15 @@ public final class ActionBarSherlock {
 		
 		this.mAttached = true;
 		
-		//If no extended native handler, just use the default one
-		if (this.mNativeHandler == null) {
-			this.mNativeHandler = NativeActionBarHandler.class;
-		}
-		
 		//Instantiate the appropriate handler
 		ActionBarHandler<?> handler;
 		try {
 			if (HAS_NATIVE_ACTION_BAR) {
+				//If no extended native handler, just use the default one
+				if (this.mNativeHandler == null) {
+					this.mNativeHandler = NativeActionBarHandler.class;
+				}
+				
 				handler = this.mNativeHandler.newInstance();
 			} else if (this.mCustomHandler != null) {
 				handler = this.mCustomHandler.newInstance();
