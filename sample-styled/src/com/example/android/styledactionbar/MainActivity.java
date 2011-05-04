@@ -27,6 +27,7 @@ import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasNavigation
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasTabNavigation;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasTitle;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.OnNavigationListener;
+import com.jakewharton.android.actionbarsherlock.handler.Android_ActionBar;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
@@ -54,6 +55,7 @@ public class MainActivity extends FragmentActivity implements ActionBarSherlock.
 				.from(this)
 				.layout(R.layout.main)
 				.menu(R.menu.main_menu)
+				.handleCustom(Android_ActionBar.Handler.class)
 				.attach();
 		
 		if (this.mHandler instanceof HasHomeAsUp) {
@@ -232,7 +234,7 @@ public class MainActivity extends FragmentActivity implements ActionBarSherlock.
 	@Override
 	public void onTabReselected(ActionBarTab tab) {
 		// FIXME add a proper implementation, for now just rotate the left fragment
-		rotateLeftFrag();
+		this.rotateLeftFrag();
 	}
 
 	@Override
