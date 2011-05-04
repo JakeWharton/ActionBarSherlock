@@ -51,6 +51,12 @@ public class MainActivity extends FragmentActivity implements ActionBarSherlock.
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		/*
+		 * TODO:
+		 * - The menu loading fails on pre-3.0, likely due to the additional attributes.
+		 * - Style the custom action bar to look somewhat like the native one.
+		 */
+		
 		//"Elementary"
 		this.mHandler = ActionBarSherlock
 				.from(this)
