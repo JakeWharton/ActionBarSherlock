@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package com.example.android.styledactionbar;
+package com.jakewharton.android.actionbarsherlock.sample.styledactionbar;
 
+import com.jakewharton.android.actionbarsherlock.sample.styledactionbar.R;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock;
 import com.jakewharton.android.actionbarsherlock.ActionBarTab;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.ActionBarHandler;

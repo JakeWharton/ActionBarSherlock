@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package com.example.android.styledactionbar;
+package com.jakewharton.android.actionbarsherlock.sample.styledactionbar;
 
+import com.jakewharton.android.actionbarsherlock.sample.styledactionbar.R;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
