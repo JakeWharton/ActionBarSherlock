@@ -28,12 +28,12 @@
 			<artifactId>android-actionbarsherlock</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		<!--dependency>
+		<dependency>
 			<groupId>com.jakewharton</groupId>
 			<artifactId>android-actionbarsherlock-handler-android_actionbar</artifactId>
 			<version>${project.version}</version>
 			<type>apklib</type>
-		</dependency-->
+		</dependency>
 	</dependencies>
 
 	<build>

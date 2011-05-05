@@ -19,7 +19,9 @@ package com.jakewharton.android.actionbarsherlock;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 
@@ -50,6 +52,7 @@ public final class ActionBarMenuItem implements MenuItem {
 	private boolean mIsVisible;
 	private char mNumericalShortcut;
 	private char mAlphabeticalShortcut;
+	private int mShowAsAction;
 	
 	
 	/**
@@ -73,6 +76,22 @@ public final class ActionBarMenuItem implements MenuItem {
 		this.mTitle = title;
 	}
 	
+
+	/**
+	 * Add this instance to a native {@link Menu}.
+	 * 
+	 * @param menu Menu to which to add.
+	 */
+	public void addTo(Menu menu) {
+		if (this.mSubMenu != null) {
+			SubMenu subMenu = menu.addSubMenu(this.mGroupId, this.mItemId, this.mOrder, this.mTitle);
+			for (ActionBarMenuItem subItem : this.mSubMenu.getItems()) {
+				subItem.addTo(subMenu);
+			}
+		} else {
+			menu.add(this.mGroupId, this.mItemId, this.mOrder, this.mTitle);
+		}
+	}
 	
 	@Override
 	public Intent getIntent() {
@@ -233,6 +252,15 @@ public final class ActionBarMenuItem implements MenuItem {
 	public ActionBarMenuItem setShortcut(char numericChar, char alphaChar) {
 		return this.setNumericShortcut(numericChar).setAlphabeticShortcut(alphaChar);
 	}
+
+	@Override
+	public void setShowAsAction(int actionEnum) {
+		this.mShowAsAction = actionEnum;
+	}
+	
+	public int getShowAsAction() {
+		return this.mShowAsAction;
+	}
 	
 	
 	@Override
@@ -267,11 +295,6 @@ public final class ActionBarMenuItem implements MenuItem {
 
 	@Override
 	public ActionBarMenuItem setOnMenuItemClickListener(OnMenuItemClickListener menuItemClickListener) {
-		throw new RuntimeException("Method not supported.");
-	}
-
-	@Override
-	public void setShowAsAction(int actionEnum) {
 		throw new RuntimeException("Method not supported.");
 	}
 }

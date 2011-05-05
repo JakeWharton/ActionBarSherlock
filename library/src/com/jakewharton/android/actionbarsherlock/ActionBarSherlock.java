@@ -792,8 +792,80 @@ public final class ActionBarSherlock {
 		 */
 		protected final ActionBarMenu inflateMenu(int menuResourceId) {
 			ActionBarMenu menu = new ActionBarMenu(this.getActivity());
-			this.getActivity().getMenuInflater().inflate(menuResourceId, menu);
+			ActionBarMenuInflater menuInflater = new ActionBarMenuInflater(this.getActivity());
+			menuInflater.inflate(menuResourceId, menu);
 			return menu;
+		}
+		
+		/**
+		 * Inflate an XML menu and get only the items which are to be displayed
+		 * on the action bar itself. Any remaining items will automatically be
+		 * attached to the activity context menu.
+		 * 
+		 * @param menuResourceId Resource ID of XML menu.
+		 * @param maxActionBarItems Maximum number of action bar items.
+		 * @return Items which are to be displayed on the action bar.
+		 */
+		protected final List<ActionBarMenuItem> parseMenu(int menuResourceId, int maxActionBarItems) {
+			//Inflate the menu to two categories of items
+			List<ActionBarMenuItem> actionBarItems = new LinkedList<ActionBarMenuItem>();
+			List<ActionBarMenuItem> overflowItems = new LinkedList<ActionBarMenuItem>();
+			this.parseMenu(menuResourceId, maxActionBarItems, actionBarItems, overflowItems);
+			
+			//Automatically set the remaining items as the activity context menu
+			((SherlockActivity)this.getActivity()).setActivityMenu(overflowItems);
+			
+			//Return the action bar items to the caller
+			return actionBarItems;
+		}
+		
+		/**
+		 * Inflate an XML menu and get the items which are to be displayed on
+		 * the action bar itself and the items which should overflow into a
+		 * secondary menu.
+		 * 
+		 * @param menuResourceId Resource ID of XML menu.
+		 * @param maxActionBarItems Maximum number of action bar items.
+		 * @param actionBarItems Output parameter of action bar items. You must
+		 * pass in an instance to which the items will be added.
+		 * @param overflowItems Output parameter of overflow items. You must
+		 * pass in an instance to which the items will be added.
+		 */
+		protected final void parseMenu(int menuResourceId, int maxActionBarItems, List<ActionBarMenuItem> actionBarItems, List<ActionBarMenuItem> overflowItems) {
+			assert actionBarItems != null;
+			assert overflowItems != null;
+			assert maxActionBarItems > 0;
+			
+			ActionBarMenu menu = this.inflateMenu(menuResourceId);
+			int ifItems = 0;
+			for (ActionBarMenuItem item : menu.getItems()) {
+				if ((item.getShowAsAction() & ActionBarMenuItem.SHOW_AS_ACTION_ALWAYS) != 0) {
+					actionBarItems.add(item);
+					
+					if ((actionBarItems.size() > maxActionBarItems) && (ifItems > 0)) {
+						//If we have exceeded the max and there are "ifRoom" items
+						//then iterate backwards to remove one and add it to the
+						//head of the classic items list.
+						for (int i = actionBarItems.size() - 1; i >= 0; i--) {
+							if ((actionBarItems.get(i).getShowAsAction() & ActionBarMenuItem.SHOW_AS_ACTION_IF_ROOM) != 0) {
+								overflowItems.add(0, actionBarItems.get(i));
+								actionBarItems.remove(i);
+								ifItems -= 1;
+								break;
+							}
+						}
+					}
+				} else if (((item.getShowAsAction() & ActionBarMenuItem.SHOW_AS_ACTION_IF_ROOM) != 0)
+						&& (actionBarItems.size() < maxActionBarItems)) {
+					//"ifRoom" items are added if we have not exceeded the max.
+					actionBarItems.add(item);
+					ifItems += 1;
+				} else {
+					//"never" items and "ifRoom" items (when max is exceeded)
+					//get added to the overflow list.
+					overflowItems.add(item);
+				}
+			}
 		}
 	}
 	
@@ -1425,7 +1497,7 @@ public final class ActionBarSherlock {
 	/**
 	 * Interface of helper methods implemented by all helper classes.
 	 */
-	private static interface SherlockActivity {
+	static interface SherlockActivity {
 		/**
 		 * Set the menu XML resource ID for inflation to the native action bar.
 		 * If a third-party action bar is being used it will be automatically
@@ -1434,6 +1506,17 @@ public final class ActionBarSherlock {
 		 * @param menuResourceId Resource ID of menu XML.
 		 */
 		void setActionBarMenu(int menuResourceId);
+		
+		/**
+		 * Set additional items which should be added to the activity context
+		 * menu. <strong>This should ONLY be called when the native action bar
+		 * is not being utilized.</strong>
+		 * 
+		 * @param items Menu items.
+		 * @throws RuntimeException If called on an activity which has access to
+		 * the native action bar.
+		 */
+		void setActivityMenu(List<ActionBarMenuItem> menuItems);
 		
 		/**
 		 * Callback for after the menu has been successfully loaded.
@@ -1452,16 +1535,32 @@ public final class ActionBarSherlock {
 		 */
 		private Integer mMenuResourceId;
 		
+		/**
+		 * List of menu items to add to the context menu.
+		 */
+		private List<ActionBarMenuItem> mMenuItems;
+		
 		
 		@Override
 		public final void setActionBarMenu(int menuResourceId) {
 			this.mMenuResourceId = menuResourceId;
+		}
+		
+		@Override
+		public final void setActivityMenu(List<ActionBarMenuItem> menuItems) {
+			this.mMenuItems = menuItems;
 		}
 
 		@Override
 		public final boolean onCreateOptionsMenu(Menu menu) {
 			if (this.mMenuResourceId != null) {
 				this.getMenuInflater().inflate(this.mMenuResourceId, menu);
+				this.onOptionsMenuCreated(menu);
+				return true;
+			} else if ((this.mMenuItems != null) && (this.mMenuItems.size() > 0)) {
+				for (ActionBarMenuItem menuItem : this.mMenuItems) {
+					menuItem.addTo(menu);
+				}
 				this.onOptionsMenuCreated(menu);
 				return true;
 			}
@@ -1489,16 +1588,32 @@ public final class ActionBarSherlock {
 		 */
 		private Integer mMenuResourceId;
 		
+		/**
+		 * List of menu items to add to the context menu.
+		 */
+		private List<ActionBarMenuItem> mMenuItems;
+		
 		
 		@Override
 		public void setActionBarMenu(int menuResourceId) {
 			this.mMenuResourceId = menuResourceId;
+		}
+		
+		@Override
+		public final void setActivityMenu(List<ActionBarMenuItem> menuItems) {
+			this.mMenuItems = menuItems;
 		}
 
 		@Override
 		public final boolean onCreateOptionsMenu(Menu menu) {
 			if (this.mMenuResourceId != null) {
 				this.getMenuInflater().inflate(this.mMenuResourceId, menu);
+				this.onOptionsMenuCreated(menu);
+				return true;
+			} else if ((this.mMenuItems != null) && (this.mMenuItems.size() > 0)) {
+				for (ActionBarMenuItem menuItem : this.mMenuItems) {
+					menuItem.addTo(menu);
+				}
 				this.onOptionsMenuCreated(menu);
 				return true;
 			}
@@ -1522,16 +1637,32 @@ public final class ActionBarSherlock {
 		 */
 		private Integer mMenuResourceId;
 		
+		/**
+		 * List of menu items to add to the context menu.
+		 */
+		private List<ActionBarMenuItem> mMenuItems;
+		
 		
 		@Override
 		public void setActionBarMenu(int menuResourceId) {
 			this.mMenuResourceId = menuResourceId;
+		}
+		
+		@Override
+		public final void setActivityMenu(List<ActionBarMenuItem> menuItems) {
+			this.mMenuItems = menuItems;
 		}
 
 		@Override
 		public final boolean onCreateOptionsMenu(Menu menu) {
 			if (this.mMenuResourceId != null) {
 				this.getMenuInflater().inflate(this.mMenuResourceId, menu);
+				this.onOptionsMenuCreated(menu);
+				return true;
+			} else if ((this.mMenuItems != null) && (this.mMenuItems.size() > 0)) {
+				for (ActionBarMenuItem menuItem : this.mMenuItems) {
+					menuItem.addTo(menu);
+				}
 				this.onOptionsMenuCreated(menu);
 				return true;
 			}

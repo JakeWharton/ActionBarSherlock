@@ -18,7 +18,6 @@ package com.jakewharton.android.actionbarsherlock;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
 
@@ -55,7 +54,7 @@ public class ActionBarSubMenu extends ActionBarMenu implements SubMenu {
 
 	
 	@Override
-	public MenuItem getItem() {
+	public ActionBarMenuItem getItem() {
 		return this.mItem;
 	}
 	

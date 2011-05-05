@@ -1,5 +1,6 @@
 package com.jakewharton.android.actionbarsherlock.handler;
 
+import java.util.List;
 import greendroid.widget.GDActionBar;
 import greendroid.widget.GDActionBarItem;
 import greendroid.widget.NormalActionBarItem;
@@ -10,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.FrameLayout;
-import com.jakewharton.android.actionbarsherlock.ActionBarMenu;
 import com.jakewharton.android.actionbarsherlock.ActionBarMenuItem;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.ActionBarHandler;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasMenu;
@@ -34,6 +34,9 @@ public final class GreenDroid {
 	 * @author Jake Wharton <jakewharton@gmail.com>
 	 */
 	public static class Handler extends ActionBarHandler<GDActionBar> implements HasTitle, HasVisibility, HasMenu {
+		/** Maximum number of action bar items to display. */
+		private static final int MAX_ACTION_BAR_ITEMS = 3;
+		
 		/**
 		 * {@link MenuItem} corresponding to the home action.
 		 */
@@ -164,8 +167,9 @@ public final class GreenDroid {
 
 		@Override
 		public void setMenuResourceId(int menuResourceId) {
-			ActionBarMenu menu = this.inflateMenu(menuResourceId);
-			for (ActionBarMenuItem item : menu.getItems()) {
+			//Action bar items only, add the rest to context menu automatically.
+			List<ActionBarMenuItem> items = this.parseMenu(menuResourceId, MAX_ACTION_BAR_ITEMS);
+			for (ActionBarMenuItem item : items) {
 				this.getActionBar().addItem(new Item(item));
 			}
 		}
