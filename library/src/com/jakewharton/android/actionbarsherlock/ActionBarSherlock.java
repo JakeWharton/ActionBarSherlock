@@ -88,7 +88,6 @@ public final class ActionBarSherlock {
 	private static final String ERROR_DROPDOWN_LISTENER = "A drop-down listener has already been specified.";
 	private static final String ERROR_DROPDOWN_LISTENER_NULL = "Drop-down listener must not be null.";
 	private static final String ERROR_HANDLER_CUSTOM = "A custom handler has already been specified.";
-	private static final String ERROR_HANDLER_CUSTOM_NATIVE = "Custom handler must not extend from NativeActionBarHandler.";
 	private static final String ERROR_HANDLER_CUSTOM_NULL = "Custom handler must not be null.";
 	private static final String ERROR_HANDLER_NATIVE = "A native handler has already been specified.";
 	private static final String ERROR_HANDLER_NATIVE_NULL = "Native handler must not be null.";
@@ -448,7 +447,6 @@ public final class ActionBarSherlock {
 		assert this.mAttached == false : ERROR_ATTACHED;
 		assert this.mCustomHandler == null : ERROR_HANDLER_CUSTOM;
 		assert handler != null : ERROR_HANDLER_CUSTOM_NULL;
-		assert !NativeActionBarHandler.class.isAssignableFrom(handler) : ERROR_HANDLER_CUSTOM_NATIVE;
 		
 		this.mCustomHandler = handler;
 		return this;
@@ -481,10 +479,10 @@ public final class ActionBarSherlock {
 			if (HAS_NATIVE_ACTION_BAR) {
 				//If no extended native handler, just use the default one
 				if (this.mNativeHandler == null) {
-					this.mNativeHandler = NativeActionBarHandler.class;
+					handler = (ActionBarHandler<?>)Class.forName("com.jakewharton.android.actionbarsherlock.ActionBarSherlock.NativeActionBarHandler").newInstance();
+				} else {
+					handler = this.mNativeHandler.newInstance();
 				}
-				
-				handler = this.mNativeHandler.newInstance();
 			} else if (this.mCustomHandler != null) {
 				handler = this.mCustomHandler.newInstance();
 			} else {
@@ -494,6 +492,8 @@ public final class ActionBarSherlock {
 		} catch (InstantiationException e) {
 			throw new RuntimeException(e);
 		} catch (IllegalAccessException e) {
+			throw new RuntimeException(e);
+		} catch (ClassNotFoundException e) {
 			throw new RuntimeException(e);
 		}
 		
