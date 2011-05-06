@@ -1112,6 +1112,54 @@ public final class ActionBarSherlock {
 	}
 	
 	
+	/**************************************************************************\
+	 * HasXXX Interface    *  Native ActionBar methods                        *
+	 **************************************************************************
+	 * HasMenu             *  addOnMenuVisibilityListener(ActionBar.OnMenuVisibilityListener listener)
+	 * HasTabNavigation    *  addTab(ActionBar.Tab tab)
+	 * HasTabNavigation    *  addTab(ActionBar.Tab tab, boolean setSelected)
+	 * HasTabNavigation    *  addTab(ActionBar.Tab tab, int position)
+	 * HasTabNavigation    *  addTab(ActionBar.Tab tab, int position, boolean setSelected)
+	 *                     *  getCustomView()
+	 *                     *  getDisplayOptions()
+	 *                     *  getHeight()
+	 * List & Tab          *  getNavigationItemCount()
+	 * HasNavigationState  *  getNavigationMode()
+	 *                     *  getSelectedNavigationIndex()
+	 * HasTabNavigation    *  getSelectedTab()
+	 * HasSubtitle         *  getSubtitle()
+	 * HasTabNavigation    *  getTabAt(int index)
+	 * HasTabNavigation    *  getTabCount()
+	 * HasTitle            *  getTitle()
+	 * HasVisibility       *  hide()
+	 * HasVisibility       *  isShowing()
+	 * HasTabNavigation    *  newTab()
+	 * HasTabNavigation    *  removeAllTabs()
+	 *                     *  removeOnMenuVisibilityListener(ActionBar.OnMenuVisibilityListener listener)
+	 * HasTabNavigation    *  removeTab(ActionBar.Tab tab)
+	 * HasTabNavigation    *  removeTabAt(int position)
+	 * HasTabNavigation    *  selectTab(ActionBar.Tab tab)
+	 *                     *  setBackgroundDrawable(Drawable d)
+	 *                     *  setCustomView(int resId)
+	 *                     *  setCustomView(View view)
+	 *                     *  setCustomView(View view, ActionBar.LayoutParams layoutParams)
+	 * HasHomeAsUp         *  setDisplayHomeAsUpEnabled(boolean showHomeAsUp)
+	 *                     *  setDisplayOptions(int options, int mask)
+	 *                     *  setDisplayOptions(int options)
+	 *                     *  setDisplayShowCustomEnabled(boolean showCustom)
+	 *                     *  setDisplayShowHomeEnabled(boolean showHome)
+	 * HasTitle            *  setDisplayShowTitleEnabled(boolean showTitle)
+	 * HasLogo             *  setDisplayUseLogoEnabled(boolean useLogo)
+	 * HasListNavigation   *  setListNavigationCallbacks(SpinnerAdapter adapter, ActionBar.OnNavigationListener callback)
+	 * HasNavigationState  *  setNavigationMode(int mode)
+	 *                     *  setSelectedNavigationItem(int position)
+	 * HasSubtitle         *  setSubtitle(int resId)
+	 * HasSubtitle         *  setSubtitle(CharSequence subtitle)
+	 * HasTitle            *  setTitle(CharSequence title)
+	 * HasTitle            *  setTitle(int resId)
+	 * HasVisibility       *  show()
+	\**************************************************************************/
+	
 	/**
 	 * Interface which denotes a third-party action bar handler implementation
 	 * supports populating the action bar from an XML menu.
@@ -1122,7 +1170,7 @@ public final class ActionBarSherlock {
 		 * 
 		 * <p>A convenience method, {@link ActionBarHandler#inflateMenu(int)},
 		 * is available which will perform the inflation and return an
-		 * {@link ActionBarMenu}.
+		 * {@link ActionBarMenu}.</p>
 		 * 
 		 * @param menuResourceId Resource ID of menu XML.
 		 */
