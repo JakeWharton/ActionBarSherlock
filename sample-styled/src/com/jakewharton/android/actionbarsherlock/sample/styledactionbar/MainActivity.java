@@ -31,14 +31,13 @@ import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.OnNavigationL
 import com.jakewharton.android.actionbarsherlock.handler.Android_ActionBar;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MenuItem.OnMenuItemClickListener;
 import android.widget.ArrayAdapter;
 
 public class MainActivity extends FragmentActivity implements ActionBarSherlock.TabListener {
 	/** Proxy to the action bar. */
 	private ActionBarHandler<?> mHandler;
+	
 	private RoundedColourFragment mFragmentSide;
 	private RoundedColourFragment mFragmentMain;
 	private boolean mUseLogo = false;
@@ -53,7 +52,6 @@ public class MainActivity extends FragmentActivity implements ActionBarSherlock.
 		
 		/*
 		 * TODO:
-		 * - The menu loading fails on pre-3.0, likely due to the additional attributes.
 		 * - Style the custom action bar to look somewhat like the native one.
 		 */
 		
@@ -107,33 +105,23 @@ public class MainActivity extends FragmentActivity implements ActionBarSherlock.
 	}
 
 	@Override
-	public void onOptionsMenuCreated(Menu menu) {
-		// set up a listener for the refresh item
-		final MenuItem refresh = (MenuItem)menu.findItem(R.id.menu_refresh);
-		refresh.setOnMenuItemClickListener(new OnMenuItemClickListener() {
-			// on selecting show progress spinner for 1s
-			public boolean onMenuItemClick(MenuItem item) {
-				// item.setActionView(R.layout.progress_action);
-				mRefreshHandler.postDelayed(new Runnable() {
-					public void run() {
-						refresh.setActionView(null);
-					}
-				}, 1000);
-				return false;
-			}
-		});
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
+	public boolean onOptionsItemSelected(final MenuItem item) {
 		switch (item.getItemId()) {
 			case android.R.id.home:
 				// TODO handle clicking the app icon/logo
 				return false;
 				
 			case R.id.menu_refresh:
-				// switch to a progress animation
-				item.setActionView(R.layout.indeterminate_progress_action);
+				if (ActionBarSherlock.HAS_NATIVE_ACTION_BAR) {
+					// switch to a progress animation
+					item.setActionView(R.layout.indeterminate_progress_action);
+					// reset state after 1 second
+					this.mRefreshHandler.postDelayed(new Runnable() {
+						public void run() {
+							item.setActionView(null);
+						}
+					}, 1000);
+				}
 				return true;
 				
 			case R.id.menu_both:
@@ -154,13 +142,17 @@ public class MainActivity extends FragmentActivity implements ActionBarSherlock.
 			case R.id.menu_logo:
 				this.mUseLogo = !this.mUseLogo;
 				item.setChecked(this.mUseLogo);
-				this.getActionBar().setDisplayUseLogoEnabled(this.mUseLogo);
+				if (this.mHandler instanceof HasLogo) {
+					((HasLogo)this.mHandler).useLogo(this.mUseLogo);
+				}
 				return true;
 				
 			case R.id.menu_up:
 				this.mShowHomeUp = !this.mShowHomeUp;
 				item.setChecked(this.mShowHomeUp);
-				this.getActionBar().setDisplayHomeAsUpEnabled(this.mShowHomeUp);
+				if (this.mHandler instanceof HasHomeAsUp) {
+					((HasHomeAsUp)this.mHandler).useHomeAsUp(this.mShowHomeUp);
+				}
 				return true;
 				
 			case R.id.menu_nav_tabs:
