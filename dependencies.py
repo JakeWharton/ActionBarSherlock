@@ -14,7 +14,7 @@ dependencies = [
         'name': 'greendroid',
         'user': 'hameno',
         'repo': 'GreenDroid',
-        'sha' : '63eae89e17524dba33328685ca65fb19e05bf715',
+        'sha' : 'ec0f8a08c0537bee49d1f1f9a178307344b5cc47',
         'path': 'GreenDroid',
     },
 ]
@@ -75,9 +75,9 @@ for dependency in dependencies:
     zip_file_name = os.path.join(vendor_dir, zip_name)
 
     #Clone the repository
-    subprocess.Popen(['git', 'clone', 'git://github.com/%s/%s.git' % (dependency['user'], dependency['repo']), dependency['name']], cwd=vendor_dir).wait()
+    subprocess.call(['git', 'clone', 'git://github.com/%(user)s/%(repo)s.git' % dependency, dependency['name']], cwd=vendor_dir)
     #Checkout the desired version
-    subprocess.Popen(['git', 'checkout', dependency['sha']], cwd=repo_dir).wait()
+    subprocess.call(['git', 'checkout', dependency['sha']], cwd=repo_dir)
 
     #Zip target path
     zip_file = zipfile.ZipFile(zip_file_name, 'w', compression=zipfile.ZIP_DEFLATED)
@@ -90,13 +90,13 @@ for dependency in dependencies:
     os.chdir(cwd)
 
     #Maven install
-    subprocess.Popen([
+    subprocess.call([
         'mvn', 'install:install-file',
         '-Dfile=' + zip_name,
         '-DgroupId=com.github', '-DartifactId=' + dependency['user'] + '-' + dependency['name'],
         '-Dversion=0.0.0-' + dependency['sha'][:7],
         '-Dpackaging=apklib',
-    ], cwd=vendor_dir).wait()
+    ], cwd=vendor_dir)
 
     #Remove .apklib file
     os.remove(zip_file_name)
