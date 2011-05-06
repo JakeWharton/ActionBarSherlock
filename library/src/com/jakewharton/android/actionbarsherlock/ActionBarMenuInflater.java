@@ -189,7 +189,7 @@ public class ActionBarMenuInflater {
         private boolean itemAdded;
         private int itemId;
         private int itemCategoryOrder;
-        private String itemTitle;
+        private int itemTitleId;
         private String itemTitleCondensed;
         private int itemIconResId;
         private char itemAlphabeticShortcut;
@@ -287,7 +287,7 @@ public class ActionBarMenuInflater {
             itemCategoryOrder = (category & Menu__CATEGORY_MASK) | (order & Menu__USER_MASK);
             
             //itemTitle = a.getString(com.android.internal.R.styleable.MenuItem_title);
-            itemTitle = attrs.getAttributeValue(XML_NS, "title");
+            itemTitleId = attrs.getAttributeResourceValue(XML_NS, "title", 0);
             
             //itemTitleCondensed = a.getString(com.android.internal.R.styleable.MenuItem_titleCondensed);
             itemTitleCondensed = attrs.getAttributeValue(XML_NS, "titleCondensed");
@@ -362,12 +362,12 @@ public class ActionBarMenuInflater {
         
         public void addItem() {
             itemAdded = true;
-            setItem(menu.add(groupId, itemId, itemCategoryOrder, itemTitle));
+            setItem(menu.add(groupId, itemId, itemCategoryOrder, itemTitleId));
         }
         
         public ActionBarSubMenu addSubMenuItem() {
             itemAdded = true;
-            ActionBarSubMenu subMenu = menu.addSubMenu(groupId, itemId, itemCategoryOrder, itemTitle);
+            ActionBarSubMenu subMenu = menu.addSubMenu(groupId, itemId, itemCategoryOrder, itemTitleId);
             setItem(subMenu.getItem());
             return subMenu;
         }
