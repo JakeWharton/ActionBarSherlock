@@ -2,6 +2,8 @@ package com.jakewharton.android.actionbarsherlock.sample.greendroid;
 
 import greendroid.widget.GDActionBarItem;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock;
+import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.ActionBarHandler;
+import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasTitle;
 import com.jakewharton.android.actionbarsherlock.handler.GreenDroid;
 import android.app.Activity;
 import android.os.Bundle;
@@ -19,13 +21,16 @@ public class HelloActionBarActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		//Attach sherlock and set up the action bar.
-		ActionBarSherlock.from(this)
+		ActionBarHandler<?> handler = ActionBarSherlock.from(this)
 			.with(savedInstanceState)
 			.layout(R.layout.activity_hello)
-			.title("Hello, ActionBar!")
 			.handleNative(HelloNativeActionBarHandler.class)
 			.handleCustom(HelloGreenDroidActionBarHandler.class)
 			.attach();
+		
+		if (handler instanceof HasTitle) {
+			((HasTitle)handler).setTitle("Hello, Action Bar!");
+		}
 	}
 
 	@Override

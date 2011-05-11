@@ -24,6 +24,7 @@ import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.FragmentActiv
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasHomeAsUp;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasListNavigation;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasLogo;
+import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasMenu;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasNavigationState;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasTabNavigation;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasTitle;
@@ -59,10 +60,12 @@ public class MainActivity extends FragmentActivity implements ActionBarSherlock.
 		this.mHandler = ActionBarSherlock
 				.from(this)
 				.layout(R.layout.main)
-				.menu(R.menu.main_menu)
 				.handleCustom(Android_ActionBar.Handler.class)
 				.attach();
 		
+		if (this.mHandler instanceof HasMenu) {
+			((HasMenu)this.mHandler).setMenuResourceId(R.menu.main_menu);
+		}
 		if (this.mHandler instanceof HasHomeAsUp) {
 			((HasHomeAsUp)this.mHandler).useHomeAsUp(this.mShowHomeUp);
 		}

@@ -78,35 +78,19 @@ public final class ActionBarSherlock {
 	
 	private static final String ERROR_ACTIVITY_NULL = "Activity must not be null.";
 	private static final String ERROR_ACTIVITY_FRAGMENT = "Activity must extend from android.support.v4.app.Fragment.";
-	private static final String ERROR_ACTIVITY_SHERLOCK = "Activity must extend from one of the base classes within ActionBarSherlock.";
-	private static final String ERROR_ACTIVITY_TAB_LISTENER = "Activity must implement the ActionBarSherlock.TabListener interface.";
 	private static final String ERROR_ATTACHED = "Sherlock has already been attached to the activity.";
 	private static final String ERROR_BUNDLE = "A Bundle has already been specified.";
-	private static final String ERROR_DROPDOWN_ADAPTER = "A drop-down adapter has already been specified.";
-	private static final String ERROR_DROPDOWN_ADAPTER_NULL = "Drop-down adapter must not be null.";
-	private static final String ERROR_DROPDOWN_HANDLER = "Handler does not implement the ActionBarSherlock.HasListNavigation interface.";
-	private static final String ERROR_DROPDOWN_LISTENER = "A drop-down listener has already been specified.";
-	private static final String ERROR_DROPDOWN_LISTENER_NULL = "Drop-down listener must not be null.";
 	private static final String ERROR_HANDLER_CUSTOM = "A custom handler has already been specified.";
 	private static final String ERROR_HANDLER_CUSTOM_NULL = "Custom handler must not be null.";
 	private static final String ERROR_HANDLER_NATIVE = "A native handler has already been specified.";
 	private static final String ERROR_HANDLER_NATIVE_NULL = "Native handler must not be null.";
-	private static final String ERROR_HOMEASUP_HANDLER = "Handler does not implement ActionBarSherlock.HasHomeAsUp interface.";
 	private static final String ERROR_LAYOUT_FRAGMENT = "A layout fragment has already been specified.";
 	private static final String ERROR_LAYOUT_ID = "A layout ID has already been specified.";
 	private static final String ERROR_LAYOUT_NULL = "Layout must not be null.";
 	private static final String ERROR_LAYOUT_VIEW = "A layout view has already been specified.";
 	private static final String ERROR_LAYOUT_ZERO = "Layout ID must not be zero.";
 	private static final String ERROR_LAYOUTS_NULL = "At least one type of layout must be specified.";
-	private static final String ERROR_LOGO_HANDLER = "Handler does not implement the ActionBarSherlock.HasLogo interface.";
 	private static final String ERROR_LOGO_MISSING = "Neither the activity nor the application entry in the manifest contains a logo.";
-	private static final String ERROR_MENU = "A menu has already been specified.";
-	private static final String ERROR_MENU_HANDLER = "Handler does not implement the ActionBarSherlock.HasMenu interface.";
-	private static final String ERROR_MENU_ZERO = "Menu ID must not be zero.";
-	private static final String ERROR_TAB_HANDLER = "Handler does not implement the ActionBarSherlock.HasTabNavigation interface.";
-	private static final String ERROR_TITLE = "A title has already been specified.";
-	private static final String ERROR_TITLE_HANDLER = "Handler does not implement the ActionBarSherlock.HasTitle interface";
-	private static final String ERROR_TITLE_NULL = "Title must not be null.";
 	
 	
 	/**
@@ -139,46 +123,6 @@ public final class ActionBarSherlock {
 	 * Fragment to load as activity's content.
 	 */
 	private Fragment mFragment;
-	
-	/**
-	 * Title to automatically set on whichever type of action bar is selected.
-	 */
-	private CharSequence mTitle;
-	
-	/**
-	 * Resource ID of the menu to inflate to the action bar.
-	 */
-	private Integer mMenuResourceId;
-	
-	/**
-	 * Callback listener for when the menu visibility changes.
-	 */
-	private OnMenuVisibilityListener mMenuListener;
-	
-	/**
-	 * Whether or not home should be displayed as an "up" affordance.
-	 */
-	private boolean mHomeAsUpEnabled;
-	
-	/**
-	 * Whether or not to use the activity logo instead of the icon and title.
-	 */
-	private boolean mUseLogo;
-	
-	/**
-	 * List of items for list navigation.
-	 */
-	private SpinnerAdapter mListAdapter;
-	
-	/**
-	 * Callback listener for when a list item is clicked.
-	 */
-	private OnNavigationListener mListListener;
-	
-	/**
-	 * List of tabs to be added to the action bar.
-	 */
-	private List<ActionBarTab> mTabs;
 	
 	/**
 	 * The class which will handle the native action bar.
@@ -218,8 +162,6 @@ public final class ActionBarSherlock {
 		
 		//Defaults
 		this.mAttached = false;
-		this.mUseLogo = false;
-		this.mTabs = new LinkedList<ActionBarTab>();
 	}
 	
 	
@@ -288,132 +230,6 @@ public final class ActionBarSherlock {
 		assert fragment != null : ERROR_LAYOUT_NULL;
 		
 		this.mFragment = fragment;
-		return this;
-	}
-	
-	/**
-	 * Initial string resource to use for setting the title of the action bar.
-	 * 
-	 * @param stringResourceId String resource ID.
-	 * @return Current instance for builder pattern.
-	 */
-	public ActionBarSherlock title(int stringResourceId) {
-		String title = this.mActivity.getResources().getString(stringResourceId);
-		return this.title(title);
-	}
-	
-	/**
-	 * String to use for setting the title of the action bar.
-	 * 
-	 * @param title Title string.
-	 * @return Current instance for builder pattern.
-	 */
-	public ActionBarSherlock title(CharSequence title) {
-		assert this.mAttached == false : ERROR_ATTACHED;
-		assert this.mTitle == null : ERROR_TITLE;
-		assert title != null : ERROR_TITLE_NULL;
-		
-		this.mTitle = title;
-		return this;
-	}
-	
-	/**
-	 * Resource ID of a menu to inflate as buttons onto the action bar. This
-	 * requires that the implementing activity class be extended from
-	 * {@link Activity}, {@link ListActivity}, or {@link FragmentActivity}.
-	 * 
-	 * @param menuResourceId Resource ID for menu XML.
-	 * @return Current instance for builder pattern.
-	 */
-	public ActionBarSherlock menu(int menuResourceId) {
-		assert this.mAttached == false : ERROR_ATTACHED;
-		assert this.mMenuResourceId == null : ERROR_MENU;
-		assert this.mActivity instanceof SherlockActivity : ERROR_ACTIVITY_SHERLOCK;
-		assert menuResourceId != 0 : ERROR_MENU_ZERO;
-		
-		this.mMenuResourceId = menuResourceId;
-		return this;
-	}
-	
-	/**
-	 * Resource ID of a menu to inflate as buttons onto the action bar. This
-	 * requires that the implementing activity class be extended from
-	 * {@link Activity}, {@link ListActivity}, or {@link FragmentActivity}.
-	 * 
-	 * @param menuResourceId ResourceID for menu XML.
-	 * @param listener Callback listener for when menu visibility changes.
-	 * @return Current instance for builder pattern.
-	 */
-	public ActionBarSherlock menu(int menuResourceId, OnMenuVisibilityListener listener) {
-		assert this.mAttached == false: ERROR_ATTACHED;
-		assert this.mMenuResourceId == null : ERROR_MENU;
-		assert this.mMenuListener == null : ERROR_MENU;
-		assert this.mActivity instanceof SherlockActivity : ERROR_ACTIVITY_SHERLOCK;
-		assert menuResourceId != 0 : ERROR_MENU_ZERO;
-		
-		this.mMenuResourceId = menuResourceId;
-		this.mMenuListener = listener;
-		return this;
-	}
-	
-	/**
-	 * Set home should be displayed as an "up" affordance.
-	 * 
-	 * @param enabled Whether or not this is enabled.
-	 * @return Current instance for builder pattern.
-	 */
-	public ActionBarSherlock homeAsUp(boolean enabled) {
-		assert this.mAttached == false : ERROR_ATTACHED;
-		
-		this.mHomeAsUpEnabled = enabled;
-		return this;
-	}
-	
-	/**
-	 * Use logo instead of application icon and activity title.
-	 * 
-	 * @param enabled Whether or not this is enabled.
-	 * @return Current instance for builder pattern.
-	 */
-	public ActionBarSherlock useLogo(boolean enabled) {
-		assert this.mAttached == false : ERROR_ATTACHED;
-		
-		this.mUseLogo = enabled;
-		return this;
-	}
-	
-	/**
-	 * Use drop-down navigation.
-	 * 
-	 * @param adapter List of drop-down items.
-	 * @param listener Callback listener for when an item is selected.
-	 * @return Current instance for builder pattern.
-	 */
-	public ActionBarSherlock listNavigation(SpinnerAdapter adapter, OnNavigationListener listener) {
-		assert this.mAttached == false : ERROR_ATTACHED;
-		assert this.mListAdapter == null : ERROR_DROPDOWN_ADAPTER;
-		assert this.mListListener == null : ERROR_DROPDOWN_LISTENER;
-		assert adapter != null : ERROR_DROPDOWN_ADAPTER_NULL;
-		assert listener != null : ERROR_DROPDOWN_LISTENER_NULL;
-		
-		this.mListAdapter = adapter;
-		this.mListListener = listener;
-		return this;
-	}
-	
-	/**
-	 * Add tabs to the action bar.
-	 * 
-	 * @param tabs Tabs to add.
-	 * @return Current instance for builder pattern.
-	 */
-	public ActionBarSherlock tabNavigation(ActionBarTab... tabs) {
-		assert this.mAttached == false : ERROR_ATTACHED;
-		assert this.mActivity instanceof TabListener : ERROR_ACTIVITY_TAB_LISTENER;
-		
-		for (ActionBarTab tab : tabs) {
-			this.mTabs.add(tab);
-		}
 		return this;
 	}
 	
@@ -509,76 +325,6 @@ public final class ActionBarSherlock {
 			handler.setLayout(this.mFragment, manager);
 		} else {
 			handler.setLayout(this.mView);
-		}
-		
-		//Perform menu inflation, if specified
-		if (this.mMenuResourceId != null) {
-			if (handler instanceof HasMenu) {
-				HasMenu menuHandler = (HasMenu)handler;
-				//Delegate to the handler for addition to the action bar
-				menuHandler.setMenuResourceId(this.mMenuResourceId);
-				
-				//If a menu listener was passed in then set that as well
-				if (this.mMenuListener != null) {
-					menuHandler.setMenuVisiblityListener(this.mMenuListener);
-				}
-			} else {
-				throw new IllegalStateException(ERROR_MENU_HANDLER);
-			}
-		}
-		
-		//Try to load the title from the activity's manifest entry if missing
-		if (this.mTitle == null) {
-			try {
-				this.mTitle = this.mActivity.getPackageManager().getActivityInfo(this.mActivity.getComponentName(), 0).name;
-			} catch (NameNotFoundException e) {}
-		}
-		//Set the title, if specified or found in the manifest
-		if (this.mTitle != null) {
-			if (handler instanceof HasTitle) {
-				((HasTitle)handler).setTitle(this.mTitle);
-			} else {
-				throw new IllegalStateException(ERROR_TITLE_HANDLER);
-			}
-		}
-		
-		//If the use of the logo is desired, tell the handler
-		if (this.mUseLogo) {
-			if (handler instanceof HasLogo) {
-				((HasLogo)handler).useLogo(this.mUseLogo);
-			} else {
-				throw new IllegalStateException(ERROR_LOGO_HANDLER);
-			}
-		}
-		
-		//If a drop-down is wanted, pass the adapter and listener for setup
-		if (this.mListAdapter != null) {
-			if (handler instanceof HasListNavigation) {
-				((HasListNavigation)handler).setList(this.mListAdapter, this.mListListener);
-			} else {
-				throw new IllegalStateException(ERROR_DROPDOWN_HANDLER);
-			}
-		}
-		
-		//If the home as up is desired, tell the handler
-		if (this.mHomeAsUpEnabled) {
-			if (handler instanceof HasHomeAsUp) {
-				((HasHomeAsUp)handler).useHomeAsUp(this.mHomeAsUpEnabled);
-			} else {
-				throw new IllegalStateException(ERROR_HOMEASUP_HANDLER);
-			}
-		}
-		
-		//If there are tabs pass them to the handler for setup
-		if (this.mTabs.size() > 0) {
-			if (handler instanceof HasTabNavigation) {
-				HasTabNavigation tabHandler = (HasTabNavigation)handler;
-				for (ActionBarTab tab : this.mTabs) {
-					tabHandler.addTab(tab);
-				}
-			} else {
-				throw new IllegalStateException(ERROR_TAB_HANDLER);
-			}
 		}
 		
 		//Execute the onCreate callback for any additional setup

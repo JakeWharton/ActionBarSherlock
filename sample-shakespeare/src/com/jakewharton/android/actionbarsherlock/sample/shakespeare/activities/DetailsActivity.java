@@ -3,6 +3,8 @@ package com.jakewharton.android.actionbarsherlock.sample.shakespeare.activities;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock;
+import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.ActionBarHandler;
+import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasTitle;
 import com.jakewharton.android.actionbarsherlock.handler.Android_ActionBar;
 import com.jakewharton.android.actionbarsherlock.sample.shakespeare.R;
 import com.jakewharton.android.actionbarsherlock.sample.shakespeare.fragments.DetailsFragment;
@@ -24,11 +26,14 @@ public class DetailsActivity extends ActionBarSherlock.FragmentActivity {
             DetailsFragment details = new DetailsFragment();
             details.setArguments(this.getIntent().getExtras());
             
-            ActionBarSherlock.from(this)
+            ActionBarHandler<?> handler = ActionBarSherlock.from(this)
             	.layout(details)
-            	.title(R.string.activity_details)
             	.handleCustom(Android_ActionBar.Handler.class)
             	.attach();
+            
+            if (handler instanceof HasTitle) {
+            	((HasTitle)handler).setTitle(R.string.activity_details);
+            }
         }
     }
 }
