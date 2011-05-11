@@ -30,6 +30,7 @@ import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasTabNavigat
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasTitle;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.OnNavigationListener;
 import com.jakewharton.android.actionbarsherlock.handler.Android_ActionBar;
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
@@ -133,13 +134,16 @@ public class MainActivity extends FragmentActivity implements ActionBarSherlock.
 				return true;
 				
 			case R.id.menu_text:
-				// alpha animation of blue fragment
-				//XXX: New-style animations are not supported!
-				//ObjectAnimator alpha = ObjectAnimator.ofFloat(this.mFragmentMain.getView(), "alpha", 1f, 0f);
-				//alpha.setRepeatMode(ObjectAnimator.REVERSE);
-				//alpha.setRepeatCount(1);
-				//alpha.setDuration(800);
-				//alpha.start();
+				if (ActionBarSherlock.HAS_NATIVE_ACTION_BAR) {
+					// alpha animation of blue fragment
+					ObjectAnimator alpha = ObjectAnimator.ofFloat(this.mFragmentMain.getView(), "alpha", 1f, 0f);
+					alpha.setRepeatMode(ObjectAnimator.REVERSE);
+					alpha.setRepeatCount(1);
+					alpha.setDuration(800);
+					alpha.start();
+				} else {
+					//TODO: use AsyncTask to animate by hand
+				}
 				return true;
 				
 			case R.id.menu_logo:
@@ -192,8 +196,11 @@ public class MainActivity extends FragmentActivity implements ActionBarSherlock.
 
 	private void rotateLeftFrag() {
 		if (this.mFragmentSide != null) {
-			//XXX: New-style animations are not supported!
-			//ObjectAnimator.ofFloat(this.mFragmentSide.getView(), "rotationY", 0, 180).setDuration(500).start();
+			if (ActionBarSherlock.HAS_NATIVE_ACTION_BAR) {
+				ObjectAnimator.ofFloat(this.mFragmentSide.getView(), "rotationY", 0, 180).setDuration(500).start();
+			} else {
+				//TODO: use AsyncTask to animate by hand
+			}
 		}
 	}
 
