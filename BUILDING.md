@@ -10,22 +10,23 @@ project.
 IDE
 ---
 
-If you want to use the Eclipse development environment the easiest route is to
-import the root of the repository as a Maven project. Eclipse will automatically
-detect and import the library as well as all of the handlers and samples as
-individual projects with their correct dependencies.
+Even though the project uses maven, each folder within the repository still
+maintains the standard Android project layout. By specifying the desired folder
+as an existing source for a new Android project, you should be able to
+successfully import the sources.
 
-Make sure you have the latest version of the [m2eclipse plugin][1] installed as
-well as [m2eclipse-android-integration][2].
+The order in which you should create the projects is as follows:
 
-Alternatively, each folder within the repository still maintains the standard
-Android project layout. By specifying the desired folder as an existing source
-for a new Android project, you should be able to successfully import the
-sources. With this method you will have to resolve any missing dependencies
-manually, however.
+  1. `library/`
+  2. `vendor/android-actionbar/actionbar` and/or `vendor/greendroid/GreenDroid/`
+     - This will require that you have run
+       the `dependencies.py` script previously.
+  3. `handler-android-actionbar` and/or `handler-greendroid`
+  4. Any of the sample projects.
 
-This should just consist of creating new Android projects using the existing
-sources for each dependency.
+Some of the projects have `.jar`s in their `libs/` folder which you must add to
+the build path. You can do this by right-clicking on each one, selecting
+'Add to build path' under the 'Build Path' sub-menu.
 
 
 Prerequisites
