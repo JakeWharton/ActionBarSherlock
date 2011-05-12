@@ -18,13 +18,17 @@ package com.jakewharton.android.actionbarsherlock;
 
 import java.util.LinkedList;
 import java.util.List;
+import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.SpinnerAdapter;
 
 //NOTE: Unqualified references to Activity in this file are to the inner-class!
@@ -627,7 +631,7 @@ public final class ActionBarSherlock {
 	 * interfaces so the new-style interaction as described in the
 	 * {@link ActionBarSherlock#attach()} method.</p>
 	 */
-	public static class NativeActionBarHandler extends ActionBarHandler<android.app.ActionBar> implements HasTitle, HasSubtitle, HasHomeAsUp, HasLogo, HasListNavigation, HasTabNavigation, HasMenu, HasVisibility, HasNavigationState, android.app.ActionBar.TabListener {
+	public static class NativeActionBarHandler extends ActionBarHandler<android.app.ActionBar> implements HasTitle, HasSubtitle, HasHomeAsUp, HasLogo, HasListNavigation, HasTabNavigation, HasMenu, HasVisibility, HasNavigationState, HasCustomView, android.app.ActionBar.TabListener {
 		@Override
 		public final android.app.ActionBar initialize(int layoutResourceId) {
 			this.getActivity().setContentView(layoutResourceId);
@@ -826,6 +830,34 @@ public final class ActionBarSherlock {
 		public final int getNavigationMode() {
 			return this.getActionBar().getNavigationMode();
 		}
+		
+		@Override
+		public View getCustomView() {
+			return this.getActionBar().getCustomView();
+		}
+
+		@Override
+		public void setCustomView(int resourceId) {
+			this.getActionBar().setCustomView(resourceId);
+		}
+
+		@Override
+		public void setCustomView(View view) {
+			this.getActionBar().setCustomView(view);
+		}
+
+		@Override
+		public void setCustomView(View view, LayoutParams layoutParameters) {
+			//Copy custom LayoutParams into native version
+			android.app.ActionBar.LayoutParams nativeParams = new android.app.ActionBar.LayoutParams(layoutParameters.width, layoutParameters.height, layoutParameters.gravity);
+			nativeParams.bottomMargin = layoutParameters.bottomMargin;
+			nativeParams.layoutAnimationParameters = layoutParameters.layoutAnimationParameters;
+			nativeParams.leftMargin = layoutParameters.leftMargin;
+			nativeParams.rightMargin = layoutParameters.rightMargin;
+			nativeParams.topMargin = layoutParameters.topMargin;
+			
+			this.getActionBar().setCustomView(view, nativeParams);
+		}
 
 		@Override
 		public final void setNavigationMode(int navigationMode) {
@@ -866,7 +898,7 @@ public final class ActionBarSherlock {
 	 * HasTabNavigation    *  addTab(ActionBar.Tab tab, boolean setSelected)
 	 * HasTabNavigation    *  addTab(ActionBar.Tab tab, int position)
 	 * HasTabNavigation    *  addTab(ActionBar.Tab tab, int position, boolean setSelected)
-	 *                     *  getCustomView()
+	 * HasCustomView       *  getCustomView()
 	 *                     *  getDisplayOptions()
 	 *                     *  getHeight()
 	 * List & Tab          *  getNavigationItemCount()
@@ -886,9 +918,9 @@ public final class ActionBarSherlock {
 	 * HasTabNavigation    *  removeTabAt(int position)
 	 * HasTabNavigation    *  selectTab(ActionBar.Tab tab)
 	 *                     *  setBackgroundDrawable(Drawable d)
-	 *                     *  setCustomView(int resId)
-	 *                     *  setCustomView(View view)
-	 *                     *  setCustomView(View view, ActionBar.LayoutParams layoutParams)
+	 * HasCustomView       *  setCustomView(int resId)
+	 * HasCustomView       *  setCustomView(View view)
+	 * HasCustomView       *  setCustomView(View view, ActionBar.LayoutParams layoutParams)
 	 * HasHomeAsUp         *  setDisplayHomeAsUpEnabled(boolean showHomeAsUp)
 	 *                     *  setDisplayOptions(int options, int mask)
 	 *                     *  setDisplayOptions(int options)
@@ -1221,6 +1253,59 @@ public final class ActionBarSherlock {
 		public static final int MODE_TABS = android.app.ActionBar.NAVIGATION_MODE_TABS;
 	}
 	
+	/**
+	 * Interface which denotes a handler supports displaying a custom view.
+	 */
+	public static interface HasCustomView {
+		/**
+		 * @return The current custom view.
+		 */
+		public View getCustomView();
+		
+		/**
+		 * <p>Set the action bar into custom navigation mode, supplying a view
+		 * for custom navigation.</p>
+		 * 
+		 * <p>Custom navigation views appear between the application icon and
+		 * any action buttons and may use any space available there. Common use
+		 * cases for custom navigation views might include an auto-suggesting
+		 * address bar for a browser or other navigation mechanisms that do not
+		 * translate well to provided navigation modes.</p>
+		 * 
+		 * @param resourceId Resource ID of a layout to inflate.
+		 */
+		public void setCustomView(int resourceId);
+		
+		/**
+		 * <p>Set the action bar into custom navigation mode, supplying a view
+		 * for custom navigation.</p>
+		 * 
+		 * <p>Custom navigation views appear between the application icon and
+		 * any action buttons and may use any space available there. Common use
+		 * cases for custom navigation views might include an auto-suggesting
+		 * address bar for a browser or other navigation mechanisms that do not
+		 * translate well to provided navigation modes.</p>
+		 * 
+		 * @param view Custom navigation view.
+		 */
+		public void setCustomView(View view);
+		
+		/**
+		 * <p>Set the action bar into custom navigation mode, supplying a view
+		 * for custom navigation.</p>
+		 * 
+		 * <p>Custom navigation views appear between the application icon and
+		 * any action buttons and may use any space available there. Common use
+		 * cases for custom navigation views might include an auto-suggesting
+		 * address bar for a browser or other navigation mechanisms that do not
+		 * translate well to provided navigation modes.</p>
+		 * 
+		 * @param view Custom navigation view.
+		 * @param layoutParameters How this custom view should layout.
+		 */
+		public void setCustomView(View view, LayoutParams layoutParameters);
+	}
+	
 	
 	/**
 	 * <p>Listener interface for ActionBar navigation events.</p>
@@ -1285,6 +1370,49 @@ public final class ActionBarSherlock {
 		 * @param tab The tab that was unselected.
 		 */
 		public void onTabUnselected(ActionBarTab tab);
+	}
+	
+	/**
+	 * <p>Per-child layout information associated with action bar custom views.</p>
+	 * 
+	 * <p>Emulates {@link android.app.ActionBar.LayoutParams}.</p>
+	 */
+	public static class LayoutParams extends MarginLayoutParams {
+		/**
+		 * Gravity for the view associated with these LayoutParams.
+		 * 
+		 * @see android.view.Gravity
+		 **/
+		public int gravity;
+		
+		
+		public LayoutParams(Context context, AttributeSet attributeSet) {
+			super(context, attributeSet);
+		}
+		
+		public LayoutParams(int width, int height) {
+			super(width, height);
+		}
+		
+		public LayoutParams(int width, int height, int gravity) {
+			super(width, height);
+			this.gravity = gravity;
+		}
+		
+		/*public LayoutParams(int gravity) {
+			super(???);
+			this.gravity = gravity;
+		}*/
+		
+		public LayoutParams(LayoutParams source) {
+			super(source);
+			this.gravity = source.gravity;
+		}
+		
+		public LayoutParams(ViewGroup.LayoutParams source) {
+			this(source.width, source.height);
+			this.layoutAnimationParameters = source.layoutAnimationParameters;
+		}
 	}
 	
 	
