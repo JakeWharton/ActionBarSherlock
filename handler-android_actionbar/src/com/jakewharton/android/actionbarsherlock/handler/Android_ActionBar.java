@@ -169,6 +169,11 @@ public final class Android_ActionBar {
 		public boolean isShowing() {
 			return this.getActionBar().getVisibility() == View.VISIBLE;
 		}
+		
+		@Override
+		public int getHeight() {
+			return this.getActionBar().getHeight();
+		}
 
 		@Override
 		public void show() {

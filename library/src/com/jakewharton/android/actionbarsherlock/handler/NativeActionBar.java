@@ -234,6 +234,11 @@ public final class NativeActionBar {
 		public final boolean isShowing() {
 			return this.getActionBar().isShowing();
 		}
+		
+		@Override
+		public int getHeight() {
+			return this.getActionBar().getHeight();
+		}
 
 		@Override
 		public final void show() {

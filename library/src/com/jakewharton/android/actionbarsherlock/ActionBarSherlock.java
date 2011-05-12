@@ -632,7 +632,7 @@ public final class ActionBarSherlock {
 	 * HasTabNavigation    *  addTab(ActionBar.Tab tab, int position, boolean setSelected)
 	 * HasCustomView       *  getCustomView()
 	 * -n/a-               *  getDisplayOptions()
-	 *                     *  getHeight()
+	 * HasVisibility       *  getHeight()
 	 * List & Tab          *  getNavigationItemCount()
 	 * HasNavigationState  *  getNavigationMode()
 	 * List & Tab          *  getSelectedNavigationIndex()
@@ -931,6 +931,13 @@ public final class ActionBarSherlock {
 		 * @return True if the ActionBar is showing, false otherwise.
 		 */
 		public boolean isShowing();
+		
+		/**
+		 * Retrieve the current height of the ActionBar.
+		 * 
+		 * @return The ActionBar's height.
+		 */
+		public int getHeight();
 		
 		/**
 		 * Show the ActionBar if it is not currently showing.
