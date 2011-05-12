@@ -669,7 +669,7 @@ public final class ActionBarSherlock {
 		}
 		
 		@Override
-		public final void showTitle(boolean value) {
+		public final void setShowTitle(boolean value) {
 			this.getActionBar().setDisplayShowTitleEnabled(value);
 		}
 
@@ -689,16 +689,16 @@ public final class ActionBarSherlock {
 		}
 		
 		@Override
-		public final void displayHomeAsUp(boolean displayHomeAsUp) {
+		public final void setHomeAsUp(boolean displayHomeAsUp) {
 			this.getActionBar().setDisplayHomeAsUpEnabled(displayHomeAsUp);
 		}
 
-		public final void displayShowHome(boolean showHome) {
+		public final void setShowHome(boolean showHome) {
 			this.getActionBar().setDisplayShowHomeEnabled(showHome);
 		}
 		
 		@Override
-		public final void useLogo(boolean useLogo) {
+		public final void setUseLogo(boolean useLogo) {
 			this.getActionBar().setDisplayUseLogoEnabled(useLogo);
 		}
 
@@ -864,7 +864,7 @@ public final class ActionBarSherlock {
 		}
 		
 		@Override
-		public void displayShowCustomView(boolean showCustomView) {
+		public void setShowCustomView(boolean showCustomView) {
 			this.getActionBar().setDisplayShowCustomEnabled(showCustomView);
 		}
 
@@ -988,7 +988,7 @@ public final class ActionBarSherlock {
 		 * 
 		 * @param useLogo Value.
 		 */
-		public void useLogo(boolean useLogo);
+		public void setUseLogo(boolean useLogo);
 	}
 	
 	/**
@@ -1036,10 +1036,10 @@ public final class ActionBarSherlock {
 		 * to true if selecting "home" returns up by a single level in your UI
 		 * rather than back to the top level or front page.
 		 * 
-		 * @param displayHomeAsUp True to show the user that selecting home will
+		 * @param homeAsUp True to show the user that selecting home will
 		 * return one level up rather than to the top level of the application.
 		 */
-		public void displayHomeAsUp(boolean displayHomeAsUp);
+		public void setHomeAsUp(boolean homeAsUp);
 		
 		/**
 		 * Set whether to include the application home affordance in the action
@@ -1047,7 +1047,7 @@ public final class ActionBarSherlock {
 		 * 
 		 * @param showHome True to show home, false otherwise.
 		 */
-		public void displayShowHome(boolean showHome);
+		public void setShowHome(boolean showHome);
 	}
 	
 	/**
@@ -1164,7 +1164,7 @@ public final class ActionBarSherlock {
 		 * 
 		 * @param value True to display a title/subtitle if present.
 		 */
-		public void showTitle(boolean value);
+		public void setShowTitle(boolean value);
 	}
 	
 	/**
@@ -1329,7 +1329,7 @@ public final class ActionBarSherlock {
 		 * @param showCustomView True if the currently set custom view should
 		 * be displayed, false otherwise.
 		 */
-		public void displayShowCustomView(boolean showCustomView);
+		public void setShowCustomView(boolean showCustomView);
 	}
 	
 	

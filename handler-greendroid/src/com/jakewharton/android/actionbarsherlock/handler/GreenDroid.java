@@ -147,7 +147,7 @@ public final class GreenDroid {
 		}
 
 		@Override
-		public void showTitle(boolean value) {
+		public void setShowTitle(boolean value) {
 			throw new RuntimeException("Not implemented.");
 		}
 		
@@ -181,12 +181,12 @@ public final class GreenDroid {
 		}
 
 		@Override
-		public void displayHomeAsUp(boolean displayHomeAsUp) {
+		public void setHomeAsUp(boolean homeAsUp) {
 			throw new RuntimeException("Not implemented.");
 		}
 
 		@Override
-		public void displayShowHome(boolean showHome) {
+		public void setShowHome(boolean showHome) {
 			//Sort of a hack. We know this will always be the home button and
 			//its separator since we use the gd_content_normal layout above.
 			this.getActionBar().getChildAt(0).setVisibility(showHome ? View.VISIBLE : View.GONE);

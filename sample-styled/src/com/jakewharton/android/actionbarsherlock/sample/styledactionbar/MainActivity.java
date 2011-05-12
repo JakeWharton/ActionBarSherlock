@@ -68,10 +68,10 @@ public class MainActivity extends FragmentActivity implements ActionBarSherlock.
 			((HasMenu)this.mHandler).setMenuResourceId(R.menu.main_menu);
 		}
 		if (this.mHandler instanceof HasHome) {
-			((HasHome)this.mHandler).displayHomeAsUp(this.mShowHomeUp);
+			((HasHome)this.mHandler).setHomeAsUp(this.mShowHomeUp);
 		}
 		if (this.mHandler instanceof HasLogo) {
-			((HasLogo)this.mHandler).useLogo(this.mUseLogo);
+			((HasLogo)this.mHandler).setUseLogo(this.mUseLogo);
 		}
 		if (this.mHandler instanceof HasTabNavigation) {
 			HasTabNavigation tabHandler = (HasTabNavigation)this.mHandler;
@@ -150,7 +150,7 @@ public class MainActivity extends FragmentActivity implements ActionBarSherlock.
 				this.mUseLogo = !this.mUseLogo;
 				item.setChecked(this.mUseLogo);
 				if (this.mHandler instanceof HasLogo) {
-					((HasLogo)this.mHandler).useLogo(this.mUseLogo);
+					((HasLogo)this.mHandler).setUseLogo(this.mUseLogo);
 				}
 				return true;
 				
@@ -158,7 +158,7 @@ public class MainActivity extends FragmentActivity implements ActionBarSherlock.
 				this.mShowHomeUp = !this.mShowHomeUp;
 				item.setChecked(this.mShowHomeUp);
 				if (this.mHandler instanceof HasHome) {
-					((HasHome)this.mHandler).displayHomeAsUp(this.mShowHomeUp);
+					((HasHome)this.mHandler).setHomeAsUp(this.mShowHomeUp);
 				}
 				return true;
 				
@@ -209,7 +209,7 @@ public class MainActivity extends FragmentActivity implements ActionBarSherlock.
 			HasNavigationState stateHandler = (HasNavigationState)this.mHandler;
 			if (stateHandler.getNavigationMode() != HasNavigationState.MODE_STANDARD) {
 				if (this.mHandler instanceof HasTitle) {
-					((HasTitle)this.mHandler).showTitle(true);
+					((HasTitle)this.mHandler).setShowTitle(true);
 				}
 				stateHandler.setNavigationMode(HasNavigationState.MODE_STANDARD);
 			}
@@ -221,7 +221,7 @@ public class MainActivity extends FragmentActivity implements ActionBarSherlock.
 			HasNavigationState stateHandler = (HasNavigationState)this.mHandler;
 			if (stateHandler.getNavigationMode() != HasNavigationState.MODE_LIST) {
 				if (this.mHandler instanceof HasTitle) {
-					((HasTitle)this.mHandler).showTitle(false);
+					((HasTitle)this.mHandler).setShowTitle(false);
 				}
 				stateHandler.setNavigationMode(HasNavigationState.MODE_LIST);
 			}
@@ -233,7 +233,7 @@ public class MainActivity extends FragmentActivity implements ActionBarSherlock.
 			HasNavigationState stateHandler = (HasNavigationState)this.mHandler;
 			if (stateHandler.getNavigationMode() != HasNavigationState.MODE_TABS) {
 				if (this.mHandler instanceof HasTitle) {
-					((HasTitle)this.mHandler).showTitle(false);
+					((HasTitle)this.mHandler).setShowTitle(false);
 				}
 				stateHandler.setNavigationMode(HasNavigationState.MODE_TABS);
 			}

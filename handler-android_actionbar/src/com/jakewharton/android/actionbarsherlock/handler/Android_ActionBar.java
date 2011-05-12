@@ -126,7 +126,7 @@ public final class Android_ActionBar {
 		}
 
 		@Override
-		public void showTitle(boolean value) {
+		public void setShowTitle(boolean value) {
 			throw new RuntimeException("Not implemented");
 		}
 
@@ -145,12 +145,12 @@ public final class Android_ActionBar {
 		}
 
 		@Override
-		public void displayHomeAsUp(boolean displayHomeAsUp) {
-			this.getActionBar().setDisplayHomeAsUpEnabled(displayHomeAsUp);
+		public void setHomeAsUp(boolean homeAsUp) {
+			this.getActionBar().setDisplayHomeAsUpEnabled(homeAsUp);
 		}
 
 		@Override
-		public void displayShowHome(boolean showHome) {
+		public void setShowHome(boolean showHome) {
 			if (showHome) {
 				this.getActionBar().setHomeAction(this.mHomeAction);
 			} else {

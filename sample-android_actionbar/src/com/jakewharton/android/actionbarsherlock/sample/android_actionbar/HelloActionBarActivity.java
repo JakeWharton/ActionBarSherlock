@@ -28,7 +28,7 @@ public class HelloActionBarActivity extends ActionBarSherlock.Activity {
 			((HasMenu)handler).setMenuResourceId(R.menu.hello);
 		}
 		if (handler instanceof HasHome) {
-			((HasHome)handler).displayHomeAsUp(true);
+			((HasHome)handler).setHomeAsUp(true);
 		}
 	}
 
