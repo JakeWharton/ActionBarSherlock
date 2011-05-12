@@ -862,6 +862,11 @@ public final class ActionBarSherlock {
 			
 			this.getActionBar().setCustomView(view, nativeParams);
 		}
+		
+		@Override
+		public void displayShowCustomView(boolean showCustomView) {
+			this.getActionBar().setDisplayShowCustomEnabled(showCustomView);
+		}
 
 		@Override
 		public final void setNavigationMode(int navigationMode) {
@@ -891,6 +896,7 @@ public final class ActionBarSherlock {
 			//Delegate tab unselection handling to our common API
 			activity.onTabUnselected((ActionBarTab)tab.getTag());
 		}
+
 	}
 	
 	
@@ -928,7 +934,7 @@ public final class ActionBarSherlock {
 	 * HasHome             *  setDisplayHomeAsUpEnabled(boolean showHomeAsUp)
 	 *                     *  setDisplayOptions(int options, int mask)
 	 *                     *  setDisplayOptions(int options)
-	 *                     *  setDisplayShowCustomEnabled(boolean showCustom)
+	 * HasCustomView       *  setDisplayShowCustomEnabled(boolean showCustom)
 	 * HasHome             *  setDisplayShowHomeEnabled(boolean showHome)
 	 * HasTitle            *  setDisplayShowTitleEnabled(boolean showTitle)
 	 * HasLogo             *  setDisplayUseLogoEnabled(boolean useLogo)
@@ -1316,6 +1322,14 @@ public final class ActionBarSherlock {
 		 * @param layoutParameters How this custom view should layout.
 		 */
 		public void setCustomView(View view, LayoutParams layoutParameters);
+		
+		/**
+		 * Set whether a custom view should be displayed, if set.
+		 * 
+		 * @param showCustomView True if the currently set custom view should
+		 * be displayed, false otherwise.
+		 */
+		public void displayShowCustomView(boolean showCustomView);
 	}
 	
 	
