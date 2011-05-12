@@ -837,22 +837,22 @@ public final class ActionBarSherlock {
 		}
 		
 		@Override
-		public View getCustomView() {
+		public final View getCustomView() {
 			return this.getActionBar().getCustomView();
 		}
 
 		@Override
-		public void setCustomView(int resourceId) {
+		public final void setCustomView(int resourceId) {
 			this.getActionBar().setCustomView(resourceId);
 		}
 
 		@Override
-		public void setCustomView(View view) {
+		public final void setCustomView(View view) {
 			this.getActionBar().setCustomView(view);
 		}
 
 		@Override
-		public void setCustomView(View view, LayoutParams layoutParameters) {
+		public final void setCustomView(View view, LayoutParams layoutParameters) {
 			//Copy custom LayoutParams into native version
 			android.app.ActionBar.LayoutParams nativeParams = new android.app.ActionBar.LayoutParams(layoutParameters.width, layoutParameters.height, layoutParameters.gravity);
 			nativeParams.bottomMargin = layoutParameters.bottomMargin;
@@ -865,7 +865,7 @@ public final class ActionBarSherlock {
 		}
 		
 		@Override
-		public void setShowCustomView(boolean showCustomView) {
+		public final void setShowCustomView(boolean showCustomView) {
 			this.getActionBar().setDisplayShowCustomEnabled(showCustomView);
 		}
 
