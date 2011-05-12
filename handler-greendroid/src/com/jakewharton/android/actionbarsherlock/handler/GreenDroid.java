@@ -181,10 +181,15 @@ public final class GreenDroid {
 				this.getActionBar().addItem(new Item(item));
 			}
 		}
-		
+
 		@Override
-		public void setMenuVisiblityListener(OnMenuVisibilityListener listener) {
-			throw new RuntimeException("Not implemented.");
+		public void addMenuVisiblityListener(OnMenuVisibilityListener listener) {
+			throw new RuntimeException("Not implemented");
+		}
+
+		@Override
+		public void removeMenuVisiblityListener(OnMenuVisibilityListener listener) {
+			throw new RuntimeException("Not implemented");
 		}
 
 		@Override

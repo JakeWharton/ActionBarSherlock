@@ -142,7 +142,12 @@ public final class Android_ActionBar {
 		}
 
 		@Override
-		public void setMenuVisiblityListener(OnMenuVisibilityListener listener) {
+		public void addMenuVisiblityListener(OnMenuVisibilityListener listener) {
+			throw new RuntimeException("Not implemented");
+		}
+
+		@Override
+		public void removeMenuVisiblityListener(OnMenuVisibilityListener listener) {
 			throw new RuntimeException("Not implemented");
 		}
 

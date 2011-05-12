@@ -645,7 +645,7 @@ public final class ActionBarSherlock {
 	 * HasVisibility       *  isShowing()
 	 * HasTabNavigation    *  newTab()
 	 * HasTabNavigation    *  removeAllTabs()
-	 *                     *  removeOnMenuVisibilityListener(ActionBar.OnMenuVisibilityListener listener)
+	 * HasMenu             *  removeOnMenuVisibilityListener(ActionBar.OnMenuVisibilityListener listener)
 	 * HasTabNavigation    *  removeTab(ActionBar.Tab tab)
 	 * HasTabNavigation    *  removeTabAt(int position)
 	 * HasTabNavigation    *  selectTab(ActionBar.Tab tab)
@@ -691,7 +691,15 @@ public final class ActionBarSherlock {
 		 * 
 		 * @param listener The new listener to add.
 		 */
-		public void setMenuVisiblityListener(OnMenuVisibilityListener listener);
+		public void addMenuVisiblityListener(OnMenuVisibilityListener listener);
+		
+		/**
+		 * Remove a menu visibility listener. This listener will no longer
+		 * receive menu visibility change events.
+		 * 
+		 * @param listener A listener to remove that was previously added.
+		 */
+		public void removeMenuVisiblityListener(OnMenuVisibilityListener listener);
 	}
 	
 	/**

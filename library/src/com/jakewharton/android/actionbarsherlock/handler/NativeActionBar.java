@@ -1,5 +1,6 @@
 package com.jakewharton.android.actionbarsherlock.handler;
 
+import java.util.HashMap;
 import android.app.ActionBar;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
@@ -42,6 +43,9 @@ public final class NativeActionBar {
 	 * {@link ActionBarSherlock#attach()} method.</p>
 	 */
 	public static class Handler extends ActionBarHandler<ActionBar> implements HasTitle, HasSubtitle, HasHome, HasLogo, HasListNavigation, HasTabNavigation, HasMenu, HasVisibility, HasNavigationState, HasCustomView, HasBackgroundDrawable, ActionBar.TabListener {
+		/** Maps listener wrappers to native listeners for removal. */
+		private final HashMap<OnMenuVisibilityListener, ActionBar.OnMenuVisibilityListener> mMenuListener = new HashMap<OnMenuVisibilityListener, ActionBar.OnMenuVisibilityListener>();
+		
 		@Override
 		public final ActionBar initialize(int layoutResourceId) {
 			this.getActivity().setContentView(layoutResourceId);
@@ -146,15 +150,24 @@ public final class NativeActionBar {
 			//Delegate inflation to the activity for native implementation
 			activity.setActionBarMenu(menuResourceId);
 		}
-		
+
 		@Override
-		public final void setMenuVisiblityListener(final OnMenuVisibilityListener listener) {
-			this.getActionBar().addOnMenuVisibilityListener(new ActionBar.OnMenuVisibilityListener() {
+		public void addMenuVisiblityListener(final OnMenuVisibilityListener listener) {
+			//Create a native listener and store the mapping from the wrapper
+			ActionBar.OnMenuVisibilityListener nativeListener = new ActionBar.OnMenuVisibilityListener() {
 				@Override
 				public void onMenuVisibilityChanged(boolean isVisible) {
 					listener.onMenuVisibilityChanged(isVisible);
 				}
-			});
+			};
+			this.mMenuListener.put(listener, nativeListener);
+			
+			this.getActionBar().addOnMenuVisibilityListener(nativeListener);
+		}
+
+		@Override
+		public void removeMenuVisiblityListener(OnMenuVisibilityListener listener) {
+			this.getActionBar().removeOnMenuVisibilityListener(this.mMenuListener.get(listener));
 		}
 
 		@Override
