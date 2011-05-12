@@ -20,6 +20,7 @@ import java.util.LinkedList;
 import java.util.List;
 import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -631,7 +632,7 @@ public final class ActionBarSherlock {
 	 * interfaces so the new-style interaction as described in the
 	 * {@link ActionBarSherlock#attach()} method.</p>
 	 */
-	public static class NativeActionBarHandler extends ActionBarHandler<android.app.ActionBar> implements HasTitle, HasSubtitle, HasHome, HasLogo, HasListNavigation, HasTabNavigation, HasMenu, HasVisibility, HasNavigationState, HasCustomView, android.app.ActionBar.TabListener {
+	public static class NativeActionBarHandler extends ActionBarHandler<android.app.ActionBar> implements HasTitle, HasSubtitle, HasHome, HasLogo, HasListNavigation, HasTabNavigation, HasMenu, HasVisibility, HasNavigationState, HasCustomView, HasBackgroundDrawable, android.app.ActionBar.TabListener {
 		@Override
 		public final android.app.ActionBar initialize(int layoutResourceId) {
 			this.getActivity().setContentView(layoutResourceId);
@@ -869,6 +870,11 @@ public final class ActionBarSherlock {
 		}
 
 		@Override
+		public final void setBackgroundDrawable(Drawable drawable) {
+			this.getActionBar().setBackgroundDrawable(drawable);
+		}
+		
+		@Override
 		public final void setNavigationMode(int navigationMode) {
 			this.getActionBar().setNavigationMode(navigationMode);
 		}
@@ -896,6 +902,7 @@ public final class ActionBarSherlock {
 			//Delegate tab unselection handling to our common API
 			activity.onTabUnselected((ActionBarTab)tab.getTag());
 		}
+
 
 	}
 	
@@ -927,7 +934,7 @@ public final class ActionBarSherlock {
 	 * HasTabNavigation    *  removeTab(ActionBar.Tab tab)
 	 * HasTabNavigation    *  removeTabAt(int position)
 	 * HasTabNavigation    *  selectTab(ActionBar.Tab tab)
-	 *                     *  setBackgroundDrawable(Drawable d)
+	 * HasBackgroundDrawable  *  setBackgroundDrawable(Drawable d)
 	 * HasCustomView       *  setCustomView(int resId)
 	 * HasCustomView       *  setCustomView(View view)
 	 * HasCustomView       *  setCustomView(View view, ActionBar.LayoutParams layoutParams)
@@ -1330,6 +1337,18 @@ public final class ActionBarSherlock {
 		 * be displayed, false otherwise.
 		 */
 		public void setShowCustomView(boolean showCustomView);
+	}
+	
+	/**
+	 * Interface which denotes a handler supports a background drawable.
+	 */
+	public static interface HasBackgroundDrawable {
+		/**
+		 * Set the ActionBar's background.
+		 * 
+		 * @param drawable Background drawable.
+		 */
+		public void setBackgroundDrawable(Drawable drawable);
 	}
 	
 	

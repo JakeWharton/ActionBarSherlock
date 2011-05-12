@@ -21,6 +21,7 @@ import com.jakewharton.android.actionbarsherlock.ActionBarSherlock;
 import com.jakewharton.android.actionbarsherlock.ActionBarTab;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.ActionBarHandler;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.FragmentActivity;
+import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasBackgroundDrawable;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasHome;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasListNavigation;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasLogo;
@@ -179,14 +180,18 @@ public class MainActivity extends FragmentActivity implements ActionBarSherlock.
 				
 			case R.id.menu_bak_none:
 				item.setChecked(true);
-				this.getActionBar().setBackgroundDrawable(null);
+				if (this.mHandler instanceof HasBackgroundDrawable) {
+					((HasBackgroundDrawable)this.mHandler).setBackgroundDrawable(null);
+				}
 				return true;
 				
 			case R.id.menu_bak_gradient:
 				item.setChecked(true);
-				this.getActionBar().setBackgroundDrawable(
-					this.getResources().getDrawable(R.drawable.ad_action_bar_gradient_bak)
-				);
+				if (this.mHandler instanceof HasBackgroundDrawable) {
+					((HasBackgroundDrawable)this.mHandler).setBackgroundDrawable(
+						this.getResources().getDrawable(R.drawable.ad_action_bar_gradient_bak)
+					);
+				}
 				return true;
 				
 			default:

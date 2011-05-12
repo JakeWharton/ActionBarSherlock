@@ -4,6 +4,7 @@ import java.util.List;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.view.Window;
 import android.widget.FrameLayout;
 import com.jakewharton.android.actionbarsherlock.ActionBarMenuItem;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.ActionBarHandler;
+import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasBackgroundDrawable;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasHome;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasMenu;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasTitle;
@@ -32,7 +34,7 @@ public final class Android_ActionBar {
 	 * 
 	 * @author Jake Wharton <jakewharton@gmail.com>
 	 */
-	public static class Handler extends ActionBarHandler<ActionBar> implements HasTitle, HasMenu, HasHome, HasVisibility {
+	public static class Handler extends ActionBarHandler<ActionBar> implements HasTitle, HasMenu, HasHome, HasVisibility, HasBackgroundDrawable {
 		/** Maximum number of action bar items to display. */
 		private static final int MAX_ACTION_BAR_ITEMS = 3;
 		
@@ -43,7 +45,7 @@ public final class Android_ActionBar {
 		public ActionBar initialize(int layoutResourceId) {
 			this.initialize();
 			this.getActivity().getLayoutInflater().inflate(layoutResourceId, this.findContent());
-
+			
 			return this.findActionBar();
 		}
 
@@ -171,6 +173,11 @@ public final class Android_ActionBar {
 		@Override
 		public void show() {
 			this.getActionBar().setVisibility(View.VISIBLE);
+		}
+
+		@Override
+		public void setBackgroundDrawable(Drawable drawable) {
+			this.getActionBar().setBackgroundDrawable(drawable);
 		}
 		
 		/**

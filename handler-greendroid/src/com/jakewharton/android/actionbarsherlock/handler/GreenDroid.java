@@ -5,6 +5,7 @@ import greendroid.widget.GDActionBar;
 import greendroid.widget.GDActionBarItem;
 import greendroid.widget.NormalActionBarItem;
 import greendroid.widget.GDActionBar.OnActionBarListener;
+import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.MenuItem;
@@ -13,6 +14,7 @@ import android.view.Window;
 import android.widget.FrameLayout;
 import com.jakewharton.android.actionbarsherlock.ActionBarMenuItem;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.ActionBarHandler;
+import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasBackgroundDrawable;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasHome;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasMenu;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasTitle;
@@ -34,7 +36,7 @@ public final class GreenDroid {
 	 * 
 	 * @author Jake Wharton <jakewharton@gmail.com>
 	 */
-	public static class Handler extends ActionBarHandler<GDActionBar> implements HasTitle, HasVisibility, HasMenu, HasHome {
+	public static class Handler extends ActionBarHandler<GDActionBar> implements HasTitle, HasVisibility, HasMenu, HasHome, HasBackgroundDrawable {
 		/** Maximum number of action bar items to display. */
 		private static final int MAX_ACTION_BAR_ITEMS = 3;
 		
@@ -191,6 +193,11 @@ public final class GreenDroid {
 			//its separator since we use the gd_content_normal layout above.
 			this.getActionBar().getChildAt(0).setVisibility(showHome ? View.VISIBLE : View.GONE);
 			this.getActionBar().getChildAt(1).setVisibility(showHome ? View.VISIBLE : View.GONE);
+		}
+
+		@Override
+		public void setBackgroundDrawable(Drawable drawable) {
+			this.getActionBar().setBackgroundDrawable(drawable);
 		}
 		
 		
