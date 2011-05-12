@@ -11,7 +11,7 @@ import android.view.Window;
 import android.widget.FrameLayout;
 import com.jakewharton.android.actionbarsherlock.ActionBarMenuItem;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.ActionBarHandler;
-import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasHomeAsUp;
+import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasHome;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasMenu;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasTitle;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasVisibility;
@@ -32,9 +32,12 @@ public final class Android_ActionBar {
 	 * 
 	 * @author Jake Wharton <jakewharton@gmail.com>
 	 */
-	public static class Handler extends ActionBarHandler<ActionBar> implements HasTitle, HasMenu, HasHomeAsUp, HasVisibility {
+	public static class Handler extends ActionBarHandler<ActionBar> implements HasTitle, HasMenu, HasHome, HasVisibility {
 		/** Maximum number of action bar items to display. */
 		private static final int MAX_ACTION_BAR_ITEMS = 3;
+		
+		/** Holder for home action so we can show/hide it. */
+		private Action mHomeAction;
 		
 		@Override
 		public ActionBar initialize(int layoutResourceId) {
@@ -75,7 +78,8 @@ public final class Android_ActionBar {
 			//Add home action
 			ActionBarMenuItem home = new ActionBarMenuItem(this.getActivity(), android.R.id.home, 0, 0, null);
 			home.setIcon(this.getHomeIcon());
-			this.findActionBar().setHomeAction(new Action(this, home));
+			this.mHomeAction = new Action(this, home);
+			this.findActionBar().setHomeAction(this.mHomeAction);
 		}
 		
 		/**
@@ -141,8 +145,17 @@ public final class Android_ActionBar {
 		}
 
 		@Override
-		public void useHomeAsUp(boolean showHomeAsUp) {
-			this.getActionBar().setDisplayHomeAsUpEnabled(showHomeAsUp);
+		public void displayHomeAsUp(boolean displayHomeAsUp) {
+			this.getActionBar().setDisplayHomeAsUpEnabled(displayHomeAsUp);
+		}
+
+		@Override
+		public void displayShowHome(boolean showHome) {
+			if (showHome) {
+				this.getActionBar().setHomeAction(this.mHomeAction);
+			} else {
+				this.getActionBar().clearHomeAction();
+			}
 		}
 
 		@Override

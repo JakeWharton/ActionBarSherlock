@@ -13,6 +13,7 @@ import android.view.Window;
 import android.widget.FrameLayout;
 import com.jakewharton.android.actionbarsherlock.ActionBarMenuItem;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.ActionBarHandler;
+import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasHome;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasMenu;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasTitle;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasVisibility;
@@ -33,7 +34,7 @@ public final class GreenDroid {
 	 * 
 	 * @author Jake Wharton <jakewharton@gmail.com>
 	 */
-	public static class Handler extends ActionBarHandler<GDActionBar> implements HasTitle, HasVisibility, HasMenu {
+	public static class Handler extends ActionBarHandler<GDActionBar> implements HasTitle, HasVisibility, HasMenu, HasHome {
 		/** Maximum number of action bar items to display. */
 		private static final int MAX_ACTION_BAR_ITEMS = 3;
 		
@@ -178,17 +179,18 @@ public final class GreenDroid {
 		public void setMenuVisiblityListener(OnMenuVisibilityListener listener) {
 			throw new RuntimeException("Not implemented.");
 		}
-		
-		/**
-		 * Convenience method to toggle the visibility of the home button.
-		 * 
-		 * @param visible Boolean indicating visibility.
-		 */
-		public void setIsHomeButtonVisible(boolean visible) {
+
+		@Override
+		public void displayHomeAsUp(boolean displayHomeAsUp) {
+			throw new RuntimeException("Not implemented.");
+		}
+
+		@Override
+		public void displayShowHome(boolean showHome) {
 			//Sort of a hack. We know this will always be the home button and
 			//its separator since we use the gd_content_normal layout above.
-			this.getActionBar().getChildAt(0).setVisibility(visible ? View.VISIBLE : View.GONE);
-			this.getActionBar().getChildAt(1).setVisibility(visible ? View.VISIBLE : View.GONE);
+			this.getActionBar().getChildAt(0).setVisibility(showHome ? View.VISIBLE : View.GONE);
+			this.getActionBar().getChildAt(1).setVisibility(showHome ? View.VISIBLE : View.GONE);
 		}
 		
 		

@@ -5,7 +5,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.ActionBarHandler;
-import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasHomeAsUp;
+import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasHome;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasMenu;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasTitle;
 import com.jakewharton.android.actionbarsherlock.handler.Android_ActionBar;
@@ -27,8 +27,8 @@ public class HelloActionBarActivity extends ActionBarSherlock.Activity {
 		if (handler instanceof HasMenu) {
 			((HasMenu)handler).setMenuResourceId(R.menu.hello);
 		}
-		if (handler instanceof HasHomeAsUp) {
-			((HasHomeAsUp)handler).useHomeAsUp(true);
+		if (handler instanceof HasHome) {
+			((HasHome)handler).displayHomeAsUp(true);
 		}
 	}
 

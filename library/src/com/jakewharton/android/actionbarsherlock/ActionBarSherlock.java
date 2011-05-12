@@ -631,7 +631,7 @@ public final class ActionBarSherlock {
 	 * interfaces so the new-style interaction as described in the
 	 * {@link ActionBarSherlock#attach()} method.</p>
 	 */
-	public static class NativeActionBarHandler extends ActionBarHandler<android.app.ActionBar> implements HasTitle, HasSubtitle, HasHomeAsUp, HasLogo, HasListNavigation, HasTabNavigation, HasMenu, HasVisibility, HasNavigationState, HasCustomView, android.app.ActionBar.TabListener {
+	public static class NativeActionBarHandler extends ActionBarHandler<android.app.ActionBar> implements HasTitle, HasSubtitle, HasHome, HasLogo, HasListNavigation, HasTabNavigation, HasMenu, HasVisibility, HasNavigationState, HasCustomView, android.app.ActionBar.TabListener {
 		@Override
 		public final android.app.ActionBar initialize(int layoutResourceId) {
 			this.getActivity().setContentView(layoutResourceId);
@@ -689,10 +689,14 @@ public final class ActionBarSherlock {
 		}
 		
 		@Override
-		public final void useHomeAsUp(boolean showHomeAsUp) {
-			this.getActionBar().setDisplayHomeAsUpEnabled(showHomeAsUp);
+		public final void displayHomeAsUp(boolean displayHomeAsUp) {
+			this.getActionBar().setDisplayHomeAsUpEnabled(displayHomeAsUp);
 		}
 
+		public final void displayShowHome(boolean showHome) {
+			this.getActionBar().setDisplayShowHomeEnabled(showHome);
+		}
+		
 		@Override
 		public final void useLogo(boolean useLogo) {
 			this.getActionBar().setDisplayUseLogoEnabled(useLogo);
@@ -921,11 +925,11 @@ public final class ActionBarSherlock {
 	 * HasCustomView       *  setCustomView(int resId)
 	 * HasCustomView       *  setCustomView(View view)
 	 * HasCustomView       *  setCustomView(View view, ActionBar.LayoutParams layoutParams)
-	 * HasHomeAsUp         *  setDisplayHomeAsUpEnabled(boolean showHomeAsUp)
+	 * HasHome             *  setDisplayHomeAsUpEnabled(boolean showHomeAsUp)
 	 *                     *  setDisplayOptions(int options, int mask)
 	 *                     *  setDisplayOptions(int options)
 	 *                     *  setDisplayShowCustomEnabled(boolean showCustom)
-	 *                     *  setDisplayShowHomeEnabled(boolean showHome)
+	 * HasHome             *  setDisplayShowHomeEnabled(boolean showHome)
 	 * HasTitle            *  setDisplayShowTitleEnabled(boolean showTitle)
 	 * HasLogo             *  setDisplayUseLogoEnabled(boolean useLogo)
 	 * HasListNavigation   *  setListNavigationCallbacks(SpinnerAdapter adapter, ActionBar.OnNavigationListener callback)
@@ -1020,16 +1024,24 @@ public final class ActionBarSherlock {
 	 * Interface which denotes a handler supports setting the home action item
 	 * as an "up" affordance.
 	 */
-	public static interface HasHomeAsUp {
+	public static interface HasHome {
 		/**
 		 * Set whether home should be displayed as an "up" affordance. Set this
 		 * to true if selecting "home" returns up by a single level in your UI
 		 * rather than back to the top level or front page.
 		 * 
-		 * @param showHomeAsUp True to show the user that selecting home will
+		 * @param displayHomeAsUp True to show the user that selecting home will
 		 * return one level up rather than to the top level of the application.
 		 */
-		public void useHomeAsUp(boolean showHomeAsUp);
+		public void displayHomeAsUp(boolean displayHomeAsUp);
+		
+		/**
+		 * Set whether to include the application home affordance in the action
+		 * bar. Home is presented as either an activity icon or logo.
+		 * 
+		 * @param showHome True to show home, false otherwise.
+		 */
+		public void displayShowHome(boolean showHome);
 	}
 	
 	/**

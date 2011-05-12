@@ -21,7 +21,7 @@ import com.jakewharton.android.actionbarsherlock.ActionBarSherlock;
 import com.jakewharton.android.actionbarsherlock.ActionBarTab;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.ActionBarHandler;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.FragmentActivity;
-import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasHomeAsUp;
+import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasHome;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasListNavigation;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasLogo;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasMenu;
@@ -67,8 +67,8 @@ public class MainActivity extends FragmentActivity implements ActionBarSherlock.
 		if (this.mHandler instanceof HasMenu) {
 			((HasMenu)this.mHandler).setMenuResourceId(R.menu.main_menu);
 		}
-		if (this.mHandler instanceof HasHomeAsUp) {
-			((HasHomeAsUp)this.mHandler).useHomeAsUp(this.mShowHomeUp);
+		if (this.mHandler instanceof HasHome) {
+			((HasHome)this.mHandler).displayHomeAsUp(this.mShowHomeUp);
 		}
 		if (this.mHandler instanceof HasLogo) {
 			((HasLogo)this.mHandler).useLogo(this.mUseLogo);
@@ -157,8 +157,8 @@ public class MainActivity extends FragmentActivity implements ActionBarSherlock.
 			case R.id.menu_up:
 				this.mShowHomeUp = !this.mShowHomeUp;
 				item.setChecked(this.mShowHomeUp);
-				if (this.mHandler instanceof HasHomeAsUp) {
-					((HasHomeAsUp)this.mHandler).useHomeAsUp(this.mShowHomeUp);
+				if (this.mHandler instanceof HasHome) {
+					((HasHome)this.mHandler).displayHomeAsUp(this.mShowHomeUp);
 				}
 				return true;
 				
