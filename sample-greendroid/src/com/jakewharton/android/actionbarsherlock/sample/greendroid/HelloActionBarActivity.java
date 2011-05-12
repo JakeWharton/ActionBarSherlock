@@ -5,6 +5,7 @@ import com.jakewharton.android.actionbarsherlock.ActionBarSherlock;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.ActionBarHandler;
 import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasTitle;
 import com.jakewharton.android.actionbarsherlock.handler.GreenDroid;
+import com.jakewharton.android.actionbarsherlock.handler.NativeActionBar;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -50,7 +51,7 @@ public class HelloActionBarActivity extends Activity {
 	 * Extension of the native action bar handler which allows us to display a
 	 * {@link android.widget.Toast} upon successful attachment.
 	 */
-	public static final class HelloNativeActionBarHandler extends ActionBarSherlock.NativeActionBarHandler {
+	public static final class HelloNativeActionBarHandler extends NativeActionBar.Handler {
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
 			Toast.makeText(
