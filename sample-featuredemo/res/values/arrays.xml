@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="locations">
+        <item>Home</item>
+        <item>Email</item>
+        <item>Calendar</item>
+        <item>Browser</item>
+        <item>Clock</item>
+    </string-array>
+</resources>

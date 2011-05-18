@@ -4,8 +4,8 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.jakewharton</groupId>
-	<artifactId>android-actionbarsherlock-sample-shakespeare</artifactId>
-	<name>Sample: Shakespeare</name>
+	<artifactId>android-actionbarsherlock-sample-featuredemo</artifactId>
+	<name>Sample: Feature Demo</name>
 	<packaging>apk</packaging>
 
 	<parent>

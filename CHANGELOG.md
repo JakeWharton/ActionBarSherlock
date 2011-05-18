@@ -3,26 +3,21 @@ Change Log
 
 Version 3.0.0 *(In Development)*
 --------------------------------
-Handler API rewrite!
 
- * The `attach()` method will now return the instance of the selected handler.
-   This will allow for asynchronous interaction with the action bar rather than
-   only through methods and callbacks in the appropriate handler.
-   
-   Snippet from the `attach()` JavaDoc regarding returned instance:
-   
-   > **Interacting with this instance directly should be considered highly
-   > volatile and is not encouraged.** The recommended method of interaction is
-   > to implement a custom interface with your interaction methods in both the
-   > native and custom handlers and then cast this return value to your
-   > interface.
- * If a title is not explicitly specified, the library will attempt to load the
-   `name` attribute of the corresponding `<activity>` entry in the manifest.
- * New API method: `tab(ActionBarTab)`. This will provide the tabbed navigation
-   to the action bar. In order to use this feature your activity will need to
-   implement `ActionBarSherlock.TabListener`. This feature also requires that
-   your custom handler implements the `ActionBarSherlock.HasTabNavigation`
-   interface. (The native handler already has an implementation)
+The API has been rewritten to mimic that of the native action bar. As a result,
+usage now only requires changing a few imports to use the support versions
+of classes and calling `getSupportActionBar()`. See the README for more info.
+
+The rewrite necessitated tight interaction with the
+[compatibility library](http://android-developers.blogspot.com/2011/03/fragments-for-all.html)
+to the point where its sources are now included. You are no longer required to
+have the standalone `.jar` file.
+
+Also included is a default custom action bar for use by default on pre-3.0
+devices. This custom implementation is based off of Johan Nilsson's
+[Android-ActionBar](https://github.com/johannilsson/android-actionbar) and the
+[work that I have done](https://github.com/johannilsson/android-actionbar/pull/25)
+on it.
 
 
 Version 2.1.1 *(2011-03-21)*
@@ -38,7 +33,9 @@ Version 2.1.1 *(2011-03-21)*
 Version 2.1.0 *(2011-03-21)*
 ----------------------------
 
-**WARNING**: The [Android Compatibility Library (v4)][1] is now required.
+**WARNING**: The
+[Android Compatibility Library (v4)](http://android-developers.blogspot.com/2011/03/fragments-for-all.html)
+is now required.
 
  * Added `ActionBarSherlock.Activity`, `ActionBarSherlock.FragmentActivity`,
    and `ActionBarSherlock.ListActivity` for extension by implementing
@@ -65,10 +62,13 @@ Version 2.1.0 *(2011-03-21)*
    the action bar to use drop-down style navigation with the specified list of
    items and callback listener. Third-party action bar handlers should
    implement `ActionBarSherlock.HasListNavigation` for this functionality.
- * Javadocs are now available at [jakewharton.github.com/ActionBarSherlock][2].
- * A standalone JAR is now available via the [GitHub downloads page][3] or in my
-   [personal maven repository][4] as
-   `com.jakewharton:android-actionbarsherlock:2.1.0`.
+ * Javadocs are now available at
+   [jakewharton.github.com/ActionBarSherlock](http://jakewharton.github.com/ActionBarSherlock/).
+ * A standalone JAR is now available via the
+   [GitHub downloads page](https://github.com/JakeWharton/ActionBarSherlock/downloads)
+   or in my
+   [personal maven repository](http://r.jakewharton.com/maven/)
+   as `com.jakewharton:android-actionbarsherlock:2.1.0`.
 
 
 Version 2.0.1 *(2011-03-11)*
@@ -92,12 +92,3 @@ Complete rewrite!
 Version 1.0.0 *(2011-03-07)*
 ----------------------------
 Initial release.
-
-
-
-
-
- [1]: http://android-developers.blogspot.com/2011/03/fragments-for-all.html
- [2]: http://jakewharton.github.com/ActionBarSherlock/
- [3]: https://github.com/JakeWharton/ActionBarSherlock/downloads
- [4]: http://repository.jakewharton.com

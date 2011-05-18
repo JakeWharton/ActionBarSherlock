@@ -9,20 +9,17 @@
 	<version>3.0.0-SNAPSHOT</version>
 
 	<name>ActionBarSherlock (Parent)</name>
-	<description>Android library for implementing the action bar design pattern using the native ActionBar on 3.0+ and a third-party library on pre-3.0.</description>
+	<description>Android library for implementing the action bar design pattern using the native ActionBar on 3.0+ and a custom implementation on pre-3.0 all through the same API.</description>
 	<url>https://github.com/JakeWharton/ActionBarSherlock</url>
 	<inceptionYear>2011</inceptionYear>
 
 	<modules>
 		<module>library</module>
 
-		<module>handler-android_actionbar</module>
-		<module>handler-greendroid</module>
-
-		<module>sample-android_actionbar</module>
-		<module>sample-greendroid</module>
+		<module>sample-featuredemo</module>
 		<module>sample-shakespeare</module>
 		<module>sample-styled</module>
+		<module>sample-hcgallery</module>
 	</modules>
 
 	<scm>

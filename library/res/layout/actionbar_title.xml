@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v4.widget.ScrollingTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="@dimen/actionbar_height"
+    android:gravity="center_vertical"
+    android:paddingLeft="10dip"
+    android:paddingRight="10dip"
+    android:textSize="16dip"
+    android:textStyle="bold"
+    android:textColor="@color/actionbar_title"
+    android:lines="1"
+    android:scrollHorizontally="true"
+    android:ellipsize="marquee"
+    android:marqueeRepeatLimit="marquee_forever" />

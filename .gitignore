@@ -15,6 +15,3 @@ gen
 target
 release.properties
 pom.xml.*
-
-#Vendor Libraries
-vendor
