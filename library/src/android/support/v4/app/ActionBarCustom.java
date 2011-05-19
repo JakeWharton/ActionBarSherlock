@@ -292,6 +292,7 @@ final class ActionBarCustom extends ActionBar {
 			this.mListView.removeAllViews();
 			if (hasList) {
 				this.mListView.addView(this.mListAdapter.getView(this.mSelectedIndex, oldView, this.mListView));
+				this.mListView.getChildAt(0).setOnClickListener(this.mListClicked);
 			}
 		}
 		
@@ -349,7 +350,6 @@ final class ActionBarCustom extends ActionBar {
 		this.mSubtitleView = (TextView)this.mBarView.findViewById(R.id.actionbar_subtitle);
 		
 		this.mListView = (FrameLayout)this.mBarView.findViewById(R.id.actionbar_list);
-		this.mListView.setOnClickListener(this.mListClicked);
 		this.mListIndicator = this.mBarView.findViewById(R.id.actionbar_list_indicator);
 		
 		this.mCustomView = (FrameLayout)this.mBarView.findViewById(R.id.actionbar_custom);
