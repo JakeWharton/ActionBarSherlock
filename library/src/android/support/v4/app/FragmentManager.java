@@ -16,6 +16,7 @@
 
 package android.support.v4.app;
 
+import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,8 +27,14 @@ import android.support.v4.util.DebugUtils;
 import android.support.v4.util.LogWriter;
 import android.util.Log;
 import android.util.SparseArray;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.Interpolator;
+import android.view.animation.ScaleAnimation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -616,9 +623,38 @@ final class FragmentManagerImpl extends FragmentManager {
         }
     }
 
-    Animation loadAnimator(Fragment fragment, int transit, boolean enter,
+    static final Interpolator DECELERATE_QUINT = new DecelerateInterpolator(2.5f);
+    static final Interpolator DECELERATE_CUBIC = new DecelerateInterpolator(1.5f);
+    static final Interpolator ACCELERATE_QUINT = new AccelerateInterpolator(2.5f);
+    static final Interpolator ACCELERATE_CUBIC = new AccelerateInterpolator(1.5f);
+    
+    static final int ANIM_DUR = 220;
+    
+    static Animation makeOpenCloseAnimation(Context context, float startScale,
+            float endScale, float startAlpha, float endAlpha) {
+        AnimationSet set = new AnimationSet(false);
+        ScaleAnimation scale = new ScaleAnimation(startScale, endScale, startScale, endScale,
+                Animation.RELATIVE_TO_SELF, .5f, Animation.RELATIVE_TO_SELF, .5f);
+        scale.setInterpolator(DECELERATE_QUINT);
+        scale.setDuration(ANIM_DUR);
+        set.addAnimation(scale);
+        AlphaAnimation alpha = new AlphaAnimation(startAlpha, endAlpha);
+        alpha.setInterpolator(DECELERATE_CUBIC);
+        alpha.setDuration(ANIM_DUR);
+        set.addAnimation(alpha);
+        return set;
+    }
+    
+    static Animation makeFadeAnimation(Context context, float start, float end) {
+        AlphaAnimation anim = new AlphaAnimation(start, end);
+        anim.setInterpolator(DECELERATE_CUBIC);
+        anim.setDuration(ANIM_DUR);
+        return anim;
+    }
+    
+    Animation loadAnimation(Fragment fragment, int transit, boolean enter,
             int transitionStyle) {
-        Animation animObj = fragment.onCreateAnimator(transit, enter,
+        Animation animObj = fragment.onCreateAnimation(transit, enter,
                 fragment.mNextAnim);
         if (animObj != null) {
             return animObj;
@@ -638,6 +674,21 @@ final class FragmentManagerImpl extends FragmentManager {
         int styleIndex = transitToStyleIndex(transit, enter);
         if (styleIndex < 0) {
             return null;
+        }
+        
+        switch (styleIndex) {
+            case ANIM_STYLE_OPEN_ENTER:
+                return makeOpenCloseAnimation(mActivity, 1.125f, 1.0f, 0, 1);
+            case ANIM_STYLE_OPEN_EXIT:
+                return makeOpenCloseAnimation(mActivity, 1.0f, .975f, 1, 0);
+            case ANIM_STYLE_CLOSE_ENTER:
+                return makeOpenCloseAnimation(mActivity, .975f, 1.0f, 0, 1);
+            case ANIM_STYLE_CLOSE_EXIT:
+                return makeOpenCloseAnimation(mActivity, 1.0f, 1.075f, 1, 0);
+            case ANIM_STYLE_FADE_ENTER:
+                return makeFadeAnimation(mActivity, 0, 1);
+            case ANIM_STYLE_FADE_EXIT:
+                return makeFadeAnimation(mActivity, 1, 0);
         }
         
         if (transitionStyle == 0 && mActivity.getWindow() != null) {
@@ -667,6 +718,12 @@ final class FragmentManagerImpl extends FragmentManager {
         }
         
         if (f.mState < newState) {
+            // For fragments that are created from a layout, when restoring from
+            // state we don't want to allow them to be created until they are
+            // being reloaded from the layout.
+            if (f.mFromLayout && !f.mInLayout) {
+                return;
+            }  
             if (f.mAnimatingAway != null) {
                 // The fragment is currently being animated...  but!  Now we
                 // want to move our state back up.  Give up on waiting for the
@@ -742,7 +799,7 @@ final class FragmentManagerImpl extends FragmentManager {
                                 f.mInnerView = f.mView;
                                 f.mView = NoSaveStateFrameLayout.wrap(f.mView);
                                 if (container != null) {
-                                    Animation anim = loadAnimator(f, transit, true,
+                                    Animation anim = loadAnimation(f, transit, true,
                                             transitionStyle);
                                     if (anim != null) {
                                         f.mView.startAnimation(anim);
@@ -828,7 +885,7 @@ final class FragmentManagerImpl extends FragmentManager {
                         if (f.mView != null && f.mContainer != null) {
                             Animation anim = null;
                             if (mCurState > Fragment.INITIALIZING && !mDestroyed) {
-                                anim = loadAnimator(f, transit, false,
+                                anim = loadAnimation(f, transit, false,
                                         transitionStyle);
                             }
                             if (anim != null) {
@@ -851,7 +908,7 @@ final class FragmentManagerImpl extends FragmentManager {
                                     public void onAnimationStart(Animation animation) {
                                     }
                                 });
-                                f.mContainer.startAnimation(anim);
+                                f.mView.startAnimation(anim);
                             }
                             f.mContainer.removeView(f.mView);
                         }
@@ -970,7 +1027,7 @@ final class FragmentManagerImpl extends FragmentManager {
             mAvailIndices = new ArrayList<Integer>();
         }
         mAvailIndices.add(f.mIndex);
-        mActivity.invalidateFragmentIndex(f.mIndex);
+        mActivity.invalidateSupportFragmentIndex(f.mIndex);
         f.clearIndex();
     }
     
@@ -1012,7 +1069,7 @@ final class FragmentManagerImpl extends FragmentManager {
         if (!fragment.mHidden) {
             fragment.mHidden = true;
             if (fragment.mView != null) {
-                Animation anim = loadAnimator(fragment, transition, true,
+                Animation anim = loadAnimation(fragment, transition, true,
                         transitionStyle);
                 if (anim != null) {
                     fragment.mView.startAnimation(anim);
@@ -1031,7 +1088,7 @@ final class FragmentManagerImpl extends FragmentManager {
         if (fragment.mHidden) {
             fragment.mHidden = false;
             if (fragment.mView != null) {
-                Animation anim = loadAnimator(fragment, transition, true,
+                Animation anim = loadAnimation(fragment, transition, true,
                         transitionStyle);
                 if (anim != null) {
                     fragment.mView.startAnimation(anim);
@@ -1745,23 +1802,24 @@ final class FragmentManagerImpl extends FragmentManager {
         
     }
     
+    public static final int ANIM_STYLE_OPEN_ENTER = 1;
+    public static final int ANIM_STYLE_OPEN_EXIT = 2;
+    public static final int ANIM_STYLE_CLOSE_ENTER = 3;
+    public static final int ANIM_STYLE_CLOSE_EXIT = 4;
+    public static final int ANIM_STYLE_FADE_ENTER = 5;
+    public static final int ANIM_STYLE_FADE_EXIT = 6;
+    
     public static int transitToStyleIndex(int transit, boolean enter) {
         int animAttr = -1;
         switch (transit) {
             case FragmentTransaction.TRANSIT_FRAGMENT_OPEN:
-                animAttr = enter
-                    ? 0 //com.android.internal.R.styleable.FragmentAnimation_fragmentOpenEnterAnimation
-                    : 0; //com.android.internal.R.styleable.FragmentAnimation_fragmentOpenExitAnimation;
+                animAttr = enter ? ANIM_STYLE_OPEN_ENTER : ANIM_STYLE_OPEN_EXIT;
                 break;
             case FragmentTransaction.TRANSIT_FRAGMENT_CLOSE:
-                animAttr = enter
-                    ? 0 //com.android.internal.R.styleable.FragmentAnimation_fragmentCloseEnterAnimation
-                    : 0; //com.android.internal.R.styleable.FragmentAnimation_fragmentCloseExitAnimation;
+                animAttr = enter ? ANIM_STYLE_CLOSE_ENTER : ANIM_STYLE_CLOSE_EXIT;
                 break;
             case FragmentTransaction.TRANSIT_FRAGMENT_FADE:
-                animAttr = enter
-                    ? 0 //com.android.internal.R.styleable.FragmentAnimation_fragmentFadeEnterAnimation
-                    : 0; //com.android.internal.R.styleable.FragmentAnimation_fragmentFadeExitAnimation;
+                animAttr = enter ? ANIM_STYLE_FADE_ENTER : ANIM_STYLE_FADE_EXIT;
                 break;
         }
         return animAttr;
