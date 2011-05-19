@@ -22,7 +22,7 @@ public class FeatureDemoActivity extends Activity {
         this.getSupportActionBar().setDisplayShowCustomEnabled(false);
         this.getSupportActionBar().setDisplayShowHomeEnabled(false);
         
-        SpinnerAdapter listAdapter = ArrayAdapter.createFromResource(this, R.array.locations, R.layout.actionbar_title);
+        SpinnerAdapter listAdapter = ArrayAdapter.createFromResource(this, R.array.locations, R.layout.actionbar_list_dropdown_item);
         this.getSupportActionBar().setListNavigationCallbacks(listAdapter, null);
         
         this.findViewById(R.id.display_subtitle_show).setOnClickListener(new View.OnClickListener() {
