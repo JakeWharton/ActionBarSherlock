@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<style name="SherlockBase" parent="android:style/Theme.Holo">
+		<item name="android:actionBarStyle">@style/Sherlock.ActionBar</item>
+		<item name="android:actionBarTabStyle">@style/Sherlock.ActionBar.TabStyle</item>
+		<item name="android:popupMenuStyle">@style/Sherlock.ActionBar.PopupMenuStyle</item>
+		<item name="android:actionDropDownStyle">@style/Sherlock.ActionBar.DropDownStyle</item>
+		<item name="android:dropDownListViewStyle">@style/Sherlock.ActionBar.DropDownListViewStyle</item>
+		<item name="android:actionOverflowButtonStyle">@style/Sherlock.ActionBar.OverflowButtonStyle</item>
+	</style>
+	
+	<style name="SherlockBase.ActionBar" parent="android:style/Widget.Holo.ActionBar"></style>
+	<style name="SherlockBase.ActionBar.TabStyle" parent="android:style/Widget.Holo.ActionBarView_TabView"></style>
+	<style name="SherlockBase.ActionBar.PopupMenuStyle" parent="android:style/Widget.Holo.ListView.DropDown"></style>
+	<style name="SherlockBase.ActionBar.DropDownStyle" parent="android:style/Widget.Holo.Spinner.DropDown.ActionBar"></style>
+	<style name="SherlockBase.ActionBar.DropDownListViewStyle" parent="android:style/Widget.Holo.ListView.DropDown"></style>
+	<style name="SherlockBase.ActionBar.OverflowButtonStyle" parent="@android:style/Widget.Holo.ActionButton.Overflow"></style>
+	
+	
+	<style name="SherlockBase.Light" parent="android:style/Theme.Holo.Light">
+		<item name="android:actionBarStyle">@style/Sherlock.Light.ActionBar</item>
+		<item name="android:actionBarTabStyle">@style/Sherlock.Light.ActionBar.TabStyle</item>
+		<item name="android:popupMenuStyle">@style/Sherlock.Light.ActionBar.PopupMenuStyle</item>
+		<item name="android:actionDropDownStyle">@style/Sherlock.Light.ActionBar.DropDownStyle</item>
+		<item name="android:dropDownListViewStyle">@style/Sherlock.Light.ActionBar.DropDownListViewStyle</item>
+		<item name="android:actionOverflowButtonStyle">@style/Sherlock.Light.ActionBar.OverflowButtonStyle</item>
+	</style>
+	
+	<style name="SherlockBase.Light.ActionBar" parent="android:style/Widget.Holo.Light.ActionBar"></style>
+	<style name="SherlockBase.Light.ActionBar.TabStyle" parent="android:style/Widget.Holo.Light.ActionBarView_TabView"></style>
+	<style name="SherlockBase.Light.ActionBar.DropDownStyle" parent="android:style/Widget.Holo.Light.Spinner.DropDown.ActionBar"></style>
+	<style name="SherlockBase.Light.ActionBar.DropDownStyle" parent="android:style/Widget.Holo.Light.Spinner.DropDown.ActionBar"></style>
+	<style name="SherlockBase.Light.ActionBar.DropDownListViewStyle" parent="android:style/Widget.Holo.Light.ListView.DropDown"></style>
+	<style name="SherlockBase.Light.ActionBar.OverflowButtonStyle" parent="@android:style/Widget.Holo.Light.ActionButton.Overflow"></style>
+</resources>

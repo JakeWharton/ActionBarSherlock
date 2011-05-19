@@ -42,6 +42,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 final class ActionBarCustom extends ActionBar {
 	static final class LogoLoader {
@@ -150,9 +151,6 @@ final class ActionBarCustom extends ActionBar {
 	/** Container for all tab items. */
 	private LinearLayout mTabsView;
 	
-	/** Bottom line when in tabs navigation mode. */
-	private View mTabsBottomLine;
-	
 	/**
 	 * Display state flags.
 	 * 
@@ -241,16 +239,6 @@ final class ActionBarCustom extends ActionBar {
 		}
 	};
 
-	/**
-	 * Listener for tab clicked.
-	 */
-	private final View.OnClickListener mTabClicked = new View.OnClickListener() {
-		@Override
-		public void onClick(View view) {
-			((TabImpl)view.getTag()).select();
-		}
-	};
-
 	
 	
 	// ------------------------------------------------------------------------
@@ -315,7 +303,6 @@ final class ActionBarCustom extends ActionBar {
 
 		// Show tabs if in tabs navigation mode.
 		this.mTabsView.setVisibility(isTab ? View.VISIBLE : View.GONE);
-		this.mTabsBottomLine.setVisibility(isTab ? View.VISIBLE : View.GONE);
 		
 		//Show title view if we are not in list navigation, not showing custom
 		//view, and the show title flag is true
@@ -372,7 +359,6 @@ final class ActionBarCustom extends ActionBar {
 		this.mActionsView = (LinearLayout)this.mBarView.findViewById(R.id.actionbar_actions);
 
 		this.mTabsView = (LinearLayout)this.mBarView.findViewById(R.id.actionbar_tabs);
-		this.mTabsBottomLine = this.mBarView.findViewById(R.id.actionbar_tabs_bottom_line);
 
 		//Try to load title from the Activity's manifest entry
 		try {
@@ -515,7 +501,7 @@ final class ActionBarCustom extends ActionBar {
 		if (this.mNavigationMode == ActionBar.NAVIGATION_MODE_TABS) {
 			final int count = this.mTabsView.getChildCount();
 			for (int i = 0; i < count; i++) {
-				if (((TabImpl)this.mTabsView.getChildAt(i).getTag()).mIsSelected) {
+				if (((TabImpl)this.mTabsView.getChildAt(i).getTag()).mView.isSelected()) {
 					return i;
 				}
 			}
@@ -528,7 +514,7 @@ final class ActionBarCustom extends ActionBar {
 		final int count = this.mTabsView.getChildCount();
 		for (int i = 0; i < count; i++) {
 			TabImpl tab = (TabImpl)this.mTabsView.getChildAt(i).getTag();
-			if (tab.mIsSelected) {
+			if (tab.mView.isSelected()) {
 				return tab;
 			}
 		}
@@ -811,16 +797,14 @@ final class ActionBarCustom extends ActionBar {
 	// HELPER INTERFACES AND HELPER CLASSES
 	// ------------------------------------------------------------------------
 	
-	private static class TabImpl extends ActionBar.Tab {
+	private static class TabImpl extends ActionBar.Tab implements View.OnClickListener {
 		final ActionBarCustom mActionBar;
 		final View mView;
 		final ImageView mIconView;
 		final TextView mTextView;
 		final FrameLayout mCustomView;
-		final View mSelectedView;
 		
 		ActionBar.TabListener mListener;
-		boolean mIsSelected;
 		Object mTag;
 		
 		
@@ -828,12 +812,11 @@ final class ActionBarCustom extends ActionBar {
 			this.mActionBar = actionBar;
 			this.mView = actionBar.getActivity().getLayoutInflater().inflate(R.layout.actionbar_tab, actionBar.mTabsView, false);
 			this.mView.setTag(this);
-			this.mView.setOnClickListener(actionBar.mTabClicked);
+			this.mView.setOnClickListener(this);
 			
 			this.mIconView = (ImageView)this.mView.findViewById(R.id.actionbar_tab_icon);
 			this.mTextView = (TextView)this.mView.findViewById(R.id.actionbar_tab);
 			this.mCustomView = (FrameLayout)this.mView.findViewById(R.id.actionbar_tab_custom);
-			this.mSelectedView = this.mView.findViewById(R.id.actionbar_tab_selected);
 		}
 		
 		/**
@@ -938,20 +921,19 @@ final class ActionBarCustom extends ActionBar {
 
 		@Override
 		public void select() {
-			if (this.mIsSelected) {
+			if (this.mView.isSelected()) {
 				if (this.mListener != null) {
 					this.mListener.onTabReselected(this, null);
 				}
 				return;
 			}
 			
-			TabImpl selected = this.mActionBar.getSelectedTab();
-			if (selected != null) {
-				selected.unselect();
+			TabImpl current = this.mActionBar.getSelectedTab();
+			if (current != null) {
+				current.unselect();
 			}
 			
-			this.mIsSelected = true;
-			this.mSelectedView.setBackgroundColor(Color.WHITE);
+			this.mView.setSelected(true);
 			if (this.mListener != null) {
 				this.mListener.onTabSelected(this, null);
 			}
@@ -962,14 +944,18 @@ final class ActionBarCustom extends ActionBar {
 		 * action bar and was previously selected.
 		 */
 		void unselect() {
-			if (this.mIsSelected) {
-				this.mSelectedView.setBackgroundColor(Color.TRANSPARENT);
-				this.mIsSelected = false;
+			if (this.mView.isSelected()) {
+				this.mView.setSelected(false);
 
 				if (this.mListener != null) {
 					this.mListener.onTabUnselected(this, null);
 				}
 			}
+		}
+
+		@Override
+		public void onClick(View v) {
+			this.select();
 		}
 	}
 }

@@ -1,27 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2010 Johan Nilsson <http://markupartist.com>
 
-     Licensed under the Apache License, Version 2.0 (the "License");
-     you may not use this file except in compliance with the License.
-     You may obtain a copy of the License at
-  
-          http://www.apache.org/licenses/LICENSE-2.0
-  
-     Unless required by applicable law or agreed to in writing, software
-     distributed under the License is distributed on an "AS IS" BASIS,
-     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-     See the License for the specific language governing permissions and
-     limitations under the License.
--->
 <resources>
-    <style name="ActionBar">
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">@dimen/actionbar_height</item>
-        <item name="android:orientation">horizontal</item>
+    <style name="Sherlock" parent="@style/SherlockBase"></style>
+    <style name="Sherlock.ActionBar" parent="@style/SherlockBase.ActionBar"></style>
+    <style name="Sherlock.ActionBar.TabStyle" parent="@style/SherlockBase.ActionBar.TabStyle"></style>
+    <style name="Sherlock.ActionBar.PopupMenuStyle" parent="@style/SherlockBase.ActionBar.PopupMenuStyle"></style>
+    <style name="Sherlock.ActionBar.DropDownStyle" parent="@style/SherlockBase.ActionBar.DropDownStyle"></style>
+    <style name="Sherlock.ActionBar.DropDownListViewStyle" parent="@style/SherlockBase.ActionBar.DropDownListViewStyle"></style>
+    <style name="Sherlock.ActionBar.OverflowButtonStyle" parent="@style/SherlockBase.ActionBar.OverflowButtonStyle"></style>
+    
+    <style name="Sherlock.Light" parent="@style/SherlockBase.Light"></style>
+    <style name="Sherlock.Light.ActionBar" parent="@style/SherlockBase.Light.ActionBar"></style>
+    <style name="Sherlock.Light.ActionBar.TabStyle" parent="@style/SherlockBase.Light.ActionBar.TabStyle"></style>
+    <style name="Sherlock.Light.ActionBar.PopupMenuStyle" parent="@style/SherlockBase.Light.ActionBar.PopupMenuStyle"></style>
+    <style name="Sherlock.Light.ActionBar.DropDownStyle" parent="@style/SherlockBase.Light.ActionBar.DropDownStyle"></style>
+    <style name="Sherlock.Light.ActionBar.DropDownListViewStyle" parent="@style/SherlockBase.Light.ActionBar.DropDownListViewStyle"></style>
+    <style name="Sherlock.Light.ActionBar.OverflowButtonStyle" parent="@style/SherlockBase.Light.ActionBar.OverflowButtonStyle"></style>
+    
+    
+    
+    <style name="SherlockBase" parent="android:style/Theme"></style>
+    <style name="SherlockBase.ActionBar"></style>
+    <style name="SherlockBase.ActionBar.TabStyle">
+    	<item name="android:background">@drawable/actionbar_tab_bg</item>
     </style>
+    <style name="SherlockBase.ActionBar.PopupMenuStyle"></style>
+    <style name="SherlockBase.ActionBar.DropDownStyle"></style>
+    <style name="SherlockBase.ActionBar.DropDownListViewStyle"></style>
+    <style name="SherlockBase.ActionBar.OverflowButtonStyle"></style>
+    
+    <style name="SherlockBase.Light" parent="android:style/Theme.Light"></style>
+    <style name="SherlockBase.Light.ActionBar"></style>
+    <style name="SherlockBase.Light.ActionBar.TabStyle"></style>
+    <style name="SherlockBase.Light.ActionBar.PopupMenuStyle"></style>
+    <style name="SherlockBase.Light.ActionBar.DropDownStyle"></style>
+    <style name="SherlockBase.Light.ActionBar.DropDownListViewStyle"></style>
+    <style name="SherlockBase.Light.ActionBar.OverflowButtonStyle"></style>
+    
+    
+    
+    
+    
+    
+    
+    
     <style name="ActionBarItem">
-        <item name="android:layout_width">@dimen/actionbar_item_width</item>
-        <item name="android:layout_height">@dimen/actionbar_height</item>
         <item name="android:padding">5dp</item>
         <item name="android:layout_marginLeft">1px</item>
     </style>

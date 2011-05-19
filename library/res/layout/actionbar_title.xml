@@ -8,7 +8,6 @@
     android:paddingRight="10dip"
     android:textSize="16dip"
     android:textStyle="bold"
-    android:textColor="@color/actionbar_title"
     android:lines="1"
     android:scrollHorizontally="true"
     android:ellipsize="marquee"

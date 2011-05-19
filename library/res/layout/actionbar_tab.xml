@@ -17,10 +17,10 @@
     android:layout_width="wrap_content"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:layout_alignParentLeft="true"
     android:layout_weight="1"
     android:focusable="true"
-    android:background="@drawable/actionbar_btn"
+    android:gravity="center"
+    style="@style/Sherlock.ActionBar.TabStyle"
     >
     <ImageView
     	android:id="@+id/actionbar_tab_icon"
@@ -39,7 +39,6 @@
         android:gravity="center_vertical"
         android:textSize="16dip"
         android:textStyle="bold"
-        android:textColor="@color/actionbar_title"
         android:lines="1"
         android:scrollHorizontally="true"
         android:ellipsize="marquee"
@@ -47,17 +46,10 @@
         />
     <FrameLayout
     	android:id="@+id/actionbar_tab_custom"
-    	android:layout_width="fill_parent"
+    	android:layout_width="wrap_content"
     	android:layout_height="fill_parent"
     	android:padding="5dip"
     	android:layout_weight="1"
     	android:visibility="gone"
     	/>
-    <!-- TODO: Make configurable. -->
-    <View
-        android:id="@+id/actionbar_tab_selected"
-        android:layout_width="wrap_content"
-        android:layout_height="5dip"
-        android:layout_alignParentBottom="true"
-        />
 </RelativeLayout>

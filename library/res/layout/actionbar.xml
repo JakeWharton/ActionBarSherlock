@@ -18,7 +18,7 @@
     android:layout_width="fill_parent"
     android:layout_height="@dimen/actionbar_height"
     android:orientation="horizontal"
-    style="@style/ActionBar"
+    style="@style/Sherlock.ActionBar"
     >
     <RelativeLayout
         android:id="@+id/actionbar_home"
@@ -33,7 +33,6 @@
             android:id="@+id/actionbar_home_logo"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/actionbar_height"
-            android:background="@drawable/actionbar_btn"
             style="@style/ActionBarHomeLogo"
             android:visibility="gone"
             />
@@ -91,7 +90,6 @@
             android:paddingRight="10dip"
             android:textSize="16dip"
             android:textStyle="bold"
-            android:textColor="@color/actionbar_title"
             android:lines="1"
             android:scrollHorizontally="true"
             android:ellipsize="marquee"
@@ -108,7 +106,6 @@
             android:paddingLeft="10dip"
             android:paddingRight="10dip"
             android:textSize="12dip"
-            android:textColor="@color/actionbar_subtitle"
             android:lines="1"
             android:scrollHorizontally="true"
             android:ellipsize="marquee"
@@ -121,7 +118,6 @@
             android:layout_height="fill_parent"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
-            android:background="@drawable/actionbar_btn"
             android:focusable="true"
             android:visibility="gone"
             />
@@ -145,15 +141,6 @@
             android:visibility="visible"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            />
-        <!-- TODO: Make configurable. -->
-        <View
-            android:id="@+id/actionbar_tabs_bottom_line"
-            android:visibility="gone"
-            android:layout_width="wrap_content"
-            android:layout_height="2dip"
-            android:background="#FFFFFF"
-            android:layout_alignParentBottom="true"
             />
         <FrameLayout
             android:id="@+id/actionbar_custom"

@@ -17,247 +17,194 @@
 package com.jakewharton.android.actionbarsherlock.sample.styledactionbar;
 
 import com.jakewharton.android.actionbarsherlock.sample.styledactionbar.R;
-import com.jakewharton.android.actionbarsherlock.ActionBarSherlock;
-import com.jakewharton.android.actionbarsherlock.ActionBarTab;
-import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.ActionBarHandler;
-import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.FragmentActivity;
-import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasBackgroundDrawable;
-import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasHome;
-import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasListNavigation;
-import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasLogo;
-import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasMenu;
-import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasNavigationState;
-import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasTabNavigation;
-import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.HasTitle;
-import com.jakewharton.android.actionbarsherlock.ActionBarSherlock.OnNavigationListener;
-import com.jakewharton.android.actionbarsherlock.handler.Android_ActionBar;
 import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ActionBar;
+import android.support.v4.app.Activity;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.ActionBar.OnNavigationListener;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MenuItem.OnMenuItemClickListener;
 import android.widget.ArrayAdapter;
 
-public class MainActivity extends FragmentActivity implements ActionBarSherlock.TabListener {
-	/** Proxy to the action bar. */
-	private ActionBarHandler<?> mHandler;
-	
-	private RoundedColourFragment mFragmentSide;
-	private RoundedColourFragment mFragmentMain;
-	private boolean mUseLogo = false;
-	private boolean mShowHomeUp = false;
-	
-	private final Handler mRefreshHandler = new Handler();
+
+public class MainActivity extends Activity implements ActionBar.TabListener {
+
+	private final Handler handler = new Handler();
+	private RoundedColourFragment leftFrag;
+	private RoundedColourFragment rightFrag;
+	private boolean useLogo = false;
+	private boolean showHomeUp = false;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		/*
-		 * TODO:
-		 * - Style the custom action bar to look somewhat like the native one.
-		 */
-		
-		//"Elementary"
-		this.mHandler = ActionBarSherlock
-				.from(this)
-				.layout(R.layout.main)
-				.handleCustom(Android_ActionBar.Handler.class)
-				.attach();
-		
-		if (this.mHandler instanceof HasMenu) {
-			((HasMenu)this.mHandler).setMenuResourceId(R.menu.main_menu);
+		setContentView(R.layout.main);
+		final ActionBar ab = getSupportActionBar();
+
+		// set defaults for logo & home up
+		ab.setDisplayHomeAsUpEnabled(showHomeUp);
+		ab.setDisplayUseLogoEnabled(useLogo);
+
+		// set up tabs nav
+		for (int i = 1; i < 4; i++) {
+			ab.addTab(ab.newTab().setText("Tab " + i).setTabListener(this));
 		}
-		if (this.mHandler instanceof HasHome) {
-			((HasHome)this.mHandler).setHomeAsUp(this.mShowHomeUp);
-		}
-		if (this.mHandler instanceof HasLogo) {
-			((HasLogo)this.mHandler).setUseLogo(this.mUseLogo);
-		}
-		if (this.mHandler instanceof HasTabNavigation) {
-			HasTabNavigation tabHandler = (HasTabNavigation)this.mHandler;
-			
-			for (int i = 1; i < 4; i++) {
-				tabHandler.addTab(new ActionBarTab().setText("Tab " + i));
-			}
-		}
-		if (this.mHandler instanceof HasListNavigation) {
-			((HasListNavigation)this.mHandler).setList(
-				ArrayAdapter.createFromResource(this, R.array.sections, android.R.layout.simple_spinner_dropdown_item),
+
+		// set up list nav
+		ab.setListNavigationCallbacks(ArrayAdapter
+				.createFromResource(this, R.array.sections,
+						android.R.layout.simple_spinner_dropdown_item),
 				new OnNavigationListener() {
-					@Override
-					public boolean onNavigationItemSelected(int itemPosition, long itemId) {
+					public boolean onNavigationItemSelected(int itemPosition,
+							long itemId) {
 						// FIXME add proper implementation
 						rotateLeftFrag();
 						return false;
 					}
-				}
-			);
-		}
-		
+				});
+
 		// default to tab navigation
-		this.showTabsNav();
+		showTabsNav();
 
 		// create a couple of simple fragments as placeholders
 		final int MARGIN = 16;
-		this.mFragmentSide = new RoundedColourFragment(this.getResources().getColor(R.color.android_green), 1f, MARGIN, MARGIN / 2, MARGIN, MARGIN);
-		this.mFragmentMain = new RoundedColourFragment(this.getResources().getColor(R.color.honeycombish_blue), 2f, MARGIN / 2, MARGIN, MARGIN, MARGIN);
+		leftFrag = new RoundedColourFragment(getResources().getColor(
+				R.color.android_green), 1f, MARGIN, MARGIN / 2, MARGIN, MARGIN);
+		rightFrag = new RoundedColourFragment(getResources().getColor(
+				R.color.honeycombish_blue), 2f, MARGIN / 2, MARGIN, MARGIN,
+				MARGIN);
 
-		this.getSupportFragmentManager().beginTransaction()
-				.add(R.id.root, this.mFragmentSide)
-				.add(R.id.root, this.mFragmentMain)
-				.commit();
+		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+		ft.add(R.id.root, leftFrag);
+		ft.add(R.id.root, rightFrag);
+		ft.commit();
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(final MenuItem item) {
-		switch (item.getItemId()) {
-			case android.R.id.home:
-				// TODO handle clicking the app icon/logo
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.main_menu, menu);
+
+		// set up a listener for the refresh item
+		final MenuItem refresh = (MenuItem) menu.findItem(R.id.menu_refresh);
+		refresh.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+			// on selecting show progress spinner for 1s
+			public boolean onMenuItemClick(MenuItem item) {
+				// item.setActionView(R.layout.progress_action);
+				handler.postDelayed(new Runnable() {
+					public void run() {
+						refresh.setActionView(null);
+					}
+				}, 1000);
 				return false;
-				
-			case R.id.menu_refresh:
-				if (ActionBarSherlock.HAS_NATIVE_ACTION_BAR) {
-					// switch to a progress animation
-					item.setActionView(R.layout.indeterminate_progress_action);
-					// reset state after 1 second
-					this.mRefreshHandler.postDelayed(new Runnable() {
-						public void run() {
-							item.setActionView(null);
-						}
-					}, 1000);
-				}
-				return true;
-				
-			case R.id.menu_both:
-				// rotation animation of green fragment
-				this.rotateLeftFrag();
-				return true;
-				
-			case R.id.menu_text:
-				if (ActionBarSherlock.HAS_NATIVE_ACTION_BAR) {
-					// alpha animation of blue fragment
-					ObjectAnimator alpha = ObjectAnimator.ofFloat(this.mFragmentMain.getView(), "alpha", 1f, 0f);
-					alpha.setRepeatMode(ObjectAnimator.REVERSE);
-					alpha.setRepeatCount(1);
-					alpha.setDuration(800);
-					alpha.start();
-				} else {
-					//TODO: use AsyncTask to animate by hand
-				}
-				return true;
-				
-			case R.id.menu_logo:
-				this.mUseLogo = !this.mUseLogo;
-				item.setChecked(this.mUseLogo);
-				if (this.mHandler instanceof HasLogo) {
-					((HasLogo)this.mHandler).setUseLogo(this.mUseLogo);
-				}
-				return true;
-				
-			case R.id.menu_up:
-				this.mShowHomeUp = !this.mShowHomeUp;
-				item.setChecked(this.mShowHomeUp);
-				if (this.mHandler instanceof HasHome) {
-					((HasHome)this.mHandler).setHomeAsUp(this.mShowHomeUp);
-				}
-				return true;
-				
-			case R.id.menu_nav_tabs:
-				item.setChecked(true);
-				this.showTabsNav();
-				return true;
-				
-			case R.id.menu_nav_label:
-				item.setChecked(true);
-				this.showStandardNav();
-				return true;
-				
-			case R.id.menu_nav_drop_down:
-				item.setChecked(true);
-				this.showDropDownNav();
-				return true;
-				
-			case R.id.menu_bak_none:
-				item.setChecked(true);
-				if (this.mHandler instanceof HasBackgroundDrawable) {
-					((HasBackgroundDrawable)this.mHandler).setBackgroundDrawable(null);
-				}
-				return true;
-				
-			case R.id.menu_bak_gradient:
-				item.setChecked(true);
-				if (this.mHandler instanceof HasBackgroundDrawable) {
-					((HasBackgroundDrawable)this.mHandler).setBackgroundDrawable(
-						this.getResources().getDrawable(R.drawable.ad_action_bar_gradient_bak)
-					);
-				}
-				return true;
-				
-			default:
-				return super.onOptionsItemSelected(item);
+			}
+		});
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			// TODO handle clicking the app icon/logo
+			return false;
+		case R.id.menu_refresh:
+			// switch to a progress animation
+			item.setActionView(R.layout.indeterminate_progress_action);
+			return true;
+		case R.id.menu_both:
+			// rotation animation of green fragment
+			rotateLeftFrag();
+		case R.id.menu_text:
+			// alpha animation of blue fragment
+			ObjectAnimator alpha = ObjectAnimator.ofFloat(rightFrag.getView(),
+					"alpha", 1f, 0f);
+			alpha.setRepeatMode(ObjectAnimator.REVERSE);
+			alpha.setRepeatCount(1);
+			alpha.setDuration(800);
+			alpha.start();
+			return true;
+		case R.id.menu_logo:
+			useLogo = !useLogo;
+			item.setChecked(useLogo);
+			getActionBar().setDisplayUseLogoEnabled(useLogo);
+			return true;
+		case R.id.menu_up:
+			showHomeUp = !showHomeUp;
+			item.setChecked(showHomeUp);
+			getActionBar().setDisplayHomeAsUpEnabled(showHomeUp);
+			return true;
+		case R.id.menu_nav_tabs:
+			item.setChecked(true);
+			showTabsNav();
+			return true;
+		case R.id.menu_nav_label:
+			item.setChecked(true);
+			showStandardNav();
+			return true;
+		case R.id.menu_nav_drop_down:
+			item.setChecked(true);
+			showDropDownNav();
+			return true;
+		case R.id.menu_bak_none:
+			item.setChecked(true);
+			getActionBar().setBackgroundDrawable(null);
+			return true;
+		case R.id.menu_bak_gradient:
+			item.setChecked(true);
+			getActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.ad_action_bar_gradient_bak));
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
 		}
 	}
 
 	private void rotateLeftFrag() {
-		if (this.mFragmentSide != null) {
-			if (ActionBarSherlock.HAS_NATIVE_ACTION_BAR) {
-				ObjectAnimator.ofFloat(this.mFragmentSide.getView(), "rotationY", 0, 180).setDuration(500).start();
-			} else {
-				//TODO: use AsyncTask to animate by hand
-			}
+		if (leftFrag != null) {
+			ObjectAnimator.ofFloat(leftFrag.getView(), "rotationY", 0, 180)
+					.setDuration(500).start();
 		}
 	}
 
 	private void showStandardNav() {
-		if (this.mHandler instanceof HasNavigationState) {
-			HasNavigationState stateHandler = (HasNavigationState)this.mHandler;
-			if (stateHandler.getNavigationMode() != HasNavigationState.MODE_STANDARD) {
-				if (this.mHandler instanceof HasTitle) {
-					((HasTitle)this.mHandler).setShowTitle(true);
-				}
-				stateHandler.setNavigationMode(HasNavigationState.MODE_STANDARD);
-			}
+		ActionBar ab = getSupportActionBar();
+		if (ab.getNavigationMode() != ActionBar.NAVIGATION_MODE_STANDARD) {
+			ab.setDisplayShowTitleEnabled(true);
+			ab.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 		}
 	}
 
 	private void showDropDownNav() {
-		if (this.mHandler instanceof HasNavigationState) {
-			HasNavigationState stateHandler = (HasNavigationState)this.mHandler;
-			if (stateHandler.getNavigationMode() != HasNavigationState.MODE_LIST) {
-				if (this.mHandler instanceof HasTitle) {
-					((HasTitle)this.mHandler).setShowTitle(false);
-				}
-				stateHandler.setNavigationMode(HasNavigationState.MODE_LIST);
-			}
+		ActionBar ab = getSupportActionBar();
+		if (ab.getNavigationMode() != ActionBar.NAVIGATION_MODE_LIST) {
+			ab.setDisplayShowTitleEnabled(false);
+			ab.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 		}
 	}
 
 	private void showTabsNav() {
-		if (this.mHandler instanceof HasNavigationState) {
-			HasNavigationState stateHandler = (HasNavigationState)this.mHandler;
-			if (stateHandler.getNavigationMode() != HasNavigationState.MODE_TABS) {
-				if (this.mHandler instanceof HasTitle) {
-					((HasTitle)this.mHandler).setShowTitle(false);
-				}
-				stateHandler.setNavigationMode(HasNavigationState.MODE_TABS);
-			}
+		ActionBar ab = getSupportActionBar();
+		if (ab.getNavigationMode() != ActionBar.NAVIGATION_MODE_TABS) {
+			ab.setDisplayShowTitleEnabled(false);
+			ab.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		}
 	}
 
-	@Override
-	public void onTabReselected(ActionBarTab tab) {
-		// FIXME add a proper implementation, for now just rotate the left fragment
-		this.rotateLeftFrag();
+	public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
+		// FIXME add a proper implementation, for now just rotate the left
+		// fragment
+		rotateLeftFrag();
 	}
 
-	@Override
-	public void onTabSelected(ActionBarTab tab) {
+	public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
 		// FIXME implement this
 	}
 
-	@Override
-	public void onTabUnselected(ActionBarTab tab) {
+	public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
 		// FIXME implement this
 	}
+
 }
