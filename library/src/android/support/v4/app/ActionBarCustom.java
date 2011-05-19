@@ -26,7 +26,6 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v4.view.MenuBuilder;
@@ -42,7 +41,6 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 final class ActionBarCustom extends ActionBar {
 	static final class LogoLoader {
@@ -124,11 +122,11 @@ final class ActionBarCustom extends ActionBar {
 	/** Home logo. */
 	private ImageView mHomeLogo;
 	
-	/** Home item view. */
-	private FrameLayout mHomeView;
+	/** Home icon. */
+	private ImageView mHomeIcon;
 	
 	/** Home button up indicator. */
-	private View mHomeUpIndicator;
+	private View mHomeAsUp;
 	
 	/** Title view. */
 	private TextView mTitleView;
@@ -279,13 +277,13 @@ final class ActionBarCustom extends ActionBar {
 		final boolean hasSubtitle = (this.mSubtitleView.getText() != null) && !this.mSubtitleView.getText().equals(""); 
 		
 		if (getDisplayOptionValue(ActionBar.DISPLAY_SHOW_HOME)) {
-			this.mHomeUpIndicator.setVisibility(getDisplayOptionValue(ActionBar.DISPLAY_HOME_AS_UP) ? View.VISIBLE : View.GONE);
+			this.mHomeAsUp.setVisibility(getDisplayOptionValue(ActionBar.DISPLAY_HOME_AS_UP) ? View.VISIBLE : View.GONE);
 			this.mHomeLogo.setVisibility(usingLogo ? View.VISIBLE : View.GONE);
-			this.mHomeView.setVisibility(usingLogo ? View.GONE : View.VISIBLE);
+			this.mHomeIcon.setVisibility(usingLogo ? View.GONE : View.VISIBLE);
 		} else {
-			this.mHomeUpIndicator.setVisibility(View.GONE);
+			this.mHomeAsUp.setVisibility(View.GONE);
 			this.mHomeLogo.setVisibility(View.GONE);
-			this.mHomeView.setVisibility(View.GONE);
+			this.mHomeIcon.setVisibility(View.GONE);
 		}
 		
 		//If we are a list, set the list view to the currently selected item
@@ -344,8 +342,8 @@ final class ActionBarCustom extends ActionBar {
 		
 		
 		this.mHomeLogo = (ImageView)this.mBarView.findViewById(R.id.actionbar_home_logo);
-		this.mHomeView = (FrameLayout)this.mBarView.findViewById(R.id.actionbar_home_view);
-		this.mHomeUpIndicator = this.mBarView.findViewById(R.id.actionbar_home_is_back);
+		this.mHomeIcon = (ImageView)this.mBarView.findViewById(R.id.actionbar_home_icon);
+		this.mHomeAsUp = this.mBarView.findViewById(R.id.actionbar_home_is_back);
 
 		this.mTitleView = (TextView)this.mBarView.findViewById(R.id.actionbar_title);
 		this.mSubtitleView = (TextView)this.mBarView.findViewById(R.id.actionbar_subtitle);
@@ -355,19 +353,35 @@ final class ActionBarCustom extends ActionBar {
 		this.mListIndicator = this.mBarView.findViewById(R.id.actionbar_list_indicator);
 		
 		this.mCustomView = (FrameLayout)this.mBarView.findViewById(R.id.actionbar_custom);
-		
 		this.mActionsView = (LinearLayout)this.mBarView.findViewById(R.id.actionbar_actions);
-
 		this.mTabsView = (LinearLayout)this.mBarView.findViewById(R.id.actionbar_tabs);
 
+		ComponentName componentName = this.getActivity().getComponentName();
+		PackageManager packageManager = this.getActivity().getPackageManager();
+		
 		//Try to load title from the Activity's manifest entry
+		CharSequence title;
 		try {
-			ComponentName componentName = this.getActivity().getComponentName();
-			PackageManager packageManager = this.getActivity().getPackageManager();
-			this.setTitle(packageManager.getActivityInfo(componentName, PackageManager.GET_ACTIVITIES).loadLabel(packageManager));
+			title = packageManager.getActivityInfo(componentName, PackageManager.GET_ACTIVITIES).loadLabel(packageManager);
 		} catch (NameNotFoundException e) {
-			//Can't load and/or find title. Eat exception.
+			//Can't load/find activity title. Set a default.
+			title = this.getActivity().getApplicationInfo().loadLabel(packageManager);
 		}
+		if ((title == null) || (title.equals(""))) {
+			//Still no title? Fall back to activity class name
+			title = this.getActivity().getClass().getSimpleName();
+		}
+		this.setTitle(title);
+		
+		//Load icon from the Activity's manifest entry
+		Drawable icon;
+		try {
+			icon = packageManager.getActivityIcon(componentName);
+		} catch (NameNotFoundException e) {
+			//Can't load/find activity icon. Get application icon or default.
+			icon = packageManager.getApplicationIcon(this.getActivity().getApplicationInfo());
+		}
+		this.mHomeIcon.setImageDrawable(icon);
 		
 		//Must be >= gingerbread to look for a logo
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
@@ -377,8 +391,9 @@ final class ActionBarCustom extends ActionBar {
 			}
 		}
 		
-		//Show the title by default
+		//Show the title and home icon by default
 		this.setDisplayOption(ActionBar.DISPLAY_SHOW_TITLE, true);
+		this.setDisplayOption(ActionBar.DISPLAY_SHOW_HOME, true);
 		//Use standard navigation by default (this will call reloadDisplay)
 		this.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 	}
@@ -439,7 +454,7 @@ final class ActionBarCustom extends ActionBar {
 	}
 	
 	// ------------------------------------------------------------------------
-	// NATIVE ACTION BAR METHODS
+	// ACTION BAR METHODS
 	// ------------------------------------------------------------------------
 
 	@Override

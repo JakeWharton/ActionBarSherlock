@@ -36,15 +36,14 @@
             style="@style/ActionBarHomeLogo"
             android:visibility="gone"
             />
-        <FrameLayout
-            android:id="@+id/actionbar_home_view"
+        <ImageButton
+            android:id="@+id/actionbar_home_icon"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/actionbar_height"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_margin="0dp"
             android:padding="0dp"
-            android:background="@color/actionbar_separator"
             android:visibility="gone"
             />
         <ImageView
