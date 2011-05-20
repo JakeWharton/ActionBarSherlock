@@ -101,6 +101,10 @@ public abstract class ActionBar {
 		this.mActivity = activity;
 	}
 	
+	// ---------------------------------------------------------------------
+	// ACTION BAR SHERLOCK SUPPORT
+	// ---------------------------------------------------------------------
+	
 	protected abstract void setContentView(int layoutResId);
 	
 	protected abstract void setContentView(View view);
@@ -123,31 +127,6 @@ public abstract class ActionBar {
 	 * attachment to the activity.
 	 */
 	void performAttach() {}
-	
-	
-	
-	/**
-	 * Exception that is to be used to signify an {@link ActionBar} method is
-	 * not implemented in the handler.
-	 */
-	public static final class NotImplementedException extends RuntimeException {
-		private static final long serialVersionUID = 1L;
-		
-		public NotImplementedException() {
-			super();
-		}
-		public NotImplementedException(String message) {
-			super(message);
-		}
-		public NotImplementedException(Throwable throwable) {
-			super(throwable);
-		}
-		public NotImplementedException(String message, Throwable throwable) {
-			super(message, throwable);
-		}
-	}
-
-	
 	
 	// ------------------------------------------------------------------------
 	// ACTION BAR SUPPORT
@@ -478,7 +457,7 @@ public abstract class ActionBar {
 	 * 
 	 * @param tab Tab to add
 	 */
-	public void addTab(ActionBar.Tab tab) {
+	public final void addTab(ActionBar.Tab tab) {
 		this.addTab(tab, this.getTabCount() == 0);
 	}
 	
@@ -489,7 +468,9 @@ public abstract class ActionBar {
 	 * @param tab Tab to add
 	 * @param setSelected True if the added tab should become the selected tab.
 	 */
-	public abstract void addTab(ActionBar.Tab tab, boolean setSelected);
+	public final void addTab(ActionBar.Tab tab, boolean setSelected) {
+		this.addTab(tab, this.getTabCount(), setSelected);
+	}
 	
 	/**
 	 * Add a tab for use in tabbed navigation mode. The tab will be inserted at
@@ -499,7 +480,7 @@ public abstract class ActionBar {
 	 * @param tab The tab to add
 	 * @param position The new position of the tab
 	 */
-	public void addTab(ActionBar.Tab tab, int position) {
+	public final void addTab(ActionBar.Tab tab, int position) {
 		this.addTab(tab, position, this.getTabCount() == 0);
 	}
 	
@@ -735,7 +716,9 @@ public abstract class ActionBar {
 	 * @see #setDisplayOptions(int)
 	 * @see #setDisplayOptions(int, int)
 	 */
-	public abstract void setDisplayHomeAsUpEnabled(boolean showHomeAsUp);
+	public final void setDisplayHomeAsUpEnabled(boolean showHomeAsUp) {
+		this.setDisplayOptions(showHomeAsUp ? DISPLAY_HOME_AS_UP : 0, DISPLAY_HOME_AS_UP);
+	}
 	
 	/**
 	 * <p>Set selected display options. Only the options specified by mask will
@@ -775,7 +758,9 @@ public abstract class ActionBar {
 	 * @see #setDisplayOptions(int)
 	 * @see #setDisplayOptions(int, int)
 	 */
-	public abstract void setDisplayShowCustomEnabled(boolean showCustom);
+	public final void setDisplayShowCustomEnabled(boolean showCustom) {
+		this.setDisplayOptions(showCustom ? DISPLAY_SHOW_CUSTOM : 0, DISPLAY_SHOW_CUSTOM);
+	}
 	
 	/**
 	 * <p>Set whether to include the application home affordance in the action
@@ -788,7 +773,9 @@ public abstract class ActionBar {
 	 * @see #setDisplayOptions(int)
 	 * @see #setDisplayOptions(int, int)
 	 */
-	public abstract void setDisplayShowHomeEnabled(boolean showHome);
+	public final void setDisplayShowHomeEnabled(boolean showHome) {
+		this.setDisplayOptions(showHome ? DISPLAY_SHOW_HOME : 0, DISPLAY_SHOW_HOME);
+	}
 	
 	/**
 	 * <p>Set whether an activity title/subtitle should be displayed.</p>
@@ -800,7 +787,9 @@ public abstract class ActionBar {
 	 * @see #setDisplayOptions(int)
 	 * @see #setDisplayOptions(int, int)
 	 */
-	public abstract void setDisplayShowTitleEnabled(boolean showTitle);
+	public final void setDisplayShowTitleEnabled(boolean showTitle) {
+		this.setDisplayOptions(showTitle ? DISPLAY_SHOW_TITLE : 0, DISPLAY_SHOW_TITLE);
+	}
 	
 	/**
 	 * <p>Set whether to display the activity logo rather than the activity
@@ -814,7 +803,9 @@ public abstract class ActionBar {
 	 * @see #setDisplayOptions(int)
 	 * @see #setDisplayOptions(int, int)
 	 */
-	public abstract void setDisplayUseLogoEnabled(boolean useLogo);
+	public final void setDisplayUseLogoEnabled(boolean useLogo) {
+		this.setDisplayOptions(useLogo ? DISPLAY_USE_LOGO : 0, DISPLAY_USE_LOGO);
+	}
 	
 	/**
 	 * Set the adapter and navigation callback for list navigation mode. The
@@ -856,7 +847,9 @@ public abstract class ActionBar {
 	 * @see #setSubtitle(CharSequence)
 	 * @see #setDisplayOptions(int, int)
 	 */
-	public abstract void setSubtitle(int resId);
+	public final void setSubtitle(int resId) {
+		this.setSubtitle(this.getActivity().getResources().getString(resId));
+	}
 	
 	/**
 	 * Set the action bar's subtitle. This will only be displayed if
@@ -887,7 +880,9 @@ public abstract class ActionBar {
 	 * @see #setTitle(CharSequence)
 	 * @see #setDisplayOptions(int, int)
 	 */
-	public abstract void setTitle(int resId);
+	public final void setTitle(int resId) {
+		this.setTitle(this.getActivity().getResources().getString(resId));
+	}
 	
 	/**
 	 * Show the ActionBar if it is not currently showing. If the window hosting

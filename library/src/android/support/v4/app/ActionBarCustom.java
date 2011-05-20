@@ -315,7 +315,7 @@ final class ActionBarCustom extends ActionBar {
 	}
 	
 	// ------------------------------------------------------------------------
-	// ACTION BAR SHERLOCK METHODS
+	// ACTION BAR SHERLOCK SUPPORT
 	// ------------------------------------------------------------------------
 
 	@Override
@@ -462,11 +462,6 @@ final class ActionBarCustom extends ActionBar {
 		if (!this.mMenuListeners.contains(listener)) {
 			this.mMenuListeners.add(listener);
 		}
-	}
-	
-	@Override
-	public void addTab(ActionBar.Tab tab, boolean setSelected) {
-		this.addTab(tab, this.getTabCount(), setSelected);
 	}
 
 	@Override
@@ -650,12 +645,6 @@ final class ActionBarCustom extends ActionBar {
 	}
 
 	@Override
-	public void setDisplayHomeAsUpEnabled(boolean showHomeAsUp) {
-		this.setDisplayOption(ActionBar.DISPLAY_HOME_AS_UP, showHomeAsUp);
-		this.reloadDisplay();
-	}
-
-	@Override
 	public void setDisplayOptions(int options, int mask) {
 		this.mFlags = (this.mFlags & ~mask) | options;
 		this.reloadDisplay();
@@ -664,30 +653,6 @@ final class ActionBarCustom extends ActionBar {
 	@Override
 	public void setDisplayOptions(int options) {
 		this.mFlags = options;
-		this.reloadDisplay();
-	}
-
-	@Override
-	public void setDisplayShowCustomEnabled(boolean showCustom) {
-		this.setDisplayOption(ActionBar.DISPLAY_SHOW_CUSTOM, showCustom);
-		this.reloadDisplay();
-	}
-
-	@Override
-	public void setDisplayShowHomeEnabled(boolean showHome) {
-		this.setDisplayOption(ActionBar.DISPLAY_SHOW_HOME, showHome);
-		this.reloadDisplay();
-	}
-
-	@Override
-	public void setDisplayShowTitleEnabled(boolean showTitle) {
-		this.setDisplayOption(ActionBar.DISPLAY_SHOW_TITLE, showTitle);
-		this.reloadDisplay();
-	}
-
-	@Override
-	public void setDisplayUseLogoEnabled(boolean useLogo) {
-		this.setDisplayOption(ActionBar.DISPLAY_USE_LOGO, useLogo);
 		this.reloadDisplay();
 	}
 
@@ -735,22 +700,10 @@ final class ActionBarCustom extends ActionBar {
 			}
 		}
 	}
-	
-	@Override
-	public void setSubtitle(int resId) {
-		this.mSubtitleView.setText(resId);
-		this.reloadDisplay();
-	}
 
 	@Override
 	public void setSubtitle(CharSequence subtitle) {
 		this.mSubtitleView.setText((subtitle == null) ? "" : subtitle);
-		this.reloadDisplay();
-	}
-	
-	@Override
-	public void setTitle(int resId) {
-		this.mTitleView.setText(resId);
 		this.reloadDisplay();
 	}
 

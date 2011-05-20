@@ -62,6 +62,30 @@ final class ActionBarNative {
 					.setTag(tab)
 					.setText(tab.getText());
 		}
+
+		@Override
+		public void onTabReselected(android.app.ActionBar.Tab tab, android.app.FragmentTransaction ft) {
+			ActionBar.TabListener listener = ((ActionBar.Tab)tab.getTag()).getTabListener();
+			if (listener != null) {
+				listener.onTabReselected((ActionBar.Tab)tab.getTag(), null);
+			}
+		}
+
+		@Override
+		public void onTabSelected(android.app.ActionBar.Tab tab, android.app.FragmentTransaction ft) {
+			ActionBar.TabListener listener = ((ActionBar.Tab)tab.getTag()).getTabListener();
+			if (listener != null) {
+				listener.onTabSelected((ActionBar.Tab)tab.getTag(), null);
+			}
+		}
+
+		@Override
+		public void onTabUnselected(android.app.ActionBar.Tab tab, android.app.FragmentTransaction ft) {
+			ActionBar.TabListener listener = ((ActionBar.Tab)tab.getTag()).getTabListener();
+			if (listener != null) {
+				listener.onTabUnselected((ActionBar.Tab)tab.getTag(), null);
+			}
+		}
 		
 		// ---------------------------------------------------------------------
 		// ACTION BAR SHERLOCK SUPPORT
@@ -231,11 +255,6 @@ final class ActionBarNative {
 		}
 
 		@Override
-		public void addTab(ActionBar.Tab tab, boolean setSelected) {
-			this.getActionBar().addTab(this.convertTabToNative(tab), setSelected);
-		}
-
-		@Override
 		public void addTab(ActionBar.Tab tab, int position, boolean setSelected) {
 			this.getActionBar().addTab(this.convertTabToNative(tab), position, setSelected);
 		}
@@ -374,11 +393,6 @@ final class ActionBarNative {
 		}
 
 		@Override
-		public void setDisplayHomeAsUpEnabled(boolean showHomeAsUp) {
-			this.getActionBar().setDisplayHomeAsUpEnabled(showHomeAsUp);
-		}
-
-		@Override
 		public void setDisplayOptions(int options, int mask) {
 			this.getActionBar().setDisplayOptions(options, mask);
 		}
@@ -386,26 +400,6 @@ final class ActionBarNative {
 		@Override
 		public void setDisplayOptions(int options) {
 			this.getActionBar().setDisplayOptions(options);
-		}
-
-		@Override
-		public void setDisplayShowCustomEnabled(boolean showCustom) {
-			this.getActionBar().setDisplayShowCustomEnabled(showCustom);
-		}
-
-		@Override
-		public void setDisplayShowHomeEnabled(boolean showHome) {
-			this.getActionBar().setDisplayShowHomeEnabled(showHome);
-		}
-
-		@Override
-		public void setDisplayShowTitleEnabled(boolean showTitle) {
-			this.getActionBar().setDisplayShowTitleEnabled(showTitle);
-		}
-
-		@Override
-		public void setDisplayUseLogoEnabled(boolean useLogo) {
-			this.getActionBar().setDisplayUseLogoEnabled(useLogo);
 		}
 
 		@Override
@@ -432,11 +426,6 @@ final class ActionBarNative {
 		}
 
 		@Override
-		public void setSubtitle(int resId) {
-			this.getActionBar().setSubtitle(resId);
-		}
-
-		@Override
 		public void setSubtitle(CharSequence subtitle) {
 			this.getActionBar().setSubtitle(subtitle);
 		}
@@ -447,37 +436,8 @@ final class ActionBarNative {
 		}
 
 		@Override
-		public void setTitle(int resId) {
-			this.getActionBar().setTitle(resId);
-		}
-
-		@Override
 		public void show() {
 			this.getActionBar().show();
-		}
-
-		@Override
-		public void onTabReselected(android.app.ActionBar.Tab tab, android.app.FragmentTransaction ft) {
-			ActionBar.TabListener listener = ((ActionBar.Tab)tab.getTag()).getTabListener();
-			if (listener != null) {
-				listener.onTabReselected((ActionBar.Tab)tab.getTag(), null);
-			}
-		}
-
-		@Override
-		public void onTabSelected(android.app.ActionBar.Tab tab, android.app.FragmentTransaction ft) {
-			ActionBar.TabListener listener = ((ActionBar.Tab)tab.getTag()).getTabListener();
-			if (listener != null) {
-				listener.onTabSelected((ActionBar.Tab)tab.getTag(), null);
-			}
-		}
-
-		@Override
-		public void onTabUnselected(android.app.ActionBar.Tab tab, android.app.FragmentTransaction ft) {
-			ActionBar.TabListener listener = ((ActionBar.Tab)tab.getTag()).getTabListener();
-			if (listener != null) {
-				listener.onTabUnselected((ActionBar.Tab)tab.getTag(), null);
-			}
 		}
 	}
 }
