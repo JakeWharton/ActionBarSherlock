@@ -45,7 +45,7 @@ import android.widget.TextView;
 
 final class ActionBarCustom extends ActionBar {
 	static final class LogoLoader {
-		static Drawable loadLogo(Activity activity) {
+		static Drawable loadLogo(FragmentActivity activity) {
 			Drawable logo = null;
 			try {
 				//Try to load the logo from the Activity's manifest entry

@@ -5,12 +5,12 @@ import com.jakewharton.android.actionbarsherlock.sample.featuredemo.R;
 
 import android.os.Bundle;
 import android.support.v4.app.ActionBar;
-import android.support.v4.app.Activity;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.SpinnerAdapter;
 
-public class FeatureDemoActivity extends Activity {
+public class FeatureDemoActivity extends FragmentActivity {
 	private static final Random RANDOM = new Random();
 	
     @Override

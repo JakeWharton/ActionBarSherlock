@@ -16,7 +16,7 @@
 
 package android.support.v4.view;
 
-import android.support.v4.app.Activity;
+import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.View;
 
@@ -29,7 +29,7 @@ import android.view.View;
 public abstract class ActionMode {
 	/**
 	 * <p>Callback interface for action modes. Supplied to
-	 * {@link android.support.v4.app.Activity#startActionMode(Callback)},
+	 * {@link android.support.v4.app.FragmentActivity#startActionMode(Callback)},
 	 * a Callback configures and handles events raised by a user's interaction
 	 * with an action mode.</p>
 	 * 
@@ -190,14 +190,14 @@ public abstract class ActionMode {
 }
 
 final class ActionModeImpl extends ActionMode {
-	private final Activity mActivity;
+	private final FragmentActivity mActivity;
 	
 	private View mView;
 	private CharSequence mTitle;
 	private CharSequence mSubtitle;
 	
 	
-	ActionModeImpl(Activity activity) {
+	ActionModeImpl(FragmentActivity activity) {
 		this.mActivity = activity;
 	}
 	

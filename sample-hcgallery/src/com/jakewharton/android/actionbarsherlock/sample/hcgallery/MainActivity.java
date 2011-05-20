@@ -35,7 +35,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.ActionBar;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Activity;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
@@ -45,7 +45,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RemoteViews;
 
-public class MainActivity extends Activity implements ActionBar.TabListener {
+public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
 
     private static final int NOTIFICATION_DEFAULT = 1;
     private static final String ACTION_DIALOG = "com.jakewharton.android.actionbarsherlock.sample.hcgallery.action.DIALOG";

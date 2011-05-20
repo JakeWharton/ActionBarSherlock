@@ -56,9 +56,9 @@ public abstract class ActionBar {
 	 * @param activity The parent activity.
 	 * @return Instance of handler.
 	 */
-	static ActionBar sherlock(Activity activity) {
+	static ActionBar sherlock(FragmentActivity activity) {
 		Class<? extends ActionBar> handler;
-		if (Activity.IS_HONEYCOMB) {
+		if (FragmentActivity.IS_HONEYCOMB) {
 			handler = ActionBarNative.getImplementation();
 		} else if (HANDLER_CUSTOM != null) {
 			handler = HANDLER_CUSTOM;
@@ -79,7 +79,7 @@ public abstract class ActionBar {
 	
 	
 	/** Parent activity. */
-	private Activity mActivity;
+	private FragmentActivity mActivity;
 	
 	
 	
@@ -88,7 +88,7 @@ public abstract class ActionBar {
 	 * 
 	 * @return Activity.
 	 */
-	protected final Activity getActivity() {
+	protected final FragmentActivity getActivity() {
 		return this.mActivity;
 	}
 	
@@ -99,7 +99,7 @@ public abstract class ActionBar {
 	 * @param activity Parent activity.
 	 * @return Current instance for call chaining.
 	 */
-	private void setActivity(Activity activity) {
+	private void setActivity(FragmentActivity activity) {
 		this.mActivity = activity;
 	}
 	
@@ -124,7 +124,7 @@ public abstract class ActionBar {
 	abstract boolean requestWindowFeature(int featureId);
 	
 	/**
-	 * Called directly after the {@link Activity#onCreate(Bundle)} method has
+	 * Called directly after the {@link FragmentActivity#onCreate(Bundle)} method has
 	 * called its base class' implementation. This should be used to facilitate
 	 * attachment to the activity.
 	 */
@@ -344,7 +344,7 @@ public abstract class ActionBar {
 		 * 
 		 * @param tab The tab that was reselected.
 		 * @param ft Unused, always {@code null}. Begin your own transaction by
-		 * calling {@link Activity#getSupportFragmentManager()}.
+		 * calling {@link FragmentActivity#getSupportFragmentManager()}.
 		 */
 		void onTabReselected(Tab tab, FragmentTransaction ft);
 		
@@ -353,7 +353,7 @@ public abstract class ActionBar {
 		 * 
 		 * @param tab The tab that was selected
 		 * @param ft Unused, always {@code null}. Begin your own transaction by
-		 * calling {@link Activity#getSupportFragmentManager()}.
+		 * calling {@link FragmentActivity#getSupportFragmentManager()}.
 		 */
 		void onTabSelected(Tab tab, FragmentTransaction ft);
 		
@@ -362,7 +362,7 @@ public abstract class ActionBar {
 		 * 
 		 * @param tab The tab that was unselected
 		 * @param ft Unused, always {@code null}. Begin your own transaction by
-		 * calling {@link Activity#getSupportFragmentManager()}.
+		 * calling {@link FragmentActivity#getSupportFragmentManager()}.
 		 */
 		void onTabUnselected(Tab tab, FragmentTransaction ft);
 	}

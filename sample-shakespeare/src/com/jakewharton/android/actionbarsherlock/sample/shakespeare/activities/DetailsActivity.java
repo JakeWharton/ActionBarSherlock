@@ -2,10 +2,10 @@ package com.jakewharton.android.actionbarsherlock.sample.shakespeare.activities;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.app.Activity;
+import android.support.v4.app.FragmentActivity;
 import com.jakewharton.android.actionbarsherlock.sample.shakespeare.fragments.DetailsFragment;
 
-public class DetailsActivity extends Activity {
+public class DetailsActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

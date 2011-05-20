@@ -32,7 +32,7 @@ import java.lang.reflect.Modifier;
  * to switch to the framework's implementation.  See the framework SDK
  * documentation for a class overview.
  * 
- * <p>Your activity must derive from {@link Activity} to use this.
+ * <p>Your activity must derive from {@link FragmentActivity} to use this.
  */
 public abstract class LoaderManager {
     /**
@@ -191,7 +191,7 @@ class LoaderManagerImpl extends LoaderManager {
     // previously run loader until the new loader's data is available.
     final HCSparseArray<LoaderInfo> mInactiveLoaders = new HCSparseArray<LoaderInfo>();
 
-    Activity mActivity;
+    FragmentActivity mActivity;
     boolean mStarted;
     boolean mRetaining;
     boolean mRetainingStarted;
@@ -447,12 +447,12 @@ class LoaderManagerImpl extends LoaderManager {
         }
     }
     
-    LoaderManagerImpl(Activity activity, boolean started) {
+    LoaderManagerImpl(FragmentActivity activity, boolean started) {
         mActivity = activity;
         mStarted = started;
     }
     
-    void updateActivity(Activity activity) {
+    void updateActivity(FragmentActivity activity) {
         mActivity = activity;
     }
     
@@ -495,7 +495,7 @@ class LoaderManagerImpl extends LoaderManager {
      * <p>This function should generally be used when a component is initializing,
      * to ensure that a Loader it relies on is created.  This allows it to re-use
      * an existing Loader's data if there already is one, so that for example
-     * when an {@link Activity} is re-created after a configuration change it
+     * when an {@link FragmentActivity} is re-created after a configuration change it
      * does not need to re-create its loaders.
      * 
      * <p>Note that in the case where an existing Loader is re-used, the

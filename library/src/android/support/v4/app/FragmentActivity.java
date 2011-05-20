@@ -21,6 +21,7 @@ import java.io.FileDescriptor;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -61,7 +62,7 @@ import android.view.ViewGroup.LayoutParams;
  * state, this may be a snapshot slightly before what the user last saw.</p>
  * </ul>
  */
-public class Activity extends android.app.Activity {
+public class FragmentActivity extends Activity {
 	private static final String TAG = "FragmentActivity";
 	
 	private static final String FRAGMENTS_TAG = "android:support:fragments";
@@ -116,7 +117,7 @@ public class Activity extends android.app.Activity {
 	}
 
 	
-	public Activity() {
+	public FragmentActivity() {
 		mActionBar = ActionBar.sherlock(this);
 	}
 	

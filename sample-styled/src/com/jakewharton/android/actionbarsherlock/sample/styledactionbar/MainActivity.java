@@ -21,7 +21,7 @@ import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActionBar;
-import android.support.v4.app.Activity;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ActionBar.OnNavigationListener;
 import android.view.Menu;
@@ -30,7 +30,7 @@ import android.view.MenuItem.OnMenuItemClickListener;
 import android.widget.ArrayAdapter;
 
 
-public class MainActivity extends Activity implements ActionBar.TabListener {
+public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
 
 	private final Handler handler = new Handler();
 	private RoundedColourFragment leftFrag;

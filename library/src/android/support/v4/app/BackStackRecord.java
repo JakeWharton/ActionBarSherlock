@@ -338,7 +338,7 @@ final class BackStackRecord extends FragmentTransaction implements
         	//This will change the target container ID to be the content view
         	//of our custom action bar implementation when the entire activity
         	//view is selected as the target and we are pre-honeycomb
-        	if (!Activity.IS_HONEYCOMB && (containerViewId == android.R.id.content)) {
+        	if (!FragmentActivity.IS_HONEYCOMB && (containerViewId == android.R.id.content)) {
         		containerViewId = R.id.actionbar_content;
         	}
             if (fragment.mFragmentId != 0 && fragment.mFragmentId != containerViewId) {

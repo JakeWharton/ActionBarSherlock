@@ -80,7 +80,7 @@ final class FragmentState implements Parcelable {
         mSavedFragmentState = in.readBundle();
     }
     
-    public Fragment instantiate(Activity activity) {
+    public Fragment instantiate(FragmentActivity activity) {
         if (mInstance != null) {
             return mInstance;
         }
@@ -210,10 +210,10 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
 
     // Set as soon as a fragment is added to a transaction (or removed),
     // to be able to do validation.
-    Activity mImmediateActivity;
+    FragmentActivity mImmediateActivity;
     
     // Activity this fragment is attached to.
-    Activity mActivity;
+    FragmentActivity mActivity;
     
     // The optional identifier for this fragment -- either the container ID if it
     // was dynamically added to the view hierarchy, or the ID supplied in
@@ -284,7 +284,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      * 
      * <p>Applications should generally not implement a constructor.  The
      * first place application code an run where the fragment is ready to
-     * be used is in {@link #onAttach(Activity)}, the point where the fragment
+     * be used is in {@link #onAttach(FragmentActivity)}, the point where the fragment
      * is actually associated with its activity.  Some applications may also
      * want to implement {@link #onInflate} to retrieve attributes from a
      * layout resource, though should take care here because this happens for
@@ -466,7 +466,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     /**
      * Return the Activity this fragment is currently associated with.
      */
-    final public Activity getActivity() {
+    final public FragmentActivity getActivity() {
         return mActivity;
     }
     
@@ -600,7 +600,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      * will be, because the fragment is being detached from its current activity).
      * <li> {@link #onCreate(Bundle)} will not be called since the fragment
      * is not being re-created.
-     * <li> {@link #onAttach(Activity)} and {@link #onActivityCreated(Bundle)} <b>will</b>
+     * <li> {@link #onAttach(FragmentActivity)} and {@link #onActivityCreated(Bundle)} <b>will</b>
      * still be called.
      * </ul>
      */
@@ -644,7 +644,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     }
     
     /**
-     * Call {@link Activity#startActivity(Intent)} on the fragment's
+     * Call {@link FragmentActivity#startActivity(Intent)} on the fragment's
      * containing Activity.
      */
     public void startActivity(Intent intent) {
@@ -655,7 +655,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     }
     
     /**
-     * Call {@link Activity#startActivityForResult(Intent, int)} on the fragment's
+     * Call {@link FragmentActivity#startActivityForResult(Intent, int)} on the fragment's
      * containing Activity.
      */
     public void startActivityForResult(Intent intent, int requestCode) {
@@ -669,7 +669,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      * Receive the result from a previous call to
      * {@link #startActivityForResult(Intent, int)}.  This follows the
      * related Activity API as described there in
-     * {@link Activity#onActivityResult(int, int, Intent)}.
+     * {@link FragmentActivity#onActivityResult(int, int, Intent)}.
      * 
      * @param requestCode The integer request code originally supplied to
      *                    startActivityForResult(), allowing you to identify who this
@@ -696,7 +696,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      * inflation, typically from setting the content view of an activity.  This
      * may be called immediately after the fragment is created from a <fragment>
      * tag in a layout file.  Note this is <em>before</em> the fragment's
-     * {@link #onAttach(Activity)} has been called; all you should do here is
+     * {@link #onAttach(FragmentActivity)} has been called; all you should do here is
      * parse the attributes and save them away.
      * 
      * <p>This is called every time the fragment is inflated, even if it is
@@ -733,7 +733,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      * @param savedInstanceState If the fragment is being re-created from
      * a previous saved state, this is the state.
      */
-    public void onInflate(Activity activity, AttributeSet attrs, Bundle savedInstanceState) {
+    public void onInflate(FragmentActivity activity, AttributeSet attrs, Bundle savedInstanceState) {
         mCalled = true;
     }
     
@@ -741,7 +741,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      * Called when a fragment is first attached to its activity.
      * {@link #onCreate(Bundle)} will be called after this.
      */
-    public void onAttach(Activity activity) {
+    public void onAttach(FragmentActivity activity) {
         mCalled = true;
     }
     
@@ -754,7 +754,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     
     /**
      * Called to do initial creation of a fragment.  This is called after
-     * {@link #onAttach(Activity)} and before
+     * {@link #onAttach(FragmentActivity)} and before
      * {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.
      * 
      * <p>Note that this can be called while the fragment's activity is
@@ -823,7 +823,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     
     /**
      * Called when the Fragment is visible to the user.  This is generally
-     * tied to {@link Activity#onStart() Activity.onStart} of the containing
+     * tied to {@link FragmentActivity#onStart() Activity.onStart} of the containing
      * Activity's lifecycle.
      */
     public void onStart() {
@@ -844,7 +844,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     /**
      * Called when the fragment is visible to the user and actively running.
      * This is generally
-     * tied to {@link Activity#onResume() Activity.onResume} of the containing
+     * tied to {@link FragmentActivity#onResume() Activity.onResume} of the containing
      * Activity's lifecycle.
      */
     public void onResume() {
@@ -860,7 +860,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      * {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}, and
      * {@link #onActivityCreated(Bundle)}.
      *
-     * <p>This corresponds to {@link Activity#onSaveInstanceState(Bundle)
+     * <p>This corresponds to {@link FragmentActivity#onSaveInstanceState(Bundle)
      * Activity.onSaveInstanceState(Bundle)} and most of the discussion there
      * applies here as well.  Note however: <em>this method may be called
      * at any time before {@link #onDestroy()}</em>.  There are many situations
@@ -879,7 +879,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     
     /**
      * Called when the Fragment is no longer resumed.  This is generally
-     * tied to {@link Activity#onPause() Activity.onPause} of the containing
+     * tied to {@link FragmentActivity#onPause() Activity.onPause} of the containing
      * Activity's lifecycle.
      */
     public void onPause() {
@@ -888,7 +888,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     
     /**
      * Called when the Fragment is no longer started.  This is generally
-     * tied to {@link Activity#onStop() Activity.onStop} of the containing
+     * tied to {@link FragmentActivity#onStop() Activity.onStop} of the containing
      * Activity's lifecycle.
      */
     public void onStop() {
@@ -941,7 +941,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      * Initialize the contents of the Activity's standard options menu.  You
      * should place your menu items in to <var>menu</var>.  For this method
      * to be called, you must have first called {@link #setHasOptionsMenu}.  See
-     * {@link Activity#onCreateOptionsMenu(Menu) Activity.onCreateOptionsMenu}
+     * {@link FragmentActivity#onCreateOptionsMenu(Menu) Activity.onCreateOptionsMenu}
      * for more information.
      * 
      * @param menu The options menu in which you place your items.
@@ -958,7 +958,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      * called right before the menu is shown, every time it is shown.  You can
      * use this method to efficiently enable/disable items or otherwise
      * dynamically modify the contents.  See
-     * {@link Activity#onPrepareOptionsMenu(Menu) Activity.onPrepareOptionsMenu}
+     * {@link FragmentActivity#onPrepareOptionsMenu(Menu) Activity.onPrepareOptionsMenu}
      * for more information.
      * 
      * @param menu The options menu as last shown or first initialized by
@@ -1023,7 +1023,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      * item has been selected.
      * <p>
      * The default implementation calls up to
-     * {@link Activity#onCreateContextMenu Activity.onCreateContextMenu}, though
+     * {@link FragmentActivity#onCreateContextMenu Activity.onCreateContextMenu}, though
      * you can not call this implementation if you don't want that behavior.
      * <p>
      * It is not safe to hold onto the context menu after this method returns.

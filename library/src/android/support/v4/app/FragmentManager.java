@@ -370,7 +370,7 @@ final class FragmentManagerImpl extends FragmentManager {
     ArrayList<OnBackStackChangedListener> mBackStackChangeListeners;
 
     int mCurState = Fragment.INITIALIZING;
-    Activity mActivity;
+    FragmentActivity mActivity;
     
     boolean mNeedMenuInvalidate;
     boolean mStateSaved;
@@ -1620,7 +1620,7 @@ final class FragmentManagerImpl extends FragmentManager {
         }
     }
     
-    public void attachActivity(Activity activity) {
+    public void attachActivity(FragmentActivity activity) {
         if (mActivity != null) throw new IllegalStateException();
         mActivity = activity;
     }
