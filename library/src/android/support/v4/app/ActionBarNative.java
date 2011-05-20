@@ -19,6 +19,7 @@ package android.support.v4.app;
 import java.util.HashMap;
 import android.graphics.drawable.Drawable;
 import android.support.v4.view.MenuBuilder;
+import android.support.v4.view.MenuItem;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -28,6 +29,11 @@ final class ActionBarNative {
 	//No instances
 	private ActionBarNative() {}
 	
+	/**
+	 * Simple static method abstraction to get a reference to our implementing class.
+	 * 
+	 * @return {@code ActionBarNative.Impl.class}
+	 */
 	static Class<? extends ActionBar> getImplementation() {
 		return ActionBarNative.Impl.class;
 	}
@@ -110,9 +116,9 @@ final class ActionBarNative {
 		MenuInflater getMenuInflater() {
 			throw new IllegalStateException("This should have been passed to super from the Activity.");
 		}
-		
+
 		@Override
-		Menu getMenuInflationTarget(Menu nativeMenu) {
+		MenuItem findMenuItem(Menu nativeMenu, int itemId) {
 			throw new IllegalStateException("This should never be utilized for the native ActionBar.");
 		}
 		
@@ -129,6 +135,11 @@ final class ActionBarNative {
 		@Override
 		boolean requestWindowFeature(int featureId) {
 			throw new IllegalStateException("This should have been passed to super from the Activity.");
+		}
+		
+		@Override
+		void performAttach() {
+			throw new IllegalStateException("This should never be utilized for the native ActionBar.");
 		}
 		
 		// ---------------------------------------------------------------------

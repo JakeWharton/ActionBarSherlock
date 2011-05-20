@@ -30,12 +30,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Parcelable;
+import android.support.v4.view.MenuItem;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.ViewGroup.LayoutParams;
@@ -255,6 +255,22 @@ public class Activity extends android.app.Activity {
 		}
 		mFragments.dispatchCreate();
 		
+		//TODO dispatch onCreateOptionsMenu(support.Menu)
+		//TODO hold created menu in the activity
+		//TODO if !IS_HONEYCOMB, add visible action items to action bar
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		//TODO make final
+		//TODO if IS_HONEYCOMB add everything
+		//TODO if !IS_HONEYCOMB add non-visible action items to options menu
+		
+		super.onCreateOptionsMenu(menu);
+		// Prior to Honeycomb, the framework can't invalidate the options
+		// menu, so we must always say we have one in case the app later
+		// invalidates it and needs to have it shown.
+		return true;
 	}
 
 	/**
@@ -406,7 +422,7 @@ public class Activity extends android.app.Activity {
 	 * Dispatch context and options menu to fragments.
 	 */
 	@Override
-	public boolean onMenuItemSelected(int featureId, MenuItem item) {
+	public boolean onMenuItemSelected(int featureId, android.view.MenuItem item) {
 		if (super.onMenuItemSelected(featureId, item)) {
 			return true;
 		}
@@ -467,6 +483,16 @@ public class Activity extends android.app.Activity {
 		super.onPostResume();
 		mFragments.dispatchResume();
 		mFragments.execPendingActions();
+	}
+	
+	/**
+	 * This method cannot be overridden. Call
+	 * {@link #supportInvalidateOptionsMenu()} to have
+	 * {@link #onCreateOptionsMenu(Menu)} called again.
+	 */
+	@Override
+	public final boolean onPrepareOptionsMenu(Menu menu) {
+		return super.onPrepareOptionsMenu(menu);
 	}
 
 	/**
@@ -609,7 +635,9 @@ public class Activity extends android.app.Activity {
 			ActivityCompatHoneycomb.invalidateOptionsMenu(this);
 			return;
 		}
-
+		
+		//TODO call onCreateOptionsMenu(support.Menu)
+		
 		// Whoops, older platform...  we'll use a hack, to manually rebuild
 		// the options menu the next time it is prepared.
 		mOptionsMenuInvalidated = true;
@@ -690,6 +718,25 @@ public class Activity extends android.app.Activity {
 	 */
 	public ActionBar getSupportActionBar() {
 		return mActionBar;
+	}
+	
+	/**
+	 * Find an item with the specified ID. This <strong>must</strong> be called
+	 * from methods such as {@link #onCreateOptionsMenu(Menu)} rather than
+	 * calling {@link Menu#findItem(int)} which does not work with this library
+	 * on all versions of Android.
+	 * 
+	 * @param nativeMenu Activity menu instance.
+	 * @param itemId ID of item.
+	 * @return Menu item or {@code null}.
+	 */
+	public MenuItem findMenuItem(Menu nativeMenu, int itemId) {
+		if (IS_HONEYCOMB) {
+			android.view.MenuItem item = nativeMenu.findItem(itemId);
+			return (item != null) ? new MenuItem(item) : null;
+		} else {
+			return this.mActionBar.findMenuItem(nativeMenu, itemId);
+		}
 	}
 
 	///**

@@ -30,6 +30,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v4.view.MenuBuilder;
 import android.support.v4.view.MenuInflater;
+import android.support.v4.view.MenuItem;
 import android.support.v4.view.MenuItemImpl;
 import android.support.v4.view.Window;
 import android.view.LayoutInflater;
@@ -224,7 +225,7 @@ final class ActionBarCustom extends ActionBar {
 	private final View.OnClickListener mActionClicked = new View.OnClickListener() {
 		@Override
 		public void onClick(View view) {
-			final MenuItemImpl item = (MenuItemImpl) view.getTag();
+			final MenuItemImpl item = (MenuItemImpl)view.getTag();
 			if (item.isCheckable()) {
 				item.setChecked(!item.isChecked());
 			}
@@ -406,15 +407,23 @@ final class ActionBarCustom extends ActionBar {
 	}
 	
 	@Override
-	final android.view.Menu getMenuInflationTarget(android.view.Menu nativeMenu) {
-		//Our custom menu implementation with references to the parent activity
-		//and the passed-in menu to use for action item overflow
-		return new MenuBuilder(this.getActivity(), nativeMenu);
+	MenuItem findMenuItem(android.view.Menu nativeMenu, int itemId) {
+		final int count = this.mActionsView.getChildCount();
+		for (int i = 0; i < count; i++) {
+			MenuItemImpl item = (MenuItemImpl)this.mActionsView.getChildAt(i).getTag();
+			if (item.getItemId() == itemId) {
+				return item;
+			}
+		}
+		android.view.MenuItem item = nativeMenu.findItem(itemId);
+		return (item != null) ? new MenuItem(item) : null;
 	}
 
 	@Override
 	public void onMenuInflated(MenuBuilder menu) {
-		// TODO Add actions
+		for (MenuItemImpl item : menu.getItems()) {
+			this.mActionsView.addView(item.getActionBarView());
+		}
 	}
 
 	@Override

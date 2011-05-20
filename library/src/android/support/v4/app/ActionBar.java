@@ -19,7 +19,9 @@ package android.support.v4.app;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v4.view.MenuBuilder;
+import android.support.v4.view.MenuItem;
 import android.util.AttributeSet;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -105,17 +107,17 @@ public abstract class ActionBar {
 	// ACTION BAR SHERLOCK SUPPORT
 	// ---------------------------------------------------------------------
 	
-	protected abstract void setContentView(int layoutResId);
+	abstract void setContentView(int layoutResId);
 	
-	protected abstract void setContentView(View view);
+	abstract void setContentView(View view);
 	
-	protected abstract void setContentView(View view, ViewGroup.LayoutParams params);
+	abstract void setContentView(View view, ViewGroup.LayoutParams params);
 	
 	abstract MenuInflater getMenuInflater();
 	
-	abstract android.view.Menu getMenuInflationTarget(android.view.Menu nativeMenu);
+	abstract MenuItem findMenuItem(Menu nativeMenu, int itemId);
 	
-	public abstract void onMenuVisibilityChanged(boolean isVisible);
+	abstract void onMenuVisibilityChanged(boolean isVisible);
 	
 	public abstract void onMenuInflated(MenuBuilder menu);
 
@@ -126,7 +128,7 @@ public abstract class ActionBar {
 	 * called its base class' implementation. This should be used to facilitate
 	 * attachment to the activity.
 	 */
-	void performAttach() {}
+	abstract void performAttach();
 	
 	// ------------------------------------------------------------------------
 	// ACTION BAR SUPPORT

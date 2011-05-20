@@ -92,7 +92,7 @@ public final class MenuInflater extends android.view.MenuInflater {
      */
     @Override
     public void inflate(int menuRes, android.view.Menu menu) {
-        MenuBuilder actionBarMenu = (MenuBuilder)menu;
+        MenuBuilder actionBarMenu = new MenuBuilder(this.mContext);
         XmlResourceParser parser = null;
         try {
             parser = mContext.getResources().getLayout(menuRes);
@@ -144,7 +144,7 @@ public final class MenuInflater extends android.view.MenuInflater {
 		}
 		
 		for (MenuItemImpl item : overflowItems) {
-			item.addTo(actionBarMenu.getNativeMenu());
+			item.addTo(menu);
 		}
         
         this.mActionBar.onMenuInflated(actionBarMenu);

@@ -23,6 +23,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.view.KeyEvent;
+import android.view.Menu;
 
 /**
  * An implementation of the {@link android.view.Menu} interface for use in
@@ -31,7 +32,7 @@ import android.view.KeyEvent;
  * @author Jake Wharton <jakewharton@gmail.com>
  * @see <a href="http://android.git.kernel.org/?p=platform/frameworks/base.git;a=blob;f=core/java/com/android/internal/view/menu/MenuBuilder.java">com.android.internal.view.menu.MenuBuilder</a>
  */
-public class MenuBuilder implements android.view.Menu {
+public class MenuBuilder implements Menu {
 	private static final int DEFAULT_ITEM_ID = 0;
 	private static final int DEFAULT_GROUP_ID = 0;
 	private static final int DEFAULT_ORDER = 0;
@@ -48,11 +49,6 @@ public class MenuBuilder implements android.view.Menu {
 	 */
 	private final List<MenuItemImpl> mItems;
 	
-	/**
-	 * Native menu for holding overflow items;
-	 */
-	private android.view.Menu mNativeMenu;
-	
 	
 	
 	/**
@@ -60,9 +56,8 @@ public class MenuBuilder implements android.view.Menu {
 	 * 
 	 * @param context Context used if resource resolution is required.
 	 */
-	public MenuBuilder(Context context, android.view.Menu nativeMenu) {
+	public MenuBuilder(Context context) {
 		this.mContext = context;
-		this.mNativeMenu = nativeMenu;
 		this.mItems = new ArrayList<MenuItemImpl>();
 	}
 
@@ -73,16 +68,8 @@ public class MenuBuilder implements android.view.Menu {
 	 * 
 	 * @return List of {@link MenuItemImpl}s.
 	 */
-	final List<MenuItemImpl> getItems() {
+	public final List<MenuItemImpl> getItems() {
 		return this.mItems;
-	}
-	
-	final android.view.Menu getNativeMenu() {
-		return this.mNativeMenu;
-	}
-	
-	final void freeNativeMenu() {
-		this.mNativeMenu = null;
 	}
 	
 	final MenuItemImpl remove(int index) {

@@ -17,7 +17,10 @@
 
 package android.support.v4.view;
 
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
 
 /**
  * <p>Interface for direct access to a previously created menu item.</p>
@@ -27,7 +30,26 @@ import android.view.View;
  * 
  * <p>For a feature set of specific menu types, see {@link Menu}.</p>
  */
-public interface MenuItem extends android.view.MenuItem {
+public class MenuItem implements android.view.MenuItem {
+	private static final class HoneycombMenuItem {
+		static View getActionView(android.view.MenuItem item) {
+			return item.getActionView();
+		}
+		
+		static void setActionView(android.view.MenuItem item, int resId) {
+			item.setActionView(resId);
+		}
+		
+		static void setActionView(android.view.MenuItem item, View view) {
+			item.setActionView(view);
+		}
+		
+		static void setShowAsAction(android.view.MenuItem item, int actionEnum) {
+			item.setShowAsAction(actionEnum);
+		}
+	}
+	
+	
 	/**
 	 * Always show this item as a button in an Action Bar. Use sparingly! If too
 	 * many items are set to always show in the Action Bar it can crowd the
@@ -55,6 +77,26 @@ public interface MenuItem extends android.view.MenuItem {
 	public static final int SHOW_AS_ACTION_WITH_TEXT = android.view.MenuItem.SHOW_AS_ACTION_WITH_TEXT;
 	
 	
+	/** Native {@link android.view.MenuItem} whose methods are wrapped. */
+	private final android.view.MenuItem mMenuItem;
+	
+	protected MenuItem() {
+		this.mMenuItem = null;
+	}
+	
+	/**
+	 * Constructor used to create a wrapper to a native
+	 * {@link android.view.MenuItem} so we can return the same type for native
+	 * and {@link MenuItemImpl} instances, the latter of which will override
+	 * all the methods defined in this base class.
+	 * 
+	 * @param menuItem Native instance.
+	 */
+	public MenuItem(android.view.MenuItem menuItem) {
+		this.mMenuItem = menuItem;
+	}
+	
+	
 	/**
 	 * Returns the currently set action view for this menu item.
 	 * 
@@ -63,7 +105,13 @@ public interface MenuItem extends android.view.MenuItem {
 	 * @see #setActionView(View)
 	 * @see #setShowAsAction(int)
 	 */
-	View getActionView();
+	public View getActionView() {
+		if (this.mMenuItem != null) {
+			return HoneycombMenuItem.getActionView(this.mMenuItem);
+		} else {
+			return null;
+		}
+	}
 	
 	/**
 	 * Set an action view for this menu item. An action view will be displayed
@@ -74,7 +122,12 @@ public interface MenuItem extends android.view.MenuItem {
 	 * @return This Item so additional setters can be called.
 	 * @see #setActionView(View)
 	 */
-	MenuItem setActionView(int resId);
+	public MenuItem setActionView(int resId) {
+		if (this.mMenuItem != null) {
+			HoneycombMenuItem.setActionView(this.mMenuItem, resId);
+		}
+		return this;
+	}
 	
 	/**
 	 * Set an action view for this menu item. An action view will be displayed
@@ -85,7 +138,12 @@ public interface MenuItem extends android.view.MenuItem {
 	 * @return This Item so additional setters can be called.
 	 * @see #setActionView(int)
 	 */
-	MenuItem setActionView(View view);
+	public MenuItem setActionView(View view) {
+		if (this.mMenuItem != null) {
+			HoneycombMenuItem.setActionView(this.mMenuItem, view);
+		}
+		return this;
+	}
 	
 	/**
 	 * Sets how this item should display in the presence of an Action Bar. The
@@ -101,5 +159,177 @@ public interface MenuItem extends android.view.MenuItem {
 	 * {@link #SHOW_AS_ACTION_NEVER}. {@link #SHOW_AS_ACTION_NEVER} is the
 	 * default.
 	 */
-	void setShowAsAction(int actionEnum);
+	public void setShowAsAction(int actionEnum) {
+		if (this.mMenuItem != null) {
+			HoneycombMenuItem.setShowAsAction(this.mMenuItem, actionEnum);
+		}
+	}
+	
+	// ---------------------------------------------------------------------
+	// MENU ITEM SUPPORT
+	// ---------------------------------------------------------------------
+
+	@Override
+	public char getAlphabeticShortcut() {
+		return this.mMenuItem.getAlphabeticShortcut();
+	}
+
+	@Override
+	public int getGroupId() {
+		return this.mMenuItem.getGroupId();
+	}
+
+	@Override
+	public Drawable getIcon() {
+		return this.mMenuItem.getIcon();
+	}
+
+	@Override
+	public Intent getIntent() {
+		return this.mMenuItem.getIntent();
+	}
+
+	@Override
+	public int getItemId() {
+		return this.mMenuItem.getItemId();
+	}
+
+	@Override
+	public ContextMenuInfo getMenuInfo() {
+		return this.mMenuItem.getMenuInfo();
+	}
+
+	@Override
+	public char getNumericShortcut() {
+		return this.mMenuItem.getNumericShortcut();
+	}
+
+	@Override
+	public int getOrder() {
+		return this.mMenuItem.getOrder();
+	}
+
+	@Override
+	public android.view.SubMenu getSubMenu() {
+		return this.mMenuItem.getSubMenu();
+	}
+
+	@Override
+	public CharSequence getTitle() {
+		return this.mMenuItem.getTitle();
+	}
+
+	@Override
+	public CharSequence getTitleCondensed() {
+		return this.mMenuItem.getTitleCondensed();
+	}
+
+	@Override
+	public boolean hasSubMenu() {
+		return this.mMenuItem.hasSubMenu();
+	}
+
+	@Override
+	public boolean isCheckable() {
+		return this.mMenuItem.isCheckable();
+	}
+
+	@Override
+	public boolean isChecked() {
+		return this.mMenuItem.isChecked();
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return this.mMenuItem.isEnabled();
+	}
+
+	@Override
+	public boolean isVisible() {
+		return this.mMenuItem.isVisible();
+	}
+
+	@Override
+	public MenuItem setAlphabeticShortcut(char alphaChar) {
+		this.mMenuItem.setAlphabeticShortcut(alphaChar);
+		return this;
+	}
+
+	@Override
+	public MenuItem setCheckable(boolean checkable) {
+		this.mMenuItem.setCheckable(checkable);
+		return this;
+	}
+
+	@Override
+	public MenuItem setChecked(boolean checked) {
+		this.mMenuItem.setChecked(checked);
+		return this;
+	}
+
+	@Override
+	public MenuItem setEnabled(boolean enabled) {
+		this.mMenuItem.setEnabled(enabled);
+		return this;
+	}
+
+	@Override
+	public MenuItem setIcon(Drawable icon) {
+		this.mMenuItem.setIcon(icon);
+		return this;
+	}
+
+	@Override
+	public MenuItem setIcon(int iconRes) {
+		this.mMenuItem.setIcon(iconRes);
+		return this;
+	}
+
+	@Override
+	public MenuItem setIntent(Intent intent) {
+		this.mMenuItem.setIntent(intent);
+		return this;
+	}
+
+	@Override
+	public MenuItem setNumericShortcut(char numericChar) {
+		this.mMenuItem.setNumericShortcut(numericChar);
+		return this;
+	}
+
+	@Override
+	public MenuItem setOnMenuItemClickListener(OnMenuItemClickListener menuItemClickListener) {
+		this.mMenuItem.setOnMenuItemClickListener(menuItemClickListener);
+		return this;
+	}
+
+	@Override
+	public MenuItem setShortcut(char numericChar, char alphaChar) {
+		this.mMenuItem.setShortcut(numericChar, alphaChar);
+		return this;
+	}
+
+	@Override
+	public MenuItem setTitle(CharSequence title) {
+		this.mMenuItem.setTitle(title);
+		return this;
+	}
+
+	@Override
+	public MenuItem setTitle(int title) {
+		this.mMenuItem.setTitle(title);
+		return this;
+	}
+
+	@Override
+	public MenuItem setTitleCondensed(CharSequence title) {
+		this.mMenuItem.setTitleCondensed(title);
+		return this;
+	}
+
+	@Override
+	public MenuItem setVisible(boolean visible) {
+		this.mMenuItem.setVisible(visible);
+		return this;
+	}
 }

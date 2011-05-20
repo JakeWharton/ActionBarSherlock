@@ -89,7 +89,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 		getMenuInflater().inflate(R.menu.main_menu, menu);
 
 		// set up a listener for the refresh item
-		final MenuItem refresh = (MenuItem) menu.findItem(R.id.menu_refresh);
+		final MenuItem refresh = this.findMenuItem(menu, R.id.menu_refresh);
 		refresh.setOnMenuItemClickListener(new OnMenuItemClickListener() {
 			// on selecting show progress spinner for 1s
 			public boolean onMenuItemClick(MenuItem item) {
@@ -130,12 +130,12 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 		case R.id.menu_logo:
 			useLogo = !useLogo;
 			item.setChecked(useLogo);
-			getActionBar().setDisplayUseLogoEnabled(useLogo);
+			getSupportActionBar().setDisplayUseLogoEnabled(useLogo);
 			return true;
 		case R.id.menu_up:
 			showHomeUp = !showHomeUp;
 			item.setChecked(showHomeUp);
-			getActionBar().setDisplayHomeAsUpEnabled(showHomeUp);
+			getSupportActionBar().setDisplayHomeAsUpEnabled(showHomeUp);
 			return true;
 		case R.id.menu_nav_tabs:
 			item.setChecked(true);
@@ -151,11 +151,11 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
 			return true;
 		case R.id.menu_bak_none:
 			item.setChecked(true);
-			getActionBar().setBackgroundDrawable(null);
+			getSupportActionBar().setBackgroundDrawable(null);
 			return true;
 		case R.id.menu_bak_gradient:
 			item.setChecked(true);
-			getActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.ad_action_bar_gradient_bak));
+			getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.ad_action_bar_gradient_bak));
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);

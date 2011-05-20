@@ -4,6 +4,7 @@
     <style name="Sherlock" parent="@style/SherlockBase"></style>
     <style name="Sherlock.ActionBar" parent="@style/SherlockBase.ActionBar"></style>
     <style name="Sherlock.ActionBar.TabStyle" parent="@style/SherlockBase.ActionBar.TabStyle"></style>
+    <style name="Sherlock.ActionBar.ItemStyle" parent="@style/SherlockBase.ActionBar.ItemStyle"></style>
     <style name="Sherlock.ActionBar.PopupMenuStyle" parent="@style/SherlockBase.ActionBar.PopupMenuStyle"></style>
     <style name="Sherlock.ActionBar.DropDownStyle" parent="@style/SherlockBase.ActionBar.DropDownStyle"></style>
     <style name="Sherlock.ActionBar.DropDownListViewStyle" parent="@style/SherlockBase.ActionBar.DropDownListViewStyle"></style>
@@ -12,6 +13,7 @@
     <style name="Sherlock.Light" parent="@style/SherlockBase.Light"></style>
     <style name="Sherlock.Light.ActionBar" parent="@style/SherlockBase.Light.ActionBar"></style>
     <style name="Sherlock.Light.ActionBar.TabStyle" parent="@style/SherlockBase.Light.ActionBar.TabStyle"></style>
+    <style name="Sherlock.Light.ActionBar.ItemStyle" parent="@style/SherlockBase.Light.ActionBar.ItemStyle"></style>
     <style name="Sherlock.Light.ActionBar.PopupMenuStyle" parent="@style/SherlockBase.Light.ActionBar.PopupMenuStyle"></style>
     <style name="Sherlock.Light.ActionBar.DropDownStyle" parent="@style/SherlockBase.Light.ActionBar.DropDownStyle"></style>
     <style name="Sherlock.Light.ActionBar.DropDownListViewStyle" parent="@style/SherlockBase.Light.ActionBar.DropDownListViewStyle"></style>
@@ -24,6 +26,9 @@
     <style name="SherlockBase.ActionBar.TabStyle">
     	<item name="android:background">@drawable/actionbar_tab_bg</item>
     </style>
+    <style name="SherlockBase.ActionBar.ItemStyle">
+        <item name="android:padding">5dp</item>
+    </style>
     <style name="SherlockBase.ActionBar.PopupMenuStyle"></style>
     <style name="SherlockBase.ActionBar.DropDownStyle"></style>
     <style name="SherlockBase.ActionBar.DropDownListViewStyle"></style>
@@ -32,31 +37,9 @@
     <style name="SherlockBase.Light" parent="android:style/Theme.Light"></style>
     <style name="SherlockBase.Light.ActionBar"></style>
     <style name="SherlockBase.Light.ActionBar.TabStyle"></style>
+    <style name="SherlockBase.Light.ActionBar.ItemStyle"></style>
     <style name="SherlockBase.Light.ActionBar.PopupMenuStyle"></style>
     <style name="SherlockBase.Light.ActionBar.DropDownStyle"></style>
     <style name="SherlockBase.Light.ActionBar.DropDownListViewStyle"></style>
     <style name="SherlockBase.Light.ActionBar.OverflowButtonStyle"></style>
-    
-    
-    
-    
-    
-    
-    
-    
-    <style name="ActionBarItem">
-        <item name="android:padding">5dp</item>
-        <item name="android:layout_marginLeft">1px</item>
-    </style>
-    <style name="ActionBarHomeItem" parent="ActionBarItem">
-        <item name="android:layout_marginRight">1px</item>
-        <item name="android:layout_marginLeft">0px</item>
-    </style>
-    <style name="ActionBarHomeLogo">
-        <item name="android:layout_marginRight">1px</item>
-        <item name="android:paddingTop">0dip</item>
-        <item name="android:paddingBottom">0dip</item>
-        <item name="android:paddingRight">0dip</item>
-        <item name="android:paddingLeft">5dip</item>
-    </style>
 </resources>

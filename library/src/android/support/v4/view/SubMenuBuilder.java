@@ -19,18 +19,19 @@ package android.support.v4.view;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.view.SubMenu;
 import android.view.View;
 
 /**
  * The model for a sub menu, which is an extension of the menu.  Most methods are proxied to
  * the parent menu.
  */
-final class SubMenuBuilder extends MenuBuilder implements android.view.SubMenu {
+final class SubMenuBuilder extends MenuBuilder implements SubMenu {
     private MenuBuilder mParentMenu;
     private MenuItemImpl mItem;
     
     public SubMenuBuilder(Context context, MenuBuilder parentMenu, MenuItemImpl item) {
-        super(context, null);
+        super(context);
 
         mParentMenu = parentMenu;
         mItem = item;

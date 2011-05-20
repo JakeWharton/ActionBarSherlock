@@ -33,7 +33,7 @@ import android.widget.ImageView;
  * @author Jake Wharton <jakewharton@gmail.com>
  * @see <a href="http://android.git.kernel.org/?p=platform/frameworks/base.git;a=blob;f=core/java/com/android/internal/view/menu/MenuItemImpl.java">com.android.internal.view.menu.MenuItemImpl</a>
  */
-public final class MenuItemImpl implements MenuItem {
+public final class MenuItemImpl extends MenuItem {
 	final Context mContext;
 	final View mView;
 	final ImageView mIcon;
@@ -68,7 +68,9 @@ public final class MenuItemImpl implements MenuItem {
 		
 		LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		mView = inflater.inflate(R.layout.actionbar_item, null, false);
-		mIcon = (ImageView)mView.findViewById(R.id.actionbar_home_btn);
+		mView.setTag(this);
+		
+		mIcon = (ImageView)mView; //Same for now. TODO: Create real action item view with text and custom layout support
 		
 		this.mIsCheckable = false;
 		this.mIsChecked = false;
@@ -98,6 +100,10 @@ public final class MenuItemImpl implements MenuItem {
 		} else {
 			menu.add(this.mGroupId, this.mItemId, this.mOrder, this.mTitle);
 		}
+	}
+	
+	public View getActionBarView() {
+		return this.mView;
 	}
 	
 	@Override
