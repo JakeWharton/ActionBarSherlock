@@ -1,6 +1,6 @@
 /*
- * Copyright (C) 2010 Johan Nilsson <http://markupartist.com>
  * Copyright (C) 2011 Jake Wharton <jakewharton@gmail.com>
+ * Copyright (C) 2010 Johan Nilsson <http://markupartist.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,6 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v4.view.MenuBuilder;
-import android.support.v4.view.MenuInflater;
 import android.support.v4.view.MenuItem;
 import android.support.v4.view.MenuItemImpl;
 import android.support.v4.view.Window;
@@ -398,31 +397,50 @@ final class ActionBarCustom extends ActionBar {
 		//Use standard navigation by default (this will call reloadDisplay)
 		this.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 	}
-	
-	@Override
-	final MenuInflater getMenuInflater() {
-		//If we are here then we are using a custom action bar so use our
-		//custom menu inflater which backports future XML attribute detection.
-		return new MenuInflater(this.getActivity(), this, MAX_ACTION_BAR_ITEMS);
-	}
-	
-	@Override
-	MenuItem findMenuItem(android.view.Menu nativeMenu, int itemId) {
-		final int count = this.mActionsView.getChildCount();
-		for (int i = 0; i < count; i++) {
-			MenuItemImpl item = (MenuItemImpl)this.mActionsView.getChildAt(i).getTag();
-			if (item.getItemId() == itemId) {
-				return item;
-			}
-		}
-		android.view.MenuItem item = nativeMenu.findItem(itemId);
-		return (item != null) ? new MenuItem(item) : null;
-	}
 
 	@Override
 	public void onMenuInflated(MenuBuilder menu) {
-		for (MenuItemImpl item : menu.getItems()) {
-			this.mActionsView.addView(item.getActionBarView());
+		//Iterate and grab as many actions as we can up to MAX_ACTION_BAR_ITEMS
+		//honoring their showAsAction values
+		
+		int ifItems = 0;
+		final int count = menu.size();
+		List<MenuItemImpl> keep = new ArrayList<MenuItemImpl>();
+		for (int i = 0; i < count; i++) {
+			MenuItemImpl item = menu.getItem(i);
+			if ((item.getShowAsAction() & MenuItem.SHOW_AS_ACTION_ALWAYS) != 0) {
+				//Show always therefore add to keep list
+				keep.add(item);
+				
+				if ((keep.size() > MAX_ACTION_BAR_ITEMS) && (ifItems > 0)) {
+					//If we have exceeded the max and there are "ifRoom" items
+					//then iterate backwards to remove one and add it to the
+					//head of the classic items list.
+					for (int j = keep.size() - 1; j >= 0; j--) {
+						if ((keep.get(j).getShowAsAction() & MenuItem.SHOW_AS_ACTION_IF_ROOM) != 0) {
+							keep.remove(j);
+							ifItems -= 1;
+							break;
+						}
+					}
+				}
+			} else if (((item.getShowAsAction() & MenuItem.SHOW_AS_ACTION_IF_ROOM) != 0)
+					&& (keep.size() < MAX_ACTION_BAR_ITEMS)) {
+				//"ifRoom" items are added if we have not exceeded the max.
+				keep.add(item);
+				ifItems += 1;
+			}
+		}
+		
+		//Update action bar display
+		this.mActionsView.removeAllViews();
+		for (MenuItemImpl item : keep) {
+			//Make sure this item isn't displayed on the options menu
+			item.setIsShownOnActionBar(true);
+			//Add the item view to our action bar view
+			View view = item.getActionBarView();
+			view.setOnClickListener(this.mActionClicked);
+			this.mActionsView.addView(view);
 		}
 	}
 

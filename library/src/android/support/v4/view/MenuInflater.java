@@ -18,17 +18,15 @@
 package android.support.v4.view;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.XmlResourceParser;
-import android.support.v4.app.ActionBar;
 import android.util.AttributeSet;
 import android.util.Xml;
 import android.view.InflateException;
+import android.view.View;
 
 /**
  * This class is used to instantiate menu XML files into Menu objects.
@@ -51,20 +49,10 @@ public final class MenuInflater extends android.view.MenuInflater {
     
     /** Item tag name in XML. */
     private static final String XML_ITEM = "item";
-
-    private static final int NO_ID = 0;
     
     
-    
+    /** Context from which to inflate resources. */
     private final Context mContext;
-    
-    private final ActionBar mActionBar;
-	
-	/**
-	 * Maximum number of action bar items.
-	 */
-	private final int mMaxActionBarItems;
-    
     
     
     /**
@@ -72,14 +60,11 @@ public final class MenuInflater extends android.view.MenuInflater {
      * 
      * @see Activity#getMenuInflater()
      */
-    public MenuInflater(Context context, ActionBar actionBar, int maxActionBarItems) {
+    public MenuInflater(Context context) {
     	super(context);
         this.mContext = context;
-        this.mActionBar = actionBar;
-		this.mMaxActionBarItems = maxActionBarItems;
     }
 
-    
     
     /**
      * Inflate a menu hierarchy from the specified XML resource. Throws
@@ -92,7 +77,7 @@ public final class MenuInflater extends android.view.MenuInflater {
      */
     @Override
     public void inflate(int menuRes, android.view.Menu menu) {
-        MenuBuilder actionBarMenu = new MenuBuilder(this.mContext);
+        MenuBuilder actionBarMenu = (MenuBuilder)menu;
         XmlResourceParser parser = null;
         try {
             parser = mContext.getResources().getLayout(menuRes);
@@ -106,48 +91,6 @@ public final class MenuInflater extends android.view.MenuInflater {
         } finally {
             if (parser != null) parser.close();
         }
-
-        List<MenuItemImpl> overflowItems = new ArrayList<MenuItemImpl>();
-		int ifItems = 0;
-		int actionBarItems = 0;
-		for (int i = 0; i < actionBarMenu.size(); i++) {
-			MenuItemImpl item = (MenuItemImpl)actionBarMenu.getItem(i);
-			if ((item.getShowAsAction() & MenuItem.SHOW_AS_ACTION_ALWAYS) != 0) {
-				actionBarItems += 1;
-				
-				if ((actionBarItems > this.mMaxActionBarItems) && (ifItems > 0)) {
-					//If we have exceeded the max and there are "ifRoom" items
-					//then iterate backwards to remove one and add it to the
-					//head of the classic items list.
-					for (int j = actionBarItems - 1; j >= 0; j--) {
-						if ((actionBarMenu.getItems().get(j).getShowAsAction() & MenuItem.SHOW_AS_ACTION_IF_ROOM) != 0) {
-							overflowItems.add(0, actionBarMenu.getItems().get(j));
-							actionBarMenu.remove(j);
-							ifItems -= 1;
-							i -= 1;
-							break;
-						}
-					}
-				}
-			} else if (((item.getShowAsAction() & MenuItem.SHOW_AS_ACTION_IF_ROOM) != 0)
-					&& (actionBarItems < this.mMaxActionBarItems)) {
-				//"ifRoom" items are added if we have not exceeded the max.
-				actionBarItems += 1;
-				ifItems += 1;
-			} else {
-				//"never" items and "ifRoom" items (when max is exceeded)
-				//get added to the overflow list.
-				overflowItems.add(actionBarMenu.remove(i));
-				//step back since we removed an item
-				i -= 1;
-			}
-		}
-		
-		for (MenuItemImpl item : overflowItems) {
-			item.addTo(menu);
-		}
-        
-        this.mActionBar.onMenuInflated(actionBarMenu);
     }
 
     /**
@@ -274,8 +217,8 @@ public final class MenuInflater extends android.view.MenuInflater {
         //private int itemActionLayout;
         //private String itemActionViewClassName;
         
-        private static final int defaultGroupId = NO_ID;
-        private static final int defaultItemId = NO_ID;
+        private static final int defaultGroupId = View.NO_ID;
+        private static final int defaultItemId = View.NO_ID;
         private static final int defaultItemCategory = 0;
         private static final int defaultItemOrder = 0;
         private static final int defaultItemCheckable = 0;

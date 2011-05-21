@@ -25,13 +25,13 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v4.util.DebugUtils;
+import android.support.v4.view.Menu;
+import android.support.v4.view.MenuItem;
 import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -998,7 +998,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      * 
      * @see #onCreateOptionsMenu
      */
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(android.view.MenuItem item) {
         return false;
     }
 
@@ -1009,7 +1009,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      * @param menu The options menu as last shown or first initialized by
      *             onCreateOptionsMenu().
      */
-    public void onOptionsMenuClosed(Menu menu) {
+    public void onOptionsMenuClosed(android.view.Menu menu) {
     }
     
     /**
@@ -1075,7 +1075,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      * @return boolean Return false to allow normal context menu processing to
      *         proceed, true to consume it here.
      */
-    public boolean onContextItemSelected(MenuItem item) {
+    public boolean onContextItemSelected(android.view.MenuItem item) {
         return false;
     }
     

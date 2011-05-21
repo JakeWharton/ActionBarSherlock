@@ -19,10 +19,7 @@ package android.support.v4.app;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v4.view.MenuBuilder;
-import android.support.v4.view.MenuItem;
 import android.util.AttributeSet;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.MarginLayoutParams;
@@ -113,13 +110,9 @@ public abstract class ActionBar {
 	
 	abstract void setContentView(View view, ViewGroup.LayoutParams params);
 	
-	abstract MenuInflater getMenuInflater();
-	
-	abstract MenuItem findMenuItem(Menu nativeMenu, int itemId);
-	
 	abstract void onMenuVisibilityChanged(boolean isVisible);
 	
-	public abstract void onMenuInflated(MenuBuilder menu);
+	abstract void onMenuInflated(MenuBuilder menu);
 
 	abstract boolean requestWindowFeature(int featureId);
 	

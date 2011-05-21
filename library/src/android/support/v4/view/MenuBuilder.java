@@ -23,7 +23,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.view.KeyEvent;
-import android.view.Menu;
 
 /**
  * An implementation of the {@link android.view.Menu} interface for use in
@@ -32,6 +31,7 @@ import android.view.Menu;
  * @author Jake Wharton <jakewharton@gmail.com>
  * @see <a href="http://android.git.kernel.org/?p=platform/frameworks/base.git;a=blob;f=core/java/com/android/internal/view/menu/MenuBuilder.java">com.android.internal.view.menu.MenuBuilder</a>
  */
+//TODO make extends ArrayList<MenuItemImpl>
 public class MenuBuilder implements Menu {
 	private static final int DEFAULT_ITEM_ID = 0;
 	private static final int DEFAULT_GROUP_ID = 0;
@@ -79,23 +79,23 @@ public class MenuBuilder implements Menu {
 	// ** Menu Methods ** \\
 	
 	@Override
-	public MenuItem add(CharSequence title) {
+	public MenuItemImpl add(CharSequence title) {
 		return this.add(DEFAULT_ITEM_ID, DEFAULT_GROUP_ID, DEFAULT_ORDER, title);
 	}
 
 	@Override
-	public MenuItem add(int titleResourceId) {
+	public MenuItemImpl add(int titleResourceId) {
 		return this.add(DEFAULT_GROUP_ID, DEFAULT_ITEM_ID, DEFAULT_ORDER, titleResourceId);
 	}
 
 	@Override
-	public MenuItem add(int groupId, int itemId, int order, int titleResourceId) {
+	public MenuItemImpl add(int groupId, int itemId, int order, int titleResourceId) {
 		String title = this.mContext.getResources().getString(titleResourceId);
 		return this.add(groupId, itemId, order, title);
 	}
 
 	@Override
-	public MenuItem add(int groupId, int itemId, int order, CharSequence title) {
+	public MenuItemImpl add(int groupId, int itemId, int order, CharSequence title) {
 		MenuItemImpl item = new MenuItemImpl(this.mContext, itemId, groupId, order, title);
 		this.mItems.add(item);
 		return item;
@@ -134,8 +134,8 @@ public class MenuBuilder implements Menu {
 	public void close() {}
 
 	@Override
-	public MenuItem findItem(int itemId) {
-		for (MenuItem item : this.mItems) {
+	public MenuItemImpl findItem(int itemId) {
+		for (MenuItemImpl item : this.mItems) {
 			if (item.getItemId() == itemId) {
 				return item;
 			}
@@ -144,7 +144,7 @@ public class MenuBuilder implements Menu {
 	}
 
 	@Override
-	public MenuItem getItem(int index) {
+	public MenuItemImpl getItem(int index) {
 		return this.mItems.get(index);
 	}
 

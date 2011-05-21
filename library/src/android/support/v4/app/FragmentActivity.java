@@ -31,12 +31,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Parcelable;
-import android.support.v4.view.MenuItem;
+import android.support.v4.view.MenuBuilder;
+import android.support.v4.view.MenuInflater;
+import android.support.v4.view.MenuItemImpl;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.ViewGroup.LayoutParams;
@@ -88,12 +89,14 @@ public class FragmentActivity extends Activity {
 	final FragmentManagerImpl mFragments = new FragmentManagerImpl();
 	
 	final ActionBar mActionBar;
+	final MenuBuilder mActionBarMenu;
 	
 	boolean mResumed;
 	boolean mStopped;
 	boolean mReallyStopped;
 
 	boolean mOptionsMenuInvalidated;
+	boolean mOptionsMenuCreateResult;
 
 	boolean mCheckedForLoaderManager;
 	boolean mLoadersStarted;
@@ -118,13 +121,14 @@ public class FragmentActivity extends Activity {
 
 	
 	public FragmentActivity() {
+		super();
 		mActionBar = ActionBar.sherlock(this);
+		mActionBarMenu = new MenuBuilder(this);
 	}
 	
 	// ------------------------------------------------------------------------
 	// HOOKS INTO ACTIVITY
 	// ------------------------------------------------------------------------
-	
 	
 	/**
 	 * Enable extended window features.
@@ -143,11 +147,12 @@ public class FragmentActivity extends Activity {
 	}
 	
 	@Override
-	public MenuInflater getMenuInflater() {
+	public android.view.MenuInflater getMenuInflater() {
 		if (IS_HONEYCOMB) {
 			return super.getMenuInflater();
 		} else {
-			return mActionBar.getMenuInflater();
+			//Use our custom menu inflater
+			return new MenuInflater(this);
 		}
 	}
 	
@@ -256,41 +261,57 @@ public class FragmentActivity extends Activity {
 		}
 		mFragments.dispatchCreate();
 		
-		//TODO dispatch onCreateOptionsMenu(support.Menu)
-		//TODO hold created menu in the activity
-		//TODO if !IS_HONEYCOMB, add visible action items to action bar
+		//Trigger menu inflation
+		this.supportInvalidateOptionsMenu();
+	}
+	
+	/**
+	 * <p>Initialize the contents of the Activity's standard options menu. You
+	 * should place your menu items in to menu.</p>
+	 * 
+	 * <p>The default implementation populates the menu with standard system
+	 * menu items. These are placed in the {@link Menu.CATEGORY_SYSTEM} group
+	 * so that they will be correctly ordered with application-defined menu
+	 * items. Deriving classes should always call through to the base
+	 * implementation.</p>
+	 * 
+	 * <p>You can safely hold on to menu (and any items created from it),
+	 * making modifications to it as desired, until the next time
+	 * {@code onCreateOptionsMenu()} is called.</p>
+	 * 
+	 * <p>When you add items to the menu, you can implement the Activity's
+	 * {@link #onOptionsItemSelected(MenuItem)} method to handle them
+	 * there.</p>
+	 * 
+	 * @param menu The options menu in which you place your items.
+	 * @return You must return true for the menu to be displayed; if you return
+	 * false it will not be shown.
+	 */
+	public boolean onCreateOptionsMenu(android.support.v4.view.Menu menu) {
+		return false;
 	}
 	
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		//TODO make final
-		//TODO if IS_HONEYCOMB add everything
-		//TODO if !IS_HONEYCOMB add non-visible action items to options menu
-		
+	public final boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
+		
+		if (IS_HONEYCOMB && !this.mOptionsMenuCreateResult) {
+			return false;
+		}
+		
+		//Add all items on honeycomb and only the ones not already marked as
+		//being shown on our custom action bar on pre-honeycomb (since this
+		//is actually for the options menu)
+		for (MenuItemImpl item : this.mActionBarMenu.getItems()) {
+			if (IS_HONEYCOMB || !item.isShownOnActionBar()) {
+				item.addTo(menu);
+			}
+		}
+		
 		// Prior to Honeycomb, the framework can't invalidate the options
 		// menu, so we must always say we have one in case the app later
 		// invalidates it and needs to have it shown.
 		return true;
-	}
-
-	/**
-	 * Dispatch to Fragment.onCreateOptionsMenu().
-	 */
-	@Override
-	public boolean onCreatePanelMenu(int featureId, Menu menu) {
-		if (featureId == Window.FEATURE_OPTIONS_PANEL) {
-			boolean show = super.onCreatePanelMenu(featureId, menu);
-			show |= mFragments.dispatchCreateOptionsMenu(menu, getMenuInflater());
-			if (IS_HONEYCOMB) {
-				return show;
-			}
-			// Prior to Honeycomb, the framework can't invalidate the options
-			// menu, so we must always say we have one in case the app later
-			// invalidates it and needs to have it shown.
-			return true;
-		}
-		return super.onCreatePanelMenu(featureId, menu);
 	}
 	
 	/**
@@ -501,6 +522,14 @@ public class FragmentActivity extends Activity {
 	 */
 	@Override
 	public boolean onPreparePanel(int featureId, View view, Menu menu) {
+		//TODO does this ever need to be called?
+		
+		//Action bars can be invalidated with supportInvalidateActionBar()
+		//which then calls onCreateOptionsMenu again. Unless hiding and
+		//showing an action bar calls onPrepareOptionsMenu I do not see a
+		//reason that this would ever be needed. 
+		
+		/*
 		if (featureId == Window.FEATURE_OPTIONS_PANEL && menu != null) {
 			if (mOptionsMenuInvalidated) {
 				mOptionsMenuInvalidated = false;
@@ -516,6 +545,7 @@ public class FragmentActivity extends Activity {
 			
 			return goforit && menu.hasVisibleItems();
 		}
+		*/
 		return super.onPreparePanel(featureId, view, menu);
 	}
 
@@ -630,6 +660,13 @@ public class FragmentActivity extends Activity {
 	// ------------------------------------------------------------------------
 	
 	void supportInvalidateOptionsMenu() {
+		this.mActionBarMenu.clear();
+		boolean show = this.onCreateOptionsMenu(this.mActionBarMenu);
+		show |= this.mFragments.dispatchCreateOptionsMenu(this.mActionBarMenu, getMenuInflater());
+		
+		//Save result for use in the onCreateOptionsMenu method
+		this.mOptionsMenuCreateResult = show;
+		
 		if (IS_HONEYCOMB) {
 			// If we are running on HC or greater, we can use the framework
 			// API to invalidate the options menu.
@@ -637,7 +674,11 @@ public class FragmentActivity extends Activity {
 			return;
 		}
 		
-		//TODO call onCreateOptionsMenu(support.Menu)
+		//Since we now know we are using a custom action bar, perform the
+		//inflation callback to allow it to display any items it wants.
+		//Any items that were displayed will have a boolean toggled so that we
+		//do not display them on the options menu.
+		this.mActionBar.onMenuInflated(this.mActionBarMenu);
 		
 		// Whoops, older platform...  we'll use a hack, to manually rebuild
 		// the options menu the next time it is prepared.
@@ -719,25 +760,6 @@ public class FragmentActivity extends Activity {
 	 */
 	public ActionBar getSupportActionBar() {
 		return mActionBar;
-	}
-	
-	/**
-	 * Find an item with the specified ID. This <strong>must</strong> be called
-	 * from methods such as {@link #onCreateOptionsMenu(Menu)} rather than
-	 * calling {@link Menu#findItem(int)} which does not work with this library
-	 * on all versions of Android.
-	 * 
-	 * @param nativeMenu Activity menu instance.
-	 * @param itemId ID of item.
-	 * @return Menu item or {@code null}.
-	 */
-	public MenuItem findMenuItem(Menu nativeMenu, int itemId) {
-		if (IS_HONEYCOMB) {
-			android.view.MenuItem item = nativeMenu.findItem(itemId);
-			return (item != null) ? new MenuItem(item) : null;
-		} else {
-			return this.mActionBar.findMenuItem(nativeMenu, itemId);
-		}
 	}
 
 	///**

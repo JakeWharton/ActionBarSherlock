@@ -19,9 +19,6 @@ package android.support.v4.app;
 import java.util.HashMap;
 import android.graphics.drawable.Drawable;
 import android.support.v4.view.MenuBuilder;
-import android.support.v4.view.MenuItem;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.widget.SpinnerAdapter;
 
@@ -110,16 +107,6 @@ final class ActionBarNative {
 		@Override
 		protected void setContentView(View view, android.view.ViewGroup.LayoutParams params) {
 			throw new IllegalStateException("This should have been passed to super from the Activity.");
-		}
-		
-		@Override
-		MenuInflater getMenuInflater() {
-			throw new IllegalStateException("This should have been passed to super from the Activity.");
-		}
-
-		@Override
-		MenuItem findMenuItem(Menu nativeMenu, int itemId) {
-			throw new IllegalStateException("This should never be utilized for the native ActionBar.");
 		}
 		
 		@Override

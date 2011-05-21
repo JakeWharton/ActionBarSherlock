@@ -21,10 +21,10 @@ import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActionBar;
+import android.support.v4.app.ActionBar.OnNavigationListener;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.ActionBar.OnNavigationListener;
-import android.view.Menu;
+import android.support.v4.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
 import android.widget.ArrayAdapter;
@@ -89,7 +89,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		getMenuInflater().inflate(R.menu.main_menu, menu);
 
 		// set up a listener for the refresh item
-		final MenuItem refresh = this.findMenuItem(menu, R.id.menu_refresh);
+		final MenuItem refresh = menu.findItem(R.id.menu_refresh);
 		refresh.setOnMenuItemClickListener(new OnMenuItemClickListener() {
 			// on selecting show progress spinner for 1s
 			public boolean onMenuItemClick(MenuItem item) {

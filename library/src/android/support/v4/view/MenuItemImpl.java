@@ -53,6 +53,8 @@ public final class MenuItemImpl extends MenuItem {
 	int mShowAsAction;
 	OnMenuItemClickListener mListener;
 	
+	boolean mIsShownOnActionBar;
+	
 	
 	/**
 	 * Create a new action bar menu item.
@@ -79,12 +81,16 @@ public final class MenuItemImpl extends MenuItem {
 		this.mGroupId = groupId;
 		this.mOrder = order;
 		this.mTitle = title;
+		
+		this.mIsShownOnActionBar = false;
 	}
 	
 	
-	void addTo(android.view.Menu menu) {
+	public void addTo(android.view.Menu menu) {
 		if (this.mSubMenu != null) {
 			android.view.SubMenu subMenu = menu.addSubMenu(this.mGroupId, this.mItemId, this.mOrder, this.mTitle);
+			subMenu.setIcon(this.mIcon.getDrawable());
+			
 			for (MenuItemImpl item : this.mSubMenu.getItems()) {
 				android.view.MenuItem newItem = subMenu.add(item.getGroupId(), item.getItemId(), item.getOrder(), item.getTitle());
 				newItem.setCheckable(item.mIsCheckable);
@@ -98,12 +104,39 @@ public final class MenuItemImpl extends MenuItem {
 				newItem.setIcon(item.mIcon.getDrawable());
 			}
 		} else {
-			menu.add(this.mGroupId, this.mItemId, this.mOrder, this.mTitle);
+			android.view.MenuItem newItem = menu.add(this.mGroupId, this.mItemId, this.mOrder, this.mTitle);
+			newItem.setCheckable(this.mIsCheckable);
+			newItem.setChecked(this.mIsChecked);
+			newItem.setAlphabeticShortcut(this.mAlphabeticalShortcut);
+			newItem.setNumericShortcut(this.mNumericalShortcut);
+			newItem.setEnabled(this.mIsEnabled);
+			newItem.setVisible(this.isVisible());
+			newItem.setIntent(this.mIntent);
+			newItem.setOnMenuItemClickListener(this.mListener);
+			newItem.setIcon(this.mIcon.getDrawable());
 		}
 	}
 	
 	public View getActionBarView() {
 		return this.mView;
+	}
+	
+	/**
+	 * Get whether or not this item is being shown on the action bar.
+	 * 
+	 * @return {@code true} if shown, {@code false} otherwise.
+	 */
+	public boolean isShownOnActionBar() {
+		return this.mIsShownOnActionBar;
+	}
+	
+	/**
+	 * Denote whether or not this menu item is being shown on the action bar.
+	 * 
+	 * @param isShownOnActionBar {@code true} if shown or {@code false}.
+	 */
+	public void setIsShownOnActionBar(boolean isShownOnActionBar) {
+		this.mIsShownOnActionBar = isShownOnActionBar;
 	}
 	
 	@Override
