@@ -16,20 +16,20 @@
  -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:id="@+id/frags">
 
     <fragment class="com.jakewharton.android.actionbarsherlock.sample.hcgallery.TitlesFragment"
             android:id="@+id/frag_title"
             android:visibility="gone"
-            android:layout_marginTop="?android:attr/actionBarSize"
-            android:layout_width="match_parent"
+            android:layout_marginTop="50dp"
+            android:layout_width="fill_parent"
             android:layout_height="@dimen/titles_size"/>
 
     <fragment class="com.jakewharton.android.actionbarsherlock.sample.hcgallery.ContentFragment"
             android:id="@+id/frag_content"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
 
 </LinearLayout>

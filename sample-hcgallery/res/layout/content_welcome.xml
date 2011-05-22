@@ -17,8 +17,8 @@
 
 <view xmlns:android="http://schemas.android.com/apk/res/android"
     class="com.jakewharton.android.actionbarsherlock.sample.hcgallery.FitCenterFrameLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:padding="24dp"
     android:clickable="true">
     <ImageView android:id="@+id/image"

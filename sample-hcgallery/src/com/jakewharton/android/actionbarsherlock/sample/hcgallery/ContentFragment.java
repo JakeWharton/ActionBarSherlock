@@ -66,6 +66,7 @@ public class ContentFragment extends Fragment {
         final ImageView imageView = (ImageView) mContentView.findViewById(R.id.image);
         mContentView.setDrawingCacheEnabled(false);
 
+        /*
         mContentView.setOnDragListener(new View.OnDragListener() {
             public boolean onDrag(View v, DragEvent event) {
                 switch (event.getAction()) {
@@ -88,10 +89,13 @@ public class ContentFragment extends Fragment {
                 return false;
             }
         });
+        */
 
         // Keep the action bar visibility in sync with the system status bar. That is, when entering
         // 'lights out mode,' hide the action bar, and when exiting this mode, show the action bar.
 
+        /*
+        TODO implement this as a status bar visibility listener for < 3.0
         final Activity activity = getActivity();
         mContentView.setOnSystemUiVisibilityChangeListener(
                 new View.OnSystemUiVisibilityChangeListener() {
@@ -107,6 +111,7 @@ public class ContentFragment extends Fragment {
                         }
                     }
                 });
+        */
 
         // Show/hide the system status bar when single-clicking a photo. This is also called
         // 'lights out mode.' Activating and deactivating this mode also invokes the listener
@@ -131,8 +136,10 @@ public class ContentFragment extends Fragment {
                     return false;
                 }
 
+                /*
                 mCurrentActionMode = getActivity().startActionMode(
                         mContentSelectionActionModeCallback);
+                */
                 mContentView.setSelected(true);
                 return true;
             }
@@ -267,6 +274,7 @@ public class ContentFragment extends Fragment {
      * provide contextual actions for the selected photo. We currently only provide the 'share'
      * action, but we could also add clipboard functions such as cut/copy/paste here as well.
      */
+    /*
     private ActionMode.Callback mContentSelectionActionModeCallback = new ActionMode.Callback() {
         public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
             actionMode.setTitle(R.string.photo_selection_cab_title);
@@ -295,4 +303,5 @@ public class ContentFragment extends Fragment {
             mCurrentActionMode = null;
         }
     };
+    */
 }

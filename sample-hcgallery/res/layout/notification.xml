@@ -16,8 +16,8 @@
  -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/notificationbg"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:orientation="horizontal">
 
     <LinearLayout
@@ -34,7 +34,7 @@
             android:ellipsize="marquee"
             android:singleLine="true"
             android:layout_gravity="left"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
 
         <TextView android:id="@+id/notification_subtitle"
@@ -43,7 +43,7 @@
             android:maxLines="2"
             android:scrollHorizontally="true"
             android:ellipsize="end"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/notification_text" />
 
@@ -55,6 +55,6 @@
         android:background="@null"
         android:layout_weight="0"
         android:layout_width="48dip"
-        android:layout_height="match_parent" />
+        android:layout_height="fill_parent" />
 
 </LinearLayout>
