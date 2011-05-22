@@ -90,7 +90,10 @@ public class MenuBuilder implements Menu {
 
 	@Override
 	public MenuItemImpl add(int groupId, int itemId, int order, int titleResourceId) {
-		String title = this.mContext.getResources().getString(titleResourceId);
+		String title = null;
+		if (titleResourceId != 0) {
+			title = this.mContext.getResources().getString(titleResourceId);
+		}
 		return this.add(groupId, itemId, order, title);
 	}
 
