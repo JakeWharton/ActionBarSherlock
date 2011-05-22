@@ -228,11 +228,15 @@ final class ActionBarCustom extends ActionBar {
 			if (item.isCheckable()) {
 				item.setChecked(!item.isChecked());
 			}
+			boolean handled = false;
 			if (item.getOnMenuItemClickListener() != null) {
-				item.getOnMenuItemClickListener().onMenuItemClick(item);
+				handled = item.getOnMenuItemClickListener().onMenuItemClick(item);
 			}
 			if (item.getIntent() != null) {
 				getActivity().startActivity(item.getIntent());
+			}
+			if (!handled) {
+				getActivity().onOptionsItemSelected((MenuItemImpl)view.getTag());
 			}
 		}
 	};
