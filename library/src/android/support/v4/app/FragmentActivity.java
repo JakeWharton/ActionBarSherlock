@@ -38,6 +38,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.ViewGroup.LayoutParams;
@@ -188,7 +189,7 @@ public class FragmentActivity extends Activity {
 	 * 
 	 * @param view Content view.
 	 */
-	void setSuperContentView(View view) {
+	final void setSuperContentView(View view) {
 		super.setContentView(view);
 	}
 	
@@ -444,7 +445,7 @@ public class FragmentActivity extends Activity {
 	 * Dispatch context and options menu to fragments.
 	 */
 	@Override
-	public boolean onMenuItemSelected(int featureId, android.view.MenuItem item) {
+	public boolean onMenuItemSelected(int featureId, MenuItem item) {
 		if (super.onMenuItemSelected(featureId, item)) {
 			return true;
 		}
@@ -459,6 +460,15 @@ public class FragmentActivity extends Activity {
 			default:
 				return false;
 		}
+	}
+	
+	public boolean onOptionsItemSelected(android.support.v4.view.MenuItem item) {
+		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public final boolean onOptionsItemSelected(MenuItem item) {
+		return this.onOptionsItemSelected(new android.support.v4.view.MenuItem(item));
 	}
 
 	/**

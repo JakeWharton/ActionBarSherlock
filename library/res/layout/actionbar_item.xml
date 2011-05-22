@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright (C) 2010 Johan Nilsson <http://markupartist.com>
+     Copyright (C) 2011 Jake Wharton <jakewharton@gmail.com>
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -13,11 +14,26 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/actionbar_item"
-    android:layout_centerVertical="true"
-    android:singleLine="true"
-    android:visibility="visible"
-    android:clickable="true"
-    style="@style/Sherlock.ActionBar.ItemStyle"
-    />
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/actionbar_item"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:gravity="center_vertical"
+	android:clickable="true"
+	android:focusable="true"
+	style="@style/Sherlock.ActionBar.ItemStyle"
+	>
+	<ImageView
+		android:id="@+id/actionbar_item_icon"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerVertical="true"
+		android:gravity="center_vertical"
+		/>
+	<FrameLayout
+		android:id="@+id/actionbar_item_custom"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerVertical="true"
+		/>
+</RelativeLayout>

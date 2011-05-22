@@ -49,6 +49,28 @@ public class MenuItem implements android.view.MenuItem {
 		}
 	}
 	
+	/**
+	 * Interface definition for a callback to be invoked when a menu item is
+	 * clicked.
+	 */
+	public static abstract class OnMenuItemClickListener implements android.view.MenuItem.OnMenuItemClickListener {
+		/**
+		 * Called when a menu item has been invoked. This is the first code
+		 * that is executed; if it returns true, no other callbacks will be
+		 * executed.
+		 * 
+		 * @param item The menu item that was invoked.
+		 * @return Return true to consume this click and prevent others from
+		 * executing. 
+		 */
+		public abstract boolean onMenuItemClick(MenuItem item);
+		
+		@Override
+		public final boolean onMenuItemClick(android.view.MenuItem item) {
+			return this.onMenuItemClick(new MenuItem(item));
+		}
+	}
+	
 	
 	/**
 	 * Always show this item as a button in an Action Bar. Use sparingly! If too
@@ -108,9 +130,8 @@ public class MenuItem implements android.view.MenuItem {
 	public View getActionView() {
 		if (this.mMenuItem != null) {
 			return HoneycombMenuItem.getActionView(this.mMenuItem);
-		} else {
-			return null;
 		}
+		return null;
 	}
 	
 	/**
@@ -298,6 +319,17 @@ public class MenuItem implements android.view.MenuItem {
 	}
 
 	@Override
+	public MenuItem setOnMenuItemClickListener(android.view.MenuItem.OnMenuItemClickListener menuItemClickListener) {
+		this.mMenuItem.setOnMenuItemClickListener(menuItemClickListener);
+		return this;
+	}
+
+	/**
+	 * Set a custom listener for invocation of this menu item.
+	 * 
+	 * @param menuItemClickListener The object to receive invokations.
+	 * @return This Item so additional setters can be called.
+	 */
 	public MenuItem setOnMenuItemClickListener(OnMenuItemClickListener menuItemClickListener) {
 		this.mMenuItem.setOnMenuItemClickListener(menuItemClickListener);
 		return this;

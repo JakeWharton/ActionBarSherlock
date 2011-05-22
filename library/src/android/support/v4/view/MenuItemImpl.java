@@ -24,6 +24,7 @@ import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 /**
@@ -35,8 +36,12 @@ import android.widget.ImageView;
  */
 public final class MenuItemImpl extends MenuItem {
 	final Context mContext;
+	final LayoutInflater mInflater;
+	
 	final View mView;
 	final ImageView mIcon;
+	final FrameLayout mCustomView;
+	
 	final int mItemId;
 	final int mGroupId;
 	final int mOrder;
@@ -67,12 +72,13 @@ public final class MenuItemImpl extends MenuItem {
 	 */
 	MenuItemImpl(Context context, int itemId, int groupId, int order, CharSequence title) {
 		this.mContext = context;
+		this.mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		
-		LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		mView = inflater.inflate(R.layout.actionbar_item, null, false);
+		mView = this.mInflater.inflate(R.layout.actionbar_item, null, false);
 		mView.setTag(this);
 		
-		mIcon = (ImageView)mView; //Same for now. TODO: Create real action item view with text and custom layout support
+		mIcon = (ImageView)mView.findViewById(R.id.actionbar_item_icon);
+		mCustomView = (FrameLayout)mView.findViewById(R.id.actionbar_item_custom);
 		
 		this.mIsCheckable = false;
 		this.mIsChecked = false;
@@ -306,7 +312,7 @@ public final class MenuItemImpl extends MenuItem {
 	
 	@Override
 	public View getActionView() {
-		throw new RuntimeException("Method not supported.");
+		return this.mCustomView.getChildAt(0);
 	}
 
 	@Override
@@ -321,12 +327,20 @@ public final class MenuItemImpl extends MenuItem {
 
 	@Override
 	public MenuItem setActionView(View view) {
-		throw new RuntimeException("Method not supported.");
+		this.mCustomView.removeAllViews();
+		if (view != null) {
+			this.mCustomView.addView(view);
+		}
+		this.mIcon.setVisibility((view != null) ? View.GONE : View.VISIBLE);
+		return this;
 	}
 
 	@Override
 	public MenuItem setActionView(int resId) {
-		throw new RuntimeException("Method not supported.");
+		this.mCustomView.removeAllViews();
+		this.mInflater.inflate(resId, this.mCustomView, true);
+		this.mIcon.setVisibility(View.GONE);
+		return this;
 	}
 
 	@Override
