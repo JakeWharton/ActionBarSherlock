@@ -18,6 +18,7 @@ package com.jakewharton.android.actionbarsherlock.sample.styledactionbar;
 
 import com.jakewharton.android.actionbarsherlock.sample.styledactionbar.R;
 import android.animation.ObjectAnimator;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActionBar;
@@ -27,10 +28,15 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.RotateAnimation;
 import android.widget.ArrayAdapter;
 
 
 public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
+	
+	static final boolean IS_HONEYCOMB = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
 
 	private final Handler handler = new Handler();
 	private RoundedColourFragment leftFrag;
@@ -120,12 +126,20 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			rotateLeftFrag();
 		case R.id.menu_text:
 			// alpha animation of blue fragment
-			ObjectAnimator alpha = ObjectAnimator.ofFloat(rightFrag.getView(),
+			if (IS_HONEYCOMB) {
+				ObjectAnimator alpha = ObjectAnimator.ofFloat(rightFrag.getView(),
 					"alpha", 1f, 0f);
-			alpha.setRepeatMode(ObjectAnimator.REVERSE);
-			alpha.setRepeatCount(1);
-			alpha.setDuration(800);
-			alpha.start();
+				alpha.setRepeatMode(ObjectAnimator.REVERSE);
+				alpha.setRepeatCount(1);
+				alpha.setDuration(800);
+				alpha.start();
+			} else {
+				AlphaAnimation alpha = new AlphaAnimation(1f, 0f);
+				alpha.setRepeatMode(Animation.REVERSE);
+				alpha.setRepeatCount(1);
+				alpha.setDuration(800);
+				rightFrag.getView().startAnimation(alpha);
+			}
 			return true;
 		case R.id.menu_logo:
 			useLogo = !useLogo;
@@ -164,8 +178,14 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 
 	private void rotateLeftFrag() {
 		if (leftFrag != null) {
-			ObjectAnimator.ofFloat(leftFrag.getView(), "rotationY", 0, 180)
+			if (IS_HONEYCOMB) {
+				ObjectAnimator.ofFloat(leftFrag.getView(), "rotationY", 0, 180)
 					.setDuration(500).start();
+			} else {
+				RotateAnimation rotate = new RotateAnimation(0, 180, leftFrag.getView().getWidth() / 2.0f, leftFrag.getView().getHeight() / 2.0f);
+				rotate.setDuration(500);
+				leftFrag.getView().startAnimation(rotate);
+			}
 		}
 	}
 
