@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2006 The Android Open Source Project
- *               2011 Jake Wharton
+ * Copyright (C) 2011 Jake Wharton
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,8 @@ import java.util.List;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.view.KeyEvent;
 
 /**
@@ -31,7 +33,6 @@ import android.view.KeyEvent;
  * @author Jake Wharton <jakewharton@gmail.com>
  * @see <a href="http://android.git.kernel.org/?p=platform/frameworks/base.git;a=blob;f=core/java/com/android/internal/view/menu/MenuBuilder.java">com.android.internal.view.menu.MenuBuilder</a>
  */
-//TODO make extends ArrayList<MenuItemImpl>
 public class MenuBuilder implements Menu {
 	private static final int DEFAULT_ITEM_ID = 0;
 	private static final int DEFAULT_GROUP_ID = 0;
@@ -39,15 +40,11 @@ public class MenuBuilder implements Menu {
 	
 	
 	
-	/**
-	 * Context used for resolving any resources.
-	 */
-	private final Context mContext;
+	/** Context used for resolving any resources. */
+	final Context mContext;
 	
-	/**
-	 * Child {@link ActionBarMenuItem} items.
-	 */
-	private final List<MenuItemImpl> mItems;
+	/** Child {@link ActionBarMenuItem} items. */
+	final List<MenuItemImpl> mItems;
 	
 	
 	
@@ -76,6 +73,26 @@ public class MenuBuilder implements Menu {
 		return this.mItems.remove(index);
 	}
 	
+	final Context getContext() {
+		return this.mContext;
+	}
+
+	void setExclusiveItemChecked(MenuItem item) {
+		final int group = item.getGroupId();
+		
+		final int N = mItems.size();
+		for (int i = 0; i < N; i++) {
+			MenuItemImpl curItem = mItems.get(i);
+			if (curItem.getGroupId() == group) {
+				if (!curItem.isExclusiveCheckable()) continue;
+				if (!curItem.isCheckable()) continue;
+				
+				// Check the item meant to be checked, uncheck the others (that are in the group)
+				curItem.setCheckedInt(curItem == item);
+			}
+		}
+	}
+	
 	// ** Menu Methods ** \\
 	
 	@Override
@@ -99,7 +116,7 @@ public class MenuBuilder implements Menu {
 
 	@Override
 	public MenuItemImpl add(int groupId, int itemId, int order, CharSequence title) {
-		MenuItemImpl item = new MenuItemImpl(this.mContext, itemId, groupId, order, title);
+		MenuItemImpl item = new MenuItemImpl(this, itemId, groupId, order, title);
 		this.mItems.add(item);
 		return item;
 	}
@@ -180,12 +197,36 @@ public class MenuBuilder implements Menu {
 	
 	@Override
 	public int addIntentOptions(int groupId, int itemId, int order, ComponentName caller, Intent[] specifics, Intent intent, int flags, android.view.MenuItem[] outSpecificItems) {
-		throw new RuntimeException("Method not supported.");
+		PackageManager pm = mContext.getPackageManager();
+		final List<ResolveInfo> lri =
+				pm.queryIntentActivityOptions(caller, specifics, intent, 0);
+		final int N = lri != null ? lri.size() : 0;
+
+		if ((flags & FLAG_APPEND_TO_GROUP) == 0) {
+			removeGroup(groupId);
+		}
+
+		for (int i=0; i<N; i++) {
+			final ResolveInfo ri = lri.get(i);
+			Intent rintent = new Intent(
+				ri.specificIndex < 0 ? intent : specifics[ri.specificIndex]);
+			rintent.setComponent(new ComponentName(
+					ri.activityInfo.applicationInfo.packageName,
+					ri.activityInfo.name));
+			final MenuItem item = add(groupId, itemId, order, ri.loadLabel(pm))
+					.setIcon(ri.loadIcon(pm))
+					.setIntent(rintent);
+			if (outSpecificItems != null && ri.specificIndex >= 0) {
+				outSpecificItems[ri.specificIndex] = item;
+			}
+		}
+
+		return N;
 	}
 
 	@Override
 	public boolean isShortcutKey(int keyCode, KeyEvent event) {
-		throw new RuntimeException("Method not supported.");
+		return false;
 	}
 
 	@Override
@@ -195,27 +236,51 @@ public class MenuBuilder implements Menu {
 
 	@Override
 	public boolean performShortcut(int keyCode, KeyEvent event, int flags) {
-		throw new RuntimeException("Method not supported.");
+		return false;
 	}
 
 	@Override
 	public void removeGroup(int groupId) {
-		throw new RuntimeException("Method not supported.");
+		final int size = this.mItems.size();
+		for (int i = 0; i < size; i++) {
+			if (this.mItems.get(i).getGroupId() == groupId) {
+				this.mItems.remove(i);
+			}
+		}
 	}
 
 	@Override
 	public void setGroupCheckable(int groupId, boolean checkable, boolean exclusive) {
-		throw new RuntimeException("Method not supported.");
+		final int N = mItems.size();
+		for (int i = 0; i < N; i++) {
+			MenuItemImpl item = mItems.get(i);
+			if (item.getGroupId() == groupId) {
+				item.setExclusiveCheckable(exclusive);
+				item.setCheckable(checkable);
+			}
+		}
 	}
 
 	@Override
 	public void setGroupEnabled(int groupId, boolean enabled) {
-		throw new RuntimeException("Method not supported.");
+		final int size = this.mItems.size();
+		for (int i = 0; i < size; i++) {
+			MenuItemImpl item = mItems.get(i);
+			if (item.getGroupId() == groupId) {
+				item.setEnabled(enabled);
+			}
+		}
 	}
 
 	@Override
 	public void setGroupVisible(int groupId, boolean visible) {
-		throw new RuntimeException("Method not supported.");
+		final int size = this.mItems.size();
+		for (int i = 0; i < size; i++) {
+			MenuItemImpl item = mItems.get(i);
+			if (item.getGroupId() == groupId) {
+				item.setVisible(visible);
+			}
+		}
 	}
 
 	@Override

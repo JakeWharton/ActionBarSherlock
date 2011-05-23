@@ -35,7 +35,7 @@ import android.widget.ImageView;
  * @see <a href="http://android.git.kernel.org/?p=platform/frameworks/base.git;a=blob;f=core/java/com/android/internal/view/menu/MenuItemImpl.java">com.android.internal.view.menu.MenuItemImpl</a>
  */
 public final class MenuItemImpl extends MenuItem {
-	final Context mContext;
+	final MenuBuilder mMenu;
 	final LayoutInflater mInflater;
 	
 	final View mView;
@@ -50,13 +50,17 @@ public final class MenuItemImpl extends MenuItem {
 	CharSequence mTitle;
 	CharSequence mTitleCondensed;
 	SubMenuBuilder mSubMenu;
-	boolean mIsCheckable;
-	boolean mIsChecked;
-	boolean mIsEnabled;
 	char mNumericalShortcut;
 	char mAlphabeticalShortcut;
 	int mShowAsAction;
 	OnMenuItemClickListener mListener;
+
+	int mFlags = ENABLED;
+	private static final int CHECKABLE = 0x01;
+	private static final int CHECKED   = 0x02;
+	private static final int EXCLUSIVE = 0x04;
+	private static final int HIDDEN    = 0x08;
+	private static final int ENABLED   = 0x10;
 	
 	boolean mIsShownOnActionBar;
 	
@@ -70,9 +74,9 @@ public final class MenuItemImpl extends MenuItem {
 	 * @param order Item order. Currently unused.
 	 * @param title Title of the item.
 	 */
-	MenuItemImpl(Context context, int itemId, int groupId, int order, CharSequence title) {
-		this.mContext = context;
-		this.mInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	MenuItemImpl(MenuBuilder menu, int itemId, int groupId, int order, CharSequence title) {
+		this.mMenu = menu;
+		this.mInflater = (LayoutInflater)menu.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		
 		mView = this.mInflater.inflate(R.layout.actionbar_item, null, false);
 		mView.setTag(this);
@@ -80,9 +84,6 @@ public final class MenuItemImpl extends MenuItem {
 		mIcon = (ImageView)mView.findViewById(R.id.actionbar_item_icon);
 		mCustomView = (FrameLayout)mView.findViewById(R.id.actionbar_item_custom);
 		
-		this.mIsCheckable = false;
-		this.mIsChecked = false;
-		this.mIsEnabled = true;
 		this.mItemId = itemId;
 		this.mGroupId = groupId;
 		this.mOrder = order;
@@ -98,28 +99,23 @@ public final class MenuItemImpl extends MenuItem {
 			subMenu.setIcon(this.mIcon.getDrawable());
 			
 			for (MenuItemImpl item : this.mSubMenu.getItems()) {
-				android.view.MenuItem newItem = subMenu.add(item.getGroupId(), item.getItemId(), item.getOrder(), item.getTitle());
-				newItem.setCheckable(item.mIsCheckable);
-				newItem.setChecked(item.mIsChecked);
-				newItem.setAlphabeticShortcut(item.mAlphabeticalShortcut);
-				newItem.setNumericShortcut(item.mNumericalShortcut);
-				newItem.setEnabled(item.mIsEnabled);
-				newItem.setVisible(item.isVisible());
-				newItem.setIntent(item.mIntent);
-				newItem.setOnMenuItemClickListener(item.mListener);
-				newItem.setIcon(item.mIcon.getDrawable());
+				item.addTo(subMenu);
 			}
 		} else {
-			android.view.MenuItem newItem = menu.add(this.mGroupId, this.mItemId, this.mOrder, this.mTitle);
-			newItem.setCheckable(this.mIsCheckable);
-			newItem.setChecked(this.mIsChecked);
-			newItem.setAlphabeticShortcut(this.mAlphabeticalShortcut);
-			newItem.setNumericShortcut(this.mNumericalShortcut);
-			newItem.setEnabled(this.mIsEnabled);
-			newItem.setVisible(this.isVisible());
-			newItem.setIntent(this.mIntent);
-			newItem.setOnMenuItemClickListener(this.mListener);
-			newItem.setIcon(this.mIcon.getDrawable());
+			menu.add(this.mGroupId, this.mItemId, this.mOrder, this.mTitle)
+				.setCheckable(this.isCheckable())
+				.setChecked(this.isChecked())
+				.setAlphabeticShortcut(this.mAlphabeticalShortcut)
+				.setNumericShortcut(this.mNumericalShortcut)
+				.setEnabled(this.isEnabled())
+				.setVisible(this.isVisible())
+				.setIntent(this.mIntent)
+				.setOnMenuItemClickListener(this.mListener)
+				.setIcon(this.mIcon.getDrawable());
+
+			if (this.isExclusiveCheckable()) {
+				menu.setGroupCheckable(this.mGroupId, true, true);
+			}
 		}
 	}
 	
@@ -162,17 +158,17 @@ public final class MenuItemImpl extends MenuItem {
 
 	@Override
 	public boolean isEnabled() {
-		return this.mIsEnabled;
+		return (mFlags & ENABLED) != 0;
 	}
 
 	@Override
 	public boolean isVisible() {
-		return this.mView.getVisibility() == View.VISIBLE;
+		return (mFlags & HIDDEN) == 0;
 	}
 
 	@Override
 	public MenuItem setEnabled(boolean enabled) {
-		this.mIsEnabled = enabled;
+		mFlags = (mFlags & ~ENABLED) | (enabled ? ENABLED : 0);
 		return this;
 	}
 
@@ -196,38 +192,68 @@ public final class MenuItemImpl extends MenuItem {
 
 	@Override
 	public MenuItem setTitle(int titleResourceId) {
-		mTitle = this.mContext.getResources().getString(titleResourceId);
+		mTitle = this.mMenu.getContext().getResources().getString(titleResourceId);
 		return this;
 	}
 
 	@Override
 	public MenuItem setVisible(boolean visible) {
-		this.mView.setVisibility(visible ? View.VISIBLE : View.GONE);
-		return this;
-	}
-
-	@Override
-	public boolean isChecked() {
-		return this.mIsCheckable && this.mIsChecked;
-	}
-
-	@Override
-	public MenuItem setChecked(boolean checked) {
-		if (mIsCheckable) {
-			this.mIsChecked = checked;
+		final int oldFlags = mFlags;
+		mFlags = (mFlags & ~HIDDEN) | (visible ? 0 : HIDDEN);
+		if (oldFlags != mFlags) {
+			mView.setVisibility(visible ? View.VISIBLE : View.GONE);
 		}
 		return this;
 	}
 
 	@Override
+	public boolean isChecked() {
+		return (mFlags & CHECKED) == CHECKED;
+	}
+
+	@Override
+	public MenuItem setChecked(boolean checked) {
+		if ((mFlags & EXCLUSIVE) == EXCLUSIVE) {
+			// Call the method on the Menu since it knows about the others in this
+			// exclusive checkable group
+			mMenu.setExclusiveItemChecked(this);
+		} else {
+			setCheckedInt(checked);
+		}
+		
+		return this;
+	}
+
+	void setCheckedInt(boolean checked) {
+		final int oldFlags = mFlags;
+		mFlags = (mFlags & ~CHECKED) | (checked ? CHECKED : 0);
+		if (oldFlags != mFlags) {
+			//TODO update view as checked or not
+		}
+	}
+
+	@Override
 	public boolean isCheckable() {
-		return this.mIsCheckable;
+		return (mFlags & CHECKABLE) == CHECKABLE;
 	}
 
 	@Override
 	public MenuItem setCheckable(boolean checkable) {
-		this.mIsCheckable = checkable;
+		final int oldFlags = mFlags;
+		mFlags = (mFlags & ~CHECKABLE) | (checkable ? CHECKABLE : 0);
+		if (oldFlags != mFlags) {
+			//TODO update view as checkable or not
+		}
+		
 		return this;
+	}
+
+	public void setExclusiveCheckable(boolean exclusive) {
+		mFlags = (mFlags & ~EXCLUSIVE) | (exclusive ? EXCLUSIVE : 0);
+	}
+
+	public boolean isExclusiveCheckable() {
+		return (mFlags & EXCLUSIVE) != 0;
 	}
 
 	@Override
