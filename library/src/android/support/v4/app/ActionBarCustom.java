@@ -167,7 +167,7 @@ final class ActionBarCustom extends ActionBar {
 	 * @see #getNavigationMode()
 	 * @see #setNavigationMode(int)
 	 */
-	private int mNavigationMode;
+	private int mNavigationMode = -1;
 	
 	/**
 	 * Current selected index of either the list or tab navigation.
