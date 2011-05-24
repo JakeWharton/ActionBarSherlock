@@ -26,6 +26,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.ActionMode;
@@ -66,38 +67,35 @@ public class ContentFragment extends Fragment {
         final ImageView imageView = (ImageView) mContentView.findViewById(R.id.image);
         mContentView.setDrawingCacheEnabled(false);
 
-        /*
-        mContentView.setOnDragListener(new View.OnDragListener() {
-            public boolean onDrag(View v, DragEvent event) {
-                switch (event.getAction()) {
-                    case DragEvent.ACTION_DRAG_ENTERED:
-                        mContentView.setBackgroundColor(
-                                getResources().getColor(R.color.drag_active_color));
-                        break;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            mContentView.setOnDragListener(new View.OnDragListener() {
+                public boolean onDrag(View v, DragEvent event) {
+                    switch (event.getAction()) {
+                        case DragEvent.ACTION_DRAG_ENTERED:
+                            mContentView.setBackgroundColor(
+                                    getResources().getColor(R.color.drag_active_color));
+                            break;
 
-                    case DragEvent.ACTION_DRAG_EXITED:
-                        mContentView.setBackgroundColor(Color.TRANSPARENT);
-                        break;
+                        case DragEvent.ACTION_DRAG_EXITED:
+                            mContentView.setBackgroundColor(Color.TRANSPARENT);
+                            break;
 
-                    case DragEvent.ACTION_DRAG_STARTED:
-                        return processDragStarted(event);
+                        case DragEvent.ACTION_DRAG_STARTED:
+                            return processDragStarted(event);
 
-                    case DragEvent.ACTION_DROP:
-                        mContentView.setBackgroundColor(Color.TRANSPARENT);
-                        return processDrop(event, imageView);
+                        case DragEvent.ACTION_DROP:
+                            mContentView.setBackgroundColor(Color.TRANSPARENT);
+                            return processDrop(event, imageView);
+                    }
+                    return false;
                 }
-                return false;
-            }
-        });
-        */
-
-        // Keep the action bar visibility in sync with the system status bar. That is, when entering
-        // 'lights out mode,' hide the action bar, and when exiting this mode, show the action bar.
-
-        /*
-        TODO implement this as a status bar visibility listener for < 3.0
-        final Activity activity = getActivity();
-        mContentView.setOnSystemUiVisibilityChangeListener(
+            });
+            
+            // Keep the action bar visibility in sync with the system status bar. That is, when entering
+            // 'lights out mode,' hide the action bar, and when exiting this mode, show the action bar.
+        	
+            final Activity activity = getActivity();
+	        mContentView.setOnSystemUiVisibilityChangeListener(
                 new View.OnSystemUiVisibilityChangeListener() {
                     public void onSystemUiVisibilityChange(int visibility) {
                         ActionBar actionBar = activity.getActionBar();
@@ -110,22 +108,23 @@ public class ContentFragment extends Fragment {
                             }
                         }
                     }
-                });
-        */
-
-        // Show/hide the system status bar when single-clicking a photo. This is also called
-        // 'lights out mode.' Activating and deactivating this mode also invokes the listener
-        // defined above, which will show or hide the action bar accordingly.
-
-        mContentView.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                if (mContentView.getSystemUiVisibility() == View.STATUS_BAR_VISIBLE) {
-                    mContentView.setSystemUiVisibility(View.STATUS_BAR_HIDDEN);
-                } else {
-                    mContentView.setSystemUiVisibility(View.STATUS_BAR_VISIBLE);
                 }
-            }
-        });
+	        );
+	
+	        // Show/hide the system status bar when single-clicking a photo. This is also called
+	        // 'lights out mode.' Activating and deactivating this mode also invokes the listener
+	        // defined above, which will show or hide the action bar accordingly.
+
+	        mContentView.setOnClickListener(new OnClickListener() {
+	            public void onClick(View v) {
+	                if (mContentView.getSystemUiVisibility() == View.STATUS_BAR_VISIBLE) {
+	                    mContentView.setSystemUiVisibility(View.STATUS_BAR_HIDDEN);
+	                } else {
+	                    mContentView.setSystemUiVisibility(View.STATUS_BAR_VISIBLE);
+	                }
+	            }
+	        });
+        }
 
         // When long-pressing a photo, activate the action mode for selection, showing the
         // contextual action bar (CAB).
