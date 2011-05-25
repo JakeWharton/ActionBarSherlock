@@ -14,8 +14,8 @@ public interface Menu extends android.view.Menu {
 	MenuItem add(int groupId, int itemId, int order, CharSequence title);
 
 	@Override
-	MenuItem findItem(int id);
+	public MenuItem findItem(int id);
 
 	@Override
-	MenuItem getItem(int index);
+	public MenuItem getItem(int index);
 }

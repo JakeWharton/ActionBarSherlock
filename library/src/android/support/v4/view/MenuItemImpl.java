@@ -34,7 +34,7 @@ import android.widget.ImageView;
  * @author Jake Wharton <jakewharton@gmail.com>
  * @see <a href="http://android.git.kernel.org/?p=platform/frameworks/base.git;a=blob;f=core/java/com/android/internal/view/menu/MenuItemImpl.java">com.android.internal.view.menu.MenuItemImpl</a>
  */
-public final class MenuItemImpl extends MenuItem {
+public final class MenuItemImpl implements MenuItem {
 	final MenuBuilder mMenu;
 	final LayoutInflater mInflater;
 	
@@ -373,6 +373,16 @@ public final class MenuItemImpl extends MenuItem {
 	public MenuItem setIcon(Drawable icon) {
 		this.mIcon.setImageDrawable(icon);
 		return this;
+	}
+	
+	@Override
+	public android.view.MenuItem setOnMenuItemClickListener(final android.view.MenuItem.OnMenuItemClickListener menuItemClickListener) {
+		return this.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+			@Override
+			public boolean onMenuItemClick(MenuItem item) {
+				return menuItemClickListener.onMenuItemClick(new MenuItemHoneycombWrapper(item));
+			}
+		});
 	}
 
 	@Override
