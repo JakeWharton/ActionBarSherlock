@@ -33,7 +33,6 @@ import android.support.v4.view.MenuBuilder;
 import android.support.v4.view.MenuItem;
 import android.support.v4.view.MenuItemImpl;
 import android.support.v4.view.Window;
-import android.support.v4.view.ActionMode.Callback;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -491,7 +490,7 @@ final class ActionBarCustom extends ActionBar {
 	// ------------------------------------------------------------------------
 
 	@Override
-	ActionMode startActionMode(Callback callback) {
+	ActionMode startActionMode(ActionMode.Callback callback) {
 		throw new RuntimeException("Not implemented.");
 	}
 	
