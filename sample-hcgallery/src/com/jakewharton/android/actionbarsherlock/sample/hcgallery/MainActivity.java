@@ -312,11 +312,11 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                 0);
     }
 
-    //@Override
-    //public boolean onPrepareOptionsMenu(Menu menu) {
-    //    menu.getItem(1).setTitle(mToggleLabels[mLabelIndex]);
-    //    return true;
-    //}
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        menu.getItem(1).setTitle(mToggleLabels[mLabelIndex]);
+        return true;
+    }
 
     @Override
     public void onSaveInstanceState (Bundle outState) {
