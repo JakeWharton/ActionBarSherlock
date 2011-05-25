@@ -69,7 +69,8 @@ import android.view.ViewGroup.LayoutParams;
  * </ul>
  */
 public class FragmentActivity extends Activity {
-	private static final String TAG = "FragmentActivity";
+	private static final String TAG = FragmentActivity.class.getSimpleName();
+	private static final boolean DEBUG = false;
 	
 	private static final String FRAGMENTS_TAG = "android:support:fragments";
 	
@@ -128,7 +129,10 @@ public class FragmentActivity extends Activity {
 	 * Implementation of activity compatibility that can call Honeycomb APIs.
 	 */
 	private static final class ActivityCompatHoneycomb {
+		private static final String TAG = FragmentActivity.TAG + "$" + ActivityCompatHoneycomb.class.getSimpleName();
+		
 	    static void invalidateOptionsMenu(Activity activity) {
+	    	if (DEBUG) Log.d(TAG, "invalidateOptionsMenu(Activity): Calling through to native method.");
 	        activity.invalidateOptionsMenu();
 	    }
 	}
@@ -138,8 +142,11 @@ public class FragmentActivity extends Activity {
 	public FragmentActivity() {
 		super();
 		
+		if (DEBUG) Log.d(TAG, "<ctor>(): IS_HONEYCOMB = " + IS_HONEYCOMB);
+		
 		//Load a menu
 		mActionBarMenu = IS_HONEYCOMB ? null : new MenuBuilder(this);
+		if (DEBUG) Log.d(TAG, "<ctor>(): mActionBarMenu = " + mActionBarMenu);
 		
 		//Load the appropriate action bar handler
 		Class<? extends ActionBar> handler;
@@ -159,6 +166,8 @@ public class FragmentActivity extends Activity {
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
+		
+		if (DEBUG) Log.d(TAG, "<ctor>(): mActionBar = " + mActionBar);
 	}
 	
 	// ------------------------------------------------------------------------
@@ -184,12 +193,16 @@ public class FragmentActivity extends Activity {
 	@Override
 	public android.view.MenuInflater getMenuInflater() {
 		if (IS_HONEYCOMB) {
+			if (DEBUG) Log.d(TAG, "getMenuInflater(): Wrapping native inflater.");
+			
 			//Wrap the native inflater so it can unwrap the native menu first
 			return new MenuInflaterWrapper(this, super.getMenuInflater());
-		} else {
-			//Use our custom menu inflater
-			return new MenuInflater(this);
 		}
+		
+		if (DEBUG) Log.d(TAG, "getMenuInflater(): Returning support inflater.");
+		
+		//Use our custom menu inflater
+		return new MenuInflater(this);
 	}
 	
 	@Override
@@ -299,8 +312,10 @@ public class FragmentActivity extends Activity {
 		}
 		mFragments.dispatchCreate();
 		
-		//Trigger menu inflation
-		supportInvalidateOptionsMenu();
+		if (!IS_HONEYCOMB) {
+			//Trigger menu inflation
+			supportInvalidateOptionsMenu();
+		}
 	}
 	
 	/**
@@ -326,19 +341,24 @@ public class FragmentActivity extends Activity {
 	 * false it will not be shown.
 	 */
 	public boolean onCreateOptionsMenu(Menu menu) {
+		if (DEBUG) Log.d(TAG, "onCreateOptionsMenu(Menu): Returning " + menu.hasVisibleItems());
 		return menu.hasVisibleItems();
 	}
 	
 	@Override
 	public final boolean onCreateOptionsMenu(android.view.Menu menu) {
-		if (IS_HONEYCOMB) {
-			return onCreateOptionsMenu(new MenuWrapper(menu));
-		}
-		
 		// Prior to Honeycomb, the framework can't invalidate the options
 		// menu, so we must always say we have one in case the app later
 		// invalidates it and needs to have it shown.
-		return true;
+		boolean result = true;
+		
+		if (IS_HONEYCOMB) {
+			if (DEBUG) Log.d(TAG, "onCreateOptionsMenu(android.view.Menu): Calling support method with wrapped native menu.");
+			result = onCreateOptionsMenu(new MenuWrapper(menu));
+		}
+		
+		if (DEBUG) Log.d(TAG, "onCreateOptionsMenu(android.view.Menu): Returning " + result);
+		return result;
 	}
 	
 	/**
@@ -507,6 +527,7 @@ public class FragmentActivity extends Activity {
 				mFragments.dispatchOptionsMenuClosed(menu);
 				
 				if (!IS_HONEYCOMB) {
+					if (DEBUG) Log.d(TAG, "onPanelClosed(int, android.view.Menu): Dispatch menu visibility false to custom action bar.");
 					mActionBar.onMenuVisibilityChanged(false);
 				}
 				break;
@@ -543,35 +564,58 @@ public class FragmentActivity extends Activity {
 		mFragments.execPendingActions();
 	}
 	
-	/**
-	 * This method cannot be overridden. Call
-	 * {@link #supportInvalidateOptionsMenu()} to have
-	 * {@link #onCreateOptionsMenu(Menu)} called again.
-	 */
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		boolean result = menu.hasVisibleItems();
+		if (DEBUG) Log.d(TAG, "onPrepareOptionsMenu(Menu): Returning " + result);
+		return result;
+	}
+	
 	@Override
-	public boolean onPrepareOptionsMenu(android.view.Menu menu) {
-		super.onPrepareOptionsMenu(menu);
+	public final boolean onPrepareOptionsMenu(android.view.Menu menu) {
+		boolean result = super.onPrepareOptionsMenu(menu);
 		
-		if (!IS_HONEYCOMB && mOptionsMenuInvalidated) {
-			menu.clear();
+		if (!IS_HONEYCOMB) {
+			if (DEBUG) {
+				Log.d(TAG, "onPrepareOptionsMenu(android.view.Menu): mOptionsMenuCreateResult = " + mOptionsMenuCreateResult);
+				Log.d(TAG, "onPrepareOptionsMenu(android.view.Menu): mOptionsMenuInvalidated = " + mOptionsMenuInvalidated);
+			}
 			
+			boolean prepareResult = true;
 			if (mOptionsMenuCreateResult) {
-				//Only add items that have not already been added to our custom
-				//action bar implementation
-				for (MenuItemImpl item : mActionBarMenu.getItems()) {
-					if (!item.isShownOnActionBar()) {
-						item.addTo(menu);
+				if (DEBUG) Log.d(TAG, "onPrepareOptionsMenu(android.view.Menu): Calling support method with custom menu.");
+				prepareResult = onPrepareOptionsMenu(mActionBarMenu);
+				if (DEBUG) Log.d(TAG, "onPrepareOptionsMenu(android.view.Menu): Support method result returned " + prepareResult);
+			}
+			
+			if (mOptionsMenuInvalidated) {
+				if (DEBUG) Log.d(TAG, "onPrepareOptionsMenu(android.view.Menu): Clearing existing options menu.");
+				menu.clear();
+				mOptionsMenuInvalidated = false;
+				
+				if (mOptionsMenuCreateResult && prepareResult) {
+					if (DEBUG) Log.d(TAG, "onPrepareOptionsMenu(android.view.Menu): Adding any action items that are not displayed on the action bar.");
+					//Only add items that have not already been added to our custom
+					//action bar implementation
+					for (MenuItemImpl item : mActionBarMenu.getItems()) {
+						if (!item.isShownOnActionBar()) {
+							item.addTo(menu);
+						}
 					}
 				}
-				
-				if (menu.hasVisibleItems()) {
-					mActionBar.onMenuVisibilityChanged(true);
-				}
 			}
+			
+			if (mOptionsMenuCreateResult && prepareResult && menu.hasVisibleItems()) {
+				if (DEBUG) Log.d(TAG, "onPrepareOptionsMenu(android.view.Menu): Dispatch menu visibility true to custom action bar.");
+				mActionBar.onMenuVisibilityChanged(true);
+				result = true;
+			}
+		} else {
+			if (DEBUG) Log.d(TAG, "onPrepareOptionsMenu(android.view.Menu): Calling support method with custom menu.");
+			result = onPrepareOptionsMenu(new MenuWrapper(menu));
 		}
-		
-		//Since this is called on all platforms return true if menu items exist
-		return menu.hasVisibleItems();
+
+		if (DEBUG) Log.d(TAG, "onPrepareOptionsMenu(android.view.Menu): Returning " + result);
+		return result;
 	}
 
 	/**
@@ -685,6 +729,8 @@ public class FragmentActivity extends Activity {
 	// ------------------------------------------------------------------------
 	
 	void supportInvalidateOptionsMenu() {
+		if (DEBUG) Log.d(TAG, "supportInvalidateOptionsMenu(): Invalidating menu.");
+		
 		if (IS_HONEYCOMB) {
 			// If we are running on HC or greater, we can use the framework
 			// API to invalidate the options menu.
