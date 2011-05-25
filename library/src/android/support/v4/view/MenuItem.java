@@ -48,7 +48,7 @@ public interface MenuItem extends android.view.MenuItem {
 		
 		@Override
 		public final boolean onMenuItemClick(android.view.MenuItem item) {
-			return this.onMenuItemClick(new MenuItemHoneycombWrapper(item));
+			return this.onMenuItemClick(new MenuItemWrapper(item));
 		}
 	}
 	

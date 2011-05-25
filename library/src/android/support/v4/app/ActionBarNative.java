@@ -36,7 +36,7 @@ final class ActionBarNative {
 	 * 
 	 * @return {@code ActionBarNative.Impl.class}
 	 */
-	static Class<? extends ActionBar> getImplementation() {
+	static Class<? extends ActionBar> getHandler() {
 		return ActionBarNative.Impl.class;
 	}
 
@@ -53,7 +53,7 @@ final class ActionBarNative {
 		 * @return The action bar.
 		 */
 		private android.app.ActionBar getActionBar() {
-			return this.getActivity().getActionBar();
+			return getActivity().getActionBar();
 		}
 		
 		/**
@@ -64,7 +64,7 @@ final class ActionBarNative {
 		 * @return Native tab.
 		 */
 		private android.app.ActionBar.Tab convertTabToNative(ActionBar.Tab tab) {
-			return this.getActionBar().newTab()
+			return getActionBar().newTab()
 					.setCustomView(tab.getCustomView())
 					.setIcon(tab.getIcon())
 					.setTabListener(this)
@@ -257,24 +257,24 @@ final class ActionBarNative {
 			CharSequence mText;
 			
 			TabImpl(ActionBarNative.Impl actionBar) {
-				this.mActionBar = actionBar;
+				mActionBar = actionBar;
 			}
 
 			@Override
 			public View getCustomView() {
-				return this.mCustomView;
+				return mCustomView;
 			}
 
 			@Override
 			public Drawable getIcon() {
-				return this.mIcon;
+				return mIcon;
 			}
 
 			@Override
 			public int getPosition() {
-				final int tabCount = this.mActionBar.getTabCount();
+				final int tabCount = mActionBar.getTabCount();
 				for (int i = 0; i < tabCount; i++) {
-					if (this.mActionBar.getTabAt(i).equals(this)) {
+					if (mActionBar.getTabAt(i).equals(this)) {
 						return i;
 					}
 				}
@@ -283,69 +283,69 @@ final class ActionBarNative {
 			
 			@Override
 			public ActionBar.TabListener getTabListener() {
-				return this.mListener;
+				return mListener;
 			}
 
 			@Override
 			public Object getTag() {
-				return this.mTag;
+				return mTag;
 			}
 
 			@Override
 			public CharSequence getText() {
-				return this.mText;
+				return mText;
 			}
 
 			@Override
 			public void select() {
-				this.mActionBar.selectTab(this);
+				mActionBar.selectTab(this);
 			}
 
 			@Override
 			public ActionBar.Tab setCustomView(int layoutResId) {
-				this.mCustomView = this.mActionBar.getActivity().getLayoutInflater().inflate(layoutResId, null);
+				mCustomView = mActionBar.getActivity().getLayoutInflater().inflate(layoutResId, null);
 				return this;
 			}
 
 			@Override
 			public ActionBar.Tab setCustomView(View view) {
-				this.mCustomView = view;
+				mCustomView = view;
 				return this;
 			}
 
 			@Override
 			public ActionBar.Tab setIcon(Drawable icon) {
-				this.mIcon = icon;
+				mIcon = icon;
 				return this;
 			}
 
 			@Override
 			public ActionBar.Tab setIcon(int resId) {
-				this.mIcon = this.mActionBar.getActivity().getResources().getDrawable(resId);
+				mIcon = mActionBar.getActivity().getResources().getDrawable(resId);
 				return this;
 			}
 
 			@Override
 			public ActionBar.Tab setTabListener(TabListener listener) {
-				this.mListener = listener;
+				mListener = listener;
 				return this;
 			}
 
 			@Override
 			public ActionBar.Tab setTag(Object obj) {
-				this.mTag = obj;
+				mTag = obj;
 				return this;
 			}
 
 			@Override
 			public ActionBar.Tab setText(int resId) {
-				this.mText = this.mActionBar.getActivity().getResources().getString(resId);
+				mText = mActionBar.getActivity().getResources().getString(resId);
 				return this;
 			}
 
 			@Override
 			public ActionBar.Tab setText(CharSequence text) {
-				this.mText = text;
+				mText = text;
 				return this;
 			}
 			
@@ -353,87 +353,87 @@ final class ActionBarNative {
 		
 		@Override
 		public void addOnMenuVisibilityListener(final OnMenuVisibilityListener listener) {
-			if ((listener != null) && !this.mMenuListenerMap.containsKey(listener)) {
+			if ((listener != null) && !mMenuListenerMap.containsKey(listener)) {
 				android.app.ActionBar.OnMenuVisibilityListener nativeListener = new android.app.ActionBar.OnMenuVisibilityListener() {
 					@Override
 					public void onMenuVisibilityChanged(boolean isVisible) {
 						listener.onMenuVisibilityChanged(isVisible);
 					}
 				};
-				this.mMenuListenerMap.put(listener, nativeListener);
+				mMenuListenerMap.put(listener, nativeListener);
 				
-				this.getActionBar().addOnMenuVisibilityListener(nativeListener);
+				getActionBar().addOnMenuVisibilityListener(nativeListener);
 			}
 		}
 
 		@Override
 		public void addTab(ActionBar.Tab tab, int position, boolean setSelected) {
-			this.getActionBar().addTab(this.convertTabToNative(tab), position, setSelected);
+			getActionBar().addTab(convertTabToNative(tab), position, setSelected);
 		}
 
 		@Override
 		public View getCustomView() {
-			return this.getActionBar().getCustomView();
+			return getActionBar().getCustomView();
 		}
 
 		@Override
 		public int getDisplayOptions() {
-			return this.getActionBar().getDisplayOptions();
+			return getActionBar().getDisplayOptions();
 		}
 
 		@Override
 		public int getHeight() {
-			return this.getActionBar().getHeight();
+			return getActionBar().getHeight();
 		}
 
 		@Override
 		public int getNavigationItemCount() {
-			return this.getActionBar().getNavigationItemCount();
+			return getActionBar().getNavigationItemCount();
 		}
 
 		@Override
 		public int getNavigationMode() {
-			return this.getActionBar().getNavigationMode();
+			return getActionBar().getNavigationMode();
 		}
 
 		@Override
 		public int getSelectedNavigationIndex() {
-			return this.getActionBar().getSelectedNavigationIndex();
+			return getActionBar().getSelectedNavigationIndex();
 		}
 
 		@Override
 		public Tab getSelectedTab() {
-			return (ActionBar.Tab)this.getActionBar().getSelectedTab().getTag();
+			return (ActionBar.Tab)getActionBar().getSelectedTab().getTag();
 		}
 
 		@Override
 		public CharSequence getSubtitle() {
-			return this.getActionBar().getSubtitle();
+			return getActionBar().getSubtitle();
 		}
 
 		@Override
 		public ActionBar.Tab getTabAt(int index) {
-			return (Tab)this.getActionBar().getTabAt(index).getTag();
+			return (Tab)getActionBar().getTabAt(index).getTag();
 		}
 
 		@Override
 		public int getTabCount() {
-			return this.getActionBar().getTabCount();
+			return getActionBar().getTabCount();
 		}
 
 		@Override
 		public CharSequence getTitle() {
-			return this.getActionBar().getTitle();
+			return getActionBar().getTitle();
 		}
 
 		@Override
 		public void hide() {
-			this.getActionBar().hide();
+			getActionBar().hide();
 		}
 
 		@Override
 		public boolean isShowing() {
-			return this.getActionBar().isShowing();
+			return getActionBar().isShowing();
 		}
 		
 		@Override
@@ -443,24 +443,24 @@ final class ActionBarNative {
 
 		@Override
 		public void removeAllTabs() {
-			this.getActionBar().removeAllTabs();
+			getActionBar().removeAllTabs();
 		}
 
 		@Override
 		public void removeOnMenuVisibilityListener(OnMenuVisibilityListener listener) {
-			if ((listener != null) && this.mMenuListenerMap.containsKey(listener)) {
-				this.getActionBar().removeOnMenuVisibilityListener(
-					this.mMenuListenerMap.remove(listener)
+			if ((listener != null) && mMenuListenerMap.containsKey(listener)) {
+				getActionBar().removeOnMenuVisibilityListener(
+					mMenuListenerMap.remove(listener)
 				);
 			}
 		}
 
 		@Override
 		public void removeTab(Tab tab) {
-			final int tabCount = this.getActionBar().getTabCount();
+			final int tabCount = getActionBar().getTabCount();
 			for (int i = 0; i < tabCount; i++) {
-				if (this.getActionBar().getTabAt(i).getTag().equals(tab)) {
-					this.getActionBar().removeTabAt(i);
+				if (getActionBar().getTabAt(i).getTag().equals(tab)) {
+					getActionBar().removeTabAt(i);
 					break;
 				}
 			}
@@ -468,15 +468,15 @@ final class ActionBarNative {
 
 		@Override
 		public void removeTabAt(int position) {
-			this.getActionBar().removeTabAt(position);
+			getActionBar().removeTabAt(position);
 		}
 
 		@Override
 		public void selectTab(ActionBar.Tab tab) {
-			final int tabCount = this.getActionBar().getTabCount();
+			final int tabCount = getActionBar().getTabCount();
 			for (int i = 0; i < tabCount; i++) {
-				if (this.getActionBar().getTabAt(i).getTag().equals(tab)) {
-					this.getActionBar().setSelectedNavigationItem(i);
+				if (getActionBar().getTabAt(i).getTag().equals(tab)) {
+					getActionBar().setSelectedNavigationItem(i);
 					break;
 				}
 			}
@@ -484,39 +484,39 @@ final class ActionBarNative {
 
 		@Override
 		public void setBackgroundDrawable(Drawable d) {
-			this.getActionBar().setBackgroundDrawable(d);
+			getActionBar().setBackgroundDrawable(d);
 		}
 
 		@Override
 		public void setCustomView(int resId) {
-			this.getActionBar().setCustomView(resId);
+			getActionBar().setCustomView(resId);
 		}
 
 		@Override
 		public void setCustomView(View view) {
-			this.getActionBar().setCustomView(view);
+			getActionBar().setCustomView(view);
 		}
 
 		@Override
 		public void setCustomView(View view, LayoutParams layoutParams) {
 			android.app.ActionBar.LayoutParams nativeLayoutParams = new android.app.ActionBar.LayoutParams(layoutParams);
 			nativeLayoutParams.gravity = layoutParams.gravity;
-			this.getActionBar().setCustomView(view, nativeLayoutParams);
+			getActionBar().setCustomView(view, nativeLayoutParams);
 		}
 
 		@Override
 		public void setDisplayOptions(int options, int mask) {
-			this.getActionBar().setDisplayOptions(options, mask);
+			getActionBar().setDisplayOptions(options, mask);
 		}
 
 		@Override
 		public void setDisplayOptions(int options) {
-			this.getActionBar().setDisplayOptions(options);
+			getActionBar().setDisplayOptions(options);
 		}
 
 		@Override
 		public void setListNavigationCallbacks(SpinnerAdapter adapter, final OnNavigationListener callback) {
-			this.getActionBar().setListNavigationCallbacks(adapter, new android.app.ActionBar.OnNavigationListener() {
+			getActionBar().setListNavigationCallbacks(adapter, new android.app.ActionBar.OnNavigationListener() {
 				@Override
 				public boolean onNavigationItemSelected(int itemPosition, long itemId) {
 					if (callback != null) {
@@ -529,27 +529,27 @@ final class ActionBarNative {
 
 		@Override
 		public void setNavigationMode(int mode) {
-			this.getActionBar().setNavigationMode(mode);
+			getActionBar().setNavigationMode(mode);
 		}
 
 		@Override
 		public void setSelectedNavigationItem(int position) {
-			this.getActionBar().setSelectedNavigationItem(position);
+			getActionBar().setSelectedNavigationItem(position);
 		}
 
 		@Override
 		public void setSubtitle(CharSequence subtitle) {
-			this.getActionBar().setSubtitle(subtitle);
+			getActionBar().setSubtitle(subtitle);
 		}
 
 		@Override
 		public void setTitle(CharSequence title) {
-			this.getActionBar().setTitle(title);
+			getActionBar().setTitle(title);
 		}
 
 		@Override
 		public void show() {
-			this.getActionBar().show();
+			getActionBar().show();
 		}
 	}
 }

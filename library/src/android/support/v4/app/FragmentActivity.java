@@ -32,19 +32,19 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.Parcelable;
 import android.support.v4.view.ActionMode;
+import android.support.v4.view.Menu;
 import android.support.v4.view.MenuBuilder;
-import android.support.v4.view.MenuHoneycombWrapper;
 import android.support.v4.view.MenuInflater;
-import android.support.v4.view.MenuInflaterHoneycombWrapper;
-import android.support.v4.view.MenuItemHoneycombWrapper;
+import android.support.v4.view.MenuInflaterWrapper;
+import android.support.v4.view.MenuItem;
 import android.support.v4.view.MenuItemImpl;
+import android.support.v4.view.MenuItemWrapper;
+import android.support.v4.view.MenuWrapper;
+import android.support.v4.view.Window;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.view.ViewGroup.LayoutParams;
 
 /**
@@ -73,7 +73,7 @@ public class FragmentActivity extends Activity {
 	
 	private static final String FRAGMENTS_TAG = "android:support:fragments";
 	
-	static final boolean IS_HONEYCOMB = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
+	private static final boolean IS_HONEYCOMB = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
 
 	static final int MSG_REALLY_STOPPED = 1;
 
@@ -123,12 +123,42 @@ public class FragmentActivity extends Activity {
 		public static final int Fragment_name = 0;
 		public static final int Fragment_tag = 2;
 	}
+	
+	/**
+	 * Implementation of activity compatibility that can call Honeycomb APIs.
+	 */
+	private static final class ActivityCompatHoneycomb {
+	    static void invalidateOptionsMenu(Activity activity) {
+	        activity.invalidateOptionsMenu();
+	    }
+	}
+
 
 	
 	public FragmentActivity() {
 		super();
-		mActionBar = ActionBar.sherlock(this);
-		mActionBarMenu = new MenuBuilder(this);
+		
+		//Load a menu
+		mActionBarMenu = IS_HONEYCOMB ? null : new MenuBuilder(this);
+		
+		//Load the appropriate action bar handler
+		Class<? extends ActionBar> handler;
+		if (IS_HONEYCOMB) {
+			handler = ActionBarNative.getHandler();
+		} else if (ActionBar.HANDLER_CUSTOM != null) {
+			handler = ActionBar.HANDLER_CUSTOM;
+		} else {
+			mActionBar = null;
+			return;
+		}
+		
+		try {
+			mActionBar = handler.newInstance();
+			mActionBar.setActivity(this);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
 	}
 	
 	// ------------------------------------------------------------------------
@@ -155,7 +185,7 @@ public class FragmentActivity extends Activity {
 	public android.view.MenuInflater getMenuInflater() {
 		if (IS_HONEYCOMB) {
 			//Wrap the native inflater so it can unwrap the native menu first
-			return new MenuInflaterHoneycombWrapper(this, super.getMenuInflater());
+			return new MenuInflaterWrapper(this, super.getMenuInflater());
 		} else {
 			//Use our custom menu inflater
 			return new MenuInflater(this);
@@ -270,7 +300,7 @@ public class FragmentActivity extends Activity {
 		mFragments.dispatchCreate();
 		
 		//Trigger menu inflation
-		this.supportInvalidateOptionsMenu();
+		supportInvalidateOptionsMenu();
 	}
 	
 	/**
@@ -295,14 +325,14 @@ public class FragmentActivity extends Activity {
 	 * @return You must return true for the menu to be displayed; if you return
 	 * false it will not be shown.
 	 */
-	public boolean onCreateOptionsMenu(android.support.v4.view.Menu menu) {
+	public boolean onCreateOptionsMenu(Menu menu) {
 		return menu.hasVisibleItems();
 	}
 	
 	@Override
-	public final boolean onCreateOptionsMenu(Menu menu) {
+	public final boolean onCreateOptionsMenu(android.view.Menu menu) {
 		if (IS_HONEYCOMB) {
-			return onCreateOptionsMenu(new MenuHoneycombWrapper(menu));
+			return onCreateOptionsMenu(new MenuWrapper(menu));
 		}
 		
 		// Prior to Honeycomb, the framework can't invalidate the options
@@ -441,7 +471,7 @@ public class FragmentActivity extends Activity {
 	 * Dispatch context and options menu to fragments.
 	 */
 	@Override
-	public boolean onMenuItemSelected(int featureId, MenuItem item) {
+	public boolean onMenuItemSelected(int featureId, android.view.MenuItem item) {
 		if (super.onMenuItemSelected(featureId, item)) {
 			return true;
 		}
@@ -458,20 +488,20 @@ public class FragmentActivity extends Activity {
 		}
 	}
 	
-	public boolean onOptionsItemSelected(android.support.v4.view.MenuItem item) {
+	public boolean onOptionsItemSelected(MenuItem item) {
 		return super.onOptionsItemSelected(item);
 	}
 
 	@Override
-	public final boolean onOptionsItemSelected(MenuItem item) {
-		return this.onOptionsItemSelected(new MenuItemHoneycombWrapper(item));
+	public final boolean onOptionsItemSelected(android.view.MenuItem item) {
+		return onOptionsItemSelected(new MenuItemWrapper(item));
 	}
 
 	/**
 	 * Call onOptionsMenuClosed() on fragments.
 	 */
 	@Override
-	public void onPanelClosed(int featureId, Menu menu) {
+	public void onPanelClosed(int featureId, android.view.Menu menu) {
 		switch (featureId) {
 			case Window.FEATURE_OPTIONS_PANEL:
 				mFragments.dispatchOptionsMenuClosed(menu);
@@ -519,7 +549,7 @@ public class FragmentActivity extends Activity {
 	 * {@link #onCreateOptionsMenu(Menu)} called again.
 	 */
 	@Override
-	public final boolean onPrepareOptionsMenu(Menu menu) {
+	public boolean onPrepareOptionsMenu(android.view.Menu menu) {
 		super.onPrepareOptionsMenu(menu);
 		
 		if (!IS_HONEYCOMB && mOptionsMenuInvalidated) {
@@ -662,16 +692,16 @@ public class FragmentActivity extends Activity {
 			return;
 		}
 		
-		this.mActionBarMenu.clear();
+		mActionBarMenu.clear();
 		
-		mOptionsMenuCreateResult  = this.onCreateOptionsMenu(this.mActionBarMenu);
-		mOptionsMenuCreateResult |= this.mFragments.dispatchCreateOptionsMenu(this.mActionBarMenu, getMenuInflater());
+		mOptionsMenuCreateResult  = onCreateOptionsMenu(mActionBarMenu);
+		mOptionsMenuCreateResult |= mFragments.dispatchCreateOptionsMenu(mActionBarMenu, getMenuInflater());
 		
 		//Since we now know we are using a custom action bar, perform the
 		//inflation callback to allow it to display any items it wants.
 		//Any items that were displayed will have a boolean toggled so that we
 		//do not display them on the options menu.
-		this.mActionBar.onMenuInflated(this.mActionBarMenu);
+		mActionBar.onMenuInflated(mActionBarMenu);
 		
 		// Whoops, older platform...  we'll use a hack, to manually rebuild
 		// the options menu the next time it is prepared.
@@ -807,7 +837,7 @@ public class FragmentActivity extends Activity {
 		if (actionMode == null) {
 			//If the activity did not handle, send to action bar for platform-
 			//specific implementation
-			actionMode = this.mActionBar.startActionMode(callback);
+			actionMode = mActionBar.startActionMode(callback);
 		}
 		
 		//Send the activity callback that our action mode was started

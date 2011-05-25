@@ -380,7 +380,7 @@ public final class MenuItemImpl implements MenuItem {
 		return this.setOnMenuItemClickListener(new OnMenuItemClickListener() {
 			@Override
 			public boolean onMenuItemClick(MenuItem item) {
-				return menuItemClickListener.onMenuItemClick(new MenuItemHoneycombWrapper(item));
+				return menuItemClickListener.onMenuItemClick(new MenuItemWrapper(item));
 			}
 		});
 	}

@@ -65,6 +65,11 @@ public abstract class Window extends android.view.Window {
 	
 	
 	
+	/**
+	 * Create a new instance for a context.
+	 * 
+	 * @param context Context.
+	 */
 	public Window(Context context) {
 		super(context);
 	}

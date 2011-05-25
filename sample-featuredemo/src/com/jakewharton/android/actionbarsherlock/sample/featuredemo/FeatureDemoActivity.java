@@ -12,130 +12,130 @@ import android.widget.SpinnerAdapter;
 
 public class FeatureDemoActivity extends FragmentActivity {
 	private static final Random RANDOM = new Random();
-	
-    @Override
+
+	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setContentView(R.layout.feature_demo_activity);
+        setContentView(R.layout.feature_demo_activity);
 
-        this.getSupportActionBar().setCustomView(R.layout.actionbar_custom_view);
-        this.getSupportActionBar().setDisplayShowCustomEnabled(false);
-        this.getSupportActionBar().setDisplayShowHomeEnabled(false);
+        getSupportActionBar().setCustomView(R.layout.actionbar_custom_view);
+        getSupportActionBar().setDisplayShowCustomEnabled(false);
+        getSupportActionBar().setDisplayShowHomeEnabled(false);
         
         SpinnerAdapter listAdapter = ArrayAdapter.createFromResource(this, R.array.locations, R.layout.actionbar_list_dropdown_item);
-        this.getSupportActionBar().setListNavigationCallbacks(listAdapter, null);
+        getSupportActionBar().setListNavigationCallbacks(listAdapter, null);
         
-        this.findViewById(R.id.display_subtitle_show).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.display_subtitle_show).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getSupportActionBar().setSubtitle("The quick brown fox jumps over the lazy dog.");
             }
         });
-        this.findViewById(R.id.display_subtitle_hide).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.display_subtitle_hide).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getSupportActionBar().setSubtitle(null);
             }
         });
         
-        this.findViewById(R.id.display_title_show).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.display_title_show).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getSupportActionBar().setDisplayShowTitleEnabled(true);
             }
         });
-        this.findViewById(R.id.display_title_hide).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.display_title_hide).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getSupportActionBar().setDisplayShowTitleEnabled(false);
             }
         });
         
-        this.findViewById(R.id.display_custom_show).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.display_custom_show).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getSupportActionBar().setDisplayShowCustomEnabled(true);
             }
         });
-        this.findViewById(R.id.display_custom_hide).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.display_custom_hide).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getSupportActionBar().setDisplayShowCustomEnabled(false);
             }
         });
         
-        this.findViewById(R.id.navigation_standard).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.navigation_standard).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
             }
         });
-        this.findViewById(R.id.navigation_list).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.navigation_list).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
             }
         });
-        this.findViewById(R.id.navigation_tabs).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.navigation_tabs).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 			}
 		});
         
-        this.findViewById(R.id.display_home_as_up_show).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.display_home_as_up_show).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             }
         });
-        this.findViewById(R.id.display_home_as_up_hide).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.display_home_as_up_hide).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getSupportActionBar().setDisplayHomeAsUpEnabled(false);
             }
         });
         
-        this.findViewById(R.id.display_logo_show).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.display_logo_show).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getSupportActionBar().setDisplayUseLogoEnabled(true);
             }
         });
-        this.findViewById(R.id.display_logo_hide).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.display_logo_hide).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getSupportActionBar().setDisplayUseLogoEnabled(false);
             }
         });
         
-        this.findViewById(R.id.display_home_show).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.display_home_show).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getSupportActionBar().setDisplayShowHomeEnabled(true);
             }
         });
-        this.findViewById(R.id.display_home_hide).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.display_home_hide).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getSupportActionBar().setDisplayShowHomeEnabled(false);
             }
         });
         
-        this.findViewById(R.id.display_actionbar_show).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.display_actionbar_show).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getSupportActionBar().show();
             }
         });
-        this.findViewById(R.id.display_actionbar_hide).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.display_actionbar_hide).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getSupportActionBar().hide();
             }
         });
         
-        this.findViewById(R.id.display_tab_add).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.display_tab_add).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				ActionBar.Tab newTab = getSupportActionBar().newTab();
@@ -155,7 +155,7 @@ public class FeatureDemoActivity extends FragmentActivity {
 				getSupportActionBar().addTab(newTab);
 			}
 		});
-        this.findViewById(R.id.display_tab_select).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.display_tab_select).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				if (getSupportActionBar().getTabCount() > 0) {
@@ -167,13 +167,13 @@ public class FeatureDemoActivity extends FragmentActivity {
 				}
 			}
 		});
-        this.findViewById(R.id.display_tab_remove).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.display_tab_remove).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				getSupportActionBar().removeTabAt(getSupportActionBar().getTabCount() - 1);
 			}
 		});
-        this.findViewById(R.id.display_tab_remove_all).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.display_tab_remove_all).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
 				getSupportActionBar().removeAllTabs();

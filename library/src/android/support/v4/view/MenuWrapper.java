@@ -5,35 +5,50 @@ import android.content.Intent;
 import android.view.KeyEvent;
 import android.view.SubMenu;
 
-public final class MenuHoneycombWrapper implements Menu {
+/**
+ * Wrapper around a native Menu instance which implements our version of the
+ * Menu interface.
+ */
+public final class MenuWrapper implements Menu {
+	/** Native menu. */
 	private final android.view.Menu mMenu;
 	
-	public MenuHoneycombWrapper(android.view.Menu menu) {
+	/**
+	 * Create a new wrapped instance.
+	 * 
+	 * @param menu Native menu.
+	 */
+	public MenuWrapper(android.view.Menu menu) {
 		this.mMenu = menu;
 	}
 	
+	/**
+	 * Get the native menu instance we are wrapping.
+	 * 
+	 * @return Native menu.
+	 */
 	android.view.Menu unwrap() {
 		return mMenu;
 	}
 	
 	@Override
 	public MenuItem add(CharSequence title) {
-		return new MenuItemHoneycombWrapper(mMenu.add(title));
+		return new MenuItemWrapper(mMenu.add(title));
 	}
 
 	@Override
 	public MenuItem add(int groupId, int itemId, int order, int titleRes) {
-		return new MenuItemHoneycombWrapper(mMenu.add(groupId, itemId, order, titleRes));
+		return new MenuItemWrapper(mMenu.add(groupId, itemId, order, titleRes));
 	}
 	
 	@Override
 	public MenuItem add(int titleRes) {
-		return new MenuItemHoneycombWrapper(mMenu.add(titleRes));
+		return new MenuItemWrapper(mMenu.add(titleRes));
 	}
 
 	@Override
 	public MenuItem add(int groupId, int itemId, int order, CharSequence title) {
-		return new MenuItemHoneycombWrapper(mMenu.add(groupId, itemId, order, title));
+		return new MenuItemWrapper(mMenu.add(groupId, itemId, order, title));
 	}
 
 	@Override
@@ -73,12 +88,12 @@ public final class MenuHoneycombWrapper implements Menu {
 
 	@Override
 	public MenuItem findItem(int id) {
-		return new MenuItemHoneycombWrapper(mMenu.findItem(id));
+		return new MenuItemWrapper(mMenu.findItem(id));
 	}
 
 	@Override
 	public MenuItem getItem(int index) {
-		return new MenuItemHoneycombWrapper(mMenu.getItem(index));
+		return new MenuItemWrapper(mMenu.getItem(index));
 	}
 
 	@Override

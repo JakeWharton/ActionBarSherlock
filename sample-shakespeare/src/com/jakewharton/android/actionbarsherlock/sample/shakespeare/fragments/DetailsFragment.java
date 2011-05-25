@@ -39,12 +39,12 @@ public class DetailsFragment extends Fragment {
             return null;
         }
 
-        ScrollView scroller = new ScrollView(this.getActivity());
-        TextView text = new TextView(this.getActivity());
-        int padding = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, this.getActivity().getResources().getDisplayMetrics());
+        ScrollView scroller = new ScrollView(getActivity());
+        TextView text = new TextView(getActivity());
+        int padding = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getActivity().getResources().getDisplayMetrics());
         text.setPadding(padding, padding, padding, padding);
         scroller.addView(text);
-        text.setText(Shakespeare.DIALOGUE[this.getArguments().getInt("index", 0)]);
+        text.setText(Shakespeare.DIALOGUE[getArguments().getInt("index", 0)]);
         return scroller;
     }
 }

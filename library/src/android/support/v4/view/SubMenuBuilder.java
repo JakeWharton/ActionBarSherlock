@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2006 The Android Open Source Project
- *               2011 Jake Wharton
+ * Copyright (C) 2011 Jake Wharton
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,8 +23,8 @@ import android.view.SubMenu;
 import android.view.View;
 
 /**
- * The model for a sub menu, which is an extension of the menu.  Most methods are proxied to
- * the parent menu.
+ * The model for a sub menu, which is an extension of the menu.  Most methods
+ * are proxied to the parent menu.
  */
 final class SubMenuBuilder extends MenuBuilder implements SubMenu {
     private MenuBuilder mParentMenu;
@@ -45,7 +45,7 @@ final class SubMenuBuilder extends MenuBuilder implements SubMenu {
     //@Override
     //public boolean isQwertyMode() {
     //    return mParentMenu.isQwertyMode();
-   // }
+    //}
     
     //@Override
     //public void setShortcutsVisible(boolean shortcutsVisible) {

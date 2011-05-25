@@ -33,9 +33,8 @@ import android.widget.SpinnerAdapter;
  * application.
  */
 public abstract class ActionBar {
-	
 	/** Custom handler class. */
-	private static Class<? extends ActionBar> HANDLER_CUSTOM = ActionBarCustom.class;
+	static Class<? extends ActionBar> HANDLER_CUSTOM = ActionBarCustom.class;
 
 	
 	///**
@@ -47,32 +46,6 @@ public abstract class ActionBar {
 	//public static void registerHandler(Class<? extends ActionBar> customHandler) {
 	//	HANDLER_CUSTOM = customHandler;
 	//}
-	
-	/**
-	 * Get an instance of the appropriate handler for an action bar.
-	 * 
-	 * @param activity The parent activity.
-	 * @return Instance of handler.
-	 */
-	static ActionBar sherlock(FragmentActivity activity) {
-		Class<? extends ActionBar> handler;
-		if (FragmentActivity.IS_HONEYCOMB) {
-			handler = ActionBarNative.getImplementation();
-		} else if (HANDLER_CUSTOM != null) {
-			handler = HANDLER_CUSTOM;
-		} else {
-			return null;
-		}
-		
-		try {
-			ActionBar actionBar = handler.newInstance();
-			actionBar.setActivity(activity);
-			return actionBar;
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
-		}
-	}
 	
 	
 	
@@ -87,7 +60,7 @@ public abstract class ActionBar {
 	 * @return Activity.
 	 */
 	protected final FragmentActivity getActivity() {
-		return this.mActivity;
+		return mActivity;
 	}
 	
 	/**
@@ -97,8 +70,8 @@ public abstract class ActionBar {
 	 * @param activity Parent activity.
 	 * @return Current instance for call chaining.
 	 */
-	private void setActivity(FragmentActivity activity) {
-		this.mActivity = activity;
+	void setActivity(FragmentActivity activity) {
+		mActivity = activity;
 	}
 	
 	// ---------------------------------------------------------------------
@@ -118,9 +91,9 @@ public abstract class ActionBar {
 	abstract boolean requestWindowFeature(int featureId);
 	
 	/**
-	 * Called directly after the {@link FragmentActivity#onCreate(Bundle)} method has
-	 * called its base class' implementation. This should be used to facilitate
-	 * attachment to the activity.
+	 * Called directly after the {@link FragmentActivity#onCreate(Bundle)}
+	 * method has called its base class' implementation. This should be used to
+	 * facilitate attachment to the activity.
 	 */
 	abstract void performAttach();
 	
@@ -346,7 +319,7 @@ public abstract class ActionBar {
 		 * @param ft Unused, always {@code null}. Begin your own transaction by
 		 * calling {@link FragmentActivity#getSupportFragmentManager()}.
 		 */
-		void onTabReselected(Tab tab, FragmentTransaction ft);
+		void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft);
 		
 		/**
 		 * Called when a tab enters the selected state.
@@ -355,7 +328,7 @@ public abstract class ActionBar {
 		 * @param ft Unused, always {@code null}. Begin your own transaction by
 		 * calling {@link FragmentActivity#getSupportFragmentManager()}.
 		 */
-		void onTabSelected(Tab tab, FragmentTransaction ft);
+		void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft);
 		
 		/**
 		 * Called when a tab exits the selected state.
@@ -364,7 +337,7 @@ public abstract class ActionBar {
 		 * @param ft Unused, always {@code null}. Begin your own transaction by
 		 * calling {@link FragmentActivity#getSupportFragmentManager()}.
 		 */
-		void onTabUnselected(Tab tab, FragmentTransaction ft);
+		void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft);
 	}
 	
 	
@@ -460,7 +433,7 @@ public abstract class ActionBar {
 	 * @param tab Tab to add
 	 */
 	public final void addTab(ActionBar.Tab tab) {
-		this.addTab(tab, this.getTabCount() == 0);
+		addTab(tab, getTabCount() == 0);
 	}
 	
 	/**
@@ -471,7 +444,7 @@ public abstract class ActionBar {
 	 * @param setSelected True if the added tab should become the selected tab.
 	 */
 	public final void addTab(ActionBar.Tab tab, boolean setSelected) {
-		this.addTab(tab, this.getTabCount(), setSelected);
+		addTab(tab, getTabCount(), setSelected);
 	}
 	
 	/**
@@ -483,7 +456,7 @@ public abstract class ActionBar {
 	 * @param position The new position of the tab
 	 */
 	public final void addTab(ActionBar.Tab tab, int position) {
-		this.addTab(tab, position, this.getTabCount() == 0);
+		addTab(tab, position, getTabCount() == 0);
 	}
 	
 	/**
@@ -719,7 +692,7 @@ public abstract class ActionBar {
 	 * @see #setDisplayOptions(int, int)
 	 */
 	public final void setDisplayHomeAsUpEnabled(boolean showHomeAsUp) {
-		this.setDisplayOptions(showHomeAsUp ? DISPLAY_HOME_AS_UP : 0, DISPLAY_HOME_AS_UP);
+		setDisplayOptions(showHomeAsUp ? DISPLAY_HOME_AS_UP : 0, DISPLAY_HOME_AS_UP);
 	}
 	
 	/**
@@ -761,7 +734,7 @@ public abstract class ActionBar {
 	 * @see #setDisplayOptions(int, int)
 	 */
 	public final void setDisplayShowCustomEnabled(boolean showCustom) {
-		this.setDisplayOptions(showCustom ? DISPLAY_SHOW_CUSTOM : 0, DISPLAY_SHOW_CUSTOM);
+		setDisplayOptions(showCustom ? DISPLAY_SHOW_CUSTOM : 0, DISPLAY_SHOW_CUSTOM);
 	}
 	
 	/**
@@ -776,7 +749,7 @@ public abstract class ActionBar {
 	 * @see #setDisplayOptions(int, int)
 	 */
 	public final void setDisplayShowHomeEnabled(boolean showHome) {
-		this.setDisplayOptions(showHome ? DISPLAY_SHOW_HOME : 0, DISPLAY_SHOW_HOME);
+		setDisplayOptions(showHome ? DISPLAY_SHOW_HOME : 0, DISPLAY_SHOW_HOME);
 	}
 	
 	/**
@@ -790,7 +763,7 @@ public abstract class ActionBar {
 	 * @see #setDisplayOptions(int, int)
 	 */
 	public final void setDisplayShowTitleEnabled(boolean showTitle) {
-		this.setDisplayOptions(showTitle ? DISPLAY_SHOW_TITLE : 0, DISPLAY_SHOW_TITLE);
+		setDisplayOptions(showTitle ? DISPLAY_SHOW_TITLE : 0, DISPLAY_SHOW_TITLE);
 	}
 	
 	/**
@@ -806,7 +779,7 @@ public abstract class ActionBar {
 	 * @see #setDisplayOptions(int, int)
 	 */
 	public final void setDisplayUseLogoEnabled(boolean useLogo) {
-		this.setDisplayOptions(useLogo ? DISPLAY_USE_LOGO : 0, DISPLAY_USE_LOGO);
+		setDisplayOptions(useLogo ? DISPLAY_USE_LOGO : 0, DISPLAY_USE_LOGO);
 	}
 	
 	/**
@@ -850,7 +823,7 @@ public abstract class ActionBar {
 	 * @see #setDisplayOptions(int, int)
 	 */
 	public final void setSubtitle(int resId) {
-		this.setSubtitle(this.getActivity().getResources().getString(resId));
+		setSubtitle(getActivity().getResources().getString(resId));
 	}
 	
 	/**
@@ -883,7 +856,7 @@ public abstract class ActionBar {
 	 * @see #setDisplayOptions(int, int)
 	 */
 	public final void setTitle(int resId) {
-		this.setTitle(this.getActivity().getResources().getString(resId));
+		setTitle(getActivity().getResources().getString(resId));
 	}
 	
 	/**

@@ -69,27 +69,27 @@ final class ActionBarCustom extends ActionBar {
 		
 		Dropdown(Context context) {
 			super(context);
-			this.mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			setFocusable(true);
 			setWindowLayoutMode(0, LayoutParams.WRAP_CONTENT);
 		}
 		
 		public Dropdown setAdapter(SpinnerAdapter adapter, OnClickListener listener) {
-			this.mAdapter = adapter;
-			this.mListener = listener;
+			mAdapter = adapter;
+			mListener = listener;
 			return this;
 		}
 		
 		public Dropdown setParent(View parent) {
-			this.mParent = parent;
+			mParent = parent;
 			return this;
 		}
 		
 		public void show() {
-			View contentView = this.mInflater.inflate(R.layout.actionbar_list_dropdown, null, false);
+			View contentView = mInflater.inflate(R.layout.actionbar_list_dropdown, null, false);
 			LinearLayout list = (LinearLayout) contentView.findViewById(R.id.actionbar_list_dropdown);
-			for (int i = 0; i < this.mAdapter.getCount(); i++) {
-				View item = this.mAdapter.getDropDownView(i, null, list);
+			for (int i = 0; i < mAdapter.getCount(); i++) {
+				View item = mAdapter.getDropDownView(i, null, list);
 				item.setFocusable(true);
 				item.setTag(new Integer(i));
 				item.setOnClickListener(this);
@@ -97,14 +97,14 @@ final class ActionBarCustom extends ActionBar {
 			}
 
 			setContentView(contentView);
-			setWidth(this.mParent.getWidth());
-			showAsDropDown(this.mParent);
+			setWidth(mParent.getWidth());
+			showAsDropDown(mParent);
 		}
 
 		@Override
 		public void onClick(View view) {
 			dismiss();
-			this.mListener.onClick(null, (Integer)view.getTag());
+			mListener.onClick(null, (Integer)view.getTag());
 		}
 	}
 
@@ -256,7 +256,7 @@ final class ActionBarCustom extends ActionBar {
 	 */
 	private void setDisplayOption(int flag, boolean enabled) {
 		//Remove current value and OR with new value
-		this.mFlags = (this.mFlags & ~flag) | (enabled ? flag : 0);
+		mFlags = (mFlags & ~flag) | (enabled ? flag : 0);
 	}
 	
 	/**
@@ -266,57 +266,58 @@ final class ActionBarCustom extends ActionBar {
 	 * @return Value.
 	 */
 	private boolean getDisplayOptionValue(int flag) {
-		return (this.mFlags & flag) != 0;
+		return (mFlags & flag) == flag;
 	}
 	
 	/**
 	 * Reload the current action bar display state.
 	 */
 	private void reloadDisplay() {
-		final boolean isList = this.mNavigationMode == ActionBar.NAVIGATION_MODE_LIST;
-		final boolean isTab = this.mNavigationMode == NAVIGATION_MODE_TABS;
-		final boolean hasList = (this.mListAdapter != null) && (this.mListAdapter.getCount() > 0);
+		final boolean isStandard = mNavigationMode == ActionBar.NAVIGATION_MODE_STANDARD;
+		final boolean isList = mNavigationMode == ActionBar.NAVIGATION_MODE_LIST;
+		final boolean isTab = mNavigationMode == ActionBar.NAVIGATION_MODE_TABS;
+		final boolean hasList = (mListAdapter != null) && (mListAdapter.getCount() > 0);
 		final boolean showingTitle = getDisplayOptionValue(ActionBar.DISPLAY_SHOW_TITLE);
 		final boolean showingCustom = getDisplayOptionValue(ActionBar.DISPLAY_SHOW_CUSTOM);
 		final boolean usingLogo = getDisplayOptionValue(ActionBar.DISPLAY_USE_LOGO);
-		final boolean hasSubtitle = (this.mSubtitleView.getText() != null) && !this.mSubtitleView.getText().equals(""); 
+		final boolean hasSubtitle = (mSubtitleView.getText() != null) && !mSubtitleView.getText().equals(""); 
 		
 		if (getDisplayOptionValue(ActionBar.DISPLAY_SHOW_HOME)) {
-			this.mHomeAsUp.setVisibility(getDisplayOptionValue(ActionBar.DISPLAY_HOME_AS_UP) ? View.VISIBLE : View.GONE);
-			this.mHomeLogo.setVisibility(usingLogo ? View.VISIBLE : View.GONE);
-			this.mHomeIcon.setVisibility(usingLogo ? View.GONE : View.VISIBLE);
+			mHomeAsUp.setVisibility(getDisplayOptionValue(ActionBar.DISPLAY_HOME_AS_UP) ? View.VISIBLE : View.GONE);
+			mHomeLogo.setVisibility(usingLogo ? View.VISIBLE : View.GONE);
+			mHomeIcon.setVisibility(usingLogo ? View.GONE : View.VISIBLE);
 		} else {
-			this.mHomeAsUp.setVisibility(View.GONE);
-			this.mHomeLogo.setVisibility(View.GONE);
-			this.mHomeIcon.setVisibility(View.GONE);
+			mHomeAsUp.setVisibility(View.GONE);
+			mHomeLogo.setVisibility(View.GONE);
+			mHomeIcon.setVisibility(View.GONE);
 		}
 		
 		//If we are a list, set the list view to the currently selected item
 		if (isList) {
-			View oldView = this.mListView.getChildAt(0);
-			this.mListView.removeAllViews();
+			View oldView = mListView.getChildAt(0);
+			mListView.removeAllViews();
 			if (hasList) {
-				this.mListView.addView(this.mListAdapter.getView(this.mSelectedIndex, oldView, this.mListView));
-				this.mListView.getChildAt(0).setOnClickListener(this.mListClicked);
+				mListView.addView(mListAdapter.getView(mSelectedIndex, oldView, mListView));
+				mListView.getChildAt(0).setOnClickListener(mListClicked);
 			}
 		}
 		
 		//Only show list if we are in list navigation and there are list items
-		this.mListView.setVisibility(isList && hasList ? View.VISIBLE : View.GONE);
-		this.mListIndicator.setVisibility(isList && hasList ? View.VISIBLE : View.GONE);
+		mListView.setVisibility(isList && hasList ? View.VISIBLE : View.GONE);
+		mListIndicator.setVisibility(isList && hasList ? View.VISIBLE : View.GONE);
 
 		// Show tabs if in tabs navigation mode.
-		this.mTabsView.setVisibility(isTab ? View.VISIBLE : View.GONE);
+		mTabsView.setVisibility(isTab ? View.VISIBLE : View.GONE);
 		
 		//Show title view if we are not in list navigation, not showing custom
 		//view, and the show title flag is true
-		this.mTitleView.setVisibility(!isList && !isTab && !showingCustom && showingTitle ? View.VISIBLE : View.GONE);
+		mTitleView.setVisibility(isStandard && !showingCustom && showingTitle ? View.VISIBLE : View.GONE);
 		//Show subtitle view if we are not in list navigation, not showing
 		//custom view, show title flag is true, and a subtitle is set
-		this.mSubtitleView.setVisibility(!isList && !isTab && !showingCustom && showingTitle && hasSubtitle ? View.VISIBLE : View.GONE);
+		mSubtitleView.setVisibility(isStandard && !showingCustom && showingTitle && hasSubtitle ? View.VISIBLE : View.GONE);
 		//Show custom view if we are not in list navigation and showing custom
 		//flag is set
-		this.mCustomView.setVisibility(!isList && !isTab && showingCustom ? View.VISIBLE : View.GONE);
+		mCustomView.setVisibility(isStandard && showingCustom ? View.VISIBLE : View.GONE);
 	}
 	
 	// ------------------------------------------------------------------------
@@ -325,44 +326,44 @@ final class ActionBarCustom extends ActionBar {
 
 	@Override
 	void performAttach() {
-		LinearLayout contentView = new LinearLayout(this.getActivity());
+		LinearLayout contentView = new LinearLayout(getActivity());
 		contentView.setOrientation(LinearLayout.VERTICAL);
 		contentView.setLayoutParams(new ViewGroup.LayoutParams(
 				ViewGroup.LayoutParams.FILL_PARENT,
 				ViewGroup.LayoutParams.FILL_PARENT
 		));
 
-		this.getActivity().requestWindowFeature(Window.FEATURE_NO_TITLE);
-		this.getActivity().setSuperContentView(contentView);
+		getActivity().requestWindowFeature(Window.FEATURE_NO_TITLE);
+		getActivity().setSuperContentView(contentView);
 		
-		this.mBarView = this.getActivity().getLayoutInflater().inflate(R.layout.actionbar, contentView, false);
+		mBarView = getActivity().getLayoutInflater().inflate(R.layout.actionbar, contentView, false);
 		contentView.addView(mBarView);
 		
-		this.mContentView = new FrameLayout(this.getActivity());
-		this.mContentView.setId(R.id.actionbar_content);
-		this.mContentView.setLayoutParams(new ViewGroup.LayoutParams(
+		mContentView = new FrameLayout(getActivity());
+		mContentView.setId(R.id.actionbar_content);
+		mContentView.setLayoutParams(new ViewGroup.LayoutParams(
 				ViewGroup.LayoutParams.FILL_PARENT,
 				ViewGroup.LayoutParams.FILL_PARENT
 		));
-		contentView.addView(this.mContentView);
+		contentView.addView(mContentView);
 		
 		
-		this.mHomeLogo = (ImageView)this.mBarView.findViewById(R.id.actionbar_home_logo);
-		this.mHomeIcon = (ImageView)this.mBarView.findViewById(R.id.actionbar_home_icon);
-		this.mHomeAsUp = this.mBarView.findViewById(R.id.actionbar_home_is_back);
+		mHomeLogo = (ImageView)mBarView.findViewById(R.id.actionbar_home_logo);
+		mHomeIcon = (ImageView)mBarView.findViewById(R.id.actionbar_home_icon);
+		mHomeAsUp = mBarView.findViewById(R.id.actionbar_home_is_back);
 
-		this.mTitleView = (TextView)this.mBarView.findViewById(R.id.actionbar_title);
-		this.mSubtitleView = (TextView)this.mBarView.findViewById(R.id.actionbar_subtitle);
+		mTitleView = (TextView)mBarView.findViewById(R.id.actionbar_title);
+		mSubtitleView = (TextView)mBarView.findViewById(R.id.actionbar_subtitle);
 		
-		this.mListView = (FrameLayout)this.mBarView.findViewById(R.id.actionbar_list);
-		this.mListIndicator = this.mBarView.findViewById(R.id.actionbar_list_indicator);
+		mListView = (FrameLayout)mBarView.findViewById(R.id.actionbar_list);
+		mListIndicator = mBarView.findViewById(R.id.actionbar_list_indicator);
 		
-		this.mCustomView = (FrameLayout)this.mBarView.findViewById(R.id.actionbar_custom);
-		this.mActionsView = (LinearLayout)this.mBarView.findViewById(R.id.actionbar_actions);
-		this.mTabsView = (LinearLayout)this.mBarView.findViewById(R.id.actionbar_tabs);
+		mCustomView = (FrameLayout)mBarView.findViewById(R.id.actionbar_custom);
+		mActionsView = (LinearLayout)mBarView.findViewById(R.id.actionbar_actions);
+		mTabsView = (LinearLayout)mBarView.findViewById(R.id.actionbar_tabs);
 
-		ComponentName componentName = this.getActivity().getComponentName();
-		PackageManager packageManager = this.getActivity().getPackageManager();
+		ComponentName componentName = getActivity().getComponentName();
+		PackageManager packageManager = getActivity().getPackageManager();
 		
 		//Try to load title from the Activity's manifest entry
 		CharSequence title;
@@ -370,13 +371,13 @@ final class ActionBarCustom extends ActionBar {
 			title = packageManager.getActivityInfo(componentName, PackageManager.GET_ACTIVITIES).loadLabel(packageManager);
 		} catch (NameNotFoundException e) {
 			//Can't load/find activity title. Set a default.
-			title = this.getActivity().getApplicationInfo().loadLabel(packageManager);
+			title = getActivity().getApplicationInfo().loadLabel(packageManager);
 		}
 		if ((title == null) || (title.equals(""))) {
 			//Still no title? Fall back to activity class name
-			title = this.getActivity().getClass().getSimpleName();
+			title = getActivity().getClass().getSimpleName();
 		}
-		this.setTitle(title);
+		setTitle(title);
 		
 		//Load icon from the Activity's manifest entry
 		Drawable icon;
@@ -384,23 +385,23 @@ final class ActionBarCustom extends ActionBar {
 			icon = packageManager.getActivityIcon(componentName);
 		} catch (NameNotFoundException e) {
 			//Can't load/find activity icon. Get application icon or default.
-			icon = packageManager.getApplicationIcon(this.getActivity().getApplicationInfo());
+			icon = packageManager.getApplicationIcon(getActivity().getApplicationInfo());
 		}
-		this.mHomeIcon.setImageDrawable(icon);
+		mHomeIcon.setImageDrawable(icon);
 		
 		//Must be >= gingerbread to look for a logo
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-			Drawable logo = LogoLoader.loadLogo(this.getActivity());
+			Drawable logo = LogoLoader.loadLogo(getActivity());
 			if (logo != null) {
-				this.setHomeLogo(logo);
+				setHomeLogo(logo);
 			}
 		}
 		
 		//Show the title and home icon by default
-		this.setDisplayOption(ActionBar.DISPLAY_SHOW_TITLE, true);
-		this.setDisplayOption(ActionBar.DISPLAY_SHOW_HOME, true);
+		setDisplayOption(ActionBar.DISPLAY_SHOW_TITLE, true);
+		setDisplayOption(ActionBar.DISPLAY_SHOW_HOME, true);
 		//Use standard navigation by default (this will call reloadDisplay)
-		this.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+		setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 	}
 
 	@Override
@@ -438,30 +439,30 @@ final class ActionBarCustom extends ActionBar {
 		}
 		
 		//Update action bar display
-		this.mActionsView.removeAllViews();
+		mActionsView.removeAllViews();
 		for (MenuItemImpl item : keep) {
 			//Make sure this item isn't displayed on the options menu
 			item.setIsShownOnActionBar(true);
 			//Add the item view to our action bar view
 			View view = item.getActionBarView();
-			view.setOnClickListener(this.mActionClicked);
-			this.mActionsView.addView(view);
+			view.setOnClickListener(mActionClicked);
+			mActionsView.addView(view);
 		}
 	}
 
 	@Override
 	protected void setContentView(int layoutResId) {
-		this.getActivity().getLayoutInflater().inflate(layoutResId, this.mContentView, true);
+		getActivity().getLayoutInflater().inflate(layoutResId, mContentView, true);
 	}
 
 	@Override
 	protected void setContentView(View view) {
-		this.mContentView.addView(view);
+		mContentView.addView(view);
 	}
 
 	@Override
 	protected void setContentView(View view, ViewGroup.LayoutParams params) {
-		this.mContentView.addView(view, params);
+		mContentView.addView(view, params);
 	}
 
 	@Override
@@ -480,7 +481,7 @@ final class ActionBarCustom extends ActionBar {
 	@Override
 	public void onMenuVisibilityChanged(boolean isVisible) {
 		//Marshal to all listeners
-		for (OnMenuVisibilityListener listener : this.mMenuListeners) {
+		for (OnMenuVisibilityListener listener : mMenuListeners) {
 			listener.onMenuVisibilityChanged(isVisible);
 		}
 	}
@@ -500,14 +501,14 @@ final class ActionBarCustom extends ActionBar {
 
 	@Override
 	public void addOnMenuVisibilityListener(OnMenuVisibilityListener listener) {
-		if (!this.mMenuListeners.contains(listener)) {
-			this.mMenuListeners.add(listener);
+		if (!mMenuListeners.contains(listener)) {
+			mMenuListeners.add(listener);
 		}
 	}
 
 	@Override
 	public void addTab(ActionBar.Tab tab, int position, boolean setSelected) {
-		this.mTabsView.addView(((TabImpl)tab).mView, position);
+		mTabsView.addView(((TabImpl)tab).mView, position);
 		if (setSelected) {
 			tab.select();
 		}
@@ -515,44 +516,44 @@ final class ActionBarCustom extends ActionBar {
 	
 	@Override
 	public View getCustomView() {
-		return this.mCustomView.getChildAt(0);
+		return mCustomView.getChildAt(0);
 	}
 	
 	@Override
 	public int getDisplayOptions() {
-		return this.mFlags;
+		return mFlags;
 	}
 
 	@Override
 	public int getHeight() {
-		return this.mBarView.getHeight();
+		return mBarView.getHeight();
 	}
 
 	@Override
 	public int getNavigationItemCount() {
-		if (this.mNavigationMode == ActionBar.NAVIGATION_MODE_LIST) {
-			return this.mListAdapter.getCount();
+		if (mNavigationMode == ActionBar.NAVIGATION_MODE_LIST) {
+			return mListAdapter.getCount();
 		}
-		if (this.mNavigationMode == ActionBar.NAVIGATION_MODE_TABS) {
-			return this.mTabsView.getChildCount();
+		if (mNavigationMode == ActionBar.NAVIGATION_MODE_TABS) {
+			return mTabsView.getChildCount();
 		}
 		return 0;
 	}
 
 	@Override
 	public int getNavigationMode() {
-		return this.mNavigationMode;
+		return mNavigationMode;
 	}
 
 	@Override
 	public int getSelectedNavigationIndex() {
-		if (this.mNavigationMode == ActionBar.NAVIGATION_MODE_LIST) {
-			return this.mSelectedIndex;
+		if (mNavigationMode == ActionBar.NAVIGATION_MODE_LIST) {
+			return mSelectedIndex;
 		}
-		if (this.mNavigationMode == ActionBar.NAVIGATION_MODE_TABS) {
-			final int count = this.mTabsView.getChildCount();
+		if (mNavigationMode == ActionBar.NAVIGATION_MODE_TABS) {
+			final int count = mTabsView.getChildCount();
 			for (int i = 0; i < count; i++) {
-				if (((TabImpl)this.mTabsView.getChildAt(i).getTag()).mView.isSelected()) {
+				if (((TabImpl)mTabsView.getChildAt(i).getTag()).mView.isSelected()) {
 					return i;
 				}
 			}
@@ -562,9 +563,9 @@ final class ActionBarCustom extends ActionBar {
 
 	@Override
 	public TabImpl getSelectedTab() {
-		final int count = this.mTabsView.getChildCount();
+		final int count = mTabsView.getChildCount();
 		for (int i = 0; i < count; i++) {
-			TabImpl tab = (TabImpl)this.mTabsView.getChildAt(i).getTag();
+			TabImpl tab = (TabImpl)mTabsView.getChildAt(i).getTag();
 			if (tab.mView.isSelected()) {
 				return tab;
 			}
@@ -574,8 +575,8 @@ final class ActionBarCustom extends ActionBar {
 
 	@Override
 	public CharSequence getSubtitle() {
-		if ((this.mNavigationMode == ActionBar.NAVIGATION_MODE_STANDARD) && !this.mSubtitleView.getText().equals("")) {
-			return this.mSubtitleView.getText();
+		if ((mNavigationMode == ActionBar.NAVIGATION_MODE_STANDARD) && !mSubtitleView.getText().equals("")) {
+			return mSubtitleView.getText();
 		} else {
 			return null;
 		}
@@ -583,19 +584,19 @@ final class ActionBarCustom extends ActionBar {
 
 	@Override
 	public TabImpl getTabAt(int index) {
-		View view = this.mTabsView.getChildAt(index);
+		View view = mTabsView.getChildAt(index);
 		return (view != null) ? (TabImpl)view.getTag() : null;
 	}
 
 	@Override
 	public int getTabCount() {
-		return this.mTabsView.getChildCount();
+		return mTabsView.getChildCount();
 	}
 
 	@Override
 	public CharSequence getTitle() {
-		if ((this.mNavigationMode == ActionBar.NAVIGATION_MODE_STANDARD) && !this.mTitleView.getText().equals("")) {
-			return this.mTitleView.getText();
+		if ((mNavigationMode == ActionBar.NAVIGATION_MODE_STANDARD) && !mTitleView.getText().equals("")) {
+			return mTitleView.getText();
 		} else {
 			return null;
 		}
@@ -603,12 +604,12 @@ final class ActionBarCustom extends ActionBar {
 
 	@Override
 	public void hide() {
-		this.mBarView.setVisibility(View.GONE);
+		mBarView.setVisibility(View.GONE);
 	}
 
 	@Override
 	public boolean isShowing() {
-		return this.mBarView.getVisibility() == View.VISIBLE;
+		return mBarView.getVisibility() == View.VISIBLE;
 	}
 	
 	@Override
@@ -618,25 +619,25 @@ final class ActionBarCustom extends ActionBar {
 
 	@Override
 	public void removeAllTabs() {
-		TabImpl selected = this.getSelectedTab();
+		TabImpl selected = getSelectedTab();
 		if (selected != null) {
 			selected.unselect();
 		}
-		this.mTabsView.removeAllViews();
+		mTabsView.removeAllViews();
 	}
 
 	@Override
 	public void removeOnMenuVisibilityListener(OnMenuVisibilityListener listener) {
-		this.mMenuListeners.remove(listener);
+		mMenuListeners.remove(listener);
 	}
 
 	@Override
 	public void removeTab(ActionBar.Tab tab) {
-		final int count = this.mTabsView.getChildCount();
+		final int count = mTabsView.getChildCount();
 		for (int i = 0; i < count; i++) {
-			TabImpl existingTab = (TabImpl)this.mTabsView.getChildAt(i).getTag();
+			TabImpl existingTab = (TabImpl)mTabsView.getChildAt(i).getTag();
 			if (existingTab.equals(tab)) {
-				this.removeTabAt(i);
+				removeTabAt(i);
 				break;
 			}
 		}
@@ -644,68 +645,68 @@ final class ActionBarCustom extends ActionBar {
 
 	@Override
 	public void removeTabAt(int position) {
-		TabImpl tab = (TabImpl)this.getTabAt(position);
+		TabImpl tab = (TabImpl)getTabAt(position);
 		if (tab != null) {
 			tab.unselect();
-			this.mTabsView.removeViewAt(position);
+			mTabsView.removeViewAt(position);
 		
 			if (position > 0) {
 				//Select previous tab
-				((TabImpl)this.mTabsView.getChildAt(position - 1).getTag()).select();
-			} else if (this.mTabsView.getChildCount() > 0) {
+				((TabImpl)mTabsView.getChildAt(position - 1).getTag()).select();
+			} else if (mTabsView.getChildCount() > 0) {
 				//Select first tab
-				((TabImpl)this.mTabsView.getChildAt(0).getTag()).select();
+				((TabImpl)mTabsView.getChildAt(0).getTag()).select();
 			}
 		}
 	}
 
 	@Override
 	public void setBackgroundDrawable(Drawable d) {
-		this.mBarView.setBackgroundDrawable(d);
+		mBarView.setBackgroundDrawable(d);
 	}
 
 	@Override
 	public void setCustomView(int resId) {
-		this.mCustomView.removeAllViews();
-		this.getActivity().getLayoutInflater().inflate(resId, this.mCustomView, true);
-		this.setDisplayShowCustomEnabled(true);
+		mCustomView.removeAllViews();
+		getActivity().getLayoutInflater().inflate(resId, mCustomView, true);
+		setDisplayShowCustomEnabled(true);
 	}
 
 	@Override
 	public void setCustomView(View view) {
-		this.mCustomView.removeAllViews();
-		this.mCustomView.addView(view);
-		this.setDisplayShowCustomEnabled(true);
+		mCustomView.removeAllViews();
+		mCustomView.addView(view);
+		setDisplayShowCustomEnabled(true);
 	}
 	
 	@Override
 	public void setCustomView(View view, LayoutParams layoutParams) {
-		this.mCustomView.removeAllViews();
-		this.mCustomView.addView(view, layoutParams);
-		this.setDisplayShowCustomEnabled(true);
+		mCustomView.removeAllViews();
+		mCustomView.addView(view, layoutParams);
+		setDisplayShowCustomEnabled(true);
 	}
 
 	@Override
 	public void setDisplayOptions(int options, int mask) {
-		this.mFlags = (this.mFlags & ~mask) | options;
-		this.reloadDisplay();
+		mFlags = (mFlags & ~mask) | options;
+		reloadDisplay();
 	}
 
 	@Override
 	public void setDisplayOptions(int options) {
-		this.mFlags = options;
-		this.reloadDisplay();
+		mFlags = options;
+		reloadDisplay();
 	}
 
 	@Override
 	public void setListNavigationCallbacks(SpinnerAdapter adapter, ActionBar.OnNavigationListener callback) {
 		//Reset selected item
-		this.mSelectedIndex = 0;
+		mSelectedIndex = 0;
 		//Save adapter and callback
-		this.mListAdapter = adapter;
-		this.mListCallback = callback;
+		mListAdapter = adapter;
+		mListCallback = callback;
 		
-		this.reloadDisplay();
+		reloadDisplay();
 	}
 
 	@Override
@@ -715,26 +716,26 @@ final class ActionBarCustom extends ActionBar {
 			throw new IllegalArgumentException("Unknown navigation mode value " + Integer.toString(mode));
 		}
 		
-		if (mode != this.mNavigationMode) {
-			this.mNavigationMode = mode;
-			this.mSelectedIndex = (mode == ActionBar.NAVIGATION_MODE_STANDARD) ? -1 : 0;
-			this.reloadDisplay();
+		if (mode != mNavigationMode) {
+			mNavigationMode = mode;
+			mSelectedIndex = (mode == ActionBar.NAVIGATION_MODE_STANDARD) ? -1 : 0;
+			reloadDisplay();
 		}
 	}
 
 	@Override
 	public void setSelectedNavigationItem(int position) {
-		if ((this.mNavigationMode != ActionBar.NAVIGATION_MODE_STANDARD) && (position != this.mSelectedIndex)) {
-			this.mSelectedIndex = position;
-			this.reloadDisplay();
+		if ((mNavigationMode != ActionBar.NAVIGATION_MODE_STANDARD) && (position != mSelectedIndex)) {
+			mSelectedIndex = position;
+			reloadDisplay();
 		}
 	}
 
 	@Override
 	public void selectTab(ActionBar.Tab tab) {
-		final int count = this.mTabsView.getChildCount();
+		final int count = mTabsView.getChildCount();
 		for (int i = 0; i < count; i++) {
-			TabImpl existingTab = (TabImpl)this.mTabsView.getChildAt(i).getTag();
+			TabImpl existingTab = (TabImpl)mTabsView.getChildAt(i).getTag();
 			if (existingTab.equals(tab)) {
 				existingTab.select();
 				break;
@@ -744,18 +745,18 @@ final class ActionBarCustom extends ActionBar {
 
 	@Override
 	public void setSubtitle(CharSequence subtitle) {
-		this.mSubtitleView.setText((subtitle == null) ? "" : subtitle);
-		this.reloadDisplay();
+		mSubtitleView.setText((subtitle == null) ? "" : subtitle);
+		reloadDisplay();
 	}
 
 	@Override
 	public void setTitle(CharSequence title) {
-		this.mTitleView.setText((title == null) ? "" : title);
+		mTitleView.setText((title == null) ? "" : title);
 	}
 
 	@Override
 	public void show() {
-		this.mBarView.setVisibility(View.VISIBLE);
+		mBarView.setVisibility(View.VISIBLE);
 	}
 	
 	// ------------------------------------------------------------------------
@@ -779,7 +780,7 @@ final class ActionBarCustom extends ActionBar {
 	 * @see #setHomeLogo(Drawable)
 	 */
 	public void setHomeLogo(int resId) {
-		this.mHomeLogo.setImageResource(resId);
+		mHomeLogo.setImageResource(resId);
 	}
 
 	/**
@@ -799,7 +800,7 @@ final class ActionBarCustom extends ActionBar {
 	 * @see #setHomeLogo(int)
 	 */
 	public void setHomeLogo(Drawable logo) {
-		this.mHomeLogo.setImageDrawable(logo);
+		mHomeLogo.setImageDrawable(logo);
 	}
 	
 	// ------------------------------------------------------------------------
@@ -818,41 +819,41 @@ final class ActionBarCustom extends ActionBar {
 		
 		
 		TabImpl(ActionBarCustom actionBar) {
-			this.mActionBar = actionBar;
-			this.mView = actionBar.getActivity().getLayoutInflater().inflate(R.layout.actionbar_tab, actionBar.mTabsView, false);
-			this.mView.setTag(this);
-			this.mView.setOnClickListener(this);
+			mActionBar = actionBar;
+			mView = actionBar.getActivity().getLayoutInflater().inflate(R.layout.actionbar_tab, actionBar.mTabsView, false);
+			mView.setTag(this);
+			mView.setOnClickListener(this);
 			
-			this.mIconView = (ImageView)this.mView.findViewById(R.id.actionbar_tab_icon);
-			this.mTextView = (TextView)this.mView.findViewById(R.id.actionbar_tab);
-			this.mCustomView = (FrameLayout)this.mView.findViewById(R.id.actionbar_tab_custom);
+			mIconView = (ImageView)mView.findViewById(R.id.actionbar_tab_icon);
+			mTextView = (TextView)mView.findViewById(R.id.actionbar_tab);
+			mCustomView = (FrameLayout)mView.findViewById(R.id.actionbar_tab_custom);
 		}
 		
 		/**
 		 * Update display to reflect current property state.
 		 */
 		void reloadDisplay() {
-			boolean hasCustom = this.mCustomView.getChildCount() > 0;
-			this.mIconView.setVisibility(hasCustom ? View.GONE : View.VISIBLE);
-			this.mTextView.setVisibility(hasCustom ? View.GONE : View.VISIBLE);
-			this.mCustomView.setVisibility(hasCustom ? View.VISIBLE : View.GONE);
+			boolean hasCustom = mCustomView.getChildCount() > 0;
+			mIconView.setVisibility(hasCustom ? View.GONE : View.VISIBLE);
+			mTextView.setVisibility(hasCustom ? View.GONE : View.VISIBLE);
+			mCustomView.setVisibility(hasCustom ? View.VISIBLE : View.GONE);
 		}
 
 		@Override
 		public View getCustomView() {
-			return this.mCustomView.getChildAt(0);
+			return mCustomView.getChildAt(0);
 		}
 
 		@Override
 		public Drawable getIcon() {
-			return this.mIconView.getDrawable();
+			return mIconView.getDrawable();
 		}
 
 		@Override
 		public int getPosition() {
-			final int count = this.mActionBar.mTabsView.getChildCount();
+			final int count = mActionBar.mTabsView.getChildCount();
 			for (int i = 0; i < count; i++) {
-				if (this.mActionBar.mTabsView.getChildAt(i).getTag().equals(this)) {
+				if (mActionBar.mTabsView.getChildAt(i).getTag().equals(this)) {
 					return i;
 				}
 			}
@@ -861,12 +862,12 @@ final class ActionBarCustom extends ActionBar {
 
 		@Override
 		public TabListener getTabListener() {
-			return this.mListener;
+			return mListener;
 		}
 
 		@Override
 		public Object getTag() {
-			return this.mTag;
+			return mTag;
 		}
 
 		@Override
@@ -876,75 +877,75 @@ final class ActionBarCustom extends ActionBar {
 
 		@Override
 		public TabImpl setCustomView(int layoutResId) {
-			this.mCustomView.removeAllViews();
-			this.mActionBar.getActivity().getLayoutInflater().inflate(layoutResId, this.mCustomView, true);
-			this.reloadDisplay();
+			mCustomView.removeAllViews();
+			mActionBar.getActivity().getLayoutInflater().inflate(layoutResId, mCustomView, true);
+			reloadDisplay();
 			return this;
 		}
 
 		@Override
 		public TabImpl setCustomView(View view) {
-			this.mCustomView.removeAllViews();
+			mCustomView.removeAllViews();
 			if (view != null) {
-				this.mCustomView.addView(view);
+				mCustomView.addView(view);
 			}
-			this.reloadDisplay();
+			reloadDisplay();
 			return this;
 		}
 
 		@Override
 		public TabImpl setIcon(Drawable icon) {
-			this.mIconView.setImageDrawable(icon);
+			mIconView.setImageDrawable(icon);
 			return this;
 		}
 
 		@Override
 		public TabImpl setIcon(int resId) {
-			this.mIconView.setImageResource(resId);
+			mIconView.setImageResource(resId);
 			return this;
 		}
 
 		@Override
 		public TabImpl setTabListener(TabListener listener) {
-			this.mListener = listener;
+			mListener = listener;
 			return this;
 		}
 
 		@Override
 		public TabImpl setTag(Object obj) {
-			this.mTag = obj;
+			mTag = obj;
 			return this;
 		}
 
 		@Override
 		public TabImpl setText(int resId) {
-			this.mTextView.setText(resId);
+			mTextView.setText(resId);
 			return this;
 		}
 
 		@Override
 		public TabImpl setText(CharSequence text) {
-			this.mTextView.setText(text);
+			mTextView.setText(text);
 			return this;
 		}
 
 		@Override
 		public void select() {
-			if (this.mView.isSelected()) {
-				if (this.mListener != null) {
-					this.mListener.onTabReselected(this, null);
+			if (mView.isSelected()) {
+				if (mListener != null) {
+					mListener.onTabReselected(this, null);
 				}
 				return;
 			}
 			
-			TabImpl current = this.mActionBar.getSelectedTab();
+			TabImpl current = mActionBar.getSelectedTab();
 			if (current != null) {
 				current.unselect();
 			}
 			
-			this.mView.setSelected(true);
-			if (this.mListener != null) {
-				this.mListener.onTabSelected(this, null);
+			mView.setSelected(true);
+			if (mListener != null) {
+				mListener.onTabSelected(this, null);
 			}
 		}
 
@@ -953,18 +954,18 @@ final class ActionBarCustom extends ActionBar {
 		 * action bar and was previously selected.
 		 */
 		void unselect() {
-			if (this.mView.isSelected()) {
-				this.mView.setSelected(false);
+			if (mView.isSelected()) {
+				mView.setSelected(false);
 
-				if (this.mListener != null) {
-					this.mListener.onTabUnselected(this, null);
+				if (mListener != null) {
+					mListener.onTabUnselected(this, null);
 				}
 			}
 		}
 
 		@Override
 		public void onClick(View v) {
-			this.select();
+			select();
 		}
 	}
 }

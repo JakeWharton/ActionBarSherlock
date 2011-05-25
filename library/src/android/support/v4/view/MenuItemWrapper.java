@@ -30,7 +30,7 @@ import android.view.ContextMenu.ContextMenuInfo;
  * 
  * <p>For a feature set of specific menu types, see {@link Menu}.</p>
  */
-public final class MenuItemHoneycombWrapper implements MenuItem {
+public final class MenuItemWrapper implements MenuItem {
 	private static final class HoneycombMenuItem {
 		static View getActionView(android.view.MenuItem item) {
 			return item.getActionView();
@@ -60,7 +60,7 @@ public final class MenuItemHoneycombWrapper implements MenuItem {
 	 * 
 	 * @param menuItem Native instance.
 	 */
-	public MenuItemHoneycombWrapper(android.view.MenuItem menuItem) {
+	public MenuItemWrapper(android.view.MenuItem menuItem) {
 		this.mMenuItem = menuItem;
 	}
 	
