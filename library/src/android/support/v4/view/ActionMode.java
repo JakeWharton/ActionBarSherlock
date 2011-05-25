@@ -16,8 +16,8 @@
 
 package android.support.v4.view;
 
-import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 /**
@@ -187,80 +187,4 @@ public abstract class ActionMode {
 	 * @see #setCustomView(View)
 	 */
 	public abstract void setTitle(CharSequence title);
-}
-
-final class ActionModeImpl extends ActionMode {
-	private final FragmentActivity mActivity;
-	
-	private View mView;
-	private CharSequence mTitle;
-	private CharSequence mSubtitle;
-	
-	
-	ActionModeImpl(FragmentActivity activity) {
-		this.mActivity = activity;
-	}
-	
-
-	@Override
-	public void finish() {
-		// TODO Auto-generated method stub
-	}
-	
-	@Override
-	public View getCustomView() {
-		return this.mView;
-	}
-
-	@Override
-	public Menu getMenu() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public MenuInflater getMenuInflater() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public CharSequence getSubtitle() {
-		return this.mSubtitle;
-	}
-
-	@Override
-	public CharSequence getTitle() {
-		return this.mTitle;
-	}
-
-	@Override
-	public void invalidate() {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void setCustomView(View view) {
-		this.mView = view;
-	}
-
-	@Override
-	public void setSubtitle(int resId) {
-		this.setSubtitle(this.mActivity.getResources().getString(resId));
-	}
-
-	@Override
-	public void setSubtitle(CharSequence subtitle) {
-		this.mSubtitle = subtitle;
-	}
-
-	@Override
-	public void setTitle(int resId) {
-		this.setTitle(this.mActivity.getResources().getString(resId));
-	}
-
-	@Override
-	public void setTitle(CharSequence title) {
-		this.mTitle = title;
-	}
 }

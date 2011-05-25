@@ -29,7 +29,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.ActionMode;
+import android.support.v4.view.ActionMode;
 import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -135,10 +135,8 @@ public class ContentFragment extends Fragment {
                     return false;
                 }
 
-                /*
                 mCurrentActionMode = getActivity().startActionMode(
                         mContentSelectionActionModeCallback);
-                */
                 mContentView.setSelected(true);
                 return true;
             }
@@ -273,7 +271,6 @@ public class ContentFragment extends Fragment {
      * provide contextual actions for the selected photo. We currently only provide the 'share'
      * action, but we could also add clipboard functions such as cut/copy/paste here as well.
      */
-    /*
     private ActionMode.Callback mContentSelectionActionModeCallback = new ActionMode.Callback() {
         public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
             actionMode.setTitle(R.string.photo_selection_cab_title);
@@ -302,5 +299,4 @@ public class ContentFragment extends Fragment {
             mCurrentActionMode = null;
         }
     };
-    */
 }

@@ -17,8 +17,13 @@
 package android.support.v4.app;
 
 import java.util.HashMap;
+import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.v4.view.ActionMode;
+import android.support.v4.view.MenuInflater;
 import android.support.v4.view.MenuBuilder;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.SpinnerAdapter;
 
@@ -39,6 +44,7 @@ final class ActionBarNative {
 	 * <p>Handler for Android's native {@link android.app.ActionBar}.</p>
 	 */
 	static final class Impl extends ActionBar implements android.app.ActionBar.TabListener {
+		/** Mapping between support listeners and native listeners. */
 		private final HashMap<OnMenuVisibilityListener, android.app.ActionBar.OnMenuVisibilityListener> mMenuListenerMap = new HashMap<OnMenuVisibilityListener, android.app.ActionBar.OnMenuVisibilityListener>();
 		
 		/**
@@ -127,6 +133,114 @@ final class ActionBarNative {
 		@Override
 		void performAttach() {
 			throw new IllegalStateException("This should never be utilized for the native ActionBar.");
+		}
+		
+		// ---------------------------------------------------------------------
+		// ACTION MODE SUPPORT
+		// ---------------------------------------------------------------------
+		
+		@Override
+		ActionMode startActionMode(final ActionMode.Callback callback) {
+			//We have to re-wrap the instances in every callback since the
+			//wrapped instance is needed before we could have a change to
+			//properly store it.
+			return new ActionModeWrapper(getActivity(),
+				getActivity().startActionMode(new android.view.ActionMode.Callback() {
+					@Override
+					public boolean onPrepareActionMode(android.view.ActionMode mode, Menu menu) {
+						return callback.onPrepareActionMode(new ActionModeWrapper(getActivity(), mode), menu);
+					}
+					
+					@Override
+					public void onDestroyActionMode(android.view.ActionMode mode) {
+						final ActionMode actionMode = new ActionModeWrapper(getActivity(), mode);
+						callback.onDestroyActionMode(actionMode);
+						
+						//Send the activity callback once the action mode callback has run
+						getActivity().onActionModeFinished(actionMode);
+					}
+					
+					@Override
+					public boolean onCreateActionMode(android.view.ActionMode mode, Menu menu) {
+						return callback.onCreateActionMode(new ActionModeWrapper(getActivity(), mode), menu);
+					}
+					
+					@Override
+					public boolean onActionItemClicked(android.view.ActionMode mode, MenuItem item) {
+						return callback.onActionItemClicked(new ActionModeWrapper(getActivity(), mode), item);
+					}
+				})
+			);
+		}
+
+		private static class ActionModeWrapper extends ActionMode {
+			private final Context mContext;
+			private final android.view.ActionMode mActionMode;
+			
+			ActionModeWrapper(Context context, android.view.ActionMode actionMode) {
+				mContext = context;
+				mActionMode = actionMode;
+			}
+			
+			@Override
+			public void finish() {
+				mActionMode.finish();
+			}
+
+			@Override
+			public View getCustomView() {
+				return mActionMode.getCustomView();
+			}
+
+			@Override
+			public Menu getMenu() {
+				return mActionMode.getMenu();
+			}
+
+			@Override
+			public MenuInflater getMenuInflater() {
+				return new MenuInflater(mContext);
+			}
+
+			@Override
+			public CharSequence getSubtitle() {
+				return mActionMode.getSubtitle();
+			}
+
+			@Override
+			public CharSequence getTitle() {
+				return mActionMode.getTitle();
+			}
+
+			@Override
+			public void invalidate() {
+				mActionMode.invalidate();
+			}
+
+			@Override
+			public void setCustomView(View view) {
+				mActionMode.setCustomView(view);
+			}
+
+			@Override
+			public void setSubtitle(int resId) {
+				mActionMode.setSubtitle(resId);
+			}
+
+			@Override
+			public void setSubtitle(CharSequence subtitle) {
+				mActionMode.setSubtitle(subtitle);
+			}
+
+			@Override
+			public void setTitle(int resId) {
+				mActionMode.setTitle(resId);
+			}
+
+			@Override
+			public void setTitle(CharSequence title) {
+				mActionMode.setTitle(title);
+			}
 		}
 		
 		// ---------------------------------------------------------------------

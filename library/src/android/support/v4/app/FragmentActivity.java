@@ -31,6 +31,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Parcelable;
+import android.support.v4.view.ActionMode;
 import android.support.v4.view.MenuBuilder;
 import android.support.v4.view.MenuInflater;
 import android.support.v4.view.MenuItemImpl;
@@ -249,7 +250,9 @@ public class FragmentActivity extends Activity {
 		}
 		
 		super.onCreate(savedInstanceState);
-		getSupportActionBar().performAttach();
+		if (!IS_HONEYCOMB) {
+			getSupportActionBar().performAttach();
+		}
 		
 		NonConfigurationInstances nc = (NonConfigurationInstances)
 				getLastNonConfigurationInstance();
@@ -772,54 +775,67 @@ public class FragmentActivity extends Activity {
 		return mActionBar;
 	}
 
-	///**
-	// * Notifies the activity that an action mode has finished. Activity
-	// * subclasses overriding this method should call the superclass
-	// * implementation.
-	// * 
-	// * @param mode The action mode that just finished.
-	// */
-	//public void onActionModeFinished(ActionMode mode) {
-	//}
-	//
-	///**
-	// * Notifies the Activity that an action mode has been started. Activity
-	// * subclasses overriding this method should call the superclass
-	// * implementation.
-	// * 
-	// * @param mode The new action mode.
-	// */
-	//public void onActionModeStarted(ActionMode mode) {
-	//}
-	//
-	///**
-	// * <p>Give the Activity a chance to control the UI for an action mode
-	// * requested by the system.</p>
-	// * 
-	// * <p>Note: If you are looking for a notification callback that an action
-	// * mode has been started for this activity, see
-	// * {@link #onActionModeStarted(ActionMode)}.</p>
-	// * 
-	// * @param callback The callback that should control the new action mode
-	// * @return The new action mode, or null if the activity does not want to
-	// * provide special handling for this action mode. (It will be handled by the
-	// * system.)
-	// */
-	//public ActionMode onWindowStartingActionMode(ActionMode.Callback callback) {
-	//	return null;
-	//}
-	//
-	///**
-	// * Start an action mode.
-	// * 
-	// * @param callback Callback that will manage lifecycle events for this
-	// * context mode
-	// * @return The ContextMode that was started, or null if it was cancelled
-	// * @see android.support.v4.view.ActionMode
-	// */
-	//public ActionMode startActionMode(final ActionMode.Callback callback) {
-	//	return this.mActionBar.startActionMode(callback);
-	//}
+	/**
+	 * Notifies the activity that an action mode has finished. Activity
+	 * subclasses overriding this method should call the superclass
+	 * implementation.
+	 * 
+	 * @param mode The action mode that just finished.
+	 */
+	public void onActionModeFinished(ActionMode mode) {
+	}
+	
+	/**
+	 * Notifies the Activity that an action mode has been started. Activity
+	 * subclasses overriding this method should call the superclass
+	 * implementation.
+	 * 
+	 * @param mode The new action mode.
+	 */
+	public void onActionModeStarted(ActionMode mode) {
+	}
+	
+	/**
+	 * <p>Give the Activity a chance to control the UI for an action mode
+	 * requested by the system.</p>
+	 * 
+	 * <p>Note: If you are looking for a notification callback that an action
+	 * mode has been started for this activity, see
+	 * {@link #onActionModeStarted(ActionMode)}.</p>
+	 * 
+	 * @param callback The callback that should control the new action mode
+	 * @return The new action mode, or null if the activity does not want to
+	 * provide special handling for this action mode. (It will be handled by the
+	 * system.)
+	 */
+	public ActionMode onWindowStartingActionMode(ActionMode.Callback callback) {
+		return null;
+	}
+	
+	/**
+	 * Start an action mode.
+	 * 
+	 * @param callback Callback that will manage lifecycle events for this
+	 * context mode
+	 * @return The ContextMode that was started, or null if it was cancelled
+	 * @see android.support.v4.view.ActionMode
+	 */
+	public final ActionMode startActionMode(final ActionMode.Callback callback) {
+		//Give the activity override a chance to handle the action mode
+		ActionMode actionMode = onWindowStartingActionMode(callback);
+		
+		if (actionMode == null) {
+			//If the activity did not handle, send to action bar for platform-
+			//specific implementation
+			actionMode = this.mActionBar.startActionMode(callback);
+		}
+		
+		//Send the activity callback that our action mode was started
+		onActionModeStarted(actionMode);
+		
+		//Return to the caller
+		return actionMode;
+	}
 
 	// ------------------------------------------------------------------------
 	// FRAGMENT SUPPORT

@@ -28,10 +28,12 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.v4.view.ActionMode;
 import android.support.v4.view.MenuBuilder;
 import android.support.v4.view.MenuItem;
 import android.support.v4.view.MenuItemImpl;
 import android.support.v4.view.Window;
+import android.support.v4.view.ActionMode.Callback;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -482,6 +484,15 @@ final class ActionBarCustom extends ActionBar {
 		for (OnMenuVisibilityListener listener : this.mMenuListeners) {
 			listener.onMenuVisibilityChanged(isVisible);
 		}
+	}
+	
+	// ------------------------------------------------------------------------
+	// ACTION MODE METHODS
+	// ------------------------------------------------------------------------
+
+	@Override
+	ActionMode startActionMode(Callback callback) {
+		throw new RuntimeException("Not implemented.");
 	}
 	
 	// ------------------------------------------------------------------------

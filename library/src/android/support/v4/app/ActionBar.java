@@ -18,6 +18,7 @@ package android.support.v4.app;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.v4.view.ActionMode;
 import android.support.v4.view.MenuBuilder;
 import android.util.AttributeSet;
 import android.view.View;
@@ -122,6 +123,12 @@ public abstract class ActionBar {
 	 * attachment to the activity.
 	 */
 	abstract void performAttach();
+	
+	// ------------------------------------------------------------------------
+	// ACTION MODE SUPPORT
+	// ------------------------------------------------------------------------
+	
+	abstract ActionMode startActionMode(ActionMode.Callback callback);
 	
 	// ------------------------------------------------------------------------
 	// ACTION BAR SUPPORT
