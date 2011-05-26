@@ -6,12 +6,28 @@ import com.jakewharton.android.actionbarsherlock.sample.featuredemo.R;
 import android.os.Bundle;
 import android.support.v4.app.ActionBar;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.Menu;
+import android.support.v4.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.SpinnerAdapter;
 
 public class FeatureDemoActivity extends FragmentActivity {
 	private static final Random RANDOM = new Random();
+	
+	private int items = 0;
+	
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		for (int i = 0; i < items; i++) {
+			menu.add("Item")
+				.setIcon(R.drawable.ic_title_share_default)
+				.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+		}
+		
+		return super.onCreateOptionsMenu(menu);
+	}
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -24,6 +40,21 @@ public class FeatureDemoActivity extends FragmentActivity {
         
         SpinnerAdapter listAdapter = ArrayAdapter.createFromResource(this, R.array.locations, R.layout.actionbar_list_dropdown_item);
         getSupportActionBar().setListNavigationCallbacks(listAdapter, null);
+        
+        findViewById(R.id.display_items_clear).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				items = 0;
+				invalidateOptionsMenu();
+			}
+		});
+        findViewById(R.id.display_items_add).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				items += 1;
+				invalidateOptionsMenu();
+			}
+		});
         
         findViewById(R.id.display_subtitle_show).setOnClickListener(new View.OnClickListener() {
             @Override

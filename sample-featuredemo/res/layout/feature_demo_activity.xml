@@ -122,6 +122,33 @@
                     android:text="Remove All" />
             </LinearLayout>
             
+            <!-- ACTION ITEMS DISPLAY -->
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dip"
+                android:text="Action Items Display" />
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dip">
+                <Button
+                    android:id="@+id/display_items_clear"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Clear" />
+                <Button
+                    android:id="@+id/display_items_add"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Add" />
+            </LinearLayout>
+            
             <!-- TITLE DISPLAY -->
             <TextView
                 android:layout_width="fill_parent"
