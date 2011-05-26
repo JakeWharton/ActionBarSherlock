@@ -125,18 +125,6 @@ public class FragmentActivity extends Activity {
 		public static final int Fragment_tag = 2;
 	}
 	
-	/**
-	 * Implementation of activity compatibility that can call Honeycomb APIs.
-	 */
-	private static final class ActivityCompatHoneycomb {
-		private static final String TAG = FragmentActivity.TAG + "$" + ActivityCompatHoneycomb.class.getSimpleName();
-		
-	    static void invalidateOptionsMenu(Activity activity) {
-	    	if (DEBUG) Log.d(TAG, "invalidateOptionsMenu(Activity): Calling through to native method.");
-	        activity.invalidateOptionsMenu();
-	    }
-	}
-
 
 	
 	public FragmentActivity() {
@@ -298,7 +286,7 @@ public class FragmentActivity extends Activity {
 		
 		super.onCreate(savedInstanceState);
 		if (!IS_HONEYCOMB) {
-			getSupportActionBar().performAttach();
+			mActionBar.performAttach();
 		}
 		
 		NonConfigurationInstances nc = (NonConfigurationInstances)
@@ -314,7 +302,7 @@ public class FragmentActivity extends Activity {
 		
 		if (!IS_HONEYCOMB) {
 			//Trigger menu inflation
-			supportInvalidateOptionsMenu();
+			invalidateOptionsMenu();
 		}
 	}
 	
@@ -446,6 +434,29 @@ public class FragmentActivity extends Activity {
 		return fragment.mView;
 	}
 
+	public void invalidateOptionsMenu() {
+		if (DEBUG) Log.d(TAG, "supportInvalidateOptionsMenu(): Invalidating menu.");
+		
+		if (IS_HONEYCOMB) {
+			super.invalidateOptionsMenu();
+		} else {
+			mActionBarMenu.clear();
+			
+			mOptionsMenuCreateResult  = onCreateOptionsMenu(mActionBarMenu);
+			mOptionsMenuCreateResult |= mFragments.dispatchCreateOptionsMenu(mActionBarMenu, getMenuInflater());
+			
+			//Since we now know we are using a custom action bar, perform the
+			//inflation callback to allow it to display any items it wants.
+			//Any items that were displayed will have a boolean toggled so that we
+			//do not display them on the options menu.
+			mActionBar.onMenuInflated(mActionBarMenu);
+			
+			// Whoops, older platform...  we'll use a hack, to manually rebuild
+			// the options menu the next time it is prepared.
+			mOptionsMenuInvalidated = true;
+		}
+	}
+	
 	/**
 	 * Destroy all fragments and loaders.
 	 */
@@ -747,32 +758,6 @@ public class FragmentActivity extends Activity {
 	// ------------------------------------------------------------------------
 	// NEW METHODS
 	// ------------------------------------------------------------------------
-	
-	void supportInvalidateOptionsMenu() {
-		if (DEBUG) Log.d(TAG, "supportInvalidateOptionsMenu(): Invalidating menu.");
-		
-		if (IS_HONEYCOMB) {
-			// If we are running on HC or greater, we can use the framework
-			// API to invalidate the options menu.
-			ActivityCompatHoneycomb.invalidateOptionsMenu(this);
-			return;
-		}
-		
-		mActionBarMenu.clear();
-		
-		mOptionsMenuCreateResult  = onCreateOptionsMenu(mActionBarMenu);
-		mOptionsMenuCreateResult |= mFragments.dispatchCreateOptionsMenu(mActionBarMenu, getMenuInflater());
-		
-		//Since we now know we are using a custom action bar, perform the
-		//inflation callback to allow it to display any items it wants.
-		//Any items that were displayed will have a boolean toggled so that we
-		//do not display them on the options menu.
-		mActionBar.onMenuInflated(mActionBarMenu);
-		
-		// Whoops, older platform...  we'll use a hack, to manually rebuild
-		// the options menu the next time it is prepared.
-		mOptionsMenuInvalidated = true;
-	}
 	
 	/**
 	 * Print the Activity's state into the given stream.  This gets invoked if

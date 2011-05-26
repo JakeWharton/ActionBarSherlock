@@ -992,7 +992,7 @@ final class FragmentManagerImpl extends FragmentManager {
             }
 
             if (mNeedMenuInvalidate && mActivity != null) {
-                mActivity.supportInvalidateOptionsMenu();
+                mActivity.invalidateOptionsMenu();
                 mNeedMenuInvalidate = false;
             }
         }
