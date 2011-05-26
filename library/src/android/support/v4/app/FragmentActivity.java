@@ -617,6 +617,26 @@ public class FragmentActivity extends Activity {
 		if (DEBUG) Log.d(TAG, "onPrepareOptionsMenu(android.view.Menu): Returning " + result);
 		return result;
 	}
+	
+	/**
+	 * Cause this Activity to be recreated with a new instance. This results in
+	 * essentially the same flow as when the Activity is created due to a
+	 * configuration change -- the current instance will go through its
+	 * lifecycle to onDestroy() and a new instance then created after it. 
+	 */
+	public void recreate() {
+		if (IS_HONEYCOMB) {
+			super.recreate();
+		} else {
+			final Intent intent = getIntent();
+			overridePendingTransition(0, 0);
+			intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+			finish();
+
+			overridePendingTransition(0, 0);
+			startActivity(intent);
+		}
+	}
 
 	/**
 	 * Ensure any outstanding fragment transactions have been committed.
