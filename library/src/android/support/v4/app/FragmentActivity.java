@@ -228,6 +228,15 @@ public class FragmentActivity extends Activity {
 	final void setSuperContentView(View view) {
 		super.setContentView(view);
 	}
+
+	/**
+	 * Hook into the superclass's setContentView implementation.
+	 * 
+	 * @param layoutResId Resource ID of layout.
+	 */
+	final void setSuperContentView(int layoutResId) {
+		super.setContentView(layoutResId);
+	}
 	
 	/**
 	 * Dispatch incoming result to the correct fragment.

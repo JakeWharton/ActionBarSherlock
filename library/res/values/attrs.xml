@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<attr name="background" format="reference|color" />
+	<attr name="height" format="reference|dimension" />
+	<attr name="subtitleTextStyle" format="reference" />
+	<attr name="titleTextStyle" format="reference" />
+	<attr name="homeAsUpIndicator" format="reference" />
+	<attr name="listIndicator" format="reference" />
+	
+	<declare-styleable name="SherlockTheme">
+		<attr name="actionBarStyle" format="reference" />
+		<attr name="actionBarTabBarStyle" format="reference" />
+		<attr name="actionBarTabStyle" format="reference" />
+		<attr name="actionBarTabTextStyle" format="reference" />
+		<attr name="actionButtonStyle" format="reference" />
+		<attr name="actionDropDownStyle" format="reference" />
+		<attr name="actionHomeButtonStyle" format="reference" />
+		<attr name="actionMenuTextAppearance" format="reference" />
+		<attr name="actionMenuTextColor" format="reference|color" />
+		<attr name="actionModeBackground" format="reference" />
+		<attr name="actionModeCloseButtonStyle" format="reference" />
+		<attr name="actionModeCloseDrawable" format="reference" />
+		<attr name="actionModeCopyDrawable" format="reference" />
+		<attr name="actionModeCutDrawable" format="reference" />
+		<attr name="actionModePasteDrawable" format="reference" />
+		<attr name="actionOverflowButtonStyle" format="reference" />
+		<attr name="dropDownListViewStyle" format="reference" />
+		<attr name="popupMenuStyle" format="reference" />
+	</declare-styleable>
+	
+	<declare-styleable name="SherlockActionBar">
+		<attr name="background" />
+		<attr name="customNavigationLayout" format="reference" />
+		<attr name="displayOptions">
+			<flag name="useLogo" value="0x01" />
+			<flag name="showHome" value="0x02" />
+			<flag name="homeAsUp" value="0x04" />
+			<flag name="showTitle" value="0x08" />
+			<flag name="showCustom" value="0x10" />
+		</attr>
+		<attr name="divider" format="reference|color" />
+		<attr name="height" />
+		<attr name="homeAsUpIndicator" />
+		<attr name="homeLayout" format="reference" />
+		<attr name="icon" format="reference" />
+		<attr name="indeterminateProgressStyle" format="reference" />
+		<attr name="itemPadding" format="reference|dimension" />
+		<attr name="listIndicator" />
+		<attr name="logo" format="reference" />
+		<attr name="navigationMode">
+			<enum name="normal" value="0" />
+			<enum name="listMode" value="1" />
+			<enum name="tabMode" value="2" />
+		</attr>
+		<attr name="progressBarPadding" format="reference|dimension" />
+		<attr name="progressBarStyle" format="reference" />
+		<attr name="subtitle" format="reference|string" />
+		<attr name="subtitleTextStyle" />
+		<attr name="title" format="reference|string" />
+		<attr name="titleTextStyle" />
+	</declare-styleable>
+	
+	<declare-styleable name="SherlockActionMode">
+		<attr name="background" />
+		<attr name="height" />
+		<attr name="subtitleTextStyle" />
+		<attr name="titleTextStyle" />
+	</declare-styleable>
+</resources>

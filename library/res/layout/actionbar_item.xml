@@ -14,14 +14,13 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/actionbar_item"
+<view xmlns:android="http://schemas.android.com/apk/res/android"
+	class="android.support.v4.widget.ActionBarWatson$Item"
 	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	android:gravity="center_vertical"
-	android:clickable="true"
+	android:layout_height="fill_parent"
 	android:focusable="true"
-	style="@style/Sherlock.ActionBar.ItemStyle"
+	android:clickable="true"
+	style="?attr/actionButtonStyle"
 	>
 	<ImageView
 		android:id="@+id/actionbar_item_icon"
@@ -35,5 +34,6 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_centerVertical="true"
+		android:visibility="gone"
 		/>
-</RelativeLayout>
+</view>

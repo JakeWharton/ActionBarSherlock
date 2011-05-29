@@ -1,45 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <style name="Sherlock" parent="@style/SherlockBase"></style>
-    <style name="Sherlock.ActionBar" parent="@style/SherlockBase.ActionBar"></style>
-    <style name="Sherlock.ActionBar.TabStyle" parent="@style/SherlockBase.ActionBar.TabStyle"></style>
-    <style name="Sherlock.ActionBar.ItemStyle" parent="@style/SherlockBase.ActionBar.ItemStyle"></style>
-    <style name="Sherlock.ActionBar.PopupMenuStyle" parent="@style/SherlockBase.ActionBar.PopupMenuStyle"></style>
-    <style name="Sherlock.ActionBar.DropDownStyle" parent="@style/SherlockBase.ActionBar.DropDownStyle"></style>
-    <style name="Sherlock.ActionBar.DropDownListViewStyle" parent="@style/SherlockBase.ActionBar.DropDownListViewStyle"></style>
-    <style name="Sherlock.ActionBar.OverflowButtonStyle" parent="@style/SherlockBase.ActionBar.OverflowButtonStyle"></style>
-    
-    <style name="Sherlock.Light" parent="@style/SherlockBase.Light"></style>
-    <style name="Sherlock.Light.ActionBar" parent="@style/SherlockBase.Light.ActionBar"></style>
-    <style name="Sherlock.Light.ActionBar.TabStyle" parent="@style/SherlockBase.Light.ActionBar.TabStyle"></style>
-    <style name="Sherlock.Light.ActionBar.ItemStyle" parent="@style/SherlockBase.Light.ActionBar.ItemStyle"></style>
-    <style name="Sherlock.Light.ActionBar.PopupMenuStyle" parent="@style/SherlockBase.Light.ActionBar.PopupMenuStyle"></style>
-    <style name="Sherlock.Light.ActionBar.DropDownStyle" parent="@style/SherlockBase.Light.ActionBar.DropDownStyle"></style>
-    <style name="Sherlock.Light.ActionBar.DropDownListViewStyle" parent="@style/SherlockBase.Light.ActionBar.DropDownListViewStyle"></style>
-    <style name="Sherlock.Light.ActionBar.OverflowButtonStyle" parent="@style/SherlockBase.Light.ActionBar.OverflowButtonStyle"></style>
-    
-    
-    
-    <style name="SherlockBase" parent="android:style/Theme"></style>
-    <style name="SherlockBase.ActionBar"></style>
-    <style name="SherlockBase.ActionBar.TabStyle">
-    	<item name="android:background">@drawable/actionbar_tab_bg</item>
+    <style name="Theme.Sherlock" parent="android:style/Theme">
+		<item name="actionBarStyle">@style/Widget.Sherlock.ActionBar</item>
+		<item name="actionBarTabStyle">@style/Widget.Sherlock.ActionBarView_TabView</item>
+		<item name="actionBarTabBarStyle">@null</item>
+		<item name="actionBarTabTextStyle">@style/ActionBarSherlock.TabTextStyle</item>
+		<item name="actionButtonStyle">@style/Widget.Sherlock.ActionButton</item>
+		<item name="actionDropDownStyle">@style/Widget.Sherlock.Spinner.DropDown.ActionBar</item>
+		<item name="actionHomeButtonStyle">@style/Widget.Sherlock.ActionButton.Home</item>
+		<item name="actionMenuTextAppearance">@null</item>
+		<item name="actionMenuTextColor">@null</item>
+		<item name="actionModeBackground">@null</item>
+		<item name="actionModeCloseButtonStyle">@null</item>
+		<item name="actionModeCloseDrawable">@null</item>
+		<item name="actionModeCopyDrawable">@null</item>
+		<item name="actionModeCutDrawable">@null</item>
+		<item name="actionModePasteDrawable">@null</item>
+		<item name="actionOverflowButtonStyle">@style/Widget.Sherlock.ActionButton.Overflow</item>
+		<item name="dropDownListViewStyle">@style/Widget.Sherlock.ListView.DropDown</item>
+		<item name="popupMenuStyle">@style/Widget.Sherlock.ListPopupWindow</item>
+	</style>
+	
+	<style name="Widget.Sherlock.ActionBar" parent="android:style/Widget">
+		<item name="homeAsUpIndicator">@drawable/actionbar_home_as_up_indicator</item>
+		<item name="listIndicator">@drawable/actionbar_list_indicator</item>
+	</style>
+	
+	<style name="Widget.Sherlock.ActionBarView_TabView" parent="android:style/Widget">
+		<item name="android:background">@drawable/actionbar_tab_bg</item>
+		<item name="android:padding">5dp</item>
     </style>
-    <style name="SherlockBase.ActionBar.ItemStyle">
-        <item name="android:padding">5dp</item>
+	
+	<style name="Widget.Sherlock.ActionButton" parent="android:style/Widget">
+		<item name="android:padding">5dp</item>
+		<item name="android:background">@color/actionbar_item_bg</item>
+	</style>
+	
+	<style name="Widget.Sherlock.ActionButton.Home">
+		<item name="android:padding">0dp</item>
+	</style>
+	
+	<style name="Widget.Sherlock.ActionButton.Overflow">
+	</style>
+	
+	<style name="Widget.Sherlock.ListPopupWindow" parent="android:style/Widget.ListPopupWindow">
+	</style>
+	
+	<style name="Widget.Sherlock.ListView.DropDown" parent="android:style/Widget.ListView.DropDown">
+	</style>
+	
+	<style name="Widget.Sherlock.Spinner.DropDown.ActionBar" parent="android:style/Widget.Spinner">
+	</style>
+	
+	<style name="ActionBarSherlock.TabTextStyle" parent="android:style/Widget">
+		<item name="android:textColor">@color/actionbar_tab_text_color</item>
+		<item name="android:textStyle">bold</item>
+		<item name="android:textSize">16dp</item>
+	</style>
+	
+	
+	
+	
+    <style name="Theme.Sherlock.Light" parent="android:style/Theme.Light">
+		<item name="actionBarStyle">@style/Widget.Sherlock.Light.ActionBar</item>
+		<item name="actionBarTabStyle">@style/Widget.Sherlock.Light.ActionBarView_TabView</item>
+		<item name="actionBarTabBarStyle">@null</item>
+		<item name="actionBarTabTextStyle">@style/ActionBarSherlock.Light.TabTextStyle</item>
+		<item name="actionButtonStyle">@style/Widget.Sherlock.Light.ActionButton</item>
+		<item name="actionDropDownStyle">@style/Widget.Sherlock.Light.Spinner.DropDown.ActionBar</item>
+		<item name="actionHomeButtonStyle">@style/Widget.Sherlock.Light.ActionButton.Home</item>
+		<item name="actionMenuTextAppearance">@null</item>
+		<item name="actionMenuTextColor">@null</item>
+		<item name="actionModeBackground">@null</item>
+		<item name="actionModeCloseButtonStyle">@null</item>
+		<item name="actionModeCloseDrawable">@null</item>
+		<item name="actionModeCopyDrawable">@null</item>
+		<item name="actionModeCutDrawable">@null</item>
+		<item name="actionModePasteDrawable">@null</item>
+		<item name="actionOverflowButtonStyle">@style/Widget.Sherlock.Light.ActionButton.Overflow</item>
+		<item name="dropDownListViewStyle">@style/Widget.Sherlock.Light.ListView.DropDown</item>
+		<item name="popupMenuStyle">@style/Widget.Sherlock.Light.ListPopupWindow</item>
+	</style>
+	
+	<style name="Widget.Sherlock.Light.ActionBar" parent="android:style/Widget">
+		<item name="homeAsUpIndicator">@drawable/actionbar_home_as_up_indicator_light</item>
+		<item name="listIndicator">@drawable/actionbar_list_indicator_light</item>
+	</style>
+	
+	<style name="Widget.Sherlock.Light.ActionBarView_TabView" parent="android:style/Widget">
+		<item name="android:background">@drawable/actionbar_tab_bg</item>
+		<item name="android:paddingLeft">5dp</item>
+		<item name="android:paddingRight">5dp</item>
     </style>
-    <style name="SherlockBase.ActionBar.PopupMenuStyle"></style>
-    <style name="SherlockBase.ActionBar.DropDownStyle"></style>
-    <style name="SherlockBase.ActionBar.DropDownListViewStyle"></style>
-    <style name="SherlockBase.ActionBar.OverflowButtonStyle"></style>
-    
-    <style name="SherlockBase.Light" parent="android:style/Theme.Light"></style>
-    <style name="SherlockBase.Light.ActionBar"></style>
-    <style name="SherlockBase.Light.ActionBar.TabStyle"></style>
-    <style name="SherlockBase.Light.ActionBar.ItemStyle"></style>
-    <style name="SherlockBase.Light.ActionBar.PopupMenuStyle"></style>
-    <style name="SherlockBase.Light.ActionBar.DropDownStyle"></style>
-    <style name="SherlockBase.Light.ActionBar.DropDownListViewStyle"></style>
-    <style name="SherlockBase.Light.ActionBar.OverflowButtonStyle"></style>
+	
+	<style name="Widget.Sherlock.Light.ActionButton" parent="android:style/Widget">
+		<item name="android:padding">5dp</item>
+		<item name="android:background">@android:drawable/menuitem_background</item>
+	</style>
+	
+	<style name="Widget.Sherlock.Light.ActionButton.Home">
+		<item name="android:padding">0dp</item>
+	</style>
+	
+	<style name="Widget.Sherlock.Light.ActionButton.Overflow">
+	</style>
+	
+	<style name="Widget.Sherlock.Light.ListPopupWindow" parent="android:style/Widget.ListPopupWindow">
+	</style>
+	
+	<style name="Widget.Sherlock.Light.ListView.DropDown" parent="android:style/Widget.ListView.DropDown">
+	</style>
+	
+	<style name="Widget.Sherlock.Light.Spinner.DropDown.ActionBar" parent="android:style/Widget.Spinner">
+	</style>
+	
+	<style name="ActionBarSherlock.Light.TabTextStyle" parent="ActionBarSherlock.TabTextStyle">
+		<item name="android:textColor">@color/actionbar_tab_text_color_light</item>
+	</style>
 </resources>

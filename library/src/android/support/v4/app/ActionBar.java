@@ -177,7 +177,7 @@ public abstract class ActionBar {
 	 * <p>Tabs manage the hiding and showing of
 	 * {@link android.support.v4.app.Fragment}.</p>
 	 */
-	public static abstract class Tab {
+	public static interface Tab {
 		/**
 		 * An invalid position for a tab.
 		 * 
@@ -432,9 +432,7 @@ public abstract class ActionBar {
 	 * 
 	 * @param tab Tab to add
 	 */
-	public final void addTab(ActionBar.Tab tab) {
-		addTab(tab, getTabCount() == 0);
-	}
+	public abstract void addTab(ActionBar.Tab tab);
 	
 	/**
 	 * Add a tab for use in tabbed navigation mode. The tab will be added at the
@@ -443,9 +441,7 @@ public abstract class ActionBar {
 	 * @param tab Tab to add
 	 * @param setSelected True if the added tab should become the selected tab.
 	 */
-	public final void addTab(ActionBar.Tab tab, boolean setSelected) {
-		addTab(tab, getTabCount(), setSelected);
-	}
+	public abstract void addTab(ActionBar.Tab tab, boolean setSelected);
 	
 	/**
 	 * Add a tab for use in tabbed navigation mode. The tab will be inserted at
@@ -455,9 +451,7 @@ public abstract class ActionBar {
 	 * @param tab The tab to add
 	 * @param position The new position of the tab
 	 */
-	public final void addTab(ActionBar.Tab tab, int position) {
-		addTab(tab, position, getTabCount() == 0);
-	}
+	public abstract void addTab(ActionBar.Tab tab, int position);
 	
 	/**
 	 * Add a tab for use in tabbed navigation mode. The tab will be insterted at
@@ -691,9 +685,7 @@ public abstract class ActionBar {
 	 * @see #setDisplayOptions(int)
 	 * @see #setDisplayOptions(int, int)
 	 */
-	public final void setDisplayHomeAsUpEnabled(boolean showHomeAsUp) {
-		setDisplayOptions(showHomeAsUp ? DISPLAY_HOME_AS_UP : 0, DISPLAY_HOME_AS_UP);
-	}
+	public abstract void setDisplayHomeAsUpEnabled(boolean showHomeAsUp);
 	
 	/**
 	 * <p>Set selected display options. Only the options specified by mask will
@@ -733,9 +725,7 @@ public abstract class ActionBar {
 	 * @see #setDisplayOptions(int)
 	 * @see #setDisplayOptions(int, int)
 	 */
-	public final void setDisplayShowCustomEnabled(boolean showCustom) {
-		setDisplayOptions(showCustom ? DISPLAY_SHOW_CUSTOM : 0, DISPLAY_SHOW_CUSTOM);
-	}
+	public abstract void setDisplayShowCustomEnabled(boolean showCustom);
 	
 	/**
 	 * <p>Set whether to include the application home affordance in the action
@@ -748,9 +738,7 @@ public abstract class ActionBar {
 	 * @see #setDisplayOptions(int)
 	 * @see #setDisplayOptions(int, int)
 	 */
-	public final void setDisplayShowHomeEnabled(boolean showHome) {
-		setDisplayOptions(showHome ? DISPLAY_SHOW_HOME : 0, DISPLAY_SHOW_HOME);
-	}
+	public abstract void setDisplayShowHomeEnabled(boolean showHome);
 	
 	/**
 	 * <p>Set whether an activity title/subtitle should be displayed.</p>
@@ -762,9 +750,7 @@ public abstract class ActionBar {
 	 * @see #setDisplayOptions(int)
 	 * @see #setDisplayOptions(int, int)
 	 */
-	public final void setDisplayShowTitleEnabled(boolean showTitle) {
-		setDisplayOptions(showTitle ? DISPLAY_SHOW_TITLE : 0, DISPLAY_SHOW_TITLE);
-	}
+	public abstract void setDisplayShowTitleEnabled(boolean showTitle);
 	
 	/**
 	 * <p>Set whether to display the activity logo rather than the activity
@@ -778,9 +764,7 @@ public abstract class ActionBar {
 	 * @see #setDisplayOptions(int)
 	 * @see #setDisplayOptions(int, int)
 	 */
-	public final void setDisplayUseLogoEnabled(boolean useLogo) {
-		setDisplayOptions(useLogo ? DISPLAY_USE_LOGO : 0, DISPLAY_USE_LOGO);
-	}
+	public abstract void setDisplayUseLogoEnabled(boolean useLogo);
 	
 	/**
 	 * Set the adapter and navigation callback for list navigation mode. The
@@ -822,9 +806,7 @@ public abstract class ActionBar {
 	 * @see #setSubtitle(CharSequence)
 	 * @see #setDisplayOptions(int, int)
 	 */
-	public final void setSubtitle(int resId) {
-		setSubtitle(getActivity().getResources().getString(resId));
-	}
+	public abstract void setSubtitle(int resId);
 	
 	/**
 	 * Set the action bar's subtitle. This will only be displayed if
@@ -855,9 +837,7 @@ public abstract class ActionBar {
 	 * @see #setTitle(CharSequence)
 	 * @see #setDisplayOptions(int, int)
 	 */
-	public final void setTitle(int resId) {
-		setTitle(getActivity().getResources().getString(resId));
-	}
+	public abstract void setTitle(int resId);
 	
 	/**
 	 * Show the ActionBar if it is not currently showing. If the window hosting

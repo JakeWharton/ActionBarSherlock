@@ -247,7 +247,7 @@ final class ActionBarNative {
 		// ACTION BAR SUPPORT
 		// ---------------------------------------------------------------------
 		
-		private static class TabImpl extends ActionBar.Tab {
+		private static class TabImpl implements ActionBar.Tab {
 			final ActionBarNative.Impl mActionBar;
 			
 			View mCustomView;
@@ -364,6 +364,21 @@ final class ActionBarNative {
 				
 				getActionBar().addOnMenuVisibilityListener(nativeListener);
 			}
+		}
+
+		@Override
+		public void addTab(Tab tab) {
+			getActionBar().addTab(convertTabToNative(tab));
+		}
+
+		@Override
+		public void addTab(Tab tab, boolean setSelected) {
+			getActionBar().addTab(convertTabToNative(tab), setSelected);
+		}
+
+		@Override
+		public void addTab(Tab tab, int position) {
+			getActionBar().addTab(convertTabToNative(tab), position);
 		}
 
 		@Override
@@ -505,6 +520,11 @@ final class ActionBarNative {
 		}
 
 		@Override
+		public void setDisplayHomeAsUpEnabled(boolean showHomeAsUp) {
+			getActionBar().setDisplayHomeAsUpEnabled(showHomeAsUp);
+		}
+
+		@Override
 		public void setDisplayOptions(int options, int mask) {
 			getActionBar().setDisplayOptions(options, mask);
 		}
@@ -512,6 +532,26 @@ final class ActionBarNative {
 		@Override
 		public void setDisplayOptions(int options) {
 			getActionBar().setDisplayOptions(options);
+		}
+
+		@Override
+		public void setDisplayShowCustomEnabled(boolean showCustom) {
+			getActionBar().setDisplayShowCustomEnabled(showCustom);
+		}
+
+		@Override
+		public void setDisplayShowHomeEnabled(boolean showHome) {
+			getActionBar().setDisplayShowHomeEnabled(showHome);
+		}
+
+		@Override
+		public void setDisplayShowTitleEnabled(boolean showTitle) {
+			getActionBar().setDisplayShowTitleEnabled(showTitle);
+		}
+
+		@Override
+		public void setDisplayUseLogoEnabled(boolean useLogo) {
+			getActionBar().setDisplayUseLogoEnabled(useLogo);
 		}
 
 		@Override
@@ -543,8 +583,18 @@ final class ActionBarNative {
 		}
 
 		@Override
+		public void setSubtitle(int resId) {
+			getActionBar().setSubtitle(resId);
+		}
+
+		@Override
 		public void setTitle(CharSequence title) {
 			getActionBar().setTitle(title);
+		}
+
+		@Override
+		public void setTitle(int resId) {
+			getActionBar().setTitle(resId);
 		}
 
 		@Override

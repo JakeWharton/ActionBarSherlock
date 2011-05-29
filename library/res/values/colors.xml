@@ -15,4 +15,5 @@
 -->
 <resources>
     <color name="actionbar_separator">#8B1A1A</color>
+    <color name="actionbar_item_focused">#FF58BAED</color>
 </resources>

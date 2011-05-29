@@ -20,7 +20,7 @@
     android:layout_weight="1"
     android:focusable="true"
     android:gravity="center"
-    style="@style/Sherlock.ActionBar.TabStyle"
+    style="?attr/actionBarTabStyle"
     >
     <ImageView
     	android:id="@+id/actionbar_tab_icon"
@@ -34,15 +34,13 @@
         android:layout_height="fill_parent"
         android:layout_toRightOf="@id/actionbar_tab_icon"
         android:layout_alignWithParentIfMissing="true"
-        android:padding="5dip"
         android:layout_weight="1"
         android:gravity="center_vertical"
-        android:textSize="16dip"
-        android:textStyle="bold"
         android:lines="1"
         android:scrollHorizontally="true"
         android:ellipsize="marquee"
         android:marqueeRepeatLimit="marquee_forever"
+        style="?attr/actionBarTabTextStyle"
         />
     <FrameLayout
     	android:id="@+id/actionbar_tab_custom"
