@@ -892,7 +892,7 @@ public final class ActionBarWatson extends RelativeLayout {
 		private View mParent;
 		
 		Dropdown(Context context) {
-			super(context, null, R.styleable.SherlockTheme_dropDownListViewStyle);
+			super(context, null, R.attr.actionDropDownStyle);
 			
 			mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			setFocusable(true);
