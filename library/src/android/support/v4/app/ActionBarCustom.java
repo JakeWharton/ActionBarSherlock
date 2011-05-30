@@ -58,17 +58,6 @@ final class ActionBarCustom extends ActionBar {
 	/** List of listeners to the menu visibility. */
 	private final List<OnMenuVisibilityListener> mMenuListeners = new ArrayList<OnMenuVisibilityListener>();
 	
-	private MenuItemImpl mHomeMenuItem;
-	
-	private final View.OnClickListener mHomeListener = new View.OnClickListener() {
-		@Override
-		public void onClick(View arg0) {
-			if (mHomeMenuItem != null) {
-				mHomeMenuItem.invoke();
-			}
-		}
-	};
-	
 	
 	
 	// ------------------------------------------------------------------------
@@ -83,11 +72,12 @@ final class ActionBarCustom extends ActionBar {
 		mActionBar = (ActionBarWatson)getActivity().findViewById(R.id.actionbar);
 		mContentView = (FrameLayout)getActivity().findViewById(R.id.actionbar_content_view);
 		
-		mHomeMenuItem = getActivity().getHomeMenuItem();
-		mActionBar.setHomeListener(mHomeListener);
+		final ActionBarWatson.Item homeItem = mActionBar.getHomeItem();
+		final WatsonItemViewWrapper homeWrapper = new WatsonItemViewWrapper(homeItem);
+		getActivity().getHomeMenuItem().setItemView(MenuBuilder.TYPE_WATSON, homeWrapper);
 
-		PackageManager pm = getActivity().getPackageManager();
-		ApplicationInfo appInfo = getActivity().getApplicationInfo();
+		final PackageManager pm = getActivity().getPackageManager();
+		final ApplicationInfo appInfo = getActivity().getApplicationInfo();
 		ActivityInfo actInfo = null;
 		try {
 			actInfo = pm.getActivityInfo(getActivity().getComponentName(), PackageManager.GET_ACTIVITIES);
@@ -104,27 +94,27 @@ final class ActionBarCustom extends ActionBar {
 			}
 		}
 		
-		if (mActionBar.getHomeIcon() == null) {
+		if (homeItem.getIcon() == null) {
 			if (actInfo != null) {
 				//Load icon from the Activity's manifest entry
-				mActionBar.setHomeIcon(actInfo.loadIcon(pm));
+				homeItem.setIcon(actInfo.loadIcon(pm));
 			} else {
 				//Can't load activity icon. Get application icon or default.
-				mActionBar.setHomeIcon(appInfo.loadIcon(pm));
+				homeItem.setIcon(appInfo.loadIcon(pm));
 			}
 		}
 		
-		if (mActionBar.getHomeLogo() == null) {
+		if (homeItem.getLogo() == null) {
 			//TODO http://stackoverflow.com/questions/6105504/load-activity-and-or-application-logo-programmatically-from-manifest
 			
 			//Must be >= gingerbread to look for a logo in the manifest
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
 				if (actInfo != null) {
 					//Try to load the logo from the Activity's manifest entry
-					mActionBar.setHomeLogo(actInfo.loadLogo(pm));
+					homeItem.setLogo(actInfo.loadLogo(pm));
 				} else {
 					//Try to load the logo from the Application's manifest entry
-					mActionBar.setHomeLogo(appInfo.loadLogo(pm));
+					homeItem.setLogo(appInfo.loadLogo(pm));
 				}
 			}
 		}

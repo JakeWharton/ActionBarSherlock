@@ -27,37 +27,28 @@ public final class ActionBarWatson extends RelativeLayout {
 	
 	
 	/** Home logo and icon action item. */
-	private View mHome;
-	
-	/** Home logo. */
-	private ImageView mHomeLogo;
-	
-	/** Home icon. */
-	private ImageView mHomeIcon;
-	
-	/** Home button up indicator. */
-	private View mHomeAsUpIndicator;
+	private final HomeItem mHome;
 	
 	/** Title view. */
-	private TextView mTitle;
+	private final TextView mTitle;
 	
 	/** Subtitle view. */
-	private TextView mSubtitle;
+	private final TextView mSubtitle;
 	
 	/** List view. */
-	private FrameLayout mListView;
+	private final FrameLayout mListView;
 	
 	/** List dropdown indicator. */
-	private View mListIndicator;
+	private final View mListIndicator;
 	
 	/** Custom view parent. */
-	private FrameLayout mCustomView;
+	private final FrameLayout mCustomView;
 	
 	/** Container for all action items. */
-	private LinearLayout mActionsView;
+	private final LinearLayout mActionsView;
 
 	/** Container for all tab items. */
-	private LinearLayout mTabsView;
+	private final LinearLayout mTabsView;
 	
 	/**
 	 * Display state flags.
@@ -93,11 +84,6 @@ public final class ActionBarWatson extends RelativeLayout {
 	 * Callback for the list navigation event.
 	 */
 	private ActionBar.OnNavigationListener mListCallback;
-	
-	/**
-	 * Callback for the home click event.
-	 */
-	private View.OnClickListener mHomeListener;
 
 	/**
 	 * Listener for list title click. Will display a list dialog of all the
@@ -145,36 +131,24 @@ public final class ActionBarWatson extends RelativeLayout {
 		
 		final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SherlockActionBar, defStyle, 0);
 		
+		
 		/// HOME ////
 		
-		mHome = findViewById(R.id.actionbar_home);
-		mHome.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				if (mHomeListener != null) {
-					mHomeListener.onClick(null);
-				}
-			}
-		});
-		
-		mHomeLogo = (ImageView)findViewById(R.id.actionbar_home_logo);
-		mHomeIcon = (ImageView)findViewById(R.id.actionbar_home_icon);
-		mHomeAsUpIndicator = findViewById(R.id.actionbar_home_as_up_indicator);
+		mHome = (HomeItem)findViewById(R.id.actionbar_home);
 		
 		//Load the up indicator
 		final Drawable homeAsUpIndicator = a.getDrawable(R.styleable.SherlockActionBar_homeAsUpIndicator);
-		mHomeAsUpIndicator.setBackgroundDrawable(homeAsUpIndicator);
+		mHome.setUpIndicator(homeAsUpIndicator);
 
 		//Try to load the logo from the theme
 		final Drawable homeLogo = a.getDrawable(R.styleable.SherlockActionBar_logo);
 		if (homeLogo != null) {
-			mHomeLogo.setImageDrawable(homeLogo);
+			mHome.setLogo(homeLogo);
 		}
 		
 		//Try to load the icon from the theme
 		final Drawable homeIcon = a.getDrawable(R.styleable.SherlockActionBar_icon);
-		mHomeIcon.setImageDrawable(homeIcon);
-		
+		mHome.setIcon(homeIcon);
 
 		
 		//// TITLE ////
@@ -250,82 +224,8 @@ public final class ActionBarWatson extends RelativeLayout {
 	
 	
 	// ------------------------------------------------------------------------
-	// WATSON METHODS
+	// HELPER METHODS
 	// ------------------------------------------------------------------------
-	
-	/**
-	 * Get the home icon.
-	 * 
-	 * @return Drawable home icon or {@code null}.
-	 */
-	public Drawable getHomeIcon() {
-		return mHomeIcon.getDrawable();
-	}
-	
-	/**
-	 * Get the home logo.
-	 * 
-	 * @return Drawable home logo or {@code null}.
-	 */
-	public Drawable getHomeLogo() {
-		return mHomeLogo.getDrawable();
-	}
-	
-	/**
-	 * Set or clear the home icon.
-	 * 
-	 * @param icon Drawable to use for the home icon or {@code null} to clear
-	 * any existing drawable.
-	 */
-	public void setHomeIcon(Drawable icon) {
-		mHomeIcon.setImageDrawable(icon);
-	}
-	
-	/**
-	 * Set the home icon.
-	 * 
-	 * @param resId Resource ID or drawable to use.
-	 */
-	public void setHomeIcon(int resId) {
-		mHomeIcon.setImageResource(resId);
-	}
-	
-	/**
-	 * Set or clear the home logo.
-	 * 
-	 * @param logo Drawable to use for the home logo or {@code null} to clear
-	 * any existind drawable.
-	 */
-	public void setHomeLogo(Drawable logo) {
-		mHomeLogo.setImageDrawable(logo);
-	}
-	
-	/**
-	 * Set the home logo.
-	 * 
-	 * @param resId Resource ID of drawable to use.
-	 */
-	public void setHomeLogo(int resId) {
-		mHomeLogo.setImageResource(resId);
-	}
-	
-	/**
-	 * Set the listener for the home button.
-	 * 
-	 * @param listener View click listener.
-	 */
-	public void setHomeListener(View.OnClickListener listener) {
-		mHomeListener = listener;
-	}
-	
-	/**
-	 * Get the current listener for the home button.
-	 * 
-	 * @return View click listener or {@code null}.
-	 */
-	public View.OnClickListener getHomeListener() {
-		return mHomeListener;
-	}
 	
 	/**
 	 * Helper to get a boolean value for a specific flag.
@@ -354,13 +254,13 @@ public final class ActionBarWatson extends RelativeLayout {
 		
 		mHome.setVisibility(displayHome ? View.VISIBLE : View.GONE);
 		if (displayHome) {
-			mHomeAsUpIndicator.setVisibility(displayHomeAsUp ? View.VISIBLE : View.GONE);
-			mHomeLogo.setVisibility(displayLogo ? View.VISIBLE : View.GONE);
-			mHomeIcon.setVisibility(displayLogo ? View.GONE : View.VISIBLE);
+			mHome.setUpIndicatorVisibility(displayHomeAsUp ? View.VISIBLE : View.GONE);
+			mHome.setLogoVisibility(displayLogo ? View.VISIBLE : View.GONE);
+			mHome.setIconVisibility(displayLogo ? View.GONE : View.VISIBLE);
 		} else {
-			mHomeAsUpIndicator.setVisibility(View.GONE);
-			mHomeLogo.setVisibility(View.GONE);
-			mHomeIcon.setVisibility(View.GONE);
+			mHome.setUpIndicatorVisibility(View.GONE);
+			mHome.setLogoVisibility(View.GONE);
+			mHome.setIconVisibility(View.GONE);
 		}
 		
 		//If we are a list, set the list view to the currently selected item
@@ -654,17 +554,27 @@ public final class ActionBarWatson extends RelativeLayout {
 	// ACTION ITEMS SUPPORT
 	// ------------------------------------------------------------------------
 	
+	public ActionBarWatson.Item getHomeItem() {
+		return mHome;
+	}
+	
 	public ActionBarWatson.Item newItem() {
-		Item item = (Item)LayoutInflater.from(getContext()).inflate(R.layout.actionbar_item, mActionsView, false);
+		ActionItem item = (ActionItem)LayoutInflater.from(getContext()).inflate(R.layout.actionbar_item, mActionsView, false);
 		item.setActionBar(this);
 		return item;
 	}
 	
 	public void addItem(ActionBarWatson.Item item) {
+		if (item instanceof HomeItem) {
+			throw new IllegalStateException("Cannot add home item as an action item.");
+		}
 		mActionsView.addView(item);
 	}
 	
 	public void addItem(ActionBarWatson.Item item, int position) {
+		if (item instanceof HomeItem) {
+			throw new IllegalStateException("Cannot add home item as an action item.");
+		}
 		mActionsView.addView(item, position);
 	}
 	
@@ -676,19 +586,47 @@ public final class ActionBarWatson extends RelativeLayout {
 	// HELPER INTERFACES AND HELPER CLASSES
 	// ------------------------------------------------------------------------
 	
-	public static final class Item extends RelativeLayout {
+	public static abstract class Item extends RelativeLayout {
+		public Item(Context context) {
+			super(context);
+		}
+		public Item(Context context, AttributeSet attrs) {
+			super(context, attrs);
+		}
+		public Item(Context context, AttributeSet attrs, int defStyle) {
+			super(context, attrs, defStyle);
+		}
+		
+		public abstract View getCustomView();
+		public abstract Item setCustomView(int resId);
+		public abstract Item setCustomView(View view);
+		
+		public abstract Drawable getIcon();
+		public abstract Item setIcon(int resId);
+		public abstract Item setIcon(Drawable icon);
+		
+		public abstract Drawable getLogo();
+		public abstract Item setLogo(int resId);
+		public abstract Item setLogo(Drawable logo);
+		
+		public abstract CharSequence getTitle();
+		public abstract Item setTitle(int resId);
+		public abstract Item setTitle(CharSequence title);
+	}
+	
+	public static final class ActionItem extends Item {
 		ActionBarWatson mActionBar;
 		ImageView mIconView;
 		FrameLayout mCustomView;
 
 
-		public Item(Context context) {
+		public ActionItem(Context context) {
 			this(context, null);
 		}
-		public Item(Context context, AttributeSet attrs) {
+		public ActionItem(Context context, AttributeSet attrs) {
 			this(context, attrs, R.attr.actionButtonStyle);
 		}
-		public Item(Context context, AttributeSet attrs, int defStyle) {
+		public ActionItem(Context context, AttributeSet attrs, int defStyle) {
 			super(context, attrs, defStyle);
 		}
 		
@@ -714,22 +652,21 @@ public final class ActionBarWatson extends RelativeLayout {
 			mActionBar = actionBar;
 		}
 		
+		@Override
 		public View getCustomView() {
 			return mCustomView;
 		}
 		
-		public Drawable getIcon() {
-			return mIconView.getDrawable();
-		}
-		
-		public Item setCustomView(int resId) {
+		@Override
+		public ActionItem setCustomView(int resId) {
 			mCustomView.removeAllViews();
 			LayoutInflater.from(getContext()).inflate(resId, mCustomView, true);
 			reloadDisplay();
 			return this;
 		}
 		
-		public Item setCustomView(View view) {
+		@Override
+		public ActionItem setCustomView(View view) {
 			mCustomView.removeAllViews();
 			if (view != null) {
 				mCustomView.addView(view);
@@ -738,16 +675,163 @@ public final class ActionBarWatson extends RelativeLayout {
 			return this;
 		}
 		
-		public Item setIcon(Drawable icon) {
-			mIconView.setImageDrawable(icon);
-			return this;
+		@Override
+		public Drawable getIcon() {
+			return mIconView.getDrawable();
 		}
 		
-		public Item setIcon(int resId) {
+		@Override
+		public ActionItem setIcon(int resId) {
 			if (resId != View.NO_ID) {
 				mIconView.setImageResource(resId);
 			}
 			return this;
+		}
+		
+		@Override
+		public ActionItem setIcon(Drawable icon) {
+			mIconView.setImageDrawable(icon);
+			return this;
+		}
+		
+		@Override
+		public Drawable getLogo() {
+			throw new RuntimeException("Not implemented.");
+		}
+		
+		@Override
+		public ActionItem setLogo(int resId) {
+			throw new RuntimeException("Not implemented.");
+		}
+		
+		@Override
+		public ActionItem setLogo(Drawable logo) {
+			throw new RuntimeException("Not implemented.");
+		}
+
+		@Override
+		public CharSequence getTitle() {
+			throw new RuntimeException("Not implemented.");
+		}
+		
+		@Override
+		public ActionItem setTitle(int resId) {
+			throw new RuntimeException("Not implemented.");
+		}
+		
+		@Override
+		public ActionItem setTitle(CharSequence title) {
+			throw new RuntimeException("Not implemented.");
+		}
+	}
+	
+	public static final class HomeItem extends Item {
+		/** Home logo. */
+		private final ImageView mLogo;
+		
+		/** Home icon. */
+		private final ImageView mIcon;
+		
+		/** Home button up indicator. */
+		private final View mUpIndicator;
+		
+		
+		public HomeItem(Context context) {
+			this(context, null);
+		}
+		
+		public HomeItem(Context context, AttributeSet attrs) {
+			this(context, attrs, R.attr.actionHomeButtonStyle);
+		}
+		
+		public HomeItem(Context context, AttributeSet attrs, int defStyle) {
+			super(context, attrs, defStyle);
+			LayoutInflater.from(context).inflate(R.layout.actionbar_item_home, this, true);
+			
+			mLogo = (ImageView)findViewById(R.id.actionbar_home_logo);
+			mIcon = (ImageView)findViewById(R.id.actionbar_home_icon);
+			mUpIndicator = findViewById(R.id.actionbar_home_as_up_indicator);
+		}
+		
+		
+		void setUpIndicator(Drawable homeAsUpIndicator) {
+			mUpIndicator.setBackgroundDrawable(homeAsUpIndicator);
+		}
+		
+		void setIconVisibility(int visibility) {
+			mIcon.setVisibility(visibility);
+		}
+		
+		void setLogoVisibility(int visibility) {
+			mLogo.setVisibility(visibility);
+		}
+		
+		void setUpIndicatorVisibility(int visibility) {
+			mUpIndicator.setVisibility(visibility);
+		}
+		
+		@Override
+		public View getCustomView() {
+			throw new RuntimeException("Not implemented.");
+		}
+		
+		@Override
+		public Item setCustomView(int resId) {
+			throw new RuntimeException("Not implemented.");
+		}
+		
+		@Override
+		public Item setCustomView(View view) {
+			throw new RuntimeException("Not implemented.");
+		}
+		
+		@Override
+		public Drawable getIcon() {
+			return mIcon.getDrawable();
+		}
+		
+		@Override
+		public HomeItem setIcon(int resId) {
+			mIcon.setImageResource(resId);
+			return this;
+		}
+		
+		@Override
+		public HomeItem setIcon(Drawable icon) {
+			mIcon.setImageDrawable(icon);
+			return this;
+		}
+		
+		@Override
+		public Drawable getLogo() {
+			return mLogo.getDrawable();
+		}
+		
+		@Override
+		public HomeItem setLogo(int resId) {
+			mLogo.setImageResource(resId);
+			return this;
+		}
+		
+		@Override
+		public HomeItem setLogo(Drawable logo) {
+			mLogo.setImageDrawable(logo);
+			return this;
+		}
+		
+		@Override
+		public CharSequence getTitle() {
+			throw new RuntimeException("Not implemented.");
+		}
+		
+		@Override
+		public HomeItem setTitle(int resId) {
+			throw new RuntimeException("Not implemented.");
+		}
+		
+		@Override
+		public HomeItem setTitle(CharSequence title) {
+			throw new RuntimeException("Not implemented.");
 		}
 	}
 	
