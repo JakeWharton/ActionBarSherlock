@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package android.support.v4.view;
+package com.jakewharton.android.actionbarsherlock.internal.view;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -26,7 +26,7 @@ import android.view.View;
  * The model for a sub menu, which is an extension of the menu.  Most methods
  * are proxied to the parent menu.
  */
-final class SubMenuBuilder extends MenuBuilder implements SubMenu {
+public final class SubMenuBuilder extends MenuBuilder implements SubMenu {
     private MenuBuilder mParentMenu;
     private MenuItemImpl mItem;
     

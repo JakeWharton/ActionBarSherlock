@@ -27,10 +27,8 @@ import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v4.view.ActionMode;
-import android.support.v4.view.MenuBuilder;
+import android.support.v4.view.Menu;
 import android.support.v4.view.MenuItem;
-import android.support.v4.view.MenuItemImpl;
-import android.support.v4.view.MenuView;
 import android.support.v4.view.Window;
 import android.support.v4.widget.ActionBarWatson;
 import android.view.View;
@@ -38,6 +36,9 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.SpinnerAdapter;
 import com.jakewharton.android.actionbarsherlock.R;
+import com.jakewharton.android.actionbarsherlock.internal.view.MenuBuilder;
+import com.jakewharton.android.actionbarsherlock.internal.view.MenuItemImpl;
+import com.jakewharton.android.actionbarsherlock.internal.view.MenuView;
 
 final class ActionBarCustom extends ActionBar {
 	/** Maximum action bar items in portrait mode. */
@@ -130,7 +131,7 @@ final class ActionBarCustom extends ActionBar {
 	}
 
 	@Override
-	void onMenuInflated(MenuBuilder menu) {
+	void onMenuInflated(Menu menu) {
 		int maxItems = MAX_ACTION_BAR_ITEMS_PORTRAIT;
 		int orientation = getActivity().getWindowManager().getDefaultDisplay().getOrientation();
 		if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -143,7 +144,7 @@ final class ActionBarCustom extends ActionBar {
 		final int count = menu.size();
 		List<MenuItemImpl> keep = new ArrayList<MenuItemImpl>();
 		for (int i = 0; i < count; i++) {
-			MenuItemImpl item = menu.getItem(i);
+			MenuItemImpl item = (MenuItemImpl)menu.getItem(i);
 			if ((item.getShowAsAction() & MenuItem.SHOW_AS_ACTION_ALWAYS) != 0) {
 				//Show always therefore add to keep list
 				keep.add(item);

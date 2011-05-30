@@ -15,12 +15,13 @@
  * limitations under the License.
  */
 
-package android.support.v4.view;
+package com.jakewharton.android.actionbarsherlock.internal.view;
 
 import java.lang.ref.WeakReference;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.support.v4.view.MenuItem;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;

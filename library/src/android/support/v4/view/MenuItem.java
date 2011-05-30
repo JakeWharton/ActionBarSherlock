@@ -17,6 +17,7 @@
 
 package android.support.v4.view;
 
+import com.jakewharton.android.actionbarsherlock.internal.view.MenuItemWrapper;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.view.View;

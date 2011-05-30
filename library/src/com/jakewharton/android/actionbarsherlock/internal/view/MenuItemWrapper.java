@@ -15,10 +15,12 @@
  * limitations under the License.
  */
 
-package android.support.v4.view;
+package com.jakewharton.android.actionbarsherlock.internal.view;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.support.v4.view.Menu;
+import android.support.v4.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 

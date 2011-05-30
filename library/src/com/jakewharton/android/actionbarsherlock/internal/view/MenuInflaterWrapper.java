@@ -1,4 +1,4 @@
-package android.support.v4.view;
+package com.jakewharton.android.actionbarsherlock.internal.view;
 
 import android.content.Context;
 

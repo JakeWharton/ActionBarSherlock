@@ -1,7 +1,9 @@
-package android.support.v4.view;
+package com.jakewharton.android.actionbarsherlock.internal.view;
 
 import android.content.ComponentName;
 import android.content.Intent;
+import android.support.v4.view.Menu;
+import android.support.v4.view.MenuItem;
 import android.view.KeyEvent;
 import android.view.SubMenu;
 

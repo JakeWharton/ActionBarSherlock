@@ -19,7 +19,7 @@ package android.support.v4.app;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v4.view.ActionMode;
-import android.support.v4.view.MenuBuilder;
+import android.support.v4.view.Menu;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,7 +86,7 @@ public abstract class ActionBar {
 	
 	abstract void onMenuVisibilityChanged(boolean isVisible);
 	
-	abstract void onMenuInflated(MenuBuilder menu);
+	abstract void onMenuInflated(Menu menu);
 
 	abstract boolean requestWindowFeature(int featureId);
 	

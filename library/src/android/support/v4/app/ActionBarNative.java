@@ -20,10 +20,8 @@ import java.util.HashMap;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v4.view.ActionMode;
-import android.support.v4.view.MenuBuilder;
+import android.support.v4.view.Menu;
 import android.support.v4.view.MenuInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.SpinnerAdapter;
 
@@ -121,7 +119,7 @@ final class ActionBarNative {
 		}
 
 		@Override
-		public void onMenuInflated(MenuBuilder menu) {
+		public void onMenuInflated(Menu menu) {
 			throw new IllegalStateException("This should never be utilized for the native ActionBar.");
 		}
 
@@ -147,7 +145,7 @@ final class ActionBarNative {
 			return new ActionModeWrapper(getActivity(),
 				getActivity().startActionMode(new android.view.ActionMode.Callback() {
 					@Override
-					public boolean onPrepareActionMode(android.view.ActionMode mode, Menu menu) {
+					public boolean onPrepareActionMode(android.view.ActionMode mode, android.view.Menu menu) {
 						return callback.onPrepareActionMode(new ActionModeWrapper(getActivity(), mode), menu);
 					}
 					
@@ -161,12 +159,12 @@ final class ActionBarNative {
 					}
 					
 					@Override
-					public boolean onCreateActionMode(android.view.ActionMode mode, Menu menu) {
+					public boolean onCreateActionMode(android.view.ActionMode mode, android.view.Menu menu) {
 						return callback.onCreateActionMode(new ActionModeWrapper(getActivity(), mode), menu);
 					}
 					
 					@Override
-					public boolean onActionItemClicked(android.view.ActionMode mode, MenuItem item) {
+					public boolean onActionItemClicked(android.view.ActionMode mode, android.view.MenuItem item) {
 						return callback.onActionItemClicked(new ActionModeWrapper(getActivity(), mode), item);
 					}
 				})
@@ -193,7 +191,7 @@ final class ActionBarNative {
 			}
 
 			@Override
-			public Menu getMenu() {
+			public android.view.Menu getMenu() {
 				return mActionMode.getMenu();
 			}
 

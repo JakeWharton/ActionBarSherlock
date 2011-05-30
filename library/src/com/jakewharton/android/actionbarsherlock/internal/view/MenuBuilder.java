@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package android.support.v4.view;
+package com.jakewharton.android.actionbarsherlock.internal.view;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +24,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.support.v4.view.Menu;
+import android.support.v4.view.MenuItem;
 import android.view.KeyEvent;
 
 /**
