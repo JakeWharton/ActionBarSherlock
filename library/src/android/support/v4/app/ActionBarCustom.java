@@ -30,6 +30,7 @@ import android.support.v4.view.ActionMode;
 import android.support.v4.view.MenuBuilder;
 import android.support.v4.view.MenuItem;
 import android.support.v4.view.MenuItemImpl;
+import android.support.v4.view.MenuView;
 import android.support.v4.view.Window;
 import android.support.v4.widget.ActionBarWatson;
 import android.view.View;
@@ -38,7 +39,7 @@ import android.widget.FrameLayout;
 import android.widget.SpinnerAdapter;
 import com.jakewharton.android.actionbarsherlock.R;
 
-public final class ActionBarCustom extends ActionBar {
+final class ActionBarCustom extends ActionBar {
 	/** Maximum action bar items in portrait mode. */
 	private static final int MAX_ACTION_BAR_ITEMS_PORTRAIT = 3;
 	
@@ -159,10 +160,18 @@ public final class ActionBarCustom extends ActionBar {
 		for (MenuItemImpl item : keep) {
 			item.setIsShownOnActionBar(true);
 			
-			//Convert menu item to action bar item
-			mActionBar.addItem(
-				mActionBar.newItem().setIcon(item.getIcon()).setCustomView(item.getActionView())
-			);
+			//Get a new item for this menu item
+			ActionBarWatson.Item watsonItem = mActionBar.newItem();
+			
+			//Create and initialize a watson itemview wrapper
+			WatsonItemViewWrapper watsonWrapper = new WatsonItemViewWrapper(watsonItem);
+			watsonWrapper.initialize(item, MenuBuilder.TYPE_WATSON);
+			
+			//Associate the itemview with the item so changes will be reflected
+			item.setItemView(MenuBuilder.TYPE_WATSON, watsonWrapper);
+			
+			//Add to the action bar for display
+			mActionBar.addItem(watsonItem);
 		}
 	}
 
@@ -429,5 +438,88 @@ public final class ActionBarCustom extends ActionBar {
 	@Override
 	public void show() {
 		mActionBar.show();
+	}
+	
+	/////
+	
+	private static final class WatsonItemViewWrapper implements MenuView.ItemView, View.OnClickListener {
+		private final ActionBarWatson.Item mWatsonItem;
+		private MenuItemImpl mMenuItem;
+		
+		
+		public WatsonItemViewWrapper(ActionBarWatson.Item item) {
+			mWatsonItem = item;
+			mWatsonItem.setOnClickListener(this);
+		}
+		
+		
+		@Override
+		public MenuItemImpl getItemData() {
+			return mMenuItem;
+		}
+
+		@Override
+		public void initialize(MenuItemImpl itemData, int menuType) {
+			mMenuItem = itemData;
+			
+			setIcon(itemData.getIcon());
+			setTitle(itemData.getTitle());
+			setEnabled(itemData.isEnabled());
+			setCheckable(itemData.isCheckable());
+			setChecked(itemData.isChecked());
+			setActionView(itemData.getActionView());
+		}
+
+		@Override
+		public boolean prefersCondensedTitle() {
+			return true;
+		}
+
+		@Override
+		public void setCheckable(boolean checkable) {
+			//TODO mItem.setCheckable(checkable);
+		}
+
+		@Override
+		public void setChecked(boolean checked) {
+			//TODO mItem.setChecked(checked);
+		}
+
+		@Override
+		public void setEnabled(boolean enabled) {
+			mWatsonItem.setEnabled(enabled);
+		}
+
+		@Override
+		public void setIcon(Drawable icon) {
+			mWatsonItem.setIcon(icon);
+		}
+
+		@Override
+		public void setShortcut(boolean showShortcut, char shortcutKey) {
+			//Not supported
+		}
+
+		@Override
+		public void setTitle(CharSequence title) {
+			//TODO mItem.setTitle(title);
+		}
+
+		@Override
+		public boolean showsIcon() {
+			return true;
+		}
+
+		@Override
+		public void setActionView(View actionView) {
+			mWatsonItem.setCustomView(actionView);
+		}
+
+		@Override
+		public void onClick(View view) {
+			if (mMenuItem != null) {
+				mMenuItem.invoke();
+			}
+		}
 	}
 }

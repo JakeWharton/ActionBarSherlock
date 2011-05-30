@@ -17,15 +17,14 @@
 
 package android.support.v4.view;
 
-import com.jakewharton.android.actionbarsherlock.R;
-import android.content.Context;
+import java.lang.ref.WeakReference;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 
 /**
  * An implementation of the {@link android.view.MenuItem} interface for use in
@@ -35,25 +34,27 @@ import android.widget.ImageView;
  * @see <a href="http://android.git.kernel.org/?p=platform/frameworks/base.git;a=blob;f=core/java/com/android/internal/view/menu/MenuItemImpl.java">com.android.internal.view.menu.MenuItemImpl</a>
  */
 public final class MenuItemImpl implements MenuItem {
-	final MenuBuilder mMenu;
-	final LayoutInflater mInflater;
+	private static final String TAG = "MenuItemImpl";
 	
-	final View mView;
-	final ImageView mIcon;
-	final FrameLayout mCustomView;
+	private final MenuBuilder mMenu;
 	
-	final int mItemId;
-	final int mGroupId;
-	final int mOrder;
+	private final int mItemId;
+	private final int mGroupId;
+	private final int mOrder;
 	
-	Intent mIntent;
-	CharSequence mTitle;
-	CharSequence mTitleCondensed;
-	SubMenuBuilder mSubMenu;
-	char mNumericalShortcut;
-	char mAlphabeticalShortcut;
-	int mShowAsAction;
-	OnMenuItemClickListener mListener;
+	private Intent mIntent;
+	private CharSequence mTitle;
+	private CharSequence mTitleCondensed;
+	private char mNumericalShortcut;
+	private char mAlphabeticalShortcut;
+	private int mShowAsAction;
+	private SubMenuBuilder mSubMenu;
+	private Runnable mItemCallback;
+	private OnMenuItemClickListener mClickListener;
+	private Drawable mIcon;
+	private int mIconRes = View.NO_ID;
+	private View mActionView;
+	private int mActionViewRes = View.NO_ID;
 
 	int mFlags = ENABLED;
 	private static final int CHECKABLE = 0x01;
@@ -61,8 +62,9 @@ public final class MenuItemImpl implements MenuItem {
 	private static final int EXCLUSIVE = 0x04;
 	private static final int HIDDEN    = 0x08;
 	private static final int ENABLED   = 0x10;
+	private static final int IS_ACTION = 0x20;
 	
-	boolean mIsShownOnActionBar;
+	private final WeakReference<MenuView.ItemView>[] mItemViews;
 	
 	
 	/**
@@ -74,53 +76,89 @@ public final class MenuItemImpl implements MenuItem {
 	 * @param order Item order. Currently unused.
 	 * @param title Title of the item.
 	 */
+	@SuppressWarnings("unchecked")
 	MenuItemImpl(MenuBuilder menu, int itemId, int groupId, int order, CharSequence title) {
-		this.mMenu = menu;
-		this.mInflater = (LayoutInflater)menu.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		mMenu = menu;
 		
-		mView = this.mInflater.inflate(R.layout.actionbar_item, null, false);
-		mView.setTag(this);
+		mItemId = itemId;
+		mGroupId = groupId;
+		mOrder = order;
+		mTitle = title;
 		
-		mIcon = (ImageView)mView.findViewById(R.id.actionbar_item_icon);
-		mCustomView = (FrameLayout)mView.findViewById(R.id.actionbar_item_custom);
+		mItemViews = new WeakReference[MenuBuilder.NUM_TYPES];
+	}
+	
+	
+	
+	public boolean invoke() {
+		if (mClickListener != null &&
+		    mClickListener.onMenuItemClick(this)) {
+			return true;
+		}
 		
-		this.mItemId = itemId;
-		this.mGroupId = groupId;
-		this.mOrder = order;
-		this.mTitle = title;
+		MenuBuilder.Callback callback = mMenu.getCallback();
+		if (callback != null &&
+			callback.onMenuItemSelected(mMenu.getRootMenu(), this)) {
+			return true;
+		}
 		
-		this.mIsShownOnActionBar = false;
+		if (mItemCallback != null) {
+			mItemCallback.run();
+			return true;
+		}
+		
+		if (mIntent != null) {
+			try {
+				mMenu.getContext().startActivity(mIntent);
+				return true;
+			} catch (ActivityNotFoundException e) {
+				Log.e(TAG, "Can't find activity to handle intent; ignoring", e);
+			}
+		}
+		
+		return false;
+	}
+	
+	private boolean hasItemView(int menuType) {
+		return mItemViews[menuType] != null && mItemViews[menuType].get() != null;
+	}
+	
+	public void setItemView(int type, MenuView.ItemView itemView) {
+		mItemViews[type] = new WeakReference<MenuView.ItemView>(itemView);
 	}
 	
 	
 	public void addTo(android.view.Menu menu) {
 		if (this.mSubMenu != null) {
 			android.view.SubMenu subMenu = menu.addSubMenu(this.mGroupId, this.mItemId, this.mOrder, this.mTitle);
-			subMenu.setIcon(this.mIcon.getDrawable());
+			if (mIconRes != View.NO_ID) {
+				subMenu.setIcon(mIconRes);
+			} else {
+				subMenu.setIcon(mIcon);
+			}
 			
 			for (MenuItemImpl item : this.mSubMenu.getItems()) {
 				item.addTo(subMenu);
 			}
 		} else {
-			menu.add(this.mGroupId, this.mItemId, this.mOrder, this.mTitle)
-				.setCheckable(this.isCheckable())
-				.setChecked(this.isChecked())
+			android.view.MenuItem item = menu.add(this.mGroupId, this.mItemId, this.mOrder, this.mTitle)
 				.setAlphabeticShortcut(this.mAlphabeticalShortcut)
 				.setNumericShortcut(this.mNumericalShortcut)
-				.setEnabled(this.isEnabled())
 				.setVisible(this.isVisible())
 				.setIntent(this.mIntent)
-				.setOnMenuItemClickListener(this.mListener)
-				.setIcon(this.mIcon.getDrawable());
+				.setOnMenuItemClickListener(this.mClickListener);
 
 			if (this.isExclusiveCheckable()) {
 				menu.setGroupCheckable(this.mGroupId, true, true);
 			}
+			
+			//Create and initialize a native itemview wrapper
+			NativeMenuItemView nativeWrapper = new NativeMenuItemView(item);
+			nativeWrapper.initialize(this, MenuBuilder.TYPE_NATIVE);
+			
+			//Associate the itemview to this so changes will be reflected
+			setItemView(MenuBuilder.TYPE_NATIVE, nativeWrapper);
 		}
-	}
-	
-	public View getActionBarView() {
-		return this.mView;
 	}
 	
 	/**
@@ -129,7 +167,7 @@ public final class MenuItemImpl implements MenuItem {
 	 * @return {@code true} if shown, {@code false} otherwise.
 	 */
 	public boolean isShownOnActionBar() {
-		return this.mIsShownOnActionBar;
+		return (mFlags & IS_ACTION) == IS_ACTION;
 	}
 	
 	/**
@@ -138,7 +176,7 @@ public final class MenuItemImpl implements MenuItem {
 	 * @param isShownOnActionBar {@code true} if shown or {@code false}.
 	 */
 	public void setIsShownOnActionBar(boolean isShownOnActionBar) {
-		this.mIsShownOnActionBar = isShownOnActionBar;
+		mFlags = (mFlags & ~IS_ACTION) | (isShownOnActionBar ? IS_ACTION : 0);
 	}
 	
 	@Override
@@ -168,40 +206,56 @@ public final class MenuItemImpl implements MenuItem {
 
 	@Override
 	public MenuItem setEnabled(boolean enabled) {
+		final boolean oldValue = isEnabled();
 		mFlags = (mFlags & ~ENABLED) | (enabled ? ENABLED : 0);
+		
+		if (oldValue != enabled) {
+			for (int i = MenuBuilder.NUM_TYPES - 1; i >= 0; i--) {
+				if (hasItemView(i)) {
+					mItemViews[i].get().setEnabled(enabled);
+				}
+			}
+		}
+		
 		return this;
 	}
 
 	@Override
 	public MenuItem setIcon(int iconResourceId) {
-		this.mIcon.setImageResource(iconResourceId);
+		mIcon = null;
+		mIconRes = iconResourceId;
+		
+		if (mIconRes != View.NO_ID) {
+			setIconOnViews(mMenu.getContext().getResources().getDrawable(mIconRes));
+		}
+		
 		return this;
 	}
 
 	@Override
 	public MenuItem setIntent(Intent intent) {
-		this.mIntent = intent;
+		mIntent = intent;
 		return this;
 	}
 
 	@Override
 	public MenuItem setTitle(CharSequence title) {
-		this.mTitle = title;
+		mTitle = title;
 		return this;
 	}
 
 	@Override
 	public MenuItem setTitle(int titleResourceId) {
-		mTitle = this.mMenu.getContext().getResources().getString(titleResourceId);
+		mTitle = mMenu.getContext().getResources().getString(titleResourceId);
 		return this;
 	}
 
 	@Override
 	public MenuItem setVisible(boolean visible) {
-		final int oldFlags = mFlags;
+		final boolean oldValue = isVisible();
 		mFlags = (mFlags & ~HIDDEN) | (visible ? 0 : HIDDEN);
-		if (oldFlags != mFlags) {
-			mView.setVisibility(visible ? View.VISIBLE : View.GONE);
+		if (oldValue != visible) {
+			//TODO?
 		}
 		return this;
 	}
@@ -225,10 +279,14 @@ public final class MenuItemImpl implements MenuItem {
 	}
 
 	void setCheckedInt(boolean checked) {
-		final int oldFlags = mFlags;
+		final boolean oldValue = isChecked();
 		mFlags = (mFlags & ~CHECKED) | (checked ? CHECKED : 0);
-		if (oldFlags != mFlags) {
-			//TODO update view as checked or not
+		if (oldValue != checked) {
+			for (int i = MenuBuilder.NUM_TYPES - 1; i >= 0; i--) {
+				if (hasItemView(i)) {
+					mItemViews[i].get().setChecked(checked);
+				}
+			}
 		}
 	}
 
@@ -239,10 +297,14 @@ public final class MenuItemImpl implements MenuItem {
 
 	@Override
 	public MenuItem setCheckable(boolean checkable) {
-		final int oldFlags = mFlags;
+		final boolean oldValue = isCheckable();
 		mFlags = (mFlags & ~CHECKABLE) | (checkable ? CHECKABLE : 0);
-		if (oldFlags != mFlags) {
-			//TODO update view as checkable or not
+		if (oldValue != checkable) {
+			for (int i = MenuBuilder.NUM_TYPES - 1; i >= 0; i--) {
+				if (hasItemView(i)) {
+					mItemViews[i].get().setCheckable(checkable);
+				}
+			}
 		}
 		
 		return this;
@@ -258,28 +320,28 @@ public final class MenuItemImpl implements MenuItem {
 
 	@Override
 	public CharSequence getTitleCondensed() {
-		return this.mTitleCondensed;
+		return mTitleCondensed;
 	}
 
 	@Override
 	public MenuItem setTitleCondensed(CharSequence title) {
-		this.mTitleCondensed = title;
+		mTitleCondensed = title;
 		return this;
 	}
 
 	@Override
 	public int getGroupId() {
-		return this.mGroupId;
+		return mGroupId;
 	}
 
 	@Override
 	public int getOrder() {
-		return this.mOrder;
+		return mOrder;
 	}
 
 	@Override
 	public SubMenuBuilder getSubMenu() {
-		return this.mSubMenu;
+		return mSubMenu;
 	}
 	
 	/**
@@ -289,61 +351,73 @@ public final class MenuItemImpl implements MenuItem {
 	 * @return This Item so additional setters can be called. 
 	 */
 	MenuItem setSubMenu(SubMenuBuilder subMenu) {
-		this.mSubMenu = subMenu;
+		mSubMenu = subMenu;
 		return this;
 	}
 
 	@Override
 	public boolean hasSubMenu() {
-		return (this.mSubMenu != null) && (this.mSubMenu.size() > 0);
+		return (mSubMenu != null) && (mSubMenu.size() > 0);
 	}
 
 	@Override
 	public char getAlphabeticShortcut() {
-		return this.mAlphabeticalShortcut;
+		return mAlphabeticalShortcut;
 	}
 
 	@Override
 	public char getNumericShortcut() {
-		return this.mNumericalShortcut;
+		return mNumericalShortcut;
 	}
 
 	@Override
 	public MenuItem setAlphabeticShortcut(char alphaChar) {
-		this.mAlphabeticalShortcut = Character.toLowerCase(alphaChar);
+		mAlphabeticalShortcut = Character.toLowerCase(alphaChar);
 		return this;
 	}
 
 	@Override
 	public MenuItem setNumericShortcut(char numericChar) {
-		this.mNumericalShortcut = numericChar;
+		mNumericalShortcut = numericChar;
 		return this;
 	}
 
 	@Override
 	public MenuItem setShortcut(char numericChar, char alphaChar) {
-		this.setNumericShortcut(numericChar);
-		this.setAlphabeticShortcut(alphaChar);
+		setNumericShortcut(numericChar);
+		setAlphabeticShortcut(alphaChar);
 		return this;
 	}
 
 	@Override
 	public void setShowAsAction(int actionEnum) {
-		this.mShowAsAction = actionEnum;
+		mShowAsAction = actionEnum;
 	}
 	
 	public int getShowAsAction() {
-		return this.mShowAsAction;
+		return mShowAsAction;
 	}
 	
 	@Override
 	public View getActionView() {
-		return this.mCustomView.getChildAt(0);
+		if (mActionView != null) {
+			return mActionView;
+		}
+		if (mActionViewRes != View.NO_ID) {
+			return LayoutInflater.from(mMenu.getContext()).inflate(mActionViewRes, null, false);
+		}
+		return null;
 	}
 
 	@Override
 	public Drawable getIcon() {
-		return this.mIcon.getDrawable();
+		if (mIcon != null) {
+			return mIcon;
+		}
+		if (mIconRes != View.NO_ID) {
+			return mMenu.getContext().getResources().getDrawable(mIconRes);
+		}
+		return null;
 	}
 
 	@Override
@@ -353,26 +427,46 @@ public final class MenuItemImpl implements MenuItem {
 
 	@Override
 	public MenuItem setActionView(View view) {
-		this.mCustomView.removeAllViews();
-		if (view != null) {
-			this.mCustomView.addView(view);
-		}
-		this.mIcon.setVisibility((view != null) ? View.GONE : View.VISIBLE);
+		mActionView = view;
+		mActionViewRes = View.NO_ID;
+		setActionViewOnViews(mActionView);
 		return this;
 	}
 
 	@Override
 	public MenuItem setActionView(int resId) {
-		this.mCustomView.removeAllViews();
-		this.mInflater.inflate(resId, this.mCustomView, true);
-		this.mIcon.setVisibility(View.GONE);
+		mActionView = null;
+		mActionViewRes = resId;
+		
+		if (mActionViewRes != View.NO_ID) {
+			setActionViewOnViews(LayoutInflater.from(mMenu.getContext()).inflate(mActionViewRes, null, false));
+		}
+		
 		return this;
+	}
+	
+	void setActionViewOnViews(View view) {
+		for (int i = MenuBuilder.NUM_TYPES - 1; i >= 0; i--) {
+			if (hasItemView(i)) {
+				mItemViews[i].get().setActionView(view);
+			}
+		}
 	}
 
 	@Override
 	public MenuItem setIcon(Drawable icon) {
-		this.mIcon.setImageDrawable(icon);
+		mIcon = icon;
+		mIconRes = View.NO_ID;
+		setIconOnViews(icon);
 		return this;
+	}
+	
+	void setIconOnViews(Drawable icon) {
+		for (int i = MenuBuilder.NUM_TYPES - 1; i >= 0; i--) {
+			if (hasItemView(i)) {
+				mItemViews[i].get().setIcon(icon);
+			}
+		}
 	}
 	
 	@Override
@@ -387,7 +481,7 @@ public final class MenuItemImpl implements MenuItem {
 
 	@Override
 	public MenuItem setOnMenuItemClickListener(OnMenuItemClickListener menuItemClickListener) {
-		this.mListener = menuItemClickListener;
+		mClickListener = menuItemClickListener;
 		return this;
 	}
 	
@@ -397,6 +491,79 @@ public final class MenuItemImpl implements MenuItem {
 	 * @return Click listener or {@code null}.
 	 */
 	public OnMenuItemClickListener getOnMenuItemClickListener() {
-		return this.mListener;
+		return mClickListener;
+	}
+	
+	
+
+	
+	public static final class NativeMenuItemView implements MenuView.ItemView {
+		private final android.view.MenuItem mItem;
+		
+		
+		public NativeMenuItemView(android.view.MenuItem item) {
+			mItem = item;
+		}
+		
+		
+		@Override
+		public MenuItemImpl getItemData() {
+			return null;
+		}
+
+		@Override
+		public void initialize(MenuItemImpl itemData, int menuType) {
+			setIcon(itemData.getIcon());
+			setTitle(itemData.getTitle());
+			setEnabled(itemData.isEnabled());
+			setCheckable(itemData.isCheckable());
+			setChecked(itemData.isChecked());
+			setActionView(itemData.getActionView());
+		}
+
+		@Override
+		public boolean prefersCondensedTitle() {
+			return true;
+		}
+
+		@Override
+		public void setCheckable(boolean checkable) {
+			mItem.setCheckable(checkable);
+		}
+
+		@Override
+		public void setChecked(boolean checked) {
+			mItem.setChecked(checked);
+		}
+
+		@Override
+		public void setEnabled(boolean enabled) {
+			mItem.setEnabled(enabled);
+		}
+
+		@Override
+		public void setIcon(Drawable icon) {
+			mItem.setIcon(icon);
+		}
+
+		@Override
+		public void setShortcut(boolean showShortcut, char shortcutKey) {
+			//Not supported
+		}
+
+		@Override
+		public void setTitle(CharSequence title) {
+			mItem.setTitle(title);
+		}
+
+		@Override
+		public boolean showsIcon() {
+			return true;
+		}
+
+		@Override
+		public void setActionView(View actionView) {
+			//Not supported
+		}
 	}
 }

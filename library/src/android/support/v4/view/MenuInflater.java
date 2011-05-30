@@ -226,6 +226,7 @@ public final class MenuInflater extends android.view.MenuInflater {
 		private static final boolean defaultItemVisible = true;
 		private static final boolean defaultItemEnabled = true;
 		private static final int defaultItemShowAsAction = 0;
+		private static final int defaultIconResId = View.NO_ID;
 		
 		/** Mirror of package-scoped Menu.CATEGORY_MASK. */
 		private static final int Menu__CATEGORY_MASK = 0xffff0000;
@@ -301,7 +302,7 @@ public final class MenuInflater extends android.view.MenuInflater {
 			itemTitleCondensed = attrs.getAttributeValue(XML_NS, "titleCondensed");
 			
 			//itemIconResId = a.getResourceId(com.android.internal.R.styleable.MenuItem_icon, 0);
-			itemIconResId = attrs.getAttributeResourceValue(XML_NS, "icon", 0);
+			itemIconResId = attrs.getAttributeResourceValue(XML_NS, "icon", defaultIconResId);
 			
 			//itemAlphabeticShortcut = getShortcut(a.getString(com.android.internal.R.styleable.MenuItem_alphabeticShortcut));
 			itemAlphabeticShortcut = getShortcut(attrs.getAttributeValue(XML_NS, "alphabeticShortcut"));

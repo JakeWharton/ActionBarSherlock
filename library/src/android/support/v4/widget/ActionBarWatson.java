@@ -2,7 +2,6 @@ package android.support.v4.widget;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.ActionBar;
@@ -19,55 +18,6 @@ import android.widget.TextView;
 import com.jakewharton.android.actionbarsherlock.R;
 
 public final class ActionBarWatson extends RelativeLayout {
-	static final class Dropdown extends PopupWindow implements View.OnClickListener {
-		private final LayoutInflater mInflater;
-		private SpinnerAdapter mAdapter;
-		private DialogInterface.OnClickListener mListener;
-		private View mParent;
-		
-		Dropdown(Context context) {
-			super(context, null, R.styleable.SherlockTheme_dropDownListViewStyle);
-			
-			mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			setFocusable(true);
-			setWindowLayoutMode(0, LayoutParams.WRAP_CONTENT);
-		}
-		
-		public Dropdown setAdapter(SpinnerAdapter adapter, DialogInterface.OnClickListener listener) {
-			mAdapter = adapter;
-			mListener = listener;
-			return this;
-		}
-		
-		public Dropdown setParent(View parent) {
-			mParent = parent;
-			return this;
-		}
-		
-		public void show() {
-			View contentView = mInflater.inflate(R.layout.actionbar_list_dropdown, null, false);
-			LinearLayout list = (LinearLayout) contentView.findViewById(R.id.actionbar_list_dropdown);
-			for (int i = 0; i < mAdapter.getCount(); i++) {
-				View item = mAdapter.getDropDownView(i, null, list);
-				item.setFocusable(true);
-				item.setTag(new Integer(i));
-				item.setOnClickListener(this);
-				list.addView(item);
-			}
-
-			setContentView(contentView);
-			setWidth(mParent.getWidth());
-			showAsDropDown(mParent);
-		}
-
-		@Override
-		public void onClick(View view) {
-			dismiss();
-			mListener.onClick(null, (Integer)view.getTag());
-		}
-	}
-
-	
 	/** Default display options if none are defined in the theme. */
 	private static final int DEFAULT_DISPLAY_OPTIONS = ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_SHOW_HOME;
 	
@@ -200,20 +150,17 @@ public final class ActionBarWatson extends RelativeLayout {
 		mHomeAsUpIndicator = findViewById(R.id.actionbar_home_as_up_indicator);
 		
 		//Load the up indicator
-		Drawable homeAsUpIndicator = a.getDrawable(R.styleable.SherlockActionBar_homeAsUpIndicator);
-		//if (homeAsUpIndicator == null) {
-		//	homeAsUpIndicator = getActivity().getResources().getDrawable(R.drawable.actionbar_home_as_up_indicator);
-		//}
+		final Drawable homeAsUpIndicator = a.getDrawable(R.styleable.SherlockActionBar_homeAsUpIndicator);
 		mHomeAsUpIndicator.setBackgroundDrawable(homeAsUpIndicator);
 
 		//Try to load the logo from the theme
-		Drawable homeLogo = a.getDrawable(R.styleable.SherlockActionBar_logo);
+		final Drawable homeLogo = a.getDrawable(R.styleable.SherlockActionBar_logo);
 		if (homeLogo != null) {
 			mHomeLogo.setImageDrawable(homeLogo);
 		}
 		
 		//Try to load the icon from the theme
-		Drawable homeIcon = a.getDrawable(R.styleable.SherlockActionBar_icon);
+		final Drawable homeIcon = a.getDrawable(R.styleable.SherlockActionBar_icon);
 		mHomeIcon.setImageDrawable(homeIcon);
 		
 
@@ -223,13 +170,13 @@ public final class ActionBarWatson extends RelativeLayout {
 		mTitle = (TextView)findViewById(R.id.actionbar_title);
 		
 		//Try to load title style from the theme
-		int titleTextStyle = a.getResourceId(R.styleable.SherlockActionBar_titleTextStyle, 0);
+		final int titleTextStyle = a.getResourceId(R.styleable.SherlockActionBar_titleTextStyle, 0);
 		if (titleTextStyle != 0) {
 			mTitle.setTextAppearance(context, titleTextStyle);
 		}
 		
 		//Try to load title from the theme
-		CharSequence title = a.getString(R.styleable.SherlockActionBar_title);
+		final CharSequence title = a.getString(R.styleable.SherlockActionBar_title);
 		if (title != null) {
 			setTitle(title);
 		}
@@ -240,13 +187,13 @@ public final class ActionBarWatson extends RelativeLayout {
 		mSubtitle = (TextView)findViewById(R.id.actionbar_subtitle);
 		
 		//Try to load subtitle style from the theme
-		int subtitleTextStyle = a.getResourceId(R.styleable.SherlockActionBar_subtitleTextStyle, 0);
+		final int subtitleTextStyle = a.getResourceId(R.styleable.SherlockActionBar_subtitleTextStyle, 0);
 		if (subtitleTextStyle != 0) {
 			mSubtitle.setTextAppearance(context, subtitleTextStyle);
 		}
 		
 		//Try to load subtitle from theme
-		CharSequence subtitle = a.getString(R.styleable.SherlockActionBar_subtitle);
+		final CharSequence subtitle = a.getString(R.styleable.SherlockActionBar_subtitle);
 		if (subtitle != null) {
 			setSubtitle(subtitle);
 		}
@@ -257,10 +204,7 @@ public final class ActionBarWatson extends RelativeLayout {
 		mListView = (FrameLayout)findViewById(R.id.actionbar_list);
 		mListIndicator = findViewById(R.id.actionbar_list_indicator);
 		
-		Drawable listIndicator = a.getDrawable(R.styleable.SherlockActionBar_listIndicator);
-		if (listIndicator == null) {
-			listIndicator = context.getResources().getDrawable(R.drawable.actionbar_list_indicator);
-		}
+		final Drawable listIndicator = a.getDrawable(R.styleable.SherlockActionBar_listIndicator);
 		mListIndicator.setBackgroundDrawable(listIndicator);
 		
 		
@@ -270,7 +214,7 @@ public final class ActionBarWatson extends RelativeLayout {
 		
 		//Try to load a custom view from the theme. This will NOT automatically
 		//trigger the visibility of the custom layout, however.
-		int customViewResourceId = a.getResourceId(R.styleable.SherlockActionBar_customNavigationLayout, 0);
+		final int customViewResourceId = a.getResourceId(R.styleable.SherlockActionBar_customNavigationLayout, 0);
 		if (customViewResourceId != 0) {
 			setCustomView(customViewResourceId);
 		}
@@ -293,26 +237,64 @@ public final class ActionBarWatson extends RelativeLayout {
 	
 	
 	
-	
-	
 	// ------------------------------------------------------------------------
-	// HELPER METHODS
+	// WATSON METHODS
 	// ------------------------------------------------------------------------
 	
+	/**
+	 * Get the home icon.
+	 * 
+	 * @return Drawable home icon or {@code null}.
+	 */
 	public Drawable getHomeIcon() {
 		return mHomeIcon.getDrawable();
 	}
 	
+	/**
+	 * Get the home logo.
+	 * 
+	 * @return Drawable home logo or {@code null}.
+	 */
 	public Drawable getHomeLogo() {
 		return mHomeLogo.getDrawable();
 	}
 	
+	/**
+	 * Set or clear the home icon.
+	 * 
+	 * @param icon Drawable to use for the home icon or {@code null} to clear
+	 * any existing drawable.
+	 */
 	public void setHomeIcon(Drawable icon) {
 		mHomeIcon.setImageDrawable(icon);
 	}
 	
+	/**
+	 * Set the home icon.
+	 * 
+	 * @param resId Resource ID or drawable to use.
+	 */
+	public void setHomeIcon(int resId) {
+		mHomeIcon.setImageResource(resId);
+	}
+	
+	/**
+	 * Set or clear the home logo.
+	 * 
+	 * @param logo Drawable to use for the home logo or {@code null} to clear
+	 * any existind drawable.
+	 */
 	public void setHomeLogo(Drawable logo) {
 		mHomeLogo.setImageDrawable(logo);
+	}
+	
+	/**
+	 * Set the home logo.
+	 * 
+	 * @param resId Resource ID of drawable to use.
+	 */
+	public void setHomeLogo(int resId) {
+		mHomeLogo.setImageResource(resId);
 	}
 	
 	/**
@@ -384,7 +366,8 @@ public final class ActionBarWatson extends RelativeLayout {
 	// ------------------------------------------------------------------------
 
 	public void addTab(ActionBar.Tab tab) {
-		addTab(tab, getTabCount(), false);
+		final int tabCount = getTabCount();
+		addTab(tab, tabCount, tabCount == 0);
 	}
 	
 	public void addTab(ActionBar.Tab tab, boolean setSelected) {
@@ -392,7 +375,7 @@ public final class ActionBarWatson extends RelativeLayout {
 	}
 	
 	public void addTab(ActionBar.Tab tab, int position) {
-		addTab(tab, position, false);
+		addTab(tab, position, getTabCount() == 0);
 	}
 	
 	public void addTab(ActionBar.Tab tab, int position, boolean setSelected) {
@@ -667,11 +650,7 @@ public final class ActionBarWatson extends RelativeLayout {
 		ActionBarWatson mActionBar;
 		ImageView mIconView;
 		FrameLayout mCustomView;
-		
-		Intent mIntent;
-		int mFlags;
 
-		
 
 		public Item(Context context) {
 			this(context, null);
@@ -683,18 +662,22 @@ public final class ActionBarWatson extends RelativeLayout {
 			super(context, attrs, defStyle);
 		}
 		
+		
 		@Override
 		protected void onFinishInflate() {
 			super.onFinishInflate();
 
 			mIconView = (ImageView)findViewById(R.id.actionbar_item_icon);
 			mCustomView = (FrameLayout)findViewById(R.id.actionbar_item_custom);
+			
+			//TODO add text support
 		}
 		
 		void reloadDisplay() {
 			final boolean hasCustomView = mCustomView.getChildCount() > 0;
 			
-			mCustomView.setVisibility(hasCustomView ? View.VISIBLE : View.INVISIBLE);
+			mIconView.setVisibility(hasCustomView ? View.GONE : View.VISIBLE);
+			mCustomView.setVisibility(hasCustomView ? View.VISIBLE : View.GONE);
 		}
 		
 		void setActionBar(ActionBarWatson actionBar) {
@@ -705,20 +688,8 @@ public final class ActionBarWatson extends RelativeLayout {
 			return mCustomView;
 		}
 		
-		public int getDisplayOptions() {
-			return mFlags;
-		}
-		
 		public Drawable getIcon() {
 			return mIconView.getDrawable();
-		}
-		
-		public Intent getIntent() {
-			return mIntent;
-		}
-		
-		public void invoke() {
-			//TODO
 		}
 		
 		public Item setCustomView(int resId) {
@@ -737,24 +708,15 @@ public final class ActionBarWatson extends RelativeLayout {
 			return this;
 		}
 		
-		public Item setDisplayOptions(int flags) {
-			mFlags = flags;
-			reloadDisplay();
-			return this;
-		}
-		
 		public Item setIcon(Drawable icon) {
 			mIconView.setImageDrawable(icon);
 			return this;
 		}
 		
 		public Item setIcon(int resId) {
-			mIconView.setImageResource(resId);
-			return this;
-		}
-		
-		public Item setIntent(Intent intent) {
-			mIntent = intent;
+			if (resId != View.NO_ID) {
+				mIconView.setImageResource(resId);
+			}
 			return this;
 		}
 	}
@@ -920,6 +882,54 @@ public final class ActionBarWatson extends RelativeLayout {
 					mListener.onTabUnselected(this, null);
 				}
 			}
+		}
+	}
+
+	private static final class Dropdown extends PopupWindow implements View.OnClickListener {
+		private final LayoutInflater mInflater;
+		private SpinnerAdapter mAdapter;
+		private DialogInterface.OnClickListener mListener;
+		private View mParent;
+		
+		Dropdown(Context context) {
+			super(context, null, R.styleable.SherlockTheme_dropDownListViewStyle);
+			
+			mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			setFocusable(true);
+			setWindowLayoutMode(0, LayoutParams.WRAP_CONTENT);
+		}
+		
+		public Dropdown setAdapter(SpinnerAdapter adapter, DialogInterface.OnClickListener listener) {
+			mAdapter = adapter;
+			mListener = listener;
+			return this;
+		}
+		
+		public Dropdown setParent(View parent) {
+			mParent = parent;
+			return this;
+		}
+		
+		public void show() {
+			View contentView = mInflater.inflate(R.layout.actionbar_list_dropdown, null, false);
+			LinearLayout list = (LinearLayout) contentView.findViewById(R.id.actionbar_list_dropdown);
+			for (int i = 0; i < mAdapter.getCount(); i++) {
+				View item = mAdapter.getDropDownView(i, null, list);
+				item.setFocusable(true);
+				item.setTag(new Integer(i));
+				item.setOnClickListener(this);
+				list.addView(item);
+			}
+
+			setContentView(contentView);
+			setWidth(mParent.getWidth());
+			showAsDropDown(mParent);
+		}
+
+		@Override
+		public void onClick(View view) {
+			dismiss();
+			mListener.onClick(null, (Integer)view.getTag());
 		}
 	}
 }

@@ -38,13 +38,26 @@ public class MenuBuilder implements Menu {
 	private static final int DEFAULT_GROUP_ID = 0;
 	private static final int DEFAULT_ORDER = 0;
 	
+	public static final int NUM_TYPES = 2;
+	public static final int TYPE_WATSON = 0;
+	public static final int TYPE_NATIVE = 1;
+	
+	
+	
+	public interface Callback {
+		public boolean onMenuItemSelected(MenuBuilder menu, MenuItem item);
+	}
+	
 	
 	
 	/** Context used for resolving any resources. */
-	final Context mContext;
+	private final Context mContext;
 	
 	/** Child {@link ActionBarMenuItem} items. */
-	final List<MenuItemImpl> mItems;
+	private final List<MenuItemImpl> mItems;
+	
+	/** Menu callback that will receive various events. */
+	private Callback mCallback;
 	
 	
 	
@@ -59,6 +72,23 @@ public class MenuBuilder implements Menu {
 	}
 
 	
+	
+	public void setCallback(Callback callback) {
+		mCallback = callback;
+	}
+	
+	public Callback getCallback() {
+		return mCallback;
+	}
+	
+	/**
+	 * Gets the root menu (if this is a submenu, find its root menu).
+	 * 
+	 * @return The root menu.
+	 */
+	public MenuBuilder getRootMenu() {
+		return this;
+	}
 	
 	/**
 	 * Get a list of the items contained in this menu.

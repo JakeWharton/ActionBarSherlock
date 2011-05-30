@@ -76,10 +76,10 @@ final class SubMenuBuilder extends MenuBuilder implements SubMenu {
     //    mParentMenu.setCallback(callback);
     //}
 
-    //@Override
-    //public MenuBuilder getRootMenu() {
-    //    return mParentMenu;
-    //}
+    @Override
+    public MenuBuilder getRootMenu() {
+        return mParentMenu;
+    }
 
     public SubMenuBuilder setIcon(Drawable icon) {
         mItem.setIcon(icon);

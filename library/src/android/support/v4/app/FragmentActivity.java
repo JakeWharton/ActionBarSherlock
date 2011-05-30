@@ -96,6 +96,12 @@ public class FragmentActivity extends Activity {
 	
 	final ActionBar mActionBar;
 	final MenuBuilder mActionBarMenu;
+	final MenuBuilder.Callback mMenuCallback = new MenuBuilder.Callback() {
+		@Override
+		public boolean onMenuItemSelected(MenuBuilder menu, MenuItem item) {
+			return onOptionsItemSelected(item);
+		}
+	};
 	
 	boolean mResumed;
 	boolean mStopped;
@@ -132,19 +138,23 @@ public class FragmentActivity extends Activity {
 		
 		if (DEBUG) Log.d(TAG, "<ctor>(): IS_HONEYCOMB = " + IS_HONEYCOMB);
 		
-		//Load a menu
-		mActionBarMenu = IS_HONEYCOMB ? null : new MenuBuilder(this);
-		if (DEBUG) Log.d(TAG, "<ctor>(): mActionBarMenu = " + mActionBarMenu);
-		
-		//Load the appropriate action bar handler
+		//Load the appropriate action bar handler and menu
 		Class<? extends ActionBar> handler;
 		if (IS_HONEYCOMB) {
+			//No menu, everything should be done natively
+			mActionBarMenu = null;
+			
 			handler = ActionBarNative.getHandler();
-		} else if (ActionBar.HANDLER_CUSTOM != null) {
-			handler = ActionBar.HANDLER_CUSTOM;
 		} else {
-			mActionBar = null;
-			return;
+			mActionBarMenu = new MenuBuilder(this);
+			mActionBarMenu.setCallback(mMenuCallback);
+			
+			if (ActionBar.HANDLER_CUSTOM != null) {
+				handler = ActionBar.HANDLER_CUSTOM;
+			} else {
+				mActionBar = null;
+				return;
+			}
 		}
 		
 		try {
@@ -155,6 +165,7 @@ public class FragmentActivity extends Activity {
 			throw new RuntimeException(e);
 		}
 		
+		if (DEBUG) Log.d(TAG, "<ctor>(): mActionBarMenu = " + mActionBarMenu);
 		if (DEBUG) Log.d(TAG, "<ctor>(): mActionBar = " + mActionBar);
 	}
 	
