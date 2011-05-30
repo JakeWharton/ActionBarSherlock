@@ -93,6 +93,11 @@ public final class ActionBarWatson extends RelativeLayout {
 	 * Callback for the list navigation event.
 	 */
 	private ActionBar.OnNavigationListener mListCallback;
+	
+	/**
+	 * Callback for the home click event.
+	 */
+	private View.OnClickListener mHomeListener;
 
 	/**
 	 * Listener for list title click. Will display a list dialog of all the
@@ -143,7 +148,14 @@ public final class ActionBarWatson extends RelativeLayout {
 		/// HOME ////
 		
 		mHome = findViewById(R.id.actionbar_home);
-		//TODO set up home click
+		mHome.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				if (mHomeListener != null) {
+					mHomeListener.onClick(null);
+				}
+			}
+		});
 		
 		mHomeLogo = (ImageView)findViewById(R.id.actionbar_home_logo);
 		mHomeIcon = (ImageView)findViewById(R.id.actionbar_home_icon);
@@ -295,6 +307,24 @@ public final class ActionBarWatson extends RelativeLayout {
 	 */
 	public void setHomeLogo(int resId) {
 		mHomeLogo.setImageResource(resId);
+	}
+	
+	/**
+	 * Set the listener for the home button.
+	 * 
+	 * @param listener View click listener.
+	 */
+	public void setHomeListener(View.OnClickListener listener) {
+		mHomeListener = listener;
+	}
+	
+	/**
+	 * Get the current listener for the home button.
+	 * 
+	 * @return View click listener or {@code null}.
+	 */
+	public View.OnClickListener getHomeListener() {
+		return mHomeListener;
 	}
 	
 	/**

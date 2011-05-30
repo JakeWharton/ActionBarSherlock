@@ -57,6 +57,17 @@ final class ActionBarCustom extends ActionBar {
 	/** List of listeners to the menu visibility. */
 	private final List<OnMenuVisibilityListener> mMenuListeners = new ArrayList<OnMenuVisibilityListener>();
 	
+	private MenuItemImpl mHomeMenuItem;
+	
+	private final View.OnClickListener mHomeListener = new View.OnClickListener() {
+		@Override
+		public void onClick(View arg0) {
+			if (mHomeMenuItem != null) {
+				mHomeMenuItem.invoke();
+			}
+		}
+	};
+	
 	
 	
 	// ------------------------------------------------------------------------
@@ -70,6 +81,9 @@ final class ActionBarCustom extends ActionBar {
 		
 		mActionBar = (ActionBarWatson)getActivity().findViewById(R.id.actionbar);
 		mContentView = (FrameLayout)getActivity().findViewById(R.id.actionbar_content_view);
+		
+		mHomeMenuItem = getActivity().getHomeMenuItem();
+		mActionBar.setHomeListener(mHomeListener);
 
 		PackageManager pm = getActivity().getPackageManager();
 		ApplicationInfo appInfo = getActivity().getApplicationInfo();

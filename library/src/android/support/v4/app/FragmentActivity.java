@@ -917,6 +917,16 @@ public class FragmentActivity extends Activity {
 		//Return to the caller
 		return actionMode;
 	}
+	
+	/**
+	 * Get a special instance of {@link MenuItemImpl} which denotes the home
+	 * item and should be invoked when the custom home button is clicked.
+	 *  
+	 * @return Menu item instance.
+	 */
+	final MenuItemImpl getHomeMenuItem() {
+		return mActionBarMenu.addDetached(android.R.id.home);
+	}
 
 	// ------------------------------------------------------------------------
 	// FRAGMENT SUPPORT

@@ -91,6 +91,18 @@ public class MenuBuilder implements Menu {
 	}
 	
 	/**
+	 * Special method to create a detached child item of this menu with the
+	 * specified ID. This should ONLY be used internally for the creation
+	 * of the home item.
+	 * 
+	 * @param itemId ID of detached item.
+	 * @return Item instance.
+	 */
+	public MenuItemImpl addDetached(int itemId) {
+		return new MenuItemImpl(this, itemId, -1, -1, null);
+	}
+	
+	/**
 	 * Get a list of the items contained in this menu.
 	 * 
 	 * @return List of {@link MenuItemImpl}s.
