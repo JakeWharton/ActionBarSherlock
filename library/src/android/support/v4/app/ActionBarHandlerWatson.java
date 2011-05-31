@@ -70,7 +70,7 @@ final class ActionBarHandlerWatson extends ActionBar {
 		getActivity().setSuperContentView(R.layout.actionbarwatson_wrapper);
 		
 		mActionBar = (ActionBarWatson)getActivity().findViewById(R.id.actionbarwatson);
-		mContentView = (FrameLayout)getActivity().findViewById(R.id.actionbarwatson_content_view);
+		mContentView = (FrameLayout)getActivity().findViewById(R.id.actionbarsherlock_content);
 		
 		final ActionBarWatson.Item homeItem = mActionBar.getHomeItem();
 		final WatsonItemViewWrapper homeWrapper = new WatsonItemViewWrapper(homeItem);

@@ -11,7 +11,7 @@
 	    android:layout_height="@dimen/actionbarwatson_height"
 		/>
 	<FrameLayout
-		android:id="@+id/actionbarwatson_content_view"
+		android:id="@id/actionbarsherlock_content"
 		android:layout_width="fill_parent"
 		android:layout_height="fill_parent"
 		/>
