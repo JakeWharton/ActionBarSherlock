@@ -25,17 +25,17 @@ import android.support.v4.view.MenuInflater;
 import android.view.View;
 import android.widget.SpinnerAdapter;
 
-final class ActionBarNative {
+final class ActionBarHandlerNative {
 	//No instances
-	private ActionBarNative() {}
+	private ActionBarHandlerNative() {}
 	
 	/**
 	 * Simple static method abstraction to get a reference to our implementing class.
 	 * 
 	 * @return {@code ActionBarNative.Impl.class}
 	 */
-	static Class<? extends ActionBar> getHandler() {
-		return ActionBarNative.Impl.class;
+	static Class<? extends ActionBar> get() {
+		return ActionBarHandlerNative.Impl.class;
 	}
 
 	/**
@@ -246,7 +246,7 @@ final class ActionBarNative {
 		// ---------------------------------------------------------------------
 		
 		private static class TabImpl implements ActionBar.Tab {
-			final ActionBarNative.Impl mActionBar;
+			final ActionBarHandlerNative.Impl mActionBar;
 			
 			View mCustomView;
 			Drawable mIcon;
@@ -254,7 +254,7 @@ final class ActionBarNative {
 			Object mTag;
 			CharSequence mText;
 			
-			TabImpl(ActionBarNative.Impl actionBar) {
+			TabImpl(ActionBarHandlerNative.Impl actionBar) {
 				mActionBar = actionBar;
 			}
 

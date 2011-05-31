@@ -139,30 +139,31 @@ public class FragmentActivity extends Activity {
 		if (DEBUG) Log.d(TAG, "<ctor>(): IS_HONEYCOMB = " + IS_HONEYCOMB);
 		
 		//Load the appropriate action bar handler and menu
-		Class<? extends ActionBar> handler;
+		Class<? extends ActionBar> handler = null;
 		if (IS_HONEYCOMB) {
+			handler = ActionBarHandlerNative.get();
+			
 			//No menu, everything should be done natively
 			mActionBarMenu = null;
-			
-			handler = ActionBarNative.getHandler();
 		} else {
-			mActionBarMenu = new MenuBuilder(this);
-			mActionBarMenu.setCallback(mMenuCallback);
-			
 			if (ActionBar.HANDLER_CUSTOM != null) {
 				handler = ActionBar.HANDLER_CUSTOM;
-			} else {
-				mActionBar = null;
-				return;
 			}
+			
+			mActionBarMenu = new MenuBuilder(this);
+			mActionBarMenu.setCallback(mMenuCallback);
 		}
 		
-		try {
-			mActionBar = handler.newInstance();
-			mActionBar.setActivity(this);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
+		if (handler != null) {
+			try {
+				mActionBar = handler.newInstance();
+				mActionBar.setActivity(this);
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new RuntimeException(e);
+			}
+		} else {
+			mActionBar = null;
 		}
 		
 		if (DEBUG) Log.d(TAG, "<ctor>(): mActionBarMenu = " + mActionBarMenu);

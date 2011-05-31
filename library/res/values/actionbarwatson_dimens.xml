@@ -14,6 +14,5 @@
      limitations under the License.
 -->
 <resources>
-    <color name="actionbar_separator">#8B1A1A</color>
-    <color name="actionbar_item_focused">#FF58BAED</color>
+    <dimen name="actionbarwatson_height">45dip</dimen>
 </resources>

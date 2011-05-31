@@ -34,7 +34,7 @@ import android.widget.SpinnerAdapter;
  */
 public abstract class ActionBar {
 	/** Custom handler class. */
-	static Class<? extends ActionBar> HANDLER_CUSTOM = ActionBarCustom.class;
+	static Class<? extends ActionBar> HANDLER_CUSTOM = ActionBarHandlerWatson.class;
 
 	
 	///**

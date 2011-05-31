@@ -15,7 +15,7 @@
      limitations under the License.
 -->
 <view xmlns:android="http://schemas.android.com/apk/res/android"
-	class="android.support.v4.widget.ActionBarWatson$ActionItem"
+	class="com.jakewharton.android.actionbarsherlock.widget.ActionBarWatson$ActionItem"
 	android:layout_width="wrap_content"
 	android:layout_height="fill_parent"
 	android:focusable="true"
@@ -23,14 +23,14 @@
 	style="?attr/actionButtonStyle"
 	>
 	<ImageView
-		android:id="@+id/actionbar_item_icon"
+		android:id="@+id/actionbarwatson_item_icon"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_centerVertical="true"
 		android:gravity="center_vertical"
 		/>
 	<FrameLayout
-		android:id="@+id/actionbar_item_custom"
+		android:id="@+id/actionbarwatson_item_custom"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_centerVertical="true"

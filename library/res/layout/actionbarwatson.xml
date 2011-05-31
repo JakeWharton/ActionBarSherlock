@@ -17,8 +17,8 @@
 -->
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
     <view
-    	class="android.support.v4.widget.ActionBarWatson$HomeItem"
-        android:id="@+id/actionbar_home"
+    	class="com.jakewharton.android.actionbarsherlock.widget.ActionBarWatson$HomeItem"
+        android:id="@+id/actionbarwatson_home"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:orientation="horizontal"
@@ -31,7 +31,7 @@
         />
     
     <LinearLayout
-        android:id="@+id/actionbar_actions"
+        android:id="@+id/actionbarwatson_actions"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_alignParentRight="true"
@@ -40,13 +40,13 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/actionbar_home"
-        android:layout_toLeftOf="@id/actionbar_actions"
+        android:layout_toRightOf="@id/actionbarwatson_home"
+        android:layout_toLeftOf="@id/actionbarwatson_actions"
         android:layout_alignWithParentIfMissing="true"
         android:layout_centerVertical="true"
         >
         <android.support.v4.widget.ScrollingTextView
-            android:id="@+id/actionbar_title"
+            android:id="@+id/actionbarwatson_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -63,12 +63,12 @@
             android:marqueeRepeatLimit="marquee_forever"
             />
         <android.support.v4.widget.ScrollingTextView
-            android:id="@+id/actionbar_subtitle"
+            android:id="@+id/actionbarwatson_subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
-            android:layout_below="@id/actionbar_title"
+            android:layout_below="@id/actionbarwatson_title"
             android:gravity="center_vertical"
             android:paddingLeft="10dip"
             android:paddingRight="10dip"
@@ -80,7 +80,7 @@
             android:visibility="gone"
             />
         <FrameLayout
-            android:id="@+id/actionbar_list"
+            android:id="@+id/actionbarwatson_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -90,7 +90,7 @@
             android:visibility="gone"
             />
         <ImageView
-            android:id="@+id/actionbar_list_indicator"
+            android:id="@+id/actionbarwatson_list_indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -99,7 +99,7 @@
             android:visibility="gone"
             />
         <LinearLayout
-            android:id="@+id/actionbar_tabs"
+            android:id="@+id/actionbarwatson_tabs"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_alignParentLeft="true"
@@ -111,7 +111,7 @@
             style="?actionBarTabBarStyle"
             />
         <FrameLayout
-            android:id="@+id/actionbar_custom"
+            android:id="@+id/actionbarwatson_custom"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_alignParentLeft="true"

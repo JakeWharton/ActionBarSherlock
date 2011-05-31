@@ -16,13 +16,13 @@
 -->
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
     <ImageView
-        android:id="@+id/actionbar_home_logo"
+        android:id="@+id/actionbarwatson_home_logo"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:visibility="gone"
         />
     <ImageView
-        android:id="@+id/actionbar_home_icon"
+        android:id="@+id/actionbarwatson_home_icon"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_alignParentLeft="true"
@@ -32,7 +32,7 @@
         android:visibility="gone"
         />
     <ImageView
-        android:id="@+id/actionbar_home_as_up_indicator"
+        android:id="@+id/actionbarwatson_home_as_up_indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"

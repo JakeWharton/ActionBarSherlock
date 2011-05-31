@@ -23,18 +23,18 @@
 	</style>
 	
 	<style name="Widget.Sherlock.ActionBar" parent="android:style/Widget">
-		<item name="homeAsUpIndicator">@drawable/actionbar_home_as_up_indicator</item>
-		<item name="listIndicator">@drawable/actionbar_list_indicator</item>
+		<item name="homeAsUpIndicator">@drawable/actionbarwatson_home_as_up_indicator</item>
+		<item name="listIndicator">@drawable/actionbarwatson_list_indicator</item>
 	</style>
 	
 	<style name="Widget.Sherlock.ActionBarView_TabView" parent="android:style/Widget">
-		<item name="android:background">@drawable/actionbar_tab_bg</item>
+		<item name="android:background">@drawable/actionbarwatson_tab_bg</item>
 		<item name="android:padding">5dp</item>
     </style>
 	
 	<style name="Widget.Sherlock.ActionButton" parent="android:style/Widget">
 		<item name="android:padding">5dp</item>
-		<item name="android:background">@color/actionbar_item_bg</item>
+		<item name="android:background">@color/actionbarwatson_item_bg</item>
 	</style>
 	
 	<style name="Widget.Sherlock.ActionButton.Home">
@@ -54,7 +54,7 @@
 	</style>
 	
 	<style name="ActionBarSherlock.TabTextStyle" parent="android:style/Widget">
-		<item name="android:textColor">@color/actionbar_tab_text_color</item>
+		<item name="android:textColor">@color/actionbarwatson_tab_text_color</item>
 		<item name="android:textStyle">bold</item>
 		<item name="android:textSize">16dp</item>
 	</style>
@@ -84,19 +84,19 @@
 	</style>
 	
 	<style name="Widget.Sherlock.Light.ActionBar" parent="android:style/Widget">
-		<item name="homeAsUpIndicator">@drawable/actionbar_home_as_up_indicator_light</item>
-		<item name="listIndicator">@drawable/actionbar_list_indicator_light</item>
+		<item name="homeAsUpIndicator">@drawable/actionbarwatson_home_as_up_indicator_light</item>
+		<item name="listIndicator">@drawable/actionbarwatson_list_indicator_light</item>
 	</style>
 	
 	<style name="Widget.Sherlock.Light.ActionBarView_TabView" parent="android:style/Widget">
-		<item name="android:background">@drawable/actionbar_tab_bg</item>
+		<item name="android:background">@drawable/actionbarwatson_tab_bg</item>
 		<item name="android:paddingLeft">5dp</item>
 		<item name="android:paddingRight">5dp</item>
     </style>
 	
 	<style name="Widget.Sherlock.Light.ActionButton" parent="android:style/Widget">
 		<item name="android:padding">5dp</item>
-		<item name="android:background">@android:drawable/menuitem_background</item>
+		<item name="android:background">@color/actionbarwatson_item_bg</item>
 	</style>
 	
 	<style name="Widget.Sherlock.Light.ActionButton.Home">
@@ -116,6 +116,6 @@
 	</style>
 	
 	<style name="ActionBarSherlock.Light.TabTextStyle" parent="ActionBarSherlock.TabTextStyle">
-		<item name="android:textColor">@color/actionbar_tab_text_color_light</item>
+		<item name="android:textColor">@color/actionbarwatson_tab_text_color_light</item>
 	</style>
 </resources>

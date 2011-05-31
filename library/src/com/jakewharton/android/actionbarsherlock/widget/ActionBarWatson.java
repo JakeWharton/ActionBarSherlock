@@ -1,4 +1,4 @@
-package android.support.v4.widget;
+package com.jakewharton.android.actionbarsherlock.widget;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -127,14 +127,14 @@ public final class ActionBarWatson extends RelativeLayout {
 	
 	public ActionBarWatson(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
-		LayoutInflater.from(context).inflate(R.layout.actionbar, this, true);
+		LayoutInflater.from(context).inflate(R.layout.actionbarwatson, this, true);
 		
 		final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SherlockActionBar, defStyle, 0);
 		
 		
 		/// HOME ////
 		
-		mHome = (HomeItem)findViewById(R.id.actionbar_home);
+		mHome = (HomeItem)findViewById(R.id.actionbarwatson_home);
 		
 		//Load the up indicator
 		final Drawable homeAsUpIndicator = a.getDrawable(R.styleable.SherlockActionBar_homeAsUpIndicator);
@@ -153,7 +153,7 @@ public final class ActionBarWatson extends RelativeLayout {
 		
 		//// TITLE ////
 		
-		mTitle = (TextView)findViewById(R.id.actionbar_title);
+		mTitle = (TextView)findViewById(R.id.actionbarwatson_title);
 		
 		//Try to load title style from the theme
 		final int titleTextStyle = a.getResourceId(R.styleable.SherlockActionBar_titleTextStyle, 0);
@@ -170,7 +170,7 @@ public final class ActionBarWatson extends RelativeLayout {
 		
 		//// SUBTITLE ////
 		
-		mSubtitle = (TextView)findViewById(R.id.actionbar_subtitle);
+		mSubtitle = (TextView)findViewById(R.id.actionbarwatson_subtitle);
 		
 		//Try to load subtitle style from the theme
 		final int subtitleTextStyle = a.getResourceId(R.styleable.SherlockActionBar_subtitleTextStyle, 0);
@@ -187,8 +187,8 @@ public final class ActionBarWatson extends RelativeLayout {
 		
 		//// LIST NAVIGATION ////
 		
-		mListView = (FrameLayout)findViewById(R.id.actionbar_list);
-		mListIndicator = findViewById(R.id.actionbar_list_indicator);
+		mListView = (FrameLayout)findViewById(R.id.actionbarwatson_list);
+		mListIndicator = findViewById(R.id.actionbarwatson_list_indicator);
 		
 		final Drawable listIndicator = a.getDrawable(R.styleable.SherlockActionBar_listIndicator);
 		mListIndicator.setBackgroundDrawable(listIndicator);
@@ -196,7 +196,7 @@ public final class ActionBarWatson extends RelativeLayout {
 		
 		//// CUSTOM VIEW ////
 		
-		mCustomView = (FrameLayout)findViewById(R.id.actionbar_custom);
+		mCustomView = (FrameLayout)findViewById(R.id.actionbarwatson_custom);
 		
 		//Try to load a custom view from the theme. This will NOT automatically
 		//trigger the visibility of the custom layout, however.
@@ -206,8 +206,8 @@ public final class ActionBarWatson extends RelativeLayout {
 		}
 		
 		
-		mActionsView = (LinearLayout)findViewById(R.id.actionbar_actions);
-		mTabsView = (LinearLayout)findViewById(R.id.actionbar_tabs);
+		mActionsView = (LinearLayout)findViewById(R.id.actionbarwatson_actions);
+		mTabsView = (LinearLayout)findViewById(R.id.actionbarwatson_tabs);
 		
 		
 		//Try to get the display options defined in the theme, or fall back to
@@ -559,7 +559,7 @@ public final class ActionBarWatson extends RelativeLayout {
 	}
 	
 	public ActionBarWatson.Item newItem() {
-		ActionItem item = (ActionItem)LayoutInflater.from(getContext()).inflate(R.layout.actionbar_item, mActionsView, false);
+		ActionItem item = (ActionItem)LayoutInflater.from(getContext()).inflate(R.layout.actionbarwatson_item, mActionsView, false);
 		item.setActionBar(this);
 		return item;
 	}
@@ -635,8 +635,8 @@ public final class ActionBarWatson extends RelativeLayout {
 		protected void onFinishInflate() {
 			super.onFinishInflate();
 
-			mIconView = (ImageView)findViewById(R.id.actionbar_item_icon);
-			mCustomView = (FrameLayout)findViewById(R.id.actionbar_item_custom);
+			mIconView = (ImageView)findViewById(R.id.actionbarwatson_item_icon);
+			mCustomView = (FrameLayout)findViewById(R.id.actionbarwatson_item_custom);
 			
 			//TODO add text support
 		}
@@ -746,11 +746,11 @@ public final class ActionBarWatson extends RelativeLayout {
 		
 		public HomeItem(Context context, AttributeSet attrs, int defStyle) {
 			super(context, attrs, defStyle);
-			LayoutInflater.from(context).inflate(R.layout.actionbar_item_home, this, true);
+			LayoutInflater.from(context).inflate(R.layout.actionbarwatson_item_home, this, true);
 			
-			mLogo = (ImageView)findViewById(R.id.actionbar_home_logo);
-			mIcon = (ImageView)findViewById(R.id.actionbar_home_icon);
-			mUpIndicator = findViewById(R.id.actionbar_home_as_up_indicator);
+			mLogo = (ImageView)findViewById(R.id.actionbarwatson_home_logo);
+			mIcon = (ImageView)findViewById(R.id.actionbarwatson_home_icon);
+			mUpIndicator = findViewById(R.id.actionbarwatson_home_as_up_indicator);
 		}
 		
 		
@@ -855,13 +855,13 @@ public final class ActionBarWatson extends RelativeLayout {
 		
 		TabImpl(ActionBarWatson actionBar) {
 			mActionBar = actionBar;
-			mView = LayoutInflater.from(mActionBar.getContext()).inflate(R.layout.actionbar_tab, actionBar.mTabsView, false);
+			mView = LayoutInflater.from(mActionBar.getContext()).inflate(R.layout.actionbarwatson_tab, actionBar.mTabsView, false);
 			mView.setTag(this);
 			mView.setOnClickListener(clickListener);
 			
-			mIconView = (ImageView)mView.findViewById(R.id.actionbar_tab_icon);
-			mTextView = (TextView)mView.findViewById(R.id.actionbar_tab);
-			mCustomView = (FrameLayout)mView.findViewById(R.id.actionbar_tab_custom);
+			mIconView = (ImageView)mView.findViewById(R.id.actionbarwatson_tab_icon);
+			mTextView = (TextView)mView.findViewById(R.id.actionbarwatson_tab);
+			mCustomView = (FrameLayout)mView.findViewById(R.id.actionbarwatson_tab_custom);
 		}
 		
 		/**
@@ -1025,8 +1025,8 @@ public final class ActionBarWatson extends RelativeLayout {
 		}
 		
 		public void show() {
-			View contentView = mInflater.inflate(R.layout.actionbar_list_dropdown, null, false);
-			LinearLayout list = (LinearLayout) contentView.findViewById(R.id.actionbar_list_dropdown);
+			View contentView = mInflater.inflate(R.layout.actionbarwatson_list_dropdown, null, false);
+			LinearLayout list = (LinearLayout) contentView.findViewById(R.id.actionbarwatson_list_dropdown);
 			for (int i = 0; i < mAdapter.getCount(); i++) {
 				View item = mAdapter.getDropDownView(i, null, list);
 				item.setFocusable(true);

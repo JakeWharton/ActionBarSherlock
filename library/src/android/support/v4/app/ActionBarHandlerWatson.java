@@ -30,7 +30,6 @@ import android.support.v4.view.ActionMode;
 import android.support.v4.view.Menu;
 import android.support.v4.view.MenuItem;
 import android.support.v4.view.Window;
-import android.support.v4.widget.ActionBarWatson;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -39,8 +38,9 @@ import com.jakewharton.android.actionbarsherlock.R;
 import com.jakewharton.android.actionbarsherlock.internal.view.MenuBuilder;
 import com.jakewharton.android.actionbarsherlock.internal.view.MenuItemImpl;
 import com.jakewharton.android.actionbarsherlock.internal.view.MenuView;
+import com.jakewharton.android.actionbarsherlock.widget.ActionBarWatson;
 
-final class ActionBarCustom extends ActionBar {
+final class ActionBarHandlerWatson extends ActionBar {
 	/** Maximum action bar items in portrait mode. */
 	private static final int MAX_ACTION_BAR_ITEMS_PORTRAIT = 3;
 	
@@ -67,10 +67,10 @@ final class ActionBarCustom extends ActionBar {
 	@Override
 	void performAttach() {
 		getActivity().requestWindowFeature(Window.FEATURE_NO_TITLE);
-		getActivity().setSuperContentView(R.layout.actionbar_wrapper);
+		getActivity().setSuperContentView(R.layout.actionbarwatson_wrapper);
 		
-		mActionBar = (ActionBarWatson)getActivity().findViewById(R.id.actionbar);
-		mContentView = (FrameLayout)getActivity().findViewById(R.id.actionbar_content_view);
+		mActionBar = (ActionBarWatson)getActivity().findViewById(R.id.actionbarwatson);
+		mContentView = (FrameLayout)getActivity().findViewById(R.id.actionbarwatson_content_view);
 		
 		final ActionBarWatson.Item homeItem = mActionBar.getHomeItem();
 		final WatsonItemViewWrapper homeWrapper = new WatsonItemViewWrapper(homeItem);
