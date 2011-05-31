@@ -7,13 +7,13 @@ versions of Android leveraging the best API available.
 
 The class will automatically use the [native ActionBar][1] implementation on
 Android 3.0 or later. For previous versions which do not include ActionBar, a
-custom action bar implementation can automatically be wrapped around the
+custom action bar implementation will automatically be wrapped around the
 layout. Support for this goes all the way back to Android 1.6.
 
-All interaction with these action bars is handled through the native action bar
-API except by using `getSupportActionBar()`.
+All interaction with these action bars is handled using `getSupportActionBar()`
+with the normal native API.
 
-Examples of implementations can be found in `samples-` folders of this
+Examples of implementations can be found in `samples-*` folders of this
 repository.
 
 This library also includes the support for [fragments][2] and [loaders][3].
@@ -59,6 +59,7 @@ Samples
  * `sample-hcgallery/` - Honeycomb gallery sample from Android 3.0.
  * `sample-shakespeare/` - A port of the Shakespeare fragments demo from the API
    demos which has been converted to use this library.
+ * `sample-styled/` - Styled action bar sample from the Android Developer Blog.
 
 You can also download pre-built .apks for each of these samples from the
 [project download page][9] for demonstration.
