@@ -69,7 +69,7 @@ import android.view.ViewGroup.LayoutParams;
  * </ul>
  */
 public class FragmentActivity extends Activity {
-	private static final String TAG = FragmentActivity.class.getSimpleName();
+	private static final String TAG = "FragmentActivity";
 	private static final boolean DEBUG = false;
 	
 	private static final String FRAGMENTS_TAG = "android:support:fragments";
