@@ -123,8 +123,7 @@ final class ActionBarHandlerWatson extends ActionBar {
 	@Override
 	void onMenuInflated(Menu menu) {
 		int maxItems = MAX_ACTION_BAR_ITEMS_PORTRAIT;
-		int orientation = getActivity().getWindowManager().getDefaultDisplay().getOrientation();
-		if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+		if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
 			maxItems = MAX_ACTION_BAR_ITEMS_LANDSCAPE;
 		}
 		
