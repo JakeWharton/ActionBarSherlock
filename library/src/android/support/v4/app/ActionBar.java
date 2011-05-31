@@ -37,15 +37,15 @@ public abstract class ActionBar {
 	static Class<? extends ActionBar> HANDLER_CUSTOM = ActionBarHandlerWatson.class;
 
 	
-	///**
-	// * Register the custom handler for use with a third-party action bar
-	// * library on Android versions which do not support a native action bar.
-	// * 
-	// * @param customHandler Custom handler class.
-	// */
-	//public static void registerHandler(Class<? extends ActionBar> customHandler) {
-	//	HANDLER_CUSTOM = customHandler;
-	//}
+	/**
+	 * Register the custom handler for use with a third-party action bar
+	 * library on Android versions which do not support a native action bar.
+	 * 
+	 * @param customHandler Custom handler class.
+	 */
+	public static void registerHandler(Class<? extends ActionBar> customHandler) {
+		HANDLER_CUSTOM = customHandler;
+	}
 	
 	
 	
