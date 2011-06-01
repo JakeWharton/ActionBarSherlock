@@ -18,17 +18,17 @@
 		<item name="actionModeCutDrawable">@null</item>
 		<item name="actionModePasteDrawable">@null</item>
 		<item name="actionOverflowButtonStyle">@style/Widget.Sherlock.ActionButton.Overflow</item>
-		<item name="dropDownListViewStyle">@style/Widget.Sherlock.ListView.DropDown</item>
-		<item name="popupMenuStyle">@style/Widget.Sherlock.ListPopupWindow</item>
+		<item name="dropDownListViewStyle">@null</item>
+		<item name="popupMenuStyle">@null</item>
 	</style>
 	
 	<style name="Widget.Sherlock.ActionBar" parent="android:style/Widget">
-		<item name="homeAsUpIndicator">@drawable/actionbarwatson_home_as_up_indicator</item>
-		<item name="listIndicator">@drawable/actionbarwatson_list_indicator</item>
+		<item name="homeAsUpIndicator">@drawable/ic_ab_back_holo_dark</item>
+		<item name="listIndicator">@drawable/spinner_background_holo_dark</item>
 	</style>
 	
 	<style name="Widget.Sherlock.ActionBarView_TabView" parent="android:style/Widget">
-		<item name="android:background">@drawable/actionbarwatson_tab_bg</item>
+		<item name="android:background">@drawable/tab_indicator_holo</item>
 		<item name="android:padding">5dp</item>
     </style>
 	
@@ -44,16 +44,9 @@
 	<style name="Widget.Sherlock.ActionButton.Overflow">
 	</style>
 	
-	<style name="Widget.Sherlock.ListPopupWindow" parent="android:style/Widget.ListPopupWindow">
-		<item name="android:popupBackground">@drawable/actionbarwatson_menu_dropdown_panel</item>
-	</style>
-	
-	<style name="Widget.Sherlock.ListView.DropDown" parent="android:style/Widget.ListView.DropDown">
-		<item name="android:listSelector">@drawable/actionbarwatson_menu_dropdown_item_bg</item>
-	</style>
-	
-	<style name="Widget.Sherlock.Spinner.DropDown.ActionBar" parent="android:style/Widget.ListPopupWindow">
-		<item name="android:popupBackground">@drawable/actionbarwatson_menu_dropdown_panel</item>
+	<style name="Widget.Sherlock.Spinner.DropDown.ActionBar" parent="android:style/Widget.Spinner.DropDown">
+        <item name="android:background">@drawable/spinner_background_holo_dark</item>
+        <item name="android:gravity">left|center_vertical</item>
 	</style>
 	
 	<style name="ActionBarSherlock.TabTextStyle" parent="android:style/Widget">
@@ -82,17 +75,17 @@
 		<item name="actionModeCutDrawable">@null</item>
 		<item name="actionModePasteDrawable">@null</item>
 		<item name="actionOverflowButtonStyle">@style/Widget.Sherlock.Light.ActionButton.Overflow</item>
-		<item name="dropDownListViewStyle">@style/Widget.Sherlock.Light.ListView.DropDown</item>
-		<item name="popupMenuStyle">@style/Widget.Sherlock.Light.ListPopupWindow</item>
+		<item name="dropDownListViewStyle">@null</item>
+		<item name="popupMenuStyle">@null</item>
 	</style>
 	
 	<style name="Widget.Sherlock.Light.ActionBar" parent="android:style/Widget">
-		<item name="homeAsUpIndicator">@drawable/actionbarwatson_home_as_up_indicator_light</item>
-		<item name="listIndicator">@drawable/actionbarwatson_list_indicator_light</item>
+		<item name="homeAsUpIndicator">@drawable/ic_ab_back_holo_light</item>
+		<item name="listIndicator">@drawable/spinner_background_holo_light</item>
 	</style>
 	
 	<style name="Widget.Sherlock.Light.ActionBarView_TabView" parent="android:style/Widget">
-		<item name="android:background">@drawable/actionbarwatson_tab_bg</item>
+		<item name="android:background">@drawable/tab_indicator_holo</item>
 		<item name="android:paddingLeft">5dp</item>
 		<item name="android:paddingRight">5dp</item>
     </style>
@@ -109,16 +102,9 @@
 	<style name="Widget.Sherlock.Light.ActionButton.Overflow">
 	</style>
 	
-	<style name="Widget.Sherlock.Light.ListPopupWindow" parent="android:style/Widget.ListPopupWindow">
-		<item name="android:popupBackground">@drawable/actionbarwatson_menu_dropdown_panel_light</item>
-	</style>
-	
-	<style name="Widget.Sherlock.Light.ListView.DropDown" parent="android:style/Widget.ListView.DropDown">
-		<item name="android:listSelector">@drawable/actionbarwatson_menu_dropdown_item_bg</item>
-	</style>
-	
-	<style name="Widget.Sherlock.Light.Spinner.DropDown.ActionBar" parent="android:style/Widget.ListPopupWindow">
-		<item name="android:popupBackground">@drawable/actionbarwatson_menu_dropdown_panel_light</item>
+	<style name="Widget.Sherlock.Light.Spinner.DropDown.ActionBar" parent="android:style/Widget.Spinner.DropDown">
+        <item name="android:background">@drawable/spinner_background_holo_light</item>
+        <item name="android:gravity">left|center_vertical</item>
 	</style>
 	
 	<style name="ActionBarSherlock.Light.TabTextStyle" parent="ActionBarSherlock.TabTextStyle">

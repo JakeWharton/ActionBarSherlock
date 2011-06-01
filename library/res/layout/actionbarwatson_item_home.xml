@@ -16,28 +16,30 @@
 -->
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
     <ImageView
+        android:id="@+id/actionbarwatson_home_as_up_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="-8dip"
+        android:layout_marginLeft="-4dip"
+        android:visibility="gone"
+        />
+    <ImageView
         android:id="@+id/actionbarwatson_home_logo"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
+        android:layout_toRightOf="@id/actionbarwatson_home_as_up_indicator"
+        android:layout_alignWithParentIfMissing="true"
         android:visibility="gone"
         />
     <ImageView
         android:id="@+id/actionbarwatson_home_icon"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-        android:layout_alignParentLeft="true"
+        android:layout_toRightOf="@id/actionbarwatson_home_as_up_indicator"
+        android:layout_alignWithParentIfMissing="true"
         android:layout_centerVertical="true"
-        android:layout_margin="0dp"
-        android:padding="0dp"
-        android:visibility="gone"
-        />
-    <ImageView
-        android:id="@+id/actionbarwatson_home_as_up_indicator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:padding="0dip"
         android:visibility="gone"
         />
 </merge>

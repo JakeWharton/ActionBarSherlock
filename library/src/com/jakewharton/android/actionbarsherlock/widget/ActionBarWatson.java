@@ -1,23 +1,18 @@
 package com.jakewharton.android.actionbarsherlock.widget;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.res.TypedArray;
-import android.database.DataSetObserver;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.ActionBar;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import com.jakewharton.android.actionbarsherlock.R;
@@ -41,10 +36,7 @@ public final class ActionBarWatson extends RelativeLayout {
 	private final TextView mSubtitle;
 	
 	/** List view. */
-	private final FrameLayout mListView;
-	
-	/** List dropdown indicator. */
-	private final View mListIndicator;
+	private final Spinner mListView;
 	
 	/** Custom view parent. */
 	private final FrameLayout mCustomView;
@@ -74,50 +66,6 @@ public final class ActionBarWatson extends RelativeLayout {
 	 * @see #setNavigationMode(int)
 	 */
 	private int mNavigationMode = -1;
-	
-	/**
-	 * Current selected index of either the list or tab navigation.
-	 */
-	private int mSelectedIndex;
-	
-	/**
-	 * Adapter for the list navigation contents.
-	 */
-	private SpinnerAdapter mListAdapter;
-	
-	/**
-	 * Callback for the list navigation event.
-	 */
-	private ActionBar.OnNavigationListener mListCallback;
-
-	/**
-	 * Listener for list title click. Will display a list dialog of all the
-	 * options provided and execute the specified {@link OnNavigationListener}.
-	 */
-	private final View.OnClickListener mListClicked = new View.OnClickListener() {
-		@Override
-		public void onClick(View v) {
-			if (mListAdapter != null) {
-				new Dropdown(v.getContext())
-						.setAdapter(mListAdapter, new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog, int position) {
-								if (position != mSelectedIndex) {
-									mSelectedIndex = position;
-									reloadDisplay();
-								}
-								
-								//Execute call back, if exists
-								if (mListCallback != null) {
-									mListCallback.onNavigationItemSelected(position, mListAdapter.getItemId(position));
-								}
-							}
-						})
-						.setParent(mListView)
-						.show();
-			}
-		}
-	};
 
 	
 	
@@ -190,13 +138,10 @@ public final class ActionBarWatson extends RelativeLayout {
 		}
 		
 		
-		//// LIST NAVIGATION ////
+		//// NAVIGATION ////
 		
-		mListView = (FrameLayout)findViewById(R.id.actionbarwatson_list);
-		mListIndicator = findViewById(R.id.actionbarwatson_list_indicator);
-		
-		final Drawable listIndicator = a.getDrawable(R.styleable.SherlockActionBar_listIndicator);
-		mListIndicator.setBackgroundDrawable(listIndicator);
+		mListView = (Spinner)findViewById(R.id.actionbarwatson_nav_list);
+		mTabsView = (LinearLayout)findViewById(R.id.actionbarwatson_nav_tabs);
 		
 		
 		//// CUSTOM VIEW ////
@@ -212,7 +157,6 @@ public final class ActionBarWatson extends RelativeLayout {
 		
 		
 		mActionsView = (LinearLayout)findViewById(R.id.actionbarwatson_actions);
-		mTabsView = (LinearLayout)findViewById(R.id.actionbarwatson_tabs);
 		
 		
 		//Try to get the display options defined in the theme, or fall back to
@@ -249,7 +193,6 @@ public final class ActionBarWatson extends RelativeLayout {
 		final boolean isStandard = mNavigationMode == ActionBar.NAVIGATION_MODE_STANDARD;
 		final boolean isList = mNavigationMode == ActionBar.NAVIGATION_MODE_LIST;
 		final boolean isTab = mNavigationMode == ActionBar.NAVIGATION_MODE_TABS;
-		final boolean hasList = (mListAdapter != null) && (mListAdapter.getCount() > 0);
 		final boolean hasSubtitle = (mSubtitle.getText() != null) && !mSubtitle.getText().equals(""); 
 		final boolean displayHome = getDisplayOptionValue(ActionBar.DISPLAY_SHOW_HOME);
 		final boolean displayHomeAsUp = getDisplayOptionValue(ActionBar.DISPLAY_HOME_AS_UP);
@@ -268,19 +211,8 @@ public final class ActionBarWatson extends RelativeLayout {
 			mHome.setIconVisibility(View.GONE);
 		}
 		
-		//If we are a list, set the list view to the currently selected item
-		if (isList) {
-			View oldView = mListView.getChildAt(0);
-			mListView.removeAllViews();
-			if (hasList) {
-				mListView.addView(mListAdapter.getView(mSelectedIndex, oldView, mListView));
-				mListView.getChildAt(0).setOnClickListener(mListClicked);
-			}
-		}
-		
 		//Only show list if we are in list navigation and there are list items
-		mListView.setVisibility(isList && hasList ? View.VISIBLE : View.GONE);
-		mListIndicator.setVisibility(isList && hasList ? View.VISIBLE : View.GONE);
+		mListView.setVisibility(isList ? View.VISIBLE : View.GONE);
 
 		// Show tabs if in tabs navigation mode.
 		mTabsView.setVisibility(isTab ? View.VISIBLE : View.GONE);
@@ -332,7 +264,7 @@ public final class ActionBarWatson extends RelativeLayout {
 
 	public int getNavigationItemCount() {
 		if (mNavigationMode == ActionBar.NAVIGATION_MODE_LIST) {
-			return mListAdapter.getCount();
+			return mListView.getCount();
 		}
 		if (mNavigationMode == ActionBar.NAVIGATION_MODE_TABS) {
 			return mTabsView.getChildCount();
@@ -346,7 +278,7 @@ public final class ActionBarWatson extends RelativeLayout {
 
 	public int getSelectedNavigationIndex() {
 		if (mNavigationMode == ActionBar.NAVIGATION_MODE_LIST) {
-			return mSelectedIndex;
+			return mListView.getSelectedItemPosition();
 		}
 		if (mNavigationMode == ActionBar.NAVIGATION_MODE_TABS) {
 			final int count = mTabsView.getChildCount();
@@ -492,12 +424,19 @@ public final class ActionBarWatson extends RelativeLayout {
 		setDisplayOptions(useLogo ? ActionBar.DISPLAY_USE_LOGO : 0, ActionBar.DISPLAY_USE_LOGO);
 	}
 
-	public void setListNavigationCallbacks(SpinnerAdapter adapter, ActionBar.OnNavigationListener callback) {
-		//Reset selected item
-		mSelectedIndex = 0;
-		//Save adapter and callback
-		mListAdapter = adapter;
-		mListCallback = callback;
+	public void setListNavigationCallbacks(SpinnerAdapter adapter, final ActionBar.OnNavigationListener callback) {
+		mListView.setAdapter(adapter);
+		mListView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> adapterView, View view, int position, long itemId) {
+				if (callback != null) {
+					callback.onNavigationItemSelected(position, itemId);
+				}
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {}
+		});
 		
 		reloadDisplay();
 	}
@@ -510,15 +449,18 @@ public final class ActionBarWatson extends RelativeLayout {
 		
 		if (mode != mNavigationMode) {
 			mNavigationMode = mode;
-			mSelectedIndex = (mode == ActionBar.NAVIGATION_MODE_STANDARD) ? -1 : 0;
 			reloadDisplay();
 		}
 	}
 
 	public void setSelectedNavigationItem(int position) {
-		if ((mNavigationMode != ActionBar.NAVIGATION_MODE_STANDARD) && (position != mSelectedIndex)) {
-			mSelectedIndex = position;
-			reloadDisplay();
+		if (mNavigationMode == ActionBar.NAVIGATION_MODE_TABS) {
+			ActionBar.Tab tab = getTabAt(position);
+			if (tab != null) {
+				tab.select();
+			}
+		} else if (mNavigationMode == ActionBar.NAVIGATION_MODE_LIST) {
+			mListView.setSelection(position);
 		}
 	}
 
@@ -1002,139 +944,5 @@ public final class ActionBarWatson extends RelativeLayout {
 				}
 			}
 		}
-	}
-
-	private static final class Dropdown extends PopupWindow implements AdapterView.OnItemClickListener {
-		private final LayoutInflater mInflater;
-		private DropDownAdapter mAdapter;
-		private DialogInterface.OnClickListener mListener;
-		private View mParent;
-		
-		Dropdown(Context context) {
-			super(context, null, R.attr.actionDropDownStyle);
-			
-			mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			setFocusable(true);
-			setWindowLayoutMode(0, LayoutParams.WRAP_CONTENT);
-		}
-		
-		public Dropdown setAdapter(SpinnerAdapter adapter, DialogInterface.OnClickListener listener) {
-			mAdapter = new DropDownAdapter(adapter);
-			mListener = listener;
-			return this;
-		}
-		
-		public Dropdown setParent(View parent) {
-			mParent = parent;
-			return this;
-		}
-		
-		public void show() {
-			View contentView = mInflater.inflate(R.layout.actionbarwatson_menu_dropdown, null, false);
-			ListView list = (ListView)contentView.findViewById(R.id.actionbarwatson_menu_dropdown_list);
-			list.setAdapter(mAdapter);
-			list.setOnItemClickListener(this);
-
-			setContentView(contentView);
-			setWidth(mParent.getWidth());
-			showAsDropDown(mParent);
-		}
-
-		@Override
-		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-			if (mListener != null) {
-				mListener.onClick(null, arg2);
-			}
-			dismiss();
-		}
-		
-	    /**
-	     * <p>Wrapper class for an Adapter. Transforms the embedded Adapter instance
-	     * into a ListAdapter.</p>
-	     */
-	    private static final class DropDownAdapter implements ListAdapter, SpinnerAdapter {
-	        private final SpinnerAdapter mAdapter;
-	        private ListAdapter mListAdapter;
-
-	        /**
-	         * <p>Creates a new ListAdapter wrapper for the specified adapter.
-
-	         *
-	         * @param adapter the Adapter to transform into a ListAdapter
-	         */
-	        public DropDownAdapter(SpinnerAdapter adapter) {
-	            this.mAdapter = adapter;
-	            if (adapter instanceof ListAdapter) {
-	                this.mListAdapter = (ListAdapter) adapter;
-	            }
-	        }
-
-	        public int getCount() {
-	            return mAdapter == null ? 0 : mAdapter.getCount();
-	        }
-
-	        public Object getItem(int position) {
-	            return mAdapter == null ? null : mAdapter.getItem(position);
-	        }
-
-	        public long getItemId(int position) {
-	            return mAdapter == null ? -1 : mAdapter.getItemId(position);
-	        }
-
-	        public View getView(int position, View convertView, ViewGroup parent) {
-	            return getDropDownView(position, convertView, parent);
-	        }
-
-	        public View getDropDownView(int position, View convertView, ViewGroup parent) {
-	            return mAdapter == null ? null :
-	                    mAdapter.getDropDownView(position, convertView, parent);
-	        }
-
-	        public boolean hasStableIds() {
-	            return mAdapter != null && mAdapter.hasStableIds();
-	        }
-
-	        public void registerDataSetObserver(DataSetObserver observer) {
-	            if (mAdapter != null) {
-	                mAdapter.registerDataSetObserver(observer);
-	            }
-	        }
-
-	        public void unregisterDataSetObserver(DataSetObserver observer) {
-	            if (mAdapter != null) {
-	                mAdapter.unregisterDataSetObserver(observer);
-	            }
-	        }
-
-	        public boolean areAllItemsEnabled() {
-	            final ListAdapter adapter = mListAdapter;
-	            if (adapter != null) {
-	                return adapter.areAllItemsEnabled();
-	            } else {
-	                return true;
-	            }
-	        }
-
-	        public boolean isEnabled(int position) {
-	            final ListAdapter adapter = mListAdapter;
-	            if (adapter != null) {
-	                return adapter.isEnabled(position);
-	            } else {
-	                return true;
-	            }
-	        }
-
-	        public int getItemViewType(int position) {
-	            return 0;
-	        }
-
-	        public int getViewTypeCount() {
-	            return 1;
-	        }
-	        
-	        public boolean isEmpty() {
-	            return getCount() == 0;
-	        }
-	    }
 	}
 }

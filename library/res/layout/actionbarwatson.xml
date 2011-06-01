@@ -79,27 +79,16 @@
             android:marqueeRepeatLimit="marquee_forever"
             android:visibility="gone"
             />
-        <FrameLayout
-            android:id="@+id/actionbarwatson_list"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:focusable="true"
-            android:visibility="gone"
-            />
-        <ImageView
-            android:id="@+id/actionbarwatson_list_indicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:padding="0dip"
-            android:visibility="gone"
-            />
+        <Spinner
+        	android:id="@+id/actionbarwatson_nav_list"
+        	android:layout_width="wrap_content"
+        	android:layout_height="fill_parent"
+        	android:layout_alignParentLeft="true"
+        	android:layout_alignParentRight="true"
+        	style="?attr/actionDropDownStyle"
+        	/>
         <LinearLayout
-            android:id="@+id/actionbarwatson_tabs"
+            android:id="@+id/actionbarwatson_nav_tabs"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_alignParentLeft="true"
@@ -108,7 +97,7 @@
             android:visibility="visible"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            style="?actionBarTabBarStyle"
+            style="?attr/actionBarTabBarStyle"
             />
         <FrameLayout
             android:id="@+id/actionbarwatson_custom"
