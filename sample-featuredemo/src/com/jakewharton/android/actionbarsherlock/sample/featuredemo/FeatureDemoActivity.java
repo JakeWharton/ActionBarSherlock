@@ -24,6 +24,7 @@ public class FeatureDemoActivity extends FragmentActivity {
 		for (int i = 0; i < items; i++) {
 			menu.add("Item")
 				.setIcon(R.drawable.ic_title_share_default)
+				.setTitle("Text")
 				.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 		}
 		
