@@ -3,14 +3,19 @@ package com.jakewharton.android.actionbarsherlock.widget;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
+import android.database.DataSetObserver;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.ActionBar;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.SpinnerAdapter;
@@ -999,9 +1004,9 @@ public final class ActionBarWatson extends RelativeLayout {
 		}
 	}
 
-	private static final class Dropdown extends PopupWindow implements View.OnClickListener {
+	private static final class Dropdown extends PopupWindow implements AdapterView.OnItemClickListener {
 		private final LayoutInflater mInflater;
-		private SpinnerAdapter mAdapter;
+		private DropDownAdapter mAdapter;
 		private DialogInterface.OnClickListener mListener;
 		private View mParent;
 		
@@ -1014,7 +1019,7 @@ public final class ActionBarWatson extends RelativeLayout {
 		}
 		
 		public Dropdown setAdapter(SpinnerAdapter adapter, DialogInterface.OnClickListener listener) {
-			mAdapter = adapter;
+			mAdapter = new DropDownAdapter(adapter);
 			mListener = listener;
 			return this;
 		}
@@ -1025,15 +1030,10 @@ public final class ActionBarWatson extends RelativeLayout {
 		}
 		
 		public void show() {
-			View contentView = mInflater.inflate(R.layout.actionbarwatson_list_dropdown, null, false);
-			LinearLayout list = (LinearLayout) contentView.findViewById(R.id.actionbarwatson_list_dropdown);
-			for (int i = 0; i < mAdapter.getCount(); i++) {
-				View item = mAdapter.getDropDownView(i, null, list);
-				item.setFocusable(true);
-				item.setTag(new Integer(i));
-				item.setOnClickListener(this);
-				list.addView(item);
-			}
+			View contentView = mInflater.inflate(R.layout.actionbarwatson_menu_dropdown, null, false);
+			ListView list = (ListView)contentView.findViewById(R.id.actionbarwatson_menu_dropdown_list);
+			list.setAdapter(mAdapter);
+			list.setOnItemClickListener(this);
 
 			setContentView(contentView);
 			setWidth(mParent.getWidth());
@@ -1041,9 +1041,100 @@ public final class ActionBarWatson extends RelativeLayout {
 		}
 
 		@Override
-		public void onClick(View view) {
+		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+			if (mListener != null) {
+				mListener.onClick(null, arg2);
+			}
 			dismiss();
-			mListener.onClick(null, (Integer)view.getTag());
 		}
+		
+	    /**
+	     * <p>Wrapper class for an Adapter. Transforms the embedded Adapter instance
+	     * into a ListAdapter.</p>
+	     */
+	    private static final class DropDownAdapter implements ListAdapter, SpinnerAdapter {
+	        private final SpinnerAdapter mAdapter;
+	        private ListAdapter mListAdapter;
+
+	        /**
+	         * <p>Creates a new ListAdapter wrapper for the specified adapter.
+
+	         *
+	         * @param adapter the Adapter to transform into a ListAdapter
+	         */
+	        public DropDownAdapter(SpinnerAdapter adapter) {
+	            this.mAdapter = adapter;
+	            if (adapter instanceof ListAdapter) {
+	                this.mListAdapter = (ListAdapter) adapter;
+	            }
+	        }
+
+	        public int getCount() {
+	            return mAdapter == null ? 0 : mAdapter.getCount();
+	        }
+
+	        public Object getItem(int position) {
+	            return mAdapter == null ? null : mAdapter.getItem(position);
+	        }
+
+	        public long getItemId(int position) {
+	            return mAdapter == null ? -1 : mAdapter.getItemId(position);
+	        }
+
+	        public View getView(int position, View convertView, ViewGroup parent) {
+	            return getDropDownView(position, convertView, parent);
+	        }
+
+	        public View getDropDownView(int position, View convertView, ViewGroup parent) {
+	            return mAdapter == null ? null :
+	                    mAdapter.getDropDownView(position, convertView, parent);
+	        }
+
+	        public boolean hasStableIds() {
+	            return mAdapter != null && mAdapter.hasStableIds();
+	        }
+
+	        public void registerDataSetObserver(DataSetObserver observer) {
+	            if (mAdapter != null) {
+	                mAdapter.registerDataSetObserver(observer);
+	            }
+	        }
+
+	        public void unregisterDataSetObserver(DataSetObserver observer) {
+	            if (mAdapter != null) {
+	                mAdapter.unregisterDataSetObserver(observer);
+	            }
+	        }
+
+	        public boolean areAllItemsEnabled() {
+	            final ListAdapter adapter = mListAdapter;
+	            if (adapter != null) {
+	                return adapter.areAllItemsEnabled();
+	            } else {
+	                return true;
+	            }
+	        }
+
+	        public boolean isEnabled(int position) {
+	            final ListAdapter adapter = mListAdapter;
+	            if (adapter != null) {
+	                return adapter.isEnabled(position);
+	            } else {
+	                return true;
+	            }
+	        }
+
+	        public int getItemViewType(int position) {
+	            return 0;
+	        }
+
+	        public int getViewTypeCount() {
+	            return 1;
+	        }
+	        
+	        public boolean isEmpty() {
+	            return getCount() == 0;
+	        }
+	    }
 	}
 }

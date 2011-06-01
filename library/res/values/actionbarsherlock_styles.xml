@@ -45,12 +45,15 @@
 	</style>
 	
 	<style name="Widget.Sherlock.ListPopupWindow" parent="android:style/Widget.ListPopupWindow">
+		<item name="android:popupBackground">@drawable/actionbarwatson_menu_dropdown_panel</item>
 	</style>
 	
 	<style name="Widget.Sherlock.ListView.DropDown" parent="android:style/Widget.ListView.DropDown">
+		<item name="android:listSelector">@drawable/actionbarwatson_menu_dropdown_item_bg</item>
 	</style>
 	
-	<style name="Widget.Sherlock.Spinner.DropDown.ActionBar" parent="android:style/Widget.Spinner">
+	<style name="Widget.Sherlock.Spinner.DropDown.ActionBar" parent="android:style/Widget.ListPopupWindow">
+		<item name="android:popupBackground">@drawable/actionbarwatson_menu_dropdown_panel</item>
 	</style>
 	
 	<style name="ActionBarSherlock.TabTextStyle" parent="android:style/Widget">
@@ -107,12 +110,15 @@
 	</style>
 	
 	<style name="Widget.Sherlock.Light.ListPopupWindow" parent="android:style/Widget.ListPopupWindow">
+		<item name="android:popupBackground">@drawable/actionbarwatson_menu_dropdown_panel_light</item>
 	</style>
 	
 	<style name="Widget.Sherlock.Light.ListView.DropDown" parent="android:style/Widget.ListView.DropDown">
+		<item name="android:listSelector">@drawable/actionbarwatson_menu_dropdown_item_bg</item>
 	</style>
 	
-	<style name="Widget.Sherlock.Light.Spinner.DropDown.ActionBar" parent="android:style/Widget.Spinner">
+	<style name="Widget.Sherlock.Light.Spinner.DropDown.ActionBar" parent="android:style/Widget.ListPopupWindow">
+		<item name="android:popupBackground">@drawable/actionbarwatson_menu_dropdown_panel_light</item>
 	</style>
 	
 	<style name="ActionBarSherlock.Light.TabTextStyle" parent="ActionBarSherlock.TabTextStyle">
