@@ -15,6 +15,7 @@ import android.widget.SpinnerAdapter;
 public class FeatureDemoActivity extends FragmentActivity {
 	private static final Random RANDOM = new Random();
 	
+	private static boolean themeLight = false;
 	private int items = 0;
 	
 	
@@ -31,7 +32,9 @@ public class FeatureDemoActivity extends FragmentActivity {
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
+        setTheme(themeLight ? R.style.Theme_Sherlock_Light : R.style.Theme_Sherlock);
         super.onCreate(savedInstanceState);
+        
         setContentView(R.layout.feature_demo_activity);
 
         getSupportActionBar().setCustomView(R.layout.actionbar_custom_view);
@@ -40,6 +43,21 @@ public class FeatureDemoActivity extends FragmentActivity {
         
         SpinnerAdapter listAdapter = ArrayAdapter.createFromResource(this, R.array.locations, android.R.layout.simple_spinner_dropdown_item);
         getSupportActionBar().setListNavigationCallbacks(listAdapter, null);
+        
+        findViewById(R.id.display_theme_normal).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				themeLight = false;
+				recreate();
+			}
+		});
+        findViewById(R.id.display_theme_light).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				themeLight = true;
+				recreate();
+			}
+		});
         
         findViewById(R.id.display_items_clear).setOnClickListener(new View.OnClickListener() {
 			@Override
