@@ -116,8 +116,11 @@ public abstract class ActionBar {
 		 * 
 		 * @see android.view.Gravity
 		 */
-		public int gravity;
+		public int gravity = -1;
 		
+		public LayoutParams() {
+			this(-1);
+		}
 		public LayoutParams(Context c, AttributeSet attrs) {
 			super(c, attrs);
 		}
