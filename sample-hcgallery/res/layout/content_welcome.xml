@@ -16,7 +16,7 @@
  -->
 
 <view xmlns:android="http://schemas.android.com/apk/res/android"
-    class="com.jakewharton.android.actionbarsherlock.sample.hcgallery.FitCenterFrameLayout"
+    class="com.actionbarsherlock.sample.hcgallery.FitCenterFrameLayout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:padding="24dp"

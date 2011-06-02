@@ -34,11 +34,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.SpinnerAdapter;
-import com.jakewharton.android.actionbarsherlock.R;
-import com.jakewharton.android.actionbarsherlock.internal.view.MenuBuilder;
-import com.jakewharton.android.actionbarsherlock.internal.view.MenuItemImpl;
-import com.jakewharton.android.actionbarsherlock.internal.view.MenuView;
-import com.jakewharton.android.actionbarsherlock.widget.ActionBarWatson;
+import com.actionbarsherlock.internal.view.MenuBuilder;
+import com.actionbarsherlock.internal.view.MenuItemImpl;
+import com.actionbarsherlock.internal.view.MenuView;
+import com.actionbarsherlock.internal.widget.ActionBarWatson;
+import com.actionbarsherlock.R;
 
 final class ActionBarHandlerWatson extends ActionBar {
 	/** Maximum action bar items in portrait mode. */

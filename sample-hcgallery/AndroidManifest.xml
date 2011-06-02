@@ -16,7 +16,7 @@
  -->
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jakewharton.android.actionbarsherlock.sample.hcgallery"
+    package="com.actionbarsherlock.sample.hcgallery"
     android:versionCode="1"
     android:versionName="1.0">
 
@@ -45,14 +45,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
-                <action android:name="com.jakewharton.android.actionbarsherlock.sample.hcgallery.action.DIALOG" />
+                <action android:name="com.actionbarsherlock.sample.hcgallery.action.DIALOG" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
         <!-- CameraSample -->
         <activity
-            android:name=".CameraSample"
+            android:name="CameraSample"
             android:label="@string/camera_sample"
             android:screenOrientation="landscape" />
     </application>

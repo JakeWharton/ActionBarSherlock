@@ -24,7 +24,7 @@
 	android:layout_height="fill_parent">
 
 	<fragment
-		class="com.jakewharton.android.actionbarsherlock.sample.shakespeare.fragments.TitlesFragment"
+		class="com.actionbarsherlock.sample.shakespeare.fragments.TitlesFragment"
 		android:id="@+id/fragment_titles"
 		android:layout_width="fill_parent"
 		android:layout_height="fill_parent" />

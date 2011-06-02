@@ -35,8 +35,8 @@ There are two ways to leverage `ActionBarSherlock` in your projects:
     dependency for this project.
     
         <dependency>
-          <groupId>com.jakewharton</groupId>
-          <artifactId>android-actionbarsherlock</artifactId>
+          <groupId>com.actionbarsherlock</groupId>
+          <artifactId>library</artifactId>
           <version>3.0.0</version>
         </dependency>
     

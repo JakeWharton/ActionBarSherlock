@@ -2,7 +2,7 @@
 
 <manifest
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	package="com.jakewharton.android.actionbarsherlock.sample.shakespeare"
+	package="com.actionbarsherlock.sample.shakespeare"
 	android:versionCode="5"
 	android:versionName="2.1.1">
 

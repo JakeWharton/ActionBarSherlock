@@ -5,7 +5,7 @@
 	android:layout_height="fill_parent"
 	android:orientation="vertical"
 	>
-	<com.jakewharton.android.actionbarsherlock.widget.ActionBarWatson
+	<com.actionbarsherlock.internal.widget.ActionBarWatson
 		android:id="@+id/actionbarwatson"
 		android:layout_width="fill_parent"
 	    android:layout_height="?attr/actionBarSize"
