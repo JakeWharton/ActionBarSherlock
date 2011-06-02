@@ -45,7 +45,7 @@
 						<version>1.0.1</version>
 						<configuration>
 							<types>
-								<type>jar</type>
+								<type>apklib</type>
 							</types>
 						</configuration>
 						<goals>
