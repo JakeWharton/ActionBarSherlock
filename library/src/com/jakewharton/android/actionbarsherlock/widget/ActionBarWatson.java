@@ -82,7 +82,8 @@ public final class ActionBarWatson extends RelativeLayout {
 		super(context, attrs, defStyle);
 		LayoutInflater.from(context).inflate(R.layout.actionbarwatson, this, true);
 		
-		final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SherlockActionBar, defStyle, 0);
+		final TypedArray attrsActionBar = context.obtainStyledAttributes(attrs, R.styleable.SherlockActionBar, defStyle, 0);
+		final TypedArray attrsTheme = context.obtainStyledAttributes(attrs, R.styleable.SherlockTheme, defStyle, 0);
 		
 		
 		/// HOME ////
@@ -90,17 +91,17 @@ public final class ActionBarWatson extends RelativeLayout {
 		mHome = (HomeItem)findViewById(R.id.actionbarwatson_home);
 		
 		//Load the up indicator
-		final Drawable homeAsUpIndicator = a.getDrawable(R.styleable.SherlockTheme_homeAsUpIndicator);
+		final Drawable homeAsUpIndicator = attrsTheme.getDrawable(R.styleable.SherlockTheme_homeAsUpIndicator);
 		mHome.setUpIndicator(homeAsUpIndicator);
 
 		//Try to load the logo from the theme
-		final Drawable homeLogo = a.getDrawable(R.styleable.SherlockActionBar_logo);
+		final Drawable homeLogo = attrsActionBar.getDrawable(R.styleable.SherlockActionBar_logo);
 		if (homeLogo != null) {
 			mHome.setLogo(homeLogo);
 		}
 		
 		//Try to load the icon from the theme
-		final Drawable homeIcon = a.getDrawable(R.styleable.SherlockActionBar_icon);
+		final Drawable homeIcon = attrsActionBar.getDrawable(R.styleable.SherlockActionBar_icon);
 		mHome.setIcon(homeIcon);
 
 		
@@ -109,13 +110,13 @@ public final class ActionBarWatson extends RelativeLayout {
 		mTitle = (TextView)findViewById(R.id.actionbarwatson_title);
 		
 		//Try to load title style from the theme
-		final int titleTextStyle = a.getResourceId(R.styleable.SherlockActionBar_titleTextStyle, 0);
+		final int titleTextStyle = attrsActionBar.getResourceId(R.styleable.SherlockActionBar_titleTextStyle, 0);
 		if (titleTextStyle != 0) {
 			mTitle.setTextAppearance(context, titleTextStyle);
 		}
 		
 		//Try to load title from the theme
-		final CharSequence title = a.getString(R.styleable.SherlockActionBar_title);
+		final CharSequence title = attrsActionBar.getString(R.styleable.SherlockActionBar_title);
 		if (title != null) {
 			setTitle(title);
 		}
@@ -126,13 +127,13 @@ public final class ActionBarWatson extends RelativeLayout {
 		mSubtitle = (TextView)findViewById(R.id.actionbarwatson_subtitle);
 		
 		//Try to load subtitle style from the theme
-		final int subtitleTextStyle = a.getResourceId(R.styleable.SherlockActionBar_subtitleTextStyle, 0);
+		final int subtitleTextStyle = attrsActionBar.getResourceId(R.styleable.SherlockActionBar_subtitleTextStyle, 0);
 		if (subtitleTextStyle != 0) {
 			mSubtitle.setTextAppearance(context, subtitleTextStyle);
 		}
 		
 		//Try to load subtitle from theme
-		final CharSequence subtitle = a.getString(R.styleable.SherlockActionBar_subtitle);
+		final CharSequence subtitle = attrsActionBar.getString(R.styleable.SherlockActionBar_subtitle);
 		if (subtitle != null) {
 			setSubtitle(subtitle);
 		}
@@ -150,7 +151,7 @@ public final class ActionBarWatson extends RelativeLayout {
 		
 		//Try to load a custom view from the theme. This will NOT automatically
 		//trigger the visibility of the custom layout, however.
-		final int customViewResourceId = a.getResourceId(R.styleable.SherlockActionBar_customNavigationLayout, 0);
+		final int customViewResourceId = attrsActionBar.getResourceId(R.styleable.SherlockActionBar_customNavigationLayout, 0);
 		if (customViewResourceId != 0) {
 			setCustomView(customViewResourceId);
 		}
@@ -161,13 +162,16 @@ public final class ActionBarWatson extends RelativeLayout {
 		
 		//Try to get the display options defined in the theme, or fall back to
 		//displaying the title and home icon
-		setDisplayOptions(a.getInteger(R.styleable.SherlockActionBar_displayOptions, DEFAULT_DISPLAY_OPTIONS));
+		setDisplayOptions(attrsActionBar.getInteger(R.styleable.SherlockActionBar_displayOptions, DEFAULT_DISPLAY_OPTIONS));
 		
 		//Try to get the navigation defined in the theme, or, fall back to
 		//use standard navigation by default (this will call reloadDisplay)
-		setNavigationMode(a.getInteger(R.styleable.SherlockActionBar_navigationMode, DEFAULT_NAVIGATION_MODE));
+		setNavigationMode(attrsActionBar.getInteger(R.styleable.SherlockActionBar_navigationMode, DEFAULT_NAVIGATION_MODE));
 		
-		a.recycle();
+		
+		//Reduce, Reuse, Recycle!
+		attrsActionBar.recycle();
+		attrsTheme.recycle();
 	}
 	
 	
