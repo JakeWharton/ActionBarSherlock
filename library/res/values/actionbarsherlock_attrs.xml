@@ -64,6 +64,11 @@
         <attr name="dropDownListViewStyle" format="reference" />
         <!-- Default PopupMenu style. -->
         <attr name="popupMenuStyle" format="reference" />
+        
+        <!-- The preferred item height for dropdown lists. -->
+        <attr name="dropdownListPreferredItemHeight" format="dimension" />
+        
+        <attr name="actionSpinnerItemStyle" format="reference" />
 	</declare-styleable>
 	
     <!-- Attributes used to style the Action Bar. -->

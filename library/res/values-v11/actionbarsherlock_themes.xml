@@ -20,7 +20,9 @@
         <item name="actionModePopupWindowStyle">@style/Widget.Sherlock.PopupWindow.ActionMode</item>
         <item name="actionModeStyle">@style/Widget.Sherlock.ActionMode</item>
         <item name="actionOverflowButtonStyle">@style/Widget.Sherlock.ActionButton.Overflow</item>
+        <item name="actionSpinnerItemStyle">@android:style/Widget.Holo.TextView.SpinnerItem</item>
         <item name="dropDownListViewStyle">@style/Widget.Sherlock.ListView.DropDown</item>
+        <item name="dropdownListPreferredItemHeight">48dip</item>
         <item name="popupMenuStyle">@style/Widget.Sherlock.PopupMenu</item>
         <item name="selectableItemBackground">@drawable/item_background_holo_dark</item>
         
@@ -66,7 +68,9 @@
         <item name="actionModePopupWindowStyle">@style/Widget.Sherlock.Light.PopupWindow.ActionMode</item>
         <item name="actionModeStyle">@style/Widget.Sherlock.Light.ActionMode</item>
         <item name="actionOverflowButtonStyle">@style/Widget.Sherlock.Light.ActionButton.Overflow</item>
+        <item name="actionSpinnerItemStyle">@android:style/Widget.Holo.Light.TextView.SpinnerItem</item>
         <item name="dropDownListViewStyle">@style/Widget.Sherlock.Light.ListView.DropDown</item>
+        <item name="dropdownListPreferredItemHeight">48dip</item>
         <item name="popupMenuStyle">@style/Widget.Sherlock.Light.PopupMenu</item>
         <item name="selectableItemBackground">@drawable/item_background_holo_light</item>
         

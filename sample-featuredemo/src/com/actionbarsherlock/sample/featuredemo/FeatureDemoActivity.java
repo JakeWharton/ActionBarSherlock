@@ -42,7 +42,8 @@ public class FeatureDemoActivity extends FragmentActivity {
         getSupportActionBar().setDisplayShowCustomEnabled(false);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
         
-        SpinnerAdapter listAdapter = ArrayAdapter.createFromResource(this, R.array.locations, android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> listAdapter = ArrayAdapter.createFromResource(this, R.array.locations, R.layout.simple_spinner_item);
+        listAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         getSupportActionBar().setListNavigationCallbacks(listAdapter, null);
         
         findViewById(R.id.display_theme_normal).setOnClickListener(new View.OnClickListener() {

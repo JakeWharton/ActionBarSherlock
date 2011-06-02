@@ -21,7 +21,9 @@
         <item name="actionModePopupWindowStyle">@style/Widget.Sherlock.PopupWindow.ActionMode</item>
         <item name="actionModeStyle">@style/Widget.Sherlock.ActionMode</item>
         <item name="actionOverflowButtonStyle">@style/Widget.Sherlock.ActionButton.Overflow</item>
+        <item name="actionSpinnerItemStyle">@style/Widget.Sherlock.TextView.SpinnerItem.ActionBar</item>
         <item name="dropDownListViewStyle">@style/Widget.Sherlock.ListView.DropDown</item>
+        <item name="dropdownListPreferredItemHeight">48dip</item>
         <item name="homeAsUpIndicator">@drawable/ic_ab_back_holo_dark</item>
         <item name="popupMenuStyle">@style/Widget.Sherlock.PopupMenu</item>
 		<item name="selectableItemBackground">@color/actionbarwatson_item_bg</item>
@@ -47,7 +49,9 @@
         <item name="actionModePopupWindowStyle">@style/Widget.Sherlock.Light.PopupWindow.ActionMode</item>
         <item name="actionModeStyle">@style/Widget.Sherlock.Light.ActionMode</item>
         <item name="actionOverflowButtonStyle">@style/Widget.Sherlock.Light.ActionButton.Overflow</item>
+        <item name="actionSpinnerItemStyle">@style/Widget.Sherlock.Light.TextView.SpinnerItem.ActionBar</item>
         <item name="dropDownListViewStyle">@style/Widget.Sherlock.Light.ListView.DropDown</item>
+        <item name="dropdownListPreferredItemHeight">48dip</item>
         <item name="homeAsUpIndicator">@drawable/ic_ab_back_holo_light</item>
         <item name="popupMenuStyle">@style/Widget.Sherlock.Light.PopupMenu</item>
 		<item name="selectableItemBackground">@color/actionbarwatson_item_bg</item>

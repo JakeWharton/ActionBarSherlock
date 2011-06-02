@@ -52,6 +52,10 @@
 	<style name="Widget.Sherlock.ActionButton.Overflow">
 	</style>
 	
+	<style name="Widget.Sherlock.TextView.SpinnerItem.ActionBar" parent="android:style/Widget">
+        <item name="android:textColor">@color/actionbarwatson_tab_text_color_dark</item>
+	</style>
+	
 	<style name="Widget.Sherlock.ListPopupWindow" parent="android:style/Widget.ListPopupWindow">
 	</style>
 	
@@ -101,6 +105,10 @@
 	</style>
 	
 	<style name="Widget.Sherlock.Light.ActionButton.Overflow">
+	</style>
+	
+	<style name="Widget.Sherlock.Light.TextView.SpinnerItem.ActionBar" parent="android:style/Widget">
+        <item name="android:textColor">@color/actionbarwatson_tab_text_color_light</item>
 	</style>
 	
 	<style name="Widget.Sherlock.Light.Spinner.DropDown.ActionBar" parent="android:style/Widget.Spinner.DropDown">
