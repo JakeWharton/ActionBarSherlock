@@ -2,7 +2,7 @@
 
 <resources>
 	<style name="Theme.Sherlock" parent="android:style/Theme.Holo">
-        <item name="actionBarSize">?android:attr/actionBarSize</item>
+        <item name="actionBarSize">56dip</item>
         <item name="actionBarStyle">@style/Widget.Sherlock.ActionBar</item>
         <item name="actionBarTabStyle">@style/Widget.Sherlock.ActionBarView_TabView</item>
         <item name="actionBarTabBarStyle">@style/Widget.Sherlock.ActionBarView_TabBar</item>
@@ -48,7 +48,7 @@
 	</style>
 	
 	<style name="Theme.Sherlock.Light" parent="android:style/Theme.Holo.Light">
-        <item name="actionBarSize">?android:attr/actionBarSize</item>
+        <item name="actionBarSize">56dip</item>
         <item name="actionBarStyle">@style/Widget.Sherlock.Light.ActionBar</item>
         <item name="actionBarTabStyle">@style/Widget.Sherlock.Light.ActionBarView_TabView</item>
         <item name="actionBarTabBarStyle">@style/Widget.Sherlock.Light.ActionBarView_TabBar</item>
