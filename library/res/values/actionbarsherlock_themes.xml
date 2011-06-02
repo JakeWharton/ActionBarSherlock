@@ -9,6 +9,7 @@
         <item name="actionBarTabTextStyle">@style/Widget.Sherlock.ActionBarView_TabText</item>
         <item name="actionButtonStyle">@style/Widget.Sherlock.ActionButton</item>
         <item name="actionDropDownStyle">@style/Widget.Sherlock.Spinner.DropDown.ActionBar</item>
+        <item name="actionHomeButtonStyle">@style/Widget.Sherlock.ActionButton.Home</item>
 		<item name="actionMenuTextAppearance">?android:attr/textAppearanceMedium</item>
 		<item name="actionMenuTextColor">?android:attr/textColorPrimary</item>
         <item name="actionModeBackground">@drawable/cab_background_holo_dark</item>
@@ -34,6 +35,7 @@
         <item name="actionBarTabTextStyle">@style/Widget.Sherlock.Light.ActionBarView_TabText</item>
         <item name="actionButtonStyle">@style/Widget.Sherlock.Light.ActionButton</item>
         <item name="actionDropDownStyle">@style/Widget.Sherlock.Light.Spinner.DropDown.ActionBar</item>
+        <item name="actionHomeButtonStyle">@style/Widget.Sherlock.Light.ActionButton.Home</item>
 		<item name="actionMenuTextAppearance">?android:attr/textAppearanceMedium</item>
 		<item name="actionMenuTextColor">?android:attr/textColorPrimary</item>
         <item name="actionModeBackground">@drawable/cab_background_holo_light</item>

@@ -66,7 +66,6 @@ public final class ActionBarWatson extends RelativeLayout {
 	 * @see #setNavigationMode(int)
 	 */
 	private int mNavigationMode = -1;
-
 	
 	
 
@@ -692,7 +691,7 @@ public final class ActionBarWatson extends RelativeLayout {
 		}
 		
 		public HomeItem(Context context, AttributeSet attrs) {
-			this(context, attrs, R.attr.actionButtonStyle);
+			this(context, attrs, R.attr.actionHomeButtonStyle);
 		}
 		
 		public HomeItem(Context context, AttributeSet attrs, int defStyle) {

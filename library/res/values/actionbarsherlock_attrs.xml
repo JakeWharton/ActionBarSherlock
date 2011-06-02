@@ -22,6 +22,7 @@
         <attr name="actionBarTabBarStyle" format="reference" />
         <attr name="actionBarTabTextStyle" format="reference" />
         <attr name="actionOverflowButtonStyle" format="reference" />
+        <attr name="actionHomeButtonStyle" format="reference" />
         <!-- Reference to a style for the Action Bar -->
         <attr name="actionBarStyle" format="reference" />
         <!-- Size of the Action Bar, including the contextual
