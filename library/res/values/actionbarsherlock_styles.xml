@@ -16,7 +16,7 @@
     
     <style name="Widget.Sherlock.ActionBarView_TabText" parent="android:style/Widget">
         <item name="android:textAppearance">@android:style/TextAppearance.Medium</item>
-        <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="android:textColor">@color/actionbarwatson_tab_text_color_dark</item>
         <item name="android:textSize">18sp</item>
     </style>
 	
@@ -82,6 +82,9 @@
     </style>
     
     <style name="Widget.Sherlock.Light.ActionBarView_TabText" parent="android:style/Widget">
+        <item name="android:textAppearance">@android:style/TextAppearance.Medium</item>
+        <item name="android:textColor">@color/actionbarwatson_tab_text_color_light</item>
+        <item name="android:textSize">18sp</item>
     </style>
 	
 	<style name="Widget.Sherlock.Light.ActionButton" parent="android:style/Widget">
