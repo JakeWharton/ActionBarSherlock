@@ -25,7 +25,6 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.support.v4.view.ActionMode;
 import android.support.v4.view.Menu;
 import android.support.v4.view.MenuItem;
@@ -84,40 +83,32 @@ final class ActionBarHandlerWatson extends ActionBar {
 		} catch (NameNotFoundException e) {}
 
 		
-		if (mActionBar.getTitle() == null) {
-			if (actInfo != null) {
-				//Try to load title from Activity's manifest entry
-				mActionBar.setTitle(actInfo.loadLabel(pm));
-			} else {
-				//Can't load activity title. Set a default.
-				mActionBar.setTitle(appInfo.loadLabel(pm));
-			}
+		if ((actInfo != null) && (actInfo.labelRes != 0)) {
+			//Load label string resource from the activity entry
+			mActionBar.setTitle(actInfo.labelRes);
+		} else if (mActionBar.getTitle() == null) {
+			//No activity label string resource and none in theme
+			mActionBar.setTitle(actInfo.loadLabel(pm));
 		}
 		
-		if (homeItem.getIcon() == null) {
-			if (actInfo != null) {
-				//Load icon from the Activity's manifest entry
-				homeItem.setIcon(actInfo.loadIcon(pm));
-			} else {
-				//Can't load activity icon. Get application icon or default.
-				homeItem.setIcon(appInfo.loadIcon(pm));
-			}
+		if ((actInfo != null) && (actInfo.icon != 0)) {
+			//Load the icon from the activity entry
+			homeItem.setIcon(actInfo.icon);
+		} else if (homeItem.getIcon() == null) {
+			//No activity icon and none in theme
+			homeItem.setIcon(pm.getApplicationIcon(appInfo));
 		}
 		
-		if (homeItem.getLogo() == null) {
-			//TODO http://stackoverflow.com/questions/6105504/load-activity-and-or-application-logo-programmatically-from-manifest
-			
-			//Must be >= gingerbread to look for a logo in the manifest
-			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
-				if (actInfo != null) {
-					//Try to load the logo from the Activity's manifest entry
-					homeItem.setLogo(actInfo.loadLogo(pm));
-				} else {
-					//Try to load the logo from the Application's manifest entry
-					homeItem.setLogo(appInfo.loadLogo(pm));
-				}
-			}
-		}
+		//XXX LOGO LOADING DOES NOT WORK
+		//XXX SEE: http://stackoverflow.com/questions/6105504/load-activity-and-or-application-logo-programmatically-from-manifest
+		//XXX SEE: https://groups.google.com/forum/#!topic/android-developers/UFR4l0ZwJWc
+		//if ((actInfo != null) && (actInfo.logo != 0)) {
+		//	//Load the logo from the activity entry
+		//	homeItem.setLogo(actInfo.logo);
+		//} else if ((homeItem.getLogo() == null) && (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD)) {
+		//	//No activity logo and none in theme
+		//	homeItem.setLogo(appInfo.logo);
+		//}
 	}
 
 	@Override
