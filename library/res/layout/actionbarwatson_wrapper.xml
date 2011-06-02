@@ -8,7 +8,7 @@
 	<com.jakewharton.android.actionbarsherlock.widget.ActionBarWatson
 		android:id="@+id/actionbarwatson"
 		android:layout_width="fill_parent"
-	    android:layout_height="@dimen/actionbarwatson_height"
+	    android:layout_height="?attr/actionBarSize"
 		/>
 	<FrameLayout
 		android:id="@id/actionbarsherlock_content"

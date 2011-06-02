@@ -27,7 +27,6 @@
         android:visibility="gone"
         android:clickable="true"
         android:focusable="true"
-		style="?attr/actionHomeButtonStyle"
         />
     
     <LinearLayout

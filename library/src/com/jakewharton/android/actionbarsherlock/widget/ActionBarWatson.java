@@ -90,7 +90,7 @@ public final class ActionBarWatson extends RelativeLayout {
 		mHome = (HomeItem)findViewById(R.id.actionbarwatson_home);
 		
 		//Load the up indicator
-		final Drawable homeAsUpIndicator = a.getDrawable(R.styleable.SherlockActionBar_homeAsUpIndicator);
+		final Drawable homeAsUpIndicator = a.getDrawable(R.styleable.SherlockTheme_homeAsUpIndicator);
 		mHome.setUpIndicator(homeAsUpIndicator);
 
 		//Try to load the logo from the theme
@@ -688,7 +688,7 @@ public final class ActionBarWatson extends RelativeLayout {
 		}
 		
 		public HomeItem(Context context, AttributeSet attrs) {
-			this(context, attrs, R.attr.actionHomeButtonStyle);
+			this(context, attrs, R.attr.actionButtonStyle);
 		}
 		
 		public HomeItem(Context context, AttributeSet attrs, int defStyle) {

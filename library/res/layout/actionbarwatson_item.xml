@@ -20,7 +20,6 @@
 	android:layout_height="fill_parent"
 	android:focusable="true"
 	android:clickable="true"
-	style="?attr/actionButtonStyle"
 	>
 	<ImageView
 		android:id="@+id/actionbarwatson_item_icon"
