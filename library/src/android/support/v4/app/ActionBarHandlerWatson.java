@@ -125,6 +125,13 @@ final class ActionBarHandlerWatson extends ActionBar {
 		List<MenuItemImpl> keep = new ArrayList<MenuItemImpl>();
 		for (int i = 0; i < count; i++) {
 			MenuItemImpl item = (MenuItemImpl)menu.getItem(i);
+			
+			if (item.getIcon() == null) {
+				//Items without an icon are not currently supported on the
+				//action bar, force into the overflow menu
+				continue;
+			}
+			
 			if ((item.getShowAsAction() & MenuItem.SHOW_AS_ACTION_ALWAYS) != 0) {
 				//Show always therefore add to keep list
 				keep.add(item);
