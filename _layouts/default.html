@@ -9,9 +9,10 @@
 		<script type="text/javascript" src="/static/jquery.colorbox-min.js"></script>
 		<script type="text/javascript">
 			$(function() {
-				$('a[href$=".png"] img[src$=".thumb.png"]').each(function() {
-					var self = $(this);
-					self.parent().colorbox();
+				$('blockquote:has(a[href$=".png"] img[src$=".thumb.png"])').each(function(index) {
+					$(this).find('a').each(function() {
+						$(this).attr('rel', 'sample' + index).colorbox();
+					});
 				});
 			});
 		</script>
