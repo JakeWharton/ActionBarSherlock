@@ -2,7 +2,6 @@ package com.actionbarsherlock.sample.featuredemo;
 
 import java.util.Random;
 import com.actionbarsherlock.sample.featuredemo.R;
-
 import android.os.Bundle;
 import android.support.v4.app.ActionBar;
 import android.support.v4.app.FragmentActivity;
@@ -10,7 +9,6 @@ import android.support.v4.view.Menu;
 import android.support.v4.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.SpinnerAdapter;
 
 public class FeatureDemoActivity extends FragmentActivity {
 	private static final Random RANDOM = new Random();
