@@ -11,7 +11,10 @@
 			$(function() {
 				$('blockquote:has(a[href$=".png"] img[src$=".thumb.png"])').each(function(index) {
 					$(this).find('a').each(function() {
-						$(this).attr('rel', 'sample' + index).colorbox();
+						$(this).attr('rel', 'sample' + index).colorbox({
+							initialWidth: 100,
+							initialHeight: 100,
+						});
 					});
 				});
 			});
