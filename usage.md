@@ -1,5 +1,5 @@
 ---
-title: API
+title: Usage
 layout: default
 ---
 

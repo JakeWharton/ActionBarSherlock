@@ -4,19 +4,22 @@
 	<head>
 		<title>ActionBarSherlock - {{ page.title }}</title>
 		<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-		<link href="/static/screen.css" media="screen" type="text/css" />
+		<link rel="stylesheet" href="/static/screen.css" media="screen" type="text/css" />
 	</head>
 	<body>
 		<div id="header">
-			<p>ActionBarSherlock<span> by <a href="https://twitter.com/JakeWharton/">Jake Wharton</a></span></p>
+			<p><a href="/">ActionBarSherlock</a><span> by <a href="https://twitter.com/JakeWharton/">Jake Wharton</a></span></p>
 		</div>
 		<nav>
 			<ul>
 				<li><a href="/">Home</a></li>
-				<li><a href="/api">API</a></li>
-				<li><a href="/theming">Theming</a></li>
-				<li><a href="/samples">Samples</a></li>
-				<li><a href="/support">Support</a></li>
+				<li><a href="/download.html">Download</a></li>
+				<li><a href="/usage.html">Usage</a></li>
+				<li><a href="/theming.html">Theming</a></li>
+				<li><a href="/samples.html">Samples</a></li>
+				<li><a href="/development.html">Development</a></li>
+				<li><a href="/faq.html">F.A.Q.</a></li>
+				<li><a href="/support.html">Support</a></li>
 			</ul>
 		</nav>
 		<article>
@@ -24,7 +27,7 @@
 				<h1>{{ page.title }}</h1>
 			</header>
 			<div id="content">
-				{{ content }}
+{{ content }}
 			</div>
 		</article>
 		<footer>
