@@ -12,8 +12,9 @@ a:hover { text-decoration: underline; }
 
 nav { margin-top: 30px; }
 nav ul { margin: 0; padding: 0; }
-nav li { list-style: none; display: inline-block; margin-right: 40px; }
-nav a { font-weight: bold; }
+nav li { list-style: none; display: inline-block; margin-left: 20px; }
+nav li:first-child { margin: 0; }
+nav a { font-weight: bold; font-size: 13px; text-transform: uppercase; }
 
 article { margin-top: 60px; margin-bottom: 60px; }
 article header h1 { margin-top: 0; border-left: 10px solid #128B4C; padding-left: 10px; }
