@@ -18,7 +18,6 @@
 package android.support.v4.view;
 
 import java.io.IOException;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -44,7 +43,7 @@ import android.view.View;
  * <em>something</em> file.)
  */
 public final class MenuInflater extends android.view.MenuInflater {
-	private static final Class<?>[] ACTION_VIEW_CONSTRUCTOR_SIGNATURE = new Class[] { Context.class };
+	//private static final Class<?>[] ACTION_VIEW_CONSTRUCTOR_SIGNATURE = new Class[] { Context.class };
 	private static final Class<?>[] PARAM_TYPES = new Class[] { android.view.MenuItem.class };
 	
 	/** Android XML namespace. */
@@ -381,18 +380,18 @@ public final class MenuInflater extends android.view.MenuInflater {
 				item.setExclusiveCheckable(true);
 			}
 			if (itemActionViewClassName != null) {
-				try {
-					Context context = MenuInflater.this.mContext;
-					ClassLoader loader = context.getClassLoader();
-					Class<?> actionViewClass = Class.forName(itemActionViewClassName, true, loader);
-					Constructor<?> constructor = actionViewClass.getConstructor(ACTION_VIEW_CONSTRUCTOR_SIGNATURE);
-					View actionView = (View)constructor.newInstance(new Object[] { context });
-					item.setActionView(actionView);
-				} catch (Exception e) {
-					throw new InflateException(e);
-				}
+				//try {
+				//	Context context = MenuInflater.this.mContext;
+				//	ClassLoader loader = context.getClassLoader();
+				//	Class<?> actionViewClass = Class.forName(itemActionViewClassName, true, loader);
+				//	Constructor<?> constructor = actionViewClass.getConstructor(ACTION_VIEW_CONSTRUCTOR_SIGNATURE);
+				//	View actionView = (View)constructor.newInstance(new Object[] { context });
+				//	item.setActionView(actionView);
+				//} catch (Exception e) {
+				//	throw new InflateException(e);
+				//}
 			} else if (itemActionLayout >= 0) {
-				item.setActionView(itemActionLayout);
+				//item.setActionView(itemActionLayout);
 			}
 		}
 		
