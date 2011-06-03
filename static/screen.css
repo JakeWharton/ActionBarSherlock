@@ -20,6 +20,10 @@ article header h1 { margin-top: 0; border-left: 10px solid #128B4C; padding-left
 #content { margin-top: 35px; }
 #content h2 { font-size: 16px; border-left: 2px solid #128B4C; padding-left: 10px; margin-top: 2em; }
 #content li { margin: 5px 0; }
+#content blockquote { margin: 1em 45px 2em; padding: 15px 0 0 30px; background-color: rgba(0, 0, 0, 0.1); overflow: auto; }
+#content blockquote p { margin: 0; }
+#content blockquote a { display: block; margin: 0 30px 15px 0; padding: 0; float:left; }
+#content blockquote a img { border: 0; }
 
 footer { margin-top: 70px; margin-bottom: 20px; font-size: 12px; }
 footer p { margin: 0; }
