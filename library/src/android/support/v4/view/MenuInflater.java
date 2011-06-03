@@ -18,6 +18,8 @@
 package android.support.v4.view;
 
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import com.actionbarsherlock.internal.view.MenuBuilder;
@@ -29,6 +31,7 @@ import android.content.res.XmlResourceParser;
 import android.util.AttributeSet;
 import android.util.Xml;
 import android.view.InflateException;
+import android.view.MenuItem;
 import android.view.View;
 
 /**
@@ -41,6 +44,9 @@ import android.view.View;
  * <em>something</em> file.)
  */
 public final class MenuInflater extends android.view.MenuInflater {
+	private static final Class<?>[] ACTION_VIEW_CONSTRUCTOR_SIGNATURE = new Class[] { Context.class };
+	private static final Class<?>[] PARAM_TYPES = new Class[] { android.view.MenuItem.class };
+	
 	/** Android XML namespace. */
 	private static final String XML_NS = "http://schemas.android.com/apk/res/android";
 	
@@ -183,7 +189,7 @@ public final class MenuInflater extends android.view.MenuInflater {
 	 * Groups can not be nested unless there is another menu (which will have
 	 * its state class).
 	 */
-	private static final class ActionBarMenuState {
+	private final class ActionBarMenuState {
 		private final MenuBuilder menu;
 
 		/*
@@ -215,10 +221,10 @@ public final class MenuInflater extends android.view.MenuInflater {
 		private boolean itemChecked;
 		private boolean itemVisible;
 		private boolean itemEnabled;
-		//private String itemOnClick;
+		private String itemListenerMethodName;
 		private int itemShowAsAction;
-		//private int itemActionLayout;
-		//private String itemActionViewClassName;
+		private int itemActionLayout;
+		private String itemActionViewClassName;
 		
 		private static final int defaultGroupId = View.NO_ID;
 		private static final int defaultItemId = View.NO_ID;
@@ -334,10 +340,10 @@ public final class MenuInflater extends android.view.MenuInflater {
 			itemEnabled = attrs.getAttributeBooleanValue(XML_NS, "enabled", groupEnabled);
 			
 			//presumed emulation of 3.0+'s MenuInflator:
-			//TODO itemOnClick = attrs.getAttributeValue(XML_NS, "onClick");
+			itemListenerMethodName = attrs.getAttributeValue(XML_NS, "onClick");
 			itemShowAsAction = attrs.getAttributeIntValue(XML_NS, "showAsAction", defaultItemShowAsAction);
-			//TODO itemActionLayout = attrs.getAttributeResourceValue(XML_NS, "actionLayout", 0);
-			//TODO itemActionViewClassName = attrs.getAttributeValue(XML_NS, "actionViewClass");
+			itemActionLayout = attrs.getAttributeResourceValue(XML_NS, "actionLayout", 0);
+			itemActionViewClassName = attrs.getAttributeValue(XML_NS, "actionViewClass");
 			
 			//a.recycle();
 			
@@ -362,11 +368,31 @@ public final class MenuInflater extends android.view.MenuInflater {
 				.setAlphabeticShortcut(itemAlphabeticShortcut)
 				.setNumericShortcut(itemNumericShortcut);
 			
-			//Not sure why this method has a return type of void
-			item.setShowAsAction(itemShowAsAction);
-
+			if (itemShowAsAction > 0) {
+				item.setShowAsAction(itemShowAsAction);
+			}
+			if (itemListenerMethodName != null) {
+				if (MenuInflater.this.mContext.isRestricted()) {
+					throw new IllegalStateException("The android:onClick attribute cannot be used within a restricted context");
+				}
+				item.setOnMenuItemClickListener(new InflatedOnMenuItemClickListener(itemListenerMethodName));
+			}
 			if (itemCheckable >= 2) {
 				item.setExclusiveCheckable(true);
+			}
+			if (itemActionViewClassName != null) {
+				try {
+					Context context = MenuInflater.this.mContext;
+					ClassLoader loader = context.getClassLoader();
+					Class<?> actionViewClass = Class.forName(itemActionViewClassName, true, loader);
+					Constructor<?> constructor = actionViewClass.getConstructor(ACTION_VIEW_CONSTRUCTOR_SIGNATURE);
+					View actionView = (View)constructor.newInstance(new Object[] { context });
+					item.setActionView(actionView);
+				} catch (Exception e) {
+					throw new InflateException(e);
+				}
+			} else if (itemActionLayout >= 0) {
+				item.setActionView(itemActionLayout);
 			}
 		}
 		
@@ -384,6 +410,37 @@ public final class MenuInflater extends android.view.MenuInflater {
 		
 		public boolean hasAddedItem() {
 			return itemAdded;
+		}
+	}
+	
+	class InflatedOnMenuItemClickListener implements android.view.MenuItem.OnMenuItemClickListener {
+		private Method mMethod;
+		
+		public InflatedOnMenuItemClickListener(String methodName) {
+			final Class<?> localClass = MenuInflater.this.getClass();
+			try {
+				mMethod = localClass.getMethod(methodName, PARAM_TYPES);
+			} catch (Exception e) {
+				StringBuilder b = new StringBuilder();
+				b.append("Couldn't resolve menu item onClick handler ");
+				b.append(methodName);
+				b.append(" in class ");
+				b.append(localClass.getName());
+				throw new InflateException(b.toString(), e);
+			}
+		}
+
+		@Override
+		public boolean onMenuItemClick(MenuItem item) {
+			final Object[] params = new Object[] { item };
+			try {
+				if (mMethod.getReturnType() == Boolean.TYPE) {
+					return (Boolean)mMethod.invoke(MenuInflater.this, params);
+				}
+				return false;
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
 		}
 	}
 }
