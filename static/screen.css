@@ -1,3 +1,4 @@
+html { overflow: scroll; }
 body { margin: 0; padding: 30px 0; background: #eee url('/static/60degree_gray.png') repeat fixed; border-top: 5px solid #4BB461; font-size: 14px; font-family: "Lucida Grande", Arial; color: #111; }
 body > * { width: 900px; margin: 0 auto; }
 
