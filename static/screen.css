@@ -1,0 +1,21 @@
+body { margin: 0; padding: 30px 0; background: #222 url('/static/60degree_gray.png') repeat fixed; border-top: 5px solid #4BB461; font-size: 14px; font-family: "Lucida Grande", Arial; color: #111; }
+body > * { width: 900px; margin: 0 auto; }
+
+a:link, a:active, a:visited { color: #128B4C; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+#header p { margin: 0; font-size: 32px; }
+#header span { font-size: 20px; color: rgba(16, 16, 16, 0.25); display: inline-block; margin-left: 20px; }
+#header a:link, #header a:active, #header a:visited { color: rgba(16, 16, 16, 0.25); }
+#header a:hover { color: #128B4C; }
+
+nav { margin-top: 30px; }
+nav ul { margin: 0; padding: 0; }
+nav ul li { list-style: none; display: inline-block; margin-right: 40px; }
+
+article { margin-top: 60px; margin-bottom: 60px; }
+article header h1 { margin-top: 0; }
+article #content { margin-top: 35px; }
+
+footer { margin-top: 70px; margin-bottom: 20px; font-size: 12px; }
+footer p { margin: 0; }
