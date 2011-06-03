@@ -13,8 +13,8 @@ Android 3.0 or later. For previous versions which do not include an ActionBar,
 a custom action bar implementation will automatically be wrapped around the
 layout. Support for this goes all the way back to Android 1.6.
 
-All interaction with these action bars is handled by calling
-`getSupportActionBar()` from within activity and using the normal native API.
+All interaction with the action bar is handled by calling the method
+`getSupportActionBar()` from within your activity.
 
 This library also includes the support for [fragments][3] and [loaders][4].
 
@@ -28,4 +28,4 @@ This library also includes the support for [fragments][3] and [loaders][4].
  [2]: http://developer.android.com/guide/topics/fundamentals/loaders.html
  [3]: http://android-developers.blogspot.com/2011/03/fragments-for-all.html
  [4]: http://developer.android.com/guide/topics/ui/actionbar.html
- [5]: http://img.jakewharton.com/ActionBarSherlock01.png
+ [5]: /static/feature.png
