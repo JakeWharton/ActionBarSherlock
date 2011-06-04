@@ -15,7 +15,7 @@ through the follow three simple modifications:
  * Replace all calls to `getActionBar()` with `getSupportActionBar()`.
  * Modify any themes to inherit from `Theme.Sherlock` or `Theme.Sherlock.Light`
    and to not prefix any action bar-related attributes with the `android`
-   namespace. *(See [theming](/theming.html))*
+   namespace. See the [theming](/theming.html) page for more information.
 
 While there are certain caveats to heed in this conversion and additional tweaks
 may be required, this will afford you proper functionality in almost all cases.
