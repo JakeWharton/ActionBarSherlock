@@ -71,9 +71,11 @@ final class ActionBarHandlerWatson extends ActionBar {
 		mActionBar = (ActionBarWatson)getActivity().findViewById(R.id.actionbarwatson);
 		mContentView = (FrameLayout)getActivity().findViewById(R.id.actionbarsherlock_content);
 		
+		final MenuItemImpl homeMenuItem = getActivity().getHomeMenuItem();
 		final ActionBarWatson.Item homeItem = mActionBar.getHomeItem();
 		final WatsonItemViewWrapper homeWrapper = new WatsonItemViewWrapper(homeItem);
-		getActivity().getHomeMenuItem().setItemView(MenuBuilder.TYPE_WATSON, homeWrapper);
+		homeWrapper.initialize(homeMenuItem, MenuBuilder.TYPE_WATSON);
+		homeMenuItem.setItemView(MenuBuilder.TYPE_WATSON, homeWrapper);
 
 		final PackageManager pm = getActivity().getPackageManager();
 		final ApplicationInfo appInfo = getActivity().getApplicationInfo();

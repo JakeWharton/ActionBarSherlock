@@ -89,6 +89,7 @@ public final class ActionBarWatson extends RelativeLayout {
 		
 		mHome = (HomeItem)findViewById(R.id.actionbarwatson_home);
 		
+		
 		//Load the up indicator
 		final Drawable homeAsUpIndicator = attrsTheme.getDrawable(R.styleable.SherlockTheme_homeAsUpIndicator);
 		mHome.setUpIndicator(homeAsUpIndicator);
@@ -646,32 +647,38 @@ public final class ActionBarWatson extends RelativeLayout {
 		
 		@Override
 		public Drawable getLogo() {
-			throw new RuntimeException("Not implemented.");
+			//Not implemented
+			return null;
 		}
 		
 		@Override
 		public ActionItem setLogo(int resId) {
-			throw new RuntimeException("Not implemented.");
+			//Not implemented
+			return this;
 		}
 		
 		@Override
 		public ActionItem setLogo(Drawable logo) {
-			throw new RuntimeException("Not implemented.");
+			//Not implemented
+			return this;
 		}
 
 		@Override
 		public CharSequence getTitle() {
-			throw new RuntimeException("Not implemented.");
+			//Not implemented
+			return null;
 		}
 		
 		@Override
 		public ActionItem setTitle(int resId) {
-			throw new RuntimeException("Not implemented.");
+			//Not implemented
+			return this;
 		}
 		
 		@Override
 		public ActionItem setTitle(CharSequence title) {
-			throw new RuntimeException("Not implemented.");
+			//Not implemented
+			return this;
 		}
 	}
 	
@@ -722,17 +729,20 @@ public final class ActionBarWatson extends RelativeLayout {
 		
 		@Override
 		public View getCustomView() {
-			throw new RuntimeException("Not implemented.");
+			//Not implemented
+			return null;
 		}
 		
 		@Override
 		public Item setCustomView(int resId) {
-			throw new RuntimeException("Not implemented.");
+			//Not implemented
+			return this;
 		}
 		
 		@Override
 		public Item setCustomView(View view) {
-			throw new RuntimeException("Not implemented.");
+			//Not implemented
+			return this;
 		}
 		
 		@Override
@@ -771,17 +781,20 @@ public final class ActionBarWatson extends RelativeLayout {
 		
 		@Override
 		public CharSequence getTitle() {
-			throw new RuntimeException("Not implemented.");
+			//Not implemented
+			return null;
 		}
 		
 		@Override
 		public HomeItem setTitle(int resId) {
-			throw new RuntimeException("Not implemented.");
+			//Not implemented
+			return this;
 		}
 		
 		@Override
 		public HomeItem setTitle(CharSequence title) {
-			throw new RuntimeException("Not implemented.");
+			//Not implemented
+			return this;
 		}
 	}
 	
