@@ -11,14 +11,17 @@ You can also download compiled versions all of the sample applications to test
 on your phones and tablets to give you an idea of how the library works (under
 the "Download Packages" section).
 
+The [changelog is available][2] with a detailed listing of what has changed
+between versions.
+
 
 Including In Your Project
 -------------------------
 
 There are two ways to leverage ActionBarSherlock in your projects:
 
- 1. If you're using the [Eclipse Development Environment][2] with the [ADT
-    plugin][3] version 0.9.7 or greater you can include this as a library
+ 1. If you're using the [Eclipse Development Environment][3] with the [ADT
+    plugin][4] version 0.9.7 or greater you can include this as a library
     project. Create a new Android project in Eclipse using the `library/` folder
     as the existing source. Then, in your project properties, add the created
     project under the 'Libraries' section of the 'Android' category.
@@ -32,13 +35,14 @@ There are two ways to leverage ActionBarSherlock in your projects:
           <type>apklib</type>
         </dependency>
     
-    *Make sure you also include [r.jakewharton.com/maven/][4] in the repositories
+    *Make sure you also include [r.jakewharton.com/maven/][5] in the repositories
     section of your `pom.xml`.*
 
 
 
 
  [1]: https://github.com/JakeWharton/ActionBarSherlock/downloads
- [2]: http://www.eclipse.org
- [3]: http://developer.android.com/sdk/eclipse-adt.html
- [4]: http://r.jakewharton.com/maven/
+ [2]: https://github.com/JakeWharton/ActionBarSherlock/blob/master/CHANGELOG.md#readme
+ [3]: http://www.eclipse.org
+ [4]: http://developer.android.com/sdk/eclipse-adt.html
+ [5]: http://r.jakewharton.com/maven/
