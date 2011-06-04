@@ -47,6 +47,7 @@ of your application.
 
 > [![Styled Screenshot 01 on 2.3.3][S_STYLED_01_2T]][S_STYLED_01_2]
 > [![Styled Screenshot 01 on 3.1][S_STYLED_01_3T]][S_STYLED_01_3]
+> [![Styled Screenshot 02 on 2.3.3][S_STYLED_02_2T]][S_STYLED_02_2]
 > [![Styled Screenshot 02 on 3.1][S_STYLED_02_3T]][S_STYLED_02_3]
 
 
@@ -93,5 +94,7 @@ versions of the library will come support for this sample to function properly._
  [S_STYLED_01_2T]: /static/sample_styled_01_2.3.3.thumb.png
  [S_STYLED_01_3]: /static/sample_styled_01_3.1.png
  [S_STYLED_01_3T]: /static/sample_styled_01_3.1.thumb.png
+ [S_STYLED_02_2]: /static/sample_styled_02_2.3.3.png
+ [S_STYLED_02_2T]: /static/sample_styled_02_2.3.3.thumb.png
  [S_STYLED_02_3]: /static/sample_styled_02_3.1.png
  [S_STYLED_02_3T]: /static/sample_styled_02_3.1.thumb.png
