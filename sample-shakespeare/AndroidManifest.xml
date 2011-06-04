@@ -12,7 +12,8 @@
 
     <application
     	android:icon="@drawable/icon"
-    	android:label="@string/application_label">
+    	android:label="@string/application_label"
+    	android:theme="@style/Theme.Sherlock">
 
 		<activity
 			android:name=".activities.TitlesActivity"
