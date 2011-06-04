@@ -663,11 +663,15 @@ public class FragmentActivity extends Activity {
 			final Intent intent = getIntent();
 			intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 			
-			overridePendingTransition(0, 0);
 			finish();
+			if (Build.VERSION.SDK_INT > Build.VERSION_CODES.ECLAIR) {
+				overridePendingTransition(0, 0);
+			}
 			
-			overridePendingTransition(0, 0);
 			startActivity(intent);
+			if (Build.VERSION.SDK_INT > Build.VERSION_CODES.ECLAIR) {
+				overridePendingTransition(0, 0);
+			}
 		}
 	}
 
