@@ -34,7 +34,10 @@ Developers Blog][SHAKE_POST] which gave an introduction to using fragments in
 your application. The [code is a part][SHAKE_CODE] of the API demos included
 in Android 3.0+.
 
+> [![Shakespeare Screenshot 01 on 2.3.3][S_SHAKE_01_2T]][S_SHAKE_01_2]
 > [![Shakespeare Screenshot 01 on 3.1][S_SHAKE_01_3T]][S_SHAKE_01_3]
+> [![Shakespeare Screenshot 02 on 2.3.3][S_SHAKE_02_2T]][S_SHAKE_02_2]
+> [![Shakespeare Screenshot 03 on 2.3.3][S_SHAKE_03_2T]][S_SHAKE_03_2]
 
 
 Styled
@@ -88,8 +91,14 @@ versions of the library will come support for this sample to function properly._
  [S_DEMO_02_3T]: /static/sample_featuredemo_02_3.1.thumb.png
  [S_GALLERY_01_3]: /static/sample_hcgallery_01_3.0.png
  [S_GALLERY_01_3T]: /static/sample_hcgallery_01_3.0.thumb.png
+ [S_SHAKE_01_2]: /static/sample_shakespeare_01_2.3.3.png
+ [S_SHAKE_01_2T]: /static/sample_shakespeare_01_2.3.3.thumb.png
  [S_SHAKE_01_3]: /static/sample_shakespeare_01_3.1.png
  [S_SHAKE_01_3T]: /static/sample_shakespeare_01_3.1.thumb.png
+ [S_SHAKE_02_2]: /static/sample_shakespeare_02_2.3.3.png
+ [S_SHAKE_02_2T]: /static/sample_shakespeare_02_2.3.3.thumb.png
+ [S_SHAKE_03_2]: /static/sample_shakespeare_03_2.3.3.png
+ [S_SHAKE_03_2T]: /static/sample_shakespeare_03_2.3.3.thumb.png
  [S_STYLED_01_2]: /static/sample_styled_01_2.3.3.png
  [S_STYLED_01_2T]: /static/sample_styled_01_2.3.3.thumb.png
  [S_STYLED_01_3]: /static/sample_styled_01_3.1.png
