@@ -20,10 +20,12 @@ you to manipulate the various settings of the action bar. This allows you to
 easily see how various configurations will perform and behave on different
 devices.
 
-> [![Feature Demo 01 on 2.3.3][S_DEMO_01_2T]][S_DEMO_01_2]
 > [![Feature Demo 01 on 3.1][S_DEMO_01_3T]][S_DEMO_01_3]
-> [![Feature Demo 02 on 2.3.3][S_DEMO_02_2T]][S_DEMO_02_2]
+> [![Feature Demo 01 on 2.3.3][S_DEMO_01_2T]][S_DEMO_01_2]
+> [![Feature Demo 01 on 1.6][S_DEMO_01_1T]][S_DEMO_01_1]
 > [![Feature Demo 02 on 3.1][S_DEMO_02_3T]][S_DEMO_02_3]
+> [![Feature Demo 02 on 2.3.3][S_DEMO_02_2T]][S_DEMO_02_2]
+> [![Feature Demo 02 on 1.6][S_DEMO_02_1T]][S_DEMO_02_1]
 
 
 Shakespeare
@@ -34,8 +36,9 @@ Developers Blog][SHAKE_POST] which gave an introduction to using fragments in
 your application. The [code is a part][SHAKE_CODE] of the API demos included
 in Android 3.0+.
 
-> [![Shakespeare 01 on 2.3.3][S_SHAKE_01_2T]][S_SHAKE_01_2]
 > [![Shakespeare 01 on 3.1][S_SHAKE_01_3T]][S_SHAKE_01_3]
+> [![Shakespeare 01 on 2.3.3][S_SHAKE_01_2T]][S_SHAKE_01_2]
+> [![Shakespeare 01 on 1.6][S_SHAKE_01_1T]][S_SHAKE_01_1]
 > [![Shakespeare 02 on 2.3.3][S_SHAKE_02_2T]][S_SHAKE_02_2]
 > [![Shakespeare 03 on 2.3.3][S_SHAKE_03_2T]][S_SHAKE_03_2]
 
@@ -48,10 +51,12 @@ and [posted on the Android Developers Blog][STYLED_POST] as an example of how to
 use theming capabilities of Android to allow the action bar to match the style
 of your application.
 
-> [![Styled 01 on 2.3.3][S_STYLED_01_2T]][S_STYLED_01_2]
 > [![Styled 01 on 3.1][S_STYLED_01_3T]][S_STYLED_01_3]
-> [![Styled 02 on 2.3.3][S_STYLED_02_2T]][S_STYLED_02_2]
+> [![Styled 01 on 2.3.3][S_STYLED_01_2T]][S_STYLED_01_2]
+> [![Styled 01 on 1.6][S_STYLED_01_1T]][S_STYLED_01_1]
 > [![Styled 02 on 3.1][S_STYLED_02_3T]][S_STYLED_02_3]
+> [![Styled 02 on 2.3.3][S_STYLED_02_2T]][S_STYLED_02_2]
+> [![Styled 02 on 1.6][S_STYLED_02_1T]][S_STYLED_02_1]
 
 
 Honeycomb Gallery
@@ -81,16 +86,22 @@ versions of the library will come support for this sample to function properly._
  [STYLED_POST]: http://android-developers.blogspot.com/2011/04/customizing-action-bar.html
  [STYLED_REPO]: http://code.google.com/p/styled-action-bar/
  [GALLERY_CODE]: http://developer.android.com/resources/samples/HoneycombGallery/index.html
+ [S_DEMO_01_1]: /static/sample_featuredemo_01_1.6.png
+ [S_DEMO_01_1T]: /static/sample_featuredemo_01_1.6.thumb.png
  [S_DEMO_01_2]: /static/sample_featuredemo_01_2.3.3.png
  [S_DEMO_01_2T]: /static/sample_featuredemo_01_2.3.3.thumb.png
  [S_DEMO_01_3]: /static/sample_featuredemo_01_3.1.png
  [S_DEMO_01_3T]: /static/sample_featuredemo_01_3.1.thumb.png
+ [S_DEMO_02_1]: /static/sample_featuredemo_02_1.6.png
+ [S_DEMO_02_1T]: /static/sample_featuredemo_02_1.6.thumb.png
  [S_DEMO_02_2]: /static/sample_featuredemo_02_2.3.3.png
  [S_DEMO_02_2T]: /static/sample_featuredemo_02_2.3.3.thumb.png
  [S_DEMO_02_3]: /static/sample_featuredemo_02_3.1.png
  [S_DEMO_02_3T]: /static/sample_featuredemo_02_3.1.thumb.png
  [S_GALLERY_01_3]: /static/sample_hcgallery_01_3.0.png
  [S_GALLERY_01_3T]: /static/sample_hcgallery_01_3.0.thumb.png
+ [S_SHAKE_01_1]: /static/sample_shakespeare_01_1.6.png
+ [S_SHAKE_01_1T]: /static/sample_shakespeare_01_1.6.thumb.png
  [S_SHAKE_01_2]: /static/sample_shakespeare_01_2.3.3.png
  [S_SHAKE_01_2T]: /static/sample_shakespeare_01_2.3.3.thumb.png
  [S_SHAKE_01_3]: /static/sample_shakespeare_01_3.1.png
@@ -99,10 +110,14 @@ versions of the library will come support for this sample to function properly._
  [S_SHAKE_02_2T]: /static/sample_shakespeare_02_2.3.3.thumb.png
  [S_SHAKE_03_2]: /static/sample_shakespeare_03_2.3.3.png
  [S_SHAKE_03_2T]: /static/sample_shakespeare_03_2.3.3.thumb.png
+ [S_STYLED_01_1]: /static/sample_styled_01_1.6.png
+ [S_STYLED_01_1T]: /static/sample_styled_01_1.6.thumb.png
  [S_STYLED_01_2]: /static/sample_styled_01_2.3.3.png
  [S_STYLED_01_2T]: /static/sample_styled_01_2.3.3.thumb.png
  [S_STYLED_01_3]: /static/sample_styled_01_3.1.png
  [S_STYLED_01_3T]: /static/sample_styled_01_3.1.thumb.png
+ [S_STYLED_02_1]: /static/sample_styled_02_1.6.png
+ [S_STYLED_02_1T]: /static/sample_styled_02_1.6.thumb.png
  [S_STYLED_02_2]: /static/sample_styled_02_2.3.3.png
  [S_STYLED_02_2T]: /static/sample_styled_02_2.3.3.thumb.png
  [S_STYLED_02_3]: /static/sample_styled_02_3.1.png
