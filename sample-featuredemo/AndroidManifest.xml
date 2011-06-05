@@ -16,7 +16,7 @@
         >
         
         <activity
-            android:name="FeatureDemoActivity"
+            android:name=".FeatureDemoActivity"
             android:label="@string/app_name">
             
             <intent-filter>
@@ -25,5 +25,10 @@
             </intent-filter>
         </activity>
         
+        <activity
+        	android:name=".FeatureModel"
+        	android:label="@string/hello"
+        	android:theme="@style/Theme.Sherlock"
+        />
     </application>
 </manifest> 

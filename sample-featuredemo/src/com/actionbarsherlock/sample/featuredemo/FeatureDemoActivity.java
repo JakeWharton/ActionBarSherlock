@@ -2,6 +2,7 @@ package com.actionbarsherlock.sample.featuredemo;
 
 import java.util.Random;
 import com.actionbarsherlock.sample.featuredemo.R;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActionBar;
 import android.support.v4.app.FragmentActivity;
@@ -27,6 +28,15 @@ public class FeatureDemoActivity extends FragmentActivity {
 		}
 		
 		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getItemId() != android.R.id.home) {
+			startActivity(new Intent(this, FeatureModel.class));
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	@Override
