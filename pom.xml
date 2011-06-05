@@ -19,7 +19,7 @@
 		<module>sample-featuredemo</module>
 		<module>sample-shakespeare</module>
 		<module>sample-styled</module>
-		<module>sample-hcgallery</module>
+		<!--module>sample-hcgallery</module-->
 	</modules>
 
 	<scm>
