@@ -11,4 +11,22 @@ layout: default
 		<p>The widget is called ActionBarWatson and it is a custom implementation that was purpose-built to mimic the API, functionality, and look of the native action bar on 3.0+ devices.</p>
 		<p>ActionBarWatson is a fork of <a href="https://github.com/johannilsson/android-actionbar/pull/25">work done</a> on Johan Nilsson's <a href="https://github.com/johannilsson/android-actionbar">Android-ActionBar</a> library in order to provide styling compatibility with the native action bar. The first two versions of ActionBarSherlock used his library directly for support on pre-3.0 devices and without his work the current widget would not be possible.</p>
 	</dd>
+
+	<dt>Why don't action modes work on pre-3.0 devices?</dt>
+	<dd>Action mode support is still being worked on for pre-3.0 devices and will be released with version 3.1 of the library.</dd>
+
+	<dt>Why doesn't the logo defined on the activity/application entry in the manifest get displayed?</dt>
+	<dd>Despite there being support for loading the logo for activities and applications since API level 9, the underlying implementation in Android is broken and does not work at all. In order to specify a logo on these platforms you should use the `logo` attribute in the style defined for the `actionBarStyle` of your custom theme.</dd>
+
+	<dt>List and tab navigation hide the title on pre-3.0 devices. Can this be changed?</dt>
+	<dd>Due to the relatively small space to display items on phones, this cannot currently be changed. Future versions of the library will behave more like the native action bar on larger displays (e.g., Nook Color, Archos 101).</dd>
+
+	<dt>Can you add functionality *X* to the action bar?</dt>
+	<dd>As a general rule, no. If the native action bar on Android 3.0+ does not support it then it will not be supported by this library.</dd>
+
+	<dt>Why is ActionBarSherlock a library project whereas the original compatibility library is only a `.jar`?</dt>
+	<dd>ActionBarWatson, the custom action bar implementation within ActionBarSherlock for pre-3.0 devices, relies on styles, themes, layouts, and drawables in order to display properly. Due to the limitations of Android and `.jar` files, it can not be accomplished any other way.</dd>
+
+	<dt>I found a bug, what should I do?</dt>
+	<dd>See the [support page](/support.html) and create an issue on GitHub, post to the Google Group, or contact me directly. Or do all three! The worst thing you can do is to not report it. Please try to include as much information as possible in your report.</dd>
 </dl>
