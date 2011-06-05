@@ -1,8 +1,8 @@
 Change Log
 ===============================================================================
 
-Version 3.0.0 *(In Development)*
---------------------------------
+Version 3.0.0 *(2010-06-05)*
+----------------------------
 
 The API has been rewritten to mimic that of the native action bar. As a result,
 usage now only requires changing a few imports to use the support versions
