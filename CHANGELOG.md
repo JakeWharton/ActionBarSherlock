@@ -19,6 +19,8 @@ devices. This custom implementation is based off of Johan Nilsson's
 [work that I have done](https://github.com/johannilsson/android-actionbar/pull/25)
 on it.
 
+More details are available at http://actionbarsherlock.com
+
 
 Version 2.1.1 *(2011-03-21)*
 ----------------------------
