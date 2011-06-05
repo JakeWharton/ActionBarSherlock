@@ -28,6 +28,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.Menu;
 import android.support.v4.view.MenuItem;
 import android.support.v4.view.MenuItem.OnMenuItemClickListener;
+import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
@@ -127,12 +128,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		case R.id.menu_text:
 			// alpha animation of blue fragment
 			if (IS_HONEYCOMB) {
-				ObjectAnimator alpha = ObjectAnimator.ofFloat(rightFrag.getView(),
-					"alpha", 1f, 0f);
-				alpha.setRepeatMode(ObjectAnimator.REVERSE);
-				alpha.setRepeatCount(1);
-				alpha.setDuration(800);
-				alpha.start();
+				ObjectAnimatorAlpha.invoke(rightFrag.getView());
 			} else {
 				AlphaAnimation alpha = new AlphaAnimation(1f, 0f);
 				alpha.setRepeatMode(Animation.REVERSE);
@@ -175,17 +171,34 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 			return super.onOptionsItemSelected(item);
 		}
 	}
+	
+	private static final class ObjectAnimatorAlpha {
+		static void invoke(View view) {
+				ObjectAnimator alpha = ObjectAnimator.ofFloat(view,
+					"alpha", 1f, 0f);
+				alpha.setRepeatMode(ObjectAnimator.REVERSE);
+				alpha.setRepeatCount(1);
+				alpha.setDuration(800);
+				alpha.start();
+		}
+	}
 
 	private void rotateLeftFrag() {
 		if (leftFrag != null) {
 			if (IS_HONEYCOMB) {
-				ObjectAnimator.ofFloat(leftFrag.getView(), "rotationY", 0, 180)
-					.setDuration(500).start();
+				ObjectAnimatorRotate.invoke(leftFrag.getView());
 			} else {
 				RotateAnimation rotate = new RotateAnimation(0, 180, leftFrag.getView().getWidth() / 2.0f, leftFrag.getView().getHeight() / 2.0f);
 				rotate.setDuration(500);
 				leftFrag.getView().startAnimation(rotate);
 			}
+		}
+	}
+	
+	private static final class ObjectAnimatorRotate {
+		static void invoke(View view) {
+			ObjectAnimator.ofFloat(view, "rotationY", 0, 180)
+				.setDuration(500).start();
 		}
 	}
 

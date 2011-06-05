@@ -459,7 +459,7 @@ public class FragmentActivity extends Activity {
 		if (DEBUG) Log.d(TAG, "supportInvalidateOptionsMenu(): Invalidating menu.");
 		
 		if (IS_HONEYCOMB) {
-			super.invalidateOptionsMenu();
+			HoneycombInvalidateOptionsMenu.invoke(this);
 		} else {
 			mActionBarMenu.clear();
 			
@@ -475,6 +475,12 @@ public class FragmentActivity extends Activity {
 			// Whoops, older platform...  we'll use a hack, to manually rebuild
 			// the options menu the next time it is prepared.
 			mOptionsMenuInvalidated = true;
+		}
+	}
+	
+	private static final class HoneycombInvalidateOptionsMenu {
+		static void invoke(Activity activity) {
+			activity.getWindow().invalidatePanelMenu(Window.FEATURE_OPTIONS_PANEL);
 		}
 	}
 	
@@ -657,21 +663,32 @@ public class FragmentActivity extends Activity {
 	 * lifecycle to onDestroy() and a new instance then created after it. 
 	 */
 	public void recreate() {
+		//XXX This SUCKS! Figure out a way to call the super method and support Android 1.6
+		/*
 		if (IS_HONEYCOMB) {
 			super.recreate();
 		} else {
+		*/
 			final Intent intent = getIntent();
 			intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 			
 			finish();
 			if (Build.VERSION.SDK_INT > Build.VERSION_CODES.ECLAIR) {
-				overridePendingTransition(0, 0);
+				OverridePendingTransition.invoke(this);
 			}
 			
 			startActivity(intent);
 			if (Build.VERSION.SDK_INT > Build.VERSION_CODES.ECLAIR) {
-				overridePendingTransition(0, 0);
+				OverridePendingTransition.invoke(this);
 			}
+		/*
+		}
+		*/
+	}
+	
+	private static final class OverridePendingTransition {
+		static void invoke(Activity activity) {
+			activity.overridePendingTransition(0, 0);
 		}
 	}
 
