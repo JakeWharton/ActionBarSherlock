@@ -1,6 +1,13 @@
 Change Log
 ===============================================================================
 
+Version 3.0.1 *(In Development)*
+--------------------------------
+
+* Fix: `onOptionsItemSelected()` not being called in fragments if the activity
+  version returns `false`.
+
+
 Version 3.0.0 *(2010-06-05)*
 ----------------------------
 
