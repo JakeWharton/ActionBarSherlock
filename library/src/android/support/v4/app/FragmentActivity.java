@@ -99,7 +99,7 @@ public class FragmentActivity extends Activity {
 	final MenuBuilder.Callback mMenuCallback = new MenuBuilder.Callback() {
 		@Override
 		public boolean onMenuItemSelected(MenuBuilder menu, MenuItem item) {
-			return onOptionsItemSelected(item);
+			return FragmentActivity.this.onMenuItemSelected(Window.FEATURE_OPTIONS_PANEL, item);
 		}
 	};
 	
@@ -529,8 +529,25 @@ public class FragmentActivity extends Activity {
 	 * Dispatch context and options menu to fragments.
 	 */
 	@Override
-	public boolean onMenuItemSelected(int featureId, android.view.MenuItem item) {
+	public final boolean onMenuItemSelected(int featureId, android.view.MenuItem item) {
 		if (super.onMenuItemSelected(featureId, item)) {
+			return true;
+		}
+		
+		switch (featureId) {
+			case Window.FEATURE_OPTIONS_PANEL:
+				return mFragments.dispatchOptionsItemSelected(new MenuItemWrapper(item));
+				
+			case Window.FEATURE_CONTEXT_MENU:
+				return mFragments.dispatchContextItemSelected(new MenuItemWrapper(item));
+
+			default:
+				return false;
+		}
+	}
+	
+	public boolean onMenuItemSelected(int featureId, MenuItem item) {
+		if (onOptionsItemSelected(item)) {
 			return true;
 		}
 		
@@ -540,7 +557,7 @@ public class FragmentActivity extends Activity {
 				
 			case Window.FEATURE_CONTEXT_MENU:
 				return mFragments.dispatchContextItemSelected(item);
-
+			
 			default:
 				return false;
 		}

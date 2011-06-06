@@ -26,6 +26,7 @@ import android.os.Parcelable;
 import android.support.v4.util.DebugUtils;
 import android.support.v4.util.LogWriter;
 import android.support.v4.view.Menu;
+import android.support.v4.view.MenuItem;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.animation.AccelerateInterpolator;
@@ -38,7 +39,6 @@ import android.view.animation.Interpolator;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
