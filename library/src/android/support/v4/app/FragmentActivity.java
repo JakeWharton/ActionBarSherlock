@@ -363,7 +363,9 @@ public class FragmentActivity extends Activity {
 		
 		if (IS_HONEYCOMB) {
 			if (DEBUG) Log.d(TAG, "onCreateOptionsMenu(android.view.Menu): Calling support method with wrapped native menu.");
-			result = onCreateOptionsMenu(new MenuWrapper(menu));
+			MenuWrapper wrapped = new MenuWrapper(menu);
+			result  = onCreateOptionsMenu(wrapped);
+			result |= mFragments.dispatchCreateOptionsMenu(wrapped, getMenuInflater());
 		}
 		
 		if (DEBUG) Log.d(TAG, "onCreateOptionsMenu(android.view.Menu): Returning " + result);

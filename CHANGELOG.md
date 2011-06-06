@@ -6,6 +6,7 @@ Version 3.0.1 *(In Development)*
 
 * Fix: `onOptionsItemSelected()` not being called in fragments if the activity
   version returns `false`.
+* Fix: `onCreateOptionsMenu()` not being called in fragments on Android 3.0+.
 
 
 Version 3.0.0 *(2010-06-05)*
