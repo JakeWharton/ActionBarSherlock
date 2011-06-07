@@ -13,6 +13,7 @@
 		android:label="ActionBarSherlock Test Application"
 		android:theme="@style/Theme.Sherlock">
 		
+		<activity android:name=".FeatureEnableActionItemText" />
 		<activity android:name=".Issue0002" />
 		
     </application>

@@ -28,6 +28,14 @@
 		android:layout_centerVertical="true"
 		android:gravity="center_vertical"
 		/>
+	<TextView
+		android:id="@+id/actionbarwatson_item_text"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerVertical="true"
+		android:layout_toRightOf="@id/actionbarwatson_item_icon"
+		android:gravity="center_vertical"
+		/>
 	<FrameLayout
 		android:id="@+id/actionbarwatson_item_custom"
 		android:layout_width="wrap_content"

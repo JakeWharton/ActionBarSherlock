@@ -57,6 +57,9 @@ final class ActionBarHandlerWatson extends ActionBar {
 	/** List of listeners to the menu visibility. */
 	private final List<OnMenuVisibilityListener> mMenuListeners = new ArrayList<OnMenuVisibilityListener>();
 	
+	/** Whether text will be enabled on action items. */
+	private boolean mIsActionItemTextEnabled = false;
+	
 	
 	
 	// ------------------------------------------------------------------------
@@ -128,9 +131,11 @@ final class ActionBarHandlerWatson extends ActionBar {
 		for (int i = 0; i < count; i++) {
 			MenuItemImpl item = (MenuItemImpl)menu.getItem(i);
 			
-			if (item.getIcon() == null) {
-				//Items without an icon are not currently supported on the
-				//action bar, force into the overflow menu
+			//Items without an icon or items without a title when the title
+			//is enabled are forced into the normal options menu
+			if (!mIsActionItemTextEnabled && (item.getIcon() == null)) {
+				continue;
+			} else if (mIsActionItemTextEnabled && ((item.getTitle() == null) || item.getTitle().equals(""))) {
 				continue;
 			}
 			
@@ -161,6 +166,7 @@ final class ActionBarHandlerWatson extends ActionBar {
 		//Mark items that will be shown on the action bar as such so they do
 		//not show up on the activity options menu
 		mActionBar.removeAllItems();
+		mActionBar.setIsActionItemTextEnabled(mIsActionItemTextEnabled);
 		for (MenuItemImpl item : keep) {
 			item.setIsShownOnActionBar(true);
 			
@@ -202,6 +208,10 @@ final class ActionBarHandlerWatson extends ActionBar {
 		}
 		if (featureId == Window.FEATURE_ACTION_MODE_OVERLAY) {
 			// TODO Make action modes partially transparent
+			return true;
+		}
+		if (featureId == Window.FEATURE_ENABLE_ACTION_BAR_WATSON_TEXT) {
+			mIsActionItemTextEnabled = true;
 			return true;
 		}
 		return false;
@@ -506,7 +516,7 @@ final class ActionBarHandlerWatson extends ActionBar {
 
 		@Override
 		public void setTitle(CharSequence title) {
-			//TODO mItem.setTitle(title);
+			mWatsonItem.setTitle(title);
 		}
 
 		@Override

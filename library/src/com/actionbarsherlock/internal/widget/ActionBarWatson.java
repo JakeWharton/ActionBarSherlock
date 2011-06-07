@@ -67,6 +67,9 @@ public final class ActionBarWatson extends RelativeLayout {
 	 */
 	private int mNavigationMode = -1;
 	
+	/** Whether text is shown on action items regardless of display params. */
+	private boolean mIsActionItemTextEnabled = false;
+	
 	
 
 	public ActionBarWatson(Context context) {
@@ -533,6 +536,19 @@ public final class ActionBarWatson extends RelativeLayout {
 		mActionsView.removeAllViews();
 	}
 	
+	public void setIsActionItemTextEnabled(boolean isActionItemTextEnabled) {
+		if (isActionItemTextEnabled != mIsActionItemTextEnabled) {
+			mIsActionItemTextEnabled = isActionItemTextEnabled;
+			final int count = mActionsView.getChildCount();
+			for (int i = count - 1; i >= 0; i--) {
+				View view = mActionsView.getChildAt(i);
+				if (view instanceof ActionItem) {
+					((ActionItem)view).reloadDisplay();
+				}
+			}
+		}
+	}
+	
 	// ------------------------------------------------------------------------
 	// HELPER INTERFACES AND HELPER CLASSES
 	// ------------------------------------------------------------------------
@@ -568,6 +584,7 @@ public final class ActionBarWatson extends RelativeLayout {
 	public static final class ActionItem extends Item {
 		ActionBarWatson mActionBar;
 		ImageView mIconView;
+		TextView mTextView;
 		FrameLayout mCustomView;
 
 
@@ -587,15 +604,16 @@ public final class ActionBarWatson extends RelativeLayout {
 			super.onFinishInflate();
 
 			mIconView = (ImageView)findViewById(R.id.actionbarwatson_item_icon);
+			mTextView = (TextView)findViewById(R.id.actionbarwatson_item_text);
 			mCustomView = (FrameLayout)findViewById(R.id.actionbarwatson_item_custom);
-			
-			//TODO add text support
 		}
 		
 		void reloadDisplay() {
 			final boolean hasCustomView = mCustomView.getChildCount() > 0;
+			final boolean hasText = (mTextView.getText() != null) && !mTextView.getText().equals("");
 			
-			mIconView.setVisibility(hasCustomView ? View.GONE : View.VISIBLE);
+			mIconView.setVisibility(!hasCustomView ? View.VISIBLE : View.GONE);
+			mTextView.setVisibility(!hasCustomView && hasText && mActionBar.mIsActionItemTextEnabled ? View.VISIBLE : View.GONE);
 			mCustomView.setVisibility(hasCustomView ? View.VISIBLE : View.GONE);
 		}
 		
@@ -665,19 +683,20 @@ public final class ActionBarWatson extends RelativeLayout {
 
 		@Override
 		public CharSequence getTitle() {
-			//Not implemented
-			return null;
+			return mTextView.getText();
 		}
 		
 		@Override
 		public ActionItem setTitle(int resId) {
-			//Not implemented
+			mTextView.setText(resId);
+			reloadDisplay();
 			return this;
 		}
 		
 		@Override
 		public ActionItem setTitle(CharSequence title) {
-			//Not implemented
+			mTextView.setText(title);
+			reloadDisplay();
 			return this;
 		}
 	}
