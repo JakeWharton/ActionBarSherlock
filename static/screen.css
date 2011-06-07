@@ -33,7 +33,7 @@ article header h1 { margin-top: 0; border-left: 10px solid #128B4C; padding-left
 footer { margin-top: 70px; margin-bottom: 20px; font-size: 12px; overflow: auto; }
 footer p { margin: 0; }
 footer .github { float: left; }
-footer .ohloh { float: right; }
+footer .social { float: right; }
 
 
 
