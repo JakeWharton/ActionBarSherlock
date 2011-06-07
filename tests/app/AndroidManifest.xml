@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+	package="com.actionbarsherlock.tests.app"
+	android:versionCode="6"
+	android:versionName="3.0.0">
+	
+	<uses-sdk
+		android:minSdkVersion="4"
+		android:targetSdkVersion="12" />
+
+	<application
+		android:label="ActionBarSherlock Test Application"
+		android:theme="@style/Theme.Sherlock">
+		
+		<activity android:name=".Issue0002" />
+		
+    </application>
+</manifest>
