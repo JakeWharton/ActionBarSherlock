@@ -30,8 +30,10 @@ article header h1 { margin-top: 0; border-left: 10px solid #128B4C; padding-left
 #content dt { border-left: 2px solid #128B4C; padding-left: 10px; font-weight: bold; font-style: italic; margin-bottom: .5em; }
 #content dd { margin-bottom: 2em; }
 
-footer { margin-top: 70px; margin-bottom: 20px; font-size: 12px; }
+footer { margin-top: 70px; margin-bottom: 20px; font-size: 12px; overflow: auto; }
 footer p { margin: 0; }
+footer .github { float: left; }
+footer .ohloh { float: right; }
 
 
 
