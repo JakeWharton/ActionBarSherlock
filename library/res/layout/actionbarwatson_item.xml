@@ -35,6 +35,9 @@
 		android:layout_centerVertical="true"
 		android:layout_toRightOf="@id/actionbarwatson_item_icon"
 		android:gravity="center_vertical"
+		android:visibility="gone"
+		android:textColor="?attr/actionMenuTextColor"
+		style="?attr/actionMenuTextAppearance"
 		/>
 	<FrameLayout
 		android:id="@+id/actionbarwatson_item_custom"
