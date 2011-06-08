@@ -4,8 +4,8 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.actionbarsherlock</groupId>
-	<artifactId>sample-featuredemo</artifactId>
-	<name>Sample: Feature Demo</name>
+	<artifactId>test-runner</artifactId>
+	<name>Test: Runner</name>
 	<packaging>apk</packaging>
 
 	<parent>
@@ -17,16 +17,38 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>com.jayway.android.robotium</groupId>
+			<artifactId>robotium-solo</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>com.google.android</groupId>
+					<artifactId>android</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.google.android</groupId>
+					<artifactId>android-test</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
 			<groupId>android</groupId>
 			<artifactId>android</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.actionbarsherlock</groupId>
-			<artifactId>library</artifactId>
+			<artifactId>test-app</artifactId>
 			<version>${project.version}</version>
-			<type>apklib</type>
+			<type>apk</type>
+		</dependency>
+
+		<dependency>
+			<groupId>com.actionbarsherlock</groupId>
+			<artifactId>test-app</artifactId>
+			<version>${project.version}</version>
+			<type>jar</type>
 		</dependency>
 	</dependencies>
 
@@ -37,37 +59,11 @@
 			<plugin>
 				<groupId>com.jayway.maven.plugins.android.generation2</groupId>
 				<artifactId>maven-android-plugin</artifactId>
+				<configuration>
+					<enableIntegrationTest>true</enableIntegrationTest>
+				</configuration>
 				<extensions>true</extensions>
 			</plugin>
 		</plugins>
 	</build>
-
-	<profiles>
-		<profile>
-			<id>release-sign-artifacts</id>
-			<activation>
-				<property>
-					<name>performRelease</name>
-					<value>true</value>
-				</property>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>com.jakewharton</groupId>
-						<artifactId>github-deploy-maven-plugin</artifactId>
-						<version>1.0.1</version>
-						<configuration>
-							<types>
-								<type>apk</type>
-							</types>
-						</configuration>
-						<goals>
-							<goal>deploy</goal>
-						</goals>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
 </project>

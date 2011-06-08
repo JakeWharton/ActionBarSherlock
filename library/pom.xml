@@ -19,12 +19,19 @@
 		<dependency>
 			<groupId>android</groupId>
 			<artifactId>android</artifactId>
-			<version>${android.version}</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 
 	<build>
 		<sourceDirectory>src</sourceDirectory>
+
+		<plugins>
+			<plugin>
+				<groupId>com.jayway.maven.plugins.android.generation2</groupId>
+				<artifactId>maven-android-plugin</artifactId>
+				<extensions>true</extensions>
+			</plugin>
+		</plugins>
 	</build>
 </project>
