@@ -33,6 +33,7 @@ You may also contact me directly if the above two options are not sufficient.
 
 * [jakewharton@gmail.com](mailto:jakewharton@gmail.com)
 * [@JakeWharton](https://twitter.com/JakeWharton)
+* JakeWharton on [irc.freenode.net #android-dev](irc://irc.freenode.net/android-dev)
 * [Ask via jakewharton.com](http://jakewharton.com/ask)
 * [GitHub Message](https://github.com/inbox/new/JakeWharton)
 
