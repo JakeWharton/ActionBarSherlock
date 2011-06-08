@@ -386,19 +386,16 @@ public final class ActionBarWatson extends RelativeLayout {
 	public void setCustomView(int resId) {
 		mCustomView.removeAllViews();
 		LayoutInflater.from(getContext()).inflate(resId, mCustomView, true);
-		setDisplayShowCustomEnabled(true);
 	}
 
 	public void setCustomView(View view) {
 		mCustomView.removeAllViews();
 		mCustomView.addView(view);
-		setDisplayShowCustomEnabled(true);
 	}
 	
 	public void setCustomView(View view, ActionBar.LayoutParams layoutParams) {
-		mCustomView.removeAllViews();
-		mCustomView.addView(view, layoutParams);
-		setDisplayShowCustomEnabled(true);
+		view.setLayoutParams(layoutParams);
+		setCustomView(view);
 	}
 	
 	public void setDisplayHomeAsUpEnabled(boolean showHomeAsUp) {

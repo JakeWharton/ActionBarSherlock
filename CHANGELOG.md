@@ -9,6 +9,9 @@ Version 3.0.1 *(In Development)*
 * Fix: `onCreateOptionsMenu()` not being called in fragments on Android 3.0+.
 * New: Enable action item text display on pre-Android 3.0 by calling
   `requestWindowFeature` with `Window.FEATURE_ENABLE_ACTION_BAR_WATSON_TEXT`.
+* Fix: `setCustomView()` no longer automatically enables the custom view on
+  pre-3.0. You must call `setDisplayShowCustomEnabled()` in order to display
+  the view.
 
 
 Version 3.0.0 *(2010-06-05)*
