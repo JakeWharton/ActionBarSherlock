@@ -1,5 +1,5 @@
 html { overflow-y: scroll; }
-body { margin: 0; padding: 30px 0; background: #eee url('/static/60degree_gray.png') repeat fixed; border-top: 5px solid #4BB461; font-size: 14px; font-family: "Lucida Grande", Arial; color: #111; }
+body { margin: 0; padding: 30px 0; background: #eee url('/static/60degree_gray.png') repeat fixed; border-top: 5px solid #128B4C; font-size: 14px; font-family: "Lucida Grande", Arial; color: #111; }
 #header, nav, article, footer { width: 900px; margin: 0 auto; }
 
 a:link, a:active, a:visited { color: #128B4C; text-decoration: none; }
@@ -10,6 +10,7 @@ a:hover { text-decoration: underline; }
 #header span { font-size: 20px; color: rgba(16, 16, 16, 0.25); display: inline-block; margin-left: 20px; }
 #header span a:link, #header span a:active, #header span a:visited { color: rgba(16, 16, 16, 0.25); }
 #header span a:hover { color: #128B4C; }
+#ribbon { position: absolute; top: 0; right: 0; border: 0; }
 
 nav { margin-top: 30px; }
 nav ul { margin: 0; padding: 0; }
