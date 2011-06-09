@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package android.support.v4.app;
+package com.actionbarsherlock.internal.app;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +25,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
+import android.support.v4.app.ActionBar;
 import android.support.v4.view.ActionMode;
 import android.support.v4.view.Menu;
 import android.support.v4.view.MenuItem;
@@ -39,7 +40,7 @@ import com.actionbarsherlock.internal.view.MenuView;
 import com.actionbarsherlock.internal.widget.ActionBarWatson;
 import com.actionbarsherlock.R;
 
-final class ActionBarHandlerWatson extends ActionBar {
+public final class ActionBarHandlerWatson extends ActionBar {
 	/** Maximum action bar items in portrait mode. */
 	private static final int MAX_ACTION_BAR_ITEMS_PORTRAIT = 3;
 	
@@ -67,14 +68,14 @@ final class ActionBarHandlerWatson extends ActionBar {
 	// ------------------------------------------------------------------------
 
 	@Override
-	void performAttach() {
+	protected void performAttach() {
 		getActivity().requestWindowFeature(Window.FEATURE_NO_TITLE);
-		getActivity().setSuperContentView(R.layout.actionbarwatson_wrapper);
+		setActivityContentView(R.layout.actionbarwatson_wrapper);
 		
 		mActionBar = (ActionBarWatson)getActivity().findViewById(R.id.actionbarwatson);
 		mContentView = (FrameLayout)getActivity().findViewById(R.id.actionbarsherlock_content);
 		
-		final MenuItemImpl homeMenuItem = getActivity().getHomeMenuItem();
+		final MenuItemImpl homeMenuItem = getHomeMenuItem();
 		final ActionBarWatson.Item homeItem = mActionBar.getHomeItem();
 		final WatsonItemViewWrapper homeWrapper = new WatsonItemViewWrapper(homeItem);
 		homeWrapper.initialize(homeMenuItem, MenuBuilder.TYPE_WATSON);
@@ -117,7 +118,7 @@ final class ActionBarHandlerWatson extends ActionBar {
 	}
 
 	@Override
-	void onMenuInflated(Menu menu) {
+	protected void onMenuInflated(Menu menu) {
 		int maxItems = MAX_ACTION_BAR_ITEMS_PORTRAIT;
 		if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
 			maxItems = MAX_ACTION_BAR_ITEMS_LANDSCAPE;
@@ -186,22 +187,22 @@ final class ActionBarHandlerWatson extends ActionBar {
 	}
 
 	@Override
-	void setContentView(int layoutResId) {
+	protected void setContentView(int layoutResId) {
 		getActivity().getLayoutInflater().inflate(layoutResId, mContentView, true);
 	}
 
 	@Override
-	void setContentView(View view) {
+	protected void setContentView(View view) {
 		mContentView.addView(view);
 	}
 
 	@Override
-	void setContentView(View view, ViewGroup.LayoutParams params) {
+	protected void setContentView(View view, ViewGroup.LayoutParams params) {
 		mContentView.addView(view, params);
 	}
 
 	@Override
-	boolean requestWindowFeature(int featureId) {
+	protected boolean requestWindowFeature(int featureId) {
 		if (featureId == Window.FEATURE_ACTION_BAR_OVERLAY) {
 			// TODO Make action bar partially transparent
 			return true;
@@ -218,7 +219,7 @@ final class ActionBarHandlerWatson extends ActionBar {
 	}
 	
 	@Override
-	void onMenuVisibilityChanged(boolean isVisible) {
+	protected void onMenuVisibilityChanged(boolean isVisible) {
 		//Marshal to all listeners
 		for (OnMenuVisibilityListener listener : mMenuListeners) {
 			listener.onMenuVisibilityChanged(isVisible);
@@ -230,7 +231,7 @@ final class ActionBarHandlerWatson extends ActionBar {
 	// ------------------------------------------------------------------------
 
 	@Override
-	ActionMode startActionMode(ActionMode.Callback callback) {
+	protected ActionMode startActionMode(ActionMode.Callback callback) {
 		throw new RuntimeException("Not implemented.");
 	}
 	

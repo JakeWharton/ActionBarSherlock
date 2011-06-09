@@ -25,6 +25,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.SpinnerAdapter;
+import com.actionbarsherlock.internal.app.ActionBarHandlerWatson;
+import com.actionbarsherlock.internal.view.MenuItemImpl;
 
 /**
  * This is the public interface to the contextual ActionBar. The ActionBar acts
@@ -74,34 +76,46 @@ public abstract class ActionBar {
 		mActivity = activity;
 	}
 	
+	protected final void setActivityContentView(int layoutResId) {
+		mActivity.setSuperContentView(layoutResId);
+	}
+	
+	protected final void setActivityContentView(View view) {
+		mActivity.setSuperContentView(view);
+	}
+	
+	protected final MenuItemImpl getHomeMenuItem() {
+		return mActivity.getHomeMenuItem();
+	}
+	
 	// ---------------------------------------------------------------------
 	// ACTION BAR SHERLOCK SUPPORT
 	// ---------------------------------------------------------------------
 	
-	abstract void setContentView(int layoutResId);
+	protected abstract void setContentView(int layoutResId);
 	
-	abstract void setContentView(View view);
+	protected abstract void setContentView(View view);
 	
-	abstract void setContentView(View view, ViewGroup.LayoutParams params);
+	protected abstract void setContentView(View view, ViewGroup.LayoutParams params);
 	
-	abstract void onMenuVisibilityChanged(boolean isVisible);
+	protected abstract void onMenuVisibilityChanged(boolean isVisible);
 	
-	abstract void onMenuInflated(Menu menu);
+	protected abstract void onMenuInflated(Menu menu);
 
-	abstract boolean requestWindowFeature(int featureId);
+	protected abstract boolean requestWindowFeature(int featureId);
 	
 	/**
 	 * Called directly after the {@link FragmentActivity#onCreate(Bundle)}
 	 * method has called its base class' implementation. This should be used to
 	 * facilitate attachment to the activity.
 	 */
-	abstract void performAttach();
+	protected abstract void performAttach();
 	
 	// ------------------------------------------------------------------------
 	// ACTION MODE SUPPORT
 	// ------------------------------------------------------------------------
 	
-	abstract ActionMode startActionMode(ActionMode.Callback callback);
+	protected abstract ActionMode startActionMode(ActionMode.Callback callback);
 	
 	// ------------------------------------------------------------------------
 	// ACTION BAR SUPPORT

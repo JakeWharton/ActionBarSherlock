@@ -14,18 +14,19 @@
  * limitations under the License.
  */
 
-package android.support.v4.app;
+package com.actionbarsherlock.internal.app;
 
 import java.util.HashMap;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.v4.app.ActionBar;
 import android.support.v4.view.ActionMode;
 import android.support.v4.view.Menu;
 import android.support.v4.view.MenuInflater;
 import android.view.View;
 import android.widget.SpinnerAdapter;
 
-final class ActionBarHandlerNative {
+public final class ActionBarHandlerNative {
 	//No instances
 	private ActionBarHandlerNative() {}
 	
@@ -34,14 +35,14 @@ final class ActionBarHandlerNative {
 	 * 
 	 * @return {@code ActionBarNative.Impl.class}
 	 */
-	static Class<? extends ActionBar> get() {
+	public static Class<? extends ActionBar> get() {
 		return ActionBarHandlerNative.Impl.class;
 	}
 
 	/**
 	 * <p>Handler for Android's native {@link android.app.ActionBar}.</p>
 	 */
-	static final class Impl extends ActionBar implements android.app.ActionBar.TabListener {
+	public static final class Impl extends ActionBar implements android.app.ActionBar.TabListener {
 		/** Mapping between support listeners and native listeners. */
 		private final HashMap<OnMenuVisibilityListener, android.app.ActionBar.OnMenuVisibilityListener> mMenuListenerMap = new HashMap<OnMenuVisibilityListener, android.app.ActionBar.OnMenuVisibilityListener>();
 		
@@ -114,22 +115,22 @@ final class ActionBarHandlerNative {
 		}
 		
 		@Override
-		public void onMenuVisibilityChanged(boolean isVisible) {
+		protected void onMenuVisibilityChanged(boolean isVisible) {
 			throw new IllegalStateException("This should never be utilized for the native ActionBar.");
 		}
 
 		@Override
-		public void onMenuInflated(Menu menu) {
+		protected void onMenuInflated(Menu menu) {
 			throw new IllegalStateException("This should never be utilized for the native ActionBar.");
 		}
 
 		@Override
-		boolean requestWindowFeature(int featureId) {
+		protected boolean requestWindowFeature(int featureId) {
 			throw new IllegalStateException("This should have been passed to super from the Activity.");
 		}
 		
 		@Override
-		void performAttach() {
+		protected void performAttach() {
 			throw new IllegalStateException("This should never be utilized for the native ActionBar.");
 		}
 		
@@ -138,7 +139,7 @@ final class ActionBarHandlerNative {
 		// ---------------------------------------------------------------------
 		
 		@Override
-		ActionMode startActionMode(final ActionMode.Callback callback) {
+		protected ActionMode startActionMode(final ActionMode.Callback callback) {
 			//We have to re-wrap the instances in every callback since the
 			//wrapped instance is needed before we could have a change to
 			//properly store it.

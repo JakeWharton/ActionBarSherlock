@@ -21,6 +21,7 @@ import java.io.FileDescriptor;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import com.actionbarsherlock.internal.app.ActionBarHandlerNative;
 import com.actionbarsherlock.internal.view.MenuBuilder;
 import com.actionbarsherlock.internal.view.MenuInflaterWrapper;
 import com.actionbarsherlock.internal.view.MenuItemImpl;
