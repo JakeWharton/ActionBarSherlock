@@ -83,7 +83,7 @@ is now required.
    [GitHub downloads page](https://github.com/JakeWharton/ActionBarSherlock/downloads)
    or in my
    [personal maven repository](http://r.jakewharton.com/maven/)
-   as `com.actionbarsherlock:library:2.1.0`.
+   as `com.jakewharton:android-actionbarsherlock:2.1.0`.
 
 
 Version 2.0.1 *(2011-03-11)*
