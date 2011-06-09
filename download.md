@@ -25,8 +25,8 @@ There are two ways to leverage ActionBarSherlock in your projects:
     project. Create a new Android project in Eclipse using the `library/` folder
     as the existing source. Then, in your project properties, add the created
     project under the 'Libraries' section of the 'Android' category.
- 2. If you use maven to build you Android project, you can simply add a
-    dependency for this project.
+ 2. If you use maven to build your Android project you can simply add a
+    dependency for this library.
     
         <dependency>
           <groupId>com.actionbarsherlock</groupId>
