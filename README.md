@@ -1,9 +1,9 @@
 Action Bar Sherlock
 ===================
 
-`ActionBarSherlock` is an extension of the [compatibility library][1]
-designed to facilitate the use of the action bar design pattern across all
-versions of Android leveraging the best API available.
+ActionBarSherlock is an extension of the [compatibility library][1] designed
+to facilitate the use of the action bar design pattern across all versions of
+Android through a single API.
 
 The class will automatically use the [native ActionBar][2] implementation on
 Android 3.0 or later. For previous versions which do not include ActionBar, a
