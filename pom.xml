@@ -21,22 +21,15 @@
 			</activation>
 			<modules>
 				<module>library</module>
-				<module>sample-featuredemo</module>
-				<!--module>sample-hcgallery</module-->
-				<module>sample-shakespeare</module>
-				<module>sample-styled</module>
+				<module>samples</module>
 			</modules>
 		</profile>
 		<profile>
 			<id>test</id>
 			<modules>
 				<module>library</module>
-				<module>sample-featuredemo</module>
-				<!--module>sample-hcgallery</module-->
-				<module>sample-shakespeare</module>
-				<module>sample-styled</module>
-				<module>test-app</module>
-				<module>test-runner</module>
+				<module>samples</module>
+				<module>test</module>
 			</modules>
 		</profile>
 	</profiles>

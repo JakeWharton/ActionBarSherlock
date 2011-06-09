@@ -4,29 +4,51 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.actionbarsherlock</groupId>
-	<artifactId>test-app</artifactId>
-	<name>Test: Application</name>
+	<artifactId>test-runner</artifactId>
+	<name>Test: Runner</name>
 	<packaging>apk</packaging>
 
 	<parent>
 		<groupId>com.actionbarsherlock</groupId>
-		<artifactId>parent</artifactId>
-		<version>3.0.1-SNAPSHOT</version>
+		<artifactId>parent-test</artifactId>
+		<version>3.0.2-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
 	<dependencies>
 		<dependency>
+			<groupId>com.jayway.android.robotium</groupId>
+			<artifactId>robotium-solo</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>com.google.android</groupId>
+					<artifactId>android</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.google.android</groupId>
+					<artifactId>android-test</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
 			<groupId>android</groupId>
 			<artifactId>android</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.actionbarsherlock</groupId>
-			<artifactId>library</artifactId>
+			<artifactId>test-app</artifactId>
 			<version>${project.version}</version>
-			<type>apklib</type>
+			<type>apk</type>
+		</dependency>
+
+		<dependency>
+			<groupId>com.actionbarsherlock</groupId>
+			<artifactId>test-app</artifactId>
+			<version>${project.version}</version>
+			<type>jar</type>
 		</dependency>
 	</dependencies>
 
@@ -37,6 +59,9 @@
 			<plugin>
 				<groupId>com.jayway.maven.plugins.android.generation2</groupId>
 				<artifactId>maven-android-plugin</artifactId>
+				<configuration>
+					<enableIntegrationTest>true</enableIntegrationTest>
+				</configuration>
 				<extensions>true</extensions>
 			</plugin>
 

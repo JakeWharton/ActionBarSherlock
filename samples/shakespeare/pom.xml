@@ -4,13 +4,13 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.actionbarsherlock</groupId>
-	<artifactId>sample-styled</artifactId>
-	<name>Sample: Styled</name>
+	<artifactId>sample-shakespeare</artifactId>
+	<name>Sample: Shakespeare</name>
 	<packaging>apk</packaging>
 
 	<parent>
 		<groupId>com.actionbarsherlock</groupId>
-		<artifactId>parent</artifactId>
+		<artifactId>parent-sample</artifactId>
 		<version>3.0.2-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
