@@ -6,7 +6,7 @@
 	<groupId>com.actionbarsherlock</groupId>
 	<artifactId>parent</artifactId>
 	<packaging>pom</packaging>
-	<version>3.0.1</version>
+	<version>3.0.2-SNAPSHOT</version>
 
 	<name>ActionBarSherlock (Parent)</name>
 	<description>Android library for implementing the action bar design pattern using the native ActionBar on 3.0+ and a custom implementation on pre-3.0 all through the same API.</description>
