@@ -18,7 +18,9 @@
 package com.actionbarsherlock.internal.view;
 
 import java.lang.ref.WeakReference;
+import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v4.view.MenuItem;
@@ -67,6 +69,21 @@ public final class MenuItemImpl implements MenuItem {
 	
 	private final WeakReference<MenuView.ItemView>[] mItemViews;
 	
+	private final DialogInterface.OnClickListener subMenuClick = new DialogInterface.OnClickListener() {
+		@Override
+		public void onClick(DialogInterface dialog, int index) {
+			dialog.dismiss();
+			mSubMenu.getItem(index).invoke();
+		}
+	};
+	private final DialogInterface.OnMultiChoiceClickListener subMenuMultiClick = new DialogInterface.OnMultiChoiceClickListener() {
+		@Override
+		public void onClick(DialogInterface dialog, int index, boolean isChecked) {
+			dialog.dismiss();
+			mSubMenu.getItem(index).setChecked(isChecked);
+		}
+	};
+	
 	
 	/**
 	 * Create a new action bar menu item.
@@ -92,12 +109,30 @@ public final class MenuItemImpl implements MenuItem {
 	
 	
 	public boolean invoke() {
+		if (hasSubMenu()) {
+			AlertDialog.Builder builder = new AlertDialog.Builder(mMenu.getContext());
+			builder.setTitle(getTitle());
+			
+			final boolean isExclusive = (mSubMenu.size() > 0) && mSubMenu.getItem(0).isExclusiveCheckable();
+			final boolean isCheckable = (mSubMenu.size() > 0) && mSubMenu.getItem(0).isCheckable();
+			if (isExclusive) {
+				builder.setSingleChoiceItems(getSubMenuTitles(), getSubMenuSelected(), subMenuClick);
+			} else if (isCheckable) {
+				builder.setMultiChoiceItems(getSubMenuTitles(), getSubMenuChecked(), subMenuMultiClick);
+			} else {
+				builder.setItems(getSubMenuTitles(), subMenuClick);
+			}
+			
+			builder.show();
+			return true;
+		}
+		
 		if (mClickListener != null &&
 		    mClickListener.onMenuItemClick(this)) {
 			return true;
 		}
 		
-		MenuBuilder.Callback callback = mMenu.getCallback();
+		MenuBuilder.Callback callback = mMenu.getRootMenu().getCallback();
 		if (callback != null &&
 			callback.onMenuItemSelected(mMenu.getRootMenu(), this)) {
 			return true;
@@ -118,6 +153,34 @@ public final class MenuItemImpl implements MenuItem {
 		}
 		
 		return false;
+	}
+	
+	private CharSequence[] getSubMenuTitles() {
+		final int count = mSubMenu.size();
+		CharSequence[] list = new CharSequence[count];
+		for (int i = 0; i < count; i++) {
+			list[i] = mSubMenu.getItem(i).getTitle();
+		}
+		return list;
+	}
+	
+	private int getSubMenuSelected() {
+		final int count = mSubMenu.size();
+		for (int i = 0; i < count; i++) {
+			if (mSubMenu.getItem(i).isChecked()) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	private boolean[] getSubMenuChecked() {
+		final int count = mSubMenu.size();
+		boolean[] checked = new boolean[count];
+		for (int i = 0; i < count; i++) {
+			checked[i] = mSubMenu.getItem(i).isChecked();
+		}
+		return checked;
 	}
 	
 	private boolean hasItemView(int menuType) {
