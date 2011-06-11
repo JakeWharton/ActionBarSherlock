@@ -58,7 +58,7 @@ The following attributes should be modified to remove the android namespace:
  * `selectableItemBackground`
 
 There are also additional attributes which apply only to the pre-3.0 action bar
-to allow for specific customization that is not available on the nativate action
+to allow for specific customization that is not available on the native action
 bar.
 
  * `actionHomeButtonStyle` - Style of the home button. This style should use
