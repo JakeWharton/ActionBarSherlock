@@ -1,4 +1,4 @@
-package com.actionbarsherlock.internal.view;
+package com.actionbarsherlock.internal.view.menu;
 
 import android.content.Context;
 

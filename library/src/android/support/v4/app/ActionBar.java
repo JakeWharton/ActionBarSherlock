@@ -26,7 +26,7 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.SpinnerAdapter;
 import com.actionbarsherlock.internal.app.ActionBarHandlerWatson;
-import com.actionbarsherlock.internal.view.MenuItemImpl;
+import com.actionbarsherlock.internal.view.menu.MenuItemImpl;
 
 /**
  * This is the public interface to the contextual ActionBar. The ActionBar acts

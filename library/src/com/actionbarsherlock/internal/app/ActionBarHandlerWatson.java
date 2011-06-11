@@ -34,9 +34,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.SpinnerAdapter;
-import com.actionbarsherlock.internal.view.MenuBuilder;
-import com.actionbarsherlock.internal.view.MenuItemImpl;
-import com.actionbarsherlock.internal.view.MenuView;
+import com.actionbarsherlock.internal.view.menu.MenuBuilder;
+import com.actionbarsherlock.internal.view.menu.MenuItemImpl;
+import com.actionbarsherlock.internal.view.menu.MenuView;
 import com.actionbarsherlock.internal.widget.ActionBarWatson;
 import com.actionbarsherlock.R;
 

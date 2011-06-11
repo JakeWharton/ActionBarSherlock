@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.actionbarsherlock.internal.view;
+package com.actionbarsherlock.internal.view.menu;
 
 import android.graphics.drawable.Drawable;
 import android.view.View;

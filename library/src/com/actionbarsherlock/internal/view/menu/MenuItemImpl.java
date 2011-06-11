@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.actionbarsherlock.internal.view;
+package com.actionbarsherlock.internal.view.menu;
 
 import java.lang.ref.WeakReference;
 import android.app.AlertDialog;
