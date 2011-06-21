@@ -21,22 +21,20 @@ public class FeatureDemoActivity extends FragmentActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		for (int i = 0; i < items; i++) {
-			menu.add("Item")
+			menu.add("Text")
 				.setIcon(R.drawable.ic_title_share_default)
-				.setTitle("Text")
 				.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 		}
 		
+		menu.add("Model").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+			@Override
+			public boolean onMenuItemClick(MenuItem item) {
+				startActivity(new Intent(FeatureDemoActivity.this, FeatureModel.class));
+				return true;
+			}
+		});
+		
 		return super.onCreateOptionsMenu(menu);
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		if (item.getItemId() != android.R.id.home) {
-			startActivity(new Intent(this, FeatureModel.class));
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
 	}
 
 	@Override
