@@ -38,6 +38,10 @@ There are two ways to leverage ActionBarSherlock in your projects:
     *Make sure you also include [r.jakewharton.com/maven/][5] in the repositories
     section of your `pom.xml`.*
 
+**Note**: If you were previously using the Android compatability library you
+must remove its `.jar`. ActionBarSherlock is built on top of the compatability
+library and comes bundled with its classes.
+
 
 
 
