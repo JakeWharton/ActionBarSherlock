@@ -31,7 +31,7 @@ There are two ways to leverage ActionBarSherlock in your projects:
         <dependency>
           <groupId>com.actionbarsherlock</groupId>
           <artifactId>library</artifactId>
-          <version>3.0.1</version>
+          <version>3.0.2</version>
           <type>apklib</type>
         </dependency>
     
