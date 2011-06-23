@@ -1,6 +1,17 @@
 Change Log
 ===============================================================================
 
+Version 3.0.2 *(2010-06-23)*
+----------------------------
+
+* Sub-menus for action items are now shown in a list dialog.
+* Moved certain classes to the `com.actionbarsherlock.internal` package which
+  were not meant for public consumption. Despite being given `public` scope in
+  this new package, these classes should **NOT** be used under any circumstances
+  as their API can be considered highly volatile and is subject to change often
+  and without warning.
+
+
 Version 3.0.1 *(2010-06-08)*
 ----------------------------
 
