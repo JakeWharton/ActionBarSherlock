@@ -39,6 +39,14 @@
 				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
 				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 			})();
+
+			(function() {
+				var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
+				s.type = 'text/javascript';
+				s.async = true;
+				s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto';
+				t.parentNode.insertBefore(s, t);
+			})();
 		</script>
 	</head>
 	<body>
@@ -69,8 +77,10 @@
 		<footer>
 			<p class="copy">&copy; 2011 Jake Wharton &mdash; <a href="http://jakewharton.com/">jakewharton.com</a></p>
 			<div class="social">
-				<g:plusone size="tall" href="http://actionbarsherlock.com"></g:plusone>
-				<a href="http://twitter.com/share" class="twitter-share-button" data-url="http://actionbarsherlock.com" data-text="ActionBarSherlock - Action bar design pattern for all versions of Android." data-count="vertical" data-via="JakeWharton">Tweet</a>
+				<g:plusone size="medium" href="http://actionbarsherlock.com"></g:plusone>
+				<a href="http://twitter.com/share" class="twitter-share-button" data-url="http://actionbarsherlock.com" data-text="ActionBarSherlock - Action bar design pattern for all versions of Android." data-count="horizontal" data-via="JakeWharton">Tweet</a>
+				<iframe src="http://www.facebook.com/plugins/like.php?app_id=186126341440594&amp;href=http%3A%2F%2Factionbarsherlock.com&amp;send=false&amp;layout=button_count&amp;width=90&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:90px; height:21px;" allowTransparency="true"></iframe>
+				<a class="FlattrButton" style="display:none;" rev="flattr;button:compact;" href="http://actionbarsherlock.com"></a><noscript><a href="http://flattr.com/thing/320252/ActionBarSherlock" target="_blank"><img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" /></a></noscript>
 			</div>
 		</footer>
 	</body>
