@@ -8,6 +8,7 @@ import android.support.v4.app.ActionBar;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.Menu;
 import android.support.v4.view.MenuItem;
+import android.support.v4.view.Window;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
@@ -41,9 +42,13 @@ public class FeatureDemoActivity extends FragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         setTheme(themeLight ? R.style.Theme_Sherlock_Light : R.style.Theme_Sherlock);
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_PROGRESS);
+        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+        setProgressBarVisibility(false);
+        setProgressBarIndeterminateVisibility(false);
         
         setContentView(R.layout.feature_demo_activity);
-
+ 
         getSupportActionBar().setCustomView(R.layout.actionbar_custom_view);
         getSupportActionBar().setDisplayShowCustomEnabled(false);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
@@ -51,6 +56,35 @@ public class FeatureDemoActivity extends FragmentActivity {
         ArrayAdapter<CharSequence> listAdapter = ArrayAdapter.createFromResource(this, R.array.locations, R.layout.simple_spinner_item);
         listAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         getSupportActionBar().setListNavigationCallbacks(listAdapter, null);
+        
+        findViewById(R.id.display_progress_show).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				setProgressBarVisibility(true);
+				setProgressBarIndeterminateVisibility(false);
+				setProgress(RANDOM.nextInt(8000) + 10);
+			}
+		});
+        findViewById(R.id.display_progress_hide).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				setProgressBarVisibility(false);
+			}
+		});
+        findViewById(R.id.display_iprogress_show).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				setProgressBarIndeterminateVisibility(true);
+				//Hack to hide the regular progress bar
+				setProgress(0);
+			}
+		});
+        findViewById(R.id.display_iprogress_hide).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				setProgressBarIndeterminateVisibility(false);
+			}
+		});
         
         findViewById(R.id.display_theme_normal).setOnClickListener(new View.OnClickListener() {
 			@Override
