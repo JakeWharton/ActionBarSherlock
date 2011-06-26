@@ -35,4 +35,11 @@ layout: default
 
 	<dt>Do I need to include the <code>.jar</code> file for the Android compatability library when using ActionBarSherlock?</dt>
 	<dd>No. ActionBarSherlock is built on top of the Android compatability library and comes bundled with its class files.</dd>
+
+	<dt>I use progaurd. Are there any lines I should include to ensure functionality of the library?</dt>
+	<dd>Add the following lines:
+<pre>-keep class android.support.v4.app.** { *; }
+-keep interface android.support.v4.app.** { *; }
+-keep class com.actionbarsherlock.internal.** { *; }
+-keep interface com.actionbarsherlock.internal.** { *; }</pre></dd>
 </dl>
