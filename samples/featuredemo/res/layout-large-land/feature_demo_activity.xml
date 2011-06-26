@@ -323,6 +323,60 @@
 	                    android:gravity="center"
 	                    android:text="Hide" />
 	            </LinearLayout>
+            
+	            <!-- PROGESS DISPLAY -->
+	            <TextView
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_marginBottom="2dip"
+	                android:text="Progress Display" />
+	            <LinearLayout
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:orientation="horizontal"
+	                android:layout_marginBottom="10dip">
+	                <Button
+	                    android:id="@+id/display_progress_show"
+	                    android:layout_width="fill_parent"
+	                    android:layout_height="wrap_content"
+	                    android:layout_weight="1"
+	                    android:gravity="center"
+	                    android:text="Show" />
+	                <Button
+	                    android:id="@+id/display_progress_hide"
+	                    android:layout_width="fill_parent"
+	                    android:layout_height="wrap_content"
+	                    android:layout_weight="1"
+	                    android:gravity="center"
+	                    android:text="Hide" />
+	            </LinearLayout>
+	            
+	            <!-- INDETERMINATE PROGESS DISPLAY -->
+	            <TextView
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_marginBottom="2dip"
+	                android:text="Indeterminate Progress Display" />
+	            <LinearLayout
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:orientation="horizontal"
+	                android:layout_marginBottom="10dip">
+	                <Button
+	                    android:id="@+id/display_iprogress_show"
+	                    android:layout_width="fill_parent"
+	                    android:layout_height="wrap_content"
+	                    android:layout_weight="1"
+	                    android:gravity="center"
+	                    android:text="Show" />
+	                <Button
+	                    android:id="@+id/display_iprogress_hide"
+	                    android:layout_width="fill_parent"
+	                    android:layout_height="wrap_content"
+	                    android:layout_weight="1"
+	                    android:gravity="center"
+	                    android:text="Hide" />
+	            </LinearLayout>
             	
 	            <!-- THEME -->
 	            <TextView
