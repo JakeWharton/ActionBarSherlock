@@ -41,9 +41,9 @@ public class FeatureDemoActivity extends FragmentActivity {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         setTheme(themeLight ? R.style.Theme_Sherlock_Light : R.style.Theme_Sherlock);
-        super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_PROGRESS);
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+        super.onCreate(savedInstanceState);
         setProgressBarVisibility(false);
         setProgressBarIndeterminateVisibility(false);
         
