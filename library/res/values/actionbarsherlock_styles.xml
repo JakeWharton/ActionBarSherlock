@@ -4,20 +4,17 @@
     <style name="Theme.Sherlock" parent="android:style/Theme.NoTitleBar">
         <item name="actionBarSize">45dip</item>
         <item name="actionBarStyle">@style/Widget.Sherlock.ActionBar</item>
-        <item name="actionBarTabStyle">@style/Widget.Sherlock.ActionBarView_TabView</item>
-        <item name="actionBarTabBarStyle">@style/Widget.Sherlock.ActionBarView_TabBar</item>
-        <item name="actionBarTabTextStyle">@style/Widget.Sherlock.ActionBarView_TabText</item>
+        <item name="actionBarTabStyle">@style/Widget.Sherlock.ActionBar.TabView</item>
+        <item name="actionBarTabBarStyle">@style/Widget.Sherlock.ActionBar.TabBar</item>
+        <item name="actionBarTabTextStyle">@style/Widget.Sherlock.ActionBar.TabText</item>
         <item name="actionButtonStyle">@style/Widget.Sherlock.ActionButton</item>
-        <item name="actionDropDownStyle">@style/Widget.Sherlock.Spinner.DropDown.ActionBar</item>
+        <item name="actionDropDownStyle">@style/Widget.Sherlock.Spinner</item>
         <item name="actionHomeButtonStyle">@style/Widget.Sherlock.ActionButton.Home</item>
         <item name="actionMenuTextAppearance">?android:attr/textAppearanceMedium</item>
         <item name="actionMenuTextColor">?android:attr/textColorPrimary</item>
         <item name="actionModeBackground">@drawable/cab_background_holo_dark</item>
         <item name="actionModeCloseDrawable">@drawable/cab_ic_close_holo</item>
         <item name="actionModeCloseButtonStyle">@style/Widget.Sherlock.ActionButton.CloseMode</item>
-        <item name="actionModeCopyDrawable">@drawable/ic_menu_copy_holo_dark</item>
-        <item name="actionModeCutDrawable">@drawable/ic_menu_cut_holo_dark</item>
-        <item name="actionModePasteDrawable">@drawable/ic_menu_paste_holo_dark</item>
         <item name="actionOverflowButtonStyle">@style/Widget.Sherlock.ActionButton.Overflow</item>
         <item name="actionSpinnerItemStyle">@style/Widget.Sherlock.TextView.SpinnerItem.ActionBar</item>
         <item name="dropDownListViewStyle">@style/Widget.Sherlock.ListView.DropDown</item>
@@ -27,20 +24,16 @@
         <item name="selectableItemBackground">@color/actionbarwatson_item_bg</item>
     </style>
     
-    <style name="Widget.Sherlock.ActionBar" parent="android:style/Widget">
-        <item name="listIndicator">@drawable/spinner_background_holo_dark</item>
+    <style name="Widget.Sherlock.ActionBar.TabBar" parent="android:style/Widget">
     </style>
     
-    <style name="Widget.Sherlock.ActionBarView_TabBar" parent="android:style/Widget">
-    </style>
-    
-    <style name="Widget.Sherlock.ActionBarView_TabView" parent="android:style/Widget">
+    <style name="Widget.Sherlock.ActionBar.TabView" parent="android:style/Widget">
         <item name="android:background">@drawable/tab_indicator_holo</item>
         <item name="android:paddingLeft">6dp</item>
         <item name="android:paddingRight">6dp</item>
     </style>
     
-    <style name="Widget.Sherlock.ActionBarView_TabText" parent="android:style/Widget">
+    <style name="Widget.Sherlock.ActionBar.TabText" parent="android:style/Widget">
         <item name="android:textAppearance">@android:style/TextAppearance.Medium</item>
         <item name="android:textColor">@color/actionbarwatson_tab_text_color_dark</item>
         <item name="android:textSize">18sp</item>
@@ -57,11 +50,6 @@
     <style name="Widget.Sherlock.Spinner.DropDown.ActionBar" parent="android:style/Widget.Spinner.DropDown">
         <item name="android:background">@drawable/spinner_background_holo_dark</item>
         <item name="android:gravity">left|center_vertical</item>
-    </style>
-    
-    <style name="Widget.Sherlock.ActionMode" parent="android:style/Widget">
-        <item name="android:titleTextStyle">@style/TextAppearance.Sherlock.Widget.ActionMode.Title</item>
-        <item name="android:subtitleTextStyle">@style/TextAppearance.Sherlock.Widget.ActionMode.Subtitle</item>
     </style>
     
     <style name="Widget.Sherlock.ActionButton.CloseMode">
@@ -99,20 +87,17 @@
     <style name="Theme.Sherlock.Light" parent="android:style/Theme.Light.NoTitleBar">
         <item name="actionBarSize">45dip</item>
         <item name="actionBarStyle">@style/Widget.Sherlock.Light.ActionBar</item>
-        <item name="actionBarTabStyle">@style/Widget.Sherlock.Light.ActionBarView_TabView</item>
-        <item name="actionBarTabBarStyle">@style/Widget.Sherlock.Light.ActionBarView_TabBar</item>
-        <item name="actionBarTabTextStyle">@style/Widget.Sherlock.Light.ActionBarView_TabText</item>
+        <item name="actionBarTabStyle">@style/Widget.Sherlock.Light.ActionBar.TabView</item>
+        <item name="actionBarTabBarStyle">@style/Widget.Sherlock.Light.ActionBar.TabBar</item>
+        <item name="actionBarTabTextStyle">@style/Widget.Sherlock.Light.ActionBar.TabText</item>
         <item name="actionButtonStyle">@style/Widget.Sherlock.Light.ActionButton</item>
-        <item name="actionDropDownStyle">@style/Widget.Sherlock.Light.Spinner.DropDown.ActionBar</item>
+        <item name="actionDropDownStyle">@style/Widget.Sherlock.Light.Spinner</item>
         <item name="actionHomeButtonStyle">@style/Widget.Sherlock.Light.ActionButton.Home</item>
         <item name="actionMenuTextAppearance">?android:attr/textAppearanceMedium</item>
         <item name="actionMenuTextColor">?android:attr/textColorPrimary</item>
         <item name="actionModeBackground">@drawable/cab_background_holo_light</item>
         <item name="actionModeCloseDrawable">@drawable/cab_ic_close_holo</item>
         <item name="actionModeCloseButtonStyle">@style/Widget.Sherlock.Light.ActionButton.CloseMode</item>
-        <item name="actionModeCopyDrawable">@drawable/ic_menu_copy_holo_light</item>
-        <item name="actionModeCutDrawable">@drawable/ic_menu_cut_holo_light</item>
-        <item name="actionModePasteDrawable">@drawable/ic_menu_paste_holo_light</item>
         <item name="actionOverflowButtonStyle">@style/Widget.Sherlock.Light.ActionButton.Overflow</item>
         <item name="actionSpinnerItemStyle">@style/Widget.Sherlock.Light.TextView.SpinnerItem.ActionBar</item>
         <item name="dropDownListViewStyle">@style/Widget.Sherlock.Light.ListView.DropDown</item>
@@ -122,20 +107,16 @@
         <item name="selectableItemBackground">@color/actionbarwatson_item_bg</item>
     </style>
     
-    <style name="Widget.Sherlock.Light.ActionBar" parent="android:style/Widget">
-        <item name="listIndicator">@drawable/spinner_background_holo_light</item>
+    <style name="Widget.Sherlock.Light.ActionBar.TabBar" parent="android:style/Widget">
     </style>
     
-    <style name="Widget.Sherlock.Light.ActionBarView_TabBar" parent="android:style/Widget">
-    </style>
-    
-    <style name="Widget.Sherlock.Light.ActionBarView_TabView" parent="android:style/Widget">
+    <style name="Widget.Sherlock.Light.ActionBar.TabView" parent="android:style/Widget">
         <item name="android:background">@drawable/tab_indicator_holo</item>
         <item name="android:paddingLeft">5dp</item>
         <item name="android:paddingRight">5dp</item>
     </style>
     
-    <style name="Widget.Sherlock.Light.ActionBarView_TabText" parent="android:style/Widget">
+    <style name="Widget.Sherlock.Light.ActionBar.TabText" parent="android:style/Widget">
         <item name="android:textAppearance">@android:style/TextAppearance.Medium</item>
         <item name="android:textColor">@color/actionbarwatson_tab_text_color_light</item>
         <item name="android:textSize">18sp</item>
@@ -169,11 +150,6 @@
     <style name="Widget.Sherlock.Light.ActionButton.CloseMode">
     </style>
     
-    <style name="Widget.Sherlock.Light.ActionMode" parent="android:style/Widget">
-        <item name="android:titleTextStyle">@style/TextAppearance.Sherlock.Light.Widget.ActionMode.Title</item>
-        <item name="android:subtitleTextStyle">@style/TextAppearance.Sherlock.Light.Widget.ActionMode.Subtitle</item>
-    </style>
-    
     <style name="Widget.Sherlock.Light.ListView.DropDown" parent="android:style/Widget.ListView.DropDown">
     </style>
     
@@ -193,18 +169,8 @@
     
     
     
-    
-    
-    <style name="TextAppearance.Widget.ActionMode.Title" parent="@android:style/TextAppearance.Medium"></style>
-    <style name="TextAppearance.Widget.ActionMode.Subtitle" parent="@android:style/TextAppearance.Small">
+    <style name="TextAppearance.Widget.Title" parent="@android:style/TextAppearance.Medium"></style>
+    <style name="TextAppearance.Widget.Subtitle" parent="@android:style/TextAppearance.Small">
         <item name="android:textColor">?android:attr/textColorSecondary</item>
     </style>
-    
-    
-    <style name="TextAppearance.Sherlock.Widget.ActionMode.Title" parent="@style/TextAppearance.Widget.ActionMode.Title"></style>
-    <style name="TextAppearance.Sherlock.Widget.ActionMode.Subtitle" parent="@style/TextAppearance.Widget.ActionMode.Subtitle"></style>
-    
-    
-    <style name="TextAppearance.Sherlock.Light.Widget.ActionMode.Title" parent="@style/TextAppearance.Widget.ActionMode.Title"></style>
-    <style name="TextAppearance.Sherlock.Light.Widget.ActionMode.Subtitle" parent="@style/TextAppearance.Widget.ActionMode.Subtitle"></style>
 </resources>
