@@ -11,7 +11,7 @@
         <attr name="actionBarTabTextStyle" format="reference" />
         <attr name="actionOverflowButtonStyle" format="reference" />
         <attr name="actionHomeButtonStyle" format="reference" />
-        <attr name="actionBarStyle" format="reference" />
+        <!--attr name="actionBarStyle" format="reference" /-->
         <attr name="actionBarSize" format="dimension" >
             <enum name="wrap_content" value="0" />
         </attr>
