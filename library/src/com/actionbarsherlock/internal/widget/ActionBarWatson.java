@@ -77,7 +77,7 @@ public final class ActionBarWatson extends RelativeLayout {
 	}
 	
 	public ActionBarWatson(Context context, AttributeSet attrs) {
-		this(context, attrs, R.attr.actionBarStyle);
+		this(context, attrs, 0);
 	}
 	
 	public ActionBarWatson(Context context, AttributeSet attrs, int defStyle) {

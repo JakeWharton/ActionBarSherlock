@@ -11,13 +11,13 @@
         <attr name="actionBarTabTextStyle" format="reference" />
         <attr name="actionOverflowButtonStyle" format="reference" />
         <attr name="actionHomeButtonStyle" format="reference" />
-        <attr name="actionBarStyle" format="reference" />
+        <!--attr name="actionBarStyle" format="reference" /-->
         <attr name="actionBarSize" format="dimension" >
             <enum name="wrap_content" value="0" />
         </attr>
         <attr name="actionMenuTextAppearance" format="reference" />
         <attr name="actionMenuTextColor" format="color|reference" />
-        <attr name="actionModeStyle" format="reference" />
+        <!--attr name="actionModeStyle" format="reference" /-->
         <attr name="actionModeCloseButtonStyle" format="reference" />
         <attr name="actionModeBackground" format="reference" />
         <attr name="actionModeCloseDrawable" format="reference" />

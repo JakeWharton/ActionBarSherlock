@@ -3,7 +3,7 @@
 <resources>
     <style name="Theme.Sherlock" parent="android:style/Theme.NoTitleBar">
         <item name="actionBarSize">45dip</item>
-        <item name="actionBarStyle">@style/Widget.Sherlock.ActionBar</item>
+        <!--item name="actionBarStyle">@style/Widget.Sherlock.ActionBar</item-->
         <item name="actionBarTabStyle">@style/Widget.Sherlock.ActionBarView_TabView</item>
         <item name="actionBarTabBarStyle">@style/Widget.Sherlock.ActionBarView_TabBar</item>
         <item name="actionBarTabTextStyle">@style/Widget.Sherlock.ActionBarView_TabText</item>
@@ -16,18 +16,39 @@
         <item name="actionModeCloseDrawable">@drawable/cab_ic_close_holo</item>
         <item name="actionModeCloseButtonStyle">@style/Widget.Sherlock.ActionButton.CloseMode</item>
         <item name="actionModePopupWindowStyle">@style/Widget.Sherlock.PopupWindow.ActionMode</item>
-        <item name="actionModeStyle">@style/Widget.Sherlock.ActionMode</item>
+        <!--item name="actionModeStyle">@style/Widget.Sherlock.ActionMode</item-->
         <item name="actionOverflowButtonStyle">@style/Widget.Sherlock.ActionButton.Overflow</item>
         <item name="actionSpinnerItemStyle">@style/Widget.Sherlock.TextView.SpinnerItem.ActionBar</item>
         <item name="dropDownListViewStyle">@style/Widget.Sherlock.ListView.DropDown</item>
         <item name="dropdownListPreferredItemHeight">48dip</item>
         <item name="popupMenuStyle">@style/Widget.Sherlock.PopupMenu</item>
 		<item name="selectableItemBackground">@color/actionbarwatson_item_bg</item>
-	</style>
-	
-	<style name="Widget.Sherlock.ActionBar" parent="android:style/Widget">
+        
+        <!-- These should be in `Widget.Sherlock.ActionBar` but there is no way to then -->
+        <!-- reference them as sibling attributes to their native counterparts. See: -->
+        <!-- http://stackoverflow.com/questions/6486594/access-sibling-style-attributes-in-a-non-theme-style -->
+        <item name="abBackground">@android:color/transparent</item>
+        <item name="abCustomNavigationLayout">@null</item>
+        <item name="abDisplayOptions">useLogo|showHome|showTitle</item>
+        <item name="abDivider">@drawable/list_divider_holo_dark</item>
+        <item name="abHeight">@null</item>
         <item name="abHomeAsUpIndicator">@drawable/ic_ab_back_holo_dark</item>
-		<!--item name="abListIndicator">@drawable/spinner_background_holo_dark</item-->
+        <item name="abHomeLayout">@null</item>
+        <item name="abIcon">@null</item>
+        <item name="abIndeterminateProgressStyle">@android:style/Widget.Holo.ProgressBar</item>
+        <item name="abItemPadding">8dip</item>
+        <item name="abLogo">@null</item>
+        <item name="abNavigationMode">normal</item>
+        <item name="abTitle">@null</item>
+        <item name="abTitleTextStyle">@style/TextAppearance.Widget.Title</item>
+        <item name="abProgressBarPadding">32dip</item>
+        <item name="abProgressBarStyle">@android:style/Widget.Holo.ProgressBar.Horizontal</item>
+        <item name="abSubtitle">@null</item>
+        <item name="abSubtitleTextStyle">@style/TextAppearance.Widget.Subtitle</item>
+		<item name="amBackground">?actionModeBackground</item>
+		<item name="amHeight">?actionBarSize</item>
+        <item name="amTitleTextStyle">@android:style/TextAppearance.Medium</item>
+        <item name="amSubtitleTextStyle">@android:style/TextAppearance.Small</item>
 	</style>
 	
 	<style name="Widget.Sherlock.ActionBarView_TabBar" parent="android:style/Widget">
@@ -56,11 +77,6 @@
 	<style name="Widget.Sherlock.Spinner.DropDown.ActionBar" parent="android:style/Widget.Spinner.DropDown">
         <item name="android:background">@drawable/spinner_background_holo_dark</item>
         <item name="android:gravity">left|center_vertical</item>
-	</style>
-	
-	<style name="Widget.Sherlock.ActionMode" parent="android:style/Widget">
-        <item name="android:titleTextStyle">@style/TextAppearance.Widget.Title</item>
-        <item name="android:subtitleTextStyle">@style/TextAppearance.Widget.Subtitle</item>
 	</style>
 	
 	<style name="Widget.Sherlock.ActionButton.CloseMode">
@@ -99,7 +115,7 @@
 	
     <style name="Theme.Sherlock.Light" parent="android:style/Theme.Light.NoTitleBar">
         <item name="actionBarSize">45dip</item>
-        <item name="actionBarStyle">@style/Widget.Sherlock.Light.ActionBar</item>
+        <!--item name="actionBarStyle">@style/Widget.Sherlock.Light.ActionBar</item-->
         <item name="actionBarTabStyle">@style/Widget.Sherlock.Light.ActionBarView_TabView</item>
         <item name="actionBarTabBarStyle">@style/Widget.Sherlock.Light.ActionBarView_TabBar</item>
         <item name="actionBarTabTextStyle">@style/Widget.Sherlock.Light.ActionBarView_TabText</item>
@@ -112,19 +128,39 @@
         <item name="actionModeCloseDrawable">@drawable/cab_ic_close_holo</item>
         <item name="actionModeCloseButtonStyle">@style/Widget.Sherlock.Light.ActionButton.CloseMode</item>
         <item name="actionModePopupWindowStyle">@style/Widget.Sherlock.Light.PopupWindow.ActionMode</item>
-        <item name="actionModeStyle">@style/Widget.Sherlock.Light.ActionMode</item>
+        <!--item name="actionModeStyle">@style/Widget.Sherlock.Light.ActionMode</item-->
         <item name="actionOverflowButtonStyle">@style/Widget.Sherlock.Light.ActionButton.Overflow</item>
         <item name="actionSpinnerItemStyle">@style/Widget.Sherlock.Light.TextView.SpinnerItem.ActionBar</item>
         <item name="dropDownListViewStyle">@style/Widget.Sherlock.Light.ListView.DropDown</item>
         <item name="dropdownListPreferredItemHeight">48dip</item>
         <item name="popupMenuStyle">@style/Widget.Sherlock.Light.PopupMenu</item>
 		<item name="selectableItemBackground">@color/actionbarwatson_item_bg</item>
-		
+        
+        <!-- These should be in `Widget.Sherlock.ActionBar` but there is no way to then -->
+        <!-- reference them as sibling attributes to their native counterparts. See: -->
+        <!-- http://stackoverflow.com/questions/6486594/access-sibling-style-attributes-in-a-non-theme-style -->
+        <item name="abBackground">@android:color/transparent</item>
+        <item name="abCustomNavigationLayout">@null</item>
+        <item name="abDisplayOptions">useLogo|showHome|showTitle</item>
+        <item name="abDivider">@drawable/list_divider_holo_light</item>
+        <item name="abHeight">@null</item>
         <item name="abHomeAsUpIndicator">@drawable/ic_ab_back_holo_light</item>
-		<!--item name="abListIndicator">@drawable/spinner_background_holo_light</item-->
-	</style>
-	
-	<style name="Widget.Sherlock.Light.ActionBar" parent="android:style/Widget">
+        <item name="abHomeLayout">@null</item>
+        <item name="abIcon">@null</item>
+        <item name="abIndeterminateProgressStyle">@android:style/Widget.Holo.Light.ProgressBar</item>
+        <item name="abItemPadding">8dip</item>
+        <item name="abLogo">@null</item>
+        <item name="abNavigationMode">normal</item>
+        <item name="abTitle">@null</item>
+        <item name="abTitleTextStyle">@style/TextAppearance.Widget.Title</item>
+        <item name="abProgressBarPadding">32dip</item>
+        <item name="abProgressBarStyle">@android:style/Widget.Holo.Light.ProgressBar.Horizontal</item>
+        <item name="abSubtitle">@null</item>
+        <item name="abSubtitleTextStyle">@style/TextAppearance.Widget.Subtitle</item>
+		<item name="amBackground">?actionModeBackground</item>
+		<item name="amHeight">?actionBarSize</item>
+        <item name="amTitleTextStyle">@style/TextAppearance.Widget.Title</item>
+        <item name="amSubtitleTextStyle">@style/TextAppearance.Widget.Subtitle</item>
 	</style>
 	
 	<style name="Widget.Sherlock.Light.ActionBarView_TabBar" parent="android:style/Widget">
@@ -168,11 +204,6 @@
 	</style>
 	
 	<style name="Widget.Sherlock.Light.ActionButton.CloseMode">
-	</style>
-	
-	<style name="Widget.Sherlock.Light.ActionMode" parent="android:style/Widget">
-        <item name="android:titleTextStyle">@style/TextAppearance.Widget.Title</item>
-        <item name="android:subtitleTextStyle">@style/TextAppearance.Widget.Subtitle</item>
 	</style>
 	
 	<style name="Widget.Sherlock.Light.PopupWindow.ActionMode" parent="android:style/Widget">
