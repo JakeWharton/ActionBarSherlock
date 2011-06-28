@@ -6,7 +6,7 @@ Version 3.1.0 *(In Development)*
 
 Due to various shortcomings of the method in which Android provides themes and
 styles, creating a unified theme that will work on all API levels requires that
-the custom attributes be specified in the root of that theme.
+the custom attributes be specified in the root of said theme.
 
 Much like the action bar-related attributes already specified in the theme,
 style attributes for the action bar and action mode are now included prefixed
