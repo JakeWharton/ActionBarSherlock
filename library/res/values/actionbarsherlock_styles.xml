@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <style name="Theme.Sherlock" parent="android:style/Theme">
+    <style name="Theme.Sherlock" parent="android:style/Theme.NoTitleBar">
         <item name="actionBarSize">45dip</item>
         <item name="actionBarStyle">@style/Widget.Sherlock.ActionBar</item>
         <item name="actionBarTabStyle">@style/Widget.Sherlock.ActionBarView_TabView</item>
@@ -97,7 +97,7 @@
 	
 	
 	
-    <style name="Theme.Sherlock.Light" parent="android:style/Theme.Light">
+    <style name="Theme.Sherlock.Light" parent="android:style/Theme.Light.NoTitleBar">
         <item name="actionBarSize">45dip</item>
         <item name="actionBarStyle">@style/Widget.Sherlock.Light.ActionBar</item>
         <item name="actionBarTabStyle">@style/Widget.Sherlock.Light.ActionBarView_TabView</item>

@@ -69,7 +69,6 @@ public final class ActionBarHandlerWatson extends ActionBar {
 
 	@Override
 	protected void performAttach() {
-		getActivity().requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setActivityContentView(R.layout.actionbarwatson_wrapper);
 		
 		mActionBar = (ActionBarWatson)getActivity().findViewById(R.id.actionbarwatson);
