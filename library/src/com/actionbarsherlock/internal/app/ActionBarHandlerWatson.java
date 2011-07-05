@@ -67,8 +67,7 @@ public final class ActionBarHandlerWatson extends ActionBar {
 	// ACTION BAR SHERLOCK SUPPORT
 	// ------------------------------------------------------------------------
 
-	@Override
-	protected void performAttach() {
+	public void performAttach() {
 		setActivityContentView(R.layout.actionbarwatson_wrapper);
 		
 		mActionBar = (ActionBarWatson)getActivity().findViewById(R.id.actionbarwatson);
@@ -116,8 +115,7 @@ public final class ActionBarHandlerWatson extends ActionBar {
 		//}
 	}
 
-	@Override
-	protected void onMenuInflated(Menu menu) {
+	public void onMenuInflated(Menu menu) {
 		int maxItems = MAX_ACTION_BAR_ITEMS_PORTRAIT;
 		if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
 			maxItems = MAX_ACTION_BAR_ITEMS_LANDSCAPE;
@@ -185,23 +183,19 @@ public final class ActionBarHandlerWatson extends ActionBar {
 		}
 	}
 
-	@Override
-	protected void setContentView(int layoutResId) {
+	public void setContentView(int layoutResId) {
 		getActivity().getLayoutInflater().inflate(layoutResId, mContentView, true);
 	}
 
-	@Override
-	protected void setContentView(View view) {
+	public void setContentView(View view) {
 		mContentView.addView(view);
 	}
 
-	@Override
-	protected void setContentView(View view, ViewGroup.LayoutParams params) {
+	public void setContentView(View view, ViewGroup.LayoutParams params) {
 		mContentView.addView(view, params);
 	}
 
-	@Override
-	protected boolean requestWindowFeature(int featureId) {
+	public boolean requestWindowFeature(long featureId) {
 		if (featureId == Window.FEATURE_ACTION_BAR_OVERLAY) {
 			// TODO Make action bar partially transparent
 			return true;
@@ -217,8 +211,7 @@ public final class ActionBarHandlerWatson extends ActionBar {
 		return false;
 	}
 	
-	@Override
-	protected void onMenuVisibilityChanged(boolean isVisible) {
+	public void onMenuVisibilityChanged(boolean isVisible) {
 		//Marshal to all listeners
 		for (OnMenuVisibilityListener listener : mMenuListeners) {
 			listener.onMenuVisibilityChanged(isVisible);

@@ -19,7 +19,6 @@ package android.support.v4.app;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v4.view.ActionMode;
-import android.support.v4.view.Menu;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,29 +86,6 @@ public abstract class ActionBar {
 	protected final MenuItemImpl getHomeMenuItem() {
 		return mActivity.getHomeMenuItem();
 	}
-	
-	// ---------------------------------------------------------------------
-	// ACTION BAR SHERLOCK SUPPORT
-	// ---------------------------------------------------------------------
-	
-	protected abstract void setContentView(int layoutResId);
-	
-	protected abstract void setContentView(View view);
-	
-	protected abstract void setContentView(View view, ViewGroup.LayoutParams params);
-	
-	protected abstract void onMenuVisibilityChanged(boolean isVisible);
-	
-	protected abstract void onMenuInflated(Menu menu);
-
-	protected abstract boolean requestWindowFeature(int featureId);
-	
-	/**
-	 * Called directly after the {@link FragmentActivity#onCreate(Bundle)}
-	 * method has called its base class' implementation. This should be used to
-	 * facilitate attachment to the activity.
-	 */
-	protected abstract void performAttach();
 	
 	// ------------------------------------------------------------------------
 	// ACTION MODE SUPPORT
