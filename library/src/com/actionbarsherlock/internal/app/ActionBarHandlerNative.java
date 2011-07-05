@@ -21,7 +21,6 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.ActionBar;
 import android.support.v4.view.ActionMode;
-import android.support.v4.view.Menu;
 import android.support.v4.view.MenuInflater;
 import android.view.View;
 import android.widget.SpinnerAdapter;
@@ -93,45 +92,6 @@ public final class ActionBarHandlerNative {
 			if (listener != null) {
 				listener.onTabUnselected((ActionBar.Tab)tab.getTag(), null);
 			}
-		}
-		
-		// ---------------------------------------------------------------------
-		// ACTION BAR SHERLOCK SUPPORT
-		// ---------------------------------------------------------------------
-
-		@Override
-		protected void setContentView(int layoutResId) {
-			throw new IllegalStateException("This should have been passed to super from the Activity.");
-		}
-		
-		@Override
-		protected void setContentView(View view) {
-			throw new IllegalStateException("This should have been passed to super from the Activity.");
-		}
-
-		@Override
-		protected void setContentView(View view, android.view.ViewGroup.LayoutParams params) {
-			throw new IllegalStateException("This should have been passed to super from the Activity.");
-		}
-		
-		@Override
-		protected void onMenuVisibilityChanged(boolean isVisible) {
-			throw new IllegalStateException("This should never be utilized for the native ActionBar.");
-		}
-
-		@Override
-		protected void onMenuInflated(Menu menu) {
-			throw new IllegalStateException("This should never be utilized for the native ActionBar.");
-		}
-
-		@Override
-		protected boolean requestWindowFeature(int featureId) {
-			throw new IllegalStateException("This should have been passed to super from the Activity.");
-		}
-		
-		@Override
-		protected void performAttach() {
-			throw new IllegalStateException("This should never be utilized for the native ActionBar.");
 		}
 		
 		// ---------------------------------------------------------------------
