@@ -61,7 +61,7 @@ public class FeatureDemoActivity extends FragmentActivity {
 			@Override
 			public void onClick(View v) {
 				setProgressBarVisibility(true);
-				setProgressBarIndeterminateVisibility(false);
+				setProgressBarIndeterminateVisibility(Boolean.FALSE);
 				setProgress(RANDOM.nextInt(8000) + 10);
 			}
 		});
@@ -74,7 +74,7 @@ public class FeatureDemoActivity extends FragmentActivity {
         findViewById(R.id.display_iprogress_show).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				setProgressBarIndeterminateVisibility(true);
+				setProgressBarIndeterminateVisibility(Boolean.TRUE);
 				//Hack to hide the regular progress bar
 				setProgress(0);
 			}
@@ -82,7 +82,7 @@ public class FeatureDemoActivity extends FragmentActivity {
         findViewById(R.id.display_iprogress_hide).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				setProgressBarIndeterminateVisibility(false);
+				setProgressBarIndeterminateVisibility(Boolean.FALSE);
 			}
 		});
         

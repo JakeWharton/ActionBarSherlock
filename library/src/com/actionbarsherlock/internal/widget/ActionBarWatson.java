@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
@@ -34,6 +35,9 @@ public final class ActionBarWatson extends RelativeLayout {
 	
 	/** Subtitle view. */
 	private final TextView mSubtitle;
+	
+	/** Indeterminate progress bar. */
+	private final ProgressBar mIndeterminateProgress;
 	
 	/** List view. */
 	private final Spinner mListView;
@@ -160,7 +164,10 @@ public final class ActionBarWatson extends RelativeLayout {
 		}
 		
 		
+		
 		mActionsView = (LinearLayout)findViewById(R.id.actionbarwatson_actions);
+		
+		mIndeterminateProgress = (ProgressBar)findViewById(R.id.actionbarwatson_iprogress);
 		
 		
 		//Try to get the display options defined in the theme, or fall back to
@@ -205,7 +212,7 @@ public final class ActionBarWatson extends RelativeLayout {
 		final boolean displayHomeAsUp = getDisplayOptionValue(ActionBar.DISPLAY_HOME_AS_UP);
 		final boolean displayTitle = getDisplayOptionValue(ActionBar.DISPLAY_SHOW_TITLE);
 		final boolean displayCustom = getDisplayOptionValue(ActionBar.DISPLAY_SHOW_CUSTOM);
-		final boolean displayLogo = getDisplayOptionValue(ActionBar.DISPLAY_USE_LOGO);
+		final boolean displayLogo = getDisplayOptionValue(ActionBar.DISPLAY_USE_LOGO) && (mHome.getLogo() != null);
 		
 		mHome.setVisibility(displayHome ? View.VISIBLE : View.GONE);
 		if (displayHome) {
@@ -426,6 +433,10 @@ public final class ActionBarWatson extends RelativeLayout {
 
 	public void setDisplayUseLogoEnabled(boolean useLogo) {
 		setDisplayOptions(useLogo ? ActionBar.DISPLAY_USE_LOGO : 0, ActionBar.DISPLAY_USE_LOGO);
+	}
+	
+	public void setProgressBarIndeterminateVisibility(boolean visible) {
+		mIndeterminateProgress.setVisibility(visible ? View.VISIBLE : View.GONE);
 	}
 
 	public void setListNavigationCallbacks(SpinnerAdapter adapter, final ActionBar.OnNavigationListener callback) {

@@ -6,8 +6,13 @@ Version 3.0.4 *(In Development)*
 
 Library now uses the `r3` version of the compatibility library for its base.
 
- * Added the demo project included with the new compatibility library under
-   `samples/supportdemos/`.
+* Added the demo project included with the new compatibility library under
+  `samples/supportdemos/`.
+* Buttons for displaying the determinate and indeterminate progress bars have
+  been added to the feature demo.
+* Added support for indeterminate progress bar. Due to the `final` modifier on
+  the native type, you must use `setIndeterminateProgressBarVisibility(Boolean)`
+  and pass `Boolean.TRUE` or `Boolean.FALSE`.
 
 
 Version 3.0.3 *(2011-07-17)*
