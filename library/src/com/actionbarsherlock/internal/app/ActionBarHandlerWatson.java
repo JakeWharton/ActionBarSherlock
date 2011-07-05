@@ -61,6 +61,9 @@ public final class ActionBarHandlerWatson extends ActionBar {
 	/** Whether text will be enabled on action items. */
 	private boolean mIsActionItemTextEnabled = false;
 	
+	/** Whether display of the indeterminate progress is allowed. */
+	private boolean mHasIndeterminateProgress = false;
+	
 	
 	
 	// ------------------------------------------------------------------------
@@ -208,6 +211,10 @@ public final class ActionBarHandlerWatson extends ActionBar {
 			mIsActionItemTextEnabled = true;
 			return true;
 		}
+		if (featureId == Window.FEATURE_INDETERMINATE_PROGRESS) {
+			mHasIndeterminateProgress = true;
+			return true;
+		}
 		return false;
 	}
 	
@@ -219,7 +226,9 @@ public final class ActionBarHandlerWatson extends ActionBar {
 	}
 	
 	public void setProgressBarIndeterminateVisibility(boolean visible) {
-		mActionBar.setProgressBarIndeterminateVisibility(visible);
+		if (mHasIndeterminateProgress) {
+			mActionBar.setProgressBarIndeterminateVisibility(visible);
+		}
 	}
 	
 	// ------------------------------------------------------------------------

@@ -69,6 +69,11 @@ public abstract class Window extends android.view.Window {
 	 */
 	public static final long FEATURE_ACTION_MODE_OVERLAY = android.view.Window.FEATURE_ACTION_MODE_OVERLAY;
 	
+	/**
+	 * Flag for indeterminate progress .
+	 */
+	public static final long FEATURE_INDETERMINATE_PROGRESS = android.view.Window.FEATURE_INDETERMINATE_PROGRESS;
+	
 	
 	
 	/**
