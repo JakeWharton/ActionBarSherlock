@@ -817,6 +817,28 @@ public class FragmentActivity extends Activity {
 		
 		mFragments.dispatchStop();
 	}
+	
+	/**
+	 * <p>Sets the visibility of the indeterminate progress bar in the
+	 * title.</p>
+	 * 
+	 * <p>In order for the progress bar to be shown, the feature must be
+	 * requested via {@link #requestWindowFeature(long)}.</p>
+	 * 
+	 * <p><strong>This method must be used instead of
+	 * {@link #setProgressBarIndeterminateVisibility(boolean)} for
+	 * ActionBarSherlock.</strong> Pass {@link Boolean.TRUE} or
+	 * {@link Boolean.FALSE} to ensure the appropriate one is called.</p>
+	 * 
+	 * @param visible Whether to show the progress bars in the title.
+	 */
+	public void setProgressBarIndeterminateVisibility(Boolean visible) {
+		if (IS_HONEYCOMB) {
+			super.setProgressBarIndeterminateVisibility(visible);
+		} else {
+			((ActionBarHandlerWatson)mActionBar).setProgressBarIndeterminateVisibility(visible);
+		}
+	}
 
 	// ------------------------------------------------------------------------
 	// NEW METHODS

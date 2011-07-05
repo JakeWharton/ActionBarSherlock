@@ -38,11 +38,11 @@
         <item name="abLogo">@null</item>
         <item name="abNavigationMode">normal</item>
         <item name="abTitle">@null</item>
-        <item name="abTitleTextStyle">@style/TextAppearance.Widget.Title</item>
+        <item name="abTitleTextStyle">@android:style/TextAppearance.Medium</item>
         <item name="abProgressBarPadding">32dip</item>
         <item name="abProgressBarStyle">@android:style/Widget.Holo.ProgressBar.Horizontal</item>
         <item name="abSubtitle">@null</item>
-        <item name="abSubtitleTextStyle">@style/TextAppearance.Widget.Subtitle</item>
+        <item name="abSubtitleTextStyle">@android:style/TextAppearance.Small</item>
 		<item name="amBackground">?actionModeBackground</item>
 		<item name="amHeight">?actionBarSize</item>
         <item name="amTitleTextStyle">@android:style/TextAppearance.Medium</item>
@@ -149,15 +149,15 @@
         <item name="abLogo">@null</item>
         <item name="abNavigationMode">normal</item>
         <item name="abTitle">@null</item>
-        <item name="abTitleTextStyle">@style/TextAppearance.Widget.Title</item>
+        <item name="abTitleTextStyle">@android:style/TextAppearance.Medium</item>
         <item name="abProgressBarPadding">32dip</item>
         <item name="abProgressBarStyle">@android:style/Widget.Holo.Light.ProgressBar.Horizontal</item>
         <item name="abSubtitle">@null</item>
-        <item name="abSubtitleTextStyle">@style/TextAppearance.Widget.Subtitle</item>
+        <item name="abSubtitleTextStyle">@android:style/TextAppearance.Small</item>
 		<item name="amBackground">?actionModeBackground</item>
 		<item name="amHeight">?actionBarSize</item>
-        <item name="amTitleTextStyle">@style/TextAppearance.Widget.Title</item>
-        <item name="amSubtitleTextStyle">@style/TextAppearance.Widget.Subtitle</item>
+        <item name="amTitleTextStyle">@android:style/TextAppearance.Medium</item>
+        <item name="amSubtitleTextStyle">@android:style/TextAppearance.Small</item>
         
         
         

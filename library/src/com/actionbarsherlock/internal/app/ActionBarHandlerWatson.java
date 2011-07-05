@@ -218,6 +218,10 @@ public final class ActionBarHandlerWatson extends ActionBar {
 		}
 	}
 	
+	public void setProgressBarIndeterminateVisibility(boolean visible) {
+		mActionBar.setProgressBarIndeterminateVisibility(visible);
+	}
+	
 	// ------------------------------------------------------------------------
 	// ACTION MODE METHODS
 	// ------------------------------------------------------------------------

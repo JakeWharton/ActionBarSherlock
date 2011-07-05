@@ -23,6 +23,13 @@ their names in accordance to the rules above.
 Further details are available on http://actionbarsherlock.com.
 
 
+* Buttons for displaying the determinate and indeterminate progress bars have
+  been added to the feature demo.
+* Added support for indeterminate progress bar. Due to the `final` modifier on
+  the native type, you must use `setIndeterminateProgressBarVisibility(Boolean)`
+  and pass `Boolean.TRUE` or `Boolean.FALSE`.
+
+
 Version 3.0.2 *(2010-06-23)*
 ----------------------------
 
