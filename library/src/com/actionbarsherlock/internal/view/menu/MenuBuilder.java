@@ -204,7 +204,7 @@ public class MenuBuilder implements Menu {
 				return item;
 			}
 		}
-		throw new IndexOutOfBoundsException("No item with id " + itemId);
+		return null;
 	}
 
 	@Override
@@ -231,7 +231,6 @@ public class MenuBuilder implements Menu {
 				return;
 			}
 		}
-		throw new IndexOutOfBoundsException("No item with id " + itemId);
 	}
 
 	@Override
