@@ -15,16 +15,8 @@
   limitations under the License.
  -->
 <resources>
-    <style name="ActionBar.Light" parent="@style/Widget.Sherlock.ActionBar">
-        <item name="android:background">@color/actionbar_background_light</item>
-    </style>
-
-    <style name="ActionBar.Dark" parent="@style/Widget.Sherlock.ActionBar">
-        <item name="android:background">@color/actionbar_background_dark</item>
-    </style>
-
     <style name="AppTheme.Light" parent="@style/Theme.Sherlock.Light">
-        <item name="actionBarStyle">@style/ActionBar.Light</item>
+        <item name="abBackground">@color/actionbar_background_light</item>
         <item name="android:windowActionBarOverlay">true</item>
         <item name="listDragShadowBackground">@android:color/background_light</item>
         <item name="menuIconCamera">@drawable/ic_menu_camera_holo_light</item>
@@ -33,7 +25,7 @@
     </style>
 
     <style name="AppTheme.Dark" parent="@style/Theme.Sherlock">
-        <item name="actionBarStyle">@style/ActionBar.Dark</item>
+        <item name="abBackground">@color/actionbar_background_dark</item>
         <item name="android:windowActionBarOverlay">true</item>
         <item name="listDragShadowBackground">@android:color/background_dark</item>
         <item name="menuIconCamera">@drawable/ic_menu_camera_holo_dark</item>
