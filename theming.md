@@ -16,12 +16,20 @@ on the [samples page][2].
 Parent Themes
 -------------
 
-In order for ActionBarSherlock to properly theme the action bar on pre-3.0
-devices your application must use `Theme.Sherlock` or `Theme.Sherlock.Light`,
-or the theme must use one of these two as its parent.
+In order for ActionBarSherlock to function on pre-3.0 devices your application
+must use `Theme.Sherlock` or `Theme.Sherlock.Light`, or your custom theme must
+use one of the aforementioned two as its parent. **This MUST be done or your
+application will not run.**
 
 These two themes serve as baseline configurations for the pre-3.0 action bar
 as well as mapping the attributes to their native versions on 3.0+.
+
+The themes should be defined in your manifest for the entire application or on
+a per-activity basis. You may also define the theme in the code of each activity
+*before* calling `super.onCreate(Bundle)`. This must be done for every activity
+on which you extend from `FragmentActivity` and intend to use the action bar.
+More information on how to specify a theme can be found in the [official
+Android documentation][3].
 
 
 Attributes
@@ -72,3 +80,4 @@ bar.
 
  [1]: http://android-developers.blogspot.com/2011/04/customizing-action-bar.html
  [2]: /samples.html
+ [3]: http://developer.android.com/guide/topics/ui/themes.html#ApplyATheme
