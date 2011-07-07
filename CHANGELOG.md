@@ -23,6 +23,8 @@ their names in accordance to the rules above.
 Further details are available on http://actionbarsherlock.com.
 
 
+* Inflation of XML menu resources will now honor `android:actionLayout` and
+  `android:actionViewClass` attributes.
 * Buttons for displaying the determinate and indeterminate progress bars have
   been added to the feature demo.
 * Added support for indeterminate progress bar. Due to the `final` modifier on
