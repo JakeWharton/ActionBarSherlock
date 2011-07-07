@@ -20,16 +20,14 @@ styles, the previous implementation was broken and likely would not work on all
 platforms. Move these defined attributes into the root of the theme and alter
 their names in accordance to the rules above.
 
-Further details are available on http://actionbarsherlock.com.
-
 
 * Inflation of XML menu resources will now honor `android:actionLayout` and
   `android:actionViewClass` attributes.
-* Buttons for displaying the determinate and indeterminate progress bars have
-  been added to the feature demo.
 * Added support for indeterminate progress bar. Due to the `final` modifier on
   the native type, you must use `setIndeterminateProgressBarVisibility(Boolean)`
   and pass `Boolean.TRUE` or `Boolean.FALSE`.
+* Buttons for displaying the determinate and indeterminate progress bars have
+  been added to the feature demo.
 * Fix: `MenuBuilder#removeItem(int)` and `MenuBuilder#findItem(int)` throwing
   `IndexOutOfBoundsException`s when the item was not found.
 * Fix: Theme attributes for home item data (e.g., icon, logo) will not be
