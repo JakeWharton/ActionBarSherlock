@@ -205,7 +205,7 @@ public final class MenuInflater extends android.view.MenuInflater {
 		private boolean itemAdded;
 		private int itemId;
 		private int itemCategoryOrder;
-		private int itemTitleId;
+		private String itemTitle;
 		private String itemTitleCondensed;
 		private int itemIconResId;
 		private char itemAlphabeticShortcut;
@@ -304,10 +304,20 @@ public final class MenuInflater extends android.view.MenuInflater {
 			itemCategoryOrder = (category & Menu__CATEGORY_MASK) | (order & Menu__USER_MASK);
 			
 			//itemTitle = a.getString(com.android.internal.R.styleable.MenuItem_title);
-			itemTitleId = attrs.getAttributeResourceValue(XML_NS, "title", 0);
+			final int itemTitleId = attrs.getAttributeResourceValue(XML_NS, "title", 0);
+			if (itemTitleId != 0) {
+				itemTitle = mContext.getString(itemTitleId);
+			} else {
+				itemTitle = attrs.getAttributeValue(XML_NS, "title");
+			}
 			
 			//itemTitleCondensed = a.getString(com.android.internal.R.styleable.MenuItem_titleCondensed);
-			itemTitleCondensed = attrs.getAttributeValue(XML_NS, "titleCondensed");
+			final int itemTitleCondensedId = attrs.getAttributeResourceValue(XML_NS, "titleCondensed", 0);
+			if (itemTitleCondensedId != 0) {
+				itemTitleCondensed = mContext.getString(itemTitleCondensedId);
+			} else {
+				itemTitleCondensed = attrs.getAttributeValue(XML_NS, "titleCondensed");
+			}
 			
 			//itemIconResId = a.getResourceId(com.android.internal.R.styleable.MenuItem_icon, 0);
 			itemIconResId = attrs.getAttributeResourceValue(XML_NS, "icon", defaultIconResId);
@@ -397,12 +407,12 @@ public final class MenuInflater extends android.view.MenuInflater {
 		
 		public void addItem() {
 			itemAdded = true;
-			setItem(menu.add(groupId, itemId, itemCategoryOrder, itemTitleId));
+			setItem(menu.add(groupId, itemId, itemCategoryOrder, itemTitle));
 		}
 		
 		public SubMenuBuilder addSubMenuItem() {
 			itemAdded = true;
-			SubMenuBuilder subMenu = menu.addSubMenu(groupId, itemId, itemCategoryOrder, itemTitleId);
+			SubMenuBuilder subMenu = menu.addSubMenu(groupId, itemId, itemCategoryOrder, itemTitle);
 			setItem(subMenu.getItem());
 			return subMenu;
 		}

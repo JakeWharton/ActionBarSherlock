@@ -32,6 +32,8 @@ Further details are available on http://actionbarsherlock.com.
   `IndexOutOfBoundsException`s when the item was not found.
 * Fix: Theme attributes for home item data (e.g., icon, logo) will not be
   overwritten by the special `MenuItem` instance for home.
+* Fix: Native strings can now be specified for an XML menu `<item>` in
+  `android:title` and `android:titleCondensed`.
 
 
 Version 3.0.2 *(2010-06-23)*
