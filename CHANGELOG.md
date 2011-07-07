@@ -30,6 +30,8 @@ Further details are available on http://actionbarsherlock.com.
   and pass `Boolean.TRUE` or `Boolean.FALSE`.
 * Fix: `MenuBuilder#removeItem(int)` and `MenuBuilder#findItem(int)` throwing
   `IndexOutOfBoundsException`s when the item was not found.
+* Fix: Theme attributes for home item data (e.g., icon, logo) will not be
+  overwritten by the special `MenuItem` instance for home.
 
 
 Version 3.0.2 *(2010-06-23)*
