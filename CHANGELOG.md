@@ -28,6 +28,8 @@ Further details are available on http://actionbarsherlock.com.
 * Added support for indeterminate progress bar. Due to the `final` modifier on
   the native type, you must use `setIndeterminateProgressBarVisibility(Boolean)`
   and pass `Boolean.TRUE` or `Boolean.FALSE`.
+* Fix: `MenuBuilder#removeItem(int)` and `MenuBuilder#findItem(int)` throwing
+  `IndexOutOfBoundsException`s when the item was not found.
 
 
 Version 3.0.2 *(2010-06-23)*
