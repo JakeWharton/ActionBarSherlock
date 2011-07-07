@@ -18,7 +18,7 @@
 
 	<!-- custom -->
 	<item android:id="@+id/menu_search" android:showAsAction="ifRoom"
-		android:title="@string/action_label_search" />
+		android:title="@string/action_label_search" android:actionViewClass="android.widget.SearchView" />
 
 	<!-- icon -->
 	<item android:id="@+id/menu_refresh" android:showAsAction="ifRoom"
