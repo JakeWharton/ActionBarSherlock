@@ -401,7 +401,7 @@ public final class MenuInflater extends android.view.MenuInflater {
 				} catch (Exception e) {
 					throw new InflateException(e);
 				}
-			} else if (itemActionLayout >= 0) {
+			} else if (itemActionLayout > 0) {
 				item.setActionView(itemActionLayout);
 			}
 		}
