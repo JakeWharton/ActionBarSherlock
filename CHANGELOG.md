@@ -18,7 +18,7 @@ necessitate any changes if you were not using explicit styles for
 `actionBarStyle` or `actionModeStyle`. If you were using either or both of these
 styles, the previous implementation was broken and likely would not work on all
 platforms. Move these defined attributes into the root of the theme and alter
-their names in accordance to the rules above.
+their names in accordance to the prefixes outlined above.
 
 
 * Inflation of XML menu resources will now honor `android:actionLayout` and
