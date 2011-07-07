@@ -164,10 +164,15 @@ public final class ActionBarWatson extends RelativeLayout {
 		
 		
 		
-		mActionsView = (LinearLayout)findViewById(R.id.actionbarwatson_actions);
 		
+		mActionsView = (LinearLayout)findViewById(R.id.actionbarwatson_actions);
 		mIndeterminateProgress = (ProgressBar)findViewById(R.id.actionbarwatson_iprogress);
 		
+		//Look for a background defined in the theme
+		Drawable background = attrsActionBar.getDrawable(R.styleable.SherlockTheme_abBackground);
+		if (background != null) {
+			setBackgroundDrawable(background);
+		}
 		
 		//Try to get the display options defined in the theme, or fall back to
 		//displaying the title and home icon
