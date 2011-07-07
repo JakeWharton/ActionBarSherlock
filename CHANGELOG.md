@@ -15,6 +15,8 @@ Library now uses the `r3` version of the compatibility library for its base.
   and pass `Boolean.TRUE` or `Boolean.FALSE`.
 * Fix: `MenuBuilder#removeItem(int)` and `MenuBuilder#findItem(int)` throwing
   `IndexOutOfBoundsException`s when the item was not found.
+* Fix: Theme attributes for home item data (e.g., icon, logo) will not be
+  overwritten by the special `MenuItem` instance for home.
 
 
 Version 3.0.3 *(2011-07-17)*

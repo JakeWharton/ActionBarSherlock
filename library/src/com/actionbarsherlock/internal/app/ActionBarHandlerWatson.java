@@ -482,12 +482,15 @@ public final class ActionBarHandlerWatson extends ActionBar {
 		public void initialize(MenuItemImpl itemData, int menuType) {
 			mMenuItem = itemData;
 			
-			setIcon(itemData.getIcon());
-			setTitle(itemData.getTitle());
-			setEnabled(itemData.isEnabled());
-			setCheckable(itemData.isCheckable());
-			setChecked(itemData.isChecked());
-			setActionView(itemData.getActionView());
+			//Only load menu item data if we are not the HomeItem
+			if (!(mWatsonItem instanceof ActionBarWatson.HomeItem)) {
+				setIcon(itemData.getIcon());
+				setTitle(itemData.getTitle());
+				setEnabled(itemData.isEnabled());
+				setCheckable(itemData.isCheckable());
+				setChecked(itemData.isChecked());
+				setActionView(itemData.getActionView());
+			}
 		}
 
 		@Override
