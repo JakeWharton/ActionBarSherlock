@@ -1256,6 +1256,7 @@ final class FragmentManagerImpl extends FragmentManager {
             if (mActivity == null) {
                 throw new IllegalStateException("Activity has been destroyed");
             }
+            mActivity.ensureActionBarAttached();
             if (mPendingActions == null) {
                 mPendingActions = new ArrayList<Runnable>();
             }
