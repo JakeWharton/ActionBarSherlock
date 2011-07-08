@@ -19,7 +19,7 @@ package com.actionbarsherlock.internal.view.menu;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.view.SubMenu;
+import android.support.v4.view.SubMenu;
 import android.view.View;
 
 /**
