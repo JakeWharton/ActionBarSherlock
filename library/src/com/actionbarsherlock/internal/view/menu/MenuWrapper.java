@@ -4,14 +4,14 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.support.v4.view.Menu;
 import android.support.v4.view.MenuItem;
+import android.support.v4.view.SubMenu;
 import android.view.KeyEvent;
-import android.view.SubMenu;
 
 /**
  * Wrapper around a native Menu instance which implements our version of the
  * Menu interface.
  */
-public final class MenuWrapper implements Menu {
+public class MenuWrapper implements Menu {
 	/** Native menu. */
 	private final android.view.Menu mMenu;
 	
@@ -60,22 +60,22 @@ public final class MenuWrapper implements Menu {
 
 	@Override
 	public SubMenu addSubMenu(CharSequence title) {
-		return mMenu.addSubMenu(title);
+		return new SubMenuWrapper(mMenu.addSubMenu(title));
 	}
 
 	@Override
 	public SubMenu addSubMenu(int titleRes) {
-		return mMenu.addSubMenu(titleRes);
+		return new SubMenuWrapper(mMenu.addSubMenu(titleRes));
 	}
 
 	@Override
 	public SubMenu addSubMenu(int groupId, int itemId, int order, CharSequence title) {
-		return mMenu.addSubMenu(groupId, itemId, order, title);
+		return new SubMenuWrapper(mMenu.addSubMenu(groupId, itemId, order, title));
 	}
 
 	@Override
 	public SubMenu addSubMenu(int groupId, int itemId, int order, int titleRes) {
-		return mMenu.addSubMenu(groupId, itemId, order, titleRes);
+		return new SubMenuWrapper(mMenu.addSubMenu(groupId, itemId, order, titleRes));
 	}
 
 	@Override
