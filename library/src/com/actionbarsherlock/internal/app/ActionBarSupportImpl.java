@@ -26,6 +26,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.ActionBar;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ActionMode;
 import android.support.v4.view.Menu;
 import android.support.v4.view.MenuItem;
@@ -34,13 +35,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.SpinnerAdapter;
+import com.actionbarsherlock.R;
 import com.actionbarsherlock.internal.view.menu.MenuBuilder;
 import com.actionbarsherlock.internal.view.menu.MenuItemImpl;
 import com.actionbarsherlock.internal.view.menu.MenuView;
 import com.actionbarsherlock.internal.widget.ActionBarWatson;
-import com.actionbarsherlock.R;
 
-public final class ActionBarHandlerWatson extends ActionBar {
+public final class ActionBarSupportImpl extends ActionBar {
+	/**
+	 * Abstraction to get an instance of our implementing class.
+	 * 
+	 * @param activity Parent activity.
+	 * @return {@code ActionBar} instance.
+	 */
+	public static ActionBar createFor(FragmentActivity activity) {
+		return new ActionBarSupportImpl(activity);
+	}
+	
 	/** Maximum action bar items in portrait mode. */
 	private static final int MAX_ACTION_BAR_ITEMS_PORTRAIT = 3;
 	
@@ -58,12 +69,14 @@ public final class ActionBarHandlerWatson extends ActionBar {
 	/** List of listeners to the menu visibility. */
 	private final List<OnMenuVisibilityListener> mMenuListeners = new ArrayList<OnMenuVisibilityListener>();
 	
-	/** Whether text will be enabled on action items. */
-	private boolean mIsActionItemTextEnabled = false;
-	
 	/** Whether display of the indeterminate progress is allowed. */
 	private boolean mHasIndeterminateProgress = false;
 	
+	
+	
+	private ActionBarSupportImpl(FragmentActivity activity) {
+		super(activity);
+	}
 	
 	
 	// ------------------------------------------------------------------------
@@ -71,8 +84,6 @@ public final class ActionBarHandlerWatson extends ActionBar {
 	// ------------------------------------------------------------------------
 
 	public void performAttach() {
-		setActivityContentView(R.layout.actionbarwatson_wrapper);
-		
 		mActionBar = (ActionBarWatson)getActivity().findViewById(R.id.actionbarwatson);
 		mContentView = (FrameLayout)getActivity().findViewById(R.id.actionbarsherlock_content);
 		
@@ -117,7 +128,7 @@ public final class ActionBarHandlerWatson extends ActionBar {
 		//	homeItem.setLogo(appInfo.logo);
 		//}
 	}
-
+	
 	public void onMenuInflated(Menu menu) {
 		int maxItems = MAX_ACTION_BAR_ITEMS_PORTRAIT;
 		if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -132,11 +143,8 @@ public final class ActionBarHandlerWatson extends ActionBar {
 		for (int i = 0; i < count; i++) {
 			MenuItemImpl item = (MenuItemImpl)menu.getItem(i);
 			
-			//Items without an icon or items without a title when the title
-			//is enabled are forced into the normal options menu
-			if (!mIsActionItemTextEnabled && (item.getIcon() == null)) {
-				continue;
-			} else if (mIsActionItemTextEnabled && ((item.getTitle() == null) || item.getTitle().equals(""))) {
+			//Items without an icon or title are forced into the overflow menu
+			if ((item.getIcon() == null) && ((item.getTitle() == null) || item.getTitle().equals(""))) {
 				continue;
 			}
 			
@@ -167,7 +175,6 @@ public final class ActionBarHandlerWatson extends ActionBar {
 		//Mark items that will be shown on the action bar as such so they do
 		//not show up on the activity options menu
 		mActionBar.removeAllItems();
-		mActionBar.setIsActionItemTextEnabled(mIsActionItemTextEnabled);
 		for (MenuItemImpl item : keep) {
 			item.setIsShownOnActionBar(true);
 			
@@ -205,10 +212,6 @@ public final class ActionBarHandlerWatson extends ActionBar {
 		}
 		if (featureId == Window.FEATURE_ACTION_MODE_OVERLAY) {
 			// TODO Make action modes partially transparent
-			return true;
-		}
-		if (featureId == Window.FEATURE_ENABLE_ACTION_BAR_WATSON_TEXT) {
-			mIsActionItemTextEnabled = true;
 			return true;
 		}
 		if (featureId == Window.FEATURE_INDETERMINATE_PROGRESS) {
@@ -459,20 +462,18 @@ public final class ActionBarHandlerWatson extends ActionBar {
 	public void show() {
 		mActionBar.show();
 	}
-	
-	/////
-	
+
+	// ///
+
 	private static final class WatsonItemViewWrapper implements MenuView.ItemView, View.OnClickListener {
 		private final ActionBarWatson.Item mWatsonItem;
 		private MenuItemImpl mMenuItem;
-		
-		
+
 		public WatsonItemViewWrapper(ActionBarWatson.Item item) {
 			mWatsonItem = item;
 			mWatsonItem.setOnClickListener(this);
 		}
-		
-		
+
 		@Override
 		public MenuItemImpl getItemData() {
 			return mMenuItem;
@@ -481,16 +482,13 @@ public final class ActionBarHandlerWatson extends ActionBar {
 		@Override
 		public void initialize(MenuItemImpl itemData, int menuType) {
 			mMenuItem = itemData;
-			
-			//Only load menu item data if we are not the HomeItem
-			if (!(mWatsonItem instanceof ActionBarWatson.HomeItem)) {
-				setIcon(itemData.getIcon());
-				setTitle(itemData.getTitle());
-				setEnabled(itemData.isEnabled());
-				setCheckable(itemData.isCheckable());
-				setChecked(itemData.isChecked());
-				setActionView(itemData.getActionView());
-			}
+
+			setIcon(itemData.getIcon());
+			setTitle(itemData.getTitle());
+			setEnabled(itemData.isEnabled());
+			setCheckable(itemData.isCheckable());
+			setChecked(itemData.isChecked());
+			setActionView(itemData.getActionView());
 		}
 
 		@Override
@@ -500,12 +498,12 @@ public final class ActionBarHandlerWatson extends ActionBar {
 
 		@Override
 		public void setCheckable(boolean checkable) {
-			//TODO mItem.setCheckable(checkable);
+		// TODO mItem.setCheckable(checkable);
 		}
 
 		@Override
 		public void setChecked(boolean checked) {
-			//TODO mItem.setChecked(checked);
+		// TODO mItem.setChecked(checked);
 		}
 
 		@Override
@@ -520,7 +518,7 @@ public final class ActionBarHandlerWatson extends ActionBar {
 
 		@Override
 		public void setShortcut(boolean showShortcut, char shortcutKey) {
-			//Not supported
+		// Not supported
 		}
 
 		@Override

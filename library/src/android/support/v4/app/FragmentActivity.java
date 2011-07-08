@@ -21,8 +21,9 @@ import java.io.FileDescriptor;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
-import com.actionbarsherlock.internal.app.ActionBarHandlerNative;
-import com.actionbarsherlock.internal.app.ActionBarHandlerWatson;
+import com.actionbarsherlock.R;
+import com.actionbarsherlock.internal.app.ActionBarNativeImpl;
+import com.actionbarsherlock.internal.app.ActionBarSupportImpl;
 import com.actionbarsherlock.internal.view.menu.MenuBuilder;
 import com.actionbarsherlock.internal.view.menu.MenuInflaterWrapper;
 import com.actionbarsherlock.internal.view.menu.MenuItemImpl;
@@ -48,6 +49,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.FrameLayout;
 
 /**
  * Base class for activities that want to use the support-based ActionBar,
@@ -105,6 +107,7 @@ public class FragmentActivity extends Activity {
 		}
 	};
 	
+	boolean mAttached;
 	boolean mResumed;
 	boolean mStopped;
 	boolean mReallyStopped;
@@ -137,39 +140,25 @@ public class FragmentActivity extends Activity {
 	
 	public FragmentActivity() {
 		super();
-		
-		if (DEBUG) Log.d(TAG, "<ctor>(): IS_HONEYCOMB = " + IS_HONEYCOMB);
-		
-		//Load the appropriate action bar handler and menu
-		Class<? extends ActionBar> handler = null;
+		mAttached = false;
+
 		if (IS_HONEYCOMB) {
-			handler = ActionBarHandlerNative.get();
-			
-			//No menu, everything should be done natively
-			mActionBarMenu = null;
+			mActionBar = ActionBarNativeImpl.createFor(this);
+			mActionBarMenu = null; //Everything should be done natively
 		} else {
-			if (ActionBar.HANDLER_CUSTOM != null) {
-				handler = ActionBar.HANDLER_CUSTOM;
-			}
-			
+			mActionBar = ActionBarSupportImpl.createFor(this);
 			mActionBarMenu = new MenuBuilder(this);
 			mActionBarMenu.setCallback(mMenuCallback);
 		}
-		
-		if (handler != null) {
-			try {
-				mActionBar = handler.newInstance();
-				mActionBar.setActivity(this);
-			} catch (Exception e) {
-				e.printStackTrace();
-				throw new RuntimeException(e);
-			}
-		} else {
-			mActionBar = null;
+	}
+	
+	void ensureActionBarAttached() {
+		if (!IS_HONEYCOMB && !mAttached) {
+			super.setContentView(R.layout.actionbarwatson_wrapper);
+			mAttached = true;
+			((ActionBarSupportImpl)mActionBar).performAttach();
+			invalidateOptionsMenu();
 		}
-		
-		if (DEBUG) Log.d(TAG, "<ctor>(): mActionBarMenu = " + mActionBarMenu);
-		if (DEBUG) Log.d(TAG, "<ctor>(): mActionBar = " + mActionBar);
 	}
 	
 	// ------------------------------------------------------------------------
@@ -185,7 +174,7 @@ public class FragmentActivity extends Activity {
 	 * now enabled.
 	 */
 	public boolean requestWindowFeature(long featureId) {
-		if (!IS_HONEYCOMB && ((ActionBarHandlerWatson)mActionBar).requestWindowFeature(featureId)) {
+		if (!IS_HONEYCOMB && ((ActionBarSupportImpl)mActionBar).requestWindowFeature(featureId)) {
 			return true;
 		}
 		return super.requestWindowFeature((int)featureId);
@@ -208,8 +197,11 @@ public class FragmentActivity extends Activity {
 	
 	@Override
 	public void setContentView(int layoutResId) {
-		if ((mActionBar != null) && !IS_HONEYCOMB) {
-			((ActionBarHandlerWatson)mActionBar).setContentView(layoutResId);
+		ensureActionBarAttached();
+		if (!IS_HONEYCOMB) {
+			FrameLayout contentView = (FrameLayout)findViewById(R.id.actionbarsherlock_content);
+			contentView.removeAllViews();
+			getLayoutInflater().inflate(layoutResId, contentView, true);
 		} else {
 			super.setContentView(layoutResId);
 		}
@@ -217,8 +209,11 @@ public class FragmentActivity extends Activity {
 	
 	@Override
 	public void setContentView(View view, LayoutParams params) {
-		if ((mActionBar != null) && !IS_HONEYCOMB) {
-			((ActionBarHandlerWatson)mActionBar).setContentView(view, params);
+		ensureActionBarAttached();
+		if (!IS_HONEYCOMB) {
+			FrameLayout contentView = (FrameLayout)findViewById(R.id.actionbarsherlock_content);
+			contentView.removeAllViews();
+			contentView.addView(view, params);
 		} else {
 			super.setContentView(view, params);
 		}
@@ -226,29 +221,14 @@ public class FragmentActivity extends Activity {
 	
 	@Override
 	public void setContentView(View view) {
-		if ((mActionBar != null) && !IS_HONEYCOMB) {
-			((ActionBarHandlerWatson)mActionBar).setContentView(view);
+		ensureActionBarAttached();
+		if (!IS_HONEYCOMB) {
+			FrameLayout contentView = (FrameLayout)findViewById(R.id.actionbarsherlock_content);
+			contentView.removeAllViews();
+			contentView.addView(view);
 		} else {
 			super.setContentView(view);
 		}
-	}
-	
-	/**
-	 * Hook into the superclass's setContentView implementation.
-	 * 
-	 * @param view Content view.
-	 */
-	final void setSuperContentView(View view) {
-		super.setContentView(view);
-	}
-
-	/**
-	 * Hook into the superclass's setContentView implementation.
-	 * 
-	 * @param layoutResId Resource ID of layout.
-	 */
-	final void setSuperContentView(int layoutResId) {
-		super.setContentView(layoutResId);
 	}
 	
 	/**
@@ -307,9 +287,6 @@ public class FragmentActivity extends Activity {
 		}
 		
 		super.onCreate(savedInstanceState);
-		if (!IS_HONEYCOMB) {
-			((ActionBarHandlerWatson)mActionBar).performAttach();
-		}
 		
 		NonConfigurationInstances nc = (NonConfigurationInstances)
 				getLastNonConfigurationInstance();
@@ -321,11 +298,6 @@ public class FragmentActivity extends Activity {
 			mFragments.restoreAllState(p, nc != null ? nc.fragments : null);
 		}
 		mFragments.dispatchCreate();
-		
-		if (!IS_HONEYCOMB) {
-			//Trigger menu inflation
-			invalidateOptionsMenu();
-		}
 	}
 	
 	/**
@@ -473,7 +445,7 @@ public class FragmentActivity extends Activity {
 			//inflation callback to allow it to display any items it wants.
 			//Any items that were displayed will have a boolean toggled so that we
 			//do not display them on the options menu.
-			((ActionBarHandlerWatson)mActionBar).onMenuInflated(mActionBarMenu);
+			((ActionBarSupportImpl)mActionBar).onMenuInflated(mActionBarMenu);
 			
 			// Whoops, older platform...  we'll use a hack, to manually rebuild
 			// the options menu the next time it is prepared.
@@ -586,7 +558,7 @@ public class FragmentActivity extends Activity {
 				
 				if (!IS_HONEYCOMB) {
 					if (DEBUG) Log.d(TAG, "onPanelClosed(int, android.view.Menu): Dispatch menu visibility false to custom action bar.");
-					((ActionBarHandlerWatson)mActionBar).onMenuVisibilityChanged(false);
+					((ActionBarSupportImpl)mActionBar).onMenuVisibilityChanged(false);
 				}
 				break;
 		}
@@ -664,7 +636,7 @@ public class FragmentActivity extends Activity {
 			
 			if (mOptionsMenuCreateResult && prepareResult && menu.hasVisibleItems()) {
 				if (DEBUG) Log.d(TAG, "onPrepareOptionsMenu(android.view.Menu): Dispatch menu visibility true to custom action bar.");
-				((ActionBarHandlerWatson)mActionBar).onMenuVisibilityChanged(true);
+				((ActionBarSupportImpl)mActionBar).onMenuVisibilityChanged(true);
 				result = true;
 			}
 		} else {
@@ -683,7 +655,7 @@ public class FragmentActivity extends Activity {
 	 * lifecycle to onDestroy() and a new instance then created after it. 
 	 */
 	public void recreate() {
-		//XXX This SUCKS! Figure out a way to call the super method and support Android 1.6
+		//This SUCKS! Figure out a way to call the super method and support Android 1.6
 		/*
 		if (IS_HONEYCOMB) {
 			super.recreate();
@@ -836,7 +808,7 @@ public class FragmentActivity extends Activity {
 		if (IS_HONEYCOMB) {
 			super.setProgressBarIndeterminateVisibility(visible);
 		} else {
-			((ActionBarHandlerWatson)mActionBar).setProgressBarIndeterminateVisibility(visible);
+			((ActionBarSupportImpl)mActionBar).setProgressBarIndeterminateVisibility(visible);
 		}
 	}
 

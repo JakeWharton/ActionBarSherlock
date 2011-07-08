@@ -24,7 +24,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.SpinnerAdapter;
-import com.actionbarsherlock.internal.app.ActionBarHandlerWatson;
 import com.actionbarsherlock.internal.view.menu.MenuItemImpl;
 
 /**
@@ -34,25 +33,13 @@ import com.actionbarsherlock.internal.view.menu.MenuItemImpl;
  * application.
  */
 public abstract class ActionBar {
-	/** Custom handler class. */
-	static Class<? extends ActionBar> HANDLER_CUSTOM = ActionBarHandlerWatson.class;
-
-	
-	/**
-	 * Register the custom handler for use with a third-party action bar
-	 * library on Android versions which do not support a native action bar.
-	 * 
-	 * @param customHandler Custom handler class.
-	 */
-	public static void registerHandler(Class<? extends ActionBar> customHandler) {
-		HANDLER_CUSTOM = customHandler;
-	}
-	
-	
-	
 	/** Parent activity. */
-	private FragmentActivity mActivity;
+	private final FragmentActivity mActivity;
 	
+	
+	protected ActionBar(FragmentActivity activity) {
+		mActivity = activity;
+	}
 	
 	
 	/**
@@ -63,26 +50,7 @@ public abstract class ActionBar {
 	protected final FragmentActivity getActivity() {
 		return mActivity;
 	}
-	
-	/**
-	 * Set the parent activity. This should be called immediately after
-	 * instatiation.
-	 * 
-	 * @param activity Parent activity.
-	 * @return Current instance for call chaining.
-	 */
-	void setActivity(FragmentActivity activity) {
-		mActivity = activity;
-	}
-	
-	protected final void setActivityContentView(int layoutResId) {
-		mActivity.setSuperContentView(layoutResId);
-	}
-	
-	protected final void setActivityContentView(View view) {
-		mActivity.setSuperContentView(view);
-	}
-	
+
 	protected final MenuItemImpl getHomeMenuItem() {
 		return mActivity.getHomeMenuItem();
 	}

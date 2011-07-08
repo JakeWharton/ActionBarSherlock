@@ -20,22 +20,24 @@ import java.util.HashMap;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.ActionBar;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ActionMode;
 import android.support.v4.view.MenuInflater;
 import android.view.View;
 import android.widget.SpinnerAdapter;
 
-public final class ActionBarHandlerNative {
+public final class ActionBarNativeImpl {
 	//No instances
-	private ActionBarHandlerNative() {}
+	private ActionBarNativeImpl() {}
 	
 	/**
-	 * Simple static method abstraction to get a reference to our implementing class.
+	 * Abstraction to get an instance of our implementing class.
 	 * 
-	 * @return {@code ActionBarNative.Impl.class}
+	 * @param activity Parent activity.
+	 * @return {@code ActionBar} instance.
 	 */
-	public static Class<? extends ActionBar> get() {
-		return ActionBarHandlerNative.Impl.class;
+	public static ActionBar createFor(FragmentActivity activity) {
+		return new ActionBarNativeImpl.Impl(activity);
 	}
 
 	/**
@@ -44,6 +46,12 @@ public final class ActionBarHandlerNative {
 	public static final class Impl extends ActionBar implements android.app.ActionBar.TabListener {
 		/** Mapping between support listeners and native listeners. */
 		private final HashMap<OnMenuVisibilityListener, android.app.ActionBar.OnMenuVisibilityListener> mMenuListenerMap = new HashMap<OnMenuVisibilityListener, android.app.ActionBar.OnMenuVisibilityListener>();
+		
+		
+		private Impl(FragmentActivity activity) {
+			super(activity);
+		}
+		
 		
 		/**
 		 * Get the native {@link ActionBar} instance.
@@ -207,7 +215,7 @@ public final class ActionBarHandlerNative {
 		// ---------------------------------------------------------------------
 		
 		private static class TabImpl implements ActionBar.Tab {
-			final ActionBarHandlerNative.Impl mActionBar;
+			final ActionBarNativeImpl.Impl mActionBar;
 			
 			View mCustomView;
 			Drawable mIcon;
@@ -215,7 +223,7 @@ public final class ActionBarHandlerNative {
 			Object mTag;
 			CharSequence mText;
 			
-			TabImpl(ActionBarHandlerNative.Impl actionBar) {
+			TabImpl(ActionBarNativeImpl.Impl actionBar) {
 				mActionBar = actionBar;
 			}
 
