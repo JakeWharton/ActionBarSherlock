@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2006 The Android Open Source Project
- *               2011 Jake Wharton
+ * Copyright (C) 2011 Jake Wharton
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -408,7 +408,7 @@ public final class MenuInflater extends android.view.MenuInflater {
 		
 		public void addItem() {
 			itemAdded = true;
-			setItem(menu.add(groupId, itemId, itemCategoryOrder, itemTitle));
+			setItem((MenuItemImpl)menu.add(groupId, itemId, itemCategoryOrder, itemTitle));
 		}
 		
 		public SubMenuBuilder addSubMenuItem() {

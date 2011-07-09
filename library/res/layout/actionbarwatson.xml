@@ -29,7 +29,7 @@
         android:focusable="true"
         />
     
-    <LinearLayout
+    <FrameLayout
         android:id="@+id/actionbarwatson_actions"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"

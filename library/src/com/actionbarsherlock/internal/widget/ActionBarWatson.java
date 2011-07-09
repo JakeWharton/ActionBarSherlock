@@ -4,9 +4,11 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.ActionBar;
+import android.support.v4.view.Menu;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -17,6 +19,8 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import com.actionbarsherlock.R;
+import com.actionbarsherlock.internal.view.menu.ActionMenuView;
+import com.actionbarsherlock.internal.view.menu.MenuBuilder;
 
 public final class ActionBarWatson extends RelativeLayout {
 	/** Default display options if none are defined in the theme. */
@@ -46,7 +50,7 @@ public final class ActionBarWatson extends RelativeLayout {
 	private final FrameLayout mCustomView;
 	
 	/** Container for all action items. */
-	private final LinearLayout mActionsView;
+	private final FrameLayout mMenuContainerView;
 
 	/** Container for all tab items. */
 	private final LinearLayout mTabsView;
@@ -71,8 +75,9 @@ public final class ActionBarWatson extends RelativeLayout {
 	 */
 	private int mNavigationMode = -1;
 	
-	/** Whether text is shown on action items regardless of display params. */
-	private boolean mIsActionItemTextEnabled = false;
+	private MenuBuilder mOptionsMenu;
+	
+	private ActionMenuView mMenuView;
 	
 	
 
@@ -165,7 +170,7 @@ public final class ActionBarWatson extends RelativeLayout {
 		
 		
 		
-		mActionsView = (LinearLayout)findViewById(R.id.actionbarwatson_actions);
+		mMenuContainerView = (FrameLayout)findViewById(R.id.actionbarwatson_actions);
 		mIndeterminateProgress = (ProgressBar)findViewById(R.id.actionbarwatson_iprogress);
 		
 		//Look for a background defined in the theme
@@ -523,40 +528,18 @@ public final class ActionBarWatson extends RelativeLayout {
 		return mHome;
 	}
 	
-	public ActionBarWatson.Item newItem() {
-		ActionItem item = (ActionItem)LayoutInflater.from(getContext()).inflate(R.layout.actionbarwatson_item, mActionsView, false);
-		item.setActionBar(this);
-		return item;
-	}
-	
-	public void addItem(ActionBarWatson.Item item) {
-		if (item instanceof HomeItem) {
-			throw new IllegalStateException("Cannot add home item as an action item.");
-		}
-		mActionsView.addView(item);
-	}
-	
-	public void addItem(ActionBarWatson.Item item, int position) {
-		if (item instanceof HomeItem) {
-			throw new IllegalStateException("Cannot add home item as an action item.");
-		}
-		mActionsView.addView(item, position);
-	}
-	
-	public void removeAllItems() {
-		mActionsView.removeAllViews();
-	}
-	
-	public void setIsActionItemTextEnabled(boolean isActionItemTextEnabled) {
-		if (isActionItemTextEnabled != mIsActionItemTextEnabled) {
-			mIsActionItemTextEnabled = isActionItemTextEnabled;
-			final int count = mActionsView.getChildCount();
-			for (int i = count - 1; i >= 0; i--) {
-				View view = mActionsView.getChildAt(i);
-				if (view instanceof ActionItem) {
-					((ActionItem)view).reloadDisplay();
-				}
+	public void setMenu(Menu menu) {
+		if (mOptionsMenu != menu) {
+			mOptionsMenu = (MenuBuilder)menu;
+			
+			if (mMenuView != null) {
+				mMenuContainerView.removeAllViews();
+				mMenuView = null;
 			}
+			
+			mMenuView = (ActionMenuView)mOptionsMenu.getMenuView(MenuBuilder.TYPE_ACTION_BAR, null);
+			mMenuView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+			mMenuContainerView.addView(mMenuView);
 		}
 	}
 	
@@ -624,7 +607,7 @@ public final class ActionBarWatson extends RelativeLayout {
 			final boolean hasText = (mTextView.getText() != null) && !mTextView.getText().equals("");
 			
 			mIconView.setVisibility(!hasCustomView ? View.VISIBLE : View.GONE);
-			mTextView.setVisibility(!hasCustomView && hasText && mActionBar.mIsActionItemTextEnabled ? View.VISIBLE : View.GONE);
+			mTextView.setVisibility(!hasCustomView && hasText ? View.VISIBLE : View.GONE);
 			mCustomView.setVisibility(hasCustomView ? View.VISIBLE : View.GONE);
 		}
 		

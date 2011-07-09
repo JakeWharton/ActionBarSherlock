@@ -66,43 +66,49 @@ public final class SubMenuBuilder extends MenuBuilder implements SubMenu {
         return mItem;
     }
 
-    //@Override
-    //public Callback getCallback() {
-    //    return mParentMenu.getCallback();
-    //}
+    @Override
+    public Callback getCallback() {
+        return mParentMenu.getCallback();
+    }
 
-    //@Override
-    //public void setCallback(Callback callback) {
-    //    mParentMenu.setCallback(callback);
-    //}
+    @Override
+    public void setCallback(Callback callback) {
+        mParentMenu.setCallback(callback);
+    }
 
     @Override
     public MenuBuilder getRootMenu() {
         return mParentMenu;
     }
 
+	@Override
     public SubMenuBuilder setIcon(Drawable icon) {
         mItem.setIcon(icon);
         return this;
     }
 
+	@Override
     public SubMenuBuilder setIcon(int iconRes) {
         mItem.setIcon(iconRes);
         return this;
     }
 
+	@Override
     public SubMenuBuilder setHeaderIcon(Drawable icon) {
 		throw new RuntimeException("Method not supported.");
     }
 
+	@Override
     public SubMenuBuilder setHeaderIcon(int iconRes) {
 		throw new RuntimeException("Method not supported.");
     }
 
+	@Override
     public SubMenuBuilder setHeaderTitle(CharSequence title) {
 		throw new RuntimeException("Method not supported.");
     }
 
+	@Override
     public SubMenuBuilder setHeaderTitle(int titleRes) {
 		throw new RuntimeException("Method not supported.");
     }

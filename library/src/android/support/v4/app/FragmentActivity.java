@@ -28,7 +28,9 @@ import com.actionbarsherlock.internal.view.menu.MenuBuilder;
 import com.actionbarsherlock.internal.view.menu.MenuInflaterWrapper;
 import com.actionbarsherlock.internal.view.menu.MenuItemImpl;
 import com.actionbarsherlock.internal.view.menu.MenuItemWrapper;
+import com.actionbarsherlock.internal.view.menu.MenuView;
 import com.actionbarsherlock.internal.view.menu.MenuWrapper;
+import com.actionbarsherlock.internal.view.menu.SubMenuBuilder;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -105,6 +107,28 @@ public class FragmentActivity extends Activity {
 		public boolean onMenuItemSelected(MenuBuilder menu, MenuItem item) {
 			return FragmentActivity.this.onMenuItemSelected(Window.FEATURE_OPTIONS_PANEL, item);
 		}
+
+		@Override
+		public void onCloseMenu(MenuBuilder paramMenuBuilder, boolean paramBoolean) {
+			// TODO Auto-generated method stub
+		}
+
+		@Override
+		public void onCloseSubMenu(SubMenuBuilder paramSubMenuBuilder) {
+			// TODO Auto-generated method stub
+		}
+
+		@Override
+		public void onMenuModeChange(MenuBuilder paramMenuBuilder) {
+			// TODO Auto-generated method stub
+		}
+
+		@Override
+		public boolean onSubMenuSelected(SubMenuBuilder paramSubMenuBuilder) {
+			// TODO Auto-generated method stub
+			// TODO Show list dialog
+			return false;
+		}
 	};
 	
 	boolean mAttached;
@@ -154,9 +178,9 @@ public class FragmentActivity extends Activity {
 	
 	void ensureActionBarAttached() {
 		if (!IS_HONEYCOMB && !mAttached) {
-			super.setContentView(R.layout.actionbarwatson_wrapper);
+			super.setContentView(R.layout.screen_action_bar);
 			mAttached = true;
-			((ActionBarSupportImpl)mActionBar).performAttach();
+			((ActionBarSupportImpl)mActionBar).init(getWindow().getDecorView());
 			invalidateOptionsMenu();
 		}
 	}
@@ -199,7 +223,7 @@ public class FragmentActivity extends Activity {
 	public void setContentView(int layoutResId) {
 		ensureActionBarAttached();
 		if (!IS_HONEYCOMB) {
-			FrameLayout contentView = (FrameLayout)findViewById(R.id.actionbarsherlock_content);
+			FrameLayout contentView = (FrameLayout)findViewById(R.id.content);
 			contentView.removeAllViews();
 			getLayoutInflater().inflate(layoutResId, contentView, true);
 		} else {
@@ -211,7 +235,7 @@ public class FragmentActivity extends Activity {
 	public void setContentView(View view, LayoutParams params) {
 		ensureActionBarAttached();
 		if (!IS_HONEYCOMB) {
-			FrameLayout contentView = (FrameLayout)findViewById(R.id.actionbarsherlock_content);
+			FrameLayout contentView = (FrameLayout)findViewById(R.id.content);
 			contentView.removeAllViews();
 			contentView.addView(view, params);
 		} else {
@@ -223,7 +247,7 @@ public class FragmentActivity extends Activity {
 	public void setContentView(View view) {
 		ensureActionBarAttached();
 		if (!IS_HONEYCOMB) {
-			FrameLayout contentView = (FrameLayout)findViewById(R.id.actionbarsherlock_content);
+			FrameLayout contentView = (FrameLayout)findViewById(R.id.content);
 			contentView.removeAllViews();
 			contentView.addView(view);
 		} else {
@@ -445,7 +469,7 @@ public class FragmentActivity extends Activity {
 			//inflation callback to allow it to display any items it wants.
 			//Any items that were displayed will have a boolean toggled so that we
 			//do not display them on the options menu.
-			((ActionBarSupportImpl)mActionBar).onMenuInflated(mActionBarMenu);
+			((ActionBarSupportImpl)mActionBar).setMenu(mActionBarMenu);
 			
 			// Whoops, older platform...  we'll use a hack, to manually rebuild
 			// the options menu the next time it is prepared.
@@ -626,10 +650,10 @@ public class FragmentActivity extends Activity {
 					if (DEBUG) Log.d(TAG, "onPrepareOptionsMenu(android.view.Menu): Adding any action items that are not displayed on the action bar.");
 					//Only add items that have not already been added to our custom
 					//action bar implementation
-					for (MenuItemImpl item : mActionBarMenu.getItems()) {
-						if (!item.isShownOnActionBar()) {
-							item.addTo(menu);
-						}
+					MenuBuilder.MenuAdapter overflowAdapter = mActionBarMenu.getOverflowMenuAdapter(0);
+					for (int i = 0, count = overflowAdapter.getCount(); i < count; i++) {
+						MenuView.ItemView view = overflowAdapter.getItem(i).getItemView(MenuBuilder.TYPE_NATIVE, null);
+						((MenuItemImpl.NativeItemView)view).attach(menu);
 					}
 				}
 			}
@@ -953,16 +977,6 @@ public class FragmentActivity extends Activity {
 		
 		//Return to the caller
 		return actionMode;
-	}
-	
-	/**
-	 * Get a special instance of {@link MenuItemImpl} which denotes the home
-	 * item and should be invoked when the custom home button is clicked.
-	 *  
-	 * @return Menu item instance.
-	 */
-	final MenuItemImpl getHomeMenuItem() {
-		return mActionBarMenu.addDetached(android.R.id.home);
 	}
 
 	// ------------------------------------------------------------------------

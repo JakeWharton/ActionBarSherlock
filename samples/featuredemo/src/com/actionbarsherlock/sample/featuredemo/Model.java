@@ -7,7 +7,7 @@ import android.support.v4.view.MenuItem;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 
-public class FeatureModel extends FragmentActivity {
+public class Model extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

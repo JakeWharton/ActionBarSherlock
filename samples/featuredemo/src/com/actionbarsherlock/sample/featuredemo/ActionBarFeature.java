@@ -12,7 +12,7 @@ import android.support.v4.view.Window;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
-public class FeatureDemoActivity extends FragmentActivity {
+public class ActionBarFeature extends FragmentActivity {
 	private static final Random RANDOM = new Random();
 	
 	private static boolean themeLight = false;
@@ -30,7 +30,14 @@ public class FeatureDemoActivity extends FragmentActivity {
 		menu.add("Model").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
 			@Override
 			public boolean onMenuItemClick(MenuItem item) {
-				startActivity(new Intent(FeatureDemoActivity.this, FeatureModel.class));
+				startActivity(new Intent(ActionBarFeature.this, Model.class));
+				return true;
+			}
+		});
+		menu.add("Action Items").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+			@Override
+			public boolean onMenuItemClick(MenuItem item) {
+				startActivity(new Intent(ActionBarFeature.this, ActionItemFeature.class));
 				return true;
 			}
 		});
@@ -47,9 +54,9 @@ public class FeatureDemoActivity extends FragmentActivity {
         setProgressBarVisibility(false);
         setProgressBarIndeterminateVisibility(false);
         
-        setContentView(R.layout.feature_demo_activity);
+        setContentView(R.layout.action_bar_feature_activity);
  
-        getSupportActionBar().setCustomView(R.layout.actionbar_custom_view);
+        getSupportActionBar().setCustomView(R.layout.nav_custom_view);
         getSupportActionBar().setDisplayShowCustomEnabled(false);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
         
@@ -232,7 +239,7 @@ public class FeatureDemoActivity extends FragmentActivity {
 				ActionBar.Tab newTab = getSupportActionBar().newTab();
 				
 				if (RANDOM.nextBoolean()) {
-					newTab.setCustomView(R.layout.actionbar_tab_custom_view);
+					newTab.setCustomView(R.layout.tab_custom_view);
 				} else {
 					boolean icon = RANDOM.nextBoolean();
 					if (icon) {

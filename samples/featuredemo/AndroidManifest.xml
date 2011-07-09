@@ -16,7 +16,7 @@
         >
         
         <activity
-            android:name=".FeatureDemoActivity"
+            android:name=".ActionBarFeature"
             android:label="@string/app_name">
             
             <intent-filter>
@@ -26,7 +26,12 @@
         </activity>
         
         <activity
-        	android:name=".FeatureModel"
+        	android:name=".ActionItemFeature"
+        	android:theme="@style/Theme.Sherlock"
+        />
+        
+        <activity
+        	android:name=".Model"
         	android:label="@string/hello"
         	android:theme="@style/Theme.Sherlock"
         />
