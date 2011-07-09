@@ -54,6 +54,9 @@ public final class ActionBarSupportImpl extends ActionBar {
 	
 	/** Maximum action bar items in portrait mode. */
 	private static final int MAX_ACTION_BAR_ITEMS_PORTRAIT = 3;
+
+	/** Maximum action bar items in portrait mode with tab navigation. */
+	private static final int MAX_ACTION_BAR_ITEMS_PORTRAIT_TABS = 1;
 	
 	/** Maximum action bar items in landscape mode. */
 	private static final int MAX_ACTION_BAR_ITEMS_LANDSCAPE = 4;
@@ -134,6 +137,11 @@ public final class ActionBarSupportImpl extends ActionBar {
 	
 	public void onMenuInflated(Menu menu) {
 		int maxItems = MAX_ACTION_BAR_ITEMS_PORTRAIT;
+		
+		if(getNavigationMode() == ActionBar.NAVIGATION_MODE_TABS){
+			maxItems = MAX_ACTION_BAR_ITEMS_PORTRAIT_TABS;
+		}
+		
 		if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
 			maxItems = MAX_ACTION_BAR_ITEMS_LANDSCAPE;
 		}
