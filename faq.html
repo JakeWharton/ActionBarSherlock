@@ -1,0 +1,65 @@
+---
+title: Merchandise and Donations
+layout: default
+---
+
+
+<div class="row">
+	<div class="whole">
+		<h1>Frequently Asked Questions</h1>
+		<p>Have a question that is not listed on this page? See the &quot;Direct Contact&quot; section of the <a href="support.html">support page</a>.</p>
+		<table id="faq-table">
+			<tr>
+				<th>What action bar library is used on pre-3.0 devices?</th>
+				<td>
+					<p>The widget is called ActionBarWatson and it is a custom implementation that was purpose-built to mimic the API, functionality, and look of the native action bar on 3.0+ devices.</p>
+					<p>ActionBarWatson is a fork of <a href="https://github.com/johannilsson/android-actionbar/pull/25">work done</a> on Johan Nilsson's <a href="https://github.com/johannilsson/android-actionbar">Android-ActionBar</a> library in order to provide styling compatibility with the native action bar. The first two versions of ActionBarSherlock used his library directly for support on pre-3.0 devices and without his work the current widget would not be possible.</p>
+				</td>
+			</tr>
+			<tr>
+				<th>Why do action modes not work on pre-3.0 devices?</th>
+				<td>Action mode support is still being worked on for pre-3.0 devices and will be released with version 3.2 of the library.</td>
+			</tr>
+			<tr>
+				<th>Why doesn't the logo defined on the activity/application entry in the manifest get displayed?</th>
+				<td>Despite there being support for loading the logo for activities and applications since API level 9, the underlying implementation in Android is broken and does not work at all. In order to specify a logo on these platforms you should use the <code>abLogo</code> attribute in a <a href="theming.html">custom theme</a>.</td>
+			</tr>
+			<tr>
+				<th>List and tab navigation hide the title on pre-3.0 devices. Can this be changed?</th>
+				<td>Due to the relatively small space to display items on phones, this cannot currently be changed. Future versions of the library will behave more like the native action bar on larger displays (e.g., Nook Color, Archos 101).</td>
+			</tr>
+			<tr>
+				<th>Can you add functionality *X* to the action bar?</th>
+				<td>As a general rule, no. If the native action bar on Android 3.0+ does not support it then it will not be supported by this library.</td>
+			</tr>
+			<tr>
+				<th>Why is ActionBarSherlock a library project whereas the original compatibility library is only a <code>.jar</code>?</th>
+				<td>ActionBarWatson, the custom action bar implementation within ActionBarSherlock for pre-3.0 devices, relies on styles, themes, layouts, and drawables in order to display properly. Due to the limitations of Android and <code>.jar</code> files, it can not be accomplished any other way.</td>
+			</tr>
+			<tr>
+				<th>I found a bug, what should I do?</th>
+				<td>See the <a href="support.html">support page</a> and create an issue on GitHub, post to the Google Group, or contact me directly. Or do all three! The worst thing you can do is to not report it. Please try to include as much information as possible in your report.</td>
+			</tr>
+			<tr>
+				<th>What causes the following error: <code>Binary XML file line #8: You must supply a layout_height attribute</code>?</th>
+				<td>You application or activity is not using a theme from the application. See the &quot;Parent Themes&quot; section of <a href="theming.html">the theming page</a>.</td>
+			</tr>
+			<tr>
+				<th>Do I need to include the <code>.jar</code> file for the Android compatability library when using ActionBarSherlock?</th>
+				<td>No. ActionBarSherlock is built on top of the Android compatability library and comes bundled with its class files.</td>
+			</tr>
+			<tr>
+				<th>I use progaurd. Are there any lines I should include to ensure functionality of the library?</th>
+				<td>
+					<p>Add the following lines:</p>
+					<code><pre>
+-keep class android.support.v4.app.** { *; }
+-keep interface android.support.v4.app.** { *; }
+-keep class com.actionbarsherlock.internal.** { *; }
+-keep interface com.actionbarsherlock.internal.** { *; }
+					</pre></code>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>

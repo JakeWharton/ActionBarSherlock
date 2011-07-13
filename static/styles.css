@@ -82,6 +82,13 @@
 	#download_more { font-weight: normal; color: #666; text-shadow: none; font-size: 0.9em; }
 	#download_more:hover { border-bottom: none; color: #999; }
 
+	#faq-table { border-collapse: collapse; width: 100%; border-top: 1px solid #333; margin-top: 50px; }
+	#faq-table th, #faq-table td { border-bottom: 1px solid #333; padding: 1.5em 0; text-align: left; vertical-align: top; }
+	#faq-table th { color: #ccc; padding-right: 1em; width: 50%; }
+	#faq-table td { padding-left: 1em; width: 50%; }
+	#faq-table td p:first-child { margin-top: 0; }
+	#faq-table td p:last-child { margin-bottom: 0; }
+
 
 /* ============================= */
 /* ! Layout for mobile version   */
