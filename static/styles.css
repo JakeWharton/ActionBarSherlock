@@ -13,15 +13,28 @@
 	body#home {
 		padding: 50px 0 20px;
 	}
-	h1, h2, h3, h4, h5, h6 {
+	h1 {
 		color: #ddd;
 		border-bottom: 3px solid #333;
 		margin-bottom: 0.75em;
 		font-size: 1.5em;
 	}
+	h2 {
+		color: #ccc;
+		border-bottom: 1px solid #333;
+		margin-top: 1.5em;
+		margin-bottom: 0.75em;
+		font-size: 1.35em;
+	}
+	h3 {
+		color: #c5c5c5;
+		margin-top: 2em;
+		margin-bottom: 0.75em;
+		font-size: 1.25em;
+	}
 	p { margin: 1em 0; }
 	p.lead { font-weight: bold; font-size: 1.2em; }
-	p.link { font-family: "Courier New", Monaco, "DejaVu Sans Mono", monospace; margin-left: 1em; }
+	p.link { font-family: "Courier New", Monaco, "DejaVu Sans Mono", monospace; margin-left: 1em; font-size: 0.9em; }
 	ul { margin: 1em 0 1em 2em; }
 	li { margin: 0.25em 0; }
 	dt { font-weight: bold; }
@@ -43,14 +56,14 @@
 	#feature { color: #ddd; padding-bottom: 10px; }
 	#features { margin-top: 60px; }
 	.feature { padding-bottom: 1px; }
-	.feature h3 a:link, .feature h3 a:visited, .feature h3 a:active { color: #fff; }
-	.feature h3 a:hover { border-bottom: none; }
+	.feature h1 a:link, .feature h1 a:visited, .feature h1 a:active { color: #fff; }
+	.feature h1 a:hover { border-bottom: none; }
 	#apps { margin-top: 60px; }
 
 	.app { margin-bottom: 2em; }
 	.app img { float: left; }
 	.app .info { margin-left: 90px; }
-	.app h4 { border-bottom: none; margin: 0; font-size: 1.25em; }
+	.app h4 { margin: 0; font-size: 1.25em; }
 	.app p { margin: .5em 0; }
 
 	#footer { margin-top: 60px; font-size: 0.9em; color: #666; }
