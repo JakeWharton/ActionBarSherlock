@@ -32,7 +32,8 @@ img { height: auto; }
 	/*body { font-size: 0.8em; line-height: 1.5em; }*/
 
 	.row .fourth { width: 22.375%; margin-right: 3.5%; }
-	.row .half   { width: 48.25%; margin-right: 3.5%; }
+	.row .half { width: 48.25%; margin-right: 3.5%; }
+	.row .three-fourths { width: 71.5%; margin-right: 3.5%;}
 }
 
 

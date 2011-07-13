@@ -48,7 +48,6 @@
 	.centered { text-align: center; }
 
 	#header { margin: 0; }
-	#header a:hover { border-bottom: none; }
 
 	#nav { margin: 1em 0 2em; }
 	#nav ul { margin: 0; padding: 0; overflow: hidden; }
@@ -100,10 +99,12 @@
 @media handheld, only screen and (max-width: 767px) {
 	body { }
 	#body { padding: 0; }
+	#nav li { margin: 0.5em 0; width: 29%; text-align: center; padding: 0 2%; }
 
 	h1, h2, h3, h4, h5, h6 { margin-top: 40px; }
 
 	#header { padding-right: 15px; }
+	#header.small { padding-right: 40px; }
 	#features { margin-top: 0; }
 	#footer { margin-top: 50px; }
 	#sherlock { display: none; }
