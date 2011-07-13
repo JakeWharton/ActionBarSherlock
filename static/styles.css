@@ -1,0 +1,101 @@
+/* ============================== */
+/* ! Layout for desktop version   */
+/* ============================== */
+
+	body {
+		font-family: "Helvetica Neue", Helvetica, sans-serif;
+		font-size: 0.85em;
+		background: #222 url('black_linen_v2.png') repeat;
+		color: #aaa;
+		padding: 30px 0 20px;
+		text-shadow: 1px 0px 3px #000;
+	}
+	body#home {
+		padding: 50px 0 20px;
+	}
+	h1, h2, h3, h4, h5, h6 {
+		color: #ddd;
+		border-bottom: 3px solid #333;
+		margin-bottom: 0.75em;
+		font-size: 1.5em;
+	}
+	p { margin: 1em 0; }
+	p.lead { font-weight: bold; font-size: 1.2em; }
+	p.link { font-family: "Courier New", Monaco, "DejaVu Sans Mono", monospace; margin-left: 1em; }
+	ul { margin: 1em 0 1em 2em; }
+	li { margin: 0.25em 0; }
+	dt { font-weight: bold; }
+	dd { margin: 0.25em 0 1em 1em; }
+	a img { border: 0; }
+	a:link, a:visited, a:active { color: #72a4b4; text-shadow: 1px 0px 1px #000; text-decoration: none; font-weight: bold; }
+	a:hover { border-bottom: 1px #72a4b4 dotted; }
+	a.img:hover { border-bottom: 0px; }
+
+	.centered { text-align: center; }
+
+	#header { margin: 0; }
+	#header a:hover { border-bottom: none; }
+
+	#nav { margin: 1em 0 2em; }
+	#nav ul { margin: 0; padding: 0; overflow: hidden; }
+	#nav li { list-style: none; margin: 1em; padding: 0 0 1px 0; float: left; }
+
+	#feature { color: #ddd; padding-bottom: 10px; }
+	#features { margin-top: 60px; }
+	.feature { padding-bottom: 1px; }
+	.feature h3 a:link, .feature h3 a:visited, .feature h3 a:active { color: #fff; }
+	.feature h3 a:hover { border-bottom: none; }
+	#apps { margin-top: 60px; }
+
+	.app { margin-bottom: 2em; }
+	.app img { float: left; }
+	.app .info { margin-left: 90px; }
+	.app h4 { border-bottom: none; margin: 0; font-size: 1.25em; }
+	.app p { margin: .5em 0; }
+
+	#footer { margin-top: 60px; font-size: 0.9em; color: #666; }
+	#footer p { margin: 0; }
+	#footer a:link, #footer a:visited, #footer a:active { color: #666; text-decoration: underline; text-shadow: 1px 0px 3px #000; }
+	#footer a:hover { border-bottom: 0; color: #888; }
+	#footer .social { text-align: right; }
+
+	#sherlock { float: left; margin-right: 30px; }
+	#sherlock a:hover { border-bottom: none; }
+
+	#download { text-align: center; margin-top: 2.5em; margin-bottom: 2em; }
+	#download p { background: #333; display: inline; padding: 8px 15px; border-radius: 10px; text-shadow: none; font-weight: bold; }
+	#download p span { padding-right: 5px; }
+	#download p a { padding: 1px 3px; }
+	#download_more { font-weight: normal; color: #666; text-shadow: none; font-size: 0.9em; }
+	#download_more:hover { border-bottom: none; color: #999; }
+
+
+/* ============================= */
+/* ! Layout for mobile version   */
+/* ============================= */
+
+@media handheld, only screen and (max-width: 767px) {
+	body { }
+	#body { padding: 0; }
+
+	h1, h2, h3, h4, h5, h6 { margin-top: 40px; }
+
+	#header { padding-right: 15px; }
+	#features { margin-top: 0; }
+	#footer { margin-top: 50px; }
+	#sherlock { display: none; }
+	#footer .social { text-align: left; }
+	#github img { height: 100px; }
+}
+
+
+/* ========================================== */
+/* ! Provide higher res assets for iPhone 4   */
+/* ========================================== */
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2) { 
+/*	.logo {
+		background: url(logo2x.jpg) no-repeat;
+		background-size: 212px 303px;
+	}*/
+}
