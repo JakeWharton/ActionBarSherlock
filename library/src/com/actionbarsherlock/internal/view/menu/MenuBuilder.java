@@ -29,6 +29,7 @@ import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.support.v4.view.Menu;
 import android.support.v4.view.MenuItem;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.ContextThemeWrapper;
 import android.view.KeyEvent;
@@ -38,6 +39,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 public class MenuBuilder implements Menu {
+	private static final boolean DEBUG = false;
+	
 	public static final int NUM_TYPES = 3;
 	public static final int TYPE_NATIVE = 0;
 	public static final int TYPE_ACTION_BAR = 1;
@@ -173,11 +176,25 @@ public class MenuBuilder implements Menu {
 			maxActions -= 1;
 		}
 		
+		if (DEBUG) {
+			Log.e("MenuBuilder", "visible item count = " + itemsSize);
+			Log.e("MenuBuilder", "requiredItems = " + requiredItems);
+			Log.e("MenuBuilder", "requestedItems = " + requestedItems);
+			Log.e("MenuBuilder", "hasOverflow = " + hasOverflow);
+			Log.e("MenuBuilder", "reserveOverflow = " + reserveActionOverflow);
+			Log.e("MenuBuilder", "maxActions (global) = " + mMaxActionItems);
+			Log.e("MenuBuilder", "maxActions (local) = " + maxActions);
+		}
+		
 		mActionButtonGroups.clear();
 		for (int i = 0; i < itemsSize; i++) {
 			MenuItemImpl item = visibleItems.get(i);
 			final int groupId = item.getGroupId();
 			final boolean inGroup = mActionButtonGroups.get(groupId);
+			
+			if (DEBUG) {
+				Log.e("MenuBuilder", "ITEM[itemId = " + item.getItemId() + ", groupId = " + groupId + ", groupExists = " + inGroup + "]");
+			}
 
 			if (item.requiresActionButton()) {
 				View v = item.getActionView();
@@ -197,7 +214,7 @@ public class MenuBuilder implements Menu {
 					mActionButtonGroups.put(groupId, true);
 				}
 			} else if (item.requestsActionButton()) {
-				boolean isAction = (((maxActions <= 0) && !inGroup) || ((maxActions > 0) && (widthLimit > 0)));
+				boolean isAction = ((maxActions > 0) || inGroup) && (widthLimit > 0);
 				maxActions -= 1;
 				if (isAction) {
 					View v = item.getActionView();
@@ -245,6 +262,12 @@ public class MenuBuilder implements Menu {
 		}
 		
 		mIsActionItemsStale = false;
+		
+		if (DEBUG) {
+			Log.e("MenuBuilder", "item group count = " + mActionButtonGroups.size());
+			Log.e("MenuBuilder", "action items count = " + mActionItems.size());
+			Log.e("MenuBuilder", "non-action items count = " + mNonActionItems.size());
+		}
 	}
 	
 	private ViewGroup getMeasureActionButtonParent() {
