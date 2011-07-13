@@ -35,15 +35,16 @@
 	p { margin: 1em 0; }
 	p.lead { font-weight: bold; font-size: 1.2em; }
 	p.link { font-family: "Courier New", Monaco, "DejaVu Sans Mono", monospace; margin-left: 1em; font-size: 0.9em; }
-	ul { margin: 1em 0 1em 2em; }
+	ul, ol { margin: 1em 0 1em 2em; }
 	li { margin: 0.25em 0; }
 	dt { font-weight: bold; }
 	dd { margin: 0.25em 0 1em 1em; }
-	a img { border: 0; }
+	a img { border: 0; vertical-align: middle; }
 	a:link, a:visited, a:active { color: #72a4b4; text-shadow: 1px 0px 1px #000; text-decoration: none; font-weight: bold; }
 	a:hover { border-bottom: 1px #72a4b4 dotted; }
 	a.img:hover { border-bottom: 0px; }
 
+	.normal { font-weight: normal; }
 	.centered { text-align: center; }
 
 	#header { margin: 0; }

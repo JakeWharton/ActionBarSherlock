@@ -34,6 +34,19 @@
 				s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto';
 				t.parentNode.insertBefore(s, t);
 			})();
+
+			$(function() {
+				$.getJSON('https://api.github.com/repos/JakeWharton/ActionBarSherlock/tags?callback=?', function(response) {
+					var meta = response.meta
+					  , data = response.data
+					;
+					
+					var last = data[data.length - 1];
+					$('#latest-version').html('v' + last.name);
+					$('#latest-zip').attr('href', last.zipball_url);
+					$('#latest-tarball').attr('href', last.tarball_url);
+				});
+			});
 		</script>
 	</head>
 	<body id="home">
@@ -45,7 +58,7 @@
 					<div id="sherlock"><a href="donate.html"><img src="static/mascot.png" alt="Donations &amp; Merhandise" title="Buy me on a shirt!"/></a></div>
 					<p>The library will automatically use the native action bar when available or will automatically wrap a custom implementation around your layouts. This allows you to easily develop an application with an action bar for every version of Android back through 1.6.</p>
 					<div id="download">
-						<p><span>Download v3.0.2:</span> <a href="https://github.com/JakeWharton/ActionBarSherlock/zipball/3.0.2">Zip</a> <a href="https://github.com/JakeWharton/ActionBarSherlock/tarball/3.0.2">Tarball</a> <a id="download_more" href="download.html">More...</a></p>
+						<p><span>Download <span id="latest-version">(loading)</span>:</span> <a id="latest-zip" href="https://github.com/JakeWharton/ActionBarSherlock/downloads">Zip</a> <a id="latest-tarball" href="https://github.com/JakeWharton/ActionBarSherlock/downloads">Tarball</a> <a id="download_more" href="download.html">More...</a></p>
 					</div>
 				</div>
 				<div class="half last">
@@ -111,7 +124,7 @@
 
 			<div class="row" id="footer">
 				<div class="half">
-					<p>&copy; 2011 Jake Wharton &mdash; <a href="http://jakewharton.com">http://jakewharton.com</a> &mdash; <a href="http://twitter.com/JakeWharton">@JakeWharton</a></p>
+					<p>&copy; 2011 Jake Wharton &mdash; <a href="http://jakewharton.com">http://jakewharton.com</a></p>
 				</div>
 				<div class="half last social">
 					<g:plusone size="medium" href="http://actionbarsherlock.com"></g:plusone>
