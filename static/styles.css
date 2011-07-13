@@ -52,6 +52,8 @@
 	#nav { margin: 1em 0 2em; }
 	#nav ul { margin: 0; padding: 0; overflow: hidden; }
 	#nav li { list-style: none; margin: 1em; padding: 0 0 1px 0; float: left; }
+	#nav li:first-child { margin-left: 0; }
+	#nav li:last-child { margin-right: 0; }
 
 	#feature { color: #ddd; padding-bottom: 10px; }
 	#features { margin-top: 60px; }
