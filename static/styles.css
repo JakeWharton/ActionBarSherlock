@@ -109,6 +109,12 @@
 	#sherlock { display: none; }
 	#footer .social { text-align: left; }
 	#github img { height: 100px; }
+
+	#faq-table { display: block; width: 100%; }
+	#faq-table tbody { display: block; }
+	#faq-table tr { display: block; width: 100%; }
+	#faq-table th, #faq-table td { display: block; width: 100%; padding-right: 0; padding-left: 0; margin: 0; }
+	#faq-table th { border-bottom: none; padding-bottom: 0; }
 }
 
 
