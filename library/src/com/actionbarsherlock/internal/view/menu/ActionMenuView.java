@@ -4,7 +4,6 @@ import java.util.List;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,7 +87,6 @@ public class ActionMenuView extends LinearLayout implements MenuView, MenuBuilde
 
 	@Override
 	public void initialize(MenuBuilder menu, int menuType) {
-		Log.d("ActionMenuView", "Initializing with " + menu.toString());
 		menu.setActionWidthLimit(mWidthLimit);
 		menu.setMaxActionItems(mMaxItems);
 		if (mMenu != menu) {
@@ -119,10 +117,8 @@ public class ActionMenuView extends LinearLayout implements MenuView, MenuBuilde
 
 	@Override
 	public void updateChildren(boolean cleared) {
-		Log.d("ActionMenuView", "Updating children (" + Boolean.toString(cleared) + ")");
 		List<MenuItemImpl> menuItems = mMenu.getActionItems(false);
 		final int menuItemCount = menuItems.size();
-		Log.d("ActionMenuView", "Got " + menuItemCount + " items out of " + mMenu.size());
 		int viewIndex = 0;
 		int menuItemIndex = 0;
 		while (menuItemIndex < menuItemCount) {

@@ -274,7 +274,7 @@ public final class MenuItemImpl implements MenuItem {
 	}
 	
 	public boolean isActionButton() {
-		return ((mFlags & IS_ACTION) == IS_ACTION) && requiresActionButton();
+		return ((mFlags & IS_ACTION) == IS_ACTION) || requiresActionButton();
 	}
 
 	@Override

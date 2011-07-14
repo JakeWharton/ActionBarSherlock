@@ -177,26 +177,35 @@ public class MenuBuilder implements Menu {
 		}
 		
 		if (DEBUG) {
-			Log.e("MenuBuilder", "visible item count = " + itemsSize);
-			Log.e("MenuBuilder", "requiredItems = " + requiredItems);
-			Log.e("MenuBuilder", "requestedItems = " + requestedItems);
-			Log.e("MenuBuilder", "hasOverflow = " + hasOverflow);
-			Log.e("MenuBuilder", "reserveOverflow = " + reserveActionOverflow);
-			Log.e("MenuBuilder", "maxActions (global) = " + mMaxActionItems);
-			Log.e("MenuBuilder", "maxActions (local) = " + maxActions);
+			Log.d("MenuBuilder", "visible item count = " + itemsSize);
+			Log.d("MenuBuilder", "requiredItems = " + requiredItems);
+			Log.d("MenuBuilder", "requestedItems = " + requestedItems);
+			Log.d("MenuBuilder", "hasOverflow = " + hasOverflow);
+			Log.d("MenuBuilder", "reserveOverflow = " + reserveActionOverflow);
+			Log.d("MenuBuilder", "maxActions (global) = " + mMaxActionItems);
 		}
 		
 		mActionButtonGroups.clear();
 		for (int i = 0; i < itemsSize; i++) {
+			if (DEBUG) {
+				Log.d("MenuBuilder", "maxActions (local) = " + maxActions);
+				Log.d("MenuBuilder", "widthLimit = " + widthLimit);
+			}
+			
 			MenuItemImpl item = visibleItems.get(i);
+			final int itemId = item.getItemId();
 			final int groupId = item.getGroupId();
 			final boolean inGroup = mActionButtonGroups.get(groupId);
 			
 			if (DEBUG) {
-				Log.e("MenuBuilder", "ITEM[itemId = " + item.getItemId() + ", groupId = " + groupId + ", groupExists = " + inGroup + "]");
+				Log.d("MenuBuilder", "ITEM: itemId = " + itemId + ", groupId = " + groupId + ", groupExists = " + inGroup + "]");
 			}
 
 			if (item.requiresActionButton()) {
+				if (DEBUG) {
+					Log.d("MenuBuilder", "ITEM: requires action button.");
+				}
+				
 				View v = item.getActionView();
 				if (v != null) {
 					v = (View)item.getItemView(MenuBuilder.TYPE_ACTION_BAR, parent);
@@ -204,6 +213,12 @@ public class MenuBuilder implements Menu {
 
 				v.measure(querySpec, querySpec);
 				int measuredWidth = v.getMeasuredWidth();
+				
+				if (DEBUG) {
+					Log.d("MenuBuilder", "ITEM: view = " + v.toString());
+					Log.d("MenuBuilder", "ITEM: view width = " + measuredWidth);
+				}
+				
 				widthLimit -= measuredWidth;
 
 				if (firstActionWidth == 0) {
@@ -214,6 +229,10 @@ public class MenuBuilder implements Menu {
 					mActionButtonGroups.put(groupId, true);
 				}
 			} else if (item.requestsActionButton()) {
+				if (DEBUG) {
+					Log.d("MenuBuilder", "ITEM: requests action button.");
+				}
+				
 				boolean isAction = ((maxActions > 0) || inGroup) && (widthLimit > 0);
 				maxActions -= 1;
 				if (isAction) {
@@ -224,6 +243,12 @@ public class MenuBuilder implements Menu {
 
 					v.measure(querySpec, querySpec);
 					int measuredWidth = v.getMeasuredWidth();
+					
+					if (DEBUG) {
+						Log.d("MenuBuilder", "ITEM: view = " + v.toString());
+						Log.d("MenuBuilder", "ITEM: view width = " + measuredWidth);
+					}
+					
 					widthLimit -= measuredWidth;
 
 					if (firstActionWidth == 0) {
@@ -234,18 +259,25 @@ public class MenuBuilder implements Menu {
 						isAction = false;
 					}
 				}
-				if (isAction && (groupId != 0)) {
-					mActionButtonGroups.put(groupId, true);
+				if (isAction) {
+					if (groupId != 0) {
+						mActionButtonGroups.put(groupId, true);
+					}
 					item.setIsActionButton(true);
+					if (DEBUG) {
+						Log.d("MenuBuilder", "ITEM: isAction = true");
+					}
 				}
-			} else if (inGroup) {
-				item.setIsActionButton(true);
-			} else {
-				mActionButtonGroups.put(groupId, false);
-				for (int j = 0; j < i; j++) {
-					MenuItemImpl areYouMyGroupie = visibleItems.get(j);
-					if (areYouMyGroupie.getGroupId() == groupId) {
-						areYouMyGroupie.setIsActionButton(false);
+			} else if (groupId != 0) {
+				if (inGroup) {
+					item.setIsActionButton(true);
+				} else {
+					mActionButtonGroups.put(groupId, false);
+					for (int j = 0; j < i; j++) {
+						MenuItemImpl areYouMyGroupie = visibleItems.get(j);
+						if (areYouMyGroupie.getGroupId() == groupId) {
+							areYouMyGroupie.setIsActionButton(false);
+						}
 					}
 				}
 			}
@@ -264,9 +296,9 @@ public class MenuBuilder implements Menu {
 		mIsActionItemsStale = false;
 		
 		if (DEBUG) {
-			Log.e("MenuBuilder", "item group count = " + mActionButtonGroups.size());
-			Log.e("MenuBuilder", "action items count = " + mActionItems.size());
-			Log.e("MenuBuilder", "non-action items count = " + mNonActionItems.size());
+			Log.d("MenuBuilder", "item group count = " + mActionButtonGroups.size());
+			Log.d("MenuBuilder", "action items count = " + mActionItems.size());
+			Log.d("MenuBuilder", "non-action items count = " + mNonActionItems.size());
 		}
 	}
 	
