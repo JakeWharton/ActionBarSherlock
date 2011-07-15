@@ -20,7 +20,7 @@ $(function() {
 		});
 
 		var last = data[data.length - 1];
-		$('#latest-version').html(last.name);
+		$('.latest-version').html(last.name);
 		$('#latest-date').html('<em>Date unavailable</em>');
 		$('#latest-zip').attr('href', last.zipball_url);
 		$('#latest-tarball').attr('href', last.tarball_url);
@@ -49,7 +49,7 @@ $(function() {
 <div class="row">
 	<div class="three-fourths">
 		<h1>Download</h1>
-		<p><strong>Version <span id="latest-version">(loading)</span></strong> &mdash; <span id="latest-date">(loading)</span> (<a href="#">change log</a>)</p>
+		<p><strong>Version <span class="latest-version">(loading)</span></strong> &mdash; <span id="latest-date">(loading)</span> (<a href="#">change log</a>)</p>
 		<p><a class="img" id="latest-zip" href="https://github.com/JakeWharton/ActionBarSherlock/downloads"><img src="static/icon_zip.png" alt="Zip"/></a> <a class="img" id="latest-tarball" href="https://github.com/JakeWharton/ActionBarSherlock/downloads"><img src="static/icon_tgz.png" alt="Tarball"/></a></p>
 
 		<h3>Sample Applications</h3>
@@ -67,7 +67,7 @@ $(function() {
 &lt;dependency>
   &lt;groupId>com.actionbarsherlock&lt;/groupId>
   &lt;artifactId>library&lt;/artifactId>
-  &lt;version>3.0.2&lt;/version>
+  &lt;version><span class="latest-version">3.0.2</span>&lt;/version>
   &lt;type>apklib&lt;/type>
 &lt;/dependency>
 </pre></code>
