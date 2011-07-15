@@ -47,6 +47,8 @@
 	.normal { font-weight: normal; }
 	.centered { text-align: center; }
 
+	.warning { border: 1px solid #d33; padding: 1em; margin: 2em 3em; background-color: rgba(255, 0, 0, 0.2); color: #ddd; }
+
 	#header { margin: 0; }
 
 	#nav { margin: 1em 0 2em; }
