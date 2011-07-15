@@ -43,13 +43,21 @@ $(function() {
 			);
 		});
 	});
+
+
+	$('#changelog').colorbox({
+		width: '80%',
+		maxWidth: 1030,
+		height: '90%',
+		iframe: 'true',
+	});
 });
 </script>
 
 <div class="row">
 	<div class="three-fourths">
 		<h1>Download</h1>
-		<p><strong>Version <span class="latest-version">(loading)</span></strong> &mdash; <span id="latest-date">(loading)</span> (<a href="#">change log</a>)</p>
+		<p><strong>Version <span class="latest-version">(loading)</span></strong> &mdash; <span id="latest-date">(loading)</span> (<a id="changelog" href="https://github.com/JakeWharton/ActionBarSherlock/tree/master/CHANGELOG.md#readme">change log</a>)</p>
 		<p><a class="img" id="latest-zip" href="https://github.com/JakeWharton/ActionBarSherlock/downloads"><img src="static/icon_zip.png" alt="Zip"/></a> <a class="img" id="latest-tarball" href="https://github.com/JakeWharton/ActionBarSherlock/downloads"><img src="static/icon_tgz.png" alt="Tarball"/></a></p>
 
 		<h3>Sample Applications</h3>
