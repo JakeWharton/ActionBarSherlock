@@ -198,7 +198,7 @@ public class MenuBuilder implements Menu {
 			final boolean inGroup = mActionButtonGroups.get(groupId);
 			
 			if (DEBUG) {
-				Log.d("MenuBuilder", "ITEM: itemId = " + itemId + ", groupId = " + groupId + ", groupExists = " + inGroup + "]");
+				Log.d("MenuBuilder", "ITEM: itemId = " + itemId + ", groupId = " + groupId + ", groupExists = " + inGroup);
 			}
 
 			if (item.requiresActionButton()) {
@@ -270,7 +270,7 @@ public class MenuBuilder implements Menu {
 				}
 			} else if (groupId != 0) {
 				if (inGroup) {
-					item.setIsActionButton(true);
+					item.setIsActionButton(mActionButtonGroups.get(groupId));
 				} else {
 					mActionButtonGroups.put(groupId, false);
 					for (int j = 0; j < i; j++) {
