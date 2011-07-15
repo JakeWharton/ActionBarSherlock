@@ -82,7 +82,7 @@
 	#sherlock { float: left; margin-right: 30px; }
 	#sherlock a:hover { border-bottom: none; }
 
-	#download { text-align: center; margin-top: 2.5em; margin-bottom: 2em; }
+	#download { text-align: center; margin-top: 2.5em; margin-bottom: 2em; white-space: nowrap; }
 	#download p { background: #333; display: inline; padding: 8px 15px; border-radius: 10px; text-shadow: none; font-weight: bold; }
 	#download p span { padding-right: 5px; }
 	#download p a { padding: 1px 3px; }
