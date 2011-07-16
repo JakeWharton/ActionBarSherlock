@@ -1,7 +1,7 @@
 Change Log
 ===============================================================================
 
-Version 3.0.2 *(2010-06-23)*
+Version 3.0.2 *(2011-06-23)*
 ----------------------------
 
 * Sub-menus for action items are now shown in a list dialog.
@@ -12,7 +12,7 @@ Version 3.0.2 *(2010-06-23)*
   and without warning.
 
 
-Version 3.0.1 *(2010-06-08)*
+Version 3.0.1 *(2011-06-08)*
 ----------------------------
 
 * Fix: `onOptionsItemSelected()` not being called in fragments if the activity
@@ -25,7 +25,7 @@ Version 3.0.1 *(2010-06-08)*
   the view.
 
 
-Version 3.0.0 *(2010-06-05)*
+Version 3.0.0 *(2011-06-05)*
 ----------------------------
 
 The API has been rewritten to mimic that of the native action bar. As a result,
