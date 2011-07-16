@@ -17,7 +17,6 @@
 
 	<modules>
 		<module>featuredemo</module>
-		<module>hcgallery</module>
 		<module>shakespeare</module>
 		<module>styled</module>
 	</modules>
