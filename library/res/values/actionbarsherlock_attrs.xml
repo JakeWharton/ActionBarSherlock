@@ -37,7 +37,6 @@
         <attr name="actionMenuTextColor" format="color|reference" />
         
         
-        <attr name="actionModeStyle" format="reference" />
         <attr name="actionModeCloseButtonStyle" format="reference" />
         <!-- Background drawable to use for action mode UI -->
         <attr name="actionModeBackground" format="reference" />
@@ -50,9 +49,6 @@
         <attr name="actionModeCopyDrawable" format="reference" />
         <!-- Drawable to use for the Paste action button in Contextual Action Bar -->
         <attr name="actionModePasteDrawable" format="reference" />
-
-        <!-- PopupWindow style to use for action modes when showing as a window overlay. -->
-        <attr name="actionModePopupWindowStyle" format="reference" />
         
         <!-- Specifies a drawable to use for the 'home as up' indicator. -->
         <attr name="homeAsUpIndicator" format="reference" />

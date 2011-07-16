@@ -17,8 +17,6 @@
         <item name="actionModeCopyDrawable">@drawable/ic_menu_copy_holo_dark</item>
         <item name="actionModeCutDrawable">@drawable/ic_menu_cut_holo_dark</item>
         <item name="actionModePasteDrawable">@drawable/ic_menu_paste_holo_dark</item>
-        <item name="actionModePopupWindowStyle">@style/Widget.Sherlock.PopupWindow.ActionMode</item>
-        <item name="actionModeStyle">@style/Widget.Sherlock.ActionMode</item>
         <item name="actionOverflowButtonStyle">@style/Widget.Sherlock.ActionButton.Overflow</item>
         <item name="actionSpinnerItemStyle">@android:style/Widget.Holo.TextView.SpinnerItem</item>
         <item name="dropDownListViewStyle">@style/Widget.Sherlock.ListView.DropDown</item>
@@ -41,8 +39,6 @@
 		<item name="android:actionModeCopyDrawable">?actionModeCopyDrawable</item>
 		<item name="android:actionModeCutDrawable">?actionModeCutDrawable</item>
 		<item name="android:actionModePasteDrawable">?actionModePasteDrawable</item>
-        <item name="android:actionModePopupWindowStyle">?actionModePopupWindowStyle</item>
-        <item name="android:actionModeStyle">?actionModeStyle</item>
 		<item name="android:actionOverflowButtonStyle">?actionOverflowButtonStyle</item>
         <item name="android:dropDownListViewStyle">?dropDownListViewStyle</item>
 		<item name="android:popupMenuStyle">?popupMenuStyle</item>
@@ -65,8 +61,6 @@
         <item name="actionModeCopyDrawable">@drawable/ic_menu_copy_holo_light</item>
         <item name="actionModeCutDrawable">@drawable/ic_menu_cut_holo_light</item>
         <item name="actionModePasteDrawable">@drawable/ic_menu_paste_holo_light</item>
-        <item name="actionModePopupWindowStyle">@style/Widget.Sherlock.Light.PopupWindow.ActionMode</item>
-        <item name="actionModeStyle">@style/Widget.Sherlock.Light.ActionMode</item>
         <item name="actionOverflowButtonStyle">@style/Widget.Sherlock.Light.ActionButton.Overflow</item>
         <item name="actionSpinnerItemStyle">@android:style/Widget.Holo.Light.TextView.SpinnerItem</item>
         <item name="dropDownListViewStyle">@style/Widget.Sherlock.Light.ListView.DropDown</item>
@@ -89,8 +83,6 @@
 		<item name="android:actionModeCopyDrawable">?actionModeCopyDrawable</item>
 		<item name="android:actionModeCutDrawable">?actionModeCutDrawable</item>
 		<item name="android:actionModePasteDrawable">?actionModePasteDrawable</item>
-        <item name="android:actionModePopupWindowStyle">?actionModePopupWindowStyle</item>
-        <item name="android:actionModeStyle">?actionModeStyle</item>
 		<item name="android:actionOverflowButtonStyle">?actionOverflowButtonStyle</item>
         <item name="android:dropDownListViewStyle">?dropDownListViewStyle</item>
 		<item name="android:popupMenuStyle">?popupMenuStyle</item>

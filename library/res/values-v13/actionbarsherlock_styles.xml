@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+	<style name="Widget.Sherlock.ActionBarView_TabBar" parent="android:style/Widget.Holo.ActionBar.TabBar"></style>
+	<style name="Widget.Sherlock.ActionBarView_TabView" parent="android:style/Widget.Holo.ActionBar.TabView"></style>
+	<style name="Widget.Sherlock.ActionBarView_TabText" parent="android:style/Widget.Holo.ActionBar.TabText"></style>
+	
+	<style name="Widget.Sherlock.Light.ActionBarView_TabBar" parent="android:style/Widget.Holo.Light.ActionBar.TabBar"></style>
+	<style name="Widget.Sherlock.Light.ActionBarView_TabView" parent="android:style/Widget.Holo.Light.ActionBar.TabView"></style>
+	<style name="Widget.Sherlock.Light.ActionBarView_TabText" parent="android:style/Widget.Holo.Light.ActionBar.TabText"></style>
+</resources>

@@ -18,8 +18,6 @@
         <item name="actionModeCopyDrawable">@drawable/ic_menu_copy_holo_dark</item>
         <item name="actionModeCutDrawable">@drawable/ic_menu_cut_holo_dark</item>
         <item name="actionModePasteDrawable">@drawable/ic_menu_paste_holo_dark</item>
-        <item name="actionModePopupWindowStyle">@style/Widget.Sherlock.PopupWindow.ActionMode</item>
-        <item name="actionModeStyle">@style/Widget.Sherlock.ActionMode</item>
         <item name="actionOverflowButtonStyle">@style/Widget.Sherlock.ActionButton.Overflow</item>
         <item name="actionSpinnerItemStyle">@style/Widget.Sherlock.TextView.SpinnerItem.ActionBar</item>
         <item name="dropDownListViewStyle">@style/Widget.Sherlock.ListView.DropDown</item>
@@ -46,8 +44,6 @@
         <item name="actionModeCopyDrawable">@drawable/ic_menu_copy_holo_light</item>
         <item name="actionModeCutDrawable">@drawable/ic_menu_cut_holo_light</item>
         <item name="actionModePasteDrawable">@drawable/ic_menu_paste_holo_light</item>
-        <item name="actionModePopupWindowStyle">@style/Widget.Sherlock.Light.PopupWindow.ActionMode</item>
-        <item name="actionModeStyle">@style/Widget.Sherlock.Light.ActionMode</item>
         <item name="actionOverflowButtonStyle">@style/Widget.Sherlock.Light.ActionButton.Overflow</item>
         <item name="actionSpinnerItemStyle">@style/Widget.Sherlock.Light.TextView.SpinnerItem.ActionBar</item>
         <item name="dropDownListViewStyle">@style/Widget.Sherlock.Light.ListView.DropDown</item>

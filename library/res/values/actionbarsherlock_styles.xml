@@ -41,9 +41,6 @@
 	<style name="Widget.Sherlock.ActionButton.CloseMode">
 	</style>
 	
-	<style name="Widget.Sherlock.PopupWindow.ActionMode" parent="android:style/Widget">
-	</style>
-	
 	<style name="Widget.Sherlock.ActionButton.Home">
 		<item name="android:paddingLeft">0dip</item>
 		<item name="android:paddingRight">0dip</item>
@@ -122,9 +119,6 @@
 	<style name="Widget.Sherlock.Light.ActionMode" parent="android:style/Widget">
         <item name="android:titleTextStyle">@style/TextAppearance.Sherlock.Light.Widget.ActionMode.Title</item>
         <item name="android:subtitleTextStyle">@style/TextAppearance.Sherlock.Light.Widget.ActionMode.Subtitle</item>
-	</style>
-	
-	<style name="Widget.Sherlock.Light.PopupWindow.ActionMode" parent="android:style/Widget">
 	</style>
 	
 	<style name="Widget.Sherlock.Light.ListView.DropDown" parent="android:style/Widget.ListView.DropDown">

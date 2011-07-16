@@ -1,6 +1,17 @@
 Change Log
 ===============================================================================
 
+Version 3.0.3 *(In Development)*
+--------------------------------
+
+This version is a hotfix for incompatibilities introduced with the SDKs for
+3.1 r2 and 3.2 r1. Due to unavoidable changes in the underlying SDK, the library
+must now be compiled against API level 13.
+
+* `actionModeStyle` and `actionModePopupWindowStyle` are no longer valid theme
+  attributes.
+
+
 Version 3.0.2 *(2011-06-23)*
 ----------------------------
 

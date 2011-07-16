@@ -91,8 +91,8 @@
 		<apk.prefix>actionbarsherlock</apk.prefix>
 
 		<java.version>1.6</java.version>
-		<android.version>3.1_r1</android.version>
-		<android.platform>12</android.platform>
+		<android.version>3.2_r1</android.version>
+		<android.platform>13</android.platform>
 	</properties>
 
 	<dependencyManagement>

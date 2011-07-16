@@ -2,28 +2,20 @@
 
 <resources>
 	<style name="Widget.Sherlock.ActionBar" parent="android:style/Widget.Holo.ActionBar"></style>
-	<style name="Widget.Sherlock.ActionBarView_TabBar" parent="android:style/Widget.Holo.ActionBarView_TabBar"></style>
-	<style name="Widget.Sherlock.ActionBarView_TabView" parent="android:style/Widget.Holo.ActionBarView_TabView"></style>
-	<style name="Widget.Sherlock.ActionBarView_TabText" parent="android:style/Widget.Holo.ActionBarView_TabText"></style>
 	<style name="Widget.Sherlock.ActionButton" parent="android:style/Widget.Holo.ActionButton"></style>
-	<style name="Widget.Sherlock.Spinner.DropDown.ActionBar" parent="android:style/Widget.Holo.Spinner.DropDown.ActionBar"></style>
+	<style name="Widget.Sherlock.Spinner.DropDown.ActionBar" parent="android:style/Widget.Holo.Spinner"></style>
 	<style name="Widget.Sherlock.ActionMode" parent="android:style/Widget.Holo.ActionMode"></style>
 	<style name="Widget.Sherlock.ActionButton.CloseMode" parent="android:Widget.Holo.ActionButton.CloseMode"></style>
-	<style name="Widget.Sherlock.PopupWindow.ActionMode" parent="android:Widget.Holo.PopupWindow.ActionMode"></style>
 	<style name="Widget.Sherlock.ActionButton.Overflow" parent="android:style/Widget.Holo.ActionButton.Overflow"></style>
 	<style name="Widget.Sherlock.ListView.DropDown" parent="android:style/Widget.Holo.ListView.DropDown"></style>
 	<style name="Widget.Sherlock.ListPopupWindow" parent="android:style/Widget.Holo.ListPopupWindow"></style>
 	<style name="Widget.Sherlock.PopupMenu" parent="android:style/Widget.Holo.PopupMenu"></style>
 	
 	<style name="Widget.Sherlock.Light.ActionBar" parent="android:style/Widget.Holo.Light.ActionBar"></style>
-	<style name="Widget.Sherlock.Light.ActionBarView_TabBar" parent="android:style/Widget.Holo.Light.ActionBarView_TabBar"></style>
-	<style name="Widget.Sherlock.Light.ActionBarView_TabView" parent="android:style/Widget.Holo.Light.ActionBarView_TabView"></style>
-	<style name="Widget.Sherlock.Light.ActionBarView_TabText" parent="android:style/Widget.Holo.Light.ActionBarView_TabText"></style>
 	<style name="Widget.Sherlock.Light.ActionButton" parent="android:style/Widget.Holo.Light.ActionButton"></style>
-	<style name="Widget.Sherlock.Light.Spinner.DropDown.ActionBar" parent="android:style/Widget.Holo.Light.Spinner.DropDown.ActionBar"></style>
+	<style name="Widget.Sherlock.Light.Spinner.DropDown.ActionBar" parent="android:style/Widget.Holo.Light.Spinner"></style>
 	<style name="Widget.Sherlock.Light.ActionMode" parent="android:style/Widget.Holo.Light.ActionMode"></style>
 	<style name="Widget.Sherlock.Light.ActionButton.CloseMode" parent="android:Widget.Holo.Light.ActionButton.CloseMode"></style>
-	<style name="Widget.Sherlock.Light.PopupWindow.ActionMode" parent="android:Widget.Holo.Light.PopupWindow.ActionMode"></style>
 	<style name="Widget.Sherlock.Light.ActionButton.Overflow" parent="android:style/Widget.Holo.Light.ActionButton.Overflow"></style>
 	<style name="Widget.Sherlock.Light.ListView.DropDown" parent="android:style/Widget.Holo.Light.ListView.DropDown"></style>
 	<style name="Widget.Sherlock.Light.ListPopupWindow" parent="android:style/Widget.Holo.Light.ListPopupWindow"></style>
