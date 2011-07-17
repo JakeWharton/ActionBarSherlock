@@ -255,6 +255,24 @@ public class FragmentActivity extends Activity {
 		}
 	}
 	
+	@Override
+	public void setTitle(CharSequence title) {
+		if ((mActionBar != null) && !IS_HONEYCOMB) {
+			mActionBar.setTitle(title);
+		} else {
+			super.setTitle(title);
+		}
+	}
+
+	@Override
+	public void setTitle(int titleId) {
+		if ((mActionBar != null) && !IS_HONEYCOMB) {
+			mActionBar.setTitle(titleId);
+		} else {
+			super.setTitle(titleId);
+		}
+	}
+
 	/**
 	 * Dispatch incoming result to the correct fragment.
 	 */
