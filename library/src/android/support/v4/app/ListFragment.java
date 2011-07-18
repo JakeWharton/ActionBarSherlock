@@ -16,6 +16,7 @@
 
 package android.support.v4.app;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Gravity;
@@ -25,8 +26,10 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 /**
@@ -38,6 +41,8 @@ import android.widget.TextView;
  */
 public class ListFragment extends Fragment {
     static final int INTERNAL_EMPTY_ID = 0x00ff0001;
+    static final int INTERNAL_PROGRESS_CONTAINER_ID = 0x00ff0002;
+    static final int INTERNAL_LIST_CONTAINER_ID = 0x00ff0003;
     
     final private Handler mHandler = new Handler();
 
@@ -60,7 +65,7 @@ public class ListFragment extends Fragment {
     TextView mStandardEmptyView;
     View mProgressContainer;
     View mListContainer;
-    boolean mSetEmptyText;
+    CharSequence mEmptyText;
     boolean mListShown;
 
     public ListFragment() {
@@ -83,33 +88,60 @@ public class ListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        FrameLayout root = new FrameLayout(getActivity());
+        final Context context = getActivity();
+
+        FrameLayout root = new FrameLayout(context);
+
+        // ------------------------------------------------------------------
+
+        LinearLayout pframe = new LinearLayout(context);
+        pframe.setId(INTERNAL_PROGRESS_CONTAINER_ID);
+        pframe.setOrientation(LinearLayout.VERTICAL);
+        pframe.setVisibility(View.GONE);
+        pframe.setGravity(Gravity.CENTER);
+
+        ProgressBar progress = new ProgressBar(context, null,
+                android.R.attr.progressBarStyleLarge);
+        pframe.addView(progress, new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+        root.addView(pframe, new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT));
+
+        // ------------------------------------------------------------------
+
+        FrameLayout lframe = new FrameLayout(context);
+        lframe.setId(INTERNAL_LIST_CONTAINER_ID);
         
         TextView tv = new TextView(getActivity());
         tv.setId(INTERNAL_EMPTY_ID);
         tv.setGravity(Gravity.CENTER);
-        root.addView(tv, new FrameLayout.LayoutParams(
+        lframe.addView(tv, new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT));
         
         ListView lv = new ListView(getActivity());
         lv.setId(android.R.id.list);
         lv.setDrawSelectorOnTop(false);
-        root.addView(lv, new FrameLayout.LayoutParams(
+        lframe.addView(lv, new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT));
+
+        root.addView(lframe, new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT));
         
-        ListView.LayoutParams lp = new ListView.LayoutParams(
-                ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT);
-        root.setLayoutParams(lp);
+        // ------------------------------------------------------------------
+
+        root.setLayoutParams(new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT));
         
         return root;
     }
 
     /**
-     * Attach to list view once Fragment is ready to run.
+     * Attach to list view once the view hierarchy has been created.
      */
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         ensureList();
     }
 
@@ -120,6 +152,9 @@ public class ListFragment extends Fragment {
     public void onDestroyView() {
         mHandler.removeCallbacks(mRequestFocus);
         mList = null;
+        mListShown = false;
+        mEmptyView = mProgressContainer = mListContainer = null;
+        mStandardEmptyView = null;
         super.onDestroyView();
     }
 
@@ -199,10 +234,10 @@ public class ListFragment extends Fragment {
             throw new IllegalStateException("Can't be used with a custom content view");
         }
         mStandardEmptyView.setText(text);
-        if (!mSetEmptyText) {
+        if (mEmptyText == null) {
             mList.setEmptyView(mStandardEmptyView);
-            mSetEmptyText = true;
         }
+        mEmptyText = text;
     }
     
     /**
@@ -256,6 +291,9 @@ public class ListFragment extends Fragment {
                         getActivity(), android.R.anim.fade_out));
                 mListContainer.startAnimation(AnimationUtils.loadAnimation(
                         getActivity(), android.R.anim.fade_in));
+            } else {
+                mProgressContainer.clearAnimation();
+                mListContainer.clearAnimation();
             }
             mProgressContainer.setVisibility(View.GONE);
             mListContainer.setVisibility(View.VISIBLE);
@@ -265,6 +303,9 @@ public class ListFragment extends Fragment {
                         getActivity(), android.R.anim.fade_in));
                 mListContainer.startAnimation(AnimationUtils.loadAnimation(
                         getActivity(), android.R.anim.fade_out));
+            } else {
+                mProgressContainer.clearAnimation();
+                mListContainer.clearAnimation();
             }
             mProgressContainer.setVisibility(View.VISIBLE);
             mListContainer.setVisibility(View.GONE);
@@ -292,9 +333,11 @@ public class ListFragment extends Fragment {
             mStandardEmptyView = (TextView)root.findViewById(INTERNAL_EMPTY_ID);
             if (mStandardEmptyView == null) {
                 mEmptyView = root.findViewById(android.R.id.empty);
+            } else {
+                mStandardEmptyView.setVisibility(View.GONE);
             }
-            mProgressContainer = null; //root.findViewById(com.android.internal.R.id.progressContainer);
-            mListContainer = null; //root.findViewById(com.android.internal.R.id.listContainer);
+            mProgressContainer = root.findViewById(INTERNAL_PROGRESS_CONTAINER_ID);
+            mListContainer = root.findViewById(INTERNAL_LIST_CONTAINER_ID);
             View rawListView = root.findViewById(android.R.id.list);
             if (!(rawListView instanceof ListView)) {
                 if (rawListView == null) {
@@ -309,12 +352,17 @@ public class ListFragment extends Fragment {
             mList = (ListView)rawListView;
             if (mEmptyView != null) {
                 mList.setEmptyView(mEmptyView);
+            } else if (mEmptyText != null) {
+                mStandardEmptyView.setText(mEmptyText);
+                mList.setEmptyView(mStandardEmptyView);
             }
         }
         mListShown = true;
         mList.setOnItemClickListener(mOnClickListener);
         if (mAdapter != null) {
-            setListAdapter(mAdapter);
+            ListAdapter adapter = mAdapter;
+            mAdapter = null;
+            setListAdapter(adapter);
         } else {
             // We are starting without an adapter, so assume we won't
             // have our data right away and start with the progress indicator.

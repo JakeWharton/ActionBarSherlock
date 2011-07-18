@@ -209,6 +209,7 @@ class LoaderManagerImpl extends LoaderManager {
         boolean mStarted;
         boolean mRetaining;
         boolean mRetainingStarted;
+        boolean mReportNextStart;
         boolean mDestroyed;
         boolean mListenerRegistered;
 
@@ -277,7 +278,7 @@ class LoaderManagerImpl extends LoaderManager {
                 }
             }
 
-            if (mStarted && mHaveData) {
+            if (mStarted && mHaveData && !mReportNextStart) {
                 // This loader has retained its data, either completely across
                 // a configuration change or just whatever the last data set
                 // was after being restarted from a stop, and now at the point of
@@ -288,6 +289,17 @@ class LoaderManagerImpl extends LoaderManager {
             }
         }
         
+        void reportStart() {
+            if (mStarted) {
+                if (mReportNextStart) {
+                    mReportNextStart = false;
+                    if (mHaveData) {
+                        callOnLoadFinished(mLoader, mData);
+                    }
+                }
+            }
+        }
+
         void stop() {
             if (DEBUG) Log.v(TAG, "  Stopping: " + this);
             mStarted = false;
@@ -435,10 +447,11 @@ class LoaderManagerImpl extends LoaderManager {
                 writer.print(prefix); writer.print("mData="); writer.println(mData);
             }
             writer.print(prefix); writer.print("mStarted="); writer.print(mStarted);
-                    writer.print(" mRetaining="); writer.print(mRetaining);
+                    writer.print(" mReportNextStart="); writer.print(mReportNextStart);
                     writer.print(" mDestroyed="); writer.println(mDestroyed);
-            writer.print(prefix); writer.print("mListenerRegistered=");
-                    writer.println(mListenerRegistered);
+            writer.print(prefix); writer.print("mRetaining="); writer.print(mRetaining);
+                    writer.print(" mRetainingStarted="); writer.print(mRetainingStarted);
+                    writer.print(" mListenerRegistered="); writer.println(mListenerRegistered);
             if (mPendingLoader != null) {
                 writer.print(prefix); writer.println("Pending Loader ");
                         writer.print(mPendingLoader); writer.println(":");
@@ -495,7 +508,7 @@ class LoaderManagerImpl extends LoaderManager {
      * <p>This function should generally be used when a component is initializing,
      * to ensure that a Loader it relies on is created.  This allows it to re-use
      * an existing Loader's data if there already is one, so that for example
-     * when an {@link FragmentActivity} is re-created after a configuration change it
+     * when an {@link Activity} is re-created after a configuration change it
      * does not need to re-create its loaders.
      * 
      * <p>Note that in the case where an existing Loader is re-used, the
@@ -726,6 +739,18 @@ class LoaderManagerImpl extends LoaderManager {
         }
     }
     
+    void doReportNextStart() {
+        for (int i = mLoaders.size()-1; i >= 0; i--) {
+            mLoaders.valueAt(i).mReportNextStart = true;
+        }
+    }
+
+    void doReportStart() {
+        for (int i = mLoaders.size()-1; i >= 0; i--) {
+            mLoaders.valueAt(i).reportStart();
+        }
+    }
+
     void doDestroy() {
         if (!mRetaining) {
             if (DEBUG) Log.v(TAG, "Destroying Active in " + this);

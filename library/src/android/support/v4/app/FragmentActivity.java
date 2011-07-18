@@ -78,6 +78,7 @@ public class FragmentActivity extends Activity {
 	private static final boolean IS_HONEYCOMB = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
 
 	static final int MSG_REALLY_STOPPED = 1;
+	static final int MSG_RESUME_PENDING = 2;
 
 	final Handler mHandler = new Handler() {
 		@Override
@@ -87,6 +88,10 @@ public class FragmentActivity extends Activity {
 					if (mStopped) {
 						doReallyStop(false);
 					}
+					break;
+				case MSG_RESUME_PENDING:
+					mFragments.dispatchResume();
+					mFragments.execPendingActions();
 					break;
 				default:
 					super.handleMessage(msg);
@@ -104,6 +109,7 @@ public class FragmentActivity extends Activity {
 		}
 	};
 	
+	boolean mCreated;
 	boolean mResumed;
 	boolean mStopped;
 	boolean mReallyStopped;
@@ -560,7 +566,7 @@ public class FragmentActivity extends Activity {
 				
 			case Window.FEATURE_CONTEXT_MENU:
 				return mFragments.dispatchContextItemSelected(item);
-			
+
 			default:
 				return false;
 		}
@@ -600,16 +606,22 @@ public class FragmentActivity extends Activity {
 	protected void onPause() {
 		super.onPause();
 		mResumed = false;
+		if (mHandler.hasMessages(MSG_RESUME_PENDING)) {
+			mHandler.removeMessages(MSG_RESUME_PENDING);
+			mFragments.dispatchResume();
+		}
 		mFragments.dispatchPause();
 	}
 
 	/**
-	 * Dispatch onActivityCreated() on fragments.
+	 * Dispatch onResume() to fragments.
 	 */
 	@Override
-	protected void onPostCreate(Bundle savedInstanceState) {
-		super.onPostCreate(savedInstanceState);
-		mFragments.dispatchActivityCreated();
+	protected void onResume() {
+		super.onResume();
+		mHandler.sendEmptyMessage(MSG_RESUME_PENDING);
+		mResumed = true;
+		mFragments.execPendingActions();
 	}
 
 	/**
@@ -618,6 +630,7 @@ public class FragmentActivity extends Activity {
 	@Override
 	protected void onPostResume() {
 		super.onPostResume();
+		mHandler.removeMessages(MSG_RESUME_PENDING);
 		mFragments.dispatchResume();
 		mFragments.execPendingActions();
 	}
@@ -713,16 +726,6 @@ public class FragmentActivity extends Activity {
 	}
 
 	/**
-	 * Ensure any outstanding fragment transactions have been committed.
-	 */
-	@Override
-	protected void onResume() {
-		super.onResume();
-		mResumed = true;
-		mFragments.execPendingActions();
-	}
-
-	/**
 	 * Retain all appropriate fragment and loader state.  You can NOT
 	 * override this yourself!
 	 */
@@ -782,9 +785,13 @@ public class FragmentActivity extends Activity {
 		mStopped = false;
 		mHandler.removeMessages(MSG_REALLY_STOPPED);
 
+		if (!mCreated) {
+			mCreated = true;
+			mFragments.dispatchActivityCreated();
+		}
+
 		mFragments.noteStateNotSaved();
 		mFragments.execPendingActions();
-		
 		
 		if (!mLoadersStarted) {
 			mLoadersStarted = true;
@@ -800,7 +807,9 @@ public class FragmentActivity extends Activity {
 		mFragments.dispatchStart();
 		if (mAllLoaderManagers != null) {
 			for (int i=mAllLoaderManagers.size()-1; i>=0; i--) {
-				mAllLoaderManagers.valueAt(i).finishRetain();
+				LoaderManagerImpl lm = mAllLoaderManagers.valueAt(i);
+				lm.finishRetain();
+				lm.doReportStart();
 			}
 		}
 	}
@@ -841,7 +850,8 @@ public class FragmentActivity extends Activity {
 				writer.print(Integer.toHexString(System.identityHashCode(this)));
 				writer.println(" State:");
 		String innerPrefix = prefix + "  ";
-		writer.print(innerPrefix); writer.print("mResumed=");
+		writer.print(innerPrefix); writer.print("mCreated=");
+				writer.print(mCreated); writer.print("mResumed=");
 				writer.print(mResumed); writer.print(" mStopped=");
 				writer.print(mStopped); writer.print(" mReallyStopped=");
 				writer.println(mReallyStopped);

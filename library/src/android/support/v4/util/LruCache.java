@@ -19,8 +19,6 @@ package android.support.v4.util;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-// STOPSHIP replace "Honeycomb MR1" with numbered release 2x below
-
 /**
  * Static library version of {@code android.util.LruCache}. Used to write apps
  * that run on API levels prior to 12. When running on API level 12 or above,
