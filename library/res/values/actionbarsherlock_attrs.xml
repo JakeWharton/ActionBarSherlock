@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-	<attr name="background" format="reference|color" />
+    <attr name="background" format="reference|color" />
     <attr name="divider" format="reference|color" />
-	<attr name="height" format="reference|dimension" />
+    <attr name="height" format="reference|dimension" />
     <attr name="icon" format="reference" />
     <attr name="title" format="string" />
     <attr name="logo" format="reference" />
     <attr name="progressBarStyle" format="reference" />
-	<attr name="listIndicator" format="reference" />
-	
-	<declare-styleable name="SherlockTheme">
+    <attr name="listIndicator" format="reference" />
+    
+    <declare-styleable name="SherlockTheme">
         <!-- Default ActionBar dropdown style. -->
         <attr name="actionDropDownStyle" format="reference" />
         <!-- Default action button style. -->
         <attr name="actionButtonStyle" format="reference" />
-	
-	
+    
+    
         <!-- Default style for tabs within an action bar -->
         <attr name="actionBarTabStyle" format="reference" />
         <attr name="actionBarTabBarStyle" format="reference" />
@@ -65,8 +65,8 @@
         <attr name="dropdownListPreferredItemHeight" format="dimension" />
         
         <attr name="actionSpinnerItemStyle" format="reference" />
-	</declare-styleable>
-	
+    </declare-styleable>
+    
     <!-- Attributes used to style the Action Bar. -->
     <declare-styleable name="SherlockActionBar">
         <!-- The type of navigation to use. -->
