@@ -20,6 +20,7 @@
                 <item name="selectableItemBackground">@drawable/ad_selectable_background</item>
                 <item name="popupMenuStyle">@style/MyPopupMenu</item>
                 <item name="dropDownListViewStyle">@style/MyDropDownListView</item>
+                <item name="abLogo">@drawable/ad_logo</item>
         <item name="actionBarTabStyle">@style/MyActionBarTabStyle</item>
         <item name="actionDropDownStyle">@style/MyDropDownNav</item>
         <item name="android:listChoiceIndicatorMultiple">@drawable/ad_btn_check_holo_light</item>
@@ -38,14 +39,14 @@
         </style>
 
     <!-- style for the tabs -->
-    <style name="MyActionBarTabStyle" parent="Widget.Sherlock.Light.ActionBarView_TabView">
+    <style name="MyActionBarTabStyle" parent="Widget.Sherlock.Light.ActionBar.TabView">
         <item name="android:background">@drawable/actionbar_tab_bg</item>
         <item name="android:paddingLeft">6dp</item>
         <item name="android:paddingRight">6dp</item>
     </style>
         
         <!-- style the list navigation -->
-        <style name="MyDropDownNav" parent="Widget.Sherlock.Light.Spinner.DropDown.ActionBar">
+        <style name="MyDropDownNav" parent="Widget.Sherlock.Light.Spinner">
                 <item name="android:background">@drawable/ad_spinner_background_holo_light</item>
                 <item name="android:popupBackground">@drawable/ad_menu_dropdown_panel_holo_light</item>
                 <item name="android:dropDownSelector">@drawable/ad_selectable_background</item>
