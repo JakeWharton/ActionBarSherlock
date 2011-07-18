@@ -70,8 +70,8 @@ public final class ActionBarHandlerWatson extends ActionBar {
 	public void performAttach() {
 		setActivityContentView(R.layout.actionbarwatson_wrapper);
 		
-		mActionBar = (ActionBarWatson)getActivity().findViewById(R.id.actionbarwatson);
-		mContentView = (FrameLayout)getActivity().findViewById(R.id.actionbarsherlock_content);
+		mActionBar = (ActionBarWatson)getActivity().findViewById(R.id.action_bar);
+		mContentView = (FrameLayout)getActivity().findViewById(R.id.content);
 		
 		final MenuItemImpl homeMenuItem = getHomeMenuItem();
 		final ActionBarWatson.Item homeItem = mActionBar.getHomeItem();
