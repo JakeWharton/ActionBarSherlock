@@ -29,7 +29,7 @@
         <item name="abCustomNavigationLayout">@null</item>
         <item name="abDisplayOptions">useLogo|showHome|showTitle</item>
         <item name="abDivider">@drawable/list_divider_holo_dark</item>
-        <item name="abHeight">@null</item>
+        <item name="abHeight">?actionBarSize</item>
         <item name="abHomeAsUpIndicator">@drawable/ic_ab_back_holo_dark</item>
         <item name="abHomeLayout">@null</item>
         <item name="abIcon">@null</item>
@@ -133,7 +133,7 @@
         <item name="abCustomNavigationLayout">@null</item>
         <item name="abDisplayOptions">useLogo|showHome|showTitle</item>
         <item name="abDivider">@drawable/list_divider_holo_light</item>
-        <item name="abHeight">@null</item>
+        <item name="abHeight">?actionBarSize</item>
         <item name="abHomeAsUpIndicator">@drawable/ic_ab_back_holo_light</item>
         <item name="abHomeLayout">@null</item>
         <item name="abIcon">@null</item>
