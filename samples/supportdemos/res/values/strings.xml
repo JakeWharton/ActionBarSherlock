@@ -15,7 +15,7 @@
 -->
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="activity_sample_code">Support v4 Demos</string>
+    <string name="activity_sample_code">ABS: Support Demos</string>
 
     <string name="hello_world"><b>Hello, <i>World!</i></b></string>
     <string name="alert_dialog_two_buttons_title">

@@ -17,7 +17,7 @@
 
 		<activity
 			android:name=".activities.TitlesActivity"
-			android:label="@string/activity_titles">
+			android:label="@string/application_label">
 			
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />

@@ -36,7 +36,7 @@
             android:compatibleWidthLimitDp="480" />
 
     <application android:label="@string/activity_sample_code"
-            android:icon="@drawable/app_sample_code"
+            android:icon="@drawable/icon"
             android:hardwareAccelerated="true"
             android:theme="@style/Theme.Sherlock">
 
