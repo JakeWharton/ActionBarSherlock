@@ -1,6 +1,15 @@
 Change Log
 ===============================================================================
 
+Version 3.0.4 *(In Development)*
+--------------------------------
+
+Library now uses the `r3` version of the compatibility library for its base.
+
+ * Added the demo project included with the new compatibility library under
+   `samples/supportdemos/`.
+
+
 Version 3.0.3 *(2011-07-17)*
 ----------------------------
 

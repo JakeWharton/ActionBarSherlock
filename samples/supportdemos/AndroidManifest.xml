@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2007 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<!-- Declare the contents of this Android application.  The namespace
+     attribute brings in the Android platform namespace, and the package
+     supplies a unique name for the application.  When writing your
+     own application, the package name must be changed from "com.example.*"
+     to come from a domain that you own or have control over. -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.android.supportv4"
+    android:versionCode="9"
+    android:versionName="3.0.3">
+
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+    <uses-sdk android:minSdkVersion="4" android:targetSdkVersion="13" />
+
+    <!-- The smallest screen this app works on is a phone.  The app will
+         scale its UI to larger screens but doesn't make good use of them
+         so allow the compatibility mode button to be shown (mostly because
+         this is just convenient for testing). -->
+    <supports-screens android:requiresSmallestWidthDp="320"
+            android:compatibleWidthLimitDp="480" />
+
+    <application android:label="@string/activity_sample_code"
+            android:icon="@drawable/app_sample_code"
+            android:hardwareAccelerated="true"
+            android:theme="@style/Theme.Sherlock">
+
+        <activity android:name="Support4Demos">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".app.SendResult"
+                android:theme="@style/ThemeDialogWhenLarge">
+        </activity>
+        
+        <!-- Fragment Support Samples -->
+
+        <activity android:name=".app.FragmentAlertDialogSupport"
+                android:label="@string/fragment_alert_dialog_support">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.example.android.supportv4.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".app.FragmentArgumentsSupport"
+                android:label="@string/fragment_arguments_support">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.example.android.supportv4.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".app.FragmentHideShowSupport"
+                android:label="@string/fragment_hide_show_support"
+                android:windowSoftInputMode="stateUnchanged">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.example.android.supportv4.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".app.FragmentContextMenuSupport"
+                android:label="@string/fragment_context_menu_support">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.example.android.supportv4.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".app.FragmentDialogSupport"
+                android:label="@string/fragment_dialog_support">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.example.android.supportv4.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".app.FragmentDialogOrActivitySupport"
+                android:label="@string/fragment_dialog_or_activity_support">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.example.android.supportv4.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".app.FragmentLayoutSupport"
+                android:label="@string/fragment_layout_support">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.example.android.supportv4.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".app.FragmentListArraySupport"
+                android:label="@string/fragment_list_array_support">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.example.android.supportv4.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".app.FragmentLayoutSupport$DetailsActivity" />
+
+        <activity android:name=".app.FragmentMenuSupport"
+                android:label="@string/fragment_menu_support">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.example.android.supportv4.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".app.FragmentRetainInstanceSupport"
+                android:label="@string/fragment_retain_instance_support">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.example.android.supportv4.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".app.FragmentReceiveResultSupport"
+                android:label="@string/fragment_receive_result_support">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.example.android.supportv4.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".app.FragmentStackSupport"
+                android:label="@string/fragment_stack_support">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.example.android.supportv4.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".app.FragmentTabs"
+                android:label="@string/fragment_tabs">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.example.android.supportv4.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".app.FragmentTabsPager"
+                android:label="@string/fragment_tabs_pager">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.example.android.supportv4.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".app.FragmentPagerSupport"
+                android:label="@string/fragment_pager_support">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.example.android.supportv4.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".app.FragmentStatePagerSupport"
+                android:label="@string/fragment_state_pager_support">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.example.android.supportv4.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".app.LoaderCursorSupport"
+                android:label="@string/loader_cursor_support">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.example.android.supportv4.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".app.LoaderCustomSupport"
+                android:label="@string/loader_custom_support">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.example.android.supportv4.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".app.LoaderThrottleSupport"
+                android:label="@string/loader_throttle_support">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.example.android.supportv4.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+        <provider android:name=".app.LoaderThrottleSupport$SimpleProvider"
+                  android:authorities="com.example.android.apis.supportv4.app.LoaderThrottle" />
+
+    </application>
+</manifest>
