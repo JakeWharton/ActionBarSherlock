@@ -40,8 +40,8 @@
     <!-- style for the tabs -->
     <style name="MyActionBarTabStyle" parent="Widget.Sherlock.Light.ActionBarView_TabView">
         <item name="android:background">@drawable/actionbar_tab_bg</item>
-        <item name="android:paddingLeft">32dp</item>
-        <item name="android:paddingRight">32dp</item>
+        <item name="android:paddingLeft">6dp</item>
+        <item name="android:paddingRight">6dp</item>
     </style>
         
         <!-- style the list navigation -->

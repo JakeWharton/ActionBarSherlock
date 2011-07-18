@@ -1,8 +1,8 @@
 Change Log
 ===============================================================================
 
-Version 3.0.3 *(In Development)*
---------------------------------
+Version 3.0.3 *(2011-07-17)*
+----------------------------
 
 This version is a hotfix for incompatibilities introduced with the SDKs for
 3.1 r2 and 3.2 r1. Due to unavoidable changes in the underlying SDK, the library
