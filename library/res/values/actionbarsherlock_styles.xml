@@ -33,14 +33,14 @@
         <item name="abHomeAsUpIndicator">@drawable/ic_ab_back_holo_dark</item>
         <item name="abHomeLayout">@null</item>
         <item name="abIcon">@null</item>
-        <item name="abIndeterminateProgressStyle">@android:style/Widget.Holo.ProgressBar</item>
+        <item name="abIndeterminateProgressStyle">@android:style/Widget.ProgressBar.Small</item>
         <item name="abItemPadding">8dip</item>
         <item name="abLogo">@null</item>
         <item name="abNavigationMode">normal</item>
         <item name="abTitle">@null</item>
         <item name="abTitleTextStyle">@style/TextAppearance.Widget.Title</item>
         <item name="abProgressBarPadding">32dip</item>
-        <item name="abProgressBarStyle">@android:style/Widget.Holo.ProgressBar.Horizontal</item>
+        <item name="abProgressBarStyle">@android:style/Widget.ProgressBar.Horizontal</item>
         <item name="abSubtitle">@null</item>
         <item name="abSubtitleTextStyle">@style/TextAppearance.Widget.Subtitle</item>
     </style>
@@ -68,7 +68,7 @@
         <item name="android:scaleType">center</item>
     </style>
     
-    <style name="Widget.Sherlock.Spinner.DropDown.ActionBar" parent="android:style/Widget.Spinner.DropDown">
+    <style name="Widget.Sherlock.Spinner" parent="android:style/Widget.Spinner.DropDown">
         <item name="android:background">@drawable/spinner_background_holo_dark</item>
         <item name="android:gravity">left|center_vertical</item>
     </style>
@@ -137,14 +137,14 @@
         <item name="abHomeAsUpIndicator">@drawable/ic_ab_back_holo_light</item>
         <item name="abHomeLayout">@null</item>
         <item name="abIcon">@null</item>
-        <item name="abIndeterminateProgressStyle">@android:style/Widget.Holo.Light.ProgressBar</item>
+        <item name="abIndeterminateProgressStyle">@android:style/Widget.ProgressBar.Small</item>
         <item name="abItemPadding">8dip</item>
         <item name="abLogo">@null</item>
         <item name="abNavigationMode">normal</item>
         <item name="abTitle">@null</item>
         <item name="abTitleTextStyle">@style/TextAppearance.Widget.Title</item>
         <item name="abProgressBarPadding">32dip</item>
-        <item name="abProgressBarStyle">@android:style/Widget.Holo.Light.ProgressBar.Horizontal</item>
+        <item name="abProgressBarStyle">@android:style/Widget.ProgressBar.Horizontal</item>
         <item name="abSubtitle">@null</item>
         <item name="abSubtitleTextStyle">@style/TextAppearance.Widget.Subtitle</item>
     </style>
@@ -184,7 +184,7 @@
         <item name="android:textColor">@color/actionbarwatson_tab_text_color_light</item>
     </style>
     
-    <style name="Widget.Sherlock.Light.Spinner.DropDown.ActionBar" parent="android:style/Widget.Spinner.DropDown">
+    <style name="Widget.Sherlock.Light.Spinner" parent="android:style/Widget.Spinner.DropDown">
         <item name="android:background">@drawable/spinner_background_holo_light</item>
         <item name="android:gravity">left|center_vertical</item>
     </style>
@@ -211,7 +211,9 @@
     
     
     
-    <style name="TextAppearance.Widget.Title" parent="@android:style/TextAppearance.Medium"></style>
+    <style name="TextAppearance.Widget.Title" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">?android:attr/textColorSecondary</item>
+    </style>
     <style name="TextAppearance.Widget.Subtitle" parent="@android:style/TextAppearance.Small">
         <item name="android:textColor">?android:attr/textColorSecondary</item>
     </style>

@@ -53,7 +53,7 @@
             android:paddingRight="5dip"
             android:indeterminateOnly="true"
             android:visibility="gone"
-            style="?android:style/Widget.ProgressBar.Small"
+            style="?abIndeterminateProgressStyle"
             />
         <com.actionbarsherlock.internal.widget.ScrollingTextView
             android:id="@+id/actionbarwatson_title"
@@ -95,7 +95,7 @@
             android:layout_height="fill_parent"
             android:layout_alignParentLeft="true"
             android:layout_toLeftOf="@id/actionbarwatson_iprogress"
-            style="?attr/actionDropDownStyle"
+            style="?actionDropDownStyle"
             />
         <LinearLayout
             android:id="@+id/actionbarwatson_nav_tabs"
@@ -107,7 +107,7 @@
             android:visibility="visible"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            style="?attr/actionBarTabBarStyle"
+            style="?actionBarTabBarStyle"
             />
         <FrameLayout
             android:id="@+id/actionbarwatson_custom"
