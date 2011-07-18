@@ -53,7 +53,7 @@
             android:paddingRight="5dip"
             android:indeterminateOnly="true"
             android:visibility="gone"
-            style="?attr/abIndeterminateProgressStyle"
+            style="?android:style/Widget.ProgressBar.Small"
             />
         <com.actionbarsherlock.internal.widget.ScrollingTextView
             android:id="@+id/actionbarwatson_title"
