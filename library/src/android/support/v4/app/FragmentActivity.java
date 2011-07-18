@@ -104,15 +104,16 @@ public class FragmentActivity extends Activity {
 	final FragmentManagerImpl mFragments = new FragmentManagerImpl();
 	
 	final ActionBar mActionBar;
-	final MenuBuilder mActionBarMenu;
-	final MenuBuilder.Callback mMenuCallback = new MenuBuilder.Callback() {
+	boolean mIsActionBarImplAttached;
+	
+	final MenuBuilder mSupportMenu;
+	final MenuBuilder.Callback mSupportMenuCallback = new MenuBuilder.Callback() {
 		@Override
 		public boolean onMenuItemSelected(MenuBuilder menu, MenuItem item) {
 			return FragmentActivity.this.onMenuItemSelected(Window.FEATURE_OPTIONS_PANEL, item);
 		}
 	};
 	
-	boolean mAttached;
 	boolean mCreated;
 	boolean mResumed;
 	boolean mStopped;
@@ -146,22 +147,21 @@ public class FragmentActivity extends Activity {
 	
 	public FragmentActivity() {
 		super();
-		mAttached = false;
 
 		if (IS_HONEYCOMB) {
 			mActionBar = ActionBarNativeImpl.createFor(this);
-			mActionBarMenu = null; //Everything should be done natively
+			mSupportMenu = null; //Everything should be done natively
 		} else {
 			mActionBar = ActionBarSupportImpl.createFor(this);
-			mActionBarMenu = new MenuBuilder(this);
-			mActionBarMenu.setCallback(mMenuCallback);
+			mSupportMenu = new MenuBuilder(this);
+			mSupportMenu.setCallback(mSupportMenuCallback);
 		}
 	}
 	
 	void ensureActionBarAttached() {
-		if (!IS_HONEYCOMB && !mAttached) {
+		if (!IS_HONEYCOMB && !mIsActionBarImplAttached) {
 			super.setContentView(R.layout.actionbarwatson_wrapper);
-			mAttached = true;
+			mIsActionBarImplAttached = true;
 			((ActionBarSupportImpl)mActionBar).performAttach();
 			invalidateOptionsMenu();
 		}
@@ -460,16 +460,16 @@ public class FragmentActivity extends Activity {
 		if (IS_HONEYCOMB) {
 			HoneycombInvalidateOptionsMenu.invoke(this);
 		} else {
-			mActionBarMenu.clear();
+			mSupportMenu.clear();
 			
-			mOptionsMenuCreateResult  = onCreateOptionsMenu(mActionBarMenu);
-			mOptionsMenuCreateResult |= mFragments.dispatchCreateOptionsMenu(mActionBarMenu, getMenuInflater());
+			mOptionsMenuCreateResult  = onCreateOptionsMenu(mSupportMenu);
+			mOptionsMenuCreateResult |= mFragments.dispatchCreateOptionsMenu(mSupportMenu, getMenuInflater());
 			
 			//Since we now know we are using a custom action bar, perform the
 			//inflation callback to allow it to display any items it wants.
 			//Any items that were displayed will have a boolean toggled so that we
 			//do not display them on the options menu.
-			((ActionBarSupportImpl)mActionBar).onMenuInflated(mActionBarMenu);
+			((ActionBarSupportImpl)mActionBar).onMenuInflated(mSupportMenu);
 			
 			// Whoops, older platform...  we'll use a hack, to manually rebuild
 			// the options menu the next time it is prepared.
@@ -644,7 +644,7 @@ public class FragmentActivity extends Activity {
 			boolean prepareResult = true;
 			if (mOptionsMenuCreateResult) {
 				if (DEBUG) Log.d(TAG, "onPrepareOptionsMenu(android.view.Menu): Calling support method with custom menu.");
-				prepareResult = onPrepareOptionsMenu(mActionBarMenu);
+				prepareResult = onPrepareOptionsMenu(mSupportMenu);
 				if (DEBUG) Log.d(TAG, "onPrepareOptionsMenu(android.view.Menu): Support method result returned " + prepareResult);
 			}
 			
@@ -657,7 +657,7 @@ public class FragmentActivity extends Activity {
 					if (DEBUG) Log.d(TAG, "onPrepareOptionsMenu(android.view.Menu): Adding any action items that are not displayed on the action bar.");
 					//Only add items that have not already been added to our custom
 					//action bar implementation
-					for (MenuItemImpl item : mActionBarMenu.getItems()) {
+					for (MenuItemImpl item : mSupportMenu.getItems()) {
 						if (!item.isShownOnActionBar()) {
 							item.addTo(menu);
 						}
@@ -990,7 +990,7 @@ public class FragmentActivity extends Activity {
 	 * @return Menu item instance.
 	 */
 	final MenuItemImpl getHomeMenuItem() {
-		return mActionBarMenu.addDetached(android.R.id.home);
+		return mSupportMenu.addDetached(android.R.id.home);
 	}
 
 	// ------------------------------------------------------------------------
