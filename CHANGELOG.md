@@ -25,6 +25,11 @@ Library now uses the `r3` version of the compatibility library for its base.
   `android:title` and `android:titleCondensed`.
 * `Window.FEATURE_ENABLE_ACTION_BAR_WATSON_TEXT` is now
   `Window.FEATURE_ACTION_BAR_ITEM_TEXT`.
+* `Widget.Sherlock.Spinner.DropDown.ActionBar` and
+  `Widget.Sherlock.Light.Spinner.DropDown.ActionBar` styles are now
+  `Widget.Sherlock.Spinner` and `Widget.Sherlock.Light.Spinner`, respectively.
+* `Widget.Sherlock.ActionBarView_TabXXX` styles are now
+  `Widget.Sherlock.ActionBar.TabXXX`.
 
 
 Version 3.0.3 *(2011-07-17)*
