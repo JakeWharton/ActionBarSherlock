@@ -88,7 +88,7 @@ public final class ActionBarWatson extends RelativeLayout {
 	
 	public ActionBarWatson(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
-		LayoutInflater.from(context).inflate(R.layout.actionbarwatson, this, true);
+		LayoutInflater.from(context).inflate(R.layout.action_bar, this, true);
 		
 		final TypedArray attrsActionBar = context.obtainStyledAttributes(attrs, R.styleable.SherlockTheme, defStyle, 0);
 		
@@ -528,7 +528,7 @@ public final class ActionBarWatson extends RelativeLayout {
 	}
 	
 	public ActionBarWatson.Item newItem() {
-		ActionItem item = (ActionItem)LayoutInflater.from(getContext()).inflate(R.layout.actionbarwatson_item, mActionsView, false);
+		ActionItem item = (ActionItem)LayoutInflater.from(getContext()).inflate(R.layout.action_bar_item_layout, mActionsView, false);
 		item.setActionBar(this);
 		return item;
 	}
@@ -744,7 +744,7 @@ public final class ActionBarWatson extends RelativeLayout {
 		
 		public HomeItem(Context context, AttributeSet attrs, int defStyle) {
 			super(context, attrs, defStyle);
-			LayoutInflater.from(context).inflate(R.layout.actionbarwatson_item_home, this, true);
+			LayoutInflater.from(context).inflate(R.layout.action_bar_home, this, true);
 			
 			mLogo = (ImageView)findViewById(R.id.actionbarwatson_home_logo);
 			mIcon = (ImageView)findViewById(R.id.actionbarwatson_home_icon);
@@ -859,7 +859,7 @@ public final class ActionBarWatson extends RelativeLayout {
 		
 		TabImpl(ActionBarWatson actionBar) {
 			mActionBar = actionBar;
-			mView = LayoutInflater.from(mActionBar.getContext()).inflate(R.layout.actionbarwatson_tab, actionBar.mTabsView, false);
+			mView = LayoutInflater.from(mActionBar.getContext()).inflate(R.layout.action_bar_tab_layout, actionBar.mTabsView, false);
 			mView.setTag(this);
 			mView.setOnClickListener(clickListener);
 			
