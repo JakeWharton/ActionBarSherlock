@@ -45,6 +45,8 @@ public final class ActionBarWatson extends RelativeLayout {
 	/** Custom view parent. */
 	private final FrameLayout mCustomView;
 	
+	private final Drawable mDivider;
+	
 	/** Container for all action items. */
 	private final LinearLayout mActionsView;
 
@@ -164,8 +166,10 @@ public final class ActionBarWatson extends RelativeLayout {
 		
 		
 		
-		
+
 		mActionsView = (LinearLayout)findViewById(R.id.actionbarwatson_actions);
+		mDivider = attrsActionBar.getDrawable(R.styleable.SherlockTheme_abDivider);
+		
 		mIndeterminateProgress = (ProgressBar)findViewById(R.id.actionbarwatson_iprogress);
 		
 		//Look for a background defined in the theme
@@ -533,14 +537,18 @@ public final class ActionBarWatson extends RelativeLayout {
 		if (item instanceof HomeItem) {
 			throw new IllegalStateException("Cannot add home item as an action item.");
 		}
+		
+		ImageView divider = new ImageView(getContext());
+		divider.setImageDrawable(mDivider);
+		divider.setScaleType(ImageView.ScaleType.FIT_XY);
+
+		LinearLayout.LayoutParams dividerParams = new LinearLayout.LayoutParams(
+				LinearLayout.LayoutParams.WRAP_CONTENT,
+				LinearLayout.LayoutParams.FILL_PARENT
+		);
+		
+		mActionsView.addView(divider, dividerParams);
 		mActionsView.addView(item);
-	}
-	
-	public void addItem(ActionBarWatson.Item item, int position) {
-		if (item instanceof HomeItem) {
-			throw new IllegalStateException("Cannot add home item as an action item.");
-		}
-		mActionsView.addView(item, position);
 	}
 	
 	public void removeAllItems() {
