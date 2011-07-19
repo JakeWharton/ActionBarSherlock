@@ -34,6 +34,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.content.res.Resources.Theme;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -165,19 +166,44 @@ public class FragmentActivity extends Activity {
 		}
 	}
 
+	@Override
+	protected void onApplyThemeResource(Theme theme, int resid, boolean first) {
+		TypedArray attrs = theme.obtainStyledAttributes(resid, R.styleable.SherlockTheme);
+		final boolean wantsActionBar = attrs.getBoolean(R.styleable.SherlockTheme_windowActionBar, false);
+		mWindowFlags |= wantsActionBar ? WINDOW_FLAG_ACTION_BAR : 0;
+		attrs.recycle();
+		
+		super.onApplyThemeResource(theme, resid, first);
+	}
+
 	void ensureActionBarAttached() {
-		if (!mIsActionBarImplAttached && !IS_HONEYCOMB) {
-			if ((mWindowFlags & WINDOW_FLAG_ACTION_BAR_OVERLAY) == WINDOW_FLAG_ACTION_BAR_OVERLAY) {
-				super.setContentView(R.layout.screen_action_bar_overlay);
+		if (IS_HONEYCOMB) {
+			return;
+		}
+		if (!mIsActionBarImplAttached) {
+			if ((mWindowFlags & WINDOW_FLAG_ACTION_BAR) == WINDOW_FLAG_ACTION_BAR) {
+				if ((mWindowFlags & WINDOW_FLAG_ACTION_BAR_OVERLAY) == WINDOW_FLAG_ACTION_BAR_OVERLAY) {
+					super.setContentView(R.layout.screen_action_bar_overlay);
+				} else {
+					super.setContentView(R.layout.screen_action_bar);
+				}
+				
+				((ActionBarSupportImpl)mActionBar).setWindowActionBarItemTextEnabled((mWindowFlags & WINDOW_FLAG_ACTION_BAR_ITEM_TEXT) == WINDOW_FLAG_ACTION_BAR_ITEM_TEXT);
+				((ActionBarSupportImpl)mActionBar).setWindowIndeterminateProgressEnabled((mWindowFlags & WINDOW_FLAG_INDETERMINANTE_PROGRESS) == WINDOW_FLAG_INDETERMINANTE_PROGRESS);
+				//TODO set other flags
+				
+				((ActionBarSupportImpl)mActionBar).init();
 			} else {
-				super.setContentView(R.layout.screen_action_bar);
+				if ((mWindowFlags & WINDOW_FLAG_INDETERMINANTE_PROGRESS) == WINDOW_FLAG_INDETERMINANTE_PROGRESS) {
+					super.requestWindowFeature((int)Window.FEATURE_INDETERMINATE_PROGRESS);
+				}
+				if ((mWindowFlags & WINDOW_FLAG_ACTION_MODE_OVERLAY) == WINDOW_FLAG_ACTION_MODE_OVERLAY) {
+					super.requestWindowFeature((int)Window.FEATURE_ACTION_MODE_OVERLAY);
+				}
+				
+				super.setContentView(R.layout.screen_simple);
 			}
 			
-			((ActionBarSupportImpl)mActionBar).setWindowActionBarItemTextEnabled((mWindowFlags & WINDOW_FLAG_ACTION_BAR_ITEM_TEXT) == WINDOW_FLAG_ACTION_BAR_ITEM_TEXT);
-			((ActionBarSupportImpl)mActionBar).setWindowIndeterminateProgressEnabled((mWindowFlags & WINDOW_FLAG_INDETERMINANTE_PROGRESS) == WINDOW_FLAG_INDETERMINANTE_PROGRESS);
-			//TODO set other flags
-			
-			((ActionBarSupportImpl)mActionBar).init();
 			invalidateOptionsMenu();
 			mIsActionBarImplAttached = true;
 		}
@@ -263,7 +289,7 @@ public class FragmentActivity extends Activity {
 	
 	@Override
 	public void setTitle(CharSequence title) {
-		if (IS_HONEYCOMB) {
+		if (IS_HONEYCOMB || (mActionBar.getInstance() == null)) {
 			super.setTitle(title);
 		} else {
 			mActionBar.setTitle(title);
@@ -272,7 +298,7 @@ public class FragmentActivity extends Activity {
 
 	@Override
 	public void setTitle(int titleId) {
-		if (IS_HONEYCOMB) {
+		if (IS_HONEYCOMB || (mActionBar.getInstance() == null)) {
 			super.setTitle(titleId);
 		} else {
 			mActionBar.setTitle(titleId);

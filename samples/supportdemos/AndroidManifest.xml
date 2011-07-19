@@ -37,8 +37,7 @@
 
     <application android:label="@string/activity_sample_code"
             android:icon="@drawable/icon"
-            android:hardwareAccelerated="true"
-            android:theme="@style/Theme.Sherlock">
+            android:hardwareAccelerated="true">
 
         <activity android:name="Support4Demos">
             <intent-filter>

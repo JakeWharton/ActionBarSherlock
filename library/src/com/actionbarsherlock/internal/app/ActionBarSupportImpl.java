@@ -31,8 +31,6 @@ import android.support.v4.view.ActionMode;
 import android.support.v4.view.Menu;
 import android.support.v4.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.SpinnerAdapter;
 import com.actionbarsherlock.R;
 import com.actionbarsherlock.internal.view.menu.MenuBuilder;
@@ -51,9 +49,6 @@ public final class ActionBarSupportImpl extends ActionBar {
 	
 	/** Action bar view. */
 	private ActionBarView mActionBar;
-	
-	/** Activity content view. */
-	private FrameLayout mContentView;
 	
 	/** List of listeners to the menu visibility. */
 	private final List<OnMenuVisibilityListener> mMenuListeners = new ArrayList<OnMenuVisibilityListener>();
@@ -77,7 +72,6 @@ public final class ActionBarSupportImpl extends ActionBar {
 	
 	public void init() {
 		mActionBar = (ActionBarView)getActivity().findViewById(R.id.action_bar);
-		mContentView = (FrameLayout)getActivity().findViewById(R.id.content);
 		
 		final MenuItemImpl homeMenuItem = getHomeMenuItem();
 		final ActionBarView.Item homeItem = mActionBar.getHomeItem();
@@ -122,6 +116,10 @@ public final class ActionBarSupportImpl extends ActionBar {
 	}
 	
 	public void onMenuInflated(Menu menu) {
+		if (mActionBar == null) {
+			return;
+		}
+		
 		int maxItems = MAX_ACTION_BAR_ITEMS_PORTRAIT;
 		if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
 			maxItems = MAX_ACTION_BAR_ITEMS_LANDSCAPE;
@@ -187,18 +185,6 @@ public final class ActionBarSupportImpl extends ActionBar {
 			//Add to the action bar for display
 			mActionBar.addItem(watsonItem);
 		}
-	}
-
-	public void setContentView(int layoutResId) {
-		getActivity().getLayoutInflater().inflate(layoutResId, mContentView, true);
-	}
-
-	public void setContentView(View view) {
-		mContentView.addView(view);
-	}
-
-	public void setContentView(View view, ViewGroup.LayoutParams params) {
-		mContentView.addView(view, params);
 	}
 	
 	public void onMenuVisibilityChanged(boolean isVisible) {
