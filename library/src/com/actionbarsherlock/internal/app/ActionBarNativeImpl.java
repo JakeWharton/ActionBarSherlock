@@ -61,6 +61,11 @@ public final class ActionBarNativeImpl {
 		private android.app.ActionBar getActionBar() {
 			return getActivity().getActionBar();
 		}
+
+		@Override
+		protected ActionBar getPublicInstance() {
+			return (getActionBar() != null) ? this : null;
+		}
 		
 		/**
 		 * Converts our Tab wrapper to a native version containing the wrapper
@@ -213,10 +218,6 @@ public final class ActionBarNativeImpl {
 		// ---------------------------------------------------------------------
 		// ACTION BAR SUPPORT
 		// ---------------------------------------------------------------------
-		
-		protected ActionBar getInstance() {
-			return (getActionBar() != null) ? this : null;
-		}
 		
 		private static class TabImpl implements ActionBar.Tab {
 			final ActionBarNativeImpl.Impl mActionBar;

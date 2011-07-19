@@ -289,7 +289,7 @@ public class FragmentActivity extends Activity {
 	
 	@Override
 	public void setTitle(CharSequence title) {
-		if (IS_HONEYCOMB || (mActionBar.getInstance() == null)) {
+		if (IS_HONEYCOMB || (mActionBar.getPublicInstance() == null)) {
 			super.setTitle(title);
 		} else {
 			mActionBar.setTitle(title);
@@ -298,7 +298,7 @@ public class FragmentActivity extends Activity {
 
 	@Override
 	public void setTitle(int titleId) {
-		if (IS_HONEYCOMB || (mActionBar.getInstance() == null)) {
+		if (IS_HONEYCOMB || (mActionBar.getPublicInstance() == null)) {
 			super.setTitle(titleId);
 		} else {
 			mActionBar.setTitle(titleId);
@@ -968,7 +968,7 @@ public class FragmentActivity extends Activity {
 	 * @return The handler for the appropriate action bar, or null.
 	 */
 	public ActionBar getSupportActionBar() {
-		return mActionBar.getInstance();
+		return mActionBar.getPublicInstance();
 	}
 
 	/**

@@ -70,6 +70,11 @@ public final class ActionBarSupportImpl extends ActionBar {
 	// ACTION BAR SHERLOCK SUPPORT
 	// ------------------------------------------------------------------------
 	
+	@Override
+	protected ActionBar getPublicInstance() {
+		return (mActionBar != null) ? this : null;
+	}
+	
 	public void init() {
 		mActionBar = (ActionBarView)getActivity().findViewById(R.id.action_bar);
 		
@@ -220,10 +225,6 @@ public final class ActionBarSupportImpl extends ActionBar {
 	// ------------------------------------------------------------------------
 	// ACTION BAR METHODS
 	// ------------------------------------------------------------------------
-	
-	protected ActionBar getInstance() {
-		return (mActionBar != null) ? this : null;
-	}
 
 	@Override
 	public void addOnMenuVisibilityListener(OnMenuVisibilityListener listener) {

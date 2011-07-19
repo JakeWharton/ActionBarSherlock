@@ -55,6 +55,14 @@ public abstract class ActionBar {
 		return mActivity.getHomeMenuItem();
 	}
 	
+	/**
+	 * Return the actual public action bar instance. This will either return
+	 * itself or null depending on the state of the underlying action bar.
+	 * 
+	 * @return Action bar instance.
+	 */
+	protected abstract ActionBar getPublicInstance();
+	
 	// ------------------------------------------------------------------------
 	// ACTION MODE SUPPORT
 	// ------------------------------------------------------------------------
@@ -64,8 +72,6 @@ public abstract class ActionBar {
 	// ------------------------------------------------------------------------
 	// ACTION BAR SUPPORT
 	// ------------------------------------------------------------------------
-	
-	protected abstract ActionBar getInstance();
 	
 	/**
 	 * Per-child layout information associated with action bar custom views.
