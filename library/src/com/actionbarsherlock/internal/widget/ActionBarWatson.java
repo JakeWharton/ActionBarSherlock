@@ -538,16 +538,19 @@ public final class ActionBarWatson extends RelativeLayout {
 			throw new IllegalStateException("Cannot add home item as an action item.");
 		}
 		
-		ImageView divider = new ImageView(getContext());
-		divider.setImageDrawable(mDivider);
-		divider.setScaleType(ImageView.ScaleType.FIT_XY);
-
-		LinearLayout.LayoutParams dividerParams = new LinearLayout.LayoutParams(
+		if (mDivider != null) {
+			ImageView divider = new ImageView(getContext());
+			divider.setImageDrawable(mDivider);
+			divider.setScaleType(ImageView.ScaleType.FIT_XY);
+			
+			LinearLayout.LayoutParams dividerParams = new LinearLayout.LayoutParams(
 				LinearLayout.LayoutParams.WRAP_CONTENT,
 				LinearLayout.LayoutParams.FILL_PARENT
-		);
+			);
+			
+			mActionsView.addView(divider, dividerParams);
+		}
 		
-		mActionsView.addView(divider, dividerParams);
 		mActionsView.addView(item);
 	}
 	
