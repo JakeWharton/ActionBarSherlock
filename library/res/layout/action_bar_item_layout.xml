@@ -15,7 +15,7 @@
      limitations under the License.
 -->
 <view xmlns:android="http://schemas.android.com/apk/res/android"
-    class="com.actionbarsherlock.internal.widget.ActionBarWatson$ActionItem"
+    class="com.actionbarsherlock.internal.widget.ActionBarView$ActionItem"
     android:layout_width="wrap_content"
     android:layout_height="fill_parent"
     android:focusable="true"

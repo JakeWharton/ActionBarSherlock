@@ -18,7 +18,7 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import com.actionbarsherlock.R;
 
-public final class ActionBarWatson extends RelativeLayout {
+public final class ActionBarView extends RelativeLayout {
 	/** Default display options if none are defined in the theme. */
 	private static final int DEFAULT_DISPLAY_OPTIONS = ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_SHOW_HOME;
 	
@@ -78,15 +78,15 @@ public final class ActionBarWatson extends RelativeLayout {
 	
 	
 
-	public ActionBarWatson(Context context) {
+	public ActionBarView(Context context) {
 		this(context, null);
 	}
 	
-	public ActionBarWatson(Context context, AttributeSet attrs) {
+	public ActionBarView(Context context, AttributeSet attrs) {
 		this(context, attrs, 0);
 	}
 	
-	public ActionBarWatson(Context context, AttributeSet attrs, int defStyle) {
+	public ActionBarView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		LayoutInflater.from(context).inflate(R.layout.action_bar, this, true);
 		
@@ -171,12 +171,6 @@ public final class ActionBarWatson extends RelativeLayout {
 		mDivider = attrsActionBar.getDrawable(R.styleable.SherlockTheme_abDivider);
 		
 		mIndeterminateProgress = (ProgressBar)findViewById(R.id.actionbarwatson_iprogress);
-		
-		//Look for a background defined in the theme
-		Drawable background = attrsActionBar.getDrawable(R.styleable.SherlockTheme_abBackground);
-		if (background != null) {
-			setBackgroundDrawable(background);
-		}
 		
 		//Try to get the display options defined in the theme, or fall back to
 		//displaying the title and home icon
@@ -523,17 +517,17 @@ public final class ActionBarWatson extends RelativeLayout {
 	// ACTION ITEMS SUPPORT
 	// ------------------------------------------------------------------------
 	
-	public ActionBarWatson.Item getHomeItem() {
+	public ActionBarView.Item getHomeItem() {
 		return mHome;
 	}
 	
-	public ActionBarWatson.Item newItem() {
+	public ActionBarView.Item newItem() {
 		ActionItem item = (ActionItem)LayoutInflater.from(getContext()).inflate(R.layout.action_bar_item_layout, mActionsView, false);
 		item.setActionBar(this);
 		return item;
 	}
 	
-	public void addItem(ActionBarWatson.Item item) {
+	public void addItem(ActionBarView.Item item) {
 		if (item instanceof HomeItem) {
 			throw new IllegalStateException("Cannot add home item as an action item.");
 		}
@@ -604,7 +598,7 @@ public final class ActionBarWatson extends RelativeLayout {
 	}
 	
 	public static final class ActionItem extends Item {
-		ActionBarWatson mActionBar;
+		ActionBarView mActionBar;
 		ImageView mIconView;
 		TextView mTextView;
 		FrameLayout mCustomView;
@@ -639,7 +633,7 @@ public final class ActionBarWatson extends RelativeLayout {
 			mCustomView.setVisibility(hasCustomView ? View.VISIBLE : View.GONE);
 		}
 		
-		void setActionBar(ActionBarWatson actionBar) {
+		void setActionBar(ActionBarView actionBar) {
 			mActionBar = actionBar;
 		}
 		
@@ -847,7 +841,7 @@ public final class ActionBarWatson extends RelativeLayout {
 			}
 		};
 		
-		final ActionBarWatson mActionBar;
+		final ActionBarView mActionBar;
 		final View mView;
 		final ImageView mIconView;
 		final TextView mTextView;
@@ -857,7 +851,7 @@ public final class ActionBarWatson extends RelativeLayout {
 		Object mTag;
 		
 		
-		TabImpl(ActionBarWatson actionBar) {
+		TabImpl(ActionBarView actionBar) {
 			mActionBar = actionBar;
 			mView = LayoutInflater.from(mActionBar.getContext()).inflate(R.layout.action_bar_tab_layout, actionBar.mTabsView, false);
 			mView.setTag(this);

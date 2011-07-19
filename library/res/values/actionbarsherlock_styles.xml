@@ -212,6 +212,10 @@
     
     
     
+    <style name="Internal.Widget.Sherlock.ActionBarStyle" parent="android:style/Widget">
+    	<item name="android:background">?abBackground</item>
+    </style>
+    
     
     
     

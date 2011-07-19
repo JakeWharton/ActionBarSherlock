@@ -38,7 +38,7 @@ import com.actionbarsherlock.R;
 import com.actionbarsherlock.internal.view.menu.MenuBuilder;
 import com.actionbarsherlock.internal.view.menu.MenuItemImpl;
 import com.actionbarsherlock.internal.view.menu.MenuView;
-import com.actionbarsherlock.internal.widget.ActionBarWatson;
+import com.actionbarsherlock.internal.widget.ActionBarView;
 
 public final class ActionBarSupportImpl extends ActionBar {
 	/** Maximum action bar items in portrait mode. */
@@ -50,7 +50,7 @@ public final class ActionBarSupportImpl extends ActionBar {
 	
 	
 	/** Action bar view. */
-	private ActionBarWatson mActionBar;
+	private ActionBarView mActionBar;
 	
 	/** Activity content view. */
 	private FrameLayout mContentView;
@@ -76,11 +76,11 @@ public final class ActionBarSupportImpl extends ActionBar {
 	// ------------------------------------------------------------------------
 	
 	public void init() {
-		mActionBar = (ActionBarWatson)getActivity().findViewById(R.id.action_bar);
+		mActionBar = (ActionBarView)getActivity().findViewById(R.id.action_bar);
 		mContentView = (FrameLayout)getActivity().findViewById(R.id.content);
 		
 		final MenuItemImpl homeMenuItem = getHomeMenuItem();
-		final ActionBarWatson.Item homeItem = mActionBar.getHomeItem();
+		final ActionBarView.Item homeItem = mActionBar.getHomeItem();
 		final WatsonItemViewWrapper homeWrapper = new WatsonItemViewWrapper(homeItem);
 		homeWrapper.initialize(homeMenuItem, MenuBuilder.TYPE_WATSON);
 		homeMenuItem.setItemView(MenuBuilder.TYPE_WATSON, homeWrapper);
@@ -175,7 +175,7 @@ public final class ActionBarSupportImpl extends ActionBar {
 			item.setIsShownOnActionBar(true);
 			
 			//Get a new item for this menu item
-			ActionBarWatson.Item watsonItem = mActionBar.newItem();
+			ActionBarView.Item watsonItem = mActionBar.newItem();
 			
 			//Create and initialize a watson itemview wrapper
 			WatsonItemViewWrapper watsonWrapper = new WatsonItemViewWrapper(watsonItem);
@@ -458,10 +458,10 @@ public final class ActionBarSupportImpl extends ActionBar {
 	// ///
 
 	private static final class WatsonItemViewWrapper implements MenuView.ItemView, View.OnClickListener {
-		private final ActionBarWatson.Item mWatsonItem;
+		private final ActionBarView.Item mWatsonItem;
 		private MenuItemImpl mMenuItem;
 
-		public WatsonItemViewWrapper(ActionBarWatson.Item item) {
+		public WatsonItemViewWrapper(ActionBarView.Item item) {
 			mWatsonItem = item;
 			mWatsonItem.setOnClickListener(this);
 		}

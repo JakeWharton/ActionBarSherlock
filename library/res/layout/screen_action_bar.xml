@@ -25,11 +25,18 @@ This is an optimized layout for a screen with the Action Bar enabled.
     android:orientation="vertical"
     android:fitsSystemWindows="true"
     >
-    <com.actionbarsherlock.internal.widget.ActionBarWatson
-        android:id="@+id/action_bar"
+    <com.actionbarsherlock.internal.widget.ActionBarContainer
+        android:id="@+id/action_bar_container"
         android:layout_width="fill_parent"
-        android:layout_height="?attr/actionBarSize"
-        />
+        android:layout_height="wrap_content"
+        style="@style/Internal.Widget.Sherlock.ActionBarStyle"
+        >
+        <com.actionbarsherlock.internal.widget.ActionBarView
+            android:id="@+id/action_bar"
+            android:layout_width="fill_parent"
+            android:layout_height="?attr/actionBarSize"
+            />
+    </com.actionbarsherlock.internal.widget.ActionBarContainer>
     <FrameLayout
         android:id="@+id/content"
         android:layout_width="fill_parent"
