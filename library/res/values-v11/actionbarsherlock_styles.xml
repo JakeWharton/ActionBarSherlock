@@ -28,7 +28,7 @@
         <item name="abBackground">@android:color/transparent</item>
         <item name="abCustomNavigationLayout">@null</item>
         <item name="abDisplayOptions">useLogo|showHome|showTitle</item>
-        <item name="abDivider">@drawable/list_divider_holo_dark</item>
+        <item name="abDivider">@drawable/action_item_divider</item>
         <item name="abHeight">?actionBarSize</item>
         <item name="abHomeLayout">@null</item>
         <item name="abIcon">@null</item>
@@ -122,7 +122,7 @@
         <item name="abBackground">@android:color/transparent</item>
         <item name="abCustomNavigationLayout">@null</item>
         <item name="abDisplayOptions">useLogo|showHome|showTitle</item>
-        <item name="abDivider">@drawable/list_divider_holo_light</item>
+        <item name="abDivider">@drawable/action_item_divider</item>
         <item name="abHeight">?actionBarSize</item>
         <item name="abHomeLayout">@null</item>
         <item name="abIcon">@null</item>
