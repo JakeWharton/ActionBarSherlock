@@ -942,7 +942,7 @@ public class FragmentActivity extends Activity {
 	 * @return The handler for the appropriate action bar, or null.
 	 */
 	public ActionBar getSupportActionBar() {
-		return mActionBar;
+		return mActionBar.getInstance();
 	}
 
 	/**
