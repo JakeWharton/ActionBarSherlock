@@ -18,6 +18,8 @@
     <string name="activity_sample_code">ABS: Support Demos</string>
 
     <string name="hello_world"><b>Hello, <i>World!</i></b></string>
+    <string name="hello_actionbar">Hello, ActionBar!</string>
+    
     <string name="alert_dialog_two_buttons_title">
         Lorem ipsum dolor sit aie consectetur adipiscing\nPlloaso mako nuto
         siwuf cakso dodtos anr koop.
@@ -32,6 +34,12 @@
     <string name="violet">Violet</string>
     <string name="receive_result_instructions">Press the button to get an activity result, which will be displayed here:</string>
     <string name="receive_result_result">Get Result</string>
+    
+    
+    <string name="actionbar_feature_toggles">Action Bar/Feature Toggles</string>
+    <string name="actionbar_tabs_pager">Action Bar/Tabs and Pager</string>
+    <string name="actionbar_overlay">Action Bar/Overlay</string>
+    
     
     <string name="fragment_alert_dialog_support">Fragment/Alert Dialog</string>
 

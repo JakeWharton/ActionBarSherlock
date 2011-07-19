@@ -1,8 +1,7 @@
-package com.actionbarsherlock.sample.featuredemo;
+package com.actionbarsherlock.sample.featuredemo.app;
 
 import java.util.Random;
 import com.actionbarsherlock.sample.featuredemo.R;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActionBar;
 import android.support.v4.app.FragmentActivity;
@@ -12,7 +11,7 @@ import android.support.v4.view.Window;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
-public class FeatureDemoActivity extends FragmentActivity {
+public class ActionBarFeatureToggles extends FragmentActivity {
 	private static final Random RANDOM = new Random();
 	
 	private static boolean themeLight = false;
@@ -26,14 +25,6 @@ public class FeatureDemoActivity extends FragmentActivity {
 				.setIcon(R.drawable.ic_title_share_default)
 				.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 		}
-		
-		menu.add("Model").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-			@Override
-			public boolean onMenuItemClick(MenuItem item) {
-				startActivity(new Intent(FeatureDemoActivity.this, FeatureModel.class));
-				return true;
-			}
-		});
 		
 		return super.onCreateOptionsMenu(menu);
 	}

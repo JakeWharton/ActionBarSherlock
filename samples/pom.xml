@@ -16,7 +16,6 @@
 	</parent>
 
 	<modules>
-		<module>featuredemo</module>
 		<module>shakespeare</module>
 		<module>styled</module>
 		<module>supportdemos</module>
