@@ -180,8 +180,22 @@ public class FragmentActivity extends Activity {
 	 * now enabled.
 	 */
 	public boolean requestWindowFeature(long featureId) {
-		if (!IS_HONEYCOMB && ((ActionBarSupportImpl)mActionBar).requestWindowFeature(featureId)) {
-			return true;
+		if (!IS_HONEYCOMB) {
+			if (featureId == Window.FEATURE_ACTION_BAR_OVERLAY) {
+				// TODO Make action bar partially transparent
+				return true;
+			}
+			if (featureId == Window.FEATURE_ACTION_MODE_OVERLAY) {
+				// TODO Make action modes partially transparent
+				return true;
+			}
+			if (featureId == Window.FEATURE_INDETERMINATE_PROGRESS) {
+				((ActionBarSupportImpl)mActionBar).setProgressBarIndeterminateVisibility(true);
+				return true;
+			}
+			if (featureId == Window.FEATURE_ACTION_BAR_ITEM_TEXT) {
+				((ActionBarSupportImpl)mActionBar).setActionItemTextEnabled(true);
+			}
 		}
 		return super.requestWindowFeature((int)featureId);
 	}

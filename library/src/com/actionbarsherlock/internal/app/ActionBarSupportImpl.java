@@ -30,7 +30,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ActionMode;
 import android.support.v4.view.Menu;
 import android.support.v4.view.MenuItem;
-import android.support.v4.view.Window;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -71,6 +70,9 @@ public final class ActionBarSupportImpl extends ActionBar {
 	
 	/** Whether display of the indeterminate progress is allowed. */
 	private boolean mHasIndeterminateProgress = false;
+	
+	/** Whether to honor 'withText' flags for action items. */
+	private boolean mIsDisplayingActionItemText = false;
 	
 	
 	
@@ -144,7 +146,10 @@ public final class ActionBarSupportImpl extends ActionBar {
 			MenuItemImpl item = (MenuItemImpl)menu.getItem(i);
 			
 			//Items without an icon or custom view are forced into the overflow menu
-			if ((item.getIcon() == null) && (item.getActionView() == null)) {
+			if (!mIsDisplayingActionItemText && (item.getIcon() == null) && (item.getActionView() == null)) {
+				continue;
+			}
+			if (mIsDisplayingActionItemText && ((item.getTitle() == null) || "".equals(item.getTitle()))) {
 				continue;
 			}
 			
@@ -175,6 +180,7 @@ public final class ActionBarSupportImpl extends ActionBar {
 		//Mark items that will be shown on the action bar as such so they do
 		//not show up on the activity options menu
 		mActionBar.removeAllItems();
+		mActionBar.setIsActionItemTextEnabled(mIsDisplayingActionItemText);
 		for (MenuItemImpl item : keep) {
 			item.setIsShownOnActionBar(true);
 			
@@ -204,28 +210,20 @@ public final class ActionBarSupportImpl extends ActionBar {
 	public void setContentView(View view, ViewGroup.LayoutParams params) {
 		mContentView.addView(view, params);
 	}
-
-	public boolean requestWindowFeature(long featureId) {
-		if (featureId == Window.FEATURE_ACTION_BAR_OVERLAY) {
-			// TODO Make action bar partially transparent
-			return true;
-		}
-		if (featureId == Window.FEATURE_ACTION_MODE_OVERLAY) {
-			// TODO Make action modes partially transparent
-			return true;
-		}
-		if (featureId == Window.FEATURE_INDETERMINATE_PROGRESS) {
-			mHasIndeterminateProgress = true;
-			return true;
-		}
-		return false;
-	}
 	
 	public void onMenuVisibilityChanged(boolean isVisible) {
 		//Marshal to all listeners
 		for (OnMenuVisibilityListener listener : mMenuListeners) {
 			listener.onMenuVisibilityChanged(isVisible);
 		}
+	}
+	
+	public void setActionItemTextEnabled(boolean enabled) {
+		mIsDisplayingActionItemText = enabled;
+	}
+	
+	public void setProgressBarIndeterminateEnabled(boolean enabled) {
+		mHasIndeterminateProgress = enabled;
 	}
 	
 	public void setProgressBarIndeterminateVisibility(boolean visible) {
