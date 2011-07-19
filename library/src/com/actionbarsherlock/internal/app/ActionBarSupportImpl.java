@@ -41,16 +41,6 @@ import com.actionbarsherlock.internal.view.menu.MenuView;
 import com.actionbarsherlock.internal.widget.ActionBarWatson;
 
 public final class ActionBarSupportImpl extends ActionBar {
-	/**
-	 * Abstraction to get an instance of our implementing class.
-	 * 
-	 * @param activity Parent activity.
-	 * @return {@code ActionBar} instance.
-	 */
-	public static ActionBar createFor(FragmentActivity activity) {
-		return new ActionBarSupportImpl(activity);
-	}
-	
 	/** Maximum action bar items in portrait mode. */
 	private static final int MAX_ACTION_BAR_ITEMS_PORTRAIT = 3;
 	
@@ -76,7 +66,7 @@ public final class ActionBarSupportImpl extends ActionBar {
 	
 	
 	
-	private ActionBarSupportImpl(FragmentActivity activity) {
+	public ActionBarSupportImpl(FragmentActivity activity) {
 		super(activity);
 	}
 	
@@ -84,8 +74,8 @@ public final class ActionBarSupportImpl extends ActionBar {
 	// ------------------------------------------------------------------------
 	// ACTION BAR SHERLOCK SUPPORT
 	// ------------------------------------------------------------------------
-
-	public void performAttach() {
+	
+	public void init() {
 		mActionBar = (ActionBarWatson)getActivity().findViewById(R.id.action_bar);
 		mContentView = (FrameLayout)getActivity().findViewById(R.id.content);
 		
@@ -218,11 +208,11 @@ public final class ActionBarSupportImpl extends ActionBar {
 		}
 	}
 	
-	public void setActionItemTextEnabled(boolean enabled) {
+	public void setWindowActionBarItemTextEnabled(boolean enabled) {
 		mIsDisplayingActionItemText = enabled;
 	}
 	
-	public void setProgressBarIndeterminateEnabled(boolean enabled) {
+	public void setWindowIndeterminateProgressEnabled(boolean enabled) {
 		mHasIndeterminateProgress = enabled;
 	}
 	
@@ -244,6 +234,10 @@ public final class ActionBarSupportImpl extends ActionBar {
 	// ------------------------------------------------------------------------
 	// ACTION BAR METHODS
 	// ------------------------------------------------------------------------
+	
+	protected ActionBar getInstance() {
+		return (mActionBar != null) ? this : null;
+	}
 
 	@Override
 	public void addOnMenuVisibilityListener(OnMenuVisibilityListener listener) {

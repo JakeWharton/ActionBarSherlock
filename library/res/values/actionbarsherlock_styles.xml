@@ -21,6 +21,8 @@
         <item name="homeAsUpIndicator">@drawable/ic_ab_back_holo_dark</item>
         <item name="popupMenuStyle">@style/Widget.Sherlock.PopupMenu</item>
         <item name="selectableItemBackground">@color/actionbarwatson_item_bg</item>
+        <item name="windowActionBar">true</item>
+        <item name="windowActionModeOverlay">false</item>
         
         <!-- These should be in `Widget.Sherlock.ActionBar` but there is no way to then -->
         <!-- reference them as sibling attributes to their native counterparts. See: -->
@@ -125,6 +127,8 @@
         <item name="homeAsUpIndicator">@drawable/ic_ab_back_holo_light</item>
         <item name="popupMenuStyle">@style/Widget.Sherlock.Light.PopupMenu</item>
         <item name="selectableItemBackground">@color/actionbarwatson_item_bg</item>
+        <item name="windowActionBar">true</item>
+        <item name="windowActionModeOverlay">false</item>
         
         <!-- These should be in `Widget.Sherlock.ActionBar` but there is no way to then -->
         <!-- reference them as sibling attributes to their native counterparts. See: -->

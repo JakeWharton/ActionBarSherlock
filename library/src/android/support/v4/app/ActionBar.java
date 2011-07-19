@@ -65,6 +65,8 @@ public abstract class ActionBar {
 	// ACTION BAR SUPPORT
 	// ------------------------------------------------------------------------
 	
+	protected abstract ActionBar getInstance();
+	
 	/**
 	 * Per-child layout information associated with action bar custom views.
 	 */

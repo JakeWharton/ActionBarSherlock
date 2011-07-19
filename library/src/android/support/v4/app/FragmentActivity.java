@@ -78,10 +78,16 @@ public class FragmentActivity extends Activity {
 	
 	private static final String FRAGMENTS_TAG = "android:support:fragments";
 	
-	private static final boolean IS_HONEYCOMB = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
+	static final boolean IS_HONEYCOMB = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
 
 	static final int MSG_REALLY_STOPPED = 1;
 	static final int MSG_RESUME_PENDING = 2;
+	
+	private static final int WINDOW_FLAG_ACTION_BAR = 1 << Window.FEATURE_ACTION_BAR;
+	private static final int WINDOW_FLAG_ACTION_BAR_ITEM_TEXT = 1 << Window.FEATURE_ACTION_BAR_ITEM_TEXT;
+	private static final int WINDOW_FLAG_ACTION_BAR_OVERLAY = 1 << Window.FEATURE_ACTION_BAR_OVERLAY;
+	private static final int WINDOW_FLAG_ACTION_MODE_OVERLAY = 1 << Window.FEATURE_ACTION_MODE_OVERLAY;
+	private static final int WINDOW_FLAG_INDETERMINANTE_PROGRESS = 1 << Window.FEATURE_INDETERMINATE_PROGRESS;
 
 	final Handler mHandler = new Handler() {
 		@Override
@@ -105,6 +111,7 @@ public class FragmentActivity extends Activity {
 	
 	final ActionBar mActionBar;
 	boolean mIsActionBarImplAttached;
+	long mWindowFlags = 0;
 	
 	final MenuBuilder mSupportMenu;
 	final MenuBuilder.Callback mSupportMenuCallback = new MenuBuilder.Callback() {
@@ -147,23 +154,32 @@ public class FragmentActivity extends Activity {
 	
 	public FragmentActivity() {
 		super();
-
+		
 		if (IS_HONEYCOMB) {
 			mActionBar = ActionBarNativeImpl.createFor(this);
 			mSupportMenu = null; //Everything should be done natively
 		} else {
-			mActionBar = ActionBarSupportImpl.createFor(this);
+			mActionBar = new ActionBarSupportImpl(this);
 			mSupportMenu = new MenuBuilder(this);
 			mSupportMenu.setCallback(mSupportMenuCallback);
 		}
 	}
-	
+
 	void ensureActionBarAttached() {
-		if (!IS_HONEYCOMB && !mIsActionBarImplAttached) {
-			super.setContentView(R.layout.actionbarwatson_wrapper);
-			mIsActionBarImplAttached = true;
-			((ActionBarSupportImpl)mActionBar).performAttach();
+		if (!mIsActionBarImplAttached && !IS_HONEYCOMB) {
+			if ((mWindowFlags & WINDOW_FLAG_ACTION_BAR_OVERLAY) == WINDOW_FLAG_ACTION_BAR_OVERLAY) {
+				super.setContentView(R.layout.screen_action_bar_overlay);
+			} else {
+				super.setContentView(R.layout.screen_action_bar);
+			}
+			
+			((ActionBarSupportImpl)mActionBar).setWindowActionBarItemTextEnabled((mWindowFlags & WINDOW_FLAG_ACTION_BAR_ITEM_TEXT) == WINDOW_FLAG_ACTION_BAR_ITEM_TEXT);
+			((ActionBarSupportImpl)mActionBar).setWindowIndeterminateProgressEnabled((mWindowFlags & WINDOW_FLAG_INDETERMINANTE_PROGRESS) == WINDOW_FLAG_INDETERMINANTE_PROGRESS);
+			//TODO set other flags
+			
+			((ActionBarSupportImpl)mActionBar).init();
 			invalidateOptionsMenu();
+			mIsActionBarImplAttached = true;
 		}
 	}
 	
@@ -181,20 +197,14 @@ public class FragmentActivity extends Activity {
 	 */
 	public boolean requestWindowFeature(long featureId) {
 		if (!IS_HONEYCOMB) {
-			if (featureId == Window.FEATURE_ACTION_BAR_OVERLAY) {
-				// TODO Make action bar partially transparent
+			switch ((int)featureId) {
+				case (int)Window.FEATURE_ACTION_BAR:
+				case (int)Window.FEATURE_ACTION_BAR_ITEM_TEXT:
+				case (int)Window.FEATURE_ACTION_BAR_OVERLAY:
+				case (int)Window.FEATURE_ACTION_MODE_OVERLAY:
+				case (int)Window.FEATURE_INDETERMINATE_PROGRESS:
+					mWindowFlags |= (1 << featureId);
 				return true;
-			}
-			if (featureId == Window.FEATURE_ACTION_MODE_OVERLAY) {
-				// TODO Make action modes partially transparent
-				return true;
-			}
-			if (featureId == Window.FEATURE_INDETERMINATE_PROGRESS) {
-				((ActionBarSupportImpl)mActionBar).setProgressBarIndeterminateVisibility(true);
-				return true;
-			}
-			if (featureId == Window.FEATURE_ACTION_BAR_ITEM_TEXT) {
-				((ActionBarSupportImpl)mActionBar).setActionItemTextEnabled(true);
 			}
 		}
 		return super.requestWindowFeature((int)featureId);
@@ -218,54 +228,54 @@ public class FragmentActivity extends Activity {
 	@Override
 	public void setContentView(int layoutResId) {
 		ensureActionBarAttached();
-		if (!IS_HONEYCOMB) {
+		if (IS_HONEYCOMB) {
+			super.setContentView(layoutResId);
+		} else {
 			FrameLayout contentView = (FrameLayout)findViewById(R.id.content);
 			contentView.removeAllViews();
 			getLayoutInflater().inflate(layoutResId, contentView, true);
-		} else {
-			super.setContentView(layoutResId);
 		}
 	}
 	
 	@Override
 	public void setContentView(View view, LayoutParams params) {
 		ensureActionBarAttached();
-		if (!IS_HONEYCOMB) {
+		if (IS_HONEYCOMB) {
+			super.setContentView(view, params);
+		} else {
 			FrameLayout contentView = (FrameLayout)findViewById(R.id.content);
 			contentView.removeAllViews();
 			contentView.addView(view, params);
-		} else {
-			super.setContentView(view, params);
 		}
 	}
 	
 	@Override
 	public void setContentView(View view) {
 		ensureActionBarAttached();
-		if (!IS_HONEYCOMB) {
+		if (IS_HONEYCOMB) {
+			super.setContentView(view);
+		} else {
 			FrameLayout contentView = (FrameLayout)findViewById(R.id.content);
 			contentView.removeAllViews();
 			contentView.addView(view);
-		} else {
-			super.setContentView(view);
 		}
 	}
 	
 	@Override
 	public void setTitle(CharSequence title) {
-		if ((mActionBar != null) && !IS_HONEYCOMB) {
-			mActionBar.setTitle(title);
-		} else {
+		if (IS_HONEYCOMB) {
 			super.setTitle(title);
+		} else {
+			mActionBar.setTitle(title);
 		}
 	}
 
 	@Override
 	public void setTitle(int titleId) {
-		if ((mActionBar != null) && !IS_HONEYCOMB) {
-			mActionBar.setTitle(titleId);
-		} else {
+		if (IS_HONEYCOMB) {
 			super.setTitle(titleId);
+		} else {
+			mActionBar.setTitle(titleId);
 		}
 	}
 
@@ -989,9 +999,10 @@ public class FragmentActivity extends Activity {
 			//specific implementation
 			actionMode = mActionBar.startActionMode(callback);
 		}
-		
-		//Send the activity callback that our action mode was started
-		onActionModeStarted(actionMode);
+		if (actionMode != null) {
+			//Send the activity callback that our action mode was started
+			onActionModeStarted(actionMode);
+		}
 		
 		//Return to the caller
 		return actionMode;

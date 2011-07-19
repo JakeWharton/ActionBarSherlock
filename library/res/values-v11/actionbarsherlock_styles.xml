@@ -19,6 +19,8 @@
         <item name="dropdownListPreferredItemHeight">48dip</item>
         <item name="popupMenuStyle">@style/Widget.Sherlock.PopupMenu</item>
         <item name="selectableItemBackground">@drawable/item_background_holo_dark</item>
+        <item name="windowActionBar">true</item>
+        <item name="windowActionModeOverlay">false</item>
 
         <!-- These should be in `Widget.Sherlock.ActionBar` but there is no way to then -->
         <!-- reference them as sibling attributes to their native counterparts. See: -->
@@ -58,6 +60,8 @@
         <item name="android:dropDownListViewStyle">?dropDownListViewStyle</item>
         <item name="android:popupMenuStyle">?popupMenuStyle</item>
         <item name="android:selectableItemBackground">?selectableItemBackground</item>
+        <item name="android:windowActionBar">?windowActionBar</item>
+        <item name="android:windowActionModeOverlay">?windowActionModeOverlay</item>
     </style>
 
     <style name="Internal.Widget.Sherlock.ActionBar" parent="android:style/Widget.Holo.ActionBar">
@@ -79,7 +83,7 @@
         <item name="android:subtitle">?abSubtitle</item>
         <item name="android:subtitleTextStyle">?abSubtitleTextStyle</item>
     </style>
-
+    
     
     <style name="Widget.Sherlock.ActionButton" parent="android:style/Widget.Holo.ActionButton"></style>
     <style name="Widget.Sherlock.Spinner" parent="android:style/Widget.Holo.Spinner"></style>
@@ -109,6 +113,8 @@
         <item name="dropdownListPreferredItemHeight">48dip</item>
         <item name="popupMenuStyle">@style/Widget.Sherlock.Light.PopupMenu</item>
         <item name="selectableItemBackground">@drawable/item_background_holo_light</item>
+        <item name="windowActionBar">true</item>
+        <item name="windowActionModeOverlay">false</item>
 
         <!-- These should be in `Widget.Sherlock.ActionBar` but there is no way to then -->
         <!-- reference them as sibling attributes to their native counterparts. See: -->
@@ -147,6 +153,8 @@
         <item name="android:dropDownListViewStyle">?dropDownListViewStyle</item>
         <item name="android:popupMenuStyle">?popupMenuStyle</item>
         <item name="android:selectableItemBackground">?selectableItemBackground</item>
+        <item name="android:windowActionBar">?windowActionBar</item>
+        <item name="android:windowActionModeOverlay">?windowActionModeOverlay</item>
     </style>
     
     <style name="Internal.Widget.Sherlock.Light.ActionBar" parent="android:style/Widget.Holo.Light.ActionBar">

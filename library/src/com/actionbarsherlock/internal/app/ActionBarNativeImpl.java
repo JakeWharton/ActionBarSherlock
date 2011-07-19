@@ -214,6 +214,10 @@ public final class ActionBarNativeImpl {
 		// ACTION BAR SUPPORT
 		// ---------------------------------------------------------------------
 		
+		protected ActionBar getInstance() {
+			return (getActionBar() != null) ? this : null;
+		}
+		
 		private static class TabImpl implements ActionBar.Tab {
 			final ActionBarNativeImpl.Impl mActionBar;
 			
