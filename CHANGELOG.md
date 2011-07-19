@@ -22,6 +22,8 @@ Library now uses the `r3` version of the compatibility library for its base.
   overwritten by the special `MenuItem` instance for home.
 * Fix: Native strings can now be specified for an XML menu `<item>` in
   `android:title` and `android:titleCondensed`.
+* Action item text is no longer supported. If you require text in an action item
+  use a custom view.
 
 
 Version 3.0.3 *(2011-07-17)*

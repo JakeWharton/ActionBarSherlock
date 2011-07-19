@@ -143,8 +143,8 @@ public final class ActionBarSupportImpl extends ActionBar {
 		for (int i = 0; i < count; i++) {
 			MenuItemImpl item = (MenuItemImpl)menu.getItem(i);
 			
-			//Items without an icon or title are forced into the overflow menu
-			if ((item.getIcon() == null) && ((item.getTitle() == null) || item.getTitle().equals(""))) {
+			//Items without an icon or custom view are forced into the overflow menu
+			if ((item.getIcon() == null) && (item.getActionView() == null)) {
 				continue;
 			}
 			
