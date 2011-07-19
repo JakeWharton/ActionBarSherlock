@@ -166,21 +166,15 @@ public class FragmentActivity extends Activity {
 		}
 	}
 
-	@Override
-	protected void onApplyThemeResource(Theme theme, int resid, boolean first) {
-		TypedArray attrs = theme.obtainStyledAttributes(resid, R.styleable.SherlockTheme);
-		final boolean wantsActionBar = attrs.getBoolean(R.styleable.SherlockTheme_windowActionBar, false);
-		mWindowFlags |= wantsActionBar ? WINDOW_FLAG_ACTION_BAR : 0;
-		attrs.recycle();
-		
-		super.onApplyThemeResource(theme, resid, first);
-	}
-
 	void ensureActionBarAttached() {
 		if (IS_HONEYCOMB) {
 			return;
 		}
 		if (!mIsActionBarImplAttached) {
+			//Do not allow an action bar if we have a parent activity
+			if (getParent() != null) {
+				mWindowFlags |= ~WINDOW_FLAG_ACTION_BAR;
+			}
 			if ((mWindowFlags & WINDOW_FLAG_ACTION_BAR) == WINDOW_FLAG_ACTION_BAR) {
 				if ((mWindowFlags & WINDOW_FLAG_ACTION_BAR_OVERLAY) == WINDOW_FLAG_ACTION_BAR_OVERLAY) {
 					super.setContentView(R.layout.screen_action_bar_overlay);
@@ -188,8 +182,10 @@ public class FragmentActivity extends Activity {
 					super.setContentView(R.layout.screen_action_bar);
 				}
 				
-				((ActionBarSupportImpl)mActionBar).setWindowActionBarItemTextEnabled((mWindowFlags & WINDOW_FLAG_ACTION_BAR_ITEM_TEXT) == WINDOW_FLAG_ACTION_BAR_ITEM_TEXT);
-				((ActionBarSupportImpl)mActionBar).setWindowIndeterminateProgressEnabled((mWindowFlags & WINDOW_FLAG_INDETERMINANTE_PROGRESS) == WINDOW_FLAG_INDETERMINANTE_PROGRESS);
+				final boolean actionBarEnabled = ((mWindowFlags & WINDOW_FLAG_ACTION_BAR_ITEM_TEXT) == WINDOW_FLAG_ACTION_BAR_ITEM_TEXT);
+				((ActionBarSupportImpl)mActionBar).setWindowActionBarItemTextEnabled(actionBarEnabled);
+				final boolean indProgressEnabled = ((mWindowFlags & WINDOW_FLAG_INDETERMINANTE_PROGRESS) == WINDOW_FLAG_INDETERMINANTE_PROGRESS);
+				((ActionBarSupportImpl)mActionBar).setWindowIndeterminateProgressEnabled(indProgressEnabled);
 				//TODO set other flags
 				
 				((ActionBarSupportImpl)mActionBar).init();
@@ -328,6 +324,20 @@ public class FragmentActivity extends Activity {
 		}
 		
 		super.onActivityResult(requestCode, resultCode, data);
+	}
+
+	@Override
+	protected void onApplyThemeResource(Theme theme, int resid, boolean first) {
+		TypedArray attrs = theme.obtainStyledAttributes(resid, R.styleable.SherlockTheme);
+		
+		final boolean actionBar = attrs.getBoolean(R.styleable.SherlockTheme_windowActionBar, false);
+		mWindowFlags |= actionBar ? WINDOW_FLAG_ACTION_BAR : 0;
+		
+		final boolean actionModeOverlay = attrs.getBoolean(R.styleable.SherlockTheme_windowActionModeOverlay, false);
+		mWindowFlags |= actionModeOverlay ? WINDOW_FLAG_ACTION_MODE_OVERLAY : 0;
+		
+		attrs.recycle();
+		super.onApplyThemeResource(theme, resid, first);
 	}
 
 	/**
