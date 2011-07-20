@@ -16,16 +16,12 @@
  */
 package com.example.android.supportv4.app;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.Window;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.GridView;
-import android.widget.ImageView;
+import android.widget.TextView;
 import com.example.android.supportv4.R;
+import com.example.android.supportv4.Shakespeare;
 
 public class ActionBarOverlay extends FragmentActivity {
     @Override
@@ -34,183 +30,17 @@ public class ActionBarOverlay extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.actionbar_overlay);
         
-        GridView images = (GridView)findViewById(R.id.images);
-        images.setAdapter(new ImageAdapter(this));
+        //Load partially transparent black background
+        getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.ab_bg_black));
+
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < 3; i++) {
+        	for (String dialog : Shakespeare.DIALOGUE) {
+        		builder.append(dialog).append("\n\n");
+        	}
+        }
+        
+        TextView bunchOfText = (TextView)findViewById(R.id.bunch_of_text);
+        bunchOfText.setText(builder.toString());
     }
-    
-    private static class ImageAdapter extends BaseAdapter {
-    	private Context mContext;
-    	
-    	public ImageAdapter(Context context) {
-    		mContext = context;
-    	}
-
-		@Override
-		public int getCount() {
-			return POSTERS.length;
-		}
-
-		@Override
-		public Object getItem(int arg0) {
-			return null;
-		}
-
-		@Override
-		public long getItemId(int arg0) {
-			return 0;
-		}
-
-		@Override
-		public View getView(int arg0, View arg1, ViewGroup arg2) {
-			ImageView imageView;
-			if (arg1 == null) {
-				imageView = new ImageView(mContext);
-				imageView.setLayoutParams(new GridView.LayoutParams(GridView.LayoutParams.FILL_PARENT, GridView.LayoutParams.FILL_PARENT));
-				imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-			} else {
-				imageView = (ImageView)arg1;
-			}
-			
-			imageView.setImageResource(POSTERS[arg0]);
-			return imageView;
-		}
-    }
-    
-    private static final int[] POSTERS = new int[] {
-    	R.drawable.poster01,
-    	R.drawable.poster02,
-    	R.drawable.poster03,
-    	R.drawable.poster04,
-    	R.drawable.poster05,
-    	R.drawable.poster06,
-    	R.drawable.poster07,
-    	R.drawable.poster08,
-    	R.drawable.poster09,
-    	R.drawable.poster10,
-    	R.drawable.poster11,
-    	R.drawable.poster12,
-    	R.drawable.poster13,
-    	R.drawable.poster14,
-    	R.drawable.poster15,
-    	R.drawable.poster16,
-    	R.drawable.poster17,
-    	R.drawable.poster18,
-    	R.drawable.poster19,
-    	R.drawable.poster20,
-    	R.drawable.poster21,
-    	R.drawable.poster22,
-    	R.drawable.poster23,
-    	R.drawable.poster24,
-    	R.drawable.poster25,
-    	R.drawable.poster26,
-    	R.drawable.poster27,
-    	R.drawable.poster28,
-    	R.drawable.poster29,
-    	R.drawable.poster30,
-    	R.drawable.poster31,
-    	R.drawable.poster32,
-    	R.drawable.poster33,
-    	R.drawable.poster34,
-    	R.drawable.poster35,
-    	R.drawable.poster36,
-    	R.drawable.poster37,
-    	R.drawable.poster38,
-    	R.drawable.poster39,
-    	R.drawable.poster40,
-    	R.drawable.poster41,
-    	R.drawable.poster42,
-    	R.drawable.poster43,
-    	R.drawable.poster44,
-    	R.drawable.poster45,
-    	R.drawable.poster01,
-    	R.drawable.poster02,
-    	R.drawable.poster03,
-    	R.drawable.poster04,
-    	R.drawable.poster05,
-    	R.drawable.poster06,
-    	R.drawable.poster07,
-    	R.drawable.poster08,
-    	R.drawable.poster09,
-    	R.drawable.poster10,
-    	R.drawable.poster11,
-    	R.drawable.poster12,
-    	R.drawable.poster13,
-    	R.drawable.poster14,
-    	R.drawable.poster15,
-    	R.drawable.poster16,
-    	R.drawable.poster17,
-    	R.drawable.poster18,
-    	R.drawable.poster19,
-    	R.drawable.poster20,
-    	R.drawable.poster21,
-    	R.drawable.poster22,
-    	R.drawable.poster23,
-    	R.drawable.poster24,
-    	R.drawable.poster25,
-    	R.drawable.poster26,
-    	R.drawable.poster27,
-    	R.drawable.poster28,
-    	R.drawable.poster29,
-    	R.drawable.poster30,
-    	R.drawable.poster31,
-    	R.drawable.poster32,
-    	R.drawable.poster33,
-    	R.drawable.poster34,
-    	R.drawable.poster35,
-    	R.drawable.poster36,
-    	R.drawable.poster37,
-    	R.drawable.poster38,
-    	R.drawable.poster39,
-    	R.drawable.poster40,
-    	R.drawable.poster41,
-    	R.drawable.poster42,
-    	R.drawable.poster43,
-    	R.drawable.poster44,
-    	R.drawable.poster45,
-    	R.drawable.poster01,
-    	R.drawable.poster02,
-    	R.drawable.poster03,
-    	R.drawable.poster04,
-    	R.drawable.poster05,
-    	R.drawable.poster06,
-    	R.drawable.poster07,
-    	R.drawable.poster08,
-    	R.drawable.poster09,
-    	R.drawable.poster10,
-    	R.drawable.poster11,
-    	R.drawable.poster12,
-    	R.drawable.poster13,
-    	R.drawable.poster14,
-    	R.drawable.poster15,
-    	R.drawable.poster16,
-    	R.drawable.poster17,
-    	R.drawable.poster18,
-    	R.drawable.poster19,
-    	R.drawable.poster20,
-    	R.drawable.poster21,
-    	R.drawable.poster22,
-    	R.drawable.poster23,
-    	R.drawable.poster24,
-    	R.drawable.poster25,
-    	R.drawable.poster26,
-    	R.drawable.poster27,
-    	R.drawable.poster28,
-    	R.drawable.poster29,
-    	R.drawable.poster30,
-    	R.drawable.poster31,
-    	R.drawable.poster32,
-    	R.drawable.poster33,
-    	R.drawable.poster34,
-    	R.drawable.poster35,
-    	R.drawable.poster36,
-    	R.drawable.poster37,
-    	R.drawable.poster38,
-    	R.drawable.poster39,
-    	R.drawable.poster40,
-    	R.drawable.poster41,
-    	R.drawable.poster42,
-    	R.drawable.poster43,
-    	R.drawable.poster44,
-    	R.drawable.poster45,
-    };
 }
