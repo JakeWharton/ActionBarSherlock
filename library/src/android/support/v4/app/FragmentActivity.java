@@ -166,7 +166,7 @@ public class FragmentActivity extends Activity {
 		}
 	}
 
-	void ensureActionBarAttached() {
+	protected void ensureSupportActionBarAttached() {
 		if (IS_HONEYCOMB) {
 			return;
 		}
@@ -249,7 +249,7 @@ public class FragmentActivity extends Activity {
 	
 	@Override
 	public void setContentView(int layoutResId) {
-		ensureActionBarAttached();
+		ensureSupportActionBarAttached();
 		if (IS_HONEYCOMB) {
 			super.setContentView(layoutResId);
 		} else {
@@ -261,7 +261,7 @@ public class FragmentActivity extends Activity {
 	
 	@Override
 	public void setContentView(View view, LayoutParams params) {
-		ensureActionBarAttached();
+		ensureSupportActionBarAttached();
 		if (IS_HONEYCOMB) {
 			super.setContentView(view, params);
 		} else {
@@ -273,7 +273,7 @@ public class FragmentActivity extends Activity {
 	
 	@Override
 	public void setContentView(View view) {
-		ensureActionBarAttached();
+		ensureSupportActionBarAttached();
 		if (IS_HONEYCOMB) {
 			super.setContentView(view);
 		} else {

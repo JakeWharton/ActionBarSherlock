@@ -37,6 +37,7 @@
     
     
     <string name="actionbar_feature_toggles">Action Bar/Feature Toggles</string>
+    <string name="actionbar_list_navigation">Action Bar/List Navigation</string>
     <string name="actionbar_tabs_pager">Action Bar/Tabs and Pager</string>
     <string name="actionbar_overlay">Action Bar/Overlay</string>
     
