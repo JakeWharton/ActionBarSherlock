@@ -84,6 +84,26 @@
         </activity>
         
         <activity
+            android:name=".app.ActionBarMenuSupport"
+            android:label="@string/actionbar_menu_support"
+            android:theme="@style/Theme.Sherlock">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.example.android.supportv4.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+        
+        <activity
+            android:name=".app.ActionBarTabNavigation"
+            android:label="@string/actionbar_tab_navigation"
+            android:theme="@style/Theme.Sherlock">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.example.android.supportv4.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+        
+        <activity
             android:name=".app.ActionBarOverlay"
             android:label="@string/actionbar_overlay"
             android:theme="@style/Theme.Sherlock">
