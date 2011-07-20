@@ -18,6 +18,7 @@ package com.example.android.supportv4.app;
 
 import java.util.ArrayList;
 import com.example.android.supportv4.R;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -32,7 +33,7 @@ import android.support.v4.view.ViewPager;
  * that switches between tabs and also allows the user to perform horizontal
  * flicks to move between the tabs.
  */
-public class ActionBarTabsPager extends FragmentActivity implements ActionBar.TabListener {
+public class ActionBarTabsPager extends FragmentActivity {
     ViewPager  mViewPager;
     TabsAdapter mTabsAdapter;
 
@@ -42,13 +43,18 @@ public class ActionBarTabsPager extends FragmentActivity implements ActionBar.Ta
 
         setContentView(R.layout.actionbar_tabs_pager);
         getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        
+        ActionBar.Tab tab1 = getSupportActionBar().newTab().setText("Tab 1");
+        ActionBar.Tab tab2 = getSupportActionBar().newTab().setText("Tab 2");
+        ActionBar.Tab tab3 = getSupportActionBar().newTab().setText("Tab 3");
+        ActionBar.Tab tab4 = getSupportActionBar().newTab().setText("Tab 4");
 
         mViewPager = (ViewPager)findViewById(R.id.pager);
         mTabsAdapter = new TabsAdapter(this, getSupportActionBar(), mViewPager);
-        mTabsAdapter.addTab("Tab 1", FragmentStackSupport.CountingFragment.class);
-        mTabsAdapter.addTab("Tab 2", LoaderCursorSupport.CursorLoaderListFragment.class);
-        mTabsAdapter.addTab("Tab 3", LoaderCustomSupport.AppListFragment.class);
-        mTabsAdapter.addTab("Tab 4", LoaderThrottleSupport.ThrottledLoaderListFragment.class);
+        mTabsAdapter.addTab(tab1, FragmentStackSupport.CountingFragment.class);
+        mTabsAdapter.addTab(tab2, LoaderCursorSupport.CursorLoaderListFragment.class);
+        mTabsAdapter.addTab(tab3, LoaderCustomSupport.AppListFragment.class);
+        mTabsAdapter.addTab(tab4, LoaderThrottleSupport.ThrottledLoaderListFragment.class);
 
         if (savedInstanceState != null) {
         	getSupportActionBar().setSelectedNavigationItem(savedInstanceState.getInt("index"));
@@ -72,13 +78,13 @@ public class ActionBarTabsPager extends FragmentActivity implements ActionBar.Ta
      * care of switch to the correct paged in the ViewPager whenever the selected
      * tab changes.
      */
-    public static class TabsAdapter extends FragmentPagerAdapter implements ViewPager.OnPageChangeListener {
-        private final ActionBarTabsPager mContext;
+    public static class TabsAdapter extends FragmentPagerAdapter implements ViewPager.OnPageChangeListener, ActionBar.TabListener {
+        private final Context mContext;
         private final ActionBar mActionBar;
         private final ViewPager mViewPager;
         private final ArrayList<String> mTabs = new ArrayList<String>();
 
-        public TabsAdapter(ActionBarTabsPager activity, ActionBar actionBar, ViewPager pager) {
+        public TabsAdapter(FragmentActivity activity, ActionBar actionBar, ViewPager pager) {
             super(activity.getSupportFragmentManager());
             mContext = activity;
             mActionBar = actionBar;
@@ -87,9 +93,9 @@ public class ActionBarTabsPager extends FragmentActivity implements ActionBar.Ta
             mViewPager.setOnPageChangeListener(this);
         }
 
-        public void addTab(String tabText, Class<?> clss) {
+        public void addTab(ActionBar.Tab tab, Class<?> clss) {
             mTabs.add(clss.getName());
-            mActionBar.addTab(mActionBar.newTab().setText(tabText).setTabListener(mContext));
+            mActionBar.addTab(tab.setTabListener(this));
             notifyDataSetChanged();
         }
 
@@ -115,22 +121,18 @@ public class ActionBarTabsPager extends FragmentActivity implements ActionBar.Ta
         @Override
         public void onPageScrollStateChanged(int state) {
         }
-        
-        public void setSelectedPage(int position) {
-        	mViewPager.setCurrentItem(position);
-        }
+
+    	@Override
+    	public void onTabSelected(Tab tab, FragmentTransaction ft) {
+    		mViewPager.setCurrentItem(tab.getPosition());
+    	}
+
+    	@Override
+    	public void onTabReselected(Tab tab, FragmentTransaction ft) {
+    	}
+
+    	@Override
+    	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+    	}
     }
-
-	@Override
-	public void onTabSelected(Tab tab, FragmentTransaction ft) {
-		mTabsAdapter.setSelectedPage(tab.getPosition());
-	}
-
-	@Override
-	public void onTabReselected(Tab tab, FragmentTransaction ft) {
-	}
-
-	@Override
-	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-	}
 }
