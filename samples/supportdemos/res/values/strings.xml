@@ -43,6 +43,11 @@
     <string name="actionbar_overlay">Action Bar/Overlay</string>
     <string name="actionbar_menu_support">Action Bar/Menu Support</string>
     
+    <string name="actionbar_styles">Action Bar/Styles</string>
+    <string name="actionbar_styles_dark">Dark Theme</string>
+    <string name="actionbar_styles_light">Light Theme</string>
+    <string name="actionbar_styles_custom">Custom Theme</string>
+    
     
     <string name="fragment_alert_dialog_support">Fragment/Alert Dialog</string>
 

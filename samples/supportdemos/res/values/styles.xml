@@ -29,4 +29,12 @@
          in correctly laying out an activity as a dialog. -->
     <style name="ThemeDialogWhenLarge" parent="android:style/Theme">
     </style>
+    
+    <style name="Theme.SherlockCustom" parent="Theme.Sherlock">
+    	<item name="abTitleTextStyle">@style/CustomTitle</item>
+    </style>
+    
+    <style name="CustomTitle" parent="TextAppearance.Widget.Title">
+    	<item name="android:textColor">#ff3377cc</item>
+    </style>
 </resources>
