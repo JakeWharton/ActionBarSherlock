@@ -377,33 +377,6 @@
 	                    android:gravity="center"
 	                    android:text="Hide" />
 	            </LinearLayout>
-            	
-	            <!-- THEME -->
-	            <TextView
-	                android:layout_width="fill_parent"
-	                android:layout_height="wrap_content"
-	                android:layout_marginBottom="2dip"
-	                android:text="Theme" />
-	            <LinearLayout
-	                android:layout_width="fill_parent"
-	                android:layout_height="wrap_content"
-	                android:orientation="horizontal"
-	                android:layout_marginBottom="10dip">
-	                <Button
-	                    android:id="@+id/display_theme_normal"
-	                    android:layout_width="fill_parent"
-	                    android:layout_height="wrap_content"
-	                    android:layout_weight="1"
-	                    android:gravity="center"
-	                    android:text="Normal" />
-	                <Button
-	                    android:id="@+id/display_theme_light"
-	                    android:layout_width="fill_parent"
-	                    android:layout_height="wrap_content"
-	                    android:layout_weight="1"
-	                    android:gravity="center"
-	                    android:text="Light" />
-	            </LinearLayout>
 	        </LinearLayout>
         </LinearLayout>
     </ScrollView>
