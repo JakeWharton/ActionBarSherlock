@@ -18,6 +18,7 @@ package com.example.android.supportv4.app;
 import com.example.android.supportv4.R;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -52,12 +53,21 @@ public class FragmentTabsPager extends FragmentActivity {
 
         mTabsAdapter.addTab(mTabHost.newTabSpec("simple").setIndicator("Simple"),
                 FragmentStackSupport.CountingFragment.class, null);
-        mTabsAdapter.addTab(mTabHost.newTabSpec("contacts").setIndicator("Contacts"),
-                LoaderCursorSupport.CursorLoaderListFragment.class, null);
-        mTabsAdapter.addTab(mTabHost.newTabSpec("custom").setIndicator("Custom"),
-                LoaderCustomSupport.AppListFragment.class, null);
-        mTabsAdapter.addTab(mTabHost.newTabSpec("throttle").setIndicator("Throttle"),
-                LoaderThrottleSupport.ThrottledLoaderListFragment.class, null);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ECLAIR) {
+        	mTabsAdapter.addTab(mTabHost.newTabSpec("contacts").setIndicator("Contacts"),
+        			LoaderCursorSupport.CursorLoaderListFragment.class, null);
+        	mTabsAdapter.addTab(mTabHost.newTabSpec("custom").setIndicator("Custom"),
+        			LoaderCustomSupport.AppListFragment.class, null);
+        	mTabsAdapter.addTab(mTabHost.newTabSpec("throttle").setIndicator("Throttle"),
+        			LoaderThrottleSupport.ThrottledLoaderListFragment.class, null);
+        } else {
+            mTabsAdapter.addTab(mTabHost.newTabSpec("simple").setIndicator("Simple2"),
+                    FragmentStackSupport.CountingFragment.class, null);
+            mTabsAdapter.addTab(mTabHost.newTabSpec("simple").setIndicator("Simple3"),
+                    FragmentStackSupport.CountingFragment.class, null);
+            mTabsAdapter.addTab(mTabHost.newTabSpec("simple").setIndicator("Simple4"),
+                    FragmentStackSupport.CountingFragment.class, null);
+        }
 
         if (savedInstanceState != null) {
             mTabHost.setCurrentTabByTag(savedInstanceState.getString("tab"));

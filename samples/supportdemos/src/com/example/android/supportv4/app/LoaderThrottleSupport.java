@@ -227,8 +227,10 @@ public class LoaderThrottleSupport extends FragmentActivity {
                     // The incoming URI is for a single row.
                     qb.setProjectionMap(mNotesProjectionMap);
                     qb.appendWhere(MainTable._ID + "=?");
-                    selectionArgs = DatabaseUtils.appendSelectionArgs(selectionArgs,
-                            new String[] { uri.getLastPathSegment() });
+                    String[] newSelectionArgs = new String[selectionArgs.length + 1];
+                    System.arraycopy(selectionArgs, 0, newSelectionArgs, 0, selectionArgs.length);
+                    newSelectionArgs[selectionArgs.length] = uri.getLastPathSegment();
+                    selectionArgs = newSelectionArgs;
                     break;
 
                 default:
@@ -457,8 +459,7 @@ public class LoaderThrottleSupport extends FragmentActivity {
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
                     	mPopulatingTask.execute((Void[])null);
                     } else {
-                    	mPopulatingTask.executeOnExecutor(
-                            AsyncTask.THREAD_POOL_EXECUTOR, (Void[])null);
+                    	AsyncTaskCompatHoneycomb.executeOnExecutor(mPopulatingTask);
                     }
                     return true;
 
@@ -479,6 +480,12 @@ public class LoaderThrottleSupport extends FragmentActivity {
                 default:
                     return super.onOptionsItemSelected(item);
             }
+        }
+        
+        static class AsyncTaskCompatHoneycomb {
+        	static void executeOnExecutor(AsyncTask<Void, Void, Void> task) {
+            	task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (Void[])null);
+        	}
         }
 
         @Override public void onListItemClick(ListView l, View v, int position, long id) {
