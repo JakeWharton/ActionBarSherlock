@@ -92,32 +92,28 @@ public final class ActionBarSupportImpl extends ActionBar {
 		} catch (NameNotFoundException e) {}
 
 		
-		if ((actInfo != null) && (actInfo.labelRes != 0)) {
-			//Load label string resource from the activity entry
-			mActionBar.setTitle(actInfo.labelRes);
-		} else if (mActionBar.getTitle() == null) {
-			//No activity label string resource and none in theme
-			mActionBar.setTitle(actInfo.loadLabel(pm));
+		if (mActionBar.getTitle() == null) {
+			if ((actInfo != null) && (actInfo.labelRes != 0)) {
+				//Load label string resource from the activity entry
+				mActionBar.setTitle(actInfo.labelRes);
+			} else {
+				//No activity label string resource and none in theme
+				mActionBar.setTitle(actInfo.loadLabel(pm));
+			}
+		}
+		if (homeItem.getIcon() == null) {
+			if ((actInfo != null) && (actInfo.icon != 0)) {
+				//Load the icon from the activity entry
+				homeItem.setIcon(actInfo.icon);
+			} else {
+				//No activity icon and none in theme
+				homeItem.setIcon(pm.getApplicationIcon(appInfo));
+			}
 		}
 		
-		if ((actInfo != null) && (actInfo.icon != 0)) {
-			//Load the icon from the activity entry
-			homeItem.setIcon(actInfo.icon);
-		} else if (homeItem.getIcon() == null) {
-			//No activity icon and none in theme
-			homeItem.setIcon(pm.getApplicationIcon(appInfo));
-		}
-		
-		//XXX LOGO LOADING DOES NOT WORK
-		//XXX SEE: http://stackoverflow.com/questions/6105504/load-activity-and-or-application-logo-programmatically-from-manifest
-		//XXX SEE: https://groups.google.com/forum/#!topic/android-developers/UFR4l0ZwJWc
-		//if ((actInfo != null) && (actInfo.logo != 0)) {
-		//	//Load the logo from the activity entry
-		//	homeItem.setLogo(actInfo.logo);
-		//} else if ((homeItem.getLogo() == null) && (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD)) {
-		//	//No activity logo and none in theme
-		//	homeItem.setLogo(appInfo.logo);
-		//}
+		//LOGO LOADING DOES NOT WORK
+		//SEE: http://stackoverflow.com/questions/6105504/load-activity-and-or-application-logo-programmatically-from-manifest
+		//SEE: https://groups.google.com/forum/#!topic/android-developers/UFR4l0ZwJWc
 	}
 	
 	public void onMenuInflated(Menu menu) {

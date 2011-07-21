@@ -4,8 +4,7 @@ Change Log
 Version 3.0.4 *(In Development)*
 --------------------------------
 
-Library now uses the `r3` version of the compatibility library for its base.
-
+* Library now uses the `r3` version of the compatibility library for its base.
 * Added the demo project included with the new compatibility library under
   `samples/supportdemos/`.
 * Dividers are now shown on pre-3.0 devices between all action items.

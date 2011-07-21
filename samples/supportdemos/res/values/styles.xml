@@ -30,7 +30,9 @@
     <style name="ThemeDialogWhenLarge" parent="android:style/Theme">
     </style>
     
-    <style name="Theme.SherlockCustom" parent="Theme.Sherlock">
+    <style name="Theme.SherlockCustom" parent="@style/Theme.Sherlock">
+    	<item name="abIcon">@drawable/ic_magnifying_glass</item>
+    	<item name="abTitle">Custom Style!</item>
     	<item name="abTitleTextStyle">@style/CustomTitle</item>
     </style>
     
