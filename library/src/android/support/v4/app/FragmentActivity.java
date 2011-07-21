@@ -755,12 +755,12 @@ public class FragmentActivity extends Activity {
 			final Intent intent = getIntent();
 			intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 			
-			finish();
+			startActivity(intent);
 			if (Build.VERSION.SDK_INT > Build.VERSION_CODES.ECLAIR) {
 				OverridePendingTransition.invoke(this);
 			}
 			
-			startActivity(intent);
+			finish();
 			if (Build.VERSION.SDK_INT > Build.VERSION_CODES.ECLAIR) {
 				OverridePendingTransition.invoke(this);
 			}
