@@ -6,7 +6,8 @@
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:padding="10dip">
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip">
         <TextView
             android:id="@+id/bunch_of_text"
             android:layout_width="fill_parent"

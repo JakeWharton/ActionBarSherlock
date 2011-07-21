@@ -32,12 +32,18 @@ the Action Bar enabled overlaying application content.
         android:id="@+id/action_bar_container"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        style="@style/Internal.Widget.Sherlock.ActionBarStyle"
-        >
+        android:gravity="top"
+        style="@style/Internal.Widget.Sherlock.ActionBarStyle">
         <com.actionbarsherlock.internal.widget.ActionBarView
             android:id="@+id/action_bar"
             android:layout_width="fill_parent"
             android:layout_height="?attr/actionBarSize"
             />
     </com.actionbarsherlock.internal.widget.ActionBarContainer>
+    <ImageView
+        android:src="?android:attr/windowContentOverlay"
+        android:scaleType="fitXY"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/action_bar_container" />
 </RelativeLayout>
