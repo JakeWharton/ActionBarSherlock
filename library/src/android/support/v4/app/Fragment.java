@@ -592,6 +592,14 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     final public FragmentManager getFragmentManager() {
         return mFragmentManager;
     }
+    
+    /**
+     * A clone of {@link #getFragmentManager()} to maintain naming conventions
+     * throughout the compatibility library.
+     */
+    final public FragmentManager getSupportFragmentManager() {
+    	return mFragmentManager;
+    }
 
     /**
      * Return true if the fragment is currently added to its activity.
