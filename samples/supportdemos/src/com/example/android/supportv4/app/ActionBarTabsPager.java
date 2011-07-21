@@ -19,6 +19,7 @@ package com.example.android.supportv4.app;
 import java.util.ArrayList;
 import com.example.android.supportv4.R;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -52,9 +53,15 @@ public class ActionBarTabsPager extends FragmentActivity {
         mViewPager = (ViewPager)findViewById(R.id.pager);
         mTabsAdapter = new TabsAdapter(this, getSupportActionBar(), mViewPager);
         mTabsAdapter.addTab(tab1, FragmentStackSupport.CountingFragment.class);
-        mTabsAdapter.addTab(tab2, LoaderCursorSupport.CursorLoaderListFragment.class);
-        mTabsAdapter.addTab(tab3, LoaderCustomSupport.AppListFragment.class);
-        mTabsAdapter.addTab(tab4, LoaderThrottleSupport.ThrottledLoaderListFragment.class);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ECLAIR) {
+        	mTabsAdapter.addTab(tab2, FragmentStackSupport.CountingFragment.class);
+        	mTabsAdapter.addTab(tab3, FragmentStackSupport.CountingFragment.class);
+        	mTabsAdapter.addTab(tab4, FragmentStackSupport.CountingFragment.class);
+        } else {
+        	mTabsAdapter.addTab(tab2, LoaderCursorSupport.CursorLoaderListFragment.class);
+        	mTabsAdapter.addTab(tab3, LoaderCustomSupport.AppListFragment.class);
+        	mTabsAdapter.addTab(tab4, LoaderThrottleSupport.ThrottledLoaderListFragment.class);
+        }
 
         if (savedInstanceState != null) {
         	getSupportActionBar().setSelectedNavigationItem(savedInstanceState.getInt("index"));

@@ -50,23 +50,22 @@ public class FragmentTabsPager extends FragmentActivity {
         mViewPager = (ViewPager)findViewById(R.id.pager);
 
         mTabsAdapter = new TabsAdapter(this, mTabHost, mViewPager);
-
         mTabsAdapter.addTab(mTabHost.newTabSpec("simple").setIndicator("Simple"),
                 FragmentStackSupport.CountingFragment.class, null);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ECLAIR) {
-        	mTabsAdapter.addTab(mTabHost.newTabSpec("contacts").setIndicator("Contacts"),
-        			LoaderCursorSupport.CursorLoaderListFragment.class, null);
-        	mTabsAdapter.addTab(mTabHost.newTabSpec("custom").setIndicator("Custom"),
-        			LoaderCustomSupport.AppListFragment.class, null);
-        	mTabsAdapter.addTab(mTabHost.newTabSpec("throttle").setIndicator("Throttle"),
-        			LoaderThrottleSupport.ThrottledLoaderListFragment.class, null);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ECLAIR) {
+            mTabsAdapter.addTab(mTabHost.newTabSpec("simple2").setIndicator("Simple 2"),
+                    FragmentStackSupport.CountingFragment.class, null);
+            mTabsAdapter.addTab(mTabHost.newTabSpec("simple3").setIndicator("Simple 3"),
+                    FragmentStackSupport.CountingFragment.class, null);
+            mTabsAdapter.addTab(mTabHost.newTabSpec("simple4").setIndicator("Simple 4"),
+                    FragmentStackSupport.CountingFragment.class, null);
         } else {
-            mTabsAdapter.addTab(mTabHost.newTabSpec("simple").setIndicator("Simple2"),
-                    FragmentStackSupport.CountingFragment.class, null);
-            mTabsAdapter.addTab(mTabHost.newTabSpec("simple").setIndicator("Simple3"),
-                    FragmentStackSupport.CountingFragment.class, null);
-            mTabsAdapter.addTab(mTabHost.newTabSpec("simple").setIndicator("Simple4"),
-                    FragmentStackSupport.CountingFragment.class, null);
+            mTabsAdapter.addTab(mTabHost.newTabSpec("contacts").setIndicator("Contacts"),
+            		LoaderCursorSupport.CursorLoaderListFragment.class, null);
+            mTabsAdapter.addTab(mTabHost.newTabSpec("custom").setIndicator("Custom"),
+            		LoaderCustomSupport.AppListFragment.class, null);
+            mTabsAdapter.addTab(mTabHost.newTabSpec("throttle").setIndicator("Throttle"),
+            		LoaderThrottleSupport.ThrottledLoaderListFragment.class, null);
         }
 
         if (savedInstanceState != null) {
