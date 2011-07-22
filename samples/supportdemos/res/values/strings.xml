@@ -43,6 +43,9 @@
     <string name="actionbar_overlay">Action Bar/Overlay</string>
     <string name="actionbar_menu_support">Action Bar/Menu Support</string>
     
+    <string name="actionbar_simple">Action Bar/Simple</string>
+    <string name="actionbar_simple_content">This is a simple showcase of how easy it is to add the action bar to your activities. Take a look at the source code, it\'s surprisingly simple!</string>
+    
     <string name="actionbar_styles">Action Bar/Styles</string>
     <string name="actionbar_styles_dark">Dark Theme</string>
     <string name="actionbar_styles_light">Light Theme</string>

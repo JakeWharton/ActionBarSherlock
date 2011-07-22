@@ -122,6 +122,16 @@
             </intent-filter>
         </activity>
         
+        <activity
+            android:name=".app.ActionBarSimple"
+            android:label="@string/actionbar_simple"
+            android:theme="@style/Theme.Sherlock">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.example.android.supportv4.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+        
         <!-- Fragment Support Samples -->
 
         <activity android:name=".app.FragmentAlertDialogSupport"
