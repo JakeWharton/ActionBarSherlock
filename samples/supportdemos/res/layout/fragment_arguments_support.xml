@@ -36,7 +36,7 @@
         android:layout_width="match_parent" android:layout_height="wrap_content">
 
 
-        <fragment class="com.example.android.supportv4.app.FragmentArgumentsSupport$MyFragment"
+        <fragment class="com.actionbarsherlock.sample.demos.app.FragmentArgumentsSupport$MyFragment"
                 android:id="@+id/embedded"
                 android:layout_width="0px" android:layout_height="wrap_content"
                 android:layout_weight="1"
