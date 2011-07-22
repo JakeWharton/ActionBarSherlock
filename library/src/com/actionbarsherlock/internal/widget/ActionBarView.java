@@ -172,6 +172,11 @@ public final class ActionBarView extends RelativeLayout {
 		
 		mIndeterminateProgress = (ProgressBar)findViewById(R.id.actionbarwatson_iprogress);
 		
+		Drawable background = attrsActionBar.getDrawable(R.styleable.SherlockTheme_abBackground);
+		if (background != null) {
+			setBackgroundDrawable(background);
+		}
+		
 		//Try to get the display options defined in the theme, or fall back to
 		//displaying the title and home icon
 		setDisplayOptions(attrsActionBar.getInteger(R.styleable.SherlockTheme_abDisplayOptions, DEFAULT_DISPLAY_OPTIONS));
