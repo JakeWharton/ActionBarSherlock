@@ -64,7 +64,7 @@ public class LoaderThrottleSupport extends FragmentActivity {
     /**
      * The authority we use to get to our sample provider.
      */
-    public static final String AUTHORITY = "com.actionbarsherlock.sample.demps.app.LoaderThrottle";
+    public static final String AUTHORITY = "com.actionbarsherlock.sample.demos.apis.LoaderThrottle";
 
     /**
      * Definition of the contract for the main table of our provider.

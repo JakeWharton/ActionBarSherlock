@@ -289,7 +289,7 @@
             </intent-filter>
         </activity>
         <provider android:name=".app.LoaderThrottleSupport$SimpleProvider"
-                  android:authorities="com.example.android.apis.supportv4.app.LoaderThrottle" />
+                  android:authorities="com.actionbarsherlock.sample.demos.apis.LoaderThrottle" />
 
     </application>
 </manifest>
