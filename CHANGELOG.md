@@ -4,7 +4,16 @@ Change Log
 Version 3.1.0 *(In Development)*
 --------------------------------
 
+Due to shortcomings in the Android theming system, a small change must be made
+in how this library handles themes. If you were using a custom style for
+`actionBarStyle` you must now specify its attributes in the root of the theme
+and prefix them with 'ab'.
+
+You can see an example of this in the `SherlockCustom` theme in
+`samples/demos/res/values/styles.xml`.
+
 * Library now uses the `r3` version of the compatibility library for its base.
+* `actionBarStyle` is no longer a valid theme attribute (see note above).
 * Added the demo project included with the new compatibility library under
   `samples/supportdemos/`.
 * Dividers are now shown on pre-3.0 devices between all action items.
