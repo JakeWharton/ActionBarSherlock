@@ -118,7 +118,7 @@ public final class ActionBarView extends RelativeLayout {
 		
 		//// TITLE ////
 		
-		mTitle = (TextView)findViewById(R.id.actionbarwatson_title);
+		mTitle = (TextView)findViewById(R.id.action_bar_title);
 		
 		//Try to load title style from the theme
 		final int titleTextStyle = attrsActionBar.getResourceId(R.styleable.SherlockTheme_abTitleTextStyle, 0);
@@ -135,7 +135,7 @@ public final class ActionBarView extends RelativeLayout {
 		
 		//// SUBTITLE ////
 		
-		mSubtitle = (TextView)findViewById(R.id.actionbarwatson_subtitle);
+		mSubtitle = (TextView)findViewById(R.id.action_bar_subtitle);
 		
 		//Try to load subtitle style from the theme
 		final int subtitleTextStyle = attrsActionBar.getResourceId(R.styleable.SherlockTheme_abSubtitleTextStyle, 0);

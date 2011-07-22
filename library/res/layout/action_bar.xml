@@ -55,42 +55,18 @@
             android:visibility="gone"
             style="?abIndeterminateProgressStyle"
             />
-        <com.actionbarsherlock.internal.widget.ScrollingTextView
-            android:id="@+id/actionbarwatson_title"
+        <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_alignParentLeft="true"
             android:layout_toLeftOf="@id/actionbarwatson_iprogress"
             android:layout_alignWithParentIfMissing="true"
-            android:gravity="center_vertical"
             android:paddingLeft="5dip"
-            android:paddingRight="5dip"
-            android:textSize="16dip"
-            android:textStyle="bold"
-            android:lines="1"
-            android:scrollHorizontally="true"
-            android:ellipsize="marquee"
-            android:marqueeRepeatLimit="marquee_forever"
-            />
-        <com.actionbarsherlock.internal.widget.ScrollingTextView
-            android:id="@+id/actionbarwatson_subtitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_toLeftOf="@id/actionbarwatson_iprogress"
-            android:layout_below="@id/actionbarwatson_title"
-            android:layout_alignWithParentIfMissing="true"
             android:gravity="center_vertical"
-            android:paddingLeft="5dip"
-            android:paddingRight="5dip"
-            android:textSize="12dip"
-            android:lines="1"
-            android:scrollHorizontally="true"
-            android:ellipsize="marquee"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:visibility="gone"
-            />
+            >
+            <include layout="@layout/action_bar_title_item" />
+        </FrameLayout>
         <Spinner
             android:id="@+id/actionbarwatson_nav_list"
             android:layout_width="wrap_content"
