@@ -76,6 +76,8 @@ public final class ActionBarView extends RelativeLayout {
 	/** Whether text is shown on action items regardless of display params. */
 	private boolean mIsActionItemTextEnabled = false;
 	
+	private boolean mIsConstructing;
+	
 	
 
 	public ActionBarView(Context context) {
@@ -91,6 +93,7 @@ public final class ActionBarView extends RelativeLayout {
 		LayoutInflater.from(context).inflate(R.layout.action_bar, this, true);
 		
 		final TypedArray attrsActionBar = context.obtainStyledAttributes(attrs, R.styleable.SherlockTheme, defStyle, 0);
+		mIsConstructing = true;
 		
 		
 		/// HOME ////
@@ -182,12 +185,14 @@ public final class ActionBarView extends RelativeLayout {
 		setDisplayOptions(attrsActionBar.getInteger(R.styleable.SherlockTheme_abDisplayOptions, DEFAULT_DISPLAY_OPTIONS));
 		
 		//Try to get the navigation defined in the theme, or, fall back to
-		//use standard navigation by default (this will call reloadDisplay)
+		//use standard navigation by default
 		setNavigationMode(attrsActionBar.getInteger(R.styleable.SherlockTheme_abNavigationMode, DEFAULT_NAVIGATION_MODE));
 		
 		
 		//Reduce, Reuse, Recycle!
 		attrsActionBar.recycle();
+		mIsConstructing = false;
+		reloadDisplay();
 	}
 	
 	
@@ -210,6 +215,10 @@ public final class ActionBarView extends RelativeLayout {
 	 * Reload the current action bar display state.
 	 */
 	private void reloadDisplay() {
+		if (mIsConstructing) {
+			return; //Do not run if we are in the constructor
+		}
+		
 		final boolean isStandard = mNavigationMode == ActionBar.NAVIGATION_MODE_STANDARD;
 		final boolean isList = mNavigationMode == ActionBar.NAVIGATION_MODE_LIST;
 		final boolean isTab = mNavigationMode == ActionBar.NAVIGATION_MODE_TABS;
