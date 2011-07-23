@@ -89,6 +89,9 @@
 	#download_more { font-weight: normal; color: #666; text-shadow: none; font-size: 0.9em; }
 	#download_more:hover { border-bottom: none; color: #999; }
 
+	#theming ul li { color: #666; }
+	#theming ul li code { color: #bbb; }
+
 	#faq-table { border-collapse: collapse; width: 100%; border-top: 1px solid #333; margin-top: 50px; }
 	#faq-table th, #faq-table td { border-bottom: 1px solid #333; padding: 1.5em 0; text-align: left; vertical-align: top; }
 	#faq-table th { color: #ccc; padding-right: 1em; width: 50%; }
