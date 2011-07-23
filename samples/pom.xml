@@ -16,8 +16,8 @@
 	</parent>
 
 	<modules>
+		<module>demos</module>
 		<module>shakespeare</module>
 		<module>styled</module>
-		<module>supportdemos</module>
 	</modules>
 </project>

@@ -4,8 +4,8 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.actionbarsherlock</groupId>
-	<artifactId>sample-supportdemos</artifactId>
-	<name>Sample: Support Demos</name>
+	<artifactId>sample-demos</artifactId>
+	<name>Sample: Demos</name>
 	<packaging>apk</packaging>
 
 	<parent>
