@@ -11,6 +11,10 @@ $(function() {
 		  , data = response.data
 		;
 
+		data.sort(function(o1, o2) {
+			return (o1.name < o2.name) ? -1 : 1;
+		});
+
 		var previous = $('#previous-releases').empty();
 		$.each(data, function() {
 			previous.prepend(

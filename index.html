@@ -41,6 +41,10 @@
 					var meta = response.meta
 					  , data = response.data
 					;
+
+					data.sort(function(o1, o2) {
+						return (o1.name < o2.name) ? -1 : 1;
+					});
 					
 					var last = data[data.length - 1];
 					$('#latest-version').html('v' + last.name);
