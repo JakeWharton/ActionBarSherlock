@@ -218,10 +218,10 @@ public final class MenuItemImpl implements MenuItem {
 			
 			//Create and initialize a native itemview wrapper
 			NativeMenuItemView nativeWrapper = new NativeMenuItemView(item);
-			nativeWrapper.initialize(this, MenuBuilder.TYPE_NATIVE);
+			nativeWrapper.initialize(this, MenuBuilder.TYPE_ACTION_BAR);
 			
 			//Associate the itemview to this so changes will be reflected
-			setItemView(MenuBuilder.TYPE_NATIVE, nativeWrapper);
+			setItemView(MenuBuilder.TYPE_ACTION_BAR, nativeWrapper);
 		}
 	}
 	

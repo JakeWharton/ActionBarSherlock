@@ -42,7 +42,7 @@ public class MenuBuilder implements Menu {
 	
 	public static final int NUM_TYPES = 2;
 	public static final int TYPE_WATSON = 0;
-	public static final int TYPE_NATIVE = 1;
+	public static final int TYPE_ACTION_BAR = 1;
 	
 	
 	
