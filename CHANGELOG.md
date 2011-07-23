@@ -1,8 +1,8 @@
 Change Log
 ===============================================================================
 
-Version 3.1.0 *(In Development)*
---------------------------------
+Version 3.1.0 *(2011-07-22)*
+----------------------------
 
 Due to shortcomings in the Android theming system, a small change must be made
 in how this library handles themes. If you were using a custom style for
@@ -15,13 +15,13 @@ You can see an example of this in the `SherlockCustom` theme in
 * Library now uses the `r3` version of the compatibility library for its base.
 * `actionBarStyle` is no longer a valid theme attribute (see note above).
 * Added the demo project included with the new compatibility library under
-  `samples/supportdemos/`.
+  `samples/demos/` and merged in the old 'featuredemo'.
 * Dividers are now shown on pre-3.0 devices between all action items.
 * `Window.FEATURE_ACTION_BAR_OVERLAY` is now honored on pre-3.0 devices.
 * Inflation of XML menu resources will now honor `android:actionLayout` and
   `android:actionViewClass` attributes.
 * Buttons for displaying the determinate and indeterminate progress bars have
-  been added to the feature demo.
+  been added to the feature toggle demo.
 * Added support for indeterminate progress bar. Due to the `final` modifier on
   the native type, you must use `setIndeterminateProgressBarVisibility(Boolean)`
   and pass `Boolean.TRUE` or `Boolean.FALSE`.
