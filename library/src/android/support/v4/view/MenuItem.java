@@ -91,7 +91,7 @@ public interface MenuItem extends android.view.MenuItem {
 	 * @see #setActionView(View)
 	 * @see #setShowAsAction(int)
 	 */
-	public View getActionView();
+	View getActionView();
 	
 	/**
 	 * Set an action view for this menu item. An action view will be displayed
@@ -102,7 +102,7 @@ public interface MenuItem extends android.view.MenuItem {
 	 * @return This Item so additional setters can be called.
 	 * @see #setActionView(View)
 	 */
-	public MenuItem setActionView(int resId);
+	MenuItem setActionView(int resId);
 	
 	/**
 	 * Set an action view for this menu item. An action view will be displayed
@@ -113,7 +113,7 @@ public interface MenuItem extends android.view.MenuItem {
 	 * @return This Item so additional setters can be called.
 	 * @see #setActionView(int)
 	 */
-	public MenuItem setActionView(View view);
+	MenuItem setActionView(View view);
 	
 	/**
 	 * Sets how this item should display in the presence of an Action Bar. The
@@ -129,36 +129,38 @@ public interface MenuItem extends android.view.MenuItem {
 	 * {@link #SHOW_AS_ACTION_NEVER}. {@link #SHOW_AS_ACTION_NEVER} is the
 	 * default.
 	 */
-	public void setShowAsAction(int actionEnum);
+	void setShowAsAction(int actionEnum);
 	
 	// ---------------------------------------------------------------------
 	// MENU ITEM SUPPORT
 	// ---------------------------------------------------------------------
 
+	@Override
+	SubMenu getSubMenu();
 
 	@Override
-	public MenuItem setAlphabeticShortcut(char alphaChar);
+	MenuItem setAlphabeticShortcut(char alphaChar);
 	
 	@Override
-	public MenuItem setCheckable(boolean checkable);
+	MenuItem setCheckable(boolean checkable);
 
 	@Override
-	public MenuItem setChecked(boolean checked);
+	MenuItem setChecked(boolean checked);
 
 	@Override
-	public MenuItem setEnabled(boolean enabled);
+	MenuItem setEnabled(boolean enabled);
 
 	@Override
-	public MenuItem setIcon(Drawable icon);
+	MenuItem setIcon(Drawable icon);
 
 	@Override
-	public MenuItem setIcon(int iconRes);
+	MenuItem setIcon(int iconRes);
 
 	@Override
-	public MenuItem setIntent(Intent intent);
+	MenuItem setIntent(Intent intent);
 
 	@Override
-	public MenuItem setNumericShortcut(char numericChar);
+	MenuItem setNumericShortcut(char numericChar);
 
 	/**
 	 * Set a custom listener for invocation of this menu item.
@@ -166,20 +168,20 @@ public interface MenuItem extends android.view.MenuItem {
 	 * @param menuItemClickListener The object to receive invokations.
 	 * @return This Item so additional setters can be called.
 	 */
-	public MenuItem setOnMenuItemClickListener(OnMenuItemClickListener menuItemClickListener);
+	MenuItem setOnMenuItemClickListener(OnMenuItemClickListener menuItemClickListener);
 
 	@Override
-	public MenuItem setShortcut(char numericChar, char alphaChar);
+	MenuItem setShortcut(char numericChar, char alphaChar);
 
 	@Override
-	public MenuItem setTitle(CharSequence title);
+	MenuItem setTitle(CharSequence title);
 
 	@Override
-	public MenuItem setTitle(int title);
+	MenuItem setTitle(int title);
 
 	@Override
-	public MenuItem setTitleCondensed(CharSequence title);
+	MenuItem setTitleCondensed(CharSequence title);
 
 	@Override
-	public MenuItem setVisible(boolean visible);
+	MenuItem setVisible(boolean visible);
 }

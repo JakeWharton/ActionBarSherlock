@@ -1,6 +1,13 @@
 Change Log
 ===============================================================================
 
+Version 3.1.1 *(In Development)*
+--------------------------------
+
+* Fix: `MenuItem.getSubMenu` now returns a support instance rather than a
+  native instance.
+
+
 Version 3.1.0 *(2011-07-22)*
 ----------------------------
 
