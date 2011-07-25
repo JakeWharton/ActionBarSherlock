@@ -47,6 +47,9 @@
     <string name="actionbar_simple">Action Bar/Simple</string>
     <string name="actionbar_simple_content">This is a simple showcase of how easy it is to add the action bar to your activities. Take a look at the source code, it\'s surprisingly simple!</string>
     
+    <string name="actionbar_submenus">Action Bar/Sub-menus</string>
+    <string name="actionbar_submenus_content">This activity is a demonstration of how sub-menus work when they are either an action item or an item in the overflow menu.</string>
+    
     <string name="actionbar_styles">Action Bar/Styles</string>
     <string name="actionbar_styles_dark">Dark Theme</string>
     <string name="actionbar_styles_light">Light Theme</string>
