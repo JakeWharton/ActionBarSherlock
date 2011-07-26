@@ -11,17 +11,17 @@ public class SubMenuWrapper extends MenuWrapper implements SubMenu {
 
 	/**
 	 * Create a new wrapped instance.
-	 * 
+	 *
 	 * @param subMenu Native sub-menu.
 	 */
 	public SubMenuWrapper(android.view.SubMenu subMenu) {
 		super(subMenu);
 		mSubMenu = subMenu;
 	}
-	
+
 	/**
 	 * Get the native sub-menu instance we are wrapping.
-	 * 
+	 *
 	 * @return Native sub-menu.
 	 */
 	android.view.SubMenu unwrap() {

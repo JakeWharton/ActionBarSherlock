@@ -14,25 +14,25 @@ import android.view.KeyEvent;
 public class MenuWrapper implements Menu {
 	/** Native menu. */
 	private final android.view.Menu mMenu;
-	
+
 	/**
 	 * Create a new wrapped instance.
-	 * 
+	 *
 	 * @param menu Native menu.
 	 */
 	public MenuWrapper(android.view.Menu menu) {
 		this.mMenu = menu;
 	}
-	
+
 	/**
 	 * Get the native menu instance we are wrapping.
-	 * 
+	 *
 	 * @return Native menu.
 	 */
 	android.view.Menu unwrap() {
 		return mMenu;
 	}
-	
+
 	@Override
 	public MenuItem add(CharSequence title) {
 		return new MenuItemWrapper(mMenu.add(title));
@@ -42,7 +42,7 @@ public class MenuWrapper implements Menu {
 	public MenuItem add(int groupId, int itemId, int order, int titleRes) {
 		return new MenuItemWrapper(mMenu.add(groupId, itemId, order, titleRes));
 	}
-	
+
 	@Override
 	public MenuItem add(int titleRes) {
 		return new MenuItemWrapper(mMenu.add(titleRes));

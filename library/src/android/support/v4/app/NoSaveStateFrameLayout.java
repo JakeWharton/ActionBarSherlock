@@ -40,11 +40,11 @@ public class NoSaveStateFrameLayout extends FrameLayout {
         wrapper.addView(child);
         return wrapper;
     }
-    
+
     public NoSaveStateFrameLayout(Context context) {
         super(context);
     }
-    
+
     /**
      * Override to prevent freezing of any child views.
      */

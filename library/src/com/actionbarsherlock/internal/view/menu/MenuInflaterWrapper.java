@@ -4,7 +4,7 @@ import android.content.Context;
 
 public final class MenuInflaterWrapper extends android.view.MenuInflater {
 	private final android.view.MenuInflater mMenuInflater;
-	
+
 	public MenuInflaterWrapper(Context context, android.view.MenuInflater menuInflater) {
 		super(context);
 		mMenuInflater = menuInflater;

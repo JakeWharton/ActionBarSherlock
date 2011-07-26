@@ -96,7 +96,7 @@ public class HCSparseArray<E> {
             mGarbage = true;
         }
     }
-    
+
     private void gc() {
         // Log.e("SparseArray", "gc start with " + mSize);
 
@@ -191,7 +191,7 @@ public class HCSparseArray<E> {
     /**
      * Given an index in the range <code>0...size()-1</code>, returns
      * the key from the <code>index</code>th key-value mapping that this
-     * SparseArray stores.  
+     * SparseArray stores.
      */
     public int keyAt(int index) {
         if (mGarbage) {
@@ -200,11 +200,11 @@ public class HCSparseArray<E> {
 
         return mKeys[index];
     }
-    
+
     /**
      * Given an index in the range <code>0...size()-1</code>, returns
      * the value from the <code>index</code>th key-value mapping that this
-     * SparseArray stores.  
+     * SparseArray stores.
      */
     @SuppressWarnings("unchecked")
 	public E valueAt(int index) {
@@ -218,7 +218,7 @@ public class HCSparseArray<E> {
     /**
      * Given an index in the range <code>0...size()-1</code>, sets a new
      * value for the <code>index</code>th key-value mapping that this
-     * SparseArray stores.  
+     * SparseArray stores.
      */
     public void setValueAt(int index, E value) {
         if (mGarbage) {
@@ -227,7 +227,7 @@ public class HCSparseArray<E> {
 
         mValues[index] = value;
     }
-    
+
     /**
      * Returns the index for which {@link #keyAt} would return the
      * specified key, or a negative number if the specified
@@ -309,7 +309,7 @@ public class HCSparseArray<E> {
         mValues[pos] = value;
         mSize = pos + 1;
     }
-    
+
     private static int binarySearch(int[] a, int start, int len, int key) {
         int high = start + len, low = start - 1, guess;
 
@@ -349,11 +349,11 @@ public class HCSparseArray<E> {
 
         return need;
     }
-    
+
     static int idealIntArraySize(int need) {
         return idealByteArraySize(need * 4) / 4;
     }
-    
+
     private int[] mKeys;
     private Object[] mValues;
     private int mSize;

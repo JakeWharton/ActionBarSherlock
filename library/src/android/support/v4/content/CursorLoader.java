@@ -149,7 +149,7 @@ public class CursorLoader extends AsyncTaskLoader<Cursor> {
     @Override
     protected void onReset() {
         super.onReset();
-        
+
         // Ensure the loader is stopped
         onStopLoading();
 

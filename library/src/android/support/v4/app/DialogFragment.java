@@ -22,7 +22,6 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -169,7 +168,7 @@ public class DialogFragment extends Fragment
             }
         }
     }
-    
+
     public Dialog getDialog() {
         return mDialog;
     }
@@ -240,7 +239,7 @@ public class DialogFragment extends Fragment
             mShowsDialog = savedInstanceState.getBoolean(SAVED_SHOWS_DIALOG, mShowsDialog);
             mBackStackId = savedInstanceState.getInt(SAVED_BACK_STACK_ID, -1);
         }
-        
+
     }
 
     /** @hide */
@@ -265,27 +264,27 @@ public class DialogFragment extends Fragment
         return (LayoutInflater)mDialog.getContext().getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
     }
-    
+
     /**
      * Override to build your own custom Dialog container.  This is typically
      * used to show an AlertDialog instead of a generic Dialog; when doing so,
      * {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)} does not need
      * to be implemented since the AlertDialog takes care of its own content.
-     * 
+     *
      * <p>This method will be called after {@link #onCreate(Bundle)} and
      * before {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.  The
      * default implementation simply instantiates and returns a {@link Dialog}
      * class.
-     * 
+     *
      * <p><em>Note: DialogFragment own the {@link Dialog#setOnCancelListener
      * Dialog.setOnCancelListener} and {@link Dialog#setOnDismissListener
      * Dialog.setOnDismissListener} callbacks.  You must not set them yourself.</em>
      * To find out about these events, override {@link #onCancel(DialogInterface)}
      * and {@link #onDismiss(DialogInterface)}.</p>
-     * 
+     *
      * @param savedInstanceState The last saved instance state of the Fragment,
      * or null if this is a freshly created Fragment.
-     * 
+     *
      * @return Return a new Dialog instance to be displayed by the Fragment.
      */
     public Dialog onCreateDialog(Bundle savedInstanceState) {

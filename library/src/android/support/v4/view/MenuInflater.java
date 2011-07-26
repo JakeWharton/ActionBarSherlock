@@ -25,7 +25,6 @@ import org.xmlpull.v1.XmlPullParserException;
 import com.actionbarsherlock.internal.view.menu.MenuBuilder;
 import com.actionbarsherlock.internal.view.menu.MenuItemImpl;
 import com.actionbarsherlock.internal.view.menu.SubMenuBuilder;
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.XmlResourceParser;
 import android.util.AttributeSet;
@@ -46,27 +45,27 @@ import android.view.View;
 public final class MenuInflater extends android.view.MenuInflater {
 	private static final Class<?>[] ACTION_VIEW_CONSTRUCTOR_SIGNATURE = new Class[] { Context.class };
 	private static final Class<?>[] PARAM_TYPES = new Class[] { android.view.MenuItem.class };
-	
+
 	/** Android XML namespace. */
 	private static final String XML_NS = "http://schemas.android.com/apk/res/android";
-	
+
 	/** Menu tag name in XML. */
 	private static final String XML_MENU = "menu";
-	
+
 	/** Group tag name in XML. */
 	private static final String XML_GROUP = "group";
-	
+
 	/** Item tag name in XML. */
 	private static final String XML_ITEM = "item";
-	
-	
+
+
 	/** Context from which to inflate resources. */
 	private final Context mContext;
-	
-	
+
+
 	/**
 	 * Constructs a menu inflater.
-	 * 
+	 *
 	 * @see Activity#getMenuInflater()
 	 */
 	public MenuInflater(Context context) {
@@ -74,11 +73,11 @@ public final class MenuInflater extends android.view.MenuInflater {
 		this.mContext = context;
 	}
 
-	
+
 	/**
 	 * Inflate a menu hierarchy from the specified XML resource. Throws
 	 * {@link InflateException} if there is an error.
-	 * 
+	 *
 	 * @param menuRes Resource ID for an XML layout resource to load (e.g.,
 	 *            <code>R.menu.main_activity</code>)
 	 * @param menu The Menu to inflate into. The items and submenus will be
@@ -91,7 +90,7 @@ public final class MenuInflater extends android.view.MenuInflater {
 		try {
 			parser = mContext.getResources().getLayout(menuRes);
 			AttributeSet attrs = Xml.asAttributeSet(parser);
-			
+
 			parseMenu(parser, attrs, actionBarMenu);
 		} catch (XmlPullParserException e) {
 			throw new InflateException("Error inflating menu XML", e);
@@ -124,12 +123,12 @@ public final class MenuInflater extends android.view.MenuInflater {
 					eventType = parser.next();
 					break;
 				}
-				
+
 				throw new RuntimeException("Expecting menu, got " + tagName);
 			}
 			eventType = parser.next();
 		} while (eventType != XmlPullParser.END_DOCUMENT);
-		
+
 		boolean reachedEndOfMenu = false;
 		while (!reachedEndOfMenu) {
 			switch (eventType) {
@@ -137,7 +136,7 @@ public final class MenuInflater extends android.view.MenuInflater {
 					if (lookingForEndOfUnknownTag) {
 						break;
 					}
-					
+
 					tagName = parser.getName();
 					if (tagName.equals(XML_GROUP)) {
 						menuState.readGroup(attrs);
@@ -154,7 +153,7 @@ public final class MenuInflater extends android.view.MenuInflater {
 						unknownTagName = tagName;
 					}
 					break;
-					
+
 				case XmlPullParser.END_TAG:
 					tagName = parser.getName();
 					if (lookingForEndOfUnknownTag && tagName.equals(unknownTagName)) {
@@ -172,17 +171,17 @@ public final class MenuInflater extends android.view.MenuInflater {
 						reachedEndOfMenu = true;
 					}
 					break;
-					
+
 				case XmlPullParser.END_DOCUMENT:
 					throw new RuntimeException("Unexpected end of document");
 			}
-			
+
 			eventType = parser.next();
 		}
 	}
-	
-	
-	
+
+
+
 	/**
 	 * State for the current menu.
 	 * <p>
@@ -225,7 +224,7 @@ public final class MenuInflater extends android.view.MenuInflater {
 		private int itemShowAsAction;
 		private int itemActionLayout;
 		private String itemActionViewClassName;
-		
+
 		private static final int defaultGroupId = View.NO_ID;
 		private static final int defaultItemId = View.NO_ID;
 		private static final int defaultItemCategory = 0;
@@ -236,18 +235,18 @@ public final class MenuInflater extends android.view.MenuInflater {
 		private static final boolean defaultItemEnabled = true;
 		private static final int defaultItemShowAsAction = 0;
 		private static final int defaultIconResId = View.NO_ID;
-		
+
 		/** Mirror of package-scoped Menu.CATEGORY_MASK. */
 		private static final int Menu__CATEGORY_MASK = 0xffff0000;
 		/** Mirror of package-scoped Menu.USER_MASK. */
 		private static final int Menu__USER_MASK = 0x0000ffff;
-		
+
 		public ActionBarMenuState(MenuBuilder menu) {
 			this.menu = menu;
-			
+
 			resetGroup();
 		}
-		
+
 		public void resetGroup() {
 			groupId = defaultGroupId;
 			groupCategory = defaultItemCategory;
@@ -262,28 +261,28 @@ public final class MenuInflater extends android.view.MenuInflater {
 		 */
 		public void readGroup(AttributeSet attrs) {
 			//TypedArray a = mContext.obtainStyledAttributes(attrs, com.android.internal.R.styleable.MenuGroup);
-			
+
 			//groupId = a.getResourceId(com.android.internal.R.styleable.MenuGroup_id, defaultGroupId);
 			groupId = attrs.getAttributeResourceValue(XML_NS, "id", defaultGroupId);
-			
+
 			//groupCategory = a.getInt(com.android.internal.R.styleable.MenuGroup_menuCategory, defaultItemCategory);
 			groupCategory = attrs.getAttributeIntValue(XML_NS, "menuCategory", defaultItemCategory);
-			
+
 			//groupOrder = a.getInt(com.android.internal.R.styleable.MenuGroup_orderInCategory, defaultItemOrder);
 			groupOrder = attrs.getAttributeIntValue(XML_NS, "orderInCategory", defaultItemOrder);
-			
+
 			//groupCheckable = a.getInt(com.android.internal.R.styleable.MenuGroup_checkableBehavior, defaultItemCheckable);
 			groupCheckable = attrs.getAttributeIntValue(XML_NS, "checkableBehavior", defaultItemCheckable);
-			
+
 			//groupVisible = a.getBoolean(com.android.internal.R.styleable.MenuGroup_visible, defaultItemVisible);
 			groupVisible = attrs.getAttributeBooleanValue(XML_NS, "visible", defaultItemVisible);
-			
+
 			//groupEnabled = a.getBoolean(com.android.internal.R.styleable.MenuGroup_enabled, defaultItemEnabled);
 			groupEnabled = attrs.getAttributeBooleanValue(XML_NS, "enabled", defaultItemEnabled);
 
 			//a.recycle();
 		}
-		
+
 		/**
 		 * Called when the parser is pointing to an item tag.
 		 */
@@ -291,19 +290,19 @@ public final class MenuInflater extends android.view.MenuInflater {
 			//TypedArray a = mContext.obtainStyledAttributes(attrs, com.android.internal.R.styleable.MenuItem);
 
 			// Inherit attributes from the group as default value
-			
+
 			//itemId = a.getResourceId(com.android.internal.R.styleable.MenuItem_id, defaultItemId);
 			itemId = attrs.getAttributeResourceValue(XML_NS, "id", defaultItemId);
-			
+
 			//final int category = a.getInt(com.android.internal.R.styleable.MenuItem_menuCategory, groupCategory);
 			final int category = attrs.getAttributeIntValue(XML_NS, "menuCategory", groupCategory);
-			
+
 			//final int order = a.getInt(com.android.internal.R.styleable.MenuItem_orderInCategory, groupOrder);
 			final int order = attrs.getAttributeIntValue(XML_NS, "orderInCategory", groupOrder);
-			
+
 			//itemCategoryOrder = (category & Menu.CATEGORY_MASK) | (order & Menu.USER_MASK);
 			itemCategoryOrder = (category & Menu__CATEGORY_MASK) | (order & Menu__USER_MASK);
-			
+
 			//itemTitle = a.getString(com.android.internal.R.styleable.MenuItem_title);
 			final int itemTitleId = attrs.getAttributeResourceValue(XML_NS, "title", 0);
 			if (itemTitleId != 0) {
@@ -311,7 +310,7 @@ public final class MenuInflater extends android.view.MenuInflater {
 			} else {
 				itemTitle = attrs.getAttributeValue(XML_NS, "title");
 			}
-			
+
 			//itemTitleCondensed = a.getString(com.android.internal.R.styleable.MenuItem_titleCondensed);
 			final int itemTitleCondensedId = attrs.getAttributeResourceValue(XML_NS, "titleCondensed", 0);
 			if (itemTitleCondensedId != 0) {
@@ -319,16 +318,16 @@ public final class MenuInflater extends android.view.MenuInflater {
 			} else {
 				itemTitleCondensed = attrs.getAttributeValue(XML_NS, "titleCondensed");
 			}
-			
+
 			//itemIconResId = a.getResourceId(com.android.internal.R.styleable.MenuItem_icon, 0);
 			itemIconResId = attrs.getAttributeResourceValue(XML_NS, "icon", defaultIconResId);
-			
+
 			//itemAlphabeticShortcut = getShortcut(a.getString(com.android.internal.R.styleable.MenuItem_alphabeticShortcut));
 			itemAlphabeticShortcut = getShortcut(attrs.getAttributeValue(XML_NS, "alphabeticShortcut"));
-			
+
 			//itemNumericShortcut = getShortcut(a.getString(com.android.internal.R.styleable.MenuItem_numericShortcut));
 			itemNumericShortcut = getShortcut(attrs.getAttributeValue(XML_NS, "numericShortcut"));
-			
+
 			//if (a.hasValue(com.android.internal.R.styleable.MenuItem_checkable)) {
 			if (attrs.getAttributeValue(XML_NS, "checkable") != null) {
 				// Item has attribute checkable, use it
@@ -339,24 +338,24 @@ public final class MenuInflater extends android.view.MenuInflater {
 				// for checkable that represents the exclusive checkable)
 				itemCheckable = groupCheckable;
 			}
-			
+
 			//itemChecked = a.getBoolean(com.android.internal.R.styleable.MenuItem_checked, defaultItemChecked);
 			itemChecked = attrs.getAttributeBooleanValue(XML_NS, "checked", defaultItemChecked);
-			
+
 			//itemVisible = a.getBoolean(com.android.internal.R.styleable.MenuItem_visible, groupVisible);
 			itemVisible = attrs.getAttributeBooleanValue(XML_NS, "visible", groupVisible);
-			
+
 			//itemEnabled = a.getBoolean(com.android.internal.R.styleable.MenuItem_enabled, groupEnabled);
 			itemEnabled = attrs.getAttributeBooleanValue(XML_NS, "enabled", groupEnabled);
-			
+
 			//presumed emulation of 3.0+'s MenuInflator:
 			itemListenerMethodName = attrs.getAttributeValue(XML_NS, "onClick");
 			itemShowAsAction = attrs.getAttributeIntValue(XML_NS, "showAsAction", defaultItemShowAsAction);
 			itemActionLayout = attrs.getAttributeResourceValue(XML_NS, "actionLayout", 0);
 			itemActionViewClassName = attrs.getAttributeValue(XML_NS, "actionViewClass");
-			
+
 			//a.recycle();
-			
+
 			itemAdded = false;
 		}
 
@@ -367,7 +366,7 @@ public final class MenuInflater extends android.view.MenuInflater {
 				return shortcutString.charAt(0);
 			}
 		}
-		
+
 		private void setItem(MenuItemImpl item) {
 			item.setChecked(itemChecked)
 				.setVisible(itemVisible)
@@ -377,7 +376,7 @@ public final class MenuInflater extends android.view.MenuInflater {
 				.setIcon(itemIconResId)
 				.setAlphabeticShortcut(itemAlphabeticShortcut)
 				.setNumericShortcut(itemNumericShortcut);
-			
+
 			if (itemShowAsAction > 0) {
 				item.setShowAsAction(itemShowAsAction);
 			}
@@ -405,27 +404,27 @@ public final class MenuInflater extends android.view.MenuInflater {
 				item.setActionView(itemActionLayout);
 			}
 		}
-		
+
 		public void addItem() {
 			itemAdded = true;
 			setItem(menu.add(groupId, itemId, itemCategoryOrder, itemTitle));
 		}
-		
+
 		public SubMenuBuilder addSubMenuItem() {
 			itemAdded = true;
 			SubMenuBuilder subMenu = menu.addSubMenu(groupId, itemId, itemCategoryOrder, itemTitle);
 			setItem(subMenu.getItem());
 			return subMenu;
 		}
-		
+
 		public boolean hasAddedItem() {
 			return itemAdded;
 		}
 	}
-	
+
 	class InflatedOnMenuItemClickListener implements android.view.MenuItem.OnMenuItemClickListener {
 		private Method mMethod;
-		
+
 		public InflatedOnMenuItemClickListener(String methodName) {
 			final Class<?> localClass = MenuInflater.this.getClass();
 			try {

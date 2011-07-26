@@ -246,7 +246,7 @@ public class Loader<D> {
         mAbandoned = true;
         onAbandon();
     }
-    
+
     /**
      * Subclasses implement this to take care of being abandoned.  This is
      * an optional intermediate state prior to {@link #onReset()} -- it means that
@@ -256,9 +256,9 @@ public class Loader<D> {
      * {@link #onReset()} happens.  You can retrieve the current abandoned
      * state with {@link #isAbandoned}.
      */
-    protected void onAbandon() {        
+    protected void onAbandon() {
     }
-    
+
     /**
      * Resets the state of the Loader.  The Loader should at this point free
      * all of its resources, since it may never be called again; however, its
@@ -298,7 +298,7 @@ public class Loader<D> {
         mContentChanged = false;
         return res;
     }
-    
+
     /**
      * Called when {@link ForceLoadContentObserver} detects a change.  The
      * default implementation checks to see if the loader is currently started;

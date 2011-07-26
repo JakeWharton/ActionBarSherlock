@@ -24,10 +24,10 @@ import android.view.View;
 
 /**
  * <p>Interface for direct access to a previously created menu item.</p>
- * 
+ *
  * <p>An Item is returned by calling one of the {@link Menu#add(int)}
  * methods.</p>
- * 
+ *
  * <p>For a feature set of specific menu types, see {@link Menu}.</p>
  */
 public interface MenuItem extends android.view.MenuItem {
@@ -40,21 +40,21 @@ public interface MenuItem extends android.view.MenuItem {
 		 * Called when a menu item has been invoked. This is the first code
 		 * that is executed; if it returns true, no other callbacks will be
 		 * executed.
-		 * 
+		 *
 		 * @param item The menu item that was invoked.
 		 * @return Return true to consume this click and prevent others from
-		 * executing. 
+		 * executing.
 		 */
 		public abstract boolean onMenuItemClick(MenuItem item);
-		
+
 		@Override
 		public final boolean onMenuItemClick(android.view.MenuItem item) {
 			return this.onMenuItemClick(new MenuItemWrapper(item));
 		}
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Always show this item as a button in an Action Bar. Use sparingly! If too
 	 * many items are set to always show in the Action Bar it can crowd the
@@ -63,58 +63,58 @@ public interface MenuItem extends android.view.MenuItem {
 	 * always show at a time.
 	 */
 	public static final int SHOW_AS_ACTION_ALWAYS = android.view.MenuItem.SHOW_AS_ACTION_ALWAYS;
-	
+
 	/**
 	 * Show this item as a button in an Action Bar if the system decides there
 	 * is room for it.
 	 */
 	public static final int SHOW_AS_ACTION_IF_ROOM = android.view.MenuItem.SHOW_AS_ACTION_IF_ROOM;
-	
+
 	/**
 	 * Never show this item as a button in an Action Bar.
 	 */
 	public static final int SHOW_AS_ACTION_NEVER = android.view.MenuItem.SHOW_AS_ACTION_NEVER;
-	
+
 	/**
 	 * When this item is in the action bar, always show it with a text label
 	 * even if it also has an icon specified.
 	 */
 	public static final int SHOW_AS_ACTION_WITH_TEXT = android.view.MenuItem.SHOW_AS_ACTION_WITH_TEXT;
-	
-	
-	
+
+
+
 	/**
 	 * Returns the currently set action view for this menu item.
-	 * 
+	 *
 	 * @return The item's action view
 	 * @see #setActionView(int)
 	 * @see #setActionView(View)
 	 * @see #setShowAsAction(int)
 	 */
 	View getActionView();
-	
+
 	/**
 	 * Set an action view for this menu item. An action view will be displayed
 	 * in place of an automatically generated menu item element in the UI when
 	 * this item is shown as an action within a parent.
-	 * 
+	 *
 	 * @param resId Layout resource to use for presenting this item to the user.
 	 * @return This Item so additional setters can be called.
 	 * @see #setActionView(View)
 	 */
 	MenuItem setActionView(int resId);
-	
+
 	/**
 	 * Set an action view for this menu item. An action view will be displayed
 	 * in place of an automatically generated menu item element in the UI when
 	 * this item is shown as an action within a parent.
-	 * 
+	 *
 	 * @param view View to use for presenting this item to the user.
 	 * @return This Item so additional setters can be called.
 	 * @see #setActionView(int)
 	 */
 	MenuItem setActionView(View view);
-	
+
 	/**
 	 * Sets how this item should display in the presence of an Action Bar. The
 	 * parameter actionEnum is a flag set. One of
@@ -123,14 +123,14 @@ public interface MenuItem extends android.view.MenuItem {
 	 * the value with {@link #SHOW_AS_ACTION_WITH_TEXT}.
 	 * {@link #SHOW_AS_ACTION_WITH_TEXT} requests that when the item is shown as
 	 * an action, it should be shown with a text label.
-	 * 
+	 *
 	 * @param actionEnum How the item should display. One of
 	 * {@link #SHOW_AS_ACTION_ALWAYS}, {@link #SHOW_AS_ACTION_IF_ROOM}, or
 	 * {@link #SHOW_AS_ACTION_NEVER}. {@link #SHOW_AS_ACTION_NEVER} is the
 	 * default.
 	 */
 	void setShowAsAction(int actionEnum);
-	
+
 	// ---------------------------------------------------------------------
 	// MENU ITEM SUPPORT
 	// ---------------------------------------------------------------------
@@ -140,7 +140,7 @@ public interface MenuItem extends android.view.MenuItem {
 
 	@Override
 	MenuItem setAlphabeticShortcut(char alphaChar);
-	
+
 	@Override
 	MenuItem setCheckable(boolean checkable);
 
@@ -164,7 +164,7 @@ public interface MenuItem extends android.view.MenuItem {
 
 	/**
 	 * Set a custom listener for invocation of this menu item.
-	 * 
+	 *
 	 * @param menuItemClickListener The object to receive invokations.
 	 * @return This Item so additional setters can be called.
 	 */

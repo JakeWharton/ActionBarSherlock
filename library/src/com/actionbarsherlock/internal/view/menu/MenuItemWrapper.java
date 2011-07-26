@@ -19,7 +19,6 @@ package com.actionbarsherlock.internal.view.menu;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.support.v4.view.Menu;
 import android.support.v4.view.MenuItem;
 import android.support.v4.view.SubMenu;
 import android.view.View;
@@ -27,10 +26,10 @@ import android.view.ContextMenu.ContextMenuInfo;
 
 /**
  * <p>Interface for direct access to a previously created menu item.</p>
- * 
+ *
  * <p>An Item is returned by calling one of the {@link Menu#add(int)}
  * methods.</p>
- * 
+ *
  * <p>For a feature set of specific menu types, see {@link Menu}.</p>
  */
 public final class MenuItemWrapper implements MenuItem {
@@ -38,39 +37,39 @@ public final class MenuItemWrapper implements MenuItem {
 		static View getActionView(android.view.MenuItem item) {
 			return item.getActionView();
 		}
-		
+
 		static void setActionView(android.view.MenuItem item, int resId) {
 			item.setActionView(resId);
 		}
-		
+
 		static void setActionView(android.view.MenuItem item, View view) {
 			item.setActionView(view);
 		}
-		
+
 		static void setShowAsAction(android.view.MenuItem item, int actionEnum) {
 			item.setShowAsAction(actionEnum);
 		}
 	}
-	
+
 	/** Native {@link android.view.MenuItem} whose methods are wrapped. */
 	private final android.view.MenuItem mMenuItem;
-	
+
 	/**
 	 * Constructor used to create a wrapper to a native
 	 * {@link android.view.MenuItem} so we can return the same type for native
 	 * and {@link MenuItemImpl} instances, the latter of which will override
 	 * all the methods defined in this base class.
-	 * 
+	 *
 	 * @param menuItem Native instance.
 	 */
 	public MenuItemWrapper(android.view.MenuItem menuItem) {
 		mMenuItem = menuItem;
 	}
-	
-	
+
+
 	/**
 	 * Returns the currently set action view for this menu item.
-	 * 
+	 *
 	 * @return The item's action view
 	 * @see #setActionView(int)
 	 * @see #setActionView(View)
@@ -82,12 +81,12 @@ public final class MenuItemWrapper implements MenuItem {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Set an action view for this menu item. An action view will be displayed
 	 * in place of an automatically generated menu item element in the UI when
 	 * this item is shown as an action within a parent.
-	 * 
+	 *
 	 * @param resId Layout resource to use for presenting this item to the user.
 	 * @return This Item so additional setters can be called.
 	 * @see #setActionView(View)
@@ -98,12 +97,12 @@ public final class MenuItemWrapper implements MenuItem {
 		}
 		return this;
 	}
-	
+
 	/**
 	 * Set an action view for this menu item. An action view will be displayed
 	 * in place of an automatically generated menu item element in the UI when
 	 * this item is shown as an action within a parent.
-	 * 
+	 *
 	 * @param view View to use for presenting this item to the user.
 	 * @return This Item so additional setters can be called.
 	 * @see #setActionView(int)
@@ -114,7 +113,7 @@ public final class MenuItemWrapper implements MenuItem {
 		}
 		return this;
 	}
-	
+
 	/**
 	 * Sets how this item should display in the presence of an Action Bar. The
 	 * parameter actionEnum is a flag set. One of
@@ -123,7 +122,7 @@ public final class MenuItemWrapper implements MenuItem {
 	 * the value with {@link #SHOW_AS_ACTION_WITH_TEXT}.
 	 * {@link #SHOW_AS_ACTION_WITH_TEXT} requests that when the item is shown as
 	 * an action, it should be shown with a text label.
-	 * 
+	 *
 	 * @param actionEnum How the item should display. One of
 	 * {@link #SHOW_AS_ACTION_ALWAYS}, {@link #SHOW_AS_ACTION_IF_ROOM}, or
 	 * {@link #SHOW_AS_ACTION_NEVER}. {@link #SHOW_AS_ACTION_NEVER} is the
@@ -134,7 +133,7 @@ public final class MenuItemWrapper implements MenuItem {
 			HoneycombMenuItem.setShowAsAction(mMenuItem, actionEnum);
 		}
 	}
-	
+
 	// ---------------------------------------------------------------------
 	// MENU ITEM SUPPORT
 	// ---------------------------------------------------------------------
@@ -275,7 +274,7 @@ public final class MenuItemWrapper implements MenuItem {
 
 	/**
 	 * Set a custom listener for invocation of this menu item.
-	 * 
+	 *
 	 * @param menuItemClickListener The object to receive invokations.
 	 * @return This Item so additional setters can be called.
 	 */

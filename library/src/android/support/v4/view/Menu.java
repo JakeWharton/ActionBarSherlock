@@ -6,7 +6,7 @@ public interface Menu extends android.view.Menu {
 
 	@Override
 	MenuItem add(int groupId, int itemId, int order, int titleRes);
-	
+
 	@Override
 	MenuItem add(int titleRes);
 

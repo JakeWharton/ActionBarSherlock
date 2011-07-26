@@ -141,6 +141,15 @@
 					</configuration>
 					<extensions>true</extensions>
 				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-checkstyle-plugin</artifactId>
+					<version>2.6</version>
+					<configuration>
+						<failsOnError>true</failsOnError>
+					</configuration>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 
