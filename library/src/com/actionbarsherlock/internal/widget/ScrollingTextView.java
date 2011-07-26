@@ -16,9 +16,9 @@ import android.widget.TextView;
  */
 public final class ScrollingTextView extends TextView {
 
-	public ScrollingTextView(Context context, AttributeSet attrs,
-	        int defStyle) {
-    	super(context, attrs, defStyle);
+    public ScrollingTextView(Context context, AttributeSet attrs,
+            int defStyle) {
+        super(context, attrs, defStyle);
     }
 
     public ScrollingTextView(Context context, AttributeSet attrs) {

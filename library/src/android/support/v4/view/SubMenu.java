@@ -4,27 +4,27 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 
 public interface SubMenu extends android.view.SubMenu {
-	@Override
-	MenuItem getItem();
+    @Override
+    MenuItem getItem();
 
-	@Override
-	SubMenu setHeaderIcon(Drawable icon);
+    @Override
+    SubMenu setHeaderIcon(Drawable icon);
 
-	@Override
-	SubMenu setHeaderIcon(int iconRes);
+    @Override
+    SubMenu setHeaderIcon(int iconRes);
 
-	@Override
-	SubMenu setHeaderTitle(CharSequence title);
+    @Override
+    SubMenu setHeaderTitle(CharSequence title);
 
-	@Override
-	SubMenu setHeaderTitle(int titleRes);
+    @Override
+    SubMenu setHeaderTitle(int titleRes);
 
-	@Override
-	SubMenu setHeaderView(View view);
+    @Override
+    SubMenu setHeaderView(View view);
 
-	@Override
-	SubMenu setIcon(Drawable icon);
+    @Override
+    SubMenu setIcon(Drawable icon);
 
-	@Override
-	SubMenu setIcon(int iconRes);
+    @Override
+    SubMenu setIcon(int iconRes);
 }

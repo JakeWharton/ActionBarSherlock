@@ -9,32 +9,32 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 public class ActionBarContainer extends FrameLayout {
-	private boolean mIsTransitioning;
+    private boolean mIsTransitioning;
 
-	public ActionBarContainer(Context context) {
-		this(context, null);
-	}
-	public ActionBarContainer(Context context, AttributeSet attrs) {
-		super(context, attrs);
+    public ActionBarContainer(Context context) {
+        this(context, null);
+    }
+    public ActionBarContainer(Context context, AttributeSet attrs) {
+        super(context, attrs);
 
-		TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SherlockTheme);
-		setBackgroundDrawable(a.getDrawable(R.styleable.SherlockTheme_abBackground));
-		a.recycle();
-	}
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SherlockTheme);
+        setBackgroundDrawable(a.getDrawable(R.styleable.SherlockTheme_abBackground));
+        a.recycle();
+    }
 
-	@Override
-	public boolean onInterceptTouchEvent(MotionEvent ev) {
-		return mIsTransitioning || super.onInterceptTouchEvent(ev);
-	}
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        return mIsTransitioning || super.onInterceptTouchEvent(ev);
+    }
 
-	@Override
-	public boolean onTouchEvent(MotionEvent event) {
-		super.onTouchEvent(event);
-		return true;
-	}
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        super.onTouchEvent(event);
+        return true;
+    }
 
-	public void setTransitioning(boolean transitioning) {
-		mIsTransitioning = transitioning;
-		setDescendantFocusability(transitioning ? ViewGroup.FOCUS_BLOCK_DESCENDANTS : ViewGroup.FOCUS_AFTER_DESCENDANTS);
-	}
+    public void setTransitioning(boolean transitioning) {
+        mIsTransitioning = transitioning;
+        setDescendantFocusability(transitioning ? ViewGroup.FOCUS_BLOCK_DESCENDANTS : ViewGroup.FOCUS_AFTER_DESCENDANTS);
+    }
 }

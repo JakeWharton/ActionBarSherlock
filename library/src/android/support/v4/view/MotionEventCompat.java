@@ -42,15 +42,15 @@ public class MotionEventCompat {
         }
         @Override
         public int getPointerId(MotionEvent event, int pointerIndex) {
-        	return -1;
+            return -1;
         }
         @Override
         public float getX(MotionEvent event, int pointerIndex) {
-        	return event.getX();
+            return event.getX();
         }
         @Override
         public float getY(MotionEvent event, int pointerIndex) {
-        	return event.getY();
+            return event.getY();
         }
     }
 

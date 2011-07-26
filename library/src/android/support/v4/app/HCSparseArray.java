@@ -56,7 +56,7 @@ public class HCSparseArray<E> {
      * if no such mapping has been made.
      */
     @SuppressWarnings("unchecked")
-	public E get(int key, E valueIfKeyNotFound) {
+    public E get(int key, E valueIfKeyNotFound) {
         int i = binarySearch(mKeys, 0, mSize, key);
 
         if (i < 0 || mValues[i] == DELETED) {
@@ -207,7 +207,7 @@ public class HCSparseArray<E> {
      * SparseArray stores.
      */
     @SuppressWarnings("unchecked")
-	public E valueAt(int index) {
+    public E valueAt(int index) {
         if (mGarbage) {
             gc();
         }

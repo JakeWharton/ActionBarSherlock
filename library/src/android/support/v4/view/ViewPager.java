@@ -591,7 +591,7 @@ public class ViewPager extends ViewGroup {
             final View child = getChildAt(i);
             if (child.getVisibility() != GONE) {
                 if (DEBUG) Log.v(TAG, "Measuring #" + i + " " + child
-		        + ": " + mChildWidthMeasureSpec);
+                + ": " + mChildWidthMeasureSpec);
                 child.measure(mChildWidthMeasureSpec, mChildHeightMeasureSpec);
             }
         }
@@ -626,8 +626,8 @@ public class ViewPager extends ViewGroup {
                 int childLeft = getPaddingLeft() + loff;
                 int childTop = getPaddingTop();
                 if (DEBUG) Log.v(TAG, "Positioning #" + i + " " + child + " f=" + ii.object
-		        + ":" + childLeft + "," + childTop + " " + child.getMeasuredWidth()
-		        + "x" + child.getMeasuredHeight());
+                + ":" + childLeft + "," + childTop + " " + child.getMeasuredWidth()
+                + "x" + child.getMeasuredHeight());
                 child.layout(childLeft, childTop,
                         childLeft + child.getMeasuredWidth(),
                         childTop + child.getMeasuredHeight());

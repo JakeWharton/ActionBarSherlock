@@ -32,57 +32,57 @@ import android.content.Context;
  * implementation.</p>
  */
 public abstract class Window extends android.view.Window {
-	/*
-	 * We use long values so that we can intercept the call to
-	 * requestWindowFeature in our Activity.
-	 */
+    /*
+     * We use long values so that we can intercept the call to
+     * requestWindowFeature in our Activity.
+     */
 
-	/**
-	 * Flag for enabling the Action Bar. This is enabled by default for some
-	 * devices. The Action Bar replaces the title bar and provides an alternate
-	 * location for an on-screen menu button on some devices.
-	 */
-	public static final long FEATURE_ACTION_BAR = android.view.Window.FEATURE_ACTION_BAR;
+    /**
+     * Flag for enabling the Action Bar. This is enabled by default for some
+     * devices. The Action Bar replaces the title bar and provides an alternate
+     * location for an on-screen menu button on some devices.
+     */
+    public static final long FEATURE_ACTION_BAR = android.view.Window.FEATURE_ACTION_BAR;
 
-	/**
-	 * Enable the pre-3.0 action bar implementation to honor the 'withText'
-	 * attribute on menu items regardless of display resolution and/or density.
-	 */
-	//Hopefully the native Window.FEATURE_XXX numbering won't get this high anytime soon.
-	public static final long FEATURE_ACTION_BAR_ITEM_TEXT = 31;
+    /**
+     * Enable the pre-3.0 action bar implementation to honor the 'withText'
+     * attribute on menu items regardless of display resolution and/or density.
+     */
+    //Hopefully the native Window.FEATURE_XXX numbering won't get this high anytime soon.
+    public static final long FEATURE_ACTION_BAR_ITEM_TEXT = 31;
 
-	/**
-	 * Flag for requesting an Action Bar that overlays window content. Normally
-	 * an Action Bar will sit in the space above window content, but if this
-	 * feature is requested along with {@link #FEATURE_ACTION_BAR} it will be
-	 * layered over the window content itself. This is useful if you would like
-	 * your app to have more control over how the Action Bar is displayed, such
-	 * as letting application content scroll beneath an Action Bar with a
-	 * transparent background or otherwise displaying a transparent/translucent
-	 * Action Bar over application content.
-	 */
-	public static final long FEATURE_ACTION_BAR_OVERLAY = android.view.Window.FEATURE_ACTION_BAR_OVERLAY;
+    /**
+     * Flag for requesting an Action Bar that overlays window content. Normally
+     * an Action Bar will sit in the space above window content, but if this
+     * feature is requested along with {@link #FEATURE_ACTION_BAR} it will be
+     * layered over the window content itself. This is useful if you would like
+     * your app to have more control over how the Action Bar is displayed, such
+     * as letting application content scroll beneath an Action Bar with a
+     * transparent background or otherwise displaying a transparent/translucent
+     * Action Bar over application content.
+     */
+    public static final long FEATURE_ACTION_BAR_OVERLAY = android.view.Window.FEATURE_ACTION_BAR_OVERLAY;
 
-	/**
-	 * Flag for specifying the behavior of action modes when an Action Bar is
-	 * not present. If overlay is enabled, the action mode UI will be allowed to
-	 * cover existing window content.
-	 */
-	public static final long FEATURE_ACTION_MODE_OVERLAY = android.view.Window.FEATURE_ACTION_MODE_OVERLAY;
+    /**
+     * Flag for specifying the behavior of action modes when an Action Bar is
+     * not present. If overlay is enabled, the action mode UI will be allowed to
+     * cover existing window content.
+     */
+    public static final long FEATURE_ACTION_MODE_OVERLAY = android.view.Window.FEATURE_ACTION_MODE_OVERLAY;
 
-	/**
-	 * Flag for indeterminate progress .
-	 */
-	public static final long FEATURE_INDETERMINATE_PROGRESS = android.view.Window.FEATURE_INDETERMINATE_PROGRESS;
+    /**
+     * Flag for indeterminate progress .
+     */
+    public static final long FEATURE_INDETERMINATE_PROGRESS = android.view.Window.FEATURE_INDETERMINATE_PROGRESS;
 
 
 
-	/**
-	 * Create a new instance for a context.
-	 *
-	 * @param context Context.
-	 */
-	public Window(Context context) {
-		super(context);
-	}
+    /**
+     * Create a new instance for a context.
+     *
+     * @param context Context.
+     */
+    public Window(Context context) {
+        super(context);
+    }
 }

@@ -92,28 +92,28 @@ public final class SubMenuBuilder extends MenuBuilder implements SubMenu {
     }
 
     public SubMenuBuilder setHeaderIcon(Drawable icon) {
-		throw new RuntimeException("Method not supported.");
+        throw new RuntimeException("Method not supported.");
     }
 
     public SubMenuBuilder setHeaderIcon(int iconRes) {
-		throw new RuntimeException("Method not supported.");
+        throw new RuntimeException("Method not supported.");
     }
 
     public SubMenuBuilder setHeaderTitle(CharSequence title) {
-		throw new RuntimeException("Method not supported.");
+        throw new RuntimeException("Method not supported.");
     }
 
     public SubMenuBuilder setHeaderTitle(int titleRes) {
-		throw new RuntimeException("Method not supported.");
+        throw new RuntimeException("Method not supported.");
     }
 
-	@Override
+    @Override
     public SubMenuBuilder setHeaderView(View view) {
-		throw new RuntimeException("Method not supported.");
+        throw new RuntimeException("Method not supported.");
     }
 
-	@Override
-	public void clearHeader() {
-		throw new RuntimeException("Method not supported.");
-	}
+    @Override
+    public void clearHeader() {
+        throw new RuntimeException("Method not supported.");
+    }
 }

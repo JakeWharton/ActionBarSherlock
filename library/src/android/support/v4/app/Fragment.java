@@ -317,9 +317,9 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      * there is an instantiation failure.
      */
     static public class InstantiationException extends RuntimeException {
-		private static final long serialVersionUID = 8423238441973733190L;
+        private static final long serialVersionUID = 8423238441973733190L;
 
-		public InstantiationException(String msg, Exception cause) {
+        public InstantiationException(String msg, Exception cause) {
             super(msg, cause);
         }
     }
@@ -595,7 +595,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      * throughout the compatibility library.
      */
     final public FragmentManager getSupportFragmentManager() {
-    	return mFragmentManager;
+        return mFragmentManager;
     }
 
     /**

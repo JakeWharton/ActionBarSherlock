@@ -162,7 +162,7 @@ final class BackStackRecord extends FragmentTransaction implements
         FragmentManager.BackStackEntry, Runnable {
     static final String TAG = "BackStackEntry";
 
-	private static final boolean IS_HONEYCOMB = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
+    private static final boolean IS_HONEYCOMB = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
 
     final FragmentManagerImpl mManager;
 
@@ -339,12 +339,12 @@ final class BackStackRecord extends FragmentTransaction implements
         }
 
         if (containerViewId != 0) {
-        	//This will change the target container ID to be the content view
-        	//of our custom action bar implementation when the entire activity
-        	//view is selected as the target and we are pre-honeycomb
-        	if (!IS_HONEYCOMB && (containerViewId == android.R.id.content)) {
-        		containerViewId = R.id.content;
-        	}
+            //This will change the target container ID to be the content view
+            //of our custom action bar implementation when the entire activity
+            //view is selected as the target and we are pre-honeycomb
+            if (!IS_HONEYCOMB && (containerViewId == android.R.id.content)) {
+                containerViewId = R.id.content;
+            }
             if (fragment.mFragmentId != 0 && fragment.mFragmentId != containerViewId) {
                 throw new IllegalStateException("Can't change container ID of fragment "
                         + fragment + ": was " + fragment.mFragmentId
