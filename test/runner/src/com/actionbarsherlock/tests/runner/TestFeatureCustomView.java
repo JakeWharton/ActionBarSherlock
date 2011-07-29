@@ -9,7 +9,7 @@ public class TestFeatureCustomView extends BaseTestCase<FeatureCustomView> {
 	}
 	
 	@Smoke
-	public void testCustomViewDisplayedWhenEnabled() {
+	public void testCustomViewDisplayedWhenEnabled() throws InterruptedException {
 		getActivity().setCustomView();
 		getActivity().enableCustomView();
 
@@ -17,9 +17,9 @@ public class TestFeatureCustomView extends BaseTestCase<FeatureCustomView> {
 	}
 	
 	@Smoke
-	public void testCustomViewNotDisplayedWhenAssigned() {
+	public void testCustomViewNotDisplayedWhenAssigned() throws InterruptedException {
 		getActivity().setCustomView();
-
+		
 		assertTrue("Custom view displayed when assigned.", !getActivity().customView.isShown());
 	}
 }

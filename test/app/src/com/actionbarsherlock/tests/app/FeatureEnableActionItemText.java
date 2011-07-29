@@ -11,8 +11,8 @@ public final class FeatureEnableActionItemText extends FragmentActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		requestWindowFeature(Window.FEATURE_ENABLE_ACTION_BAR_WATSON_TEXT);
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_ACTION_BAR_ITEM_TEXT);
 		setContentView(R.layout.blank);
 	}
 

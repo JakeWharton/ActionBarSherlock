@@ -12,11 +12,7 @@ public class TestIssue0002 extends BaseTestCase<Issue0002> {
 	public void testFragmentReceivesOnMenuItemSelectedCallback() {
 		assertEquals(Issue0002.NO, getSolo().getEditText(0).getText().toString());
 		
-		if (IS_HONEYCOMB) {
-			getSolo().clickOnText(Issue0002.MENU_ITEM_TEXT);
-		} else {
-			getSolo().clickOnImage(1); //home is 0
-		}
+		getSolo().clickOnText(Issue0002.MENU_ITEM_TEXT);
 		
 		assertEquals(Issue0002.YES, getSolo().getEditText(0).getText().toString());
 	}
