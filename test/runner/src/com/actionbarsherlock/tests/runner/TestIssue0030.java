@@ -10,10 +10,10 @@ public class TestIssue0030 extends BaseTestCase<Issue0030> {
 	
 	@Smoke
 	public void testMenuFindItemDoesNotError() throws InterruptedException {
-		getActivity().performFindItem();
-		assertTrue(true);
+		assertNull(getActivity().performFindItem());
 	}
 	
+	@Smoke
 	public void testMenuRemoveItemDoesNotError() throws InterruptedException {
 		getActivity().performRemoveItem();
 		assertTrue(true);
