@@ -64,12 +64,12 @@
 		<repository>
 			<id>personal-repository</id>
 			<name>JakeWharton.com Maven Repository</name>
-			<url>scp://masseria.dreamhost.com/home/jakewharton_repository/r.jakewharton.com/maven/release/</url>
+			<url>scp://r.jakewharton.com/home/jakewharton_repository/r.jakewharton.com/maven/release/</url>
 		</repository>
 		<snapshotRepository>
 			<id>personal-repository</id>
 			<name>JakeWharton.com Maven Repository</name>
-			<url>scp://masseria.dreamhost.com/home/jakewharton_repository/r.jakewharton.com/maven/snapshot/</url>
+			<url>scp://r.jakewharton.com/home/jakewharton_repository/r.jakewharton.com/maven/snapshot/</url>
 		</snapshotRepository>
 	</distributionManagement>
 
