@@ -13,8 +13,6 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 public final class Issue0002 extends FragmentActivity {
-	public static final String NO = "NO";
-	public static final String YES = "YES";
 	public static final String MENU_ITEM_TEXT = "Click";
 	
 	public boolean triggered = false;

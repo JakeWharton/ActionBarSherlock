@@ -16,6 +16,7 @@
 		<activity android:name=".FeatureCustomView" />
 		<activity android:name=".FeatureEnableActionItemText" />
 		<activity android:name=".Issue0002" />
+		<activity android:name=".Issue0030" />
 		
     </application>
 </manifest>
