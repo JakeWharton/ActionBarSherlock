@@ -7,29 +7,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.TextView;
 
 public final class FeatureCustomView extends FragmentActivity {
-	private final CountDownLatch setCustomViewLatch = new CountDownLatch(1);
-	private final CountDownLatch enableCustomViewLatch = new CountDownLatch(1);
-	
 	public TextView customView;
-	
-	private final Runnable setCustomViewRunnable = new Runnable() {
-		@Override
-		public void run() {
-			getSupportActionBar().setDisplayShowCustomEnabled(false);
-			customView = new TextView(FeatureCustomView.this);
-			customView.setText("Custom View!");
-			customView.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-			getSupportActionBar().setCustomView(customView);
-			setCustomViewLatch.countDown();
-		}
-	};
-	private final Runnable enabledCustomViewRunnable = new Runnable() {
-		@Override
-		public void run() {
-			getSupportActionBar().setDisplayShowCustomEnabled(true);
-			enableCustomViewLatch.countDown();
-		}
-	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +16,30 @@ public final class FeatureCustomView extends FragmentActivity {
 	}
 
 	public void setCustomView() throws InterruptedException {
-		runOnUiThread(setCustomViewRunnable);
-		setCustomViewLatch.await();
+		final CountDownLatch latch = new CountDownLatch(1);
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				getSupportActionBar().setDisplayShowCustomEnabled(false);
+				customView = new TextView(FeatureCustomView.this);
+				customView.setText("Custom View!");
+				customView.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+				getSupportActionBar().setCustomView(customView);
+				latch.countDown();
+			}
+		});
+		latch.await();
 	}
 	
 	public void enableCustomView() throws InterruptedException {
-		runOnUiThread(enabledCustomViewRunnable);
-		enableCustomViewLatch.await();
+		final CountDownLatch latch = new CountDownLatch(1);
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				getSupportActionBar().setDisplayShowCustomEnabled(true);
+				latch.countDown();
+			}
+		});
+		latch.await();
 	}
 }
