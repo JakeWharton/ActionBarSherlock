@@ -837,6 +837,7 @@ public class FragmentActivity extends Activity {
 
         if (!mCreated) {
             mCreated = true;
+            ensureSupportActionBarAttached(); //Needed for retained fragments
             mFragments.dispatchActivityCreated();
         }
 
