@@ -10,28 +10,26 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.EditText;
+import android.widget.FrameLayout;
 
 public final class Issue0002 extends FragmentActivity {
 	public static final String NO = "NO";
 	public static final String YES = "YES";
 	public static final String MENU_ITEM_TEXT = "Click";
 	
+	public boolean triggered = false;
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_ACTION_BAR_ITEM_TEXT);
         
-        Frag frag = new Frag();
         getSupportFragmentManager().beginTransaction()
-        	.add(android.R.id.content, frag)
+        	.add(android.R.id.content, new TestFragment())
         	.commit();
     }
     
-    private static final class Frag extends Fragment {
-    	private EditText mText;
-    	
+    public final class TestFragment extends Fragment {
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
@@ -46,15 +44,12 @@ public final class Issue0002 extends FragmentActivity {
 		
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-			mText = new EditText(getActivity());
-			mText.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
-			mText.setText(NO);
-			return mText;
+			return new FrameLayout(getActivity());
 		}
 
 		@Override
 		public boolean onOptionsItemSelected(MenuItem item) {
-			mText.setText(YES);
+			triggered = true;
 			return true;
 		}
     }

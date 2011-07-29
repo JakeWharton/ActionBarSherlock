@@ -17,21 +17,6 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.jayway.android.robotium</groupId>
-			<artifactId>robotium-solo</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>com.google.android</groupId>
-					<artifactId>android</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.google.android</groupId>
-					<artifactId>android-test</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
-		<dependency>
 			<groupId>android</groupId>
 			<artifactId>android</artifactId>
 			<scope>provided</scope>

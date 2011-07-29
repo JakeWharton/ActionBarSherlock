@@ -14,6 +14,6 @@ public class TestFeatureEnableActionItemText extends BaseTestCase<FeatureEnableA
 			return;
 		}
 		
-		assertTrue("Text-only action-item could not be found.", getSolo().searchText(FeatureEnableActionItemText.MENU_ITEM_TEXT));
+		assertNotNull("Text-only action-item could not be found.", findActionItem(FeatureEnableActionItemText.MENU_ITEM_TEXT));
 	}
 }
