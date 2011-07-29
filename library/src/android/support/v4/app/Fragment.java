@@ -816,7 +816,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      * @param savedInstanceState If the fragment is being re-created from
      * a previous saved state, this is the state.
      */
-    public void onInflate(Activity activity, AttributeSet attrs, Bundle savedInstanceState) {
+    public void onInflate(FragmentActivity activity, AttributeSet attrs, Bundle savedInstanceState) {
         mCalled = true;
     }
 
@@ -824,7 +824,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      * Called when a fragment is first attached to its activity.
      * {@link #onCreate(Bundle)} will be called after this.
      */
-    public void onAttach(Activity activity) {
+    public void onAttach(FragmentActivity activity) {
         mCalled = true;
     }
 

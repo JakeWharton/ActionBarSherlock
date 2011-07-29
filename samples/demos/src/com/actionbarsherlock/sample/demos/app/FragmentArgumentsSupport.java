@@ -16,20 +16,17 @@
 
 package com.actionbarsherlock.sample.demos.app;
 
-import com.actionbarsherlock.sample.demos.R;
-
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-
-import android.app.Activity;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import com.actionbarsherlock.sample.demos.R;
 
 /**
  * Demonstrates a fragment that can be configured through both Bundle arguments
@@ -71,7 +68,7 @@ public class FragmentArgumentsSupport extends FragmentActivity {
          * Parse attributes during inflation from a view hierarchy into the
          * arguments we handle.
          */
-        @Override public void onInflate(Activity activity, AttributeSet attrs,
+        @Override public void onInflate(FragmentActivity activity, AttributeSet attrs,
                 Bundle savedInstanceState) {
             super.onInflate(activity, attrs, savedInstanceState);
 
