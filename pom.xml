@@ -28,7 +28,6 @@
 			<id>test</id>
 			<modules>
 				<module>library</module>
-				<module>samples</module>
 				<module>test</module>
 			</modules>
 		</profile>
