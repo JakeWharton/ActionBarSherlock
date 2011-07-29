@@ -173,7 +173,7 @@ public class FragmentActivity extends Activity {
         if (!mIsActionBarImplAttached) {
             //Do not allow an action bar if we have a parent activity
             if (getParent() != null) {
-                mWindowFlags |= ~WINDOW_FLAG_ACTION_BAR;
+                mWindowFlags &= ~WINDOW_FLAG_ACTION_BAR;
             }
             if ((mWindowFlags & WINDOW_FLAG_ACTION_BAR) == WINDOW_FLAG_ACTION_BAR) {
                 if ((mWindowFlags & WINDOW_FLAG_ACTION_BAR_OVERLAY) == WINDOW_FLAG_ACTION_BAR_OVERLAY) {
