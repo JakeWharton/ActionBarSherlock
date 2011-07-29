@@ -706,6 +706,10 @@ public class FragmentActivity extends Activity {
                 if (DEBUG) Log.d(TAG, "onPrepareOptionsMenu(android.view.Menu): Calling support method with custom menu.");
                 prepareResult = onPrepareOptionsMenu(mSupportMenu);
                 if (DEBUG) Log.d(TAG, "onPrepareOptionsMenu(android.view.Menu): Support method result returned " + prepareResult);
+                if (prepareResult) {
+                	if (DEBUG) Log.d(TAG, "onPrepareOptionsMenu(android.view.Menu): Dispatching fragment method with custom menu.");
+                	mFragments.dispatchPrepareOptionsMenu(mSupportMenu);
+                }
             }
 
             if (mOptionsMenuInvalidated) {
@@ -731,8 +735,13 @@ public class FragmentActivity extends Activity {
                 result = true;
             }
         } else {
-            if (DEBUG) Log.d(TAG, "onPrepareOptionsMenu(android.view.Menu): Calling support method with custom menu.");
-            result = onPrepareOptionsMenu(new MenuWrapper(menu));
+            if (DEBUG) Log.d(TAG, "onPrepareOptionsMenu(android.view.Menu): Calling support method with wrapped native menu.");
+            final MenuWrapper wrappedMenu = new MenuWrapper(menu);
+            result = onPrepareOptionsMenu(wrappedMenu);
+            if (result) {
+            	if (DEBUG) Log.d(TAG, "onPrepareOptionsMenu(android.view.Menu): Dispatching fragment method with wrapped native menu.");
+            	mFragments.dispatchPrepareOptionsMenu(wrappedMenu);
+            }
         }
 
         if (DEBUG) Log.d(TAG, "onPrepareOptionsMenu(android.view.Menu): Returning " + result);

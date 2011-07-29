@@ -10,6 +10,8 @@ Version 3.1.1 *(In Development)*
   `Activity` instead of a `FragmentActivity` in their method signatures.
 * Fix: Retained fragments not being re-attached on pre-3.0 when attached to
   `android.R.id.content` upon activity recreation.
+* Fix: `onPrepareOptionsMenu` not dispatched to fragments. This still will only
+  occur if the activity method returns true (which is the default).
 
 
 Version 3.1.0 *(2011-07-22)*
