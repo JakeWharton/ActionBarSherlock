@@ -78,6 +78,10 @@ public final class ActionBarSupportImpl extends ActionBar {
     public void init() {
         mActionBar = (ActionBarView)getActivity().findViewById(R.id.action_bar);
 
+        if (mActionBar == null) {
+            throw new IllegalStateException(getClass().getSimpleName() + " can only be used with a screen_*.xml layout");
+        }
+
         final MenuItemImpl homeMenuItem = getHomeMenuItem();
         final ActionBarView.Item homeItem = mActionBar.getHomeItem();
         final WatsonItemViewWrapper homeWrapper = new WatsonItemViewWrapper(homeItem);
