@@ -21,6 +21,7 @@
 		<activity android:name=".Issue0036" />
 		<activity android:name=".Issue0038" />
 		<activity android:name=".Issue0038$InnerActivity" />
+		<activity android:name=".Issue0042" />
 		
     </application>
 </manifest>
