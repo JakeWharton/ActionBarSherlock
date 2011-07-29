@@ -17,6 +17,8 @@
 		<activity android:name=".FeatureEnableActionItemText" />
 		<activity android:name=".Issue0002" />
 		<activity android:name=".Issue0030" />
+		<activity android:name=".Issue0038" />
+		<activity android:name=".Issue0038$InnerActivity" />
 		
     </application>
 </manifest>
