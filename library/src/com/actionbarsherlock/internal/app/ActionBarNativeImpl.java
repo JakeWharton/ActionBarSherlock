@@ -17,10 +17,12 @@
 package com.actionbarsherlock.internal.app;
 
 import java.util.HashMap;
+
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.ActionBar;
-import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.IFragmentActivity;
 import android.support.v4.view.ActionMode;
 import android.support.v4.view.MenuInflater;
 import android.view.View;
@@ -36,7 +38,7 @@ public final class ActionBarNativeImpl {
 	 * @param activity Parent activity.
 	 * @return {@code ActionBar} instance.
 	 */
-	public static ActionBar createFor(FragmentActivity activity) {
+	public static ActionBar createFor(IFragmentActivity activity) {
 		return new ActionBarNativeImpl.Impl(activity);
 	}
 
@@ -48,7 +50,7 @@ public final class ActionBarNativeImpl {
 		private final HashMap<OnMenuVisibilityListener, android.app.ActionBar.OnMenuVisibilityListener> mMenuListenerMap = new HashMap<OnMenuVisibilityListener, android.app.ActionBar.OnMenuVisibilityListener>();
 		
 		
-		private Impl(FragmentActivity activity) {
+		private Impl(IFragmentActivity activity) {
 			super(activity);
 		}
 		
@@ -59,7 +61,7 @@ public final class ActionBarNativeImpl {
 		 * @return The action bar.
 		 */
 		private android.app.ActionBar getActionBar() {
-			return getActivity().getActionBar();
+			return ((Activity) getActivity()).getActionBar();
 		}
 
 		@Override
@@ -116,16 +118,16 @@ public final class ActionBarNativeImpl {
 			//We have to re-wrap the instances in every callback since the
 			//wrapped instance is needed before we could have a change to
 			//properly store it.
-			return new ActionModeWrapper(getActivity(),
-				getActivity().startActionMode(new android.view.ActionMode.Callback() {
+			return new ActionModeWrapper((Context) getActivity(),
+				((Activity) getActivity()).startActionMode(new android.view.ActionMode.Callback() {
 					@Override
 					public boolean onPrepareActionMode(android.view.ActionMode mode, android.view.Menu menu) {
-						return callback.onPrepareActionMode(new ActionModeWrapper(getActivity(), mode), menu);
+						return callback.onPrepareActionMode(new ActionModeWrapper((Context) getActivity(), mode), menu);
 					}
 					
 					@Override
 					public void onDestroyActionMode(android.view.ActionMode mode) {
-						final ActionMode actionMode = new ActionModeWrapper(getActivity(), mode);
+						final ActionMode actionMode = new ActionModeWrapper((Context) getActivity(), mode);
 						callback.onDestroyActionMode(actionMode);
 						
 						//Send the activity callback once the action mode callback has run
@@ -134,12 +136,12 @@ public final class ActionBarNativeImpl {
 					
 					@Override
 					public boolean onCreateActionMode(android.view.ActionMode mode, android.view.Menu menu) {
-						return callback.onCreateActionMode(new ActionModeWrapper(getActivity(), mode), menu);
+						return callback.onCreateActionMode(new ActionModeWrapper((Context) getActivity(), mode), menu);
 					}
 					
 					@Override
 					public boolean onActionItemClicked(android.view.ActionMode mode, android.view.MenuItem item) {
-						return callback.onActionItemClicked(new ActionModeWrapper(getActivity(), mode), item);
+						return callback.onActionItemClicked(new ActionModeWrapper((Context) getActivity(), mode), item);
 					}
 				})
 			);
@@ -275,7 +277,7 @@ public final class ActionBarNativeImpl {
 
 			@Override
 			public ActionBar.Tab setCustomView(int layoutResId) {
-				mCustomView = mActionBar.getActivity().getLayoutInflater().inflate(layoutResId, null);
+				mCustomView = ((Activity) mActionBar.getActivity()).getLayoutInflater().inflate(layoutResId, null);
 				return this;
 			}
 
@@ -293,7 +295,7 @@ public final class ActionBarNativeImpl {
 
 			@Override
 			public ActionBar.Tab setIcon(int resId) {
-				mIcon = mActionBar.getActivity().getResources().getDrawable(resId);
+				mIcon = ((Activity) mActionBar.getActivity()).getResources().getDrawable(resId);
 				return this;
 			}
 
@@ -311,7 +313,7 @@ public final class ActionBarNativeImpl {
 
 			@Override
 			public ActionBar.Tab setText(int resId) {
-				mText = mActionBar.getActivity().getResources().getString(resId);
+				mText = ((Activity) mActionBar.getActivity()).getResources().getString(resId);
 				return this;
 			}
 

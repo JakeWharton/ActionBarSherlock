@@ -84,19 +84,19 @@ final class FragmentState implements Parcelable {
         mSavedFragmentState = in.readBundle();
     }
     
-    public Fragment instantiate(FragmentActivity activity) {
+    public Fragment instantiate(IFragmentActivity activity) {
         if (mInstance != null) {
             return mInstance;
         }
         
         if (mArguments != null) {
-            mArguments.setClassLoader(activity.getClassLoader());
+            mArguments.setClassLoader(((Activity) activity).getClassLoader());
         }
         
-        mInstance = Fragment.instantiate(activity, mClassName, mArguments);
+        mInstance = Fragment.instantiate((Context) activity, mClassName, mArguments);
         
         if (mSavedFragmentState != null) {
-            mSavedFragmentState.setClassLoader(activity.getClassLoader());
+            mSavedFragmentState.setClassLoader(((Activity) activity).getClassLoader());
             mInstance.mSavedFragmentState = mSavedFragmentState;
         }
         mInstance.setIndex(mIndex);
@@ -107,7 +107,7 @@ final class FragmentState implements Parcelable {
         mInstance.mTag = mTag;
         mInstance.mRetainInstance = mRetainInstance;
         mInstance.mDetached = mDetached;
-        mInstance.mFragmentManager = activity.mFragments;
+        mInstance.mFragmentManager = activity.getFragments();
         
         return mInstance;
     }
@@ -220,10 +220,10 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
 
     // Set as soon as a fragment is added to a transaction (or removed),
     // to be able to do validation.
-    FragmentActivity mImmediateActivity;
+    IFragmentActivity mImmediateActivity;
     
     // Activity this fragment is attached to.
-    FragmentActivity mActivity;
+    IFragmentActivity mActivity;
     
     // The optional identifier for this fragment -- either the container ID if it
     // was dynamically added to the view hierarchy, or the ID supplied in
@@ -535,7 +535,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     /**
      * Return the Activity this fragment is currently associated with.
      */
-    final public FragmentActivity getActivity() {
+    final public IFragmentActivity getActivity() {
         return mActivity;
     }
     
@@ -546,7 +546,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
         if (mActivity == null) {
             throw new IllegalStateException("Fragment " + this + " not attached to Activity");
         }
-        return mActivity.getResources();
+        return ((Activity) mActivity).getResources();
     }
     
     /**
@@ -774,7 +774,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      * inflation.  Maybe this should become a public API. Note sure.
      */
     public LayoutInflater getLayoutInflater(Bundle savedInstanceState) {
-        return mActivity.getLayoutInflater();
+        return ((Activity) mActivity).getLayoutInflater();
     }
     
     /**
@@ -1158,7 +1158,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      * {@inheritDoc}
      */
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-        getActivity().onCreateContextMenu(menu, v, menuInfo);
+        ((Activity) getActivity()).onCreateContextMenu(menu, v, menuInfo);
     }
 
     /**

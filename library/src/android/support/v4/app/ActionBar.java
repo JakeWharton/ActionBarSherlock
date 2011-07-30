@@ -34,10 +34,10 @@ import com.actionbarsherlock.internal.view.menu.MenuItemImpl;
  */
 public abstract class ActionBar {
 	/** Parent activity. */
-	private final FragmentActivity mActivity;
+	private final IFragmentActivity mActivity;
 	
 	
-	protected ActionBar(FragmentActivity activity) {
+	protected ActionBar(IFragmentActivity activity) {
 		mActivity = activity;
 	}
 	
@@ -47,7 +47,7 @@ public abstract class ActionBar {
 	 * 
 	 * @return Activity.
 	 */
-	protected final FragmentActivity getActivity() {
+	protected final IFragmentActivity getActivity() {
 		return mActivity;
 	}
 
@@ -286,7 +286,7 @@ public abstract class ActionBar {
 		 * 
 		 * @param tab The tab that was reselected.
 		 * @param ft Unused, always {@code null}. Begin your own transaction by
-		 * calling {@link FragmentActivity#getSupportFragmentManager()}.
+		 * calling {@link IFragmentActivity#getSupportFragmentManager()}.
 		 */
 		void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft);
 		
@@ -295,7 +295,7 @@ public abstract class ActionBar {
 		 * 
 		 * @param tab The tab that was selected
 		 * @param ft Unused, always {@code null}. Begin your own transaction by
-		 * calling {@link FragmentActivity#getSupportFragmentManager()}.
+		 * calling {@link IFragmentActivity#getSupportFragmentManager()}.
 		 */
 		void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft);
 		
@@ -304,7 +304,7 @@ public abstract class ActionBar {
 		 * 
 		 * @param tab The tab that was unselected
 		 * @param ft Unused, always {@code null}. Begin your own transaction by
-		 * calling {@link FragmentActivity#getSupportFragmentManager()}.
+		 * calling {@link IFragmentActivity#getSupportFragmentManager()}.
 		 */
 		void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft);
 	}

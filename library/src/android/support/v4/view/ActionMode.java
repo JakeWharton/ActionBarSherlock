@@ -29,7 +29,7 @@ import android.view.View;
 public abstract class ActionMode {
 	/**
 	 * <p>Callback interface for action modes. Supplied to
-	 * {@link android.support.v4.app.FragmentActivity#startActionMode(Callback)},
+	 * {@link android.support.v4.app.IFragmentActivity#startActionMode(Callback)},
 	 * a Callback configures and handles events raised by a user's interaction
 	 * with an action mode.</p>
 	 * 

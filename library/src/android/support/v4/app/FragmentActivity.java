@@ -73,7 +73,7 @@ import android.widget.FrameLayout;
  * state, this may be a snapshot slightly before what the user last saw.</p>
  * </ul>
  */
-public class FragmentActivity extends Activity {
+public class FragmentActivity extends Activity implements IFragmentActivity {
 	private static final String TAG = "FragmentActivity";
 	private static final boolean DEBUG = false;
 	
@@ -90,7 +90,7 @@ public class FragmentActivity extends Activity {
 	private static final int WINDOW_FLAG_ACTION_MODE_OVERLAY = 1 << Window.FEATURE_ACTION_MODE_OVERLAY;
 	private static final int WINDOW_FLAG_INDETERMINANTE_PROGRESS = 1 << Window.FEATURE_INDETERMINATE_PROGRESS;
 
-	final Handler mHandler = new Handler() {
+	private final Handler mHandler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
@@ -108,7 +108,7 @@ public class FragmentActivity extends Activity {
 			}
 		}
 	};
-	final FragmentManagerImpl mFragments = new FragmentManagerImpl();
+	private final FragmentManagerImpl mFragments = new FragmentManagerImpl();
 	
 	final ActionBar mActionBar;
 	boolean mIsActionBarImplAttached;
@@ -165,8 +165,16 @@ public class FragmentActivity extends Activity {
 			mSupportMenu.setCallback(mSupportMenuCallback);
 		}
 	}
+	
+	public final Handler getHandler() {
+		return mHandler;
+	}
+	
+	public final FragmentManagerImpl getFragments() {
+		return mFragments;
+	}
 
-	protected void ensureSupportActionBarAttached() {
+	public void ensureSupportActionBarAttached() {
 		if (IS_HONEYCOMB) {
 			return;
 		}
@@ -1050,7 +1058,7 @@ public class FragmentActivity extends Activity {
 	 *  
 	 * @return Menu item instance.
 	 */
-	final MenuItemImpl getHomeMenuItem() {
+	public final MenuItemImpl getHomeMenuItem() {
 		return mSupportMenu.addDetached(android.R.id.home);
 	}
 
@@ -1099,7 +1107,7 @@ public class FragmentActivity extends Activity {
 		super.startActivityForResult(intent, ((fragment.mIndex+1)<<16) + (requestCode&0xffff));
 	}
 	
-	void invalidateSupportFragmentIndex(int index) {
+	public void invalidateSupportFragmentIndex(int index) {
 		//Log.v(TAG, "invalidateFragmentIndex: index=" + index);
 		if (mAllLoaderManagers != null) {
 			LoaderManagerImpl lm = mAllLoaderManagers.get(index);
@@ -1126,7 +1134,7 @@ public class FragmentActivity extends Activity {
 		return mLoaderManager;
 	}
 	
-	LoaderManagerImpl getLoaderManager(int index, boolean started, boolean create) {
+	public LoaderManagerImpl getLoaderManager(int index, boolean started, boolean create) {
 		if (mAllLoaderManagers == null) {
 			mAllLoaderManagers = new HCSparseArray<LoaderManagerImpl>();
 		}
