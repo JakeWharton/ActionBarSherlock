@@ -16,7 +16,6 @@
 
 package android.support.v4.app;
 
-import android.app.Activity;
 import android.content.ComponentCallbacks;
 import android.content.Context;
 import android.content.Intent;
