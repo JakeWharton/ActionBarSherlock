@@ -10,6 +10,7 @@
 		android:targetSdkVersion="13" />
 
 	<application
+		android:icon="@drawable/icon"
 		android:label="ABS: Test Application"
 		android:theme="@style/Theme.Sherlock">
 		
