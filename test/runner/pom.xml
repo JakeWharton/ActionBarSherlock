@@ -37,6 +37,19 @@
 		</dependency>
 	</dependencies>
 
+	<properties>
+		<enable-integration-test>false</enable-integration-test>
+	</properties>
+
+	<profiles>
+		<profile>
+			<id>test</id>
+			<properties>
+				<enable-integration-test>true</enable-integration-test>
+			</properties>
+		</profile>
+	</profiles>
+
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 
@@ -45,7 +58,7 @@
 				<groupId>com.jayway.maven.plugins.android.generation2</groupId>
 				<artifactId>maven-android-plugin</artifactId>
 				<configuration>
-					<enableIntegrationTest>true</enableIntegrationTest>
+					<enableIntegrationTest>${enable-integration-test}</enableIntegrationTest>
 				</configuration>
 				<extensions>true</extensions>
 			</plugin>

@@ -13,25 +13,11 @@
 	<url>https://github.com/JakeWharton/ActionBarSherlock</url>
 	<inceptionYear>2011</inceptionYear>
 
-	<profiles>
-		<profile>
-			<id>standard</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<modules>
-				<module>library</module>
-				<module>samples</module>
-			</modules>
-		</profile>
-		<profile>
-			<id>test</id>
-			<modules>
-				<module>library</module>
-				<module>test</module>
-			</modules>
-		</profile>
-	</profiles>
+	<modules>
+		<module>library</module>
+		<module>samples</module>
+		<module>test</module>
+	</modules>
 
 	<scm>
 		<url>http://github.com/JakeWharton/ActionBarSherlock/</url>
