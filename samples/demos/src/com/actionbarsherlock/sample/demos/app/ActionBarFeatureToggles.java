@@ -33,10 +33,10 @@ public class ActionBarFeatureToggles extends FragmentActivity {
         requestWindowFeature(Window.FEATURE_PROGRESS);
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         super.onCreate(savedInstanceState);
-        setProgressBarIndeterminateVisibility(false);
-        setProgressBarVisibility(false);
         
         setContentView(R.layout.actionbar_feature_toggles_activity);
+        setProgressBarIndeterminateVisibility(Boolean.FALSE);
+        setProgressBarVisibility(false);
  
         getSupportActionBar().setCustomView(R.layout.actionbar_custom_view);
         getSupportActionBar().setDisplayShowCustomEnabled(false);
