@@ -118,6 +118,10 @@ public final class ActionBarSupportImpl extends ActionBar {
         //LOGO LOADING DOES NOT WORK
         //SEE: http://stackoverflow.com/questions/6105504/load-activity-and-or-application-logo-programmatically-from-manifest
         //SEE: https://groups.google.com/forum/#!topic/android-developers/UFR4l0ZwJWc
+
+        if (mHasIndeterminateProgress) {
+            mActionBar.setProgressBarIndeterminateVisibility(true);
+        }
     }
 
     public void onMenuInflated(Menu menu) {
@@ -204,11 +208,13 @@ public final class ActionBarSupportImpl extends ActionBar {
     }
 
     public void setWindowIndeterminateProgressEnabled(boolean enabled) {
-        mHasIndeterminateProgress = enabled;
+        if (mActionBar == null) {
+            mHasIndeterminateProgress = enabled;
+        }
     }
 
     public void setProgressBarIndeterminateVisibility(boolean visible) {
-        if (mHasIndeterminateProgress) {
+        if (mHasIndeterminateProgress && (mActionBar != null)) {
             mActionBar.setProgressBarIndeterminateVisibility(visible);
         }
     }
