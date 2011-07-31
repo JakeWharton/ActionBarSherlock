@@ -31,6 +31,7 @@ public class ActionBarIndeterminateProgress extends FragmentActivity {
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         
         setContentView(R.layout.actionbar_iprogress);
+        setProgressBarIndeterminateVisibility(Boolean.FALSE);
         
         
         //Bind to the buttons which enable and disable the progress spinner.
