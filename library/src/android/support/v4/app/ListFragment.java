@@ -88,7 +88,7 @@ public class ListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        final Context context = getActivity();
+        final Context context = (Context) getActivity();
 
         FrameLayout root = new FrameLayout(context);
 
@@ -113,13 +113,13 @@ public class ListFragment extends Fragment {
         FrameLayout lframe = new FrameLayout(context);
         lframe.setId(INTERNAL_LIST_CONTAINER_ID);
         
-        TextView tv = new TextView(getActivity());
+        TextView tv = new TextView((Context) getActivity());
         tv.setId(INTERNAL_EMPTY_ID);
         tv.setGravity(Gravity.CENTER);
         lframe.addView(tv, new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT));
         
-        ListView lv = new ListView(getActivity());
+        ListView lv = new ListView((Context) getActivity());
         lv.setId(android.R.id.list);
         lv.setDrawSelectorOnTop(false);
         lframe.addView(lv, new FrameLayout.LayoutParams(
@@ -288,9 +288,9 @@ public class ListFragment extends Fragment {
         if (shown) {
             if (animate) {
                 mProgressContainer.startAnimation(AnimationUtils.loadAnimation(
-                        getActivity(), android.R.anim.fade_out));
+                		(Context) getActivity(), android.R.anim.fade_out));
                 mListContainer.startAnimation(AnimationUtils.loadAnimation(
-                        getActivity(), android.R.anim.fade_in));
+                		(Context) getActivity(), android.R.anim.fade_in));
             } else {
                 mProgressContainer.clearAnimation();
                 mListContainer.clearAnimation();
@@ -300,9 +300,9 @@ public class ListFragment extends Fragment {
         } else {
             if (animate) {
                 mProgressContainer.startAnimation(AnimationUtils.loadAnimation(
-                        getActivity(), android.R.anim.fade_in));
+                		(Context) getActivity(), android.R.anim.fade_in));
                 mListContainer.startAnimation(AnimationUtils.loadAnimation(
-                        getActivity(), android.R.anim.fade_out));
+                		(Context) getActivity(), android.R.anim.fade_out));
             } else {
                 mProgressContainer.clearAnimation();
                 mListContainer.clearAnimation();

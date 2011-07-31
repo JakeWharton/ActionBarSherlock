@@ -16,6 +16,7 @@
 
 package android.support.v4.app;
 
+import android.app.Activity;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -282,14 +283,14 @@ final class BackStackRecord extends FragmentTransaction implements
 
     public CharSequence getBreadCrumbTitle() {
         if (mBreadCrumbTitleRes != 0) {
-            return mManager.mActivity.getText(mBreadCrumbTitleRes);
+            return ((Activity) mManager.mActivity).getText(mBreadCrumbTitleRes);
         }
         return mBreadCrumbTitleText;
     }
 
     public CharSequence getBreadCrumbShortTitle() {
         if (mBreadCrumbShortTitleRes != 0) {
-            return mManager.mActivity.getText(mBreadCrumbShortTitleRes);
+            return ((Activity) mManager.mActivity).getText(mBreadCrumbShortTitleRes);
         }
         return mBreadCrumbShortTitleText;
     }

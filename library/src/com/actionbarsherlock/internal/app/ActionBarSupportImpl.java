@@ -19,6 +19,9 @@ package com.actionbarsherlock.internal.app;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import android.app.Activity;
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -26,7 +29,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.ActionBar;
-import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.IFragmentActivity;
 import android.support.v4.view.ActionMode;
 import android.support.v4.view.Menu;
 import android.support.v4.view.MenuItem;
@@ -61,7 +64,7 @@ public final class ActionBarSupportImpl extends ActionBar {
 	
 	
 	
-	public ActionBarSupportImpl(FragmentActivity activity) {
+	public ActionBarSupportImpl(IFragmentActivity activity) {
 		super(activity);
 	}
 	
@@ -76,7 +79,7 @@ public final class ActionBarSupportImpl extends ActionBar {
 	}
 	
 	public void init() {
-		mActionBar = (ActionBarView)getActivity().findViewById(R.id.action_bar);
+		mActionBar = (ActionBarView)((Activity) getActivity()).findViewById(R.id.action_bar);
 		
 		final MenuItemImpl homeMenuItem = getHomeMenuItem();
 		final ActionBarView.Item homeItem = mActionBar.getHomeItem();
@@ -84,11 +87,11 @@ public final class ActionBarSupportImpl extends ActionBar {
 		homeWrapper.initialize(homeMenuItem, MenuBuilder.TYPE_WATSON);
 		homeMenuItem.setItemView(MenuBuilder.TYPE_WATSON, homeWrapper);
 
-		final PackageManager pm = getActivity().getPackageManager();
-		final ApplicationInfo appInfo = getActivity().getApplicationInfo();
+		final PackageManager pm = ((Context) getActivity()).getPackageManager();
+		final ApplicationInfo appInfo = ((Context) getActivity()).getApplicationInfo();
 		ActivityInfo actInfo = null;
 		try {
-			actInfo = pm.getActivityInfo(getActivity().getComponentName(), PackageManager.GET_ACTIVITIES);
+			actInfo = pm.getActivityInfo(((Activity) getActivity()).getComponentName(), PackageManager.GET_ACTIVITIES);
 		} catch (NameNotFoundException e) {}
 
 		
@@ -122,7 +125,7 @@ public final class ActionBarSupportImpl extends ActionBar {
 		}
 		
 		int maxItems = MAX_ACTION_BAR_ITEMS_PORTRAIT;
-		if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+		if (((Context) getActivity()).getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
 			maxItems = MAX_ACTION_BAR_ITEMS_LANDSCAPE;
 		}
 		

@@ -16,6 +16,7 @@
 
 package android.support.v4.app;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -289,7 +290,7 @@ public class DialogFragment extends Fragment
      * @return Return a new Dialog instance to be displayed by the Fragment.
      */
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        return new Dialog(getActivity(), getTheme());
+        return new Dialog((Activity) getActivity(), getTheme());
     }
 
     public void onCancel(DialogInterface dialog) {
@@ -320,7 +321,7 @@ public class DialogFragment extends Fragment
             }
             mDialog.setContentView(view);
         }
-        mDialog.setOwnerActivity(getActivity());
+        mDialog.setOwnerActivity((Activity) getActivity());
         mDialog.setCancelable(mCancelable);
         mDialog.setOnCancelListener(this);
         mDialog.setOnDismissListener(this);
