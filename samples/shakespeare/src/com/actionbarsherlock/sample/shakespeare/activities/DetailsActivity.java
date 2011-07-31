@@ -1,7 +1,9 @@
 package com.actionbarsherlock.sample.shakespeare.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.MenuItem;
@@ -40,8 +42,19 @@ public class DetailsActivity extends FragmentActivity {
 				Intent intent = new Intent(this, TitlesActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);
+				
+				//Get rid of the slide-in animation, if possible
+	            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ECLAIR) {
+	                OverridePendingTransition.invoke(this);
+	            }
 		}
 		
 		return super.onOptionsItemSelected(item);
 	}
+
+    private static final class OverridePendingTransition {
+        static void invoke(Activity activity) {
+            activity.overridePendingTransition(0, 0);
+        }
+    }
 }
