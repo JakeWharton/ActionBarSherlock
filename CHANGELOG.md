@@ -12,6 +12,8 @@ Version 3.1.1 *(2011-07-31)*
   `android.R.id.content` upon activity recreation.
 * Fix: `onPrepareOptionsMenu` not dispatched to fragments. This still will only
   occur if the activity method returns true (which is the default).
+* Fix: `Menu.findItem` not returning `null` when the item was not found on
+  Android 3.0+.
 
 
 Version 3.1.0 *(2011-07-22)*

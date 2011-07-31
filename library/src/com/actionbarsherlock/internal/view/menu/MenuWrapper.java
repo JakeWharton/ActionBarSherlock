@@ -90,7 +90,8 @@ public class MenuWrapper implements Menu {
 
     @Override
     public MenuItem findItem(int id) {
-        return new MenuItemWrapper(mMenu.findItem(id));
+        android.view.MenuItem item = mMenu.findItem(id);
+        return (item != null) ? new MenuItemWrapper(item) : null;
     }
 
     @Override
