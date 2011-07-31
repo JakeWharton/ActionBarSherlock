@@ -13,7 +13,7 @@
     	android:targetPackage="com.actionbarsherlock.tests.app"
     	android:name="android.test.InstrumentationTestRunner" />
     
-    <application android:label="ActionBarSherlock Test Runner" >
+    <application android:label="ABS: Test Runner" >
     	<uses-library android:name="android.test.runner" />
     </application>
 </manifest>
