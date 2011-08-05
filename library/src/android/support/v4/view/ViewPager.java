@@ -16,6 +16,7 @@
 
 package android.support.v4.view;
 
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -742,7 +743,7 @@ public class ViewPager extends ViewGroup {
                 * of the down event.
                 */
                 final int activePointerId = mActivePointerId;
-                if (activePointerId == INVALID_POINTER) {
+                if (activePointerId == INVALID_POINTER && Build.VERSION.SDK_INT > Build.VERSION_CODES.DONUT) {
                     // If we don't have a valid id, the touch down wasn't on content.
                     break;
                 }

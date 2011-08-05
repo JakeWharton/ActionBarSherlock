@@ -6,6 +6,7 @@ Version 3.1.2 *(In Development)*
 
 * Fix: `MenuItem.getMenuInfo()` was throwing runtime exception. Will now just
   return `null`.
+* Fix: Dragging over a `WebView` contained in a `ViewPager` would not register.
 
 
 Version 3.1.1 *(2011-07-31)*
