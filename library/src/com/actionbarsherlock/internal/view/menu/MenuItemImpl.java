@@ -486,7 +486,7 @@ public final class MenuItemImpl implements MenuItem {
 
     @Override
     public ContextMenuInfo getMenuInfo() {
-        throw new RuntimeException("Method not supported.");
+        return null;
     }
 
     @Override
