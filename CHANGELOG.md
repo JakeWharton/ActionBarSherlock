@@ -1,8 +1,8 @@
 Change Log
 ===============================================================================
 
-Version 3.1.2 *(In Development)*
---------------------------------
+Version 3.1.2 *(2011-08-07)*
+----------------------------
 
 * Fix: `MenuItem.getMenuInfo()` was throwing runtime exception. Will now just
   return `null`.
