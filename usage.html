@@ -11,7 +11,7 @@ layout: default
 
 		<h3>Requirements</h3>
 		<p>All of the requirements of implementing the compatability libary are present in this library. If you are unfamiliar with them please read its &quot;<a href="http://developer.android.com/sdk/compatibility-library.html#Using">Using Some of the Library APIs</a>&quot; guide.</p>
-		<p><strong>The only additional requirement that ActionBarSherlock needs is that your application's theme be either one of the two provided or be a custom theme whose parent is one of the two provided. See the <a href="theming.html">theming page</a> for more details on implementing this.</strong></p>
+		<p><strong>The only additional requirement that ActionBarSherlock imposes is that any activity on which you would like the action bar attached define a theme in the manifest that is either one of the two provided or be a custom theme whose parent is one of the two provided. See the <a href="theming.html">theming page</a> for more details on implementing this.</strong></p>
 
 		<h3>Action Bar API</h3>
 		<p>When creating an activity to use the action bar on all versions of Android, you must declare your activity to extend the <code>FragmentActivity</code> class (instead of the traditional <a href="http://developer.android.com/reference/android/app/Activity.html"><code>Activity</code></a> class). Interaction with the action bar is handled by calling <code>FragmentActivity.getSupportActionBar()</code> (instead of <a href="http://developer.android.com/reference/android/app/Activity.html#getActionBar()"><code>getActionBar()</code></a>).</p>
