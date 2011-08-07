@@ -244,7 +244,7 @@ public class FragmentActivity extends Activity {
         if (DEBUG) Log.d(TAG, "getMenuInflater(): Returning support inflater.");
 
         //Use our custom menu inflater
-        return new MenuInflater(this);
+        return new MenuInflater(this, super.getMenuInflater());
     }
 
     @Override

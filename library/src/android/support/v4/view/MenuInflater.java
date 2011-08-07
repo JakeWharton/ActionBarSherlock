@@ -29,6 +29,7 @@ import android.content.Context;
 import android.content.res.XmlResourceParser;
 import android.util.AttributeSet;
 import android.util.Xml;
+import android.view.ContextMenu;
 import android.view.InflateException;
 import android.view.MenuItem;
 import android.view.View;
@@ -62,15 +63,19 @@ public final class MenuInflater extends android.view.MenuInflater {
     /** Context from which to inflate resources. */
     private final Context mContext;
 
+    /** Native inflater for context menu fallback. */
+    private final android.view.MenuInflater mNativeMenuInflater;
+
 
     /**
      * Constructs a menu inflater.
      *
      * @see Activity#getMenuInflater()
      */
-    public MenuInflater(Context context) {
+    public MenuInflater(Context context, android.view.MenuInflater nativeMenuInflater) {
         super(context);
-        this.mContext = context;
+        mContext = context;
+        mNativeMenuInflater = nativeMenuInflater;
     }
 
 
@@ -85,6 +90,11 @@ public final class MenuInflater extends android.view.MenuInflater {
      */
     @Override
     public void inflate(int menuRes, android.view.Menu menu) {
+        if (menu instanceof ContextMenu) {
+            mNativeMenuInflater.inflate(menuRes, menu);
+            return;
+        }
+
         MenuBuilder actionBarMenu = (MenuBuilder)menu;
         XmlResourceParser parser = null;
         try {

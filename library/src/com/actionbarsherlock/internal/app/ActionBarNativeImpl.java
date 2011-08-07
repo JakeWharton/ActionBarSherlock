@@ -171,7 +171,7 @@ public final class ActionBarNativeImpl {
 
             @Override
             public MenuInflater getMenuInflater() {
-                return new MenuInflater(mContext);
+                return new MenuInflater(mContext, null);
             }
 
             @Override
