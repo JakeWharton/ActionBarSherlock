@@ -16,10 +16,6 @@ public class ActionBarContainer extends FrameLayout {
     }
     public ActionBarContainer(Context context, AttributeSet attrs) {
         super(context, attrs);
-
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SherlockTheme);
-        setBackgroundDrawable(a.getDrawable(R.styleable.SherlockTheme_abBackground));
-        a.recycle();
     }
 
     @Override
