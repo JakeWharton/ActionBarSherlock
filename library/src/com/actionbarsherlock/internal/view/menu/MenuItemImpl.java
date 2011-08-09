@@ -25,9 +25,9 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v4.view.MenuItem;
 import android.util.Log;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
 
 /**
  * An implementation of the {@link android.view.MenuItem} interface for use in
@@ -113,14 +113,15 @@ public final class MenuItemImpl implements MenuItem {
             AlertDialog.Builder builder = new AlertDialog.Builder(mMenu.getContext());
             builder.setTitle(getTitle());
 
-            final boolean isExclusive = (mSubMenu.size() > 0) && mSubMenu.getItem(0).isExclusiveCheckable();
-            final boolean isCheckable = (mSubMenu.size() > 0) && mSubMenu.getItem(0).isCheckable();
+            final boolean isExclusive = mSubMenu.getItem(0).isExclusiveCheckable();
+            final boolean isCheckable = mSubMenu.getItem(0).isCheckable();
+            final CharSequence[] titles = getSubMenuTitles();
             if (isExclusive) {
-                builder.setSingleChoiceItems(getSubMenuTitles(), getSubMenuSelected(), subMenuClick);
+                builder.setSingleChoiceItems(titles, getSubMenuSelected(), subMenuClick);
             } else if (isCheckable) {
-                builder.setMultiChoiceItems(getSubMenuTitles(), getSubMenuChecked(), subMenuMultiClick);
+                builder.setMultiChoiceItems(titles, getSubMenuChecked(), subMenuMultiClick);
             } else {
-                builder.setItems(getSubMenuTitles(), subMenuClick);
+                builder.setItems(titles, subMenuClick);
             }
 
             builder.show();
@@ -193,27 +194,35 @@ public final class MenuItemImpl implements MenuItem {
 
 
     public void addTo(android.view.Menu menu) {
-        if (this.mSubMenu != null) {
-            android.view.SubMenu subMenu = menu.addSubMenu(this.mGroupId, this.mItemId, this.mOrder, this.mTitle);
+        if (hasSubMenu()) {
+            android.view.SubMenu subMenu = menu.addSubMenu(mGroupId, mItemId, mOrder, mTitle);
             if (mIconRes != View.NO_ID) {
                 subMenu.setIcon(mIconRes);
             } else {
                 subMenu.setIcon(mIcon);
             }
-
-            for (MenuItemImpl item : this.mSubMenu.getItems()) {
+            for (MenuItemImpl item : mSubMenu.getItems()) {
                 item.addTo(subMenu);
             }
+            
+            if (mSubMenu.getItem(0).isExclusiveCheckable()) {
+                int checked = getSubMenuSelected();
+                if (checked != -1) {
+                    subMenu.getItem(checked).setChecked(true);
+                }
+            }
         } else {
-            android.view.MenuItem item = menu.add(this.mGroupId, this.mItemId, this.mOrder, this.mTitle)
-                .setAlphabeticShortcut(this.mAlphabeticalShortcut)
-                .setNumericShortcut(this.mNumericalShortcut)
-                .setVisible(this.isVisible())
-                .setIntent(this.mIntent)
-                .setOnMenuItemClickListener(this.mClickListener);
+            android.view.MenuItem item = menu.add(mGroupId, mItemId, mOrder, mTitle)
+                .setAlphabeticShortcut(mAlphabeticalShortcut)
+                .setNumericShortcut(mNumericalShortcut)
+                .setVisible(isVisible())
+                .setIntent(mIntent)
+                .setCheckable(isCheckable())
+                .setChecked(isChecked())
+                .setOnMenuItemClickListener(mClickListener);
 
-            if (this.isExclusiveCheckable()) {
-                menu.setGroupCheckable(this.mGroupId, true, true);
+            if (isExclusiveCheckable()) {
+                menu.setGroupCheckable(mGroupId, true, true);
             }
 
             //Create and initialize a native itemview wrapper
@@ -379,7 +388,7 @@ public final class MenuItemImpl implements MenuItem {
     }
 
     public boolean isExclusiveCheckable() {
-        return (mFlags & EXCLUSIVE) != 0;
+        return (mFlags & EXCLUSIVE) == EXCLUSIVE;
     }
 
     @Override
