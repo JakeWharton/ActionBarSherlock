@@ -193,10 +193,6 @@ public class FragmentActivity extends Activity {
                 if ((mWindowFlags & WINDOW_FLAG_INDETERMINANTE_PROGRESS) == WINDOW_FLAG_INDETERMINANTE_PROGRESS) {
                     super.requestWindowFeature((int)Window.FEATURE_INDETERMINATE_PROGRESS);
                 }
-                if ((mWindowFlags & WINDOW_FLAG_ACTION_MODE_OVERLAY) == WINDOW_FLAG_ACTION_MODE_OVERLAY) {
-                    super.requestWindowFeature((int)Window.FEATURE_ACTION_MODE_OVERLAY);
-                }
-
                 super.setContentView(R.layout.screen_simple);
             }
 
