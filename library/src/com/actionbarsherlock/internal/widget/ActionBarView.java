@@ -192,6 +192,9 @@ public final class ActionBarView extends RelativeLayout {
         //Reduce, Reuse, Recycle!
         attrsActionBar.recycle();
         mIsConstructing = false;
+
+        //Clear the background image because it is set on the container
+        setBackgroundResource(0);
         reloadDisplay();
     }
 
@@ -356,10 +359,6 @@ public final class ActionBarView extends RelativeLayout {
         }
     }
 
-    public void hide() {
-        setVisibility(View.GONE);
-    }
-
     public boolean isShowing() {
         return getVisibility() == View.VISIBLE;
     }
@@ -521,10 +520,6 @@ public final class ActionBarView extends RelativeLayout {
 
     public void setTitle(int resId) {
         mTitle.setText(resId);
-    }
-
-    public void show() {
-        setVisibility(View.VISIBLE);
     }
 
     // ------------------------------------------------------------------------

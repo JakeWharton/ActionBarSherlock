@@ -36,6 +36,7 @@ import com.actionbarsherlock.R;
 import com.actionbarsherlock.internal.view.menu.MenuBuilder;
 import com.actionbarsherlock.internal.view.menu.MenuItemImpl;
 import com.actionbarsherlock.internal.view.menu.MenuView;
+import com.actionbarsherlock.internal.widget.ActionBarContainer;
 import com.actionbarsherlock.internal.widget.ActionBarView;
 
 public final class ActionBarSupportImpl extends ActionBar {
@@ -46,6 +47,9 @@ public final class ActionBarSupportImpl extends ActionBar {
     private static final int MAX_ACTION_BAR_ITEMS_LANDSCAPE = 4;
 
 
+
+    /** Action bar container. */
+    private ActionBarContainer mActionBarContainer;
 
     /** Action bar view. */
     private ActionBarView mActionBar;
@@ -76,6 +80,7 @@ public final class ActionBarSupportImpl extends ActionBar {
     }
 
     public void init() {
+        mActionBarContainer = (ActionBarContainer)getActivity().findViewById(R.id.action_bar_container);
         mActionBar = (ActionBarView)getActivity().findViewById(R.id.action_bar);
 
         if (mActionBar == null) {
@@ -316,7 +321,8 @@ public final class ActionBarSupportImpl extends ActionBar {
 
     @Override
     public void hide() {
-        mActionBar.hide();
+        //TODO: animate
+        mActionBarContainer.setVisibility(View.GONE);
     }
 
     @Override
@@ -445,7 +451,8 @@ public final class ActionBarSupportImpl extends ActionBar {
 
     @Override
     public void show() {
-        mActionBar.show();
+        //TODO: animate
+        mActionBarContainer.setVisibility(View.VISIBLE);
     }
 
     // ///
