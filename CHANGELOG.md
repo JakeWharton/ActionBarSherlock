@@ -1,6 +1,13 @@
 Change Log
 ===============================================================================
 
+Version 3.1.3 *(In Development)*
+--------------------------------
+
+* Fix: Action bar background being set on two views causing artifacts to remain
+  on screen when the action bar was hidden.
+
+
 Version 3.1.2 *(2011-08-07)*
 ----------------------------
 
