@@ -483,6 +483,7 @@ public final class ActionBarSupportImpl extends ActionBar {
                 setCheckable(itemData.isCheckable());
                 setChecked(itemData.isChecked());
                 setActionView(itemData.getActionView());
+                setVisible(itemData.isVisible());
             }
         }
 

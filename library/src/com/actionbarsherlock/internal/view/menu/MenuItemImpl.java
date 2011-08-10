@@ -603,6 +603,7 @@ public final class MenuItemImpl implements MenuItem {
             setCheckable(itemData.isCheckable());
             setChecked(itemData.isChecked());
             setActionView(itemData.getActionView());
+            setVisible(itemData.isVisible());
         }
 
         @Override
