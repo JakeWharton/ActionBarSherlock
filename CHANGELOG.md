@@ -10,6 +10,7 @@ Version 3.1.3 *(In Development)*
   triggered from the native options menu on pre-3.0.
 * Fix: `MenuItem.setVisible` now properly updates the associated action item and
   native menu item visible state.
+* Fix: Adding items to a menu now honors its ordering and category.
 
 
 Version 3.1.2 *(2011-08-07)*

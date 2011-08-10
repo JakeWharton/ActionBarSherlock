@@ -24,7 +24,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.widget.SpinnerAdapter;
-import com.actionbarsherlock.internal.view.menu.MenuItemImpl;
 
 /**
  * This is the public interface to the contextual ActionBar. The ActionBar acts
@@ -49,10 +48,6 @@ public abstract class ActionBar {
      */
     protected final FragmentActivity getActivity() {
         return mActivity;
-    }
-
-    protected final MenuItemImpl getHomeMenuItem() {
-        return mActivity.getHomeMenuItem();
     }
 
     /**

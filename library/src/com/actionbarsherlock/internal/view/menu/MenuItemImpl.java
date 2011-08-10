@@ -43,7 +43,8 @@ public final class MenuItemImpl implements MenuItem {
 
     private final int mItemId;
     private final int mGroupId;
-    private final int mOrder;
+    private final int mCategoryOrder;
+    private final int mOrdering;
 
     private Intent mIntent;
     private CharSequence mTitle;
@@ -95,13 +96,15 @@ public final class MenuItemImpl implements MenuItem {
      * @param title Title of the item.
      */
     @SuppressWarnings("unchecked")
-    MenuItemImpl(MenuBuilder menu, int itemId, int groupId, int order, CharSequence title) {
+    public MenuItemImpl(MenuBuilder menu, int groupId, int itemId, int order, int ordering, CharSequence title, int showAsAction) {
         mMenu = menu;
 
         mItemId = itemId;
         mGroupId = groupId;
-        mOrder = order;
+        mCategoryOrder = order;
+        mOrdering = ordering;
         mTitle = title;
+        mShowAsAction = showAsAction;
 
         mItemViews = new WeakReference[MenuBuilder.NUM_TYPES];
     }
@@ -195,7 +198,7 @@ public final class MenuItemImpl implements MenuItem {
 
     public void addTo(android.view.Menu menu) {
         if (hasSubMenu()) {
-            android.view.SubMenu subMenu = menu.addSubMenu(mGroupId, mItemId, mOrder, mTitle);
+            android.view.SubMenu subMenu = menu.addSubMenu(mGroupId, mItemId, mCategoryOrder, mTitle);
             if (mIconRes != View.NO_ID) {
                 subMenu.setIcon(mIconRes);
             } else {
@@ -204,7 +207,7 @@ public final class MenuItemImpl implements MenuItem {
             for (MenuItemImpl item : mSubMenu.getItems()) {
                 item.addTo(subMenu);
             }
-            
+
             if (mSubMenu.getItem(0).isExclusiveCheckable()) {
                 int checked = getSubMenuSelected();
                 if (checked != -1) {
@@ -212,7 +215,7 @@ public final class MenuItemImpl implements MenuItem {
                 }
             }
         } else {
-            android.view.MenuItem item = menu.add(mGroupId, mItemId, mOrder, mTitle)
+            android.view.MenuItem item = menu.add(mGroupId, mItemId, mCategoryOrder, mTitle)
                 .setAlphabeticShortcut(mAlphabeticalShortcut)
                 .setNumericShortcut(mNumericalShortcut)
                 .setVisible(isVisible())
@@ -413,7 +416,11 @@ public final class MenuItemImpl implements MenuItem {
 
     @Override
     public int getOrder() {
-        return mOrder;
+        return mCategoryOrder;
+    }
+
+    public int getOrdering() {
+        return mOrdering;
     }
 
     @Override

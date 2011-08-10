@@ -44,6 +44,41 @@ public class MenuBuilder implements Menu {
     public static final int TYPE_WATSON = 0;
     public static final int TYPE_ACTION_BAR = 1;
 
+    /**
+     * This is the part of an order integer that the user can provide.
+     * @hide
+     */
+    static final int USER_MASK = 0x0000ffff;
+
+    /**
+     * Bit shift of the user portion of the order integer.
+     * @hide
+     */
+    static final int USER_SHIFT = 0;
+
+    /**
+     * This is the part of an order integer that supplies the category of the
+     * item.
+     * @hide
+     */
+
+    static final int CATEGORY_MASK = 0xffff0000;
+
+    /**
+     * Bit shift of the category portion of the order integer.
+     * @hide
+     */
+    static final int CATEGORY_SHIFT = 16;
+
+    private static final int[] CATEGORY_TO_ORDER = new int[] {
+        1, /* No category */
+        4, /* CONTAINER */
+        5, /* SYSTEM */
+        3, /* SECONDARY */
+        2, /* ALTERNATIVE */
+        0, /* SELECTED_ALTERNATIVE */
+    };
+
 
 
     public interface Callback {
@@ -56,7 +91,7 @@ public class MenuBuilder implements Menu {
     private final Context mContext;
 
     /** Child {@link ActionBarMenuItem} items. */
-    private final List<MenuItemImpl> mItems;
+    private final ArrayList<MenuItemImpl> mItems;
 
     /** Menu callback that will receive various events. */
     private Callback mCallback;
@@ -74,6 +109,54 @@ public class MenuBuilder implements Menu {
     }
 
 
+    /**
+     * Adds an item to the menu.  The other add methods funnel to this.
+     *
+     * @param itemId Unique item ID.
+     * @param groupId Group ID.
+     * @param order Order.
+     * @param title Item title.
+     * @return MenuItem instance.
+     */
+    private MenuItem addInternal(int itemId, int groupId, int order, CharSequence title) {
+        final int ordering = getOrdering(order);
+        final MenuItemImpl item = new MenuItemImpl(this, groupId, itemId, order, ordering, title, MenuItem.SHOW_AS_ACTION_NEVER);
+
+        mItems.add(findInsertIndex(mItems, ordering), item);
+        return item;
+    }
+
+    private static int findInsertIndex(ArrayList<MenuItemImpl> items, int ordering) {
+        for (int i = items.size() - 1; i >= 0; i--) {
+            MenuItemImpl item = items.get(i);
+            if (item.getOrdering() <= ordering) {
+                return i + 1;
+            }
+        }
+
+        return 0;
+    }
+
+    /**
+     * Returns the ordering across all items. This will grab the category from
+     * the upper bits, find out how to order the category with respect to other
+     * categories, and combine it with the lower bits.
+     *
+     * @param categoryOrder The category order for a particular item (if it has
+     *            not been or/add with a category, the default category is
+     *            assumed).
+     * @return An ordering integer that can be used to order this item across
+     *         all the items (even from other categories).
+     */
+    private static int getOrdering(int categoryOrder) {
+        final int index = (categoryOrder & CATEGORY_MASK) >> CATEGORY_SHIFT;
+
+        if (index < 0 || index >= CATEGORY_TO_ORDER.length) {
+            throw new IllegalArgumentException("order does not contain a valid category.");
+        }
+
+        return (CATEGORY_TO_ORDER[index] << CATEGORY_SHIFT) | (categoryOrder & USER_MASK);
+    }
 
     public void setCallback(Callback callback) {
         mCallback = callback;
@@ -90,18 +173,6 @@ public class MenuBuilder implements Menu {
      */
     public MenuBuilder getRootMenu() {
         return this;
-    }
-
-    /**
-     * Special method to create a detached child item of this menu with the
-     * specified ID. This should ONLY be used internally for the creation
-     * of the home item.
-     *
-     * @param itemId ID of detached item.
-     * @return Item instance.
-     */
-    public MenuItemImpl addDetached(int itemId) {
-        return new MenuItemImpl(this, itemId, -1, -1, null);
     }
 
     /**
@@ -140,29 +211,23 @@ public class MenuBuilder implements Menu {
     // ** Menu Methods ** \\
 
     @Override
-    public MenuItemImpl add(CharSequence title) {
-        return this.add(DEFAULT_ITEM_ID, DEFAULT_GROUP_ID, DEFAULT_ORDER, title);
+    public MenuItem add(int titleResourceId) {
+        return addInternal(0, 0, 0, mContext.getResources().getString(titleResourceId));
     }
 
     @Override
-    public MenuItemImpl add(int titleResourceId) {
-        return this.add(DEFAULT_GROUP_ID, DEFAULT_ITEM_ID, DEFAULT_ORDER, titleResourceId);
+    public MenuItem add(int groupId, int itemId, int order, int titleResourceId) {
+        return addInternal(itemId, groupId, order, mContext.getResources().getString(titleResourceId));
     }
 
     @Override
-    public MenuItemImpl add(int groupId, int itemId, int order, int titleResourceId) {
-        String title = null;
-        if (titleResourceId != 0) {
-            title = this.mContext.getResources().getString(titleResourceId);
-        }
-        return this.add(groupId, itemId, order, title);
+    public MenuItem add(int groupId, int itemId, int order, CharSequence title) {
+        return addInternal(itemId, groupId, order, title);
     }
 
     @Override
-    public MenuItemImpl add(int groupId, int itemId, int order, CharSequence title) {
-        MenuItemImpl item = new MenuItemImpl(this, itemId, groupId, order, title);
-        this.mItems.add(item);
-        return item;
+    public MenuItem add(CharSequence title) {
+        return addInternal(0, 0, 0, title);
     }
 
     @Override

@@ -87,7 +87,7 @@ public final class ActionBarSupportImpl extends ActionBar {
             throw new IllegalStateException(getClass().getSimpleName() + " can only be used with a screen_*.xml layout");
         }
 
-        final MenuItemImpl homeMenuItem = getHomeMenuItem();
+        final MenuItemImpl homeMenuItem = new MenuItemImpl(null, 0, android.R.id.home, 0, 0, null, MenuItem.SHOW_AS_ACTION_ALWAYS);
         final ActionBarView.Item homeItem = mActionBar.getHomeItem();
         final WatsonItemViewWrapper homeWrapper = new WatsonItemViewWrapper(homeItem);
         homeWrapper.initialize(homeMenuItem, MenuBuilder.TYPE_WATSON);
