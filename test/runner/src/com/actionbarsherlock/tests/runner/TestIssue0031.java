@@ -1,5 +1,6 @@
 package com.actionbarsherlock.tests.runner;
 
+import android.support.v4.view.MenuItem;
 import android.test.suitebuilder.annotation.Smoke;
 import com.actionbarsherlock.tests.app.Issue0031;
 
@@ -11,7 +12,9 @@ public class TestIssue0031 extends BaseTestCase<Issue0031> {
 	@Smoke
 	public void testMenuItemResourceTitle() {
 		String expected = getActivity().getResourceTitle();
-		CharSequence actual = getActivity().getResourceMenuItem().getTitle();
+		MenuItem resourceMenuItem = getActivity().getResourceMenuItem();
+		assertNotNull(resourceMenuItem);
+		CharSequence actual = resourceMenuItem.getTitle();
 		assertNotNull(actual);
 		assertEquals(expected, actual);
 	}
@@ -19,7 +22,9 @@ public class TestIssue0031 extends BaseTestCase<Issue0031> {
 	@Smoke
 	public void testMenuItemStringTitle() {
 		String expected = getActivity().getStringTitle();
-		CharSequence actual = getActivity().getStringMenuItem().getTitle();
+		MenuItem stringMenuItem = getActivity().getStringMenuItem();
+		assertNotNull(stringMenuItem);
+		CharSequence actual = stringMenuItem.getTitle();
 		assertNotNull(actual);
 		assertEquals(expected, actual);
 	}
