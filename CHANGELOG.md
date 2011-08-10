@@ -8,6 +8,8 @@ Version 3.1.3 *(In Development)*
   on screen when the action bar was hidden.
 * Fix: Incorrect sub-menu item being selected by default when the sub-menu was
   triggered from the native options menu on pre-3.0.
+* Fix: `MenuItem.setVisible` now properly updates the associated action item and
+  native menu item visible state.
 
 
 Version 3.1.2 *(2011-08-07)*

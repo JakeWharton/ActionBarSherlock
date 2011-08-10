@@ -328,7 +328,11 @@ public final class MenuItemImpl implements MenuItem {
         final boolean oldValue = isVisible();
         mFlags = (mFlags & ~HIDDEN) | (visible ? 0 : HIDDEN);
         if (oldValue != visible) {
-            //TODO?
+            for (int i = MenuBuilder.NUM_TYPES - 1; i >= 0; i--) {
+                if (hasItemView(i)) {
+                    mItemViews[i].get().setVisible(visible);
+                }
+            }
         }
         return this;
     }
@@ -637,6 +641,11 @@ public final class MenuItemImpl implements MenuItem {
         @Override
         public void setActionView(View actionView) {
             //Not supported
+        }
+
+        @Override
+        public void setVisible(boolean visible) {
+            mItem.setVisible(visible);
         }
     }
 }

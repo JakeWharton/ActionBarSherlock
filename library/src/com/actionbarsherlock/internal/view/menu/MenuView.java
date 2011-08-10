@@ -98,6 +98,12 @@ public interface MenuView {
         public void setChecked(boolean checked);
 
         /**
+         * Sets the visibility for the item view.
+         * @param visible Whether the item is visible
+         */
+        public void setVisible(boolean visible);
+
+        /**
          * Sets the shortcut for the item.
          * @param showShortcut Whether a shortcut should be shown(if false, the value of
          * shortcutKey should be ignored).

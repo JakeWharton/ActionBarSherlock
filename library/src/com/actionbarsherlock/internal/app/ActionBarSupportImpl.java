@@ -537,5 +537,12 @@ public final class ActionBarSupportImpl extends ActionBar {
                 mMenuItem.invoke();
             }
         }
+
+        @Override
+        public void setVisible(boolean visible) {
+            if (!(mWatsonItem instanceof ActionBarView.HomeItem)) {
+                ((ActionBarView.ActionItem)mWatsonItem).setVisible(visible);
+            }
+        }
     }
 }

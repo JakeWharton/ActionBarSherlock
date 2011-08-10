@@ -1,5 +1,6 @@
 package com.actionbarsherlock.internal.widget;
 
+import java.lang.ref.WeakReference;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
@@ -552,6 +553,7 @@ public final class ActionBarView extends RelativeLayout {
             );
 
             mActionsView.addView(divider, dividerParams);
+            ((ActionItem)item).setDivider(divider);
         }
 
         mActionsView.addView(item);
@@ -611,6 +613,7 @@ public final class ActionBarView extends RelativeLayout {
         ImageView mIconView;
         TextView mTextView;
         FrameLayout mCustomView;
+        WeakReference<ImageView> mDivider;
 
 
         public ActionItem(Context context) {
@@ -631,6 +634,18 @@ public final class ActionBarView extends RelativeLayout {
             mIconView = (ImageView)findViewById(R.id.actionbarwatson_item_icon);
             mTextView = (TextView)findViewById(R.id.actionbarwatson_item_text);
             mCustomView = (FrameLayout)findViewById(R.id.actionbarwatson_item_custom);
+        }
+
+        public void setDivider(ImageView divider) {
+            mDivider = new WeakReference<ImageView>(divider);
+        }
+
+        public void setVisible(boolean visible) {
+            final int visibility = visible ? View.VISIBLE : View.GONE;
+            if ((mDivider != null) && (mDivider.get() != null)) {
+                mDivider.get().setVisibility(visibility);
+            }
+            setVisibility(visibility);
         }
 
         void reloadDisplay() {
