@@ -19,6 +19,7 @@
 		<activity android:name=".Issue0002" />
 		<activity android:name=".Issue0030" />
 		<activity android:name=".Issue0031" />
+		<activity android:name=".Issue0033" />
 		<activity android:name=".Issue0035" />
 		<activity android:name=".Issue0036" />
 		<activity android:name=".Issue0038" />
