@@ -177,9 +177,9 @@ public class FragmentActivity extends Activity {
             }
             if ((mWindowFlags & WINDOW_FLAG_ACTION_BAR) == WINDOW_FLAG_ACTION_BAR) {
                 if ((mWindowFlags & WINDOW_FLAG_ACTION_BAR_OVERLAY) == WINDOW_FLAG_ACTION_BAR_OVERLAY) {
-                    super.setContentView(R.layout.screen_action_bar_overlay);
+                    super.setContentView(R.layout.abs__screen_action_bar_overlay);
                 } else {
-                    super.setContentView(R.layout.screen_action_bar);
+                    super.setContentView(R.layout.abs__screen_action_bar);
                 }
 
                 final boolean actionBarEnabled = ((mWindowFlags & WINDOW_FLAG_ACTION_BAR_ITEM_TEXT) == WINDOW_FLAG_ACTION_BAR_ITEM_TEXT);
@@ -193,7 +193,7 @@ public class FragmentActivity extends Activity {
                 if ((mWindowFlags & WINDOW_FLAG_INDETERMINANTE_PROGRESS) == WINDOW_FLAG_INDETERMINANTE_PROGRESS) {
                     super.requestWindowFeature((int)Window.FEATURE_INDETERMINATE_PROGRESS);
                 }
-                super.setContentView(R.layout.screen_simple);
+                super.setContentView(R.layout.abs__screen_simple);
             }
 
             invalidateOptionsMenu();

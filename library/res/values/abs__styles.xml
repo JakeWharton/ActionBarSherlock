@@ -11,16 +11,16 @@
         <item name="actionHomeButtonStyle">@style/Widget.Sherlock.ActionButton.Home</item>
         <item name="actionMenuTextAppearance">?android:attr/textAppearanceMedium</item>
         <item name="actionMenuTextColor">?android:attr/textColorPrimary</item>
-        <item name="actionModeBackground">@drawable/cab_background_holo_dark</item>
-        <item name="actionModeCloseDrawable">@drawable/cab_ic_close_holo</item>
+        <item name="actionModeBackground">@drawable/abs__cab_background_holo_dark</item>
+        <item name="actionModeCloseDrawable">@drawable/abs__cab_ic_close_holo</item>
         <item name="actionModeCloseButtonStyle">@style/Widget.Sherlock.ActionButton.CloseMode</item>
         <item name="actionOverflowButtonStyle">@style/Widget.Sherlock.ActionButton.Overflow</item>
         <item name="actionSpinnerItemStyle">@style/Widget.Sherlock.TextView.SpinnerItem.ActionBar</item>
         <item name="dropDownListViewStyle">@style/Widget.Sherlock.ListView.DropDown</item>
         <item name="dropdownListPreferredItemHeight">48dip</item>
-        <item name="homeAsUpIndicator">@drawable/ic_ab_back_holo_dark</item>
+        <item name="homeAsUpIndicator">@drawable/abs__ic_ab_back_holo_dark</item>
         <item name="popupMenuStyle">@style/Widget.Sherlock.PopupMenu</item>
-        <item name="selectableItemBackground">@color/actionbarwatson_item_bg</item>
+        <item name="selectableItemBackground">@color/abs__item_bg</item>
         <item name="windowActionBar">true</item>
         <item name="windowActionModeOverlay">false</item>
         
@@ -30,9 +30,9 @@
         <item name="abBackground">@android:color/transparent</item>
         <item name="abCustomNavigationLayout">@null</item>
         <item name="abDisplayOptions">useLogo|showHome|showTitle</item>
-        <item name="abDivider">@drawable/action_item_divider</item>
+        <item name="abDivider">@drawable/abs__action_item_divider</item>
         <item name="abHeight">?actionBarSize</item>
-        <item name="abHomeAsUpIndicator">@drawable/ic_ab_back_holo_dark</item>
+        <item name="abHomeAsUpIndicator">@drawable/abs__ic_ab_back_holo_dark</item>
         <item name="abHomeLayout">@null</item>
         <item name="abIcon">@null</item>
         <item name="abIndeterminateProgressStyle">@android:style/Widget.ProgressBar.Small</item>
@@ -51,14 +51,14 @@
     </style>
     
     <style name="Widget.Sherlock.ActionBar.TabView" parent="android:style/Widget">
-        <item name="android:background">@drawable/tab_indicator_holo</item>
+        <item name="android:background">@drawable/abs__tab_indicator_holo</item>
         <item name="android:paddingLeft">6dp</item>
         <item name="android:paddingRight">6dp</item>
     </style>
     
     <style name="Widget.Sherlock.ActionBar.TabText" parent="android:style/Widget">
         <item name="android:textAppearance">@android:style/TextAppearance.Medium</item>
-        <item name="android:textColor">@color/actionbarwatson_tab_text_color_dark</item>
+        <item name="android:textColor">@color/abs__tab_text_color_dark</item>
         <item name="android:textSize">18sp</item>
     </style>
     
@@ -71,7 +71,7 @@
     </style>
     
     <style name="Widget.Sherlock.Spinner" parent="android:style/Widget.Spinner.DropDown">
-        <item name="android:background">@drawable/spinner_background_holo_dark</item>
+        <item name="android:background">@drawable/abs__spinner_background_holo_dark</item>
         <item name="android:gravity">left|center_vertical</item>
     </style>
     
@@ -87,7 +87,7 @@
     </style>
     
     <style name="Widget.Sherlock.TextView.SpinnerItem.ActionBar" parent="android:style/Widget">
-        <item name="android:textColor">@color/actionbarwatson_tab_text_color_dark</item>
+        <item name="android:textColor">@color/abs__tab_text_color_dark</item>
     </style>
     
     <style name="Widget.Sherlock.ListPopupWindow" parent="android:style/Widget.ListPopupWindow">
@@ -117,16 +117,16 @@
         <item name="actionHomeButtonStyle">@style/Widget.Sherlock.Light.ActionButton.Home</item>
         <item name="actionMenuTextAppearance">?android:attr/textAppearanceMedium</item>
         <item name="actionMenuTextColor">?android:attr/textColorPrimary</item>
-        <item name="actionModeBackground">@drawable/cab_background_holo_light</item>
-        <item name="actionModeCloseDrawable">@drawable/cab_ic_close_holo</item>
+        <item name="actionModeBackground">@drawable/abs__cab_background_holo_light</item>
+        <item name="actionModeCloseDrawable">@drawable/abs__cab_ic_close_holo</item>
         <item name="actionModeCloseButtonStyle">@style/Widget.Sherlock.Light.ActionButton.CloseMode</item>
         <item name="actionOverflowButtonStyle">@style/Widget.Sherlock.Light.ActionButton.Overflow</item>
         <item name="actionSpinnerItemStyle">@style/Widget.Sherlock.Light.TextView.SpinnerItem.ActionBar</item>
         <item name="dropDownListViewStyle">@style/Widget.Sherlock.Light.ListView.DropDown</item>
         <item name="dropdownListPreferredItemHeight">48dip</item>
-        <item name="homeAsUpIndicator">@drawable/ic_ab_back_holo_light</item>
+        <item name="homeAsUpIndicator">@drawable/abs__ic_ab_back_holo_light</item>
         <item name="popupMenuStyle">@style/Widget.Sherlock.Light.PopupMenu</item>
-        <item name="selectableItemBackground">@color/actionbarwatson_item_bg</item>
+        <item name="selectableItemBackground">@color/abs__item_bg</item>
         <item name="windowActionBar">true</item>
         <item name="windowActionModeOverlay">false</item>
         
@@ -136,9 +136,9 @@
         <item name="abBackground">@android:color/transparent</item>
         <item name="abCustomNavigationLayout">@null</item>
         <item name="abDisplayOptions">useLogo|showHome|showTitle</item>
-        <item name="abDivider">@drawable/action_item_divider</item>
+        <item name="abDivider">@drawable/abs__action_item_divider</item>
         <item name="abHeight">?actionBarSize</item>
-        <item name="abHomeAsUpIndicator">@drawable/ic_ab_back_holo_light</item>
+        <item name="abHomeAsUpIndicator">@drawable/abs__ic_ab_back_holo_light</item>
         <item name="abHomeLayout">@null</item>
         <item name="abIcon">@null</item>
         <item name="abIndeterminateProgressStyle">@android:style/Widget.ProgressBar.Small</item>
@@ -157,14 +157,14 @@
     </style>
     
     <style name="Widget.Sherlock.Light.ActionBar.TabView" parent="android:style/Widget">
-        <item name="android:background">@drawable/tab_indicator_holo</item>
+        <item name="android:background">@drawable/abs__tab_indicator_holo</item>
         <item name="android:paddingLeft">5dp</item>
         <item name="android:paddingRight">5dp</item>
     </style>
     
     <style name="Widget.Sherlock.Light.ActionBar.TabText" parent="android:style/Widget">
         <item name="android:textAppearance">@android:style/TextAppearance.Medium</item>
-        <item name="android:textColor">@color/actionbarwatson_tab_text_color_light</item>
+        <item name="android:textColor">@color/abs__tab_text_color_light</item>
         <item name="android:textSize">18sp</item>
     </style>
     
@@ -185,11 +185,11 @@
     </style>
     
     <style name="Widget.Sherlock.Light.TextView.SpinnerItem.ActionBar" parent="android:style/Widget">
-        <item name="android:textColor">@color/actionbarwatson_tab_text_color_light</item>
+        <item name="android:textColor">@color/abs__tab_text_color_light</item>
     </style>
     
     <style name="Widget.Sherlock.Light.Spinner" parent="android:style/Widget.Spinner.DropDown">
-        <item name="android:background">@drawable/spinner_background_holo_light</item>
+        <item name="android:background">@drawable/abs__spinner_background_holo_light</item>
         <item name="android:gravity">left|center_vertical</item>
     </style>
     

@@ -65,7 +65,7 @@
             android:paddingLeft="5dip"
             android:gravity="center_vertical"
             >
-            <include layout="@layout/action_bar_title_item" />
+            <include layout="@layout/abs__action_bar_title_item" />
         </FrameLayout>
         <Spinner
             android:id="@+id/actionbarwatson_nav_list"

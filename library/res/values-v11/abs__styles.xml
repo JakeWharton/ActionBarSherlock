@@ -10,15 +10,15 @@
         <item name="actionDropDownStyle">@style/Widget.Sherlock.Spinner</item>
         <item name="actionMenuTextAppearance">?android:attr/textAppearanceMedium</item>
         <item name="actionMenuTextColor">?android:attr/textColorPrimary</item>
-        <item name="actionModeBackground">@drawable/cab_background_holo_dark</item>
-        <item name="actionModeCloseDrawable">@drawable/cab_ic_close_holo</item>
+        <item name="actionModeBackground">@drawable/abs__cab_background_holo_dark</item>
+        <item name="actionModeCloseDrawable">@drawable/abs__cab_ic_close_holo</item>
         <item name="actionModeCloseButtonStyle">@style/Widget.Sherlock.ActionButton.CloseMode</item>
         <item name="actionOverflowButtonStyle">@style/Widget.Sherlock.ActionButton.Overflow</item>
         <item name="actionSpinnerItemStyle">@android:style/Widget.Holo.TextView.SpinnerItem</item>
         <item name="dropDownListViewStyle">@style/Widget.Sherlock.ListView.DropDown</item>
         <item name="dropdownListPreferredItemHeight">48dip</item>
         <item name="popupMenuStyle">@style/Widget.Sherlock.PopupMenu</item>
-        <item name="selectableItemBackground">@drawable/item_background_holo_dark</item>
+        <item name="selectableItemBackground">@drawable/abs__item_background_holo_dark</item>
         <item name="windowActionBar">true</item>
         <item name="windowActionModeOverlay">false</item>
 
@@ -28,7 +28,7 @@
         <item name="abBackground">@android:color/transparent</item>
         <item name="abCustomNavigationLayout">@null</item>
         <item name="abDisplayOptions">useLogo|showHome|showTitle</item>
-        <item name="abDivider">@drawable/action_item_divider</item>
+        <item name="abDivider">@drawable/abs__action_item_divider</item>
         <item name="abHeight">?actionBarSize</item>
         <item name="abHomeLayout">@null</item>
         <item name="abIcon">@null</item>
@@ -104,15 +104,15 @@
         <item name="actionDropDownStyle">@style/Widget.Sherlock.Light.Spinner</item>
         <item name="actionMenuTextAppearance">?android:attr/textAppearanceMedium</item>
         <item name="actionMenuTextColor">?android:attr/textColorPrimary</item>
-        <item name="actionModeBackground">@drawable/cab_background_holo_light</item>
-        <item name="actionModeCloseDrawable">@drawable/cab_ic_close_holo</item>
+        <item name="actionModeBackground">@drawable/abs__cab_background_holo_light</item>
+        <item name="actionModeCloseDrawable">@drawable/abs__cab_ic_close_holo</item>
         <item name="actionModeCloseButtonStyle">@style/Widget.Sherlock.Light.ActionButton.CloseMode</item>
         <item name="actionOverflowButtonStyle">@style/Widget.Sherlock.Light.ActionButton.Overflow</item>
         <item name="actionSpinnerItemStyle">@android:style/Widget.Holo.Light.TextView.SpinnerItem</item>
         <item name="dropDownListViewStyle">@style/Widget.Sherlock.Light.ListView.DropDown</item>
         <item name="dropdownListPreferredItemHeight">48dip</item>
         <item name="popupMenuStyle">@style/Widget.Sherlock.Light.PopupMenu</item>
-        <item name="selectableItemBackground">@drawable/item_background_holo_light</item>
+        <item name="selectableItemBackground">@drawable/abs__item_background_holo_light</item>
         <item name="windowActionBar">true</item>
         <item name="windowActionModeOverlay">false</item>
 
@@ -122,7 +122,7 @@
         <item name="abBackground">@android:color/transparent</item>
         <item name="abCustomNavigationLayout">@null</item>
         <item name="abDisplayOptions">useLogo|showHome|showTitle</item>
-        <item name="abDivider">@drawable/action_item_divider</item>
+        <item name="abDivider">@drawable/abs__action_item_divider</item>
         <item name="abHeight">?actionBarSize</item>
         <item name="abHomeLayout">@null</item>
         <item name="abIcon">@null</item>

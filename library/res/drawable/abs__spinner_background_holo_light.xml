@@ -14,7 +14,12 @@
      limitations under the License.
 -->
 
-<transition xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/list_pressed_holo_light"  />
-    <item android:drawable="@drawable/list_longpressed_holo"  />
-</transition>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_enabled="false"
+          android:drawable="@drawable/abs__spinner_disabled_holo_light" />
+    <item android:state_pressed="true"
+          android:drawable="@drawable/abs__spinner_pressed_holo_light" />
+    <item android:state_pressed="false" android:state_focused="true"
+          android:drawable="@drawable/abs__spinner_focused_holo_light" />
+    <item android:drawable="@drawable/abs__spinner_default_holo_light" />
+</selector>

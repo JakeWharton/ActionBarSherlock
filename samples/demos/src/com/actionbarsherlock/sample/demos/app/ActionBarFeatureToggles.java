@@ -42,7 +42,7 @@ public class ActionBarFeatureToggles extends FragmentActivity {
         getSupportActionBar().setDisplayShowCustomEnabled(false);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
         
-        ArrayAdapter<CharSequence> listAdapter = ArrayAdapter.createFromResource(this, R.array.locations, R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> listAdapter = ArrayAdapter.createFromResource(this, R.array.locations, R.layout.abs__simple_spinner_item);
         listAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         getSupportActionBar().setListNavigationCallbacks(listAdapter, null);
         

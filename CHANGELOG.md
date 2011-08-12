@@ -4,6 +4,8 @@ Change Log
 Version 3.1.3 *(In Development)*
 --------------------------------
 
+* Renamed all resources to be prefixed with `abs__` to avoid conflicts when
+  including in your project.
 * Fix: Action bar background being set on two views causing artifacts to remain
   on screen when the action bar was hidden.
 * Fix: Incorrect sub-menu item being selected by default when the sub-menu was

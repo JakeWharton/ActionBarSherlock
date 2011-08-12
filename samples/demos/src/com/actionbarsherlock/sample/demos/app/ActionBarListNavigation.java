@@ -21,7 +21,7 @@ public class ActionBarListNavigation extends FragmentActivity implements ActionB
 		
 		getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 		
-		ArrayAdapter<CharSequence> list = ArrayAdapter.createFromResource(this, R.array.locations, R.layout.simple_spinner_item);
+		ArrayAdapter<CharSequence> list = ArrayAdapter.createFromResource(this, R.array.locations, R.layout.abs__simple_spinner_item);
         list.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		getSupportActionBar().setListNavigationCallbacks(list, this);
 	}
