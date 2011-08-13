@@ -47,7 +47,7 @@ public final class ActionBarSupportImpl extends ActionBar {
 
 
     /** Action bar container. */
-    private ActionBarContainer mActionBarContainer;
+    private ActionBarContainer mContainerView;
 
     /** Action bar view. */
     private ActionBarView mActionBar;
@@ -75,7 +75,7 @@ public final class ActionBarSupportImpl extends ActionBar {
     }
 
     public void init() {
-        mActionBarContainer = (ActionBarContainer)getActivity().findViewById(R.id.abs__action_bar_container);
+        mContainerView = (ActionBarContainer)getActivity().findViewById(R.id.abs__action_bar_container);
         mActionBar = (ActionBarView)getActivity().findViewById(R.id.abs__action_bar);
 
         if (mActionBar == null) {
@@ -290,12 +290,12 @@ public final class ActionBarSupportImpl extends ActionBar {
     @Override
     public void hide() {
         //TODO: animate
-        mActionBarContainer.setVisibility(View.GONE);
+        mContainerView.setVisibility(View.GONE);
     }
 
     @Override
     public boolean isShowing() {
-        return mActionBar.isShowing();
+        return mContainerView.getVisibility() == View.VISIBLE;
     }
 
     @Override
@@ -325,7 +325,7 @@ public final class ActionBarSupportImpl extends ActionBar {
 
     @Override
     public void setBackgroundDrawable(Drawable d) {
-        mActionBar.setBackgroundDrawable(d);
+        mContainerView.setBackgroundDrawable(d);
     }
 
     @Override
@@ -420,6 +420,6 @@ public final class ActionBarSupportImpl extends ActionBar {
     @Override
     public void show() {
         //TODO: animate
-        mActionBarContainer.setVisibility(View.VISIBLE);
+        mContainerView.setVisibility(View.VISIBLE);
     }
 }
