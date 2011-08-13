@@ -22,8 +22,8 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import com.actionbarsherlock.R;
-import com.actionbarsherlock.internal.app.ActionBarNativeImpl;
-import com.actionbarsherlock.internal.app.ActionBarSupportImpl;
+import com.actionbarsherlock.internal.app.ActionBarWrapper;
+import com.actionbarsherlock.internal.app.ActionBarImpl;
 import com.actionbarsherlock.internal.view.menu.MenuBuilder;
 import com.actionbarsherlock.internal.view.menu.MenuInflaterWrapper;
 import com.actionbarsherlock.internal.view.menu.MenuItemImpl;
@@ -157,10 +157,10 @@ public class FragmentActivity extends Activity {
         super();
 
         if (IS_HONEYCOMB) {
-            mActionBar = ActionBarNativeImpl.createFor(this);
+            mActionBar = ActionBarWrapper.createFor(this);
             mSupportMenu = null; //Everything should be done natively
         } else {
-            mActionBar = new ActionBarSupportImpl(this);
+            mActionBar = new ActionBarImpl(this);
             mSupportMenu = new MenuBuilder(this);
             mSupportMenu.setCallback(mSupportMenuCallback);
         }
@@ -185,10 +185,10 @@ public class FragmentActivity extends Activity {
                 final boolean actionBarEnabled = ((mWindowFlags & WINDOW_FLAG_ACTION_BAR_ITEM_TEXT) == WINDOW_FLAG_ACTION_BAR_ITEM_TEXT);
                 mSupportMenu.setShowsActionItemText(actionBarEnabled);
                 final boolean indProgressEnabled = ((mWindowFlags & WINDOW_FLAG_INDETERMINANTE_PROGRESS) == WINDOW_FLAG_INDETERMINANTE_PROGRESS);
-                ((ActionBarSupportImpl)mActionBar).setWindowIndeterminateProgressEnabled(indProgressEnabled);
+                ((ActionBarImpl)mActionBar).setWindowIndeterminateProgressEnabled(indProgressEnabled);
                 //TODO set other flags
 
-                ((ActionBarSupportImpl)mActionBar).init();
+                ((ActionBarImpl)mActionBar).init();
             } else {
                 if ((mWindowFlags & WINDOW_FLAG_INDETERMINANTE_PROGRESS) == WINDOW_FLAG_INDETERMINANTE_PROGRESS) {
                     super.requestWindowFeature((int)Window.FEATURE_INDETERMINATE_PROGRESS);
@@ -525,7 +525,7 @@ public class FragmentActivity extends Activity {
             //inflation callback to allow it to display any items it wants.
             //Any items that were displayed will have a boolean toggled so that we
             //do not display them on the options menu.
-            ((ActionBarSupportImpl)mActionBar).onMenuInflated(mSupportMenu);
+            ((ActionBarImpl)mActionBar).onMenuInflated(mSupportMenu);
 
             // Whoops, older platform...  we'll use a hack, to manually rebuild
             // the options menu the next time it is prepared.
@@ -638,7 +638,7 @@ public class FragmentActivity extends Activity {
 
                 if (!IS_HONEYCOMB) {
                     if (DEBUG) Log.d(TAG, "onPanelClosed(int, android.view.Menu): Dispatch menu visibility false to custom action bar.");
-                    ((ActionBarSupportImpl)mActionBar).onMenuVisibilityChanged(false);
+                    ((ActionBarImpl)mActionBar).onMenuVisibilityChanged(false);
                 }
                 break;
         }
@@ -727,7 +727,7 @@ public class FragmentActivity extends Activity {
 
             if (mOptionsMenuCreateResult && prepareResult && menu.hasVisibleItems()) {
                 if (DEBUG) Log.d(TAG, "onPrepareOptionsMenu(android.view.Menu): Dispatch menu visibility true to custom action bar.");
-                ((ActionBarSupportImpl)mActionBar).onMenuVisibilityChanged(true);
+                ((ActionBarImpl)mActionBar).onMenuVisibilityChanged(true);
                 result = true;
             }
         } else {
@@ -901,7 +901,7 @@ public class FragmentActivity extends Activity {
         if (IS_HONEYCOMB) {
             super.setProgressBarIndeterminateVisibility(visible);
         } else {
-            ((ActionBarSupportImpl)mActionBar).setProgressBarIndeterminateVisibility(visible);
+            ((ActionBarImpl)mActionBar).setProgressBarIndeterminateVisibility(visible);
         }
     }
 

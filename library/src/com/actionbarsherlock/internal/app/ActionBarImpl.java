@@ -37,7 +37,7 @@ import com.actionbarsherlock.internal.view.menu.MenuItemImpl;
 import com.actionbarsherlock.internal.widget.ActionBarContainer;
 import com.actionbarsherlock.internal.widget.ActionBarView;
 
-public final class ActionBarSupportImpl extends ActionBar {
+public final class ActionBarImpl extends ActionBar {
     /** Maximum action bar items in portrait mode. */
     private static final int MAX_ACTION_BAR_ITEMS_PORTRAIT = 3;
 
@@ -60,7 +60,7 @@ public final class ActionBarSupportImpl extends ActionBar {
 
 
 
-    public ActionBarSupportImpl(FragmentActivity activity) {
+    public ActionBarImpl(FragmentActivity activity) {
         super(activity);
     }
 

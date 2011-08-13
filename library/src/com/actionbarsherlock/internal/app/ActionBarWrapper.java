@@ -26,9 +26,9 @@ import android.support.v4.view.MenuInflater;
 import android.view.View;
 import android.widget.SpinnerAdapter;
 
-public final class ActionBarNativeImpl {
+public final class ActionBarWrapper {
     //No instances
-    private ActionBarNativeImpl() {}
+    private ActionBarWrapper() {}
 
     /**
      * Abstraction to get an instance of our implementing class.
@@ -37,7 +37,7 @@ public final class ActionBarNativeImpl {
      * @return {@code ActionBar} instance.
      */
     public static ActionBar createFor(FragmentActivity activity) {
-        return new ActionBarNativeImpl.Impl(activity);
+        return new ActionBarWrapper.Impl(activity);
     }
 
     /**
@@ -220,7 +220,7 @@ public final class ActionBarNativeImpl {
         // ---------------------------------------------------------------------
 
         private static class TabImpl implements ActionBar.Tab {
-            final ActionBarNativeImpl.Impl mActionBar;
+            final ActionBarWrapper.Impl mActionBar;
 
             View mCustomView;
             Drawable mIcon;
@@ -228,7 +228,7 @@ public final class ActionBarNativeImpl {
             Object mTag;
             CharSequence mText;
 
-            TabImpl(ActionBarNativeImpl.Impl actionBar) {
+            TabImpl(ActionBarWrapper.Impl actionBar) {
                 mActionBar = actionBar;
             }
 
