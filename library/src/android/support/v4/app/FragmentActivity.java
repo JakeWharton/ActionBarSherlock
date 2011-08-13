@@ -182,13 +182,16 @@ public class FragmentActivity extends Activity {
                     super.setContentView(R.layout.abs__screen_action_bar);
                 }
 
+                ((ActionBarImpl)mActionBar).init();
+
                 final boolean actionBarEnabled = ((mWindowFlags & WINDOW_FLAG_ACTION_BAR_ITEM_TEXT) == WINDOW_FLAG_ACTION_BAR_ITEM_TEXT);
                 mSupportMenu.setShowsActionItemText(actionBarEnabled);
-                final boolean indProgressEnabled = ((mWindowFlags & WINDOW_FLAG_INDETERMINANTE_PROGRESS) == WINDOW_FLAG_INDETERMINANTE_PROGRESS);
-                ((ActionBarImpl)mActionBar).setWindowIndeterminateProgressEnabled(indProgressEnabled);
-                //TODO set other flags
 
-                ((ActionBarImpl)mActionBar).init();
+                if ((mWindowFlags & WINDOW_FLAG_INDETERMINANTE_PROGRESS) == WINDOW_FLAG_INDETERMINANTE_PROGRESS) {
+                    ((ActionBarImpl)mActionBar).setProgressBarIndeterminateVisibility(true);
+                }
+
+                //TODO set other flags
             } else {
                 if ((mWindowFlags & WINDOW_FLAG_INDETERMINANTE_PROGRESS) == WINDOW_FLAG_INDETERMINANTE_PROGRESS) {
                     super.requestWindowFeature((int)Window.FEATURE_INDETERMINATE_PROGRESS);
@@ -900,7 +903,7 @@ public class FragmentActivity extends Activity {
     public void setProgressBarIndeterminateVisibility(Boolean visible) {
         if (IS_HONEYCOMB) {
             super.setProgressBarIndeterminateVisibility(visible);
-        } else {
+        } else if ((mWindowFlags & WINDOW_FLAG_INDETERMINANTE_PROGRESS) == WINDOW_FLAG_INDETERMINANTE_PROGRESS) {
             ((ActionBarImpl)mActionBar).setProgressBarIndeterminateVisibility(visible);
         }
     }

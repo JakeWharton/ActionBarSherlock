@@ -55,9 +55,6 @@ public final class ActionBarImpl extends ActionBar {
     /** List of listeners to the menu visibility. */
     private final List<OnMenuVisibilityListener> mMenuListeners = new ArrayList<OnMenuVisibilityListener>();
 
-    /** Whether display of the indeterminate progress is allowed. */
-    private boolean mHasIndeterminateProgress = false;
-
 
 
     public ActionBarImpl(FragmentActivity activity) {
@@ -97,10 +94,6 @@ public final class ActionBarImpl extends ActionBar {
                 //No activity label string resource and none in theme
                 mActionBar.setTitle(actInfo.loadLabel(pm));
             }
-        }
-
-        if (mHasIndeterminateProgress) {
-            mActionBar.setProgressBarIndeterminateVisibility(true);
         }
     }
 
@@ -180,14 +173,8 @@ public final class ActionBarImpl extends ActionBar {
         }
     }
 
-    public void setWindowIndeterminateProgressEnabled(boolean enabled) {
-        if (mActionBar == null) {
-            mHasIndeterminateProgress = enabled;
-        }
-    }
-
     public void setProgressBarIndeterminateVisibility(boolean visible) {
-        if (mHasIndeterminateProgress && (mActionBar != null)) {
+        if (mActionBar != null) {
             mActionBar.setProgressBarIndeterminateVisibility(visible);
         }
     }
