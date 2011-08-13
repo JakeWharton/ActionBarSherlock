@@ -183,7 +183,7 @@ public class FragmentActivity extends Activity {
                 }
 
                 final boolean actionBarEnabled = ((mWindowFlags & WINDOW_FLAG_ACTION_BAR_ITEM_TEXT) == WINDOW_FLAG_ACTION_BAR_ITEM_TEXT);
-                ((ActionBarSupportImpl)mActionBar).setWindowActionBarItemTextEnabled(actionBarEnabled);
+                mSupportMenu.setShowsActionItemText(actionBarEnabled);
                 final boolean indProgressEnabled = ((mWindowFlags & WINDOW_FLAG_INDETERMINANTE_PROGRESS) == WINDOW_FLAG_INDETERMINANTE_PROGRESS);
                 ((ActionBarSupportImpl)mActionBar).setWindowIndeterminateProgressEnabled(indProgressEnabled);
                 //TODO set other flags

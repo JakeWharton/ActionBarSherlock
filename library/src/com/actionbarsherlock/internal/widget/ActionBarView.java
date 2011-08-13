@@ -1,7 +1,5 @@
 package com.actionbarsherlock.internal.widget;
 
-import java.lang.ref.WeakReference;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
@@ -24,6 +22,7 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import com.actionbarsherlock.R;
 import com.actionbarsherlock.internal.view.menu.ActionMenuItem;
+import com.actionbarsherlock.internal.view.menu.ActionMenuItemView;
 
 public final class ActionBarView extends RelativeLayout {
     /** Default display options if none are defined in the theme. */
@@ -83,9 +82,6 @@ public final class ActionBarView extends RelativeLayout {
      * @see #setNavigationMode(int)
      */
     private int mNavigationMode = -1;
-
-    /** Whether text is shown on action items regardless of display params. */
-    private boolean mIsActionItemTextEnabled = false;
 
     private boolean mIsConstructing;
 
@@ -546,13 +542,12 @@ public final class ActionBarView extends RelativeLayout {
     // ACTION ITEMS SUPPORT
     // ------------------------------------------------------------------------
 
-    public ActionBarView.ActionItem newItem() {
-        ActionItem item = (ActionItem)LayoutInflater.from(getContext()).inflate(R.layout.abs__action_bar_item_layout, mActionsView, false);
-        item.setActionBar(this);
+    public ActionMenuItemView newItem() {
+        ActionMenuItemView item = (ActionMenuItemView)LayoutInflater.from(getContext()).inflate(R.layout.abs__action_bar_item_layout, mActionsView, false);
         return item;
     }
 
-    public void addItem(ActionBarView.ActionItem item) {
+    public void addItem(ActionMenuItemView item) {
         if (mDivider != null) {
             ImageView divider = new ImageView(getContext());
             divider.setImageDrawable(mDivider);
@@ -564,7 +559,7 @@ public final class ActionBarView extends RelativeLayout {
             );
 
             mActionsView.addView(divider, dividerParams);
-            ((ActionItem)item).setDivider(divider);
+            item.setDivider(divider);
         }
 
         mActionsView.addView(item);
@@ -574,128 +569,9 @@ public final class ActionBarView extends RelativeLayout {
         mActionsView.removeAllViews();
     }
 
-    public void setIsActionItemTextEnabled(boolean isActionItemTextEnabled) {
-        if (isActionItemTextEnabled != mIsActionItemTextEnabled) {
-            mIsActionItemTextEnabled = isActionItemTextEnabled;
-            final int count = mActionsView.getChildCount();
-            for (int i = count - 1; i >= 0; i--) {
-                View view = mActionsView.getChildAt(i);
-                if (view instanceof ActionItem) {
-                    ((ActionItem)view).reloadDisplay();
-                }
-            }
-        }
-    }
-
     // ------------------------------------------------------------------------
     // HELPER INTERFACES AND HELPER CLASSES
     // ------------------------------------------------------------------------
-
-    public static final class ActionItem extends RelativeLayout {
-        ActionBarView mActionBar;
-        ImageView mIconView;
-        TextView mTextView;
-        FrameLayout mCustomView;
-        WeakReference<ImageView> mDivider;
-
-
-        public ActionItem(Context context) {
-            this(context, null);
-        }
-        public ActionItem(Context context, AttributeSet attrs) {
-            this(context, attrs, R.attr.actionButtonStyle);
-        }
-        public ActionItem(Context context, AttributeSet attrs, int defStyle) {
-            super(context, attrs, defStyle);
-        }
-
-
-        @Override
-        protected void onFinishInflate() {
-            super.onFinishInflate();
-
-            mIconView = (ImageView)findViewById(R.id.actionbarwatson_item_icon);
-            mTextView = (TextView)findViewById(R.id.actionbarwatson_item_text);
-            mCustomView = (FrameLayout)findViewById(R.id.actionbarwatson_item_custom);
-        }
-
-        public void setDivider(ImageView divider) {
-            mDivider = new WeakReference<ImageView>(divider);
-        }
-
-        public void setVisible(boolean visible) {
-            final int visibility = visible ? View.VISIBLE : View.GONE;
-            if ((mDivider != null) && (mDivider.get() != null)) {
-                mDivider.get().setVisibility(visibility);
-            }
-            setVisibility(visibility);
-        }
-
-        void reloadDisplay() {
-            final boolean hasCustomView = mCustomView.getChildCount() > 0;
-            final boolean hasText = (mTextView.getText() != null) && !mTextView.getText().equals("");
-
-            mIconView.setVisibility(!hasCustomView ? View.VISIBLE : View.GONE);
-            mTextView.setVisibility(!hasCustomView && hasText && mActionBar.mIsActionItemTextEnabled ? View.VISIBLE : View.GONE);
-            mCustomView.setVisibility(hasCustomView ? View.VISIBLE : View.GONE);
-        }
-
-        void setActionBar(ActionBarView actionBar) {
-            mActionBar = actionBar;
-        }
-
-        public View getCustomView() {
-            return mCustomView;
-        }
-
-        public ActionItem setCustomView(int resId) {
-            mCustomView.removeAllViews();
-            LayoutInflater.from(getContext()).inflate(resId, mCustomView, true);
-            reloadDisplay();
-            return this;
-        }
-
-        public ActionItem setCustomView(View view) {
-            mCustomView.removeAllViews();
-            if (view != null) {
-                mCustomView.addView(view);
-            }
-            reloadDisplay();
-            return this;
-        }
-
-        public Drawable getIcon() {
-            return mIconView.getDrawable();
-        }
-
-        public ActionItem setIcon(int resId) {
-            if (resId != View.NO_ID) {
-                mIconView.setImageResource(resId);
-            }
-            return this;
-        }
-
-        public ActionItem setIcon(Drawable icon) {
-            mIconView.setImageDrawable(icon);
-            return this;
-        }
-
-        public CharSequence getTitle() {
-            return mTextView.getText();
-        }
-
-        public ActionItem setTitle(int resId) {
-            mTextView.setText(resId);
-            reloadDisplay();
-            return this;
-        }
-
-        public ActionItem setTitle(CharSequence title) {
-            mTextView.setText(title);
-            reloadDisplay();
-            return this;
-        }
-    }
 
     private static class TabImpl implements ActionBar.Tab {
         private static final View.OnClickListener clickListener = new View.OnClickListener() {

@@ -14,10 +14,13 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<view xmlns:android="http://schemas.android.com/apk/res/android"
-    class="com.actionbarsherlock.internal.widget.ActionBarView$ActionItem"
+<com.actionbarsherlock.internal.view.menu.ActionMenuItemView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="fill_parent"
+    android:addStatesFromChildren="true"
+    android:background="?selectableItemBackground"
+    android:gravity="center"
+    android:minWidth="40dip"
     android:focusable="true"
     android:clickable="true"
     >
@@ -46,4 +49,4 @@
         android:layout_centerVertical="true"
         android:visibility="gone"
         />
-</view>
+</com.actionbarsherlock.internal.view.menu.ActionMenuItemView>

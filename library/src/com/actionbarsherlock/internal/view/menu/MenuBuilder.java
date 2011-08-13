@@ -96,6 +96,8 @@ public class MenuBuilder implements Menu {
     /** Menu callback that will receive various events. */
     private Callback mCallback;
 
+    private boolean mShowsActionItemText;
+
 
 
     /**
@@ -164,6 +166,14 @@ public class MenuBuilder implements Menu {
 
     public Callback getCallback() {
         return mCallback;
+    }
+
+    public boolean getShowsActionItemText() {
+        return mShowsActionItemText;
+    }
+
+    public void setShowsActionItemText(boolean showsActionItemText) {
+        mShowsActionItemText = showsActionItemText;
     }
 
     /**

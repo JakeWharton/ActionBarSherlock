@@ -482,6 +482,10 @@ public final class MenuItemImpl implements MenuItem {
         return mShowAsAction;
     }
 
+    public boolean showsActionItemText() {
+        return mMenu.getShowsActionItemText();
+    }
+
     @Override
     public View getActionView() {
         if (mActionView != null) {
