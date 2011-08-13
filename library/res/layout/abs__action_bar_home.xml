@@ -21,7 +21,7 @@
     android:layout_height="fill_parent">
     <ImageView
         android:layout_gravity="left|center"
-        android:id="@+id/up"
+        android:id="@+id/abs__up"
         android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
         android:src="?homeAsUpIndicator" />
     <ImageView
         android:layout_gravity="center"
-        android:id="@+id/home"
+        android:id="@+id/abs__home"
         android:paddingLeft="16.0dip"
         android:paddingRight="16.0dip"
         android:layout_width="wrap_content"

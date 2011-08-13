@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <attr name="abBackground" format="reference|color" />
-
     <declare-styleable name="SherlockTheme">
         <attr name="actionDropDownStyle" format="reference" />
         <attr name="actionButtonStyle" format="reference" />
@@ -49,7 +47,7 @@
         <attr name="abIcon" format="reference" />
         <attr name="abLogo" format="reference" />
         <attr name="abDivider" format="reference|color" />
-        <attr name="abBackground" />
+        <attr name="abBackground" format="reference|color" />
         <attr name="abCustomNavigationLayout" format="reference" />
         <attr name="abHeight" format="reference|dimension" />
         <attr name="abHomeAsUpIndicator" format="reference" />

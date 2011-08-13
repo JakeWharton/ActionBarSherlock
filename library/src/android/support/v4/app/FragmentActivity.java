@@ -249,7 +249,7 @@ public class FragmentActivity extends Activity {
         if (IS_HONEYCOMB) {
             super.setContentView(layoutResId);
         } else {
-            FrameLayout contentView = (FrameLayout)findViewById(R.id.content);
+            FrameLayout contentView = (FrameLayout)findViewById(R.id.abs__content);
             contentView.removeAllViews();
             getLayoutInflater().inflate(layoutResId, contentView, true);
         }
@@ -261,7 +261,7 @@ public class FragmentActivity extends Activity {
         if (IS_HONEYCOMB) {
             super.setContentView(view, params);
         } else {
-            FrameLayout contentView = (FrameLayout)findViewById(R.id.content);
+            FrameLayout contentView = (FrameLayout)findViewById(R.id.abs__content);
             contentView.removeAllViews();
             contentView.addView(view, params);
         }
@@ -273,7 +273,7 @@ public class FragmentActivity extends Activity {
         if (IS_HONEYCOMB) {
             super.setContentView(view);
         } else {
-            FrameLayout contentView = (FrameLayout)findViewById(R.id.content);
+            FrameLayout contentView = (FrameLayout)findViewById(R.id.abs__content);
             contentView.removeAllViews();
             contentView.addView(view);
         }

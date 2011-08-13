@@ -343,7 +343,7 @@ final class BackStackRecord extends FragmentTransaction implements
             //of our custom action bar implementation when the entire activity
             //view is selected as the target and we are pre-honeycomb
             if (!IS_HONEYCOMB && (containerViewId == android.R.id.content)) {
-                containerViewId = R.id.content;
+                containerViewId = R.id.abs__content;
             }
             if (fragment.mFragmentId != 0 && fragment.mFragmentId != containerViewId) {
                 throw new IllegalStateException("Can't change container ID of fragment "

@@ -109,7 +109,7 @@ public final class ActionBarView extends RelativeLayout {
 
         //// TITLE ////
 
-        mTitleLayout = (TextView)findViewById(R.id.action_bar_title);
+        mTitleLayout = (TextView)findViewById(R.id.abs__action_bar_title);
 
         //Try to load title style from the theme
         final int titleTextStyle = attrsActionBar.getResourceId(R.styleable.SherlockTheme_abTitleTextStyle, 0);
@@ -126,7 +126,7 @@ public final class ActionBarView extends RelativeLayout {
 
         //// SUBTITLE ////
 
-        mSubtitleLayout = (TextView)findViewById(R.id.action_bar_subtitle);
+        mSubtitleLayout = (TextView)findViewById(R.id.abs__action_bar_subtitle);
 
         //Try to load subtitle style from the theme
         final int subtitleTextStyle = attrsActionBar.getResourceId(R.styleable.SherlockTheme_abSubtitleTextStyle, 0);
@@ -168,13 +168,13 @@ public final class ActionBarView extends RelativeLayout {
 
         //// NAVIGATION ////
 
-        mListView = (Spinner)findViewById(R.id.actionbarwatson_nav_list);
-        mTabsView = (LinearLayout)findViewById(R.id.actionbarwatson_nav_tabs);
+        mListView = (Spinner)findViewById(R.id.abs__nav_list);
+        mTabsView = (LinearLayout)findViewById(R.id.abs__nav_tabs);
 
 
         //// CUSTOM VIEW ////
 
-        mCustomView = (FrameLayout)findViewById(R.id.actionbarwatson_custom);
+        mCustomView = (FrameLayout)findViewById(R.id.abs__custom);
 
         //Try to load a custom view from the theme. This will NOT automatically
         //trigger the visibility of the custom layout, however.
@@ -186,10 +186,10 @@ public final class ActionBarView extends RelativeLayout {
 
 
 
-        mActionsView = (LinearLayout)findViewById(R.id.actionbarwatson_actions);
+        mActionsView = (LinearLayout)findViewById(R.id.abs__actions);
         mDivider = attrsActionBar.getDrawable(R.styleable.SherlockTheme_abDivider);
 
-        mIndeterminateProgress = (ProgressBar)findViewById(R.id.actionbarwatson_iprogress);
+        mIndeterminateProgress = (ProgressBar)findViewById(R.id.abs__iprogress);
 
         //Try to get the display options defined in the theme, or fall back to
         //displaying the title and home icon
@@ -597,9 +597,9 @@ public final class ActionBarView extends RelativeLayout {
             mView.setTag(this);
             mView.setOnClickListener(clickListener);
 
-            mIconView = (ImageView)mView.findViewById(R.id.actionbarwatson_tab_icon);
-            mTextView = (TextView)mView.findViewById(R.id.actionbarwatson_tab);
-            mCustomView = (FrameLayout)mView.findViewById(R.id.actionbarwatson_tab_custom);
+            mIconView = (ImageView)mView.findViewById(R.id.abs__tab_icon);
+            mTextView = (TextView)mView.findViewById(R.id.abs__tab);
+            mCustomView = (FrameLayout)mView.findViewById(R.id.abs__tab_custom);
         }
 
         /**

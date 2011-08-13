@@ -41,7 +41,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/actionbarwatson_actions"
+        android:id="@+id/abs__actions"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_alignParentRight="true"
@@ -51,12 +51,12 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/abs__home_wrapper"
-        android:layout_toLeftOf="@id/actionbarwatson_actions"
+        android:layout_toLeftOf="@id/abs__actions"
         android:layout_alignWithParentIfMissing="true"
         android:layout_centerVertical="true"
         >
         <ProgressBar
-            android:id="@+id/actionbarwatson_iprogress"
+            android:id="@+id/abs__iprogress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -71,7 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_alignParentLeft="true"
-            android:layout_toLeftOf="@id/actionbarwatson_iprogress"
+            android:layout_toLeftOf="@id/abs__iprogress"
             android:layout_alignWithParentIfMissing="true"
             android:paddingLeft="5dip"
             android:gravity="center_vertical"
@@ -79,20 +79,20 @@
             <include layout="@layout/abs__action_bar_title_item" />
         </FrameLayout>
         <Spinner
-            android:id="@+id/actionbarwatson_nav_list"
+            android:id="@+id/abs__nav_list"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_alignParentLeft="true"
-            android:layout_toLeftOf="@id/actionbarwatson_iprogress"
+            android:layout_toLeftOf="@id/abs__iprogress"
             android:layout_alignWithParentIfMissing="true"
             style="?actionDropDownStyle"
             />
         <LinearLayout
-            android:id="@+id/actionbarwatson_nav_tabs"
+            android:id="@+id/abs__nav_tabs"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_alignParentLeft="true"
-            android:layout_toLeftOf="@id/actionbarwatson_iprogress"
+            android:layout_toLeftOf="@id/abs__iprogress"
             android:layout_alignWithParentIfMissing="true"
             android:focusable="true"
             android:visibility="visible"
@@ -101,11 +101,11 @@
             style="?actionBarTabBarStyle"
             />
         <FrameLayout
-            android:id="@+id/actionbarwatson_custom"
+            android:id="@+id/abs__custom"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_alignParentLeft="true"
-            android:layout_toLeftOf="@id/actionbarwatson_iprogress"
+            android:layout_toLeftOf="@id/abs__iprogress"
             android:layout_alignWithParentIfMissing="true"
             android:visibility="gone"
             />

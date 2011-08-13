@@ -32,11 +32,11 @@ public class ActionMenuItemView extends RelativeLayout implements MenuView.ItemV
     protected void onFinishInflate() {
         super.onFinishInflate();
 
-        mImageButton = (ImageView) findViewById(R.id.actionbarwatson_item_icon);
+        mImageButton = (ImageView) findViewById(R.id.abs__item_icon);
         mImageButton.setOnClickListener(this);
-        mTextButton = (TextView) findViewById(R.id.actionbarwatson_item_text);
+        mTextButton = (TextView) findViewById(R.id.abs__item_text);
         mTextButton.setOnClickListener(this);
-        mCustomView = (FrameLayout) findViewById(R.id.actionbarwatson_item_custom);
+        mCustomView = (FrameLayout) findViewById(R.id.abs__item_custom);
         mCustomView.setOnClickListener(this);
     }
 
