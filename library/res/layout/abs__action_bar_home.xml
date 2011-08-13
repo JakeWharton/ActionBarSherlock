@@ -14,32 +14,25 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<merge xmlns:android="http://schemas.android.com/apk/res/android">
+<view xmlns:android="http://schemas.android.com/apk/res/android"
+    class="com.android.internal.widget.ActionBarView$HomeView"
+    android:background="?selectableItemBackground"
+    android:layout_width="wrap_content"
+    android:layout_height="fill_parent">
     <ImageView
-        android:id="@+id/actionbarwatson_home_as_up_indicator"
+        android:layout_gravity="left|center"
+        android:id="@+id/up"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="-8dip"
-        android:layout_marginLeft="-4dip"
-        android:visibility="gone"
-        />
+        android:layout_marginRight="-12.0dip"
+        android:src="?homeAsUpIndicator" />
     <ImageView
-        android:id="@+id/actionbarwatson_home_logo"
+        android:layout_gravity="center"
+        android:id="@+id/home"
+        android:paddingLeft="16.0dip"
+        android:paddingRight="16.0dip"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-        android:layout_toRightOf="@id/actionbarwatson_home_as_up_indicator"
-        android:layout_alignWithParentIfMissing="true"
-        android:visibility="gone"
-        />
-    <ImageView
-        android:id="@+id/actionbarwatson_home_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_toRightOf="@id/actionbarwatson_home_as_up_indicator"
-        android:layout_alignWithParentIfMissing="true"
-        android:layout_centerVertical="true"
-        android:visibility="gone"
-        />
-</merge>
+        android:scaleType="center" />
+</view>

@@ -61,12 +61,12 @@ public final class MenuItemImpl implements MenuItem {
     private int mActionViewRes = View.NO_ID;
 
     int mFlags = ENABLED;
-    private static final int CHECKABLE = 0x01;
-    private static final int CHECKED   = 0x02;
-    private static final int EXCLUSIVE = 0x04;
-    private static final int HIDDEN    = 0x08;
-    private static final int ENABLED   = 0x10;
-    private static final int IS_ACTION = 0x20;
+    static final int CHECKABLE = 0x01;
+    static final int CHECKED   = 0x02;
+    static final int EXCLUSIVE = 0x04;
+    static final int HIDDEN    = 0x08;
+    static final int ENABLED   = 0x10;
+    static final int IS_ACTION = 0x20;
 
     private final WeakReference<MenuView.ItemView>[] mItemViews;
 

@@ -20,7 +20,6 @@ package com.actionbarsherlock.internal.app;
 import java.util.ArrayList;
 import java.util.List;
 import android.content.pm.ActivityInfo;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
@@ -87,14 +86,7 @@ public final class ActionBarSupportImpl extends ActionBar {
             throw new IllegalStateException(getClass().getSimpleName() + " can only be used with a screen_*.xml layout");
         }
 
-        final MenuItemImpl homeMenuItem = new MenuItemImpl(null, 0, android.R.id.home, 0, 0, null, MenuItem.SHOW_AS_ACTION_ALWAYS);
-        final ActionBarView.Item homeItem = mActionBar.getHomeItem();
-        final WatsonItemViewWrapper homeWrapper = new WatsonItemViewWrapper(homeItem);
-        homeWrapper.initialize(homeMenuItem, MenuBuilder.TYPE_WATSON);
-        homeMenuItem.setItemView(MenuBuilder.TYPE_WATSON, homeWrapper);
-
         final PackageManager pm = getActivity().getPackageManager();
-        final ApplicationInfo appInfo = getActivity().getApplicationInfo();
         ActivityInfo actInfo = null;
         try {
             actInfo = pm.getActivityInfo(getActivity().getComponentName(), PackageManager.GET_ACTIVITIES);
@@ -110,19 +102,6 @@ public final class ActionBarSupportImpl extends ActionBar {
                 mActionBar.setTitle(actInfo.loadLabel(pm));
             }
         }
-        if (homeItem.getIcon() == null) {
-            if ((actInfo != null) && (actInfo.icon != 0)) {
-                //Load the icon from the activity entry
-                homeItem.setIcon(actInfo.icon);
-            } else {
-                //No activity icon and none in theme
-                homeItem.setIcon(pm.getApplicationIcon(appInfo));
-            }
-        }
-
-        //LOGO LOADING DOES NOT WORK
-        //SEE: http://stackoverflow.com/questions/6105504/load-activity-and-or-application-logo-programmatically-from-manifest
-        //SEE: https://groups.google.com/forum/#!topic/android-developers/UFR4l0ZwJWc
 
         if (mHasIndeterminateProgress) {
             mActionBar.setProgressBarIndeterminateVisibility(true);
@@ -187,7 +166,7 @@ public final class ActionBarSupportImpl extends ActionBar {
             item.setIsShownOnActionBar(true);
 
             //Get a new item for this menu item
-            ActionBarView.Item watsonItem = mActionBar.newItem();
+            ActionBarView.ActionItem watsonItem = mActionBar.newItem();
 
             //Create and initialize a watson itemview wrapper
             WatsonItemViewWrapper watsonWrapper = new WatsonItemViewWrapper(watsonItem);
@@ -458,10 +437,10 @@ public final class ActionBarSupportImpl extends ActionBar {
     // ///
 
     private static final class WatsonItemViewWrapper implements MenuView.ItemView, View.OnClickListener {
-        private final ActionBarView.Item mWatsonItem;
+        private final ActionBarView.ActionItem mWatsonItem;
         private MenuItemImpl mMenuItem;
 
-        public WatsonItemViewWrapper(ActionBarView.Item item) {
+        public WatsonItemViewWrapper(ActionBarView.ActionItem item) {
             mWatsonItem = item;
             mWatsonItem.setOnClickListener(this);
         }
@@ -474,17 +453,13 @@ public final class ActionBarSupportImpl extends ActionBar {
         @Override
         public void initialize(MenuItemImpl itemData, int menuType) {
             mMenuItem = itemData;
-
-            //Only load menu item data if we are not the HomeItem
-            if (!(mWatsonItem instanceof ActionBarView.HomeItem)) {
-                setIcon(itemData.getIcon());
-                setTitle(itemData.getTitle());
-                setEnabled(itemData.isEnabled());
-                setCheckable(itemData.isCheckable());
-                setChecked(itemData.isChecked());
-                setActionView(itemData.getActionView());
-                setVisible(itemData.isVisible());
-            }
+            setIcon(itemData.getIcon());
+            setTitle(itemData.getTitle());
+            setEnabled(itemData.isEnabled());
+            setCheckable(itemData.isCheckable());
+            setChecked(itemData.isChecked());
+            setActionView(itemData.getActionView());
+            setVisible(itemData.isVisible());
         }
 
         @Override
@@ -541,9 +516,7 @@ public final class ActionBarSupportImpl extends ActionBar {
 
         @Override
         public void setVisible(boolean visible) {
-            if (!(mWatsonItem instanceof ActionBarView.HomeItem)) {
-                ((ActionBarView.ActionItem)mWatsonItem).setVisible(visible);
-            }
+            mWatsonItem.setVisible(visible);
         }
     }
 }
