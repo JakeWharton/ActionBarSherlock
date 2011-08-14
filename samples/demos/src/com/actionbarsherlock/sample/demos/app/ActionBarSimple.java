@@ -17,12 +17,14 @@ package com.actionbarsherlock.sample.demos.app;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.widget.TextView;
 import com.actionbarsherlock.sample.demos.R;
 
 public class ActionBarSimple extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.actionbar_simple);
+        setContentView(R.layout.actionbar_text);
+        ((TextView)findViewById(R.id.text)).setText(R.string.actionbar_simple);
     }
 }

@@ -44,6 +44,9 @@
     <string name="actionbar_menu_support">Action Bar/Menu Support</string>
     <string name="actionbar_iprogress">Action Bar/Indeterminate Progress</string>
     
+    <string name="actionbar_actionitemtext">Action Bar/Action Item Text</string>
+    <string name="actionbar_actionitemtext_content">Controlling the display of action item text on phones is as easy as requesting a window feature. See the source code for this activity for specific usage.</string>
+    
     <string name="actionbar_simple">Action Bar/Simple</string>
     <string name="actionbar_simple_content">This is a simple showcase of how easy it is to add the action bar to your activities. Take a look at the source code, it\'s surprisingly simple!</string>
     
