@@ -25,13 +25,12 @@
         android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="-12.0dip"
+        android:layout_marginRight="-8dip"
+        android:layout_marginLeft="-4dip"
         android:src="?homeAsUpIndicator" />
     <ImageView
         android:layout_gravity="center"
         android:id="@+id/abs__home"
-        android:paddingLeft="16.0dip"
-        android:paddingRight="16.0dip"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:scaleType="center" />
