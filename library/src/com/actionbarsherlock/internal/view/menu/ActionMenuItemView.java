@@ -61,7 +61,7 @@ public class ActionMenuItemView extends RelativeLayout implements MenuView.ItemV
 
     public void reloadDisplay() {
         final boolean hasCustomView = mCustomView.getChildCount() > 0;
-        final boolean hasText = (mTextButton.getText() != null) && !mTextButton.getText().equals("") && mMenuItem.showsActionItemText();
+        final boolean hasText = mMenuItem.showsActionItemText() && !"".equals(mTextButton.getText());
 
         if (hasCustomView) {
             mCustomView.setVisibility(View.VISIBLE);
