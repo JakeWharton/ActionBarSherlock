@@ -25,6 +25,6 @@ public class ActionBarSimple extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.actionbar_text);
-        ((TextView)findViewById(R.id.text)).setText(R.string.actionbar_simple);
+        ((TextView)findViewById(R.id.text)).setText(R.string.actionbar_simple_content);
     }
 }
