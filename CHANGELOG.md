@@ -1,8 +1,8 @@
 Change Log
 ===============================================================================
 
-Version 3.1.3 *(In Development)*
---------------------------------
+Version 3.1.3 *(2011-08-14)*
+----------------------------
 
 * Renamed all resources to be prefixed with `abs__` to avoid conflicts when
   including in your project.
