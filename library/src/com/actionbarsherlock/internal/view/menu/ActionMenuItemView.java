@@ -26,6 +26,7 @@ public class ActionMenuItemView extends RelativeLayout implements MenuView.ItemV
     }
     public ActionMenuItemView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        setOnClickListener(this);
     }
 
     @Override
