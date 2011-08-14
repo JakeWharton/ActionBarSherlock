@@ -13,6 +13,8 @@ Version 3.1.3 *(In Development)*
 * Fix: `MenuItem.setVisible` now properly updates the associated action item and
   native menu item visible state.
 * Fix: Adding items to a menu now honors its ordering and category.
+* Fix: Fragment options item selected callback now uses the proper version of
+  `MenuItem`.
 
 
 Version 3.1.2 *(2011-08-07)*

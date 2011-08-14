@@ -26,6 +26,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v4.util.DebugUtils;
 import android.support.v4.view.Menu;
+import android.support.v4.view.MenuItem;
 import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.view.ContextMenu;
@@ -1122,7 +1123,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      *
      * @see #onCreateOptionsMenu
      */
-    public boolean onOptionsItemSelected(android.view.MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         return false;
     }
 
