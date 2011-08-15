@@ -16,6 +16,8 @@
 
 package android.support.v4.app;
 
+import com.actionbarsherlock.internal.app.ActionModeCallback;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v4.view.ActionMode;
@@ -33,10 +35,10 @@ import android.widget.SpinnerAdapter;
  */
 public abstract class ActionBar {
     /** Parent activity. */
-    private final FragmentActivity mActivity;
+    private final Activity mActivity;
 
 
-    protected ActionBar(FragmentActivity activity) {
+    protected <T extends Activity & ActionModeCallback> ActionBar(T activity) {
         mActivity = activity;
     }
 
@@ -46,7 +48,7 @@ public abstract class ActionBar {
      *
      * @return Activity.
      */
-    protected final FragmentActivity getActivity() {
+    protected final Activity getActivity() {
         return mActivity;
     }
 

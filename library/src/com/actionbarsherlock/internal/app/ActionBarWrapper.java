@@ -129,7 +129,7 @@ public final class ActionBarWrapper {
                         callback.onDestroyActionMode(actionMode);
 
                         //Send the activity callback once the action mode callback has run
-                        getActivity().onActionModeFinished(actionMode);
+                        ((ActionModeCallback)getActivity()).onActionModeFinished(actionMode);
                     }
 
                     @Override

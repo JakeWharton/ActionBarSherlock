@@ -24,6 +24,7 @@ import java.util.HashMap;
 import com.actionbarsherlock.R;
 import com.actionbarsherlock.internal.app.ActionBarWrapper;
 import com.actionbarsherlock.internal.app.ActionBarImpl;
+import com.actionbarsherlock.internal.app.ActionModeCallback;
 import com.actionbarsherlock.internal.view.menu.MenuBuilder;
 import com.actionbarsherlock.internal.view.menu.MenuInflaterWrapper;
 import com.actionbarsherlock.internal.view.menu.MenuItemImpl;
@@ -73,7 +74,7 @@ import android.widget.FrameLayout;
  * state, this may be a snapshot slightly before what the user last saw.</p>
  * </ul>
  */
-public class FragmentActivity extends Activity {
+public class FragmentActivity extends Activity implements ActionModeCallback {
     private static final String TAG = "FragmentActivity";
     private static final boolean DEBUG = false;
 
