@@ -72,17 +72,17 @@ public final class ActionBarImpl extends ActionBar {
     }
 
     public void init() {
-        mContainerView = (ActionBarContainer)getActivity().findViewById(R.id.abs__action_bar_container);
-        mActionBar = (ActionBarView)getActivity().findViewById(R.id.abs__action_bar);
+        mContainerView = (ActionBarContainer)mActivity.findViewById(R.id.abs__action_bar_container);
+        mActionBar = (ActionBarView)mActivity.findViewById(R.id.abs__action_bar);
 
         if (mActionBar == null) {
             throw new IllegalStateException(getClass().getSimpleName() + " can only be used with a screen_*.xml layout");
         }
 
-        final PackageManager pm = getActivity().getPackageManager();
+        final PackageManager pm = mActivity.getPackageManager();
         ActivityInfo actInfo = null;
         try {
-            actInfo = pm.getActivityInfo(getActivity().getComponentName(), PackageManager.GET_ACTIVITIES);
+            actInfo = pm.getActivityInfo(mActivity.getComponentName(), PackageManager.GET_ACTIVITIES);
         } catch (NameNotFoundException e) {}
 
 
@@ -103,7 +103,7 @@ public final class ActionBarImpl extends ActionBar {
         }
 
         int maxItems = MAX_ACTION_BAR_ITEMS_PORTRAIT;
-        if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        if (mActivity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             maxItems = MAX_ACTION_BAR_ITEMS_LANDSCAPE;
         }
 

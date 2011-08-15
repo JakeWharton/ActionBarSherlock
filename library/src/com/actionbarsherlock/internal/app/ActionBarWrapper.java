@@ -59,7 +59,7 @@ public final class ActionBarWrapper {
          * @return The action bar.
          */
         private android.app.ActionBar getActionBar() {
-            return getActivity().getActionBar();
+            return mActivity.getActionBar();
         }
 
         @Override
@@ -116,30 +116,31 @@ public final class ActionBarWrapper {
             //We have to re-wrap the instances in every callback since the
             //wrapped instance is needed before we could have a change to
             //properly store it.
-            return new ActionModeWrapper(getActivity(),
-                getActivity().startActionMode(new android.view.ActionMode.Callback() {
+            return new ActionModeWrapper(mActivity,
+                mActivity.startActionMode(new android.view.ActionMode.Callback() {
                     @Override
                     public boolean onPrepareActionMode(android.view.ActionMode mode, android.view.Menu menu) {
-                        return callback.onPrepareActionMode(new ActionModeWrapper(getActivity(), mode), menu);
+                        return callback.onPrepareActionMode(new ActionModeWrapper(mActivity, mode), menu);
                     }
 
                     @Override
                     public void onDestroyActionMode(android.view.ActionMode mode) {
-                        final ActionMode actionMode = new ActionModeWrapper(getActivity(), mode);
+                        final ActionMode actionMode = new ActionModeWrapper(mActivity, mode);
                         callback.onDestroyActionMode(actionMode);
 
-                        //Send the activity callback once the action mode callback has run
-                        ((ActionModeCallback)getActivity()).onActionModeFinished(actionMode);
+                        //Send the activity callback once the action mode callback has run.
+                        //This type-check has already occurred in the action bar constructor.
+                        ((ActionModeCallback)mActivity).onActionModeFinished(actionMode);
                     }
 
                     @Override
                     public boolean onCreateActionMode(android.view.ActionMode mode, android.view.Menu menu) {
-                        return callback.onCreateActionMode(new ActionModeWrapper(getActivity(), mode), menu);
+                        return callback.onCreateActionMode(new ActionModeWrapper(mActivity, mode), menu);
                     }
 
                     @Override
                     public boolean onActionItemClicked(android.view.ActionMode mode, android.view.MenuItem item) {
-                        return callback.onActionItemClicked(new ActionModeWrapper(getActivity(), mode), item);
+                        return callback.onActionItemClicked(new ActionModeWrapper(mActivity, mode), item);
                     }
                 })
             );
@@ -275,7 +276,7 @@ public final class ActionBarWrapper {
 
             @Override
             public ActionBar.Tab setCustomView(int layoutResId) {
-                mCustomView = mActionBar.getActivity().getLayoutInflater().inflate(layoutResId, null);
+                mCustomView = mActionBar.mActivity.getLayoutInflater().inflate(layoutResId, null);
                 return this;
             }
 
@@ -293,7 +294,7 @@ public final class ActionBarWrapper {
 
             @Override
             public ActionBar.Tab setIcon(int resId) {
-                mIcon = mActionBar.getActivity().getResources().getDrawable(resId);
+                mIcon = mActionBar.mActivity.getResources().getDrawable(resId);
                 return this;
             }
 
@@ -311,7 +312,7 @@ public final class ActionBarWrapper {
 
             @Override
             public ActionBar.Tab setText(int resId) {
-                mText = mActionBar.getActivity().getResources().getString(resId);
+                mText = mActionBar.mActivity.getResources().getString(resId);
                 return this;
             }
 

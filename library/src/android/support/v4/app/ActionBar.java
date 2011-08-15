@@ -35,21 +35,11 @@ import android.widget.SpinnerAdapter;
  */
 public abstract class ActionBar {
     /** Parent activity. */
-    private final Activity mActivity;
+    protected final Activity mActivity;
 
 
     protected <T extends Activity & ActionModeCallback> ActionBar(T activity) {
         mActivity = activity;
-    }
-
-
-    /**
-     * Get the parent activity.
-     *
-     * @return Activity.
-     */
-    protected final Activity getActivity() {
-        return mActivity;
     }
 
     /**
