@@ -321,7 +321,6 @@ public final class ActionBarWrapper {
                 mText = text;
                 return this;
             }
-
         }
 
         @Override
