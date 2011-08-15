@@ -24,7 +24,6 @@ import java.util.HashMap;
 import com.actionbarsherlock.R;
 import com.actionbarsherlock.internal.app.ActionBarWrapper;
 import com.actionbarsherlock.internal.app.ActionBarImpl;
-import com.actionbarsherlock.internal.app.ActionModeCallback;
 import com.actionbarsherlock.internal.view.menu.MenuBuilder;
 import com.actionbarsherlock.internal.view.menu.MenuInflaterWrapper;
 import com.actionbarsherlock.internal.view.menu.MenuItemImpl;
@@ -74,7 +73,7 @@ import android.widget.FrameLayout;
  * state, this may be a snapshot slightly before what the user last saw.</p>
  * </ul>
  */
-public class FragmentActivity extends Activity implements ActionModeCallback {
+public class FragmentActivity extends Activity implements SupportActivity {
     private static final String TAG = "FragmentActivity";
     private static final boolean DEBUG = false;
 
@@ -90,6 +89,33 @@ public class FragmentActivity extends Activity implements ActionModeCallback {
     private static final int WINDOW_FLAG_ACTION_BAR_OVERLAY = 1 << Window.FEATURE_ACTION_BAR_OVERLAY;
     private static final int WINDOW_FLAG_ACTION_MODE_OVERLAY = 1 << Window.FEATURE_ACTION_MODE_OVERLAY;
     private static final int WINDOW_FLAG_INDETERMINANTE_PROGRESS = 1 << Window.FEATURE_INDETERMINATE_PROGRESS;
+
+    final SupportInternalCallbacks mInternalCallbacks = new SupportInternalCallbacks() {
+        @Override
+        void invalidateSupportFragmentIndex(int index) {
+            FragmentActivity.this.invalidateSupportFragmentIndex(index);
+        }
+
+        @Override
+        LoaderManagerImpl getLoaderManager(int index, boolean started, boolean create) {
+            return mLoaderManager;
+        }
+
+        @Override
+        Handler getHandler() {
+            return mHandler;
+        }
+
+        @Override
+        FragmentManagerImpl getFragments() {
+            return mFragments;
+        }
+
+        @Override
+        void ensureSupportActionBarAttached() {
+            FragmentActivity.this.ensureSupportActionBarAttached();
+        }
+    };
 
     final Handler mHandler = new Handler() {
         @Override
@@ -203,6 +229,10 @@ public class FragmentActivity extends Activity implements ActionModeCallback {
             invalidateOptionsMenu();
             mIsActionBarImplAttached = true;
         }
+    }
+
+    public SupportInternalCallbacks getInternalCallbacks() {
+        return mInternalCallbacks;
     }
 
     // ------------------------------------------------------------------------

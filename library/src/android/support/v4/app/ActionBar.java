@@ -16,7 +16,6 @@
 
 package android.support.v4.app;
 
-import com.actionbarsherlock.internal.app.ActionModeCallback;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -38,7 +37,7 @@ public abstract class ActionBar {
     protected final Activity mActivity;
 
 
-    protected <T extends Activity & ActionModeCallback> ActionBar(T activity) {
+    protected <T extends Activity & SupportActivity> ActionBar(T activity) {
         mActivity = activity;
     }
 

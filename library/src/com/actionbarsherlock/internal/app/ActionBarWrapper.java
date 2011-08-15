@@ -21,6 +21,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.ActionBar;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.SupportActivity;
 import android.support.v4.view.ActionMode;
 import android.support.v4.view.MenuInflater;
 import android.view.View;
@@ -130,7 +131,7 @@ public final class ActionBarWrapper {
 
                         //Send the activity callback once the action mode callback has run.
                         //This type-check has already occurred in the action bar constructor.
-                        ((ActionModeCallback)mActivity).onActionModeFinished(actionMode);
+                        ((SupportActivity)mActivity).onActionModeFinished(actionMode);
                     }
 
                     @Override
