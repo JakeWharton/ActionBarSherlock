@@ -16,6 +16,7 @@
 
 package android.support.v4.app;
 
+import android.app.Activity;
 import android.content.ComponentCallbacks;
 import android.content.Context;
 import android.content.Intent;
@@ -217,7 +218,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
 
     // Set as soon as a fragment is added to a transaction (or removed),
     // to be able to do validation.
-    FragmentActivity mImmediateActivity;
+    Activity mImmediateActivity;
 
     // Activity this fragment is attached to.
     FragmentActivity mActivity;
@@ -1042,7 +1043,8 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
         mRestored = false;
         mBackStackNesting = 0;
         mFragmentManager = null;
-        mActivity = mImmediateActivity = null;
+        mActivity = null;
+        mImmediateActivity = null;
         mFragmentId = 0;
         mContainerId = 0;
         mTag = null;
