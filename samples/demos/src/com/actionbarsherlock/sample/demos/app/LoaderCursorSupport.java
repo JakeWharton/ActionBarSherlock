@@ -75,7 +75,7 @@ public class LoaderCursorSupport extends FragmentActivity {
             setHasOptionsMenu(true);
 
             // Create an empty adapter we will use to display the loaded data.
-            mAdapter = new SimpleCursorAdapter(getActivity(),
+            mAdapter = new SimpleCursorAdapter(getContext(),
                     android.R.layout.simple_list_item_2, null,
                     new String[] { Contacts.DISPLAY_NAME, Contacts.CONTACT_STATUS },
                     new int[] { android.R.id.text1, android.R.id.text2 }, 0);
@@ -141,7 +141,7 @@ public class LoaderCursorSupport extends FragmentActivity {
             String select = "((" + Contacts.DISPLAY_NAME + " NOTNULL) AND ("
                     + Contacts.HAS_PHONE_NUMBER + "=1) AND ("
                     + Contacts.DISPLAY_NAME + " != '' ))";
-            return new CursorLoader(getActivity(), baseUri,
+            return new CursorLoader(getContext(), baseUri,
                     CONTACTS_SUMMARY_PROJECTION, select, null,
                     Contacts.DISPLAY_NAME + " COLLATE LOCALIZED ASC");
         }

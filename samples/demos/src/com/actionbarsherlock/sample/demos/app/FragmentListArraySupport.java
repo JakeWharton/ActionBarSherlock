@@ -49,7 +49,7 @@ public class FragmentListArraySupport extends FragmentActivity {
         @Override
         public void onActivityCreated(Bundle savedInstanceState) {
             super.onActivityCreated(savedInstanceState);
-            setListAdapter(new ArrayAdapter<String>(getActivity(),
+            setListAdapter(new ArrayAdapter<String>(getContext(),
                     android.R.layout.simple_list_item_1, Shakespeare.TITLES));
         }
 

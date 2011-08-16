@@ -97,7 +97,7 @@ public class FragmentLayoutSupport extends FragmentActivity {
             super.onActivityCreated(savedInstanceState);
 
             // Populate list with our static array of titles.
-            setListAdapter(new ArrayAdapter<String>(getActivity(),
+            setListAdapter(new ArrayAdapter<String>(getContext(),
                     R.layout.simple_list_item_checkable_1,
                     android.R.id.text1, Shakespeare.TITLES));
 
@@ -162,7 +162,7 @@ public class FragmentLayoutSupport extends FragmentActivity {
                 // Otherwise we need to launch a new activity to display
                 // the dialog fragment with selected text.
                 Intent intent = new Intent();
-                intent.setClass(getActivity(), DetailsActivity.class);
+                intent.setClass(getContext(), DetailsActivity.class);
                 intent.putExtra("index", index);
                 startActivity(intent);
             }
@@ -209,8 +209,8 @@ public class FragmentLayoutSupport extends FragmentActivity {
                 return null;
             }
 
-            ScrollView scroller = new ScrollView(getActivity());
-            TextView text = new TextView(getActivity());
+            ScrollView scroller = new ScrollView(getContext());
+            TextView text = new TextView(getContext());
             int padding = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                     4, getActivity().getResources().getDisplayMetrics());
             text.setPadding(padding, padding, padding, padding);

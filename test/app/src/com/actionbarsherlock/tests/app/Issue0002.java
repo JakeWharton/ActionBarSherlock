@@ -42,7 +42,7 @@ public final class Issue0002 extends FragmentActivity {
 		
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-			return new FrameLayout(getActivity());
+			return new FrameLayout(getContext());
 		}
 
 		@Override

@@ -25,6 +25,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
@@ -256,6 +257,16 @@ public interface SupportActivity {
     boolean stopService(Intent name);
     void unbindService(ServiceConnection conn);
     void unregisterReceiver(BroadcastReceiver receiver);
+
+    /*** Context methods ***/
+    String getString(int resId);
+    String getString(int resId, Object... formatArgs);
+    CharSequence getText(int resId);
+    //boolean isRestricted();
+    TypedArray obtainStyledAttributes(int[] attrs);
+    TypedArray obtainStyledAttributes(AttributeSet set, int[] attrs);
+    TypedArray obtainStyledAttributes(int resId, int[] attrs);
+    TypedArray obtainStyledAttributes(AttributeSet set, int[] attrs, int defStyleAttr, int defStyleRes);
 
     /*** Activity methods (emulated API 5+) ***/
     void onBackPressed();

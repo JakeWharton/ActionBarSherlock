@@ -21,6 +21,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.SupportActivity;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,7 +69,7 @@ public class FragmentArgumentsSupport extends FragmentActivity {
          * Parse attributes during inflation from a view hierarchy into the
          * arguments we handle.
          */
-        @Override public void onInflate(FragmentActivity activity, AttributeSet attrs,
+        @Override public void onInflate(SupportActivity activity, AttributeSet attrs,
                 Bundle savedInstanceState) {
             super.onInflate(activity, attrs, savedInstanceState);
 

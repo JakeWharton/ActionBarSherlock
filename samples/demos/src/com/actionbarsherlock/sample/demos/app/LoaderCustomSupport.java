@@ -410,7 +410,7 @@ public class LoaderCustomSupport extends FragmentActivity {
             setHasOptionsMenu(true);
 
             // Create an empty adapter we will use to display the loaded data.
-            mAdapter = new AppListAdapter(getActivity());
+            mAdapter = new AppListAdapter(getContext());
             setListAdapter(mAdapter);
 
             // Start out with a progress indicator.
@@ -429,7 +429,7 @@ public class LoaderCustomSupport extends FragmentActivity {
         @Override public Loader<List<AppEntry>> onCreateLoader(int id, Bundle args) {
             // This is called when a new Loader needs to be created.  This
             // sample only has one Loader with no arguments, so it is simple.
-            return new AppListLoader(getActivity());
+            return new AppListLoader(getContext());
         }
 
         @Override public void onLoadFinished(Loader<List<AppEntry>> loader, List<AppEntry> data) {

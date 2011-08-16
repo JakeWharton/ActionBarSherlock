@@ -34,11 +34,14 @@ import android.widget.SpinnerAdapter;
  */
 public abstract class ActionBar {
     /** Parent activity. */
-    protected final Activity mActivity;
+    protected final SupportActivity mActivity;
+    /** Parent context. */
+    protected final Context mContext;
 
 
     protected <T extends Activity & SupportActivity> ActionBar(T activity) {
         mActivity = activity;
+        mContext = activity;
     }
 
     /**

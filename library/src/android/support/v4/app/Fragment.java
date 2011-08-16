@@ -16,7 +16,6 @@
 
 package android.support.v4.app;
 
-import android.app.Activity;
 import android.content.ComponentCallbacks;
 import android.content.Context;
 import android.content.Intent;
@@ -82,7 +81,7 @@ final class FragmentState implements Parcelable {
         mSavedFragmentState = in.readBundle();
     }
 
-    public Fragment instantiate(FragmentActivity activity) {
+    public Fragment instantiate(SupportActivity activity) {
         if (mInstance != null) {
             return mInstance;
         }
@@ -91,7 +90,7 @@ final class FragmentState implements Parcelable {
             mArguments.setClassLoader(activity.getClassLoader());
         }
 
-        mInstance = Fragment.instantiate(activity, mClassName, mArguments);
+        mInstance = Fragment.instantiate(activity.asActivity(), mClassName, mArguments);
 
         if (mSavedFragmentState != null) {
             mSavedFragmentState.setClassLoader(activity.getClassLoader());
@@ -105,7 +104,7 @@ final class FragmentState implements Parcelable {
         mInstance.mTag = mTag;
         mInstance.mRetainInstance = mRetainInstance;
         mInstance.mDetached = mDetached;
-        mInstance.mFragmentManager = activity.mFragments;
+        mInstance.mFragmentManager = activity.getInternalCallbacks().getFragments();
 
         return mInstance;
     }
@@ -218,10 +217,10 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
 
     // Set as soon as a fragment is added to a transaction (or removed),
     // to be able to do validation.
-    Activity mImmediateActivity;
+    SupportActivity mImmediateActivity;
 
     // Activity this fragment is attached to.
-    FragmentActivity mActivity;
+    SupportActivity mActivity;
 
     // The optional identifier for this fragment -- either the container ID if it
     // was dynamically added to the view hierarchy, or the ID supplied in
@@ -531,10 +530,21 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     }
 
     /**
-     * Return the Activity this fragment is currently associated with.
+     * <p>Return the Activity this fragment is currently associated with.</p>
+     *
+     * <p>If you need the actual {@link Activity} instance (for use as a
+     * context, for example), you can call {@link SupportActivity#asActivity()}
+     * on the returned type.</p>
      */
-    final public FragmentActivity getActivity() {
+    final public SupportActivity getActivity() {
         return mActivity;
+    }
+
+    /**
+     * Return the activity context.
+     */
+    final public Context getContext() {
+        return mActivity.asActivity();
     }
 
     /**
@@ -723,7 +733,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
             throw new IllegalStateException("Fragment " + this + " not attached to Activity");
         }
         mCheckedForLoaderManager = true;
-        mLoaderManager = mActivity.getLoaderManager(mIndex, mLoadersStarted, true);
+        mLoaderManager = mActivity.getInternalCallbacks().getLoaderManager(mIndex, mLoadersStarted, true);
         return mLoaderManager;
     }
 
@@ -817,7 +827,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      * @param savedInstanceState If the fragment is being re-created from
      * a previous saved state, this is the state.
      */
-    public void onInflate(FragmentActivity activity, AttributeSet attrs, Bundle savedInstanceState) {
+    public void onInflate(SupportActivity activity, AttributeSet attrs, Bundle savedInstanceState) {
         mCalled = true;
     }
 
@@ -825,7 +835,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      * Called when a fragment is first attached to its activity.
      * {@link #onCreate(Bundle)} will be called after this.
      */
-    public void onAttach(FragmentActivity activity) {
+    public void onAttach(SupportActivity activity) {
         mCalled = true;
     }
 
@@ -930,7 +940,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
             mLoadersStarted = true;
             if (!mCheckedForLoaderManager) {
                 mCheckedForLoaderManager = true;
-                mLoaderManager = mActivity.getLoaderManager(mIndex, mLoadersStarted, false);
+                mLoaderManager = mActivity.getInternalCallbacks().getLoaderManager(mIndex, mLoadersStarted, false);
             }
             if (mLoaderManager != null) {
                 mLoaderManager.doStart();
@@ -1019,7 +1029,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
         //        + " mLoaderManager=" + mLoaderManager);
         if (!mCheckedForLoaderManager) {
             mCheckedForLoaderManager = true;
-            mLoaderManager = mActivity.getLoaderManager(mIndex, mLoadersStarted, false);
+            mLoaderManager = mActivity.getInternalCallbacks().getLoaderManager(mIndex, mLoadersStarted, false);
         }
         if (mLoaderManager != null) {
             mLoaderManager.doDestroy();
@@ -1302,7 +1312,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
             mLoadersStarted = false;
             if (!mCheckedForLoaderManager) {
                 mCheckedForLoaderManager = true;
-                mLoaderManager = mActivity.getLoaderManager(mIndex, mLoadersStarted, false);
+                mLoaderManager = mActivity.getInternalCallbacks().getLoaderManager(mIndex, mLoadersStarted, false);
             }
             if (mLoaderManager != null) {
                 if (!retaining) {

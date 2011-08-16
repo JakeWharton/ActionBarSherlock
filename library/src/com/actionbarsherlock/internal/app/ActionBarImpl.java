@@ -19,13 +19,14 @@ package com.actionbarsherlock.internal.app;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.ActionBar;
-import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.SupportActivity;
 import android.support.v4.view.ActionMode;
 import android.support.v4.view.MenuItem;
 import android.view.View;
@@ -57,7 +58,7 @@ public final class ActionBarImpl extends ActionBar {
 
 
 
-    public ActionBarImpl(FragmentActivity activity) {
+    public <T extends Activity & SupportActivity> ActionBarImpl(T activity) {
         super(activity);
     }
 

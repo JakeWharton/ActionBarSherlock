@@ -17,10 +17,10 @@
 package com.actionbarsherlock.internal.app;
 
 import java.util.HashMap;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.ActionBar;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.SupportActivity;
 import android.support.v4.view.ActionMode;
 import android.support.v4.view.MenuInflater;
@@ -37,7 +37,7 @@ public final class ActionBarWrapper {
      * @param activity Parent activity.
      * @return {@code ActionBar} instance.
      */
-    public static ActionBar createFor(FragmentActivity activity) {
+    public static <T extends Activity & SupportActivity> ActionBar createFor(T activity) {
         return new ActionBarWrapper.Impl(activity);
     }
 
@@ -49,7 +49,7 @@ public final class ActionBarWrapper {
         private final HashMap<OnMenuVisibilityListener, android.app.ActionBar.OnMenuVisibilityListener> mMenuListenerMap = new HashMap<OnMenuVisibilityListener, android.app.ActionBar.OnMenuVisibilityListener>();
 
 
-        private Impl(FragmentActivity activity) {
+        private <T extends Activity & SupportActivity> Impl(T activity) {
             super(activity);
         }
 
@@ -60,7 +60,7 @@ public final class ActionBarWrapper {
          * @return The action bar.
          */
         private android.app.ActionBar getActionBar() {
-            return mActivity.getActionBar();
+            return mActivity.asActivity().getActionBar();
         }
 
         @Override
@@ -117,16 +117,16 @@ public final class ActionBarWrapper {
             //We have to re-wrap the instances in every callback since the
             //wrapped instance is needed before we could have a change to
             //properly store it.
-            return new ActionModeWrapper(mActivity,
-                mActivity.startActionMode(new android.view.ActionMode.Callback() {
+            return new ActionModeWrapper(mContext,
+                mActivity.asActivity().startActionMode(new android.view.ActionMode.Callback() {
                     @Override
                     public boolean onPrepareActionMode(android.view.ActionMode mode, android.view.Menu menu) {
-                        return callback.onPrepareActionMode(new ActionModeWrapper(mActivity, mode), menu);
+                        return callback.onPrepareActionMode(new ActionModeWrapper(mContext, mode), menu);
                     }
 
                     @Override
                     public void onDestroyActionMode(android.view.ActionMode mode) {
-                        final ActionMode actionMode = new ActionModeWrapper(mActivity, mode);
+                        final ActionMode actionMode = new ActionModeWrapper(mContext, mode);
                         callback.onDestroyActionMode(actionMode);
 
                         //Send the activity callback once the action mode callback has run.
@@ -136,12 +136,12 @@ public final class ActionBarWrapper {
 
                     @Override
                     public boolean onCreateActionMode(android.view.ActionMode mode, android.view.Menu menu) {
-                        return callback.onCreateActionMode(new ActionModeWrapper(mActivity, mode), menu);
+                        return callback.onCreateActionMode(new ActionModeWrapper(mContext, mode), menu);
                     }
 
                     @Override
                     public boolean onActionItemClicked(android.view.ActionMode mode, android.view.MenuItem item) {
-                        return callback.onActionItemClicked(new ActionModeWrapper(mActivity, mode), item);
+                        return callback.onActionItemClicked(new ActionModeWrapper(mContext, mode), item);
                     }
                 })
             );

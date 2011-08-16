@@ -50,7 +50,7 @@ public class RoundedColourFragment extends Fragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		this.mView = new View(this.getActivity());
+		this.mView = new View(this.getContext());
 
 		GradientDrawable background = (GradientDrawable)this.getResources().getDrawable(R.drawable.rounded_rect);
 		background.setColor(this.mColor);
