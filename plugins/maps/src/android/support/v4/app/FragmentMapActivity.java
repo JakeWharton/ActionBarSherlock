@@ -29,6 +29,7 @@ import com.actionbarsherlock.internal.view.menu.MenuInflaterWrapper;
 import com.actionbarsherlock.internal.view.menu.MenuItemImpl;
 import com.actionbarsherlock.internal.view.menu.MenuItemWrapper;
 import com.actionbarsherlock.internal.view.menu.MenuWrapper;
+import com.google.android.maps.MapActivity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -73,7 +74,7 @@ import android.widget.FrameLayout;
  * state, this may be a snapshot slightly before what the user last saw.</p>
  * </ul>
  */
-public class FragmentMapActivity extends Activity implements SupportActivity {
+public abstract class FragmentMapActivity extends MapActivity implements SupportActivity {
     private static final String TAG = "FragmentActivity";
     private static final boolean DEBUG = false;
 
