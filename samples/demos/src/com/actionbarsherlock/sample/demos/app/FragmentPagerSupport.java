@@ -127,7 +127,7 @@ public class FragmentPagerSupport extends FragmentActivity {
         @Override
         public void onActivityCreated(Bundle savedInstanceState) {
             super.onActivityCreated(savedInstanceState);
-            setListAdapter(new ArrayAdapter<String>(getContext(),
+            setListAdapter(new ArrayAdapter<String>(getActivity(),
                     android.R.layout.simple_list_item_1, Cheeses.sCheeseStrings));
         }
 

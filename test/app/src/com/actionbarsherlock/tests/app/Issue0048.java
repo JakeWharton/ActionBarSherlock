@@ -63,7 +63,7 @@ public final class Issue0048 extends FragmentActivity {
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            return new TextView(getContext());
+            return new TextView(getActivity());
         }
 
         @Override

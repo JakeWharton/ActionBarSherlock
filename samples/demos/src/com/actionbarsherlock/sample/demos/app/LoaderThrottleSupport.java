@@ -407,7 +407,7 @@ public class LoaderThrottleSupport extends FragmentActivity {
             setHasOptionsMenu(true);
 
             // Create an empty adapter we will use to display the loaded data.
-            mAdapter = new SimpleCursorAdapter(getContext(),
+            mAdapter = new SimpleCursorAdapter(getActivity(),
                     android.R.layout.simple_list_item_1, null,
                     new String[] { MainTable.COLUMN_NAME_DATA },
                     new int[] { android.R.id.text1 }, 0);
@@ -500,7 +500,7 @@ public class LoaderThrottleSupport extends FragmentActivity {
         };
 
         public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-            CursorLoader cl = new CursorLoader(getContext(), MainTable.CONTENT_URI,
+            CursorLoader cl = new CursorLoader(getActivity(), MainTable.CONTENT_URI,
                     PROJECTION, null, null, null);
             cl.setUpdateThrottle(2000); // update at most every 2 seconds.
             return cl;

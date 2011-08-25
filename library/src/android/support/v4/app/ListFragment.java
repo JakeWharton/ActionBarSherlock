@@ -88,7 +88,7 @@ public class ListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        final Context context = getContext();
+        final Context context = getActivity();
 
         FrameLayout root = new FrameLayout(context);
 
@@ -288,9 +288,9 @@ public class ListFragment extends Fragment {
         if (shown) {
             if (animate) {
                 mProgressContainer.startAnimation(AnimationUtils.loadAnimation(
-                        getContext(), android.R.anim.fade_out));
+                        getActivity(), android.R.anim.fade_out));
                 mListContainer.startAnimation(AnimationUtils.loadAnimation(
-                        getContext(), android.R.anim.fade_in));
+                        getActivity(), android.R.anim.fade_in));
             } else {
                 mProgressContainer.clearAnimation();
                 mListContainer.clearAnimation();
@@ -300,9 +300,9 @@ public class ListFragment extends Fragment {
         } else {
             if (animate) {
                 mProgressContainer.startAnimation(AnimationUtils.loadAnimation(
-                        getContext(), android.R.anim.fade_in));
+                        getActivity(), android.R.anim.fade_in));
                 mListContainer.startAnimation(AnimationUtils.loadAnimation(
-                        getContext(), android.R.anim.fade_out));
+                        getActivity(), android.R.anim.fade_out));
             } else {
                 mProgressContainer.clearAnimation();
                 mListContainer.clearAnimation();

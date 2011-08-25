@@ -288,7 +288,7 @@ public class DialogFragment extends Fragment
      * @return Return a new Dialog instance to be displayed by the Fragment.
      */
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        return new Dialog(getContext(), getTheme());
+        return new Dialog(getActivity(), getTheme());
     }
 
     public void onCancel(DialogInterface dialog) {
@@ -319,7 +319,7 @@ public class DialogFragment extends Fragment
             }
             mDialog.setContentView(view);
         }
-        mDialog.setOwnerActivity(getActivity().asActivity());
+        mDialog.setOwnerActivity(getActivity());
         mDialog.setCancelable(mCancelable);
         mDialog.setOnCancelListener(this);
         mDialog.setOnDismissListener(this);

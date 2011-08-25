@@ -86,7 +86,7 @@ public class FragmentAlertDialogSupport extends FragmentActivity {
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             int title = getArguments().getInt("title");
 
-            return new AlertDialog.Builder(getContext())
+            return new AlertDialog.Builder(getActivity())
                     .setIcon(R.drawable.alert_dialog_icon)
                     .setTitle(title)
                     .setPositiveButton(R.string.alert_dialog_ok,

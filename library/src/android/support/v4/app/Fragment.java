@@ -16,6 +16,7 @@
 
 package android.support.v4.app;
 
+import android.app.Activity;
 import android.content.ComponentCallbacks;
 import android.content.Context;
 import android.content.Intent;
@@ -530,21 +531,22 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     }
 
     /**
-     * <p>Return the Activity this fragment is currently associated with.</p>
+     * Return the Activity this fragment is currently associated with.
      *
-     * <p>If you need the actual {@link Activity} instance (for use as a
-     * context, for example), you can call {@link SupportActivity#asActivity()}
-     * on the returned type.</p>
+     * @see #getSupportActivity()
      */
-    final public SupportActivity getActivity() {
-        return mActivity;
+    final public Activity getActivity() {
+        return mActivity.asActivity();
     }
 
     /**
-     * Return the activity context.
+     * Return the SupportActivity interface for the activity in which this
+     * fragment is currently associated.
+     *
+     * @see #getActivity()
      */
-    final public Context getContext() {
-        return mActivity.asActivity();
+    final public SupportActivity getSupportActivity() {
+        return mActivity;
     }
 
     /**
