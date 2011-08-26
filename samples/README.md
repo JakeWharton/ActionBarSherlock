@@ -1,7 +1,8 @@
 ActionBarSherlock Samples
 =========================
 
-See [actionbarsherlock.com/samples.html][1] for information.
+See [actionbarsherlock.com/samples.html][1] for information on the samples
+contained in this folder.
 
 
 
