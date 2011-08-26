@@ -15,6 +15,10 @@
 -->
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- IF YOU ARE COMPILING THIS APPLICATION YOURSELF YOU NEED TO CHANGE THIS -->
+    <!-- See: http://code.google.com/android/add-ons/google-apis/mapkey.html -->
+    <string name="map_api_key">0GPE4Lb_ZG_rnk3YyJHd7pBAxP0BPBJvmZR_-Kw</string>
+
     <string name="activity_sample_code">ABS: Support Demos</string>
 
     <string name="hello_world"><b>Hello, <i>World!</i></b></string>
@@ -119,4 +123,6 @@
 
     <string name="loader_throttle_support">Loader/Throttle</string>
 
+    <string name="map_warning">If you compiled this application yourself you need to specify your own API key in res/values/strings.xml</string>
+    <string name="map_activity">Map/Simple Activity</string>
 </resources>
