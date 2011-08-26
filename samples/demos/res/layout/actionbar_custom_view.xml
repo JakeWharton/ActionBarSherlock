@@ -6,6 +6,7 @@
     android:orientation="horizontal"
     >
     <RadioGroup
+        android:id="@+id/radio_nav"
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

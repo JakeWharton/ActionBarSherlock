@@ -116,6 +116,16 @@
         </activity>
         
         <activity
+            android:name=".app.ActionBarCustomNavigation"
+            android:label="@string/actionbar_customnavigation"
+            android:theme="@style/Theme.Sherlock">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+        
+        <activity
             android:name=".app.ActionBarMenuSupport"
             android:label="@string/actionbar_menu_support"
             android:theme="@style/Theme.Sherlock">
