@@ -144,14 +144,14 @@ public final class ActionBarImpl extends ActionBar {
             item.setIsShownOnActionBar(true);
 
             //Get a new item for this menu item
-            ActionMenuItemView watsonItem = mActionBar.newItem();
-            watsonItem.initialize(item, MenuBuilder.TYPE_WATSON);
+            ActionMenuItemView actionItem = mActionBar.newItem();
+            actionItem.initialize(item, MenuBuilder.TYPE_ACTION_BAR);
 
             //Associate the itemview with the item so changes will be reflected
-            item.setItemView(MenuBuilder.TYPE_WATSON, watsonItem);
+            item.setItemView(MenuBuilder.TYPE_ACTION_BAR, actionItem);
 
             //Add to the action bar for display
-            mActionBar.addItem(watsonItem);
+            mActionBar.addItem(actionItem);
         }
     }
 
