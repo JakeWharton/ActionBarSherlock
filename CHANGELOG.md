@@ -4,16 +4,16 @@ Change Log
 Version 3.2.0 *(In Development)*
 --------------------------------
 
- * Added support for `MapView` and the Google APIs through the use of
-   `FragmentMapActivity`. If you are using a map within a fragment you must
-   ensure it is always attached to an activity which extends from this new base
-   class.
-   
-   Since supporting maps requires compiling against the Google APIs this
-   functionality is implemented in the form of a plugin which is to be used
-   alongside the normal library. You can choose to add it as an additional
-   library project or by including it as a `.jar`. Maven users can simply include
-   it as an additional dependency (artifactId: `plugin-maps`).
+ *  Added support for `MapView` and the Google APIs through the use of
+    `FragmentMapActivity`. If you are using a map within a fragment you must
+    ensure it is always attached to an activity which extends from this new base
+    class.
+
+    Since supporting maps requires compiling against the Google APIs, this
+    functionality is implemented in the form of a plugin which is to be used
+    alongside the normal library. You can choose to add it as an additional
+    library project or by including it as a `.jar`. Maven users may simply include
+    the additional dependency (artifactId: `plugin-maps`).
 
 
 Version 3.1.3 *(2011-08-14)*
