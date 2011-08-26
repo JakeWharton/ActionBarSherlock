@@ -23,7 +23,6 @@ import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.ActionBar;
 import android.support.v4.app.SupportActivity;
@@ -39,14 +38,6 @@ import com.actionbarsherlock.internal.widget.ActionBarContainer;
 import com.actionbarsherlock.internal.widget.ActionBarView;
 
 public final class ActionBarImpl extends ActionBar {
-    /** Maximum action bar items in portrait mode. */
-    private static final int MAX_ACTION_BAR_ITEMS_PORTRAIT = 3;
-
-    /** Maximum action bar items in landscape mode. */
-    private static final int MAX_ACTION_BAR_ITEMS_LANDSCAPE = 4;
-
-
-
     /** Action bar container. */
     private ActionBarContainer mContainerView;
 
@@ -103,10 +94,7 @@ public final class ActionBarImpl extends ActionBar {
             return;
         }
 
-        int maxItems = MAX_ACTION_BAR_ITEMS_PORTRAIT;
-        if (mActivity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            maxItems = MAX_ACTION_BAR_ITEMS_LANDSCAPE;
-        }
+        final int maxItems = mActivity.getResources().getInteger(R.integer.abs__max_action_buttons);
 
         //Iterate and grab as many actions as we can up to maxItems honoring
         //their showAsAction values
