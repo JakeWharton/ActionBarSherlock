@@ -17,6 +17,12 @@
 	
 	<dependencies>
 		<dependency>
+			<groupId>android</groupId>
+			<artifactId>android</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
 			<groupId>com.google.android.maps</groupId>
 			<artifactId>maps</artifactId>
 			<scope>provided</scope>
@@ -26,7 +32,6 @@
 			<groupId>com.actionbarsherlock</groupId>
 			<artifactId>library</artifactId>
 			<version>${project.version}</version>
-			<type>apklib</type>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>

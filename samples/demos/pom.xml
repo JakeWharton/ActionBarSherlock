@@ -21,12 +21,24 @@
 			<artifactId>android</artifactId>
 			<scope>provided</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>com.google.android.maps</groupId>
+			<artifactId>maps</artifactId>
+			<scope>provided</scope>
+		</dependency>
 		
 		<dependency>
 			<groupId>com.actionbarsherlock</groupId>
 			<artifactId>library</artifactId>
 			<version>${project.version}</version>
 			<type>apklib</type>
+		</dependency>
+
+		<dependency>
+			<groupId>com.actionbarsherlock</groupId>
+			<artifactId>plugin-maps</artifactId>
+			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
 
