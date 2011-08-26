@@ -10,11 +10,11 @@ public class MapActivity extends FragmentMapActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.map_simple);
 
         //MapView for the lose :(
         Toast.makeText(this, R.string.map_warning, Toast.LENGTH_LONG).show();
 
+        setContentView(R.layout.map_simple);
         MapView mapView = (MapView)findViewById(R.id.mapview);
         mapView.setBuiltInZoomControls(true);
     }

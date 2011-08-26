@@ -125,4 +125,5 @@
 
     <string name="map_warning">If you compiled this application yourself you need to specify your own API key in res/values/strings.xml</string>
     <string name="map_activity">Map/Simple Activity</string>
+    <string name="map_fragment">Map/Simple Fragment</string>
 </resources>
