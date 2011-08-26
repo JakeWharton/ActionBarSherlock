@@ -4,57 +4,57 @@ Change Log
 Version 3.2.0 *(In Development)*
 --------------------------------
 
-* Added support for `MapView` and the Google APIs through the use of
-  `FragmentMapActivity`. If you are using a map within a fragment you must
-  ensure it is always attached to an activity which extends from this new base
-  class.
-
-  Since supporting maps requires compiling against the Google APIs this
-  functionality is implemented in the form of a plugin which is to be used
-  alongside the normal library. You can choose to add it as an additional
-  library project or by including it as a `.jar`. Maven users can simply include
-  it as an additional dependency (artifactId: `plugin-maps`).
+ * Added support for `MapView` and the Google APIs through the use of
+   `FragmentMapActivity`. If you are using a map within a fragment you must
+   ensure it is always attached to an activity which extends from this new base
+   class.
+   
+   Since supporting maps requires compiling against the Google APIs this
+   functionality is implemented in the form of a plugin which is to be used
+   alongside the normal library. You can choose to add it as an additional
+   library project or by including it as a `.jar`. Maven users can simply include
+   it as an additional dependency (artifactId: `plugin-maps`).
 
 
 Version 3.1.3 *(2011-08-14)*
 ----------------------------
 
-* Renamed all resources to be prefixed with `abs__` to avoid conflicts when
-  including in your project.
-* Fix: Action bar background being set on two views causing artifacts to remain
-  on screen when the action bar was hidden.
-* Fix: Incorrect sub-menu item being selected by default when the sub-menu was
-  triggered from the native options menu on pre-3.0.
-* Fix: `MenuItem.setVisible` now properly updates the associated action item and
-  native menu item visible state.
-* Fix: Adding items to a menu now honors its ordering and category.
-* Fix: Fragment options item selected callback now uses the proper version of
-  `MenuItem`.
+ * Renamed all resources to be prefixed with `abs__` to avoid conflicts when
+   including in your project.
+ * Fix: Action bar background being set on two views causing artifacts to remain
+   on screen when the action bar was hidden.
+ * Fix: Incorrect sub-menu item being selected by default when the sub-menu was
+   triggered from the native options menu on pre-3.0.
+ * Fix: `MenuItem.setVisible` now properly updates the associated action item and
+   native menu item visible state.
+ * Fix: Adding items to a menu now honors its ordering and category.
+ * Fix: Fragment options item selected callback now uses the proper version of
+   `MenuItem`.
 
 
 Version 3.1.2 *(2011-08-07)*
 ----------------------------
 
-* Fix: `MenuItem.getMenuInfo()` was throwing runtime exception. Will now just
-  return `null`.
-* Fix: Dragging over a `WebView` contained in a `ViewPager` would not register.
-* Fix: Inflation of context menu incorrectly being handled by the custom menu
-  inflater for the library.
+ * Fix: `MenuItem.getMenuInfo()` was throwing runtime exception. Will now just
+   return `null`.
+ * Fix: Dragging over a `WebView` contained in a `ViewPager` would not register.
+ * Fix: Inflation of context menu incorrectly being handled by the custom menu
+   inflater for the library.
 
 
 Version 3.1.1 *(2011-07-31)*
 ----------------------------
 
-* Fix: `MenuItem.getSubMenu` now returns a support instance rather than a
-  native instance.
-* Fix: Fragment methods `onAttach` and `onInflate` incorrectly regressed to use
-  `Activity` instead of a `FragmentActivity` in their method signatures.
-* Fix: Retained fragments not being re-attached on pre-3.0 when attached to
-  `android.R.id.content` upon activity recreation.
-* Fix: `onPrepareOptionsMenu` not dispatched to fragments. This still will only
-  occur if the activity method returns true (which is the default).
-* Fix: `Menu.findItem` not returning `null` when the item was not found on
-  Android 3.0+.
+ * Fix: `MenuItem.getSubMenu` now returns a support instance rather than a
+   native instance.
+ * Fix: Fragment methods `onAttach` and `onInflate` incorrectly regressed to use
+   `Activity` instead of a `FragmentActivity` in their method signatures.
+ * Fix: Retained fragments not being re-attached on pre-3.0 when attached to
+   `android.R.id.content` upon activity recreation.
+ * Fix: `onPrepareOptionsMenu` not dispatched to fragments. This still will only
+   occur if the activity method returns true (which is the default).
+ * Fix: `Menu.findItem` not returning `null` when the item was not found on
+   Android 3.0+.
 
 
 Version 3.1.0 *(2011-07-22)*
@@ -68,32 +68,32 @@ and prefix them with 'ab'.
 You can see an example of this in the `SherlockCustom` theme in
 `samples/demos/res/values/styles.xml`.
 
-* Library now uses the `r3` version of the compatibility library for its base.
-* `actionBarStyle` is no longer a valid theme attribute (see note above).
-* Added the demo project included with the new compatibility library under
-  `samples/demos/` and merged in the old 'featuredemo'.
-* Dividers are now shown on pre-3.0 devices between all action items.
-* `Window.FEATURE_ACTION_BAR_OVERLAY` is now honored on pre-3.0 devices.
-* Inflation of XML menu resources will now honor `android:actionLayout` and
-  `android:actionViewClass` attributes.
-* Buttons for displaying the determinate and indeterminate progress bars have
-  been added to the feature toggle demo.
-* Added support for indeterminate progress bar. Due to the `final` modifier on
-  the native type, you must use `setIndeterminateProgressBarVisibility(Boolean)`
-  and pass `Boolean.TRUE` or `Boolean.FALSE`.
-* Fix: `MenuBuilder#removeItem(int)` and `MenuBuilder#findItem(int)` throwing
-  `IndexOutOfBoundsException`s when the item was not found.
-* Fix: Theme attributes for home item data (e.g., icon, logo) will not be
-  overwritten by the special `MenuItem` instance for home.
-* Fix: Native strings can now be specified for an XML menu `<item>` in
-  `android:title` and `android:titleCondensed`.
-* `Window.FEATURE_ENABLE_ACTION_BAR_WATSON_TEXT` is now
-  `Window.FEATURE_ACTION_BAR_ITEM_TEXT`.
-* `Widget.Sherlock.Spinner.DropDown.ActionBar` and
-  `Widget.Sherlock.Light.Spinner.DropDown.ActionBar` styles are now
-  `Widget.Sherlock.Spinner` and `Widget.Sherlock.Light.Spinner`, respectively.
-* `Widget.Sherlock.ActionBarView_TabXXX` styles are now
-  `Widget.Sherlock.ActionBar.TabXXX`.
+ * Library now uses the `r3` version of the compatibility library for its base.
+ * `actionBarStyle` is no longer a valid theme attribute (see note above).
+ * Added the demo project included with the new compatibility library under
+   `samples/demos/` and merged in the old 'featuredemo'.
+ * Dividers are now shown on pre-3.0 devices between all action items.
+ * `Window.FEATURE_ACTION_BAR_OVERLAY` is now honored on pre-3.0 devices.
+ * Inflation of XML menu resources will now honor `android:actionLayout` and
+   `android:actionViewClass` attributes.
+ * Buttons for displaying the determinate and indeterminate progress bars have
+   been added to the feature toggle demo.
+ * Added support for indeterminate progress bar. Due to the `final` modifier on
+   the native type, you must use `setIndeterminateProgressBarVisibility(Boolean)`
+   and pass `Boolean.TRUE` or `Boolean.FALSE`.
+ * Fix: `MenuBuilder#removeItem(int)` and `MenuBuilder#findItem(int)` throwing
+   `IndexOutOfBoundsException`s when the item was not found.
+ * Fix: Theme attributes for home item data (e.g., icon, logo) will not be
+   overwritten by the special `MenuItem` instance for home.
+ * Fix: Native strings can now be specified for an XML menu `<item>` in
+   `android:title` and `android:titleCondensed`.
+ * `Window.FEATURE_ENABLE_ACTION_BAR_WATSON_TEXT` is now
+   `Window.FEATURE_ACTION_BAR_ITEM_TEXT`.
+ * `Widget.Sherlock.Spinner.DropDown.ActionBar` and
+   `Widget.Sherlock.Light.Spinner.DropDown.ActionBar` styles are now
+   `Widget.Sherlock.Spinner` and `Widget.Sherlock.Light.Spinner`, respectively.
+ * `Widget.Sherlock.ActionBarView_TabXXX` styles are now
+   `Widget.Sherlock.ActionBar.TabXXX`.
 
 
 Version 3.0.3 *(2011-07-17)*
@@ -103,32 +103,32 @@ This version is a hotfix for incompatibilities introduced with the SDKs for
 3.1 r2 and 3.2 r1. Due to unavoidable changes in the underlying SDK, the library
 must now be compiled against API level 13.
 
-* `actionModeStyle` and `actionModePopupWindowStyle` are no longer valid theme
-  attributes.
+ * `actionModeStyle` and `actionModePopupWindowStyle` are no longer valid theme
+   attributes.
 
 
 Version 3.0.2 *(2011-06-23)*
 ----------------------------
 
-* Sub-menus for action items are now shown in a list dialog.
-* Moved certain classes to the `com.actionbarsherlock.internal` package which
-  were not meant for public consumption. Despite being given `public` scope in
-  this new package, these classes should **NOT** be used under any circumstances
-  as their API can be considered highly volatile and is subject to change often
-  and without warning.
+ * Sub-menus for action items are now shown in a list dialog.
+ * Moved certain classes to the `com.actionbarsherlock.internal` package which
+   were not meant for public consumption. Despite being given `public` scope in
+   this new package, these classes should **NOT** be used under any circumstances
+   as their API can be considered highly volatile and is subject to change often
+   and without warning.
 
 
 Version 3.0.1 *(2011-06-08)*
 ----------------------------
 
-* Fix: `onOptionsItemSelected()` not being called in fragments if the activity
-  version returns `false`.
-* Fix: `onCreateOptionsMenu()` not being called in fragments on Android 3.0+.
-* New: Enable action item text display on pre-Android 3.0 by calling
-  `requestWindowFeature` with `Window.FEATURE_ENABLE_ACTION_BAR_WATSON_TEXT`.
-* Fix: `setCustomView()` no longer automatically enables the custom view on
-  pre-3.0. You must call `setDisplayShowCustomEnabled()` in order to display
-  the view.
+ * Fix: `onOptionsItemSelected()` not being called in fragments if the activity
+   version returns `false`.
+ * Fix: `onCreateOptionsMenu()` not being called in fragments on Android 3.0+.
+ * New: Enable action item text display on pre-Android 3.0 by calling
+   `requestWindowFeature` with `Window.FEATURE_ENABLE_ACTION_BAR_WATSON_TEXT`.
+ * Fix: `setCustomView()` no longer automatically enables the custom view on
+   pre-3.0. You must call `setDisplayShowCustomEnabled()` in order to display
+   the view.
 
 
 Version 3.0.0 *(2011-06-05)*
