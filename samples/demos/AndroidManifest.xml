@@ -339,5 +339,23 @@
                 <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".app.MapActivityActionBar"
+                android:label="@string/map_activity_action_bar"
+                android:theme="@style/Theme.Sherlock">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".app.MapFragmentActionBar"
+                android:label="@string/map_fragment_action_bar"
+                android:theme="@style/Theme.Sherlock">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
     </application>
 </manifest>
