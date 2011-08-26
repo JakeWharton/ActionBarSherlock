@@ -99,7 +99,7 @@ public abstract class FragmentMapActivity extends MapActivity implements Support
 
         @Override
         LoaderManagerImpl getLoaderManager(int index, boolean started, boolean create) {
-            return mLoaderManager;
+            return FragmentMapActivity.this.getLoaderManager(index, started, create);
         }
 
         @Override

@@ -98,7 +98,7 @@ public class FragmentActivity extends Activity implements SupportActivity {
 
         @Override
         LoaderManagerImpl getLoaderManager(int index, boolean started, boolean create) {
-            return mLoaderManager;
+            return FragmentActivity.this.getLoaderManager(index, started, create);
         }
 
         @Override
