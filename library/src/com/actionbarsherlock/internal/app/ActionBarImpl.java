@@ -42,7 +42,7 @@ public final class ActionBarImpl extends ActionBar {
     private ActionBarContainer mContainerView;
 
     /** Action bar view. */
-    private ActionBarView mActionBar;
+    private ActionBarView mActionView;
 
     /** List of listeners to the menu visibility. */
     private final List<OnMenuVisibilityListener> mMenuListeners = new ArrayList<OnMenuVisibilityListener>();
@@ -60,14 +60,14 @@ public final class ActionBarImpl extends ActionBar {
 
     @Override
     protected ActionBar getPublicInstance() {
-        return (mActionBar != null) ? this : null;
+        return (mActionView != null) ? this : null;
     }
 
     public void init() {
+        mActionView = (ActionBarView)mActivity.findViewById(R.id.abs__action_bar);
         mContainerView = (ActionBarContainer)mActivity.findViewById(R.id.abs__action_bar_container);
-        mActionBar = (ActionBarView)mActivity.findViewById(R.id.abs__action_bar);
 
-        if (mActionBar == null) {
+        if (mActionView == null) {
             throw new IllegalStateException(getClass().getSimpleName() + " can only be used with a screen_*.xml layout");
         }
 
@@ -78,19 +78,19 @@ public final class ActionBarImpl extends ActionBar {
         } catch (NameNotFoundException e) {}
 
 
-        if (mActionBar.getTitle() == null) {
+        if (mActionView.getTitle() == null) {
             if ((actInfo != null) && (actInfo.labelRes != 0)) {
                 //Load label string resource from the activity entry
-                mActionBar.setTitle(actInfo.labelRes);
+                mActionView.setTitle(actInfo.labelRes);
             } else {
                 //No activity label string resource and none in theme
-                mActionBar.setTitle(actInfo.loadLabel(pm));
+                mActionView.setTitle(actInfo.loadLabel(pm));
             }
         }
     }
 
     public void onMenuInflated(MenuBuilder menu) {
-        if (mActionBar == null) {
+        if (mActionView == null) {
             return;
         }
 
@@ -139,19 +139,19 @@ public final class ActionBarImpl extends ActionBar {
 
         //Mark items that will be shown on the action bar as such so they do
         //not show up on the activity options menu
-        mActionBar.removeAllItems();
+        mActionView.removeAllItems();
         for (MenuItemImpl item : keep) {
             item.setIsShownOnActionBar(true);
 
             //Get a new item for this menu item
-            ActionMenuItemView actionItem = mActionBar.newItem();
+            ActionMenuItemView actionItem = mActionView.newItem();
             actionItem.initialize(item, MenuBuilder.TYPE_ACTION_BAR);
 
             //Associate the itemview with the item so changes will be reflected
             item.setItemView(MenuBuilder.TYPE_ACTION_BAR, actionItem);
 
             //Add to the action bar for display
-            mActionBar.addItem(actionItem);
+            mActionView.addItem(actionItem);
         }
     }
 
@@ -163,8 +163,8 @@ public final class ActionBarImpl extends ActionBar {
     }
 
     public void setProgressBarIndeterminateVisibility(boolean visible) {
-        if (mActionBar != null) {
-            mActionBar.setProgressBarIndeterminateVisibility(visible);
+        if (mActionView != null) {
+            mActionView.setProgressBarIndeterminateVisibility(visible);
         }
     }
 
@@ -190,77 +190,77 @@ public final class ActionBarImpl extends ActionBar {
 
     @Override
     public void addTab(Tab tab) {
-        mActionBar.addTab(tab);
+        mActionView.addTab(tab);
     }
 
     @Override
     public void addTab(Tab tab, boolean setSelected) {
-        mActionBar.addTab(tab, setSelected);
+        mActionView.addTab(tab, setSelected);
     }
 
     @Override
     public void addTab(Tab tab, int position) {
-        mActionBar.addTab(tab, position);
+        mActionView.addTab(tab, position);
     }
 
     @Override
     public void addTab(ActionBar.Tab tab, int position, boolean setSelected) {
-        mActionBar.addTab(tab, position, setSelected);
+        mActionView.addTab(tab, position, setSelected);
     }
 
     @Override
     public View getCustomView() {
-        return mActionBar.getCustomView();
+        return mActionView.getCustomView();
     }
 
     @Override
     public int getDisplayOptions() {
-        return mActionBar.getDisplayOptions();
+        return mActionView.getDisplayOptions();
     }
 
     @Override
     public int getHeight() {
-        return mActionBar.getHeight();
+        return mActionView.getHeight();
     }
 
     @Override
     public int getNavigationItemCount() {
-        return mActionBar.getNavigationItemCount();
+        return mActionView.getNavigationItemCount();
     }
 
     @Override
     public int getNavigationMode() {
-        return mActionBar.getNavigationMode();
+        return mActionView.getNavigationMode();
     }
 
     @Override
     public int getSelectedNavigationIndex() {
-        return mActionBar.getSelectedNavigationIndex();
+        return mActionView.getSelectedNavigationIndex();
     }
 
     @Override
     public ActionBar.Tab getSelectedTab() {
-        return mActionBar.getSelectedTab();
+        return mActionView.getSelectedTab();
     }
 
     @Override
     public CharSequence getSubtitle() {
-        return mActionBar.getSubtitle();
+        return mActionView.getSubtitle();
     }
 
     @Override
     public ActionBar.Tab getTabAt(int index) {
-        return mActionBar.getTabAt(index);
+        return mActionView.getTabAt(index);
     }
 
     @Override
     public int getTabCount() {
-        return mActionBar.getTabCount();
+        return mActionView.getTabCount();
     }
 
     @Override
     public CharSequence getTitle() {
-        return mActionBar.getTitle();
+        return mActionView.getTitle();
     }
 
     @Override
@@ -276,12 +276,12 @@ public final class ActionBarImpl extends ActionBar {
 
     @Override
     public ActionBar.Tab newTab() {
-        return mActionBar.newTab();
+        return mActionView.newTab();
     }
 
     @Override
     public void removeAllTabs() {
-        mActionBar.removeAllTabs();
+        mActionView.removeAllTabs();
     }
 
     @Override
@@ -291,12 +291,12 @@ public final class ActionBarImpl extends ActionBar {
 
     @Override
     public void removeTab(ActionBar.Tab tab) {
-        mActionBar.removeTab(tab);
+        mActionView.removeTab(tab);
     }
 
     @Override
     public void removeTabAt(int position) {
-        mActionBar.removeTabAt(position);
+        mActionView.removeTabAt(position);
     }
 
     @Override
@@ -306,91 +306,91 @@ public final class ActionBarImpl extends ActionBar {
 
     @Override
     public void setCustomView(int resId) {
-        mActionBar.setCustomView(resId);
+        mActionView.setCustomView(resId);
     }
 
     @Override
     public void setCustomView(View view) {
-        mActionBar.setCustomView(view);
+        mActionView.setCustomView(view);
     }
 
     @Override
     public void setCustomView(View view, ActionBar.LayoutParams layoutParams) {
-        mActionBar.setCustomView(view, layoutParams);
+        mActionView.setCustomView(view, layoutParams);
     }
 
     @Override
     public void setDisplayHomeAsUpEnabled(boolean showHomeAsUp) {
-        mActionBar.setDisplayHomeAsUpEnabled(showHomeAsUp);
+        mActionView.setDisplayHomeAsUpEnabled(showHomeAsUp);
     }
 
     @Override
     public void setDisplayOptions(int options, int mask) {
-        mActionBar.setDisplayOptions(options, mask);
+        mActionView.setDisplayOptions(options, mask);
     }
 
     @Override
     public void setDisplayOptions(int options) {
-        mActionBar.setDisplayOptions(options);
+        mActionView.setDisplayOptions(options);
     }
 
     @Override
     public void setDisplayShowCustomEnabled(boolean showCustom) {
-        mActionBar.setDisplayShowCustomEnabled(showCustom);
+        mActionView.setDisplayShowCustomEnabled(showCustom);
     }
 
     @Override
     public void setDisplayShowHomeEnabled(boolean showHome) {
-        mActionBar.setDisplayShowHomeEnabled(showHome);
+        mActionView.setDisplayShowHomeEnabled(showHome);
     }
 
     @Override
     public void setDisplayShowTitleEnabled(boolean showTitle) {
-        mActionBar.setDisplayShowTitleEnabled(showTitle);
+        mActionView.setDisplayShowTitleEnabled(showTitle);
     }
 
     @Override
     public void setDisplayUseLogoEnabled(boolean useLogo) {
-        mActionBar.setDisplayUseLogoEnabled(useLogo);
+        mActionView.setDisplayUseLogoEnabled(useLogo);
     }
 
     @Override
     public void setListNavigationCallbacks(SpinnerAdapter adapter, ActionBar.OnNavigationListener callback) {
-        mActionBar.setListNavigationCallbacks(adapter, callback);
+        mActionView.setListNavigationCallbacks(adapter, callback);
     }
 
     @Override
     public void setNavigationMode(int mode) {
-        mActionBar.setNavigationMode(mode);
+        mActionView.setNavigationMode(mode);
     }
 
     @Override
     public void setSelectedNavigationItem(int position) {
-        mActionBar.setSelectedNavigationItem(position);
+        mActionView.setSelectedNavigationItem(position);
     }
 
     @Override
     public void selectTab(ActionBar.Tab tab) {
-        mActionBar.selectTab(tab);
+        mActionView.selectTab(tab);
     }
 
     @Override
     public void setSubtitle(CharSequence subtitle) {
-        mActionBar.setSubtitle(subtitle);
+        mActionView.setSubtitle(subtitle);
     }
 
     @Override
     public void setSubtitle(int resId) {
-        mActionBar.setSubtitle(resId);
+        mActionView.setSubtitle(resId);
     }
 
     @Override
     public void setTitle(CharSequence title) {
-        mActionBar.setTitle(title);
+        mActionView.setTitle(title);
     }
     @Override
     public void setTitle(int resId) {
-        mActionBar.setTitle(resId);
+        mActionView.setTitle(resId);
     }
 
     @Override
