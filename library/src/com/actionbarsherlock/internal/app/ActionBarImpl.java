@@ -28,6 +28,7 @@ import android.support.v4.app.ActionBar;
 import android.support.v4.app.SupportActivity;
 import android.support.v4.view.ActionMode;
 import android.support.v4.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.SpinnerAdapter;
 import com.actionbarsherlock.R;
@@ -225,7 +226,18 @@ public final class ActionBarImpl extends ActionBar {
 
     @Override
     public int getNavigationItemCount() {
-        return mActionView.getNavigationItemCount();
+        switch (mActionView.getNavigationMode()) {
+            default:
+            case ActionBar.NAVIGATION_MODE_STANDARD:
+                return 0;
+
+            case ActionBar.NAVIGATION_MODE_LIST:
+                SpinnerAdapter dropdownAdapter = mActionView.getDropdownAdapter();
+                return (dropdownAdapter != null) ? dropdownAdapter.getCount() : 0;
+
+            case ActionBar.NAVIGATION_MODE_TABS:
+                return mActionView.getTabCount();
+        }
     }
 
     @Override
@@ -235,7 +247,17 @@ public final class ActionBarImpl extends ActionBar {
 
     @Override
     public int getSelectedNavigationIndex() {
-        return mActionView.getSelectedNavigationIndex();
+        switch (mActionView.getNavigationMode()) {
+            default:
+            case ActionBar.NAVIGATION_MODE_STANDARD:
+                return -1;
+
+            case ActionBar.NAVIGATION_MODE_LIST:
+                return mActionView.getDropdownSelectedPosition();
+
+            case ActionBar.NAVIGATION_MODE_TABS:
+                return mActionView.getSelectedTab().getPosition();
+        }
     }
 
     @Override
@@ -291,7 +313,7 @@ public final class ActionBarImpl extends ActionBar {
 
     @Override
     public void removeTab(ActionBar.Tab tab) {
-        mActionView.removeTab(tab);
+        removeTabAt(tab.getPosition());
     }
 
     @Override
@@ -306,27 +328,24 @@ public final class ActionBarImpl extends ActionBar {
 
     @Override
     public void setCustomView(int resId) {
-        mActionView.setCustomView(resId);
+        View view = LayoutInflater.from(mContext).inflate(resId, mActionView, false);
+        setCustomView(view);
     }
 
     @Override
     public void setCustomView(View view) {
-        mActionView.setCustomView(view);
+        mActionView.setCustomNavigationView(view);
     }
 
     @Override
     public void setCustomView(View view, ActionBar.LayoutParams layoutParams) {
-        mActionView.setCustomView(view, layoutParams);
+        view.setLayoutParams(layoutParams);
+        mActionView.setCustomNavigationView(view);
     }
 
     @Override
     public void setDisplayHomeAsUpEnabled(boolean showHomeAsUp) {
-        mActionView.setDisplayHomeAsUpEnabled(showHomeAsUp);
-    }
-
-    @Override
-    public void setDisplayOptions(int options, int mask) {
-        mActionView.setDisplayOptions(options, mask);
+        setDisplayOptions(showHomeAsUp ? ActionBar.DISPLAY_HOME_AS_UP : 0, ActionBar.DISPLAY_HOME_AS_UP);
     }
 
     @Override
@@ -335,28 +354,34 @@ public final class ActionBarImpl extends ActionBar {
     }
 
     @Override
+    public void setDisplayOptions(int newOptions, int mask) {
+        mActionView.setDisplayOptions((mActionView.getDisplayOptions() & ~mask) | newOptions);
+    }
+
+    @Override
     public void setDisplayShowCustomEnabled(boolean showCustom) {
-        mActionView.setDisplayShowCustomEnabled(showCustom);
+        setDisplayOptions(showCustom ? ActionBar.DISPLAY_SHOW_CUSTOM : 0, ActionBar.DISPLAY_SHOW_CUSTOM);
     }
 
     @Override
     public void setDisplayShowHomeEnabled(boolean showHome) {
-        mActionView.setDisplayShowHomeEnabled(showHome);
+        setDisplayOptions(showHome ? ActionBar.DISPLAY_SHOW_HOME : 0, ActionBar.DISPLAY_SHOW_HOME);
     }
 
     @Override
     public void setDisplayShowTitleEnabled(boolean showTitle) {
-        mActionView.setDisplayShowTitleEnabled(showTitle);
+        setDisplayOptions(showTitle ? ActionBar.DISPLAY_SHOW_TITLE : 0, ActionBar.DISPLAY_SHOW_TITLE);
     }
 
     @Override
     public void setDisplayUseLogoEnabled(boolean useLogo) {
-        mActionView.setDisplayUseLogoEnabled(useLogo);
+        setDisplayOptions(useLogo ? ActionBar.DISPLAY_USE_LOGO : 0, ActionBar.DISPLAY_USE_LOGO);
     }
 
     @Override
     public void setListNavigationCallbacks(SpinnerAdapter adapter, ActionBar.OnNavigationListener callback) {
-        mActionView.setListNavigationCallbacks(adapter, callback);
+        mActionView.setDropdownAdapter(adapter);
+        mActionView.setCallback(callback);
     }
 
     @Override
@@ -366,7 +391,19 @@ public final class ActionBarImpl extends ActionBar {
 
     @Override
     public void setSelectedNavigationItem(int position) {
-        mActionView.setSelectedNavigationItem(position);
+        switch (mActionView.getNavigationMode()) {
+            default:
+            case ActionBar.NAVIGATION_MODE_STANDARD:
+                throw new IllegalStateException();
+
+            case ActionBar.NAVIGATION_MODE_TABS:
+                mActionView.getTabAt(position).select();
+                break;
+
+            case ActionBar.NAVIGATION_MODE_LIST:
+                mActionView.setDropdownSelectedPosition(position);
+                break;
+        }
     }
 
     @Override
