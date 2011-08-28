@@ -409,6 +409,7 @@ public class ViewPager extends ViewGroup {
         int lastPos = -1;
         for (int i=0; i<mItems.size(); i++) {
             ItemInfo ii = mItems.get(i);
+            mAdapter.updateSelectedState(ii.object, ii.position == mCurItem);
             if ((ii.position < startPos || ii.position > endPos) && !ii.scrolling) {
                 if (DEBUG) Log.i(TAG, "removing: " + ii.position + " @ " + i);
                 mItems.remove(i);
@@ -440,6 +441,10 @@ public class ViewPager extends ViewGroup {
             while (lastPos <= endPos) {
                 if (DEBUG) Log.i(TAG, "appending: " + lastPos);
                 addNewItem(lastPos, -1);
+                if (lastPos == 0) {
+                    //Creating first item for the first time
+                    mAdapter.updateSelectedState(mItems.get(0).object, true);
+                }
                 lastPos++;
             }
         }

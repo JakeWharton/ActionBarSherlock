@@ -253,6 +253,16 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     // If set this fragment has menu items to contribute.
     boolean mHasMenu;
 
+    // Whether or not this fragment was declared as having a menu. Used to
+    // update mHasMenu when we are participating in a FragmentPagerAdapter.
+    boolean mReallyHasMenu;
+
+    // Whether this instance is currently participating in a ViewPager display.
+    boolean mViewPagerParticipant;
+
+    // Whether this fragment is currently selected in the ViewPager.
+    boolean mViewPagerSelected;
+
     // Used to verify that subclasses call through to super class.
     boolean mCalled;
 
@@ -716,9 +726,14 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      * @param hasMenu If true, the fragment has menu items to contribute.
      */
     public void setHasOptionsMenu(boolean hasMenu) {
-        if (mHasMenu != hasMenu) {
-            mHasMenu = hasMenu;
-            if (isAdded() && !isHidden()) {
+        if (mReallyHasMenu != hasMenu) {
+            boolean dispatchChange = false;
+            if ((mHasMenu == mReallyHasMenu) && (!mViewPagerParticipant || mViewPagerSelected || mHasMenu)) {
+                mHasMenu = hasMenu;
+                dispatchChange = true;
+            }
+            mReallyHasMenu = hasMenu;
+            if (isAdded() && !isHidden() && dispatchChange) {
                 mActivity.invalidateOptionsMenu();
             }
         }
@@ -1247,6 +1262,9 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
                 writer.print(" mRetainInstance="); writer.print(mRetainInstance);
                 writer.print(" mRetaining="); writer.print(mRetaining);
                 writer.print(" mHasMenu="); writer.println(mHasMenu);
+                writer.print(" mReallyHasMenu="); writer.println(mReallyHasMenu);
+                writer.print(" mViewPagerParticipant="); writer.println(mViewPagerParticipant);
+                writer.print(" mViewPagerSelected="); writer.println(mViewPagerSelected);
         if (mFragmentManager != null) {
             writer.print(prefix); writer.print("mFragmentManager=");
                     writer.println(mFragmentManager);
