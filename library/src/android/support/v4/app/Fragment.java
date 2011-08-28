@@ -727,15 +727,13 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      */
     public void setHasOptionsMenu(boolean hasMenu) {
         if (mReallyHasMenu != hasMenu) {
-            boolean dispatchChange = false;
             if ((mHasMenu == mReallyHasMenu) && (!mViewPagerParticipant || mViewPagerSelected || mHasMenu)) {
                 mHasMenu = hasMenu;
-                dispatchChange = true;
+                if (isAdded() && !isHidden()) {
+                    mActivity.invalidateOptionsMenu();
+                }
             }
             mReallyHasMenu = hasMenu;
-            if (isAdded() && !isHidden() && dispatchChange) {
-                mActivity.invalidateOptionsMenu();
-            }
         }
     }
 
