@@ -135,7 +135,7 @@ public abstract class ActionBar {
      * <p>Tabs manage the hiding and showing of
      * {@link android.support.v4.app.Fragment}.</p>
      */
-    public static interface Tab {
+    public static abstract class Tab {
         /**
          * An invalid position for a tab.
          *

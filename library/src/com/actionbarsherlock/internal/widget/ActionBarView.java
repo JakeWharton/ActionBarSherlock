@@ -523,7 +523,7 @@ public final class ActionBarView extends RelativeLayout {
     // HELPER INTERFACES AND HELPER CLASSES
     // ------------------------------------------------------------------------
 
-    private static class TabImpl implements ActionBar.Tab {
+    private static class TabImpl extends ActionBar.Tab {
         private static final View.OnClickListener clickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {

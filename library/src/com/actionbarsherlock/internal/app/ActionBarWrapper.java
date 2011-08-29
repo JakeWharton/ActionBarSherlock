@@ -221,7 +221,7 @@ public final class ActionBarWrapper {
         // ACTION BAR SUPPORT
         // ---------------------------------------------------------------------
 
-        private static class TabImpl implements ActionBar.Tab {
+        private static class TabImpl extends ActionBar.Tab {
             final ActionBarWrapper.Impl mActionBar;
 
             View mCustomView;

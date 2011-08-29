@@ -17,6 +17,8 @@ Version 3.2.0 *(In Development)*
  *  Fix: Fragments adjacent to the currently selected fragment in a `ViewPager`
     no longer contribute to the activity menu or receive context item selection
     events.
+ *  `ActionBar.Tab` has been changed from an interface to an abstract class to
+    mirror its native counterpart.
 
 
 Version 3.1.3 *(2011-08-14)*
