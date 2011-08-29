@@ -253,10 +253,6 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     // If set this fragment has menu items to contribute.
     boolean mHasMenu;
 
-    // Whether or not this fragment was declared as having a menu. Used to
-    // update mHasMenu when we are participating in a FragmentPagerAdapter.
-    boolean mReallyHasMenu;
-
     // Whether this instance is currently participating in a ViewPager display.
     boolean mViewPagerParticipant;
 
@@ -726,14 +722,11 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      * @param hasMenu If true, the fragment has menu items to contribute.
      */
     public void setHasOptionsMenu(boolean hasMenu) {
-        if (mReallyHasMenu != hasMenu) {
-            if ((mHasMenu == mReallyHasMenu) && (!mViewPagerParticipant || mViewPagerSelected || mHasMenu)) {
-                mHasMenu = hasMenu;
-                if (isAdded() && !isHidden()) {
-                    mActivity.invalidateOptionsMenu();
-                }
+        if (mHasMenu != hasMenu) {
+            mHasMenu = hasMenu;
+            if (isAdded() && !isHidden() && (!mViewPagerParticipant || mViewPagerSelected)) {
+                mActivity.invalidateOptionsMenu();
             }
-            mReallyHasMenu = hasMenu;
         }
     }
 
@@ -1260,7 +1253,6 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
                 writer.print(" mRetainInstance="); writer.print(mRetainInstance);
                 writer.print(" mRetaining="); writer.print(mRetaining);
                 writer.print(" mHasMenu="); writer.println(mHasMenu);
-                writer.print(" mReallyHasMenu="); writer.println(mReallyHasMenu);
                 writer.print(" mViewPagerParticipant="); writer.println(mViewPagerParticipant);
                 writer.print(" mViewPagerSelected="); writer.println(mViewPagerSelected);
         if (mFragmentManager != null) {

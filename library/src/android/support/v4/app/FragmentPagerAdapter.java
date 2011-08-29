@@ -72,10 +72,8 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
 
     @Override
     protected void updateSelectedState(Object object, boolean selected) {
-        Fragment fragment = (Fragment)object;
-        fragment.mHasMenu = selected ? fragment.mReallyHasMenu : false;
-        fragment.mViewPagerSelected = selected;
-        if (DEBUG) Log.e(TAG, "State: fragment = " + fragment + ", select = " + selected + ", hasMenu = " + fragment.mHasMenu);
+        ((Fragment)object).mViewPagerSelected = selected;
+        if (DEBUG) Log.e(TAG, "State: fragment = " + object + ", select = " + selected);
     }
 
     @Override
