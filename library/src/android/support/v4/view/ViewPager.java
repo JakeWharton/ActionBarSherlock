@@ -441,7 +441,7 @@ public class ViewPager extends ViewGroup {
             while (lastPos <= endPos) {
                 if (DEBUG) Log.i(TAG, "appending: " + lastPos);
                 addNewItem(lastPos, -1);
-                if (lastPos == 0) {
+                if ((lastPos == 0) && (mCurItem == 0)) {
                     //Creating first item for the first time
                     mAdapter.updateSelectedState(mItems.get(0).object, true);
                 }
