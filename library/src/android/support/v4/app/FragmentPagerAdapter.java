@@ -60,13 +60,13 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
             mCurTransaction.attach(fragment);
         } else {
             fragment = getItem(position);
-            fragment.mViewPagerParticipant = true;
             updateSelectedState(fragment, false);
             if (DEBUG) Log.v(TAG, "Adding item #" + position + ": f=" + fragment);
             mCurTransaction.add(container.getId(), fragment,
                     makeFragmentName(container.getId(), position));
         }
 
+        fragment.mViewPagerParticipant = true;
         return fragment;
     }
 
@@ -84,6 +84,7 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
         if (DEBUG) Log.v(TAG, "Detaching item #" + position + ": f=" + object
                 + " v=" + ((Fragment)object).getView());
         Fragment fragment = (Fragment)object;
+        fragment.mViewPagerParticipant = false;
         mCurTransaction.detach(fragment);
     }
 
