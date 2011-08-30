@@ -60,20 +60,12 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
             mCurTransaction.attach(fragment);
         } else {
             fragment = getItem(position);
-            updateSelectedState(fragment, false);
             if (DEBUG) Log.v(TAG, "Adding item #" + position + ": f=" + fragment);
             mCurTransaction.add(container.getId(), fragment,
                     makeFragmentName(container.getId(), position));
         }
 
-        fragment.mViewPagerParticipant = true;
         return fragment;
-    }
-
-    @Override
-    protected void updateSelectedState(Object object, boolean selected) {
-        ((Fragment)object).mViewPagerSelected = selected;
-        if (DEBUG) Log.e(TAG, "State: fragment = " + object + ", select = " + selected);
     }
 
     @Override
@@ -81,10 +73,9 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
         if (mCurTransaction == null) {
             mCurTransaction = mFragmentManager.beginTransaction();
         }
-        if (DEBUG) Log.v(TAG, "Detaching item #" + position + ": f=" + object
-                + " v=" + ((Fragment)object).getView());
         Fragment fragment = (Fragment)object;
-        fragment.mViewPagerParticipant = false;
+        if (DEBUG) Log.v(TAG, "Detaching item #" + position + ": f=" + fragment
+                + " v=" + fragment.getView());
         mCurTransaction.detach(fragment);
     }
 
@@ -94,11 +85,6 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
             mCurTransaction.commit();
             mCurTransaction = null;
             mFragmentManager.executePendingTransactions();
-
-            if (mFragmentManager instanceof FragmentManagerImpl) {
-                //This kind of sucks...
-                ((FragmentManagerImpl)mFragmentManager).mActivity.invalidateOptionsMenu();
-            }
         }
     }
 

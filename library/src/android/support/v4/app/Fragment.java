@@ -253,12 +253,6 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     // If set this fragment has menu items to contribute.
     boolean mHasMenu;
 
-    // Whether this instance is currently participating in a ViewPager display.
-    boolean mViewPagerParticipant;
-
-    // Whether this fragment is currently selected in the ViewPager.
-    boolean mViewPagerSelected;
-
     // Used to verify that subclasses call through to super class.
     boolean mCalled;
 
@@ -724,7 +718,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     public void setHasOptionsMenu(boolean hasMenu) {
         if (mHasMenu != hasMenu) {
             mHasMenu = hasMenu;
-            if (isAdded() && !isHidden() && (!mViewPagerParticipant || mViewPagerSelected)) {
+            if (isAdded() && !isHidden()) {
                 mActivity.invalidateOptionsMenu();
             }
         }
@@ -1253,8 +1247,6 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
                 writer.print(" mRetainInstance="); writer.print(mRetainInstance);
                 writer.print(" mRetaining="); writer.print(mRetaining);
                 writer.print(" mHasMenu="); writer.println(mHasMenu);
-                writer.print(" mViewPagerParticipant="); writer.println(mViewPagerParticipant);
-                writer.print(" mViewPagerSelected="); writer.println(mViewPagerSelected);
         if (mFragmentManager != null) {
             writer.print(prefix); writer.print("mFragmentManager=");
                     writer.println(mFragmentManager);

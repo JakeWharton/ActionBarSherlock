@@ -111,16 +111,6 @@ public abstract class PagerAdapter {
     }
 
     /**
-     * Called when an item is changing states.
-     *
-     * @param object Item object.
-     * @param selected Value indicating whether the item is selected or not.
-     */
-    protected void updateSelectedState(Object object, boolean selected) {
-        // Your ad here! Call 1-800-VIEW-PGR
-    }
-
-    /**
      * This method should be called by the application if the data backing this adapter has changed
      * and associated views should update.
      */

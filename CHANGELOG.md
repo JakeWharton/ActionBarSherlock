@@ -14,9 +14,8 @@ Version 3.2.0 *(In Development)*
     alongside the normal library. You can choose to add it as an additional
     library project or by including it as a `.jar`. Maven users may simply
     include the additional dependency (artifactId: `plugin-maps`).
- *  Fix: Fragments adjacent to the currently selected fragment in a `ViewPager`
-    no longer contribute to the activity menu or receive context item selection
-    events.
+ *  `ViewPager.OnPageChangeListener` now has an additional method:
+    `void onPageSelectedStateChanged(int, Object, boolean)`.
  *  `ActionBar.Tab` has been changed from an interface to an abstract class to
     mirror its native counterpart.
 
