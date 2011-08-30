@@ -1,0 +1,99 @@
+---
+title: Download
+layout: default
+---
+
+
+<script type="text/javascript">
+$(function() {
+	$.getJSON('https://api.github.com/repos/JakeWharton/ActionBarSherlock/tags?callback=?', function(response) {
+		var meta = response.meta
+		  , data = response.data
+		;
+
+		data.sort(function(o1, o2) {
+			return (o1.name < o2.name) ? -1 : 1;
+		});
+
+		var previous = $('#previous-releases').empty();
+		$.each(data, function() {
+			previous.prepend(
+				$('<dt>Version ' + this.name + '<span class="normal"> &mdash; <em>Date unavailable</em></span></dt>'),
+				$('<dd><a class="img" href="' + this.zipball_url + '">Zip</a> &middot; <a class="img" href="' + this.tarball_url + '">Tarball</a></dd>')
+			);
+		});
+
+		var last = data[data.length - 1];
+		$('.latest-version').html(last.name);
+		$('#latest-date').html('<em>Date unavailable</em>');
+		$('#latest-zip').attr('href', last.zipball_url);
+		$('#latest-tarball').attr('href', last.tarball_url);
+	});
+
+	$.getJSON('https://api.github.com/repos/JakeWharton/ActionBarSherlock/downloads?callback=?', function(response) {
+		var meta = response.meta
+		  , data = response.data
+		;
+
+		var samples = $('#sample-apps').empty();
+		$.each(data, function() {
+			samples.append(
+				$('<dt class="normal"/>').html(this.description.substring(0, 26) === "ActionBarSherlock Sample: " ? this.description.substring(26) :  this.description),
+				$('<dd class="sample-app"/>').append(
+					$('<a/>').attr('href', this.html_url).html('APK'),
+					' &middot; ',
+					$('<a/>').attr('href', 'http://chart.apis.google.com/chart?chs=545x545&cht=qr&chl=' + this.html_url).html('QR Code')
+				)
+			);
+		});
+	});
+
+
+	$('#changelog').colorbox({
+		width: '80%',
+		maxWidth: 1030,
+		height: '90%',
+		iframe: 'true',
+	});
+});
+</script>
+
+<div class="row">
+	<div class="three-fourths">
+		<h1>Download</h1>
+		<p><strong>Version <span class="latest-version">(loading)</span></strong> &mdash; <span id="latest-date">(loading)</span> (<a id="changelog" href="https://github.com/JakeWharton/ActionBarSherlock/tree/master/CHANGELOG.md#readme">change log</a>)</p>
+		<p><a class="img" id="latest-zip" href="https://github.com/JakeWharton/ActionBarSherlock/downloads"><img src="static/icon_zip.png" alt="Zip"/></a> <a class="img" id="latest-tarball" href="https://github.com/JakeWharton/ActionBarSherlock/downloads"><img src="static/icon_tgz.png" alt="Tarball"/></a></p>
+
+		<h3>Sample Applications</h3>
+		<dl id="sample-apps">
+			<dt class="normal">(loading)</dt>
+		</dl>
+
+		<h3>Including In Your Project</h3>
+		<p>There are two ways to leverage ActionBarSherlock in your projects:</p>
+		<ol>
+			<li>If you’re using the <a href="http://www.eclipse.org/">Eclipse Development Environment</a> with the <a href="http://developer.android.com/sdk/eclipse-adt.html">ADT plugin</a> version 0.9.7 or greater you can include this as a library project. Create a new Android project in Eclipse using the <code>library/</code> folder as the existing source. Then, in your project properties, add the created project under the ‘Libraries’ section of the ‘Android’ category.</li>
+			<li>
+				<p>If you use maven to build your Android project you can simply add a dependency for this library.</p>
+				<code><pre>
+&lt;dependency>
+  &lt;groupId>com.actionbarsherlock&lt;/groupId>
+  &lt;artifactId>library&lt;/artifactId>
+  &lt;version><span class="latest-version">3.0.2</span>&lt;/version>
+  &lt;type>apklib&lt;/type>
+&lt;/dependency>
+</pre></code>
+				<p><em>Make sure you also include <a href="http://r.jakewharton.com/maven/release/">r.jakewharton.com/maven/release/</a> in the repositories section of your <code>pom.xml</code>.</em></p>
+			</li>
+		</ol>
+		<p><strong>Note</strong>: If you were previously using the Android compatability library you must remove its <code>.jar</code>. ActionBarSherlock is built on top of the compatability library and comes bundled with its classes.</p>
+	</div>
+	<div class="fourth last">
+		<h1>All Releases</h1>
+		<dl id="previous-releases">
+			<dt class="normal">(loading)</dt>
+		</dl>
+	</div>
+</div>
+
+<!-- ZIP AND TARBALL ICONS COURTESY FATCOW.COM -->

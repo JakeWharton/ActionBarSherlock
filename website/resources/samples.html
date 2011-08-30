@@ -1,0 +1,78 @@
+---
+title: Samples
+layout: default
+---
+
+
+<script type="text/javascript">
+	$(function() {
+		$('.gallery').each(function(index) {
+			$(this).find('a').each(function() {
+				$(this).attr('rel', 'sample' + index).colorbox({
+					initialWidth: 100,
+					initialHeight: 100,
+					title: $(this).find('img').attr('alt'),
+				});
+			});
+		});
+	});
+</script>
+
+<div class="row">
+	<div class="three-fourths">
+		<h1>Library Samples</h1>
+		<p>The library comes with three samples, each of which demonstrate a different use case of ActionBarSherlock.</p>
+		<p>A compiled <code>.apk</code> for each sample can be downloaded under the &quot;Sample Applications&quot; section of the <a href="download.html">download page</a>. You can obtain the source code for each in the <a href="https://github.com/JakeWharton/ActionBarSherlock/tree/master/samples"><code>samples/</code> directory</a> of the repository.</p>
+
+		<h3>Demo</h3>
+		<p>The demo sample is a showcase of the functionality of the library (most notably, the action bar). There are several demos of different functionality but the most important is the feature toggles. A set of buttons make up the layout of this activity which allow you to toggle virtually all of the display-related settings of the action bar to observe how it behaves on various device configurations.</p>
+		<div class="gallery">
+			<a class="img" href="static/samples/featuredemo_01_3.1.png"><img src="static/samples/featuredemo_01_3.1.thumb.png" alt="Feature Demo 01 on 3.1" /></a> 
+			<a class="img" href="static/samples/featuredemo_01_2.3.3.png"><img src="static/samples/featuredemo_01_2.3.3.thumb.png" alt="Feature Demo 01 on 2.3.3" /></a> 
+			<a class="img" href="static/samples/featuredemo_01_1.6.png"><img src="static/samples/featuredemo_01_1.6.thumb.png" alt="Feature Demo 01 on 1.6" /></a> 
+			<a class="img" href="static/samples/featuredemo_02_3.1.png"><img src="static/samples/featuredemo_02_3.1.thumb.png" alt="Feature Demo 02 on 3.1" /></a> 
+			<a class="img" href="static/samples/featuredemo_02_2.3.3.png"><img src="static/samples/featuredemo_02_2.3.3.thumb.png" alt="Feature Demo 02 on 2.3.3" /></a> 
+			<a class="img" href="static/samples/featuredemo_02_1.6.png"><img src="static/samples/featuredemo_02_1.6.thumb.png" alt="Feature Demo 02 on 1.6" /></a>
+		</div>
+
+		<h3>Shakespeare</h3>
+		<p>The shakespeare sample was used to introduce fragments <a href="http://android-developers.blogspot.com/2011/02/android-30-fragments-api.html">on the Android Blog</a> and is now part of <a href="http://developer.android.com/resources/samples/ApiDemos/index.html">the SDK's API Demos</a>. The demo has been modified slightly to show how ActionBarSherlock operates as an extension of the compatibility library.</p>
+		<div class="gallery">
+			<a class="img" href="static/samples/shakespeare_01_3.1.png"><img src="static/samples/shakespeare_01_3.1.thumb.png" alt="Shakespeare 01 on 3.1" /></a> 
+			<a class="img" href="static/samples/shakespeare_01_2.3.3.png"><img src="static/samples/shakespeare_01_2.3.3.thumb.png" alt="Shakespeare 01 on 2.3.3" /></a> 
+			<a class="img" href="static/samples/shakespeare_01_1.6.png"><img src="static/samples/shakespeare_01_1.6.thumb.png" alt="Shakespeare 01 on 1.6" /></a> 
+			<a class="img" href="static/samples/shakespeare_02_2.3.3.png"><img src="static/samples/shakespeare_02_2.3.3.thumb.png" alt="Shakespeare 02 on 2.3.3" /></a> 
+			<a class="img" href="static/samples/shakespeare_03_2.3.3.png"><img src="static/samples/shakespeare_03_2.3.3.thumb.png" alt="Shakespeare 03 on 2.3.3" /></a>
+		</div>
+
+		<h3>Styled</h3>
+		<p>The styled sample is an application <a href="http://code.google.com/p/styled-action-bar/">developed</a> by Nick Butcher and <a href="http://android-developers.blogspot.com/2011/04/customizing-action-bar.html">posted on the Android Developers Blog</a> as an example of how to use theming capabilities of Android to allow the action bar to match the style of your application.</p>
+		<div class="gallery">
+			<a class="img" href="static/samples/styled_01_3.1.png"><img src="static/samples/styled_01_3.1.thumb.png" alt="Styled 01 on 3.1" /></a> 
+			<a class="img" href="static/samples/styled_01_2.3.3.png"><img src="static/samples/styled_01_2.3.3.thumb.png" alt="Styled 01 on 2.3.3" /></a> 
+			<a class="img" href="static/samples/styled_01_1.6.png"><img src="static/samples/styled_01_1.6.thumb.png" alt="Styled 01 on 1.6" /></a> 
+			<a class="img" href="static/samples/styled_02_3.1.png"><img src="static/samples/styled_02_3.1.thumb.png" alt="Styled 02 on 3.1" /></a> 
+			<a class="img" href="static/samples/styled_02_2.3.3.png"><img src="static/samples/styled_02_2.3.3.thumb.png" alt="Styled 02 on 2.3.3" /></a> 
+			<a class="img" href="static/samples/styled_02_1.6.png"><img src="static/samples/styled_02_1.6.thumb.png" alt="Styled 02 on 1.6" /></a>
+		</div>
+	</div>
+	<div class="fourth last">
+		<h1>Open-Source Apps</h1>
+		<p>The following are open-source applications which implement ActionBarSherlock. These should provide a more realistic view of what implementation is like provide solutions for common implementation problems.</p>
+		<p>If your application uses this library and is open source please <a href="support.html">contact Jake Wharton</a> to have it added to this list.</p>
+
+		<h3>SeriesGuide Show Manager</h3>
+		<p>Manage the progress of (re-)watching your favorite TV shows. Keep track of which episodes you still have to watch or which ones are upcoming.</p>
+		<p><a href="https://market.android.com/details?id=com.battlelancer.seriesguide">Market</a> &middot; <a href="https://github.com/UweTrottmann/SeriesGuide">GitHub</a></p>
+		<div class="gallery">
+			<a class="img" href="static/apps/com.battlelancer.seriesguide_01_3.0.png"><img src="static/apps/com.battlelancer.seriesguide_01_3.0.thumb.png" alt="SeriesGuide 01 on 3.0"/></a>
+			<a class="img" href="static/apps/com.battlelancer.seriesguide_01_2.3.4.png"><img src="static/apps/com.battlelancer.seriesguide_01_2.3.4.thumb.png" alt="SeriesGuide 01 on 2.3.4"/></a>
+			<a class="img" href="static/apps/com.battlelancer.seriesguide_02_3.0.png"><img src="static/apps/com.battlelancer.seriesguide_02_3.0.thumb.png" alt="SeriesGuide 02 on 3.0"/></a>
+			<a class="img" href="static/apps/com.battlelancer.seriesguide_02_2.3.4.png"><img src="static/apps/com.battlelancer.seriesguide_02_2.3.4.thumb.png" alt="SeriesGuide 02 on 2.3.4"/></a>
+		</div>
+
+		<h3>VampiDroid</h3>
+		<p>Android app to search and organize cards of Jyhad™, Vampire: The Eternal Struggle™</p>
+		<p><a href="https://market.android.com/details?id=name.vampidroid">Market</a> &middot; <a href="http://code.google.com/p/vampidroid/">Google Code</a></p>
+	</div>
+</div>

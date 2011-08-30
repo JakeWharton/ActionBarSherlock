@@ -1,0 +1,33 @@
+---
+title: Development
+layout: default
+---
+
+
+<div class="row">
+	<div class="three-fourths">
+		<h1>Development</h1>
+		<p>The ActionBarSherlock library along with its sample applications are all built using Apache Maven. Maven will automate the process of compiling and assembling the <code>apklib</code> and the <code>apk</code> for each project.</p>
+		<p>Using Maven is <strong>NOT</strong> a requirement for contributing to development. It is merely used for automated testing and releasing of the libary and sample applications.</p>
+
+		<h3 id="ide">IDE</h3> 
+		<p>Even though the project uses Maven, each folder within the repository still maintains the standard Android project layout. By specifying the desired folder as an existing source for a new Android project, you should be able to successfully import the sources.</p>
+		<p>The library should be created as a project first. Any sample applications you also wish to create projects for can then be created.</p>
+
+		<h3 id="prerequisites">Prerequisites</h3>
+		<p>Maven compilation requires that you have installed the Android SDK into your local maven repository. This can be done automatically by the <a href="https://github.com/mosabua/maven-android-sdk-deployer">SDK Deployer</a>.</p>
+		<p>Follow the instructions on setting up the SDK Deployer. Then, execute the following command in the SDK Deployer folder:</p>
+		<p><pre><code>mvn install -P 3.1</code></pre></p>
+		<p>This will install the Android SDK 3.1 into the local repository.</p>
+
+		<h3 id="compiling">Compiling</h3>
+		<p>Once the prerequisites have been successfully installed, building is as easy as running <code>mvn clean package</code>. The <code>apklib</code> for the library will be located in the <code>library/target/</code> folder.</p>
+		<p>An <code>apk</code> for each of the samples are their respective <code>target/</code> folders.</p>
+	</div>
+	<div class="fourth last">
+		<h1>Getting The Code</h1>
+		<p>The source code repository is hosted on GitHub at <a href="https://github.com/JakeWharton/ActionBarSherlock">JakeWharton/ActionBarSherlock</a>.</p>
+		<p>The GitHub project is also the location of <a href="https://github.com/JakeWharton/ActionBarSherlock/issues">the issue tracker</a> as well as the <a href="https://github.com/JakeWharton/ActionBarSherlock/tree/gh-pages">source code to this website</a>.</p>
+		<p class="centered"><a class="img" href="https://github.com/JakeWharton/ActionBarSherlock"><img src="static/octocat.png" alt="View project on GitHub"/></a></p>
+	</div>
+</div>
