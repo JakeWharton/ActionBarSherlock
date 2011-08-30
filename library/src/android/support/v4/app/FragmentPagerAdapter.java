@@ -81,9 +81,9 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
         if (mCurTransaction == null) {
             mCurTransaction = mFragmentManager.beginTransaction();
         }
-        if (DEBUG) Log.v(TAG, "Detaching item #" + position + ": f=" + object
-                + " v=" + ((Fragment)object).getView());
         Fragment fragment = (Fragment)object;
+        if (DEBUG) Log.v(TAG, "Detaching item #" + position + ": f=" + fragment
+                + " v=" + fragment.getView());
         fragment.mViewPagerParticipant = false;
         mCurTransaction.detach(fragment);
     }
