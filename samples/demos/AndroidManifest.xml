@@ -96,6 +96,16 @@
         </activity>
         
         <activity
+            android:name=".app.ActionBarPagerFragmentMenus"
+            android:label="@string/actionbar_pagerfragmentmenus"
+            android:theme="@style/Theme.Sherlock">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+        
+        <activity
             android:name=".app.ActionBarSubMenus"
             android:label="@string/actionbar_submenus"
             android:theme="@style/Theme.Sherlock">
@@ -294,6 +304,14 @@
 
         <activity android:name=".app.FragmentPagerSupport"
                 android:label="@string/fragment_pager_support">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".app.FragmentPagerMenus"
+                android:label="@string/fragment_pagermenus">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />

@@ -48,6 +48,9 @@
     <string name="actionbar_menu_support">Action Bar/Menu Support</string>
     <string name="actionbar_iprogress">Action Bar/Indeterminate Progress</string>
     
+    <string name="actionbar_pagerfragmentmenus">Action Bar/Pager + Fragment Menus</string>
+    <string name="actionbar_pagerfragmentmenus_content">Only the selected fragment contributes menu items to the action bar.</string>
+    
     <string name="actionbar_customnavigation">Action Bar/Custom Navigation</string>
     <string name="actionbar_customnavigation_content">If you find that list and tab navigation are not suitable for your application you may replace it with a custom layout.</string>
     
@@ -117,6 +120,9 @@
     <string name="fragment_pager_support">Fragment/Pager</string>
     <string name="first">First</string>
     <string name="last">Last</string>
+    
+    <string name="fragment_pagermenus">Fragment/Pager + Menus</string>
+    <string name="fragment_pagermenus_content">Only the selected fragment contributes items to the options menu.</string>
 
     <string name="fragment_state_pager_support">Fragment/State Pager</string>
 
