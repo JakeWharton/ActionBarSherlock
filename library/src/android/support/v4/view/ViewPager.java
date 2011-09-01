@@ -157,17 +157,6 @@ public class ViewPager extends ViewGroup {
          * @see ViewPager#SCROLL_STATE_SETTLING
          */
         public void onPageScrollStateChanged(int state);
-
-        /**
-         * Called when the selection state changes. Useful for changing the state beyond the scope
-         * of the ViewPager (e.g., displayed menu items) to reflect the page that is currently
-         * selected.
-         *
-         * @param position Position of the page whose state is changing.
-         * @param object Object of the page whose state is changing.
-         * @param selected New selection state, {@code true} indicating the page is selected.
-         */
-        public void onPageSelectedStateChanged(int position, Object object, boolean selected);
     }
 
     /**
@@ -188,11 +177,6 @@ public class ViewPager extends ViewGroup {
 
         @Override
         public void onPageScrollStateChanged(int state) {
-            // This space for rent
-        }
-
-        @Override
-        public void onPageSelectedStateChanged(int position, Object object, boolean selected) {
             // This space for rent
         }
     }
@@ -425,8 +409,8 @@ public class ViewPager extends ViewGroup {
         int lastPos = -1;
         for (int i=0; i<mItems.size(); i++) {
             ItemInfo ii = mItems.get(i);
-            if (mOnPageChangeListener != null) {
-                mOnPageChangeListener.onPageSelectedStateChanged(ii.position, ii.object, ii.position == mCurItem);
+            if (ii.position == mCurItem) {
+                mAdapter.onItemSelected(mCurItem, ii.object);
             }
             if ((ii.position < startPos || ii.position > endPos) && !ii.scrolling) {
                 if (DEBUG) Log.i(TAG, "removing: " + ii.position + " @ " + i);
@@ -453,15 +437,17 @@ public class ViewPager extends ViewGroup {
 
         // Add any new pages we need at the end.
         lastPos = mItems.size() > 0 ? mItems.get(mItems.size()-1).position : -1;
+        boolean first = (lastPos == -1);
         if (lastPos < endPos) {
             lastPos++;
             lastPos = lastPos > startPos ? lastPos : startPos;
             while (lastPos <= endPos) {
                 if (DEBUG) Log.i(TAG, "appending: " + lastPos);
                 addNewItem(lastPos, -1);
-                if ((lastPos == 0) && (mCurItem == 0) && (mOnPageChangeListener != null)) {
+                if (first && (lastPos == mCurItem)) {
                     //Creating first item for the first time
-                    mOnPageChangeListener.onPageSelectedStateChanged(0, mItems.get(0).object, true);
+                    mAdapter.onItemSelected(mCurItem, mItems.get(mItems.size() - 1).object);
+                    first = false;
                 }
                 lastPos++;
             }

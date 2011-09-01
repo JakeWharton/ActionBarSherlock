@@ -1092,7 +1092,7 @@ final class FragmentManagerImpl extends FragmentManager {
             mAdded.add(fragment);
             fragment.mAdded = true;
             fragment.mRemoving = false;
-            if (fragment.mHasMenu) {
+            if (fragment.mHasMenu && fragment.mExposesMenu) {
                 mNeedMenuInvalidate = true;
             }
             if (moveToStateNow) {
@@ -1106,7 +1106,7 @@ final class FragmentManagerImpl extends FragmentManager {
         final boolean inactive = !fragment.isInBackStack();
         if (!fragment.mDetached || inactive) {
             mAdded.remove(fragment);
-            if (fragment.mHasMenu) {
+            if (fragment.mHasMenu && fragment.mExposesMenu) {
                 mNeedMenuInvalidate = true;
             }
             fragment.mAdded = false;
@@ -1128,7 +1128,7 @@ final class FragmentManagerImpl extends FragmentManager {
                 }
                 fragment.mView.setVisibility(View.GONE);
             }
-            if (fragment.mAdded && fragment.mHasMenu) {
+            if (fragment.mAdded && fragment.mHasMenu && fragment.mExposesMenu) {
                 mNeedMenuInvalidate = true;
             }
             fragment.onHiddenChanged(true);
@@ -1147,7 +1147,7 @@ final class FragmentManagerImpl extends FragmentManager {
                 }
                 fragment.mView.setVisibility(View.VISIBLE);
             }
-            if (fragment.mAdded && fragment.mHasMenu) {
+            if (fragment.mAdded && fragment.mHasMenu && fragment.mExposesMenu) {
                 mNeedMenuInvalidate = true;
             }
             fragment.onHiddenChanged(false);
@@ -1161,7 +1161,7 @@ final class FragmentManagerImpl extends FragmentManager {
             if (fragment.mAdded) {
                 // We are not already in back stack, so need to remove the fragment.
                 mAdded.remove(fragment);
-                if (fragment.mHasMenu) {
+                if (fragment.mHasMenu && fragment.mExposesMenu) {
                     mNeedMenuInvalidate = true;
                 }
                 fragment.mAdded = false;
@@ -1177,7 +1177,7 @@ final class FragmentManagerImpl extends FragmentManager {
             if (!fragment.mAdded) {
                 mAdded.add(fragment);
                 fragment.mAdded = true;
-                if (fragment.mHasMenu) {
+                if (fragment.mHasMenu && fragment.mExposesMenu) {
                     mNeedMenuInvalidate = true;
                 }
                 moveToState(fragment, mCurState, transition, transitionStyle);
@@ -1803,7 +1803,7 @@ final class FragmentManagerImpl extends FragmentManager {
         if (mActive != null) {
             for (int i=0; i<mAdded.size(); i++) {
                 Fragment f = mAdded.get(i);
-                if (f != null && !f.mHidden && f.mHasMenu) {
+                if (f != null && !f.mHidden && f.mHasMenu && f.mExposesMenu) {
                     show = true;
                     f.onCreateOptionsMenu(menu, inflater);
                     if (newMenus == null) {
@@ -1833,7 +1833,7 @@ final class FragmentManagerImpl extends FragmentManager {
         if (mActive != null) {
             for (int i=0; i<mAdded.size(); i++) {
                 Fragment f = mAdded.get(i);
-                if (f != null && !f.mHidden && f.mHasMenu) {
+                if (f != null && !f.mHidden && f.mHasMenu && f.mExposesMenu) {
                     show = true;
                     f.onPrepareOptionsMenu(menu);
                 }
@@ -1846,7 +1846,7 @@ final class FragmentManagerImpl extends FragmentManager {
         if (mActive != null) {
             for (int i=0; i<mAdded.size(); i++) {
                 Fragment f = mAdded.get(i);
-                if (f != null && !f.mHidden && f.mHasMenu) {
+                if (f != null && !f.mHidden && f.mHasMenu && f.mExposesMenu) {
                     if (f.onOptionsItemSelected(item)) {
                         return true;
                     }
@@ -1874,7 +1874,7 @@ final class FragmentManagerImpl extends FragmentManager {
         if (mActive != null) {
             for (int i=0; i<mAdded.size(); i++) {
                 Fragment f = mAdded.get(i);
-                if (f != null && !f.mHidden && f.mHasMenu) {
+                if (f != null && !f.mHidden && f.mHasMenu && f.mExposesMenu) {
                     f.onOptionsMenuClosed(menu);
                 }
             }

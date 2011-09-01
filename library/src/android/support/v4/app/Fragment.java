@@ -253,6 +253,10 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     // If set this fragment has menu items to contribute.
     boolean mHasMenu;
 
+    // Used to control whether or not this fragments menu items are contributed
+    // regardless of the value of mHasMenu.
+    boolean mExposesMenu = true;
+
     // Used to verify that subclasses call through to super class.
     boolean mCalled;
 
