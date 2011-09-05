@@ -91,7 +91,7 @@ public class FragmentPagerMenus extends FragmentActivity {
 
         @Override
         public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-            menu.add(text);
+            menu.add(text).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
         }
     }
 }
