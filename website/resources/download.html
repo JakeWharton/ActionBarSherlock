@@ -15,19 +15,36 @@ $(function() {
 			return (o1.name < o2.name) ? -1 : 1;
 		});
 
+		var last = data[data.length - 1];
+		var lastSha = last.commit.sha;
+		var lastDate = $('#latest-date').html('<em>Date unavailable</em>');
+		$('.latest-version').html(last.name);
+		$('#latest-zip').attr('href', last.zipball_url);
+		$('#latest-tarball').attr('href', last.tarball_url);
+
 		var previous = $('#previous-releases').empty();
 		$.each(data, function() {
 			previous.prepend(
-				$('<dt>Version ' + this.name + '<span class="normal"> &mdash; <em>Date unavailable</em></span></dt>'),
+				$('<dt>Version ' + this.name + '<span class="normal"> &mdash; <em id="' + this.commit.sha + '">Date unavailable</em></span></dt>'),
 				$('<dd><a class="img" href="' + this.zipball_url + '">Zip</a> &middot; <a class="img" href="' + this.tarball_url + '">Tarball</a></dd>')
 			);
+			$.getJSON(this.commit.url + '?callback=?', function(inner) {
+				var d = new Date(inner.data.commit.author.date);
+				var month = d.getMonth() + 1;
+				if (month < 10) {
+					month = '0' + month;
+				}
+				var day = d.getDate();
+				if (day < 10) {
+					day = '0' + day;
+				}
+				var date = d.getFullYear() + '-' + month + '-' + day;
+				$('#' + inner.data.sha).html(date);
+				if (inner.data.sha === lastSha) {
+					lastDate.html(date);
+				}
+			});
 		});
-
-		var last = data[data.length - 1];
-		$('.latest-version').html(last.name);
-		$('#latest-date').html('<em>Date unavailable</em>');
-		$('#latest-zip').attr('href', last.zipball_url);
-		$('#latest-tarball').attr('href', last.tarball_url);
 	});
 
 	$.getJSON('https://api.github.com/repos/JakeWharton/ActionBarSherlock/downloads?callback=?', function(response) {
