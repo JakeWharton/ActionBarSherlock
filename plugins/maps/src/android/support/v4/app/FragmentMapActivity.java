@@ -55,7 +55,7 @@ import android.widget.FrameLayout;
 
 /**
  * Base class for activities that want to use the support-based ActionBar,
- * Fragment, and Loader APIs.
+ * Fragment, Loader, and Google Map APIs.
  *
  * <p>Known limitations:</p>
  * <ul>
@@ -75,7 +75,7 @@ import android.widget.FrameLayout;
  * </ul>
  */
 public abstract class FragmentMapActivity extends MapActivity implements SupportActivity {
-    private static final String TAG = "FragmentActivity";
+    private static final String TAG = "FragmentMapActivity";
     private static final boolean DEBUG = false;
 
     private static final String FRAGMENTS_TAG = "android:support:fragments";
@@ -209,8 +209,8 @@ public abstract class FragmentMapActivity extends MapActivity implements Support
             return;
         }
         if (!mIsActionBarImplAttached) {
-            //Do not allow an action bar if we have a parent activity
-            if (getParent() != null) {
+            if (isChild()) {
+                //Do not allow an action bar if we have a parent activity
                 mWindowFlags &= ~WINDOW_FLAG_ACTION_BAR;
             }
             if ((mWindowFlags & WINDOW_FLAG_ACTION_BAR) == WINDOW_FLAG_ACTION_BAR) {
@@ -222,8 +222,8 @@ public abstract class FragmentMapActivity extends MapActivity implements Support
 
                 ((ActionBarImpl)mActionBar).init();
 
-                final boolean actionBarEnabled = ((mWindowFlags & WINDOW_FLAG_ACTION_BAR_ITEM_TEXT) == WINDOW_FLAG_ACTION_BAR_ITEM_TEXT);
-                mSupportMenu.setShowsActionItemText(actionBarEnabled);
+                final boolean textEnabled = ((mWindowFlags & WINDOW_FLAG_ACTION_BAR_ITEM_TEXT) == WINDOW_FLAG_ACTION_BAR_ITEM_TEXT);
+                mSupportMenu.setShowsActionItemText(textEnabled);
 
                 if ((mWindowFlags & WINDOW_FLAG_INDETERMINANTE_PROGRESS) == WINDOW_FLAG_INDETERMINANTE_PROGRESS) {
                     ((ActionBarImpl)mActionBar).setProgressBarIndeterminateVisibility(true);
