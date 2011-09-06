@@ -61,11 +61,7 @@ $(function() {
 					$('<dd class="sample-app"/>').append(
 						$('<a/>').attr('href', this.html_url).html('APK'),
 						' &middot; ',
-						$('<a/>').attr('href', 'http://chart.apis.google.com/chart?chs=545x545&cht=qr&chl=' + this.html_url + '&.png').html('QR Code').colorbox({
-							width: '80%',
-							maxWidth: 1030,
-							height: '90%',
-						})
+						$('<a/>').attr('href', 'http://chart.apis.google.com/chart?chs=545x545&cht=qr&chl=' + this.html_url + '&.png').html('QR Code').colorbox()
 					)
 				);
 			} else if (/jar$/.test(this.html_url)) {
