@@ -45,5 +45,6 @@ public class ActionBarCustomNavigation extends FragmentActivity {
 
         //Attach to the action bar
         getSupportActionBar().setCustomView(customNav);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
     }
 }

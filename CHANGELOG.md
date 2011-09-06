@@ -1,8 +1,8 @@
 Change Log
 ===============================================================================
 
-Version 3.2.0 *(In Development)*
---------------------------------
+Version 3.2.0 *(2011-09-05)*
+----------------------------
 
  *  Added support for `MapView` and the Google APIs through the use of
     `FragmentMapActivity`. If you are using a map within a fragment you must
