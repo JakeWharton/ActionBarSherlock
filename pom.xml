@@ -58,6 +58,21 @@
 			<name>JakeWharton.com Maven Repository</name>
 			<url>scp://r.jakewharton.com/home/jakewharton_repository/r.jakewharton.com/maven/snapshot/</url>
 		</snapshotRepository>
+		<site>
+			<id>github-project-site</id>
+			<name>GitHub Project Pages</name>
+			<url>gitsite:git@github.com/JakeWharton/ActionBarSherlock</url>
+			<!--
+			YOU MUST PUT THE FOLLOWING IN ~/.m2/settings.xml
+
+			<servers>
+				<server>
+					<id>github-project-site</id>
+					<username>git</username>
+				</server>
+			</servers>
+			-->
+		</site>
 	</distributionManagement>
 
 	<organization>
@@ -156,6 +171,8 @@
 				<artifactId>maven-site-plugin</artifactId>
 				<version>2.2</version>
 				<configuration>
+					<generateProjectInfo>false</generateProjectInfo>
+					<generateReports>false</generateReports>
 					<siteDirectory>${basedir}/website</siteDirectory>
 				</configuration>
 			</plugin>
