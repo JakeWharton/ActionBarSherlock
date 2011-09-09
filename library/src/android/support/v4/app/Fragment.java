@@ -540,7 +540,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
      * @see #getSupportActivity()
      */
     final public Activity getActivity() {
-        return mActivity.asActivity();
+        return (mActivity != null) ? mActivity.asActivity() : null;
     }
 
     /**
