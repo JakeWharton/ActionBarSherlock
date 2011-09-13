@@ -77,6 +77,15 @@ public class FragmentActivity extends Activity implements SupportActivity {
     private static final String TAG = "FragmentActivity";
     private static final boolean DEBUG = false;
 
+    //The following are used so FragmentMapActivity gets the same resources
+    static final int   R$layout$screen_action_bar_overlay = R.layout.abs__screen_action_bar_overlay;
+    static final int   R$layout$screen_action_bar = R.layout.abs__screen_action_bar;
+    static final int   R$layout$screen_simple = R.layout.abs__screen_simple;
+    static final int   R$id$content = R.id.abs__content;
+    static final int[] R$styleable$SherlockTheme = R.styleable.SherlockTheme;
+    static final int   R$styleable$SherlockTheme_windowActionBar = R.styleable.SherlockTheme_windowActionBar;
+    static final int   R$styleable$SherlockTheme_windowActionModeOverlay = R.styleable.SherlockTheme_windowActionModeOverlay;
+
     private static final String FRAGMENTS_TAG = "android:support:fragments";
 
     static final boolean IS_HONEYCOMB = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
@@ -214,9 +223,9 @@ public class FragmentActivity extends Activity implements SupportActivity {
             }
             if ((mWindowFlags & WINDOW_FLAG_ACTION_BAR) == WINDOW_FLAG_ACTION_BAR) {
                 if ((mWindowFlags & WINDOW_FLAG_ACTION_BAR_OVERLAY) == WINDOW_FLAG_ACTION_BAR_OVERLAY) {
-                    super.setContentView(R.layout.abs__screen_action_bar_overlay);
+                    super.setContentView(FragmentActivity.R$layout$screen_action_bar_overlay);
                 } else {
-                    super.setContentView(R.layout.abs__screen_action_bar);
+                    super.setContentView(FragmentActivity.R$layout$screen_action_bar);
                 }
 
                 ((ActionBarImpl)mActionBar).init();
@@ -233,7 +242,7 @@ public class FragmentActivity extends Activity implements SupportActivity {
                 if ((mWindowFlags & WINDOW_FLAG_INDETERMINANTE_PROGRESS) == WINDOW_FLAG_INDETERMINANTE_PROGRESS) {
                     super.requestWindowFeature((int)Window.FEATURE_INDETERMINATE_PROGRESS);
                 }
-                super.setContentView(R.layout.abs__screen_simple);
+                super.setContentView(FragmentActivity.R$layout$screen_simple);
             }
 
             invalidateOptionsMenu();
@@ -290,7 +299,7 @@ public class FragmentActivity extends Activity implements SupportActivity {
         if (IS_HONEYCOMB) {
             super.setContentView(layoutResId);
         } else {
-            FrameLayout contentView = (FrameLayout)findViewById(R.id.abs__content);
+            FrameLayout contentView = (FrameLayout)findViewById(FragmentActivity.R$id$content);
             contentView.removeAllViews();
             getLayoutInflater().inflate(layoutResId, contentView, true);
         }
@@ -302,7 +311,7 @@ public class FragmentActivity extends Activity implements SupportActivity {
         if (IS_HONEYCOMB) {
             super.setContentView(view, params);
         } else {
-            FrameLayout contentView = (FrameLayout)findViewById(R.id.abs__content);
+            FrameLayout contentView = (FrameLayout)findViewById(FragmentActivity.R$id$content);
             contentView.removeAllViews();
             contentView.addView(view, params);
         }
@@ -314,7 +323,7 @@ public class FragmentActivity extends Activity implements SupportActivity {
         if (IS_HONEYCOMB) {
             super.setContentView(view);
         } else {
-            FrameLayout contentView = (FrameLayout)findViewById(R.id.abs__content);
+            FrameLayout contentView = (FrameLayout)findViewById(FragmentActivity.R$id$content);
             contentView.removeAllViews();
             contentView.addView(view);
         }
@@ -365,12 +374,12 @@ public class FragmentActivity extends Activity implements SupportActivity {
 
     @Override
     protected void onApplyThemeResource(Theme theme, int resid, boolean first) {
-        TypedArray attrs = theme.obtainStyledAttributes(resid, R.styleable.SherlockTheme);
+        TypedArray attrs = theme.obtainStyledAttributes(resid, FragmentActivity.R$styleable$SherlockTheme);
 
-        final boolean actionBar = attrs.getBoolean(R.styleable.SherlockTheme_windowActionBar, false);
+        final boolean actionBar = attrs.getBoolean(FragmentActivity.R$styleable$SherlockTheme_windowActionBar, false);
         mWindowFlags |= actionBar ? WINDOW_FLAG_ACTION_BAR : 0;
 
-        final boolean actionModeOverlay = attrs.getBoolean(R.styleable.SherlockTheme_windowActionModeOverlay, false);
+        final boolean actionModeOverlay = attrs.getBoolean(FragmentActivity.R$styleable$SherlockTheme_windowActionModeOverlay, false);
         mWindowFlags |= actionModeOverlay ? WINDOW_FLAG_ACTION_MODE_OVERLAY : 0;
 
         attrs.recycle();

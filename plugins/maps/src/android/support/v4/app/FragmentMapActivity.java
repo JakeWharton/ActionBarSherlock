@@ -21,7 +21,6 @@ import java.io.FileDescriptor;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
-import com.actionbarsherlock.R;
 import com.actionbarsherlock.internal.app.ActionBarWrapper;
 import com.actionbarsherlock.internal.app.ActionBarImpl;
 import com.actionbarsherlock.internal.view.menu.MenuBuilder;
@@ -215,9 +214,9 @@ public abstract class FragmentMapActivity extends MapActivity implements Support
             }
             if ((mWindowFlags & WINDOW_FLAG_ACTION_BAR) == WINDOW_FLAG_ACTION_BAR) {
                 if ((mWindowFlags & WINDOW_FLAG_ACTION_BAR_OVERLAY) == WINDOW_FLAG_ACTION_BAR_OVERLAY) {
-                    super.setContentView(R.layout.abs__screen_action_bar_overlay);
+                    super.setContentView(FragmentActivity.R$layout$screen_action_bar_overlay);
                 } else {
-                    super.setContentView(R.layout.abs__screen_action_bar);
+                    super.setContentView(FragmentActivity.R$layout$screen_action_bar);
                 }
 
                 ((ActionBarImpl)mActionBar).init();
@@ -234,7 +233,7 @@ public abstract class FragmentMapActivity extends MapActivity implements Support
                 if ((mWindowFlags & WINDOW_FLAG_INDETERMINANTE_PROGRESS) == WINDOW_FLAG_INDETERMINANTE_PROGRESS) {
                     super.requestWindowFeature((int)Window.FEATURE_INDETERMINATE_PROGRESS);
                 }
-                super.setContentView(R.layout.abs__screen_simple);
+                super.setContentView(FragmentActivity.R$layout$screen_simple);
             }
 
             invalidateOptionsMenu();
@@ -291,7 +290,7 @@ public abstract class FragmentMapActivity extends MapActivity implements Support
         if (IS_HONEYCOMB) {
             super.setContentView(layoutResId);
         } else {
-            FrameLayout contentView = (FrameLayout)findViewById(R.id.abs__content);
+            FrameLayout contentView = (FrameLayout)findViewById(FragmentActivity.R$id$content);
             contentView.removeAllViews();
             getLayoutInflater().inflate(layoutResId, contentView, true);
         }
@@ -303,7 +302,7 @@ public abstract class FragmentMapActivity extends MapActivity implements Support
         if (IS_HONEYCOMB) {
             super.setContentView(view, params);
         } else {
-            FrameLayout contentView = (FrameLayout)findViewById(R.id.abs__content);
+            FrameLayout contentView = (FrameLayout)findViewById(FragmentActivity.R$id$content);
             contentView.removeAllViews();
             contentView.addView(view, params);
         }
@@ -315,7 +314,7 @@ public abstract class FragmentMapActivity extends MapActivity implements Support
         if (IS_HONEYCOMB) {
             super.setContentView(view);
         } else {
-            FrameLayout contentView = (FrameLayout)findViewById(R.id.abs__content);
+            FrameLayout contentView = (FrameLayout)findViewById(FragmentActivity.R$id$content);
             contentView.removeAllViews();
             contentView.addView(view);
         }
@@ -366,12 +365,12 @@ public abstract class FragmentMapActivity extends MapActivity implements Support
 
     @Override
     protected void onApplyThemeResource(Theme theme, int resid, boolean first) {
-        TypedArray attrs = theme.obtainStyledAttributes(resid, R.styleable.SherlockTheme);
+        TypedArray attrs = theme.obtainStyledAttributes(resid, FragmentActivity.R$styleable$SherlockTheme);
 
-        final boolean actionBar = attrs.getBoolean(R.styleable.SherlockTheme_windowActionBar, false);
+        final boolean actionBar = attrs.getBoolean(FragmentActivity.R$styleable$SherlockTheme_windowActionBar, false);
         mWindowFlags |= actionBar ? WINDOW_FLAG_ACTION_BAR : 0;
 
-        final boolean actionModeOverlay = attrs.getBoolean(R.styleable.SherlockTheme_windowActionModeOverlay, false);
+        final boolean actionModeOverlay = attrs.getBoolean(FragmentActivity.R$styleable$SherlockTheme_windowActionModeOverlay, false);
         mWindowFlags |= actionModeOverlay ? WINDOW_FLAG_ACTION_MODE_OVERLAY : 0;
 
         attrs.recycle();

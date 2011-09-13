@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import os
+import re
 
 dir_maps_base = os.path.dirname(os.path.realpath(__file__))
 dir_repo_base = os.path.dirname(os.path.dirname(dir_maps_base))
@@ -18,9 +19,25 @@ with open(file_source) as f:
   code = f.read()
 
 
-# Add MapActivity import
 code = code.split('\n')
+
+# Add MapActivity import
 code.insert(31, 'import com.google.android.maps.MapActivity;')
+
+# Remove com.actionbarsherlock.R import
+code.pop(23)
+
+# Remove static resource declarations
+code.pop(78)
+code.pop(78)
+code.pop(78)
+code.pop(78)
+code.pop(78)
+code.pop(78)
+code.pop(78)
+code.pop(78)
+code.pop(78)
+
 code = '\n'.join(code)
 
 # Class declaration
