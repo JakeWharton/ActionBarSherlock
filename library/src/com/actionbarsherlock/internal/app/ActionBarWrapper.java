@@ -17,12 +17,15 @@
 package com.actionbarsherlock.internal.app;
 
 import java.util.HashMap;
+import com.actionbarsherlock.internal.view.menu.MenuItemWrapper;
+import com.actionbarsherlock.internal.view.menu.MenuWrapper;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.ActionBar;
 import android.support.v4.app.SupportActivity;
 import android.support.v4.view.ActionMode;
+import android.support.v4.view.Menu;
 import android.support.v4.view.MenuInflater;
 import android.view.View;
 import android.widget.SpinnerAdapter;
@@ -121,7 +124,7 @@ public final class ActionBarWrapper {
                 mActivity.asActivity().startActionMode(new android.view.ActionMode.Callback() {
                     @Override
                     public boolean onPrepareActionMode(android.view.ActionMode mode, android.view.Menu menu) {
-                        return callback.onPrepareActionMode(new ActionModeWrapper(mContext, mode), menu);
+                        return callback.onPrepareActionMode(new ActionModeWrapper(mContext, mode), new MenuWrapper(menu));
                     }
 
                     @Override
@@ -136,12 +139,12 @@ public final class ActionBarWrapper {
 
                     @Override
                     public boolean onCreateActionMode(android.view.ActionMode mode, android.view.Menu menu) {
-                        return callback.onCreateActionMode(new ActionModeWrapper(mContext, mode), menu);
+                        return callback.onCreateActionMode(new ActionModeWrapper(mContext, mode), new MenuWrapper(menu));
                     }
 
                     @Override
                     public boolean onActionItemClicked(android.view.ActionMode mode, android.view.MenuItem item) {
-                        return callback.onActionItemClicked(new ActionModeWrapper(mContext, mode), item);
+                        return callback.onActionItemClicked(new ActionModeWrapper(mContext, mode), new MenuItemWrapper(item));
                     }
                 })
             );
@@ -167,8 +170,8 @@ public final class ActionBarWrapper {
             }
 
             @Override
-            public android.view.Menu getMenu() {
-                return mActionMode.getMenu();
+            public Menu getMenu() {
+                return new MenuWrapper(mActionMode.getMenu());
             }
 
             @Override
