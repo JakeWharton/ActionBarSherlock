@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import os
-import re
 
 dir_maps_base = os.path.dirname(os.path.realpath(__file__))
 dir_repo_base = os.path.dirname(os.path.dirname(dir_maps_base))
