@@ -20,11 +20,11 @@ with open(file_source) as f:
 
 code = code.split('\n')
 
-# Add MapActivity import
-code.insert(31, 'import com.google.android.maps.MapActivity;')
-
 # Remove com.actionbarsherlock.R import
 code.pop(23)
+
+# Add MapActivity import
+code.insert(30, 'import com.google.android.maps.MapActivity;')
 
 # Remove static resource declarations
 code.pop(78)
