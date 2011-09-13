@@ -1,6 +1,17 @@
 Change Log
 ===============================================================================
 
+Version 3.2.1 *(2011-09-12)*
+----------------------------
+
+ * Fix: Action mode API incorrectly using the native `Menu` and `MenuItem`
+   classes causing an easy pitfall for `ClassCastExceptions`.
+ * Fix: Side-effects related to using `FragmentMapActivity` due to how it was
+   referencing resources from the main library.
+ * Fix: Large action bar backgrounds increasing the size beyond that alloted in
+   the theme.
+
+
 Version 3.2.0 *(2011-09-05)*
 ----------------------------
 
