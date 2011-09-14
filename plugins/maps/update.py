@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import os
+import re
 
 dir_maps_base = os.path.dirname(os.path.realpath(__file__))
 dir_repo_base = os.path.dirname(os.path.dirname(dir_maps_base))
@@ -53,6 +54,9 @@ code = code.replace('FragmentActivity()', 'FragmentMapActivity()')
 
 # Javadoc
 code = code.replace('Fragment, and Loader APIs.', 'Fragment, Loader, and Google Map APIs.')
+
+# Replace R.java constants with references to FragmentActivity
+code = re.sub(r'R\.(id|layout|styleable)\.(?:abs__)?([_a-zA-Z]+)', r'FragmentActivity.R$\1$\2', code)
 
 
 # Exit stage left
