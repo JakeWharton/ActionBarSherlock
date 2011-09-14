@@ -71,7 +71,7 @@
 							<artifacts>
 								<artifact>
 									<type>jar</type>
-									<file>${build.directory}/${build.finalName}.jar</file>
+									<file>${project.build.directory}/${project.build.finalName}.jar</file>
 								</artifact>
 							</artifacts>
 						</configuration>
