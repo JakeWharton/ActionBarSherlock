@@ -1,6 +1,7 @@
 package com.actionbarsherlock.internal.view.menu;
 
 import android.content.Context;
+import android.view.ContextMenu;
 
 public final class MenuInflaterWrapper extends android.view.MenuInflater {
     private final android.view.MenuInflater mMenuInflater;
@@ -12,6 +13,10 @@ public final class MenuInflaterWrapper extends android.view.MenuInflater {
 
     @Override
     public void inflate(int menuRes, android.view.Menu menu) {
-        mMenuInflater.inflate(menuRes, ((MenuWrapper)menu).unwrap());
+        if (menu instanceof ContextMenu) {
+            mMenuInflater.inflate(menuRes, menu);
+        } else {
+            mMenuInflater.inflate(menuRes, ((MenuWrapper)menu).unwrap());
+        }
     }
 }

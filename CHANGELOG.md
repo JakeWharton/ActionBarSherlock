@@ -8,6 +8,8 @@ Version 3.2.2 *(In Development)*
    referencing resources from the main library.
  * Fix: Fragments adjacent to the currently selected fragment in a `ViewPager`
    no longer receive context menu events.
+ * Fix: Eliminate exception when inflating context menus on 3.0+ when using
+   `getMenuInflater()`.
 
 
 Version 3.2.1 *(2011-09-12)*
