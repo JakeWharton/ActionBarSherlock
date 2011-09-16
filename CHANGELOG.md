@@ -10,6 +10,10 @@ Version 3.2.2 *(In Development)*
    no longer receive context menu events.
  * Fix: Eliminate exception when inflating context menus on 3.0+ when using
    `getMenuInflater()`.
+ * Fix: `ViewPager` now determines whether or not an activity menu invalidation
+   is required independently of whether or not fragments were created or
+   destroyed. This should fix an edge case where an activity with a `ViewPager`
+   containing only two fragments would not get its menu properly invalidated.
 
 
 Version 3.2.1 *(2011-09-12)*

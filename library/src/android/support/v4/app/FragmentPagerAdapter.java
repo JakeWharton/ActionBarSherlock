@@ -35,6 +35,7 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
     private final FragmentManager mFragmentManager;
     private FragmentTransaction mCurTransaction = null;
     private WeakReference<Fragment> mLastFragment = null;
+    private boolean mOptionsMenuPotentiallyStale = false;
 
     public FragmentPagerAdapter(FragmentManager fm) {
         mFragmentManager = fm;
@@ -92,6 +93,7 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
         Fragment fragment = (Fragment)object;
         fragment.mExposesMenu = true;
         mLastFragment = new WeakReference<Fragment>(fragment);
+        mOptionsMenuPotentiallyStale = true;
     }
 
     @Override
@@ -100,7 +102,16 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
             mCurTransaction.commit();
             mCurTransaction = null;
             mFragmentManager.executePendingTransactions();
-            ((FragmentManagerImpl)mFragmentManager).mActivity.invalidateOptionsMenu();
+            mOptionsMenuPotentiallyStale = true;
+        }
+        if (mOptionsMenuPotentiallyStale) {
+            if (mFragmentManager instanceof FragmentManagerImpl) {
+                ((FragmentManagerImpl)mFragmentManager).mActivity.invalidateOptionsMenu();
+            } else {
+                //Not sure how plausible this is but account for it anyway
+                Log.w(TAG, "Cannot invalidate activity menu. Unknown FragmentManager implementation.");
+            }
+            mOptionsMenuPotentiallyStale = false;
         }
     }
 
