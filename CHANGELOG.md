@@ -1,8 +1,8 @@
 Change Log
 ===============================================================================
 
-Version 3.2.2 *(In Development)*
---------------------------------
+Version 3.2.2 *(2011-09-15)*
+----------------------------
 
  * Fix: Side-effects related to using `FragmentMapActivity` due to how it was
    referencing resources from the main library.
