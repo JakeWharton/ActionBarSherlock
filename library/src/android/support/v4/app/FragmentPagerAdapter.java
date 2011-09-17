@@ -35,7 +35,8 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
     private final FragmentManager mFragmentManager;
     private FragmentTransaction mCurTransaction = null;
     private WeakReference<Fragment> mLastFragment = null;
-    private boolean mOptionsMenuPotentiallyStale = false;
+    private int mLastPosition = -1;
+    private boolean mOptionsMenuPotentiallyStale;
 
     public FragmentPagerAdapter(FragmentManager fm) {
         mFragmentManager = fm;
@@ -48,6 +49,7 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
 
     @Override
     public void startUpdate(View container) {
+        mOptionsMenuPotentiallyStale = false;
     }
 
     @Override
@@ -87,12 +89,16 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
 
     @Override
     public void onItemSelected(int position, Object object) {
+        if (position == mLastPosition) {
+            return;
+        }
         if ((mLastFragment != null) && (mLastFragment.get() != null)) {
             mLastFragment.get().mExposesMenu = false;
         }
         Fragment fragment = (Fragment)object;
         fragment.mExposesMenu = true;
         mLastFragment = new WeakReference<Fragment>(fragment);
+        mLastPosition = position;
         mOptionsMenuPotentiallyStale = true;
     }
 
@@ -101,17 +107,11 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
         if (mCurTransaction != null) {
             mCurTransaction.commit();
             mCurTransaction = null;
-            mFragmentManager.executePendingTransactions();
             mOptionsMenuPotentiallyStale = true;
         }
         if (mOptionsMenuPotentiallyStale) {
-            if (mFragmentManager instanceof FragmentManagerImpl) {
-                ((FragmentManagerImpl)mFragmentManager).mActivity.invalidateOptionsMenu();
-            } else {
-                //Not sure how plausible this is but account for it anyway
-                Log.w(TAG, "Cannot invalidate activity menu. Unknown FragmentManager implementation.");
-            }
-            mOptionsMenuPotentiallyStale = false;
+            mFragmentManager.executePendingTransactions();
+            ((FragmentManagerImpl)mFragmentManager).mActivity.invalidateOptionsMenu();
         }
     }
 

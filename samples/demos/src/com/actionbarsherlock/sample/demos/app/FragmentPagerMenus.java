@@ -30,7 +30,6 @@ public class FragmentPagerMenus extends FragmentActivity {
 
         setContentView(R.layout.fragment_pagermenus);
         mPager = (ViewPager)findViewById(R.id.pager);
-        mPager.setId(1);
         mPager.setAdapter(new TestAdapter(getSupportFragmentManager()));
     }
     

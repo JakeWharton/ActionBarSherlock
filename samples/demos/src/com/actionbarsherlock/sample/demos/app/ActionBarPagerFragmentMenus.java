@@ -32,7 +32,6 @@ public class ActionBarPagerFragmentMenus extends FragmentActivity {
 
         setContentView(R.layout.actionbar_pagerfragmentmenus);
         mPager = (ViewPager)findViewById(R.id.pager);
-        mPager.setId(1);
         mPager.setAdapter(new TestAdapter(getSupportFragmentManager()));
     }
     

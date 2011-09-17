@@ -1,6 +1,14 @@
 Change Log
 ===============================================================================
 
+Version 3.2.3 *(2011-09-16)*
+----------------------------
+
+ * Fix: Fragments in a `ViewPager` that contributed items to the options menu
+   were caught in a race condition causing inconsistent results when a new page
+   was selected. This regression was introduced in version 3.2.2.
+
+
 Version 3.2.2 *(2011-09-15)*
 ----------------------------
 
