@@ -1,6 +1,15 @@
 Change Log
 ===============================================================================
 
+Version 3.2.4 *(In Development)*
+--------------------------------
+
+ * Fix: Dialog fragments no longer throw an `IllegalStateException` when being
+   used as a regular fragment (i.e., not as a popup). See
+   [StackOverflow](http://stackoverflow.com/questions/5637894/dialogfragments-with-devices-api-level-11/7560686#7560686)
+   for more information.
+
+
 Version 3.2.3 *(2011-09-16)*
 ----------------------------
 

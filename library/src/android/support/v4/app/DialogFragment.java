@@ -71,7 +71,7 @@ public class DialogFragment extends Fragment
     int mStyle = STYLE_NORMAL;
     int mTheme = 0;
     boolean mCancelable = true;
-    boolean mShowsDialog = true;
+    boolean mShowsDialog = false;
     int mBackStackId = -1;
 
     Dialog mDialog;
@@ -117,6 +117,7 @@ public class DialogFragment extends Fragment
      * {@link FragmentTransaction#add(Fragment, String) FragmentTransaction.add}.
      */
     public void show(FragmentManager manager, String tag) {
+        setShowsDialog(true);
         FragmentTransaction ft = manager.beginTransaction();
         ft.add(this, tag);
         ft.commit();
@@ -132,6 +133,7 @@ public class DialogFragment extends Fragment
      * {@link FragmentTransaction#commit() FragmentTransaction.commit()}.
      */
     public int show(FragmentTransaction transaction, String tag) {
+        setShowsDialog(true);
         transaction.add(this, tag);
         mRemoved = false;
         mBackStackId = transaction.commit();
