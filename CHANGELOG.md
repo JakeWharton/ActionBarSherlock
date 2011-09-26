@@ -8,6 +8,8 @@ Version 3.2.4 *(In Development)*
    used as a regular fragment (i.e., not as a popup). See
    [StackOverflow](http://stackoverflow.com/questions/5637894/dialogfragments-with-devices-api-level-11/7560686#7560686)
    for more information.
+ * Fix: Popping a fragment off of the back stack now properly assigns its parent
+   activity. 
 
 
 Version 3.2.3 *(2011-09-16)*
