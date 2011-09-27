@@ -15,9 +15,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<merge  xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_height="?attr/abHeight"
-android:background="?attr/abBackground">
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/abs__home_wrapper"
         android:background="?selectableItemBackground"
