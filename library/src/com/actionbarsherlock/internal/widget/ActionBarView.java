@@ -444,7 +444,7 @@ public final class ActionBarView extends RelativeLayout {
     }
 
     public void setProgressBarIndeterminateVisibility(boolean visible) {
-        mIndeterminateProgress.setVisibility(visible ? View.VISIBLE : View.GONE);
+        mIndeterminateProgress.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);
     }
 
     public void setNavigationMode(int mode) {
