@@ -104,6 +104,7 @@
 		android:visibility="visible"
 		android:orientation="horizontal"
 		android:gravity="center_vertical"
+		android:tag="@string/abs__tab_under_ab_tag"
 		style="?actionBarTabBarStyle" />
 
 </LinearLayout>
