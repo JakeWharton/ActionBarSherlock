@@ -205,7 +205,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	private void showStandardNav() {
 		ActionBar ab = getSupportActionBar();
 		if (ab.getNavigationMode() != ActionBar.NAVIGATION_MODE_STANDARD) {
-			ab.setDisplayShowTitleEnabled(true);
 			ab.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 		}
 	}
@@ -213,7 +212,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	private void showDropDownNav() {
 		ActionBar ab = getSupportActionBar();
 		if (ab.getNavigationMode() != ActionBar.NAVIGATION_MODE_LIST) {
-			ab.setDisplayShowTitleEnabled(false);
 			ab.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 		}
 	}
@@ -221,7 +219,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 	private void showTabsNav() {
 		ActionBar ab = getSupportActionBar();
 		if (ab.getNavigationMode() != ActionBar.NAVIGATION_MODE_TABS) {
-			ab.setDisplayShowTitleEnabled(false);
 			ab.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		}
 	}
