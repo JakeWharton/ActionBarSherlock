@@ -1,9 +1,11 @@
 Change Log
 ===============================================================================
 
-Version 3.2.4 *(In Development)*
+Version 3.3.0 *(In Development)*
 --------------------------------
 
+ * Tabs are now displayed below the action bar on all medium-screen devices and
+   portrait large-screen devices.
  * Fix: Dialog fragments no longer throw an `IllegalStateException` when being
    used as a regular fragment (i.e., not as a popup). See
    [StackOverflow](http://stackoverflow.com/questions/5637894/dialogfragments-with-devices-api-level-11/7560686#7560686)
