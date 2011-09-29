@@ -234,7 +234,7 @@ public class FragmentActivity extends Activity implements SupportActivity {
                 mSupportMenu.setShowsActionItemText(textEnabled);
 
                 if ((mWindowFlags & WINDOW_FLAG_INDETERMINANTE_PROGRESS) == WINDOW_FLAG_INDETERMINANTE_PROGRESS) {
-                    ((ActionBarImpl)mActionBar).setProgressBarIndeterminateVisibility(true);
+                    ((ActionBarImpl)mActionBar).setProgressBarIndeterminateVisibility(false);
                 }
 
                 //TODO set other flags
