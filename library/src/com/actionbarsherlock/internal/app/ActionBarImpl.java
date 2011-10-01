@@ -61,7 +61,7 @@ public final class ActionBarImpl extends ActionBar {
 
     @Override
     protected ActionBar getPublicInstance() {
-        return (mActionView != null) ? this : null;
+        return this;
     }
 
     public void init() {

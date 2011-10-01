@@ -146,7 +146,7 @@ public class FragmentActivity extends Activity implements SupportActivity {
     };
     final FragmentManagerImpl mFragments = new FragmentManagerImpl();
 
-    final ActionBar mActionBar;
+    ActionBar mActionBar;
     boolean mIsActionBarImplAttached;
     long mWindowFlags = 0;
 
@@ -196,7 +196,6 @@ public class FragmentActivity extends Activity implements SupportActivity {
             mActionBar = ActionBarWrapper.createFor(this);
             mSupportMenu = null; //Everything should be done natively
         } else {
-            mActionBar = new ActionBarImpl(this);
             mSupportMenu = new MenuBuilder(this);
             mSupportMenu.setCallback(mSupportMenuCallback);
         }
@@ -228,6 +227,7 @@ public class FragmentActivity extends Activity implements SupportActivity {
                     super.setContentView(R.layout.abs__screen_action_bar);
                 }
 
+                mActionBar = new ActionBarImpl(this);
                 ((ActionBarImpl)mActionBar).init();
 
                 final boolean textEnabled = ((mWindowFlags & WINDOW_FLAG_ACTION_BAR_ITEM_TEXT) == WINDOW_FLAG_ACTION_BAR_ITEM_TEXT);
@@ -1044,7 +1044,7 @@ public class FragmentActivity extends Activity implements SupportActivity {
      */
     @Override
     public ActionBar getSupportActionBar() {
-        return mActionBar.getPublicInstance();
+        return (mActionBar != null) ? mActionBar.getPublicInstance() : null;
     }
 
     /**
