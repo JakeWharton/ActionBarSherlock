@@ -58,17 +58,17 @@ public class FragmentContextMenuSupport extends FragmentActivity {
         @Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
             super.onCreateContextMenu(menu, v, menuInfo);
-            menu.add(Menu.NONE, R.id.a_item, Menu.NONE, "Menu A");
-            menu.add(Menu.NONE, R.id.b_item, Menu.NONE, "Menu B");
+            menu.add(Menu.NONE, 1, Menu.NONE, "Menu A");
+            menu.add(Menu.NONE, 2, Menu.NONE, "Menu B");
         }
 
         @Override
         public boolean onContextItemSelected(MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.a_item:
+                case 1:
                     Log.i("ContextMenu", "Item 1a was chosen");
                     return true;
-                case R.id.b_item:
+                case 2:
                     Log.i("ContextMenu", "Item 1b was chosen");
                     return true;
             }
