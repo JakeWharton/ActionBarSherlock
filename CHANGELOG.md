@@ -12,6 +12,8 @@ Version 3.3.0 *(In Development)*
    for more information.
  * Fix: Popping a fragment off of the back stack now properly assigns its parent
    activity. 
+ * Fix: Action item dividers are now properly initially hidden when their
+   associated action items are as well.
 
 
 Version 3.2.3 *(2011-09-16)*
