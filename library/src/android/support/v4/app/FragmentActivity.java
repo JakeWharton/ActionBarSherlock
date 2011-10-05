@@ -331,19 +331,19 @@ public class FragmentActivity extends Activity implements SupportActivity {
 
     @Override
     public void setTitle(CharSequence title) {
-        if (IS_HONEYCOMB || (mActionBar.getPublicInstance() == null)) {
+        if (IS_HONEYCOMB || (getSupportActionBar() == null)) {
             super.setTitle(title);
         } else {
-            mActionBar.setTitle(title);
+            getSupportActionBar().setTitle(title);
         }
     }
 
     @Override
     public void setTitle(int titleId) {
-        if (IS_HONEYCOMB || (mActionBar.getPublicInstance() == null)) {
+        if (IS_HONEYCOMB || (getSupportActionBar() == null)) {
             super.setTitle(titleId);
         } else {
-            mActionBar.setTitle(titleId);
+            getSupportActionBar().setTitle(titleId);
         }
     }
 
