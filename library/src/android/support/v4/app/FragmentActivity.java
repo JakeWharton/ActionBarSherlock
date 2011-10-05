@@ -574,11 +574,13 @@ public class FragmentActivity extends Activity implements SupportActivity {
             mOptionsMenuCreateResult  = onCreateOptionsMenu(mSupportMenu);
             mOptionsMenuCreateResult |= mFragments.dispatchCreateOptionsMenu(mSupportMenu, getMenuInflater());
 
-            //Since we now know we are using a custom action bar, perform the
-            //inflation callback to allow it to display any items it wants.
-            //Any items that were displayed will have a boolean toggled so that we
-            //do not display them on the options menu.
-            ((ActionBarImpl)mActionBar).onMenuInflated(mSupportMenu);
+            if (getSupportActionBar() != null) {
+                //Since we now know we are using a custom action bar, perform the
+                //inflation callback to allow it to display any items it wants.
+                //Any items that were displayed will have a boolean toggled so that we
+                //do not display them on the options menu.
+                ((ActionBarImpl)mActionBar).onMenuInflated(mSupportMenu);
+            }
 
             // Whoops, older platform...  we'll use a hack, to manually rebuild
             // the options menu the next time it is prepared.
@@ -691,7 +693,7 @@ public class FragmentActivity extends Activity implements SupportActivity {
             case Window.FEATURE_OPTIONS_PANEL:
                 mFragments.dispatchOptionsMenuClosed(menu);
 
-                if (!IS_HONEYCOMB) {
+                if (!IS_HONEYCOMB && (getSupportActionBar() != null)) {
                     if (DEBUG) Log.d(TAG, "onPanelClosed(int, android.view.Menu): Dispatch menu visibility false to custom action bar.");
                     ((ActionBarImpl)mActionBar).onMenuVisibilityChanged(false);
                 }
@@ -782,8 +784,10 @@ public class FragmentActivity extends Activity implements SupportActivity {
             }
 
             if (mOptionsMenuCreateResult && prepareResult && menu.hasVisibleItems()) {
-                if (DEBUG) Log.d(TAG, "onPrepareOptionsMenu(android.view.Menu): Dispatch menu visibility true to custom action bar.");
-                ((ActionBarImpl)mActionBar).onMenuVisibilityChanged(true);
+                if (getSupportActionBar() != null) {
+                    if (DEBUG) Log.d(TAG, "onPrepareOptionsMenu(android.view.Menu): Dispatch menu visibility true to custom action bar.");
+                    ((ActionBarImpl)mActionBar).onMenuVisibilityChanged(true);
+                }
                 result = true;
             }
         } else {
@@ -956,7 +960,7 @@ public class FragmentActivity extends Activity implements SupportActivity {
      */
     @Override
     public void setProgressBarIndeterminateVisibility(Boolean visible) {
-        if (IS_HONEYCOMB) {
+        if (IS_HONEYCOMB || (getSupportActionBar() == null)) {
             super.setProgressBarIndeterminateVisibility(visible);
         } else if ((mWindowFlags & WINDOW_FLAG_INDETERMINANTE_PROGRESS) == WINDOW_FLAG_INDETERMINANTE_PROGRESS) {
             ((ActionBarImpl)mActionBar).setProgressBarIndeterminateVisibility(visible);
