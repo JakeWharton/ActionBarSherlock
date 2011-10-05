@@ -10,6 +10,9 @@ Android 3.0 or later. For previous versions which do not include ActionBar, a
 custom action bar implementation will automatically be wrapped around the
 layout. Support for this goes all the way back to Android 1.6.
 
+Try out the sample applications on the Android Market: [Feature Demos][4],
+[Shakespeare][5], and [Styled Action Bar][6].
+
 **See http://actionbarsherlock.com for more information.**
 
 ![Example Image][3]
@@ -47,3 +50,6 @@ License
  [1]: http://android-developers.blogspot.com/2011/03/fragments-for-all.html
  [2]: http://developer.android.com/guide/topics/ui/actionbar.html
  [3]: http://actionbarsherlock.com/static/feature.png
+ [4]: https://market.android.com/details?id=com.actionbarsherlock.sample.demos
+ [5]: https://market.android.com/details?id=com.actionbarsherlock.sample.shakespeare
+ [6]: https://market.android.com/details?id=com.actionbarsherlock.sample.styledactionbar
