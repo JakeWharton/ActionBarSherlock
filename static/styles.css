@@ -63,8 +63,10 @@
 	.feature h1 a:link, .feature h1 a:visited, .feature h1 a:active { color: #fff; }
 	.feature h1 a:hover { border-bottom: none; }
 	#apps { margin-top: 60px; }
-
-	.app { margin-bottom: 2em; }
+	#app-list { position: relative; margin-bottom: 2em; }
+	#app-list .scrollWrapper { position: relative; overflow: hidden; width: 100%; height: 100%; }
+	#app-list .scrollableArea { position: relative; width: auto; height: 100%; }
+	#app-list .app { float: left; position: relative; }
 	.app img { float: left; }
 	.app .info { margin-left: 90px; }
 	.app h4 { margin: 0; font-size: 1.25em; }
