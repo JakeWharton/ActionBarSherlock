@@ -186,6 +186,16 @@
 }
 
 
+
+
+/* ============================= */
+/* ! Layout for smaller screens  */
+/* ============================= */
+
+@media only screen and (max-width: 1159px) {
+	#app-list .half.app { width: 100%; padding-bottom: 2em; }
+}
+
 /* ============================= */
 /* ! Layout for mobile version   */
 /* ============================= */

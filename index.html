@@ -63,16 +63,18 @@
 					{ src: 'static/feature_03.png' },
 				]).css('height', '400px');
 
-				$('#app-list').smoothDivScroll({
-					autoScroll: 'always',
-					autoScrollDirection: 'endlessloopright',
-					autoScrollStep: 1,
-					autoScrollInterval: 15
-				}).bind('mouseover', function() {
-					$(this).smoothDivScroll('stopAutoScroll');
-				}).bind('mouseout', function() {
-					$(this).smoothDivScroll('startAutoScroll');
-				});
+				if ($(window).width() > 1159) {
+					$('#app-list').smoothDivScroll({
+						autoScroll: 'always',
+						autoScrollDirection: 'endlessloopright',
+						autoScrollStep: 1,
+						autoScrollInterval: 15
+					}).bind('mouseover', function() {
+						$(this).smoothDivScroll('stopAutoScroll');
+					}).bind('mouseout', function() {
+						$(this).smoothDivScroll('startAutoScroll');
+					});
+				}
 			});
 		</script>
 	</head>
