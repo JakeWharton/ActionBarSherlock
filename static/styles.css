@@ -63,10 +63,7 @@
 	.feature h1 a:link, .feature h1 a:visited, .feature h1 a:active { color: #fff; }
 	.feature h1 a:hover { border-bottom: none; }
 	#apps { margin-top: 60px; }
-	#app-list { position: relative; margin-bottom: 2em; }
-	#app-list .scrollWrapper { position: relative; overflow: hidden; width: 100%; height: 100%; }
-	#app-list .scrollableArea { position: relative; width: auto; height: 100%; }
-	#app-list .app { float: left; position: relative; }
+	.app { margin-bottom: 2em; float: left; }
 	.app img { float: left; }
 	.app .info { margin-left: 90px; }
 	.app h4 { margin: 0; font-size: 1.25em; }
@@ -117,7 +114,7 @@
 .cboxPhoto{float:left; margin:auto; border:0; display:block;}
 .cboxIframe{width:100%; height:100%; display:block; border:0;}
 
-/* 
+/*
     User Style:
     Change the following styles to modify the appearance of ColorBox.  They are
     ordered & tabbed in a way that represents the nesting of the generated HTML.
@@ -186,16 +183,6 @@
 }
 
 
-
-
-/* ============================= */
-/* ! Layout for smaller screens  */
-/* ============================= */
-
-@media only screen and (max-width: 1159px) {
-	#app-list .half.app { width: 100%; padding-bottom: 2em; }
-}
-
 /* ============================= */
 /* ! Layout for mobile version   */
 /* ============================= */
@@ -227,7 +214,7 @@
 /* ! Provide higher res assets for iPhone 4   */
 /* ========================================== */
 
-@media only screen and (-webkit-min-device-pixel-ratio: 2) { 
+@media only screen and (-webkit-min-device-pixel-ratio: 2) {
 /*	.logo {
 		background: url(logo2x.jpg) no-repeat;
 		background-size: 212px 303px;
