@@ -8,18 +8,16 @@
 		<meta name="description" content="ActionBarSherlock is an extension of the compatibility library designed to facilitate the use of the action bar design pattern across all versions of Android leveraging the best API available." />
 
 		<title>ActionBarSherlock - Home</title>
-		
+
 		<!--[if lte IE 9]><link rel="stylesheet" href="static/ie.css" type="text/css" media="screen" /><![endif]-->
 		<link rel="stylesheet" href="static/1120.css" type="text/css" media="screen" />
 		<link rel="stylesheet" href="static/styles.css" type="text/css" media="screen" />
-		
+
 		<script type="text/javascript" src="static/css3-mediaqueries.js"></script><!-- http://code.google.com/p/css3-mediaqueries-js/ -->
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
 		<script type="text/javascript" src="http://apis.google.com/js/plusone.js"></script>
 		<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 		<script type="text/javascript" src="static/jquery.cross-slide.min.js"></script>
-		<script type="text/javascript" src="static/jquery.ui.widget.js"></script>
-		<script type="text/javascript" src="static/jquery.smoothDivScroll-1.1-min.js"></script>
 		<script type="text/javascript">
 			var _gaq = _gaq || [];
 			_gaq.push(['_setAccount', 'UA-3637749-12']);
@@ -47,7 +45,7 @@
 					data.sort(function(o1, o2) {
 						return (o1.name < o2.name) ? -1 : 1;
 					});
-					
+
 					var last = data[data.length - 1];
 					$('#latest-version').html('v' + last.name);
 					$('#latest-zip').attr('href', last.zipball_url);
@@ -62,19 +60,6 @@
 					{ src: 'static/feature_02.png' },
 					{ src: 'static/feature_03.png' },
 				]).css('height', '400px');
-
-				if ($(window).width() > 1159) {
-					$('#app-list').smoothDivScroll({
-						autoScroll: 'always',
-						autoScrollDirection: 'endlessloopright',
-						autoScrollStep: 1,
-						autoScrollInterval: 15
-					}).bind('mouseover', function() {
-						$(this).smoothDivScroll('stopAutoScroll');
-					}).bind('mouseout', function() {
-						$(this).smoothDivScroll('startAutoScroll');
-					});
-				}
 			});
 		</script>
 	</head>
@@ -133,33 +118,31 @@
 				<div class="whole">
 					<h1>Featured Implementations</h1>
 				</div>
-				<div class="whole" id="app-list">
-					<div class="scrollWrapper">
-						<div class="scrollableArea">
-							<div class="half app">
-								<img src="static/apps/com.battlelancer.seriesguide.png"/>
-								<div class="info">
-									<h4>SeriesGuide Show Manager</h4>
-									<p class="desc">Manage the progress of (re-)watching your favorite TV shows. Keep track of which episodes you still have to watch or which ones are upcoming.</p>
-									<p class="links"><a href="https://market.android.com/details?id=com.battlelancer.seriesguide">View on Android Market</a> &middot; <a href="https://github.com/UweTrottmann/SeriesGuide">View GitHub project</a></p>
-								</div>
-							</div>
-							<div class="half app">
-								<img src="static/apps/com.abcOrganizer.png"/>
-								<div class="info">
-									<h4>Folder Organizer</h4>
-									<p class="desc">Group items according to labels and create fully customizable folders and widgets. You can organize apps, bookmarks, contacts and shortcuts.</p>
-									<p class="links"><a href="https://market.android.com/details?id=com.abcOrganizer">View on Android Market</a></p>
-								</div>
-							</div>
-							<div class="half app">
-								<img src="static/apps/com.ratebeer.android.png"/>
-								<div class="info">
-									<h4>RateBeer</h4>
-									<p class="desc">Mobile interface to the world's largest source for information on craft beer: RateBeer.</p>
-									<p class="links"><a href="https://market.android.com/details?id=com.ratebeer.android">View on Android Market</a> &middot; <a href="http://code.google.com/p/ratebeerforandroid/">View Google Code project</a></p>
-								</div>
-							</div>
+				<div class="whole">
+					<div class="half app">
+						<img src="static/apps/com.battlelancer.seriesguide.png"/>
+						<div class="info">
+							<h4>SeriesGuide Show Manager</h4>
+							<p class="desc">Manage the progress of (re-)watching your favorite TV shows. Keep track of which episodes you still have to watch or which ones are upcoming.</p>
+							<p class="links"><a href="https://market.android.com/details?id=com.battlelancer.seriesguide">View on Android Market</a> &middot; <a href="https://github.com/UweTrottmann/SeriesGuide">View GitHub project</a></p>
+						</div>
+					</div>
+					<div class="half app last">
+						<img src="static/apps/com.abcOrganizer.png"/>
+						<div class="info">
+							<h4>Folder Organizer</h4>
+							<p class="desc">Group items according to labels and create fully customizable folders and widgets. You can organize apps, bookmarks, contacts and shortcuts.</p>
+							<p class="links"><a href="https://market.android.com/details?id=com.abcOrganizer">View on Android Market</a></p>
+						</div>
+					</div>
+				</div>
+				<div class="whole">
+					<div class="half app">
+						<img src="static/apps/com.ratebeer.android.png"/>
+						<div class="info">
+							<h4>RateBeer</h4>
+							<p class="desc">Mobile interface to the world's largest source for information on craft beer: RateBeer.</p>
+							<p class="links"><a href="https://market.android.com/details?id=com.ratebeer.android">View on Android Market</a> &middot; <a href="http://code.google.com/p/ratebeerforandroid/">View Google Code project</a></p>
 						</div>
 					</div>
 				</div>
@@ -172,7 +155,7 @@
 				<div class="half last social">
 					<g:plusone size="medium" href="http://actionbarsherlock.com"></g:plusone>
 					<a href="http://twitter.com/share" class="twitter-share-button" data-url="http://actionbarsherlock.com" data-text="ActionBarSherlock - Action bar design pattern for all versions of Android." data-count="horizontal" data-via="JakeWharton">Tweet</a>
-					<iframe src="http://www.facebook.com/plugins/like.php?app_id=186126341440594&amp;href=http%3A%2F%2Factionbarsherlock.com&amp;send=false&amp;layout=button_count&amp;width=90&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:90px; height:21px;" allowTransparency="true"></iframe> 
+					<iframe src="http://www.facebook.com/plugins/like.php?app_id=186126341440594&amp;href=http%3A%2F%2Factionbarsherlock.com&amp;send=false&amp;layout=button_count&amp;width=90&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:90px; height:21px;" allowTransparency="true"></iframe>
 					<a class="FlattrButton" style="display:none;" rev="flattr;button:compact;" href="http://actionbarsherlock.com"></a><noscript><a href="http://flattr.com/thing/320252/ActionBarSherlock" target="_blank"><img src="http://api.flattr.com/button/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0" /></a></noscript>
 					<a id="github" href="https://github.com/JakeWharton/ActionBarSherlock"><img style="position: absolute; top: 0; right: 0; border: 0;" src="static/ribbon.png" alt="Fork me on GitHub"></a>
 				</div>
