@@ -364,8 +364,9 @@ public class FragmentActivity extends Activity implements SupportActivity {
             if (frag == null) {
                 Log.w(TAG, "Activity result no fragment exists for index: 0x"
                         + Integer.toHexString(requestCode));
+            } else {
+                frag.onActivityResult(requestCode&0xffff, resultCode, data);
             }
-            frag.onActivityResult(requestCode&0xffff, resultCode, data);
             return;
         }
 
