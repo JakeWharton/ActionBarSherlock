@@ -15,7 +15,7 @@ $(function() {
 			return (o1.name > o2.name) ? -1 : 1;
 		});
 
-		var last = data[data.length - 1];
+		var last = data[0];
 		var lastSha = last.commit.sha;
 		var lastDate = $('#latest-date').html('<em>Date unavailable</em>');
 		$('.latest-version').html(last.name);
