@@ -98,6 +98,15 @@
 	#faq-table td p:first-child { margin-top: 0; }
 	#faq-table td p:last-child { margin-bottom: 0; }
 
+	#changelog-content {
+		color: #444;
+		text-shadow: 1px 0px 3px #ddd;
+	}
+	#changelog-content h1 { color: #000; }
+	#changelog-content h2 { color: #222; }
+	#changelog-content a:link, #changelog-content a:visited, #changelog-content a:active, #changelog-content a:hover { color: #33d; text-shadow: 0px 0px 0px; font-weight: normal; }
+	#changelog-content a:hover { border-bottom-color: #33f; }
+
 
 /*
     ColorBox Core Style:
