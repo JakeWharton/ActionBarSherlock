@@ -12,7 +12,7 @@ $(function() {
 		;
 
 		data.sort(function(o1, o2) {
-			return (o1.name < o2.name) ? -1 : 1;
+			return (o1.name > o2.name) ? -1 : 1;
 		});
 
 		var last = data[data.length - 1];
@@ -23,8 +23,8 @@ $(function() {
 		$('#latest-tarball').attr('href', last.tarball_url);
 
 		var previous = $('#previous-releases').empty();
-		$.each(data, function() {
-			previous.prepend(
+		$.each(data, function(index) {
+			previous.append(
 				$('<dt>Version ' + this.name + '<span class="normal"> &mdash; <em id="' + this.commit.sha + '">Date unavailable</em></span></dt>'),
 				$('<dd><a class="img" href="' + this.zipball_url + '">Zip</a> &middot; <a class="img" href="' + this.tarball_url + '">Tarball</a></dd>')
 			);
@@ -44,6 +44,11 @@ $(function() {
 					lastDate.html(date);
 				}
 			});
+
+			//Only most recent 10 tags
+			if (index == 9) {
+				return false;
+			}
 		});
 	});
 
@@ -142,10 +147,11 @@ $(function() {
 		<p><strong>Note</strong>: If you were previously using the Android compatability library you must remove its <code>.jar</code>. ActionBarSherlock is built on top of the compatability library and comes bundled with its classes.</p>
 	</div>
 	<div class="fourth last">
-		<h1>All Releases</h1>
+		<h1>Release History</h1>
 		<dl id="previous-releases">
 			<dt class="normal">(loading)</dt>
 		</dl>
+		<p><a href="https://github.com/JakeWharton/ActionBarSherlock/downloads">View all &raquo;</a></p>
 	</div>
 </div>
 
