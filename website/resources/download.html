@@ -76,11 +76,32 @@ $(function() {
 	});
 
 
-	$('#changelog').colorbox({
-		width: '80%',
-		maxWidth: 1030,
-		height: '90%',
-		iframe: 'true',
+	var converter = new Showdown.converter();
+	$.getJSON('https://api.github.com/repos/JakeWharton/ActionBarSherlock/git/trees/master?callback=?', function(response) {
+		var meta = response.meta
+		  , data = response.data
+		;
+		$.each(data.tree, function() {
+			if (this.path == 'CHANGELOG.md') {
+				$.ajax({
+					url: this.url,
+					type: 'GET',
+					dataType: 'text',
+					headers: {
+						'Accept': 'application/vnd.github-blob.raw'
+					},
+					success: function(data) {
+						$('#changelog').colorbox({
+							width: '80%',
+							maxWidth: 1030,
+							height: '90%',
+							html: '<div id="changelog-content">' + converter.makeHtml(data) + '</div>'
+						});
+					}
+				});
+				return false;
+			}
+		});
 	});
 });
 </script>
