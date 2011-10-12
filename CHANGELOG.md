@@ -1,8 +1,8 @@
 Change Log
 ===============================================================================
 
-Version 3.3.0 *(In Development)*
---------------------------------
+Version 3.3.0 *(2011-10-11)*
+----------------------------
 
  * Tabs are now displayed below the action bar on all medium-screen devices and
    portrait large-screen devices.
