@@ -2,7 +2,6 @@ package com.actionbarsherlock.tests.runner;
 
 import android.support.v4.view.MenuItem;
 import android.view.View;
-import com.actionbarsherlock.internal.view.menu.MenuItemImpl;
 import com.actionbarsherlock.tests.app.Issue0033;
 import com.actionbarsherlock.tests.app.R;
 
@@ -19,7 +18,7 @@ public class TestIssue0033 extends BaseTestCase<Issue0033> {
         assertTrue(getInstrumentation().invokeMenuActionSync(getActivity(), Issue0033.ID_VISIBLE, 0));
 
         //Get action item
-        MenuItem actionItem = (MenuItemImpl)getActivity().menuItemActionVisible;
+        MenuItem actionItem = getActivity().menuItemActionVisible;
         assertNotNull(actionItem);
         assertTrue(actionItem.isVisible());
 
