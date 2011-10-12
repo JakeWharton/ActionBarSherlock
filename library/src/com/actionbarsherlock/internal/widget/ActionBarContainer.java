@@ -12,7 +12,7 @@ public class ActionBarContainer extends FrameLayout {
     public ActionBarContainer(Context context) {
         this(context, null);
     }
-    
+
     public ActionBarContainer(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
