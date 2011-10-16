@@ -361,7 +361,7 @@ public class DialogFragment extends Fragment
         if (!mCancelable) {
             outState.putBoolean(SAVED_CANCELABLE, mCancelable);
         }
-        if (!mShowsDialog) {
+        if (mShowsDialog) {
             outState.putBoolean(SAVED_SHOWS_DIALOG, mShowsDialog);
         }
         if (mBackStackId != -1) {
