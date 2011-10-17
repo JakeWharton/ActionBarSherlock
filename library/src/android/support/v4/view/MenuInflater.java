@@ -435,7 +435,7 @@ public final class MenuInflater extends android.view.MenuInflater {
         private Method mMethod;
 
         public InflatedOnMenuItemClickListener(String methodName) {
-            final Class<?> localClass = MenuInflater.this.getClass();
+            final Class<?> localClass = mContext.getClass();
             try {
                 mMethod = localClass.getMethod(methodName, PARAM_TYPES);
             } catch (Exception e) {
@@ -453,7 +453,7 @@ public final class MenuInflater extends android.view.MenuInflater {
             final Object[] params = new Object[] { item };
             try {
                 if (mMethod.getReturnType() == Boolean.TYPE) {
-                    return (Boolean)mMethod.invoke(MenuInflater.this, params);
+                    return (Boolean)mMethod.invoke(mContext, params);
                 }
                 return false;
             } catch (Exception e) {
