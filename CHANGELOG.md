@@ -6,6 +6,10 @@ Version 3.3.1 *(In Development)*
 
  * XML-defined `onClick` attributes will now check for an `onClick` method that
    takes an `android.support.v4.view.MenuItem` instance.
+ * Fix: Menu inflater properly checks activity context for `onClick` method
+   declared in the XML.
+ * Fix: Dialog fragment properly saves its `showDialog` state when not being
+   used as a popup.
 
 
 Version 3.3.0 *(2011-10-11)*
