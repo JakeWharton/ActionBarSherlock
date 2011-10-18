@@ -1,6 +1,13 @@
 Change Log
 ===============================================================================
 
+Version 3.3.1 *(In Development)*
+--------------------------------
+
+ * XML-defined `onClick` attributes will now check for an `onClick` method that
+   takes an `android.support.v4.view.MenuItem` instance.
+
+
 Version 3.3.0 *(2011-10-11)*
 ----------------------------
 
