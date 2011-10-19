@@ -240,6 +240,8 @@ public final class ActionBarImpl extends ActionBar {
                 return mActionView.getDropdownSelectedPosition();
 
             case ActionBar.NAVIGATION_MODE_TABS:
+                if (mActionView.getSelectedTab() == null)
+                    return -1;
                 return mActionView.getSelectedTab().getPosition();
         }
     }
