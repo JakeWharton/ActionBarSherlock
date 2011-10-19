@@ -1,6 +1,12 @@
 Change Log
 ===============================================================================
 
+Version 3.4.0 *(In Development)*
+--------------------------------
+
+ * Library now uses the `r4` version of the compatibility library for its base.
+
+
 Version 3.3.1 *(2011-10-20)*
 ----------------------------
 
