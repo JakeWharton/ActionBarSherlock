@@ -1,8 +1,8 @@
 Change Log
 ===============================================================================
 
-Version 3.3.1 *(In Development)*
---------------------------------
+Version 3.3.1 *(2011-10-20)*
+----------------------------
 
 ADT 14 is now required. Maven 3 is required if building from the command line.
 
