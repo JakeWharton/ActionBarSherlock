@@ -18,6 +18,8 @@ Library style updated to ADT 14.
  * Fix: `getSelectedTab` and `getTabAt` no longer throw `NullPointerException`s
    on post-3.0 when no tab was selected or no tab existed at the specified
    position, respectively.
+ * Fix: `findFragmentById` now properly returns fragments attached to
+   `android.R.id.content` when run on pre-3.0 devices.
 
 
 Version 3.3.0 *(2011-10-11)*
