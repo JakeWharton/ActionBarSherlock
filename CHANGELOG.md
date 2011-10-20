@@ -12,6 +12,12 @@ Library style updated to ADT 14.
    declared in the XML.
  * Fix: Dialog fragment properly saves its `showDialog` state when not being
    used as a popup.
+ * Fix: Return `-1` when in tab navigation but no tab is selected. This brings
+   the library in line with the post-3.0 behavior.
+ * Fix: Removing a menu group no longer throws an `IndexOutOfBoundsException`.
+ * Fix: `getSelectedTab` and `getTabAt` no longer throw `NullPointerException`s
+   on post-3.0 when no tab was selected or no tab existed at the specified
+   position, respectively.
 
 
 Version 3.3.0 *(2011-10-11)*
