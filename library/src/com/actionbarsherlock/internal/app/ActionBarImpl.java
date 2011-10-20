@@ -220,6 +220,9 @@ public final class ActionBarImpl extends ActionBar {
                 return (dropdownAdapter != null) ? dropdownAdapter.getCount() : 0;
 
             case ActionBar.NAVIGATION_MODE_TABS:
+                if (mActionView.getSelectedTab() == null) {
+                    return -1;
+                }
                 return mActionView.getTabCount();
         }
     }
