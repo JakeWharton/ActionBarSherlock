@@ -8,6 +8,8 @@ Library style updated to ADT 14.
 
  * XML-defined `onClick` attributes will now check for an `onClick` method that
    takes an `android.support.v4.view.MenuItem` instance.
+ * Tabs on medium screens in landscape now display inline rather than below the
+   action bar to mirror how Android 4.0 behaves with the same configuration.
  * Fix: Menu inflater properly checks activity context for `onClick` method
    declared in the XML.
  * Fix: Dialog fragment properly saves its `showDialog` state when not being
