@@ -1190,7 +1190,7 @@ final class FragmentManagerImpl extends FragmentManager {
         if (!HONEYCOMB && (id == android.R.id.content)) {
             // android.R.id.content would point to the entire content area,
             // including the custom action bar
-            return findFragmentById(R.id.abs__content);
+            id = R.id.abs__content;
         }
 
         if (mActive != null) {
