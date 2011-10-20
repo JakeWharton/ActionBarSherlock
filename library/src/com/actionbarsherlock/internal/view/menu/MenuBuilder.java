@@ -359,10 +359,12 @@ public class MenuBuilder implements Menu {
 
     @Override
     public void removeGroup(int groupId) {
-        final int size = this.mItems.size();
+        int size = this.mItems.size();
         for (int i = 0; i < size; i++) {
             if (this.mItems.get(i).getGroupId() == groupId) {
                 this.mItems.remove(i);
+                i--;
+                size--;
             }
         }
     }
