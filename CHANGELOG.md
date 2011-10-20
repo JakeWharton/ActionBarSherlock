@@ -4,6 +4,8 @@ Change Log
 Version 3.3.1 *(In Development)*
 --------------------------------
 
+Library style updated to ADT 14.
+
  * XML-defined `onClick` attributes will now check for an `onClick` method that
    takes an `android.support.v4.view.MenuItem` instance.
  * Fix: Menu inflater properly checks activity context for `onClick` method
