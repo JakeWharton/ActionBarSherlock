@@ -4,7 +4,7 @@ Change Log
 Version 3.3.1 *(In Development)*
 --------------------------------
 
-Library style updated to ADT 14.
+ADT 14 is now required. Maven 3 is required if building from the command line.
 
  * XML-defined `onClick` attributes will now check for an `onClick` method that
    takes an `android.support.v4.view.MenuItem` instance.
