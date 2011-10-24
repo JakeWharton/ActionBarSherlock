@@ -21,22 +21,8 @@ with open(file_source) as f:
 
 code = code.split('\n')
 
-# Remove com.actionbarsherlock.R import
-code.pop(23)
-
 # Add MapActivity import
-code.insert(30, 'import com.google.android.maps.MapActivity;')
-
-# Remove static resource declarations
-code.pop(78)
-code.pop(78)
-code.pop(78)
-code.pop(78)
-code.pop(78)
-code.pop(78)
-code.pop(78)
-code.pop(78)
-code.pop(78)
+code.insert(31, 'import com.google.android.maps.MapActivity;')
 
 code = '\n'.join(code)
 
@@ -54,9 +40,6 @@ code = code.replace('FragmentActivity()', 'FragmentMapActivity()')
 
 # Javadoc
 code = code.replace('Fragment, and Loader APIs.', 'Fragment, Loader, and Google Map APIs.')
-
-# Replace R.java constants with references to FragmentActivity
-code = re.sub(r'R\.(id|layout|styleable)\.(?:abs__)?([_a-zA-Z]+)', r'FragmentActivity.R$\1$\2', code)
 
 
 # Exit stage left
