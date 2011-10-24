@@ -5,6 +5,8 @@ Version 3.4.0 *(In Development)*
 --------------------------------
 
  * Library now uses the `r4` version of the compatibility library for its base.
+ * Context menu callbacks now use the support version of `MenuItem` to maintain
+   consistency.
 
 
 Version 3.3.1 *(2011-10-20)*
