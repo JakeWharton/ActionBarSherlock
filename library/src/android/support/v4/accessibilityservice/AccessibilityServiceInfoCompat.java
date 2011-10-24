@@ -56,7 +56,7 @@ public class AccessibilityServiceInfoCompat {
             return null;
         }
     }
-
+/*
     static class AccessibilityServiceInfoIcsImpl extends AccessibilityServiceInfoStubImpl {
 
         @Override
@@ -84,13 +84,13 @@ public class AccessibilityServiceInfoCompat {
             return AccessibilityServiceInfoCompatIcs.getSettingsActivityName(info);
         }
     }
-
+*/
     static {
-        if (Build.VERSION.SDK_INT >= 14) { // ICS
-            IMPL = new AccessibilityServiceInfoIcsImpl();
-        } else {
+        //if (Build.VERSION.SDK_INT >= 14) { // ICS
+        //    IMPL = new AccessibilityServiceInfoIcsImpl();
+        //} else {
             IMPL = new AccessibilityServiceInfoStubImpl();
-        }
+        //}
     }
 
     private static final AccessibilityServiceInfoVersionImpl IMPL;

@@ -24,8 +24,10 @@ import android.view.accessibility.AccessibilityEvent;
  * ICS specific ViewGroup API implementation.
  */
 class ViewGroupCompatIcs {
+/*
     public static boolean onRequestSendAccessibilityEvent(ViewGroup group, View child,
             AccessibilityEvent event) {
         return group.onRequestSendAccessibilityEvent(child, event);
     }
+*/
 }

@@ -17,13 +17,13 @@
 package android.support.v4.view.accessibility;
 
 import android.view.accessibility.AccessibilityEvent;
-import android.view.accessibility.AccessibilityRecord;
+//import android.view.accessibility.AccessibilityRecord;
 
 /**
  * ICS specific AccessibilityEvent API implementation.
  */
 class AccessibilityEventCompatIcs {
-
+/*
     public static int getRecordCount(AccessibilityEvent event) {
         return event.getRecordCount();
     }
@@ -35,4 +35,5 @@ class AccessibilityEventCompatIcs {
     public static Object getRecord(AccessibilityEvent event, int index) {
         return event.getRecord(index);
     }
+*/
 }

@@ -17,15 +17,15 @@
 package android.support.v4.view;
 
 import android.view.View;
-import android.view.View.AccessibilityDelegate;
+//import android.view.View.AccessibilityDelegate;
 import android.view.accessibility.AccessibilityEvent;
-import android.view.accessibility.AccessibilityNodeInfo;
+//import android.view.accessibility.AccessibilityNodeInfo;
 
 /**
  * Helper for accessing newer features in View introduced in ICS.
  */
 class ViewCompatICS {
-
+/*
     public static boolean canScrollHorizontally(View v, int direction) {
         return v.canScrollHorizontally(direction);
     }
@@ -49,4 +49,5 @@ class ViewCompatICS {
     public static void onInitializeAccessibilityNodeInfo(View v, Object info) {
         v.onInitializeAccessibilityNodeInfo((AccessibilityNodeInfo) info);
     }
+*/
 }

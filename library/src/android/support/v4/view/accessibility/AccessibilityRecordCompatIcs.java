@@ -18,7 +18,7 @@ package android.support.v4.view.accessibility;
 
 import android.os.Parcelable;
 import android.view.View;
-import android.view.accessibility.AccessibilityRecord;
+//import android.view.accessibility.AccessibilityRecord;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ import java.util.List;
  * ICS specific AccessibilityRecord API implementation.
  */
 class AccessibilityRecordCompatIcs {
-
+/*
     public static Object obtain() {
         return AccessibilityRecord.obtain();
     }
@@ -208,4 +208,5 @@ class AccessibilityRecordCompatIcs {
     public static void setToIndex(Object record, int toIndex) {
         ((AccessibilityRecord) record).setToIndex(toIndex);
     }
+*/
 }

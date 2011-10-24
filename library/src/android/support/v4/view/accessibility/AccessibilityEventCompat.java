@@ -44,7 +44,7 @@ public class AccessibilityEventCompat {
             return 0;
         }
     }
-
+/*
     static class AccessibilityEventIcsImpl extends AccessibilityEventStubImpl {
 
         @Override
@@ -62,15 +62,15 @@ public class AccessibilityEventCompat {
             return AccessibilityEventCompatIcs.getRecordCount(event);
         }
     }
-
+*/
     private final static AccessibilityEventVersionImpl IMPL;
 
     static {
-        if (Build.VERSION.SDK_INT >= 14) { // ICS
-            IMPL = new AccessibilityEventIcsImpl();
-        } else {
+        //if (Build.VERSION.SDK_INT >= 14) { // ICS
+        //    IMPL = new AccessibilityEventIcsImpl();
+        //} else {
             IMPL = new AccessibilityEventStubImpl();
-        }
+        //}
     }
 
     /**

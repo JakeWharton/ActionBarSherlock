@@ -267,7 +267,7 @@ public class AccessibilityNodeInfoCompat {
 
         }
     }
-
+/*
     static class AccessibilityNodeInfoIcsImpl extends AccessibilityNodeInfoStubImpl {
         @Override
         public Object obtain() {
@@ -504,13 +504,13 @@ public class AccessibilityNodeInfoCompat {
             AccessibilityNodeInfoCompatIcs.recycle(info);
         }
     }
-
+*/
     static {
-        if (Build.VERSION.SDK_INT >= 14) { // ICS
-            IMPL = new AccessibilityNodeInfoIcsImpl();
-        } else {
+        //if (Build.VERSION.SDK_INT >= 14) { // ICS
+        //    IMPL = new AccessibilityNodeInfoIcsImpl();
+        //} else {
             IMPL = new AccessibilityNodeInfoStubImpl();
-        }
+        //}
     }
 
     private static final AccessibilityNodeInfoImpl IMPL;

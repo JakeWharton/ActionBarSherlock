@@ -89,7 +89,7 @@ public class ViewCompat {
             ViewCompatGingerbread.setOverScrollMode(v, mode);
         }
     }
-
+/*
     static class ICSViewCompatImpl extends GBViewCompatImpl {
         @Override
         public boolean canScrollHorizontally(View v, int direction) {
@@ -116,13 +116,13 @@ public class ViewCompat {
             ViewCompatICS.setAccessibilityDelegate(v, delegate.getBridge());
         }
     }
-
+*/
     static final ViewCompatImpl IMPL;
     static {
         final int version = android.os.Build.VERSION.SDK_INT;
-        if (version >= 14) {
+        /*if (version >= 14) {
             IMPL = new ICSViewCompatImpl();
-        } else if (version >= 9) {
+        } else*/ if (version >= 9) {
             IMPL = new GBViewCompatImpl();
         } else {
             IMPL = new BaseViewCompatImpl();

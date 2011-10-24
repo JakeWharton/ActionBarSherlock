@@ -33,11 +33,11 @@ public class EdgeEffectCompat {
     private static final EdgeEffectImpl IMPL;
 
     static {
-        if (Build.VERSION.SDK_INT >= 14) { // ICS
-            IMPL = new EdgeEffectIcsImpl();
-        } else {
+        //if (Build.VERSION.SDK_INT >= 14) { // ICS
+        //    IMPL = new EdgeEffectIcsImpl();
+        //} else {
             IMPL = new BaseEdgeEffectImpl();
-        }
+        //}
     }
 
     interface EdgeEffectImpl {
@@ -85,7 +85,7 @@ public class EdgeEffectCompat {
             return false;
         }
     }
-
+/*
     static class EdgeEffectIcsImpl implements EdgeEffectImpl {
         public Object newEdgeEffect(Context context) {
             return EdgeEffectCompatIcs.newEdgeEffect(context);
@@ -119,7 +119,7 @@ public class EdgeEffectCompat {
             return EdgeEffectCompatIcs.draw(edgeEffect, canvas);
         }
     }
-
+*/
     /**
      * Construct a new EdgeEffect themed using the given context.
      *

@@ -18,7 +18,7 @@ package android.support.v4.view.accessibility;
 
 import android.accessibilityservice.AccessibilityServiceInfo;
 import android.view.accessibility.AccessibilityManager;
-import android.view.accessibility.AccessibilityManager.AccessibilityStateChangeListener;
+//import android.view.accessibility.AccessibilityManager.AccessibilityStateChangeListener;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ import java.util.List;
  * ICS specific AccessibilityManager API implementation.
  */
 class AccessibilityManagerCompatIcs {
-
+/*
     interface AccessibilityStateChangeListenerBridge {
         public void onAccessibilityStateChanged(boolean enabled);
     }
@@ -66,4 +66,5 @@ class AccessibilityManagerCompatIcs {
     public static boolean isTouchExplorationEnabled(AccessibilityManager manager) {
         return manager.isTouchExplorationEnabled();
     }
+*/
 }

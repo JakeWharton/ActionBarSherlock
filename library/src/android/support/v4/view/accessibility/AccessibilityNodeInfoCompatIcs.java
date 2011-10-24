@@ -18,7 +18,7 @@ package android.support.v4.view.accessibility;
 
 import android.graphics.Rect;
 import android.view.View;
-import android.view.accessibility.AccessibilityNodeInfo;
+//import android.view.accessibility.AccessibilityNodeInfo;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ import java.util.List;
  * ICS specific AccessibilityNodeInfo API implementation.
  */
 class AccessibilityNodeInfoCompatIcs {
-
+/*
     public static Object obtain() {
         return AccessibilityNodeInfo.obtain();
     }
@@ -216,4 +216,5 @@ class AccessibilityNodeInfoCompatIcs {
     public static void recycle(Object info) {
         ((AccessibilityNodeInfo) info).recycle();
     }
+*/
 }

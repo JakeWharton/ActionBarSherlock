@@ -256,7 +256,7 @@ public class AccessibilityRecordCompat {
 
         }
     }
-
+/*
     static class AccessibilityRecordIcsImpl implements AccessibilityRecordImpl {
         public Object obtain() {
             return AccessibilityRecordCompatIcs.obtain();
@@ -442,13 +442,13 @@ public class AccessibilityRecordCompat {
             AccessibilityRecordCompatIcs.setToIndex(record, toIndex);
         }
     }
-
+*/
     static {
-        if (Build.VERSION.SDK_INT >= 14) { // ICS
-            IMPL = new AccessibilityRecordIcsImpl();
-        } else {
+        //if (Build.VERSION.SDK_INT >= 14) { // ICS
+        //    IMPL = new AccessibilityRecordIcsImpl();
+        //} else {
             IMPL = new AccessibilityRecordStubImpl();
-        }
+        //}
     }
 
     private static final AccessibilityRecordImpl IMPL;

@@ -24,7 +24,7 @@ import android.content.pm.ResolveInfo;
  * ICS implementation of the new APIs in AccessibilityServiceInfo.
  */
 class AccessibilityServiceInfoCompatIcs {
-
+/*
     public static boolean getCanRetrieveWindowContent(AccessibilityServiceInfo info) {
         return info.getCanRetrieveWindowContent();
     }
@@ -44,4 +44,5 @@ class AccessibilityServiceInfoCompatIcs {
     public static String getSettingsActivityName(AccessibilityServiceInfo info) {
         return info.getSettingsActivityName();
     }
+*/
 }

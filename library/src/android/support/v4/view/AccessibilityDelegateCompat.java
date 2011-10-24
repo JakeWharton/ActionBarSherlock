@@ -86,7 +86,7 @@ public class AccessibilityDelegateCompat {
 
         }
     }
-
+/*
     static class AccessibilityDelegateIcsImpl extends AccessibilityDelegateStubImpl {
         @Override
         public Object newAccessiblityDelegateDefaultImpl() {
@@ -179,16 +179,16 @@ public class AccessibilityDelegateCompat {
             AccessibilityDelegateCompatIcs.sendAccessibilityEventUnchecked(delegate, host, event);
         }
     }
-
+*/
     private static final AccessibilityDelegateImpl IMPL;
     private static final Object DEFAULT_DELEGATE;
 
     static {
-        if (Build.VERSION.SDK_INT >= 14) { // ICS
-            IMPL = new AccessibilityDelegateIcsImpl();
-        } else {
+        //if (Build.VERSION.SDK_INT >= 14) { // ICS
+        //    IMPL = new AccessibilityDelegateIcsImpl();
+        //} else {
             IMPL = new AccessibilityDelegateStubImpl();
-        }
+        //}
         DEFAULT_DELEGATE = IMPL.newAccessiblityDelegateDefaultImpl();
     }
 

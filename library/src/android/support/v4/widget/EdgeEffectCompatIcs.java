@@ -17,7 +17,7 @@ package android.support.v4.widget;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.widget.EdgeEffect;
+//import android.widget.EdgeEffect;
 
 /**
  * Stub implementation that contains a real EdgeEffect on ICS.
@@ -26,6 +26,7 @@ import android.widget.EdgeEffect;
  * and should not be used directly.
  */
 class EdgeEffectCompatIcs {
+/*
     public static Object newEdgeEffect(Context context) {
         return new EdgeEffect(context);
     }
@@ -61,4 +62,5 @@ class EdgeEffectCompatIcs {
     public static boolean draw(Object edgeEffect, Canvas canvas) {
         return ((EdgeEffect) edgeEffect).draw(canvas);
     }
+*/
 }

@@ -17,16 +17,16 @@
 package android.support.v4.view;
 
 import android.view.View;
-import android.view.View.AccessibilityDelegate;
+//import android.view.View.AccessibilityDelegate;
 import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityEvent;
-import android.view.accessibility.AccessibilityNodeInfo;
+//import android.view.accessibility.AccessibilityNodeInfo;
 
 /**
  * ICS specific AccessibilityDelegate API implementation.
  */
 class AccessibilityDelegateCompatIcs {
-
+/*
     public interface AccessibilityDelegateBridge {
         public boolean dispatchPopulateAccessibilityEvent(View host, AccessibilityEvent event);
         public void onInitializeAccessibilityEvent(View host, AccessibilityEvent event);
@@ -116,4 +116,5 @@ class AccessibilityDelegateCompatIcs {
             AccessibilityEvent event) {
         ((AccessibilityDelegate) delegate).sendAccessibilityEventUnchecked(host, event);
     }
+*/
 }

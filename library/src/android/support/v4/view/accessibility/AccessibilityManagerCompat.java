@@ -19,7 +19,7 @@ package android.support.v4.view.accessibility;
 import android.accessibilityservice.AccessibilityServiceInfo;
 import android.os.Build;
 import android.view.accessibility.AccessibilityManager;
-import android.support.v4.view.accessibility.AccessibilityManagerCompatIcs.AccessibilityStateChangeListenerBridge;
+//import android.support.v4.view.accessibility.AccessibilityManagerCompatIcs.AccessibilityStateChangeListenerBridge;
 
 import java.util.List;
 
@@ -72,7 +72,7 @@ public class AccessibilityManagerCompat {
             return false;
         }
     }
-
+/*
     static class AccessibilityManagerIcsImpl extends AccessibilityManagerStubImpl {
         
         @Override
@@ -118,13 +118,13 @@ public class AccessibilityManagerCompat {
             return AccessibilityManagerCompatIcs.isTouchExplorationEnabled(manager);
         }
     }
-
+*/
     static {
-        if (Build.VERSION.SDK_INT >= 14) { // ICS
-            IMPL = new AccessibilityManagerIcsImpl();
-        } else {
+        //if (Build.VERSION.SDK_INT >= 14) { // ICS
+        //    IMPL = new AccessibilityManagerIcsImpl();
+        //} else {
             IMPL = new AccessibilityManagerStubImpl();
-        }
+        //}
     }
 
     private static final AccessibilityManagerVersionImpl IMPL;

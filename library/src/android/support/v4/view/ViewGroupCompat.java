@@ -37,7 +37,7 @@ public class ViewGroupCompat {
             return true;
         }
     }
-
+/*
     static class ViewGroupCompatIcsImpl extends ViewGroupCompatStubImpl {
         @Override
         public boolean onRequestSendAccessibilityEvent(
@@ -45,14 +45,14 @@ public class ViewGroupCompat {
             return ViewGroupCompatIcs.onRequestSendAccessibilityEvent(group, child, event);
         }
     }
-
+*/
     static final ViewGroupCompatImpl IMPL;
     static {
-        if (Build.VERSION.SDK_INT >= 14) {
-            IMPL = new ViewGroupCompatIcsImpl();
-        } else {
+        //if (Build.VERSION.SDK_INT >= 14) {
+        //    IMPL = new ViewGroupCompatIcsImpl();
+        //} else {
             IMPL = new ViewGroupCompatStubImpl();
-        }
+        //}
     }
 
     /*
