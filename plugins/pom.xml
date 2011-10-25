@@ -17,5 +17,6 @@
 
 	<modules>
 		<module>maps</module>
+		<module>preference</module>
 	</modules>
 </project>
