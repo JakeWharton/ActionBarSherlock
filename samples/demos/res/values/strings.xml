@@ -77,6 +77,8 @@
     <string name="fragment_arguments_embedded">From Attributes</string>
     <string name="fragment_arguments_embedded_land">Landscape Only</string>
 
+    <string name="fragment_custom_animation_support">Fragment/Custom Animation</string>
+
     <string name="fragment_hide_show_support">Fragment/Hide and Show</string>
 
     <string name="fragment_context_menu_support">Fragment/Context Menu</string>
@@ -131,6 +133,13 @@
     <string name="loader_custom_support">Loader/Custom</string>
 
     <string name="loader_throttle_support">Loader/Throttle</string>
+
+    <string name="local_service_broadcaster">Content/Local Service Broadcaster</string>
+
+    <string name="local_service_broadcaster_msg">Demonstrates use of LocalBroadcastManager
+        to communicate from a Service to an Activity.</string>
+    <string name="start_service">Start Service</string>
+    <string name="stop_service">Stop Service</string>
 
     <string name="map_warning">If you compiled this application yourself you need to specify your own API key in res/values/strings.xml</string>
     <string name="map_activity">Map/Simple Activity</string>

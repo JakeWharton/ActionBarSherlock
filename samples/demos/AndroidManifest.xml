@@ -203,6 +203,14 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".app.FragmentCustomAnimationSupport"
+                android:label="@string/fragment_custom_animation_support">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+
         <activity android:name=".app.FragmentHideShowSupport"
                 android:label="@string/fragment_hide_show_support"
                 android:windowSoftInputMode="stateUnchanged">
@@ -359,6 +367,16 @@
                 <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".content.LocalServiceBroadcaster"
+                android:label="@string/local_service_broadcaster">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+        <service android:name=".content.LocalServiceBroadcaster$LocalService" />
+        <!-- android:stopWithTask="true" /> THIS WAS PART OF THE SUPPORT DEMOS? -->
 
         <activity android:name=".app.MapFragment"
                 android:label="@string/map_fragment">
