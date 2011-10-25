@@ -572,10 +572,12 @@ public class FragmentActivity extends Activity implements SupportActivity {
             mOptionsMenuCreateResult |= mFragments.dispatchCreateOptionsMenu(mSupportMenu, getMenuInflater());
 
             if (getSupportActionBar() != null) {
+                if (onPrepareOptionsMenu(mSupportMenu)) {
+                    mFragments.dispatchPrepareOptionsMenu(mSupportMenu);
+                }
+
                 //Since we now know we are using a custom action bar, perform the
                 //inflation callback to allow it to display any items it wants.
-                //Any items that were displayed will have a boolean toggled so that we
-                //do not display them on the options menu.
                 ((ActionBarImpl)mActionBar).onMenuInflated(mSupportMenu);
             }
 
