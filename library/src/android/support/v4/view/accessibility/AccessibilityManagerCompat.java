@@ -17,7 +17,7 @@
 package android.support.v4.view.accessibility;
 
 import android.accessibilityservice.AccessibilityServiceInfo;
-import android.os.Build;
+//import android.os.Build;
 import android.view.accessibility.AccessibilityManager;
 //import android.support.v4.view.accessibility.AccessibilityManagerCompatIcs.AccessibilityStateChangeListenerBridge;
 
@@ -74,7 +74,7 @@ public class AccessibilityManagerCompat {
     }
 /*
     static class AccessibilityManagerIcsImpl extends AccessibilityManagerStubImpl {
-        
+
         @Override
         public Object newAccessiblityStateChangeListener(
                 final AccessibilityStateChangeListenerCompat listener) {

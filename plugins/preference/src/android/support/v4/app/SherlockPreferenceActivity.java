@@ -47,7 +47,7 @@ import com.actionbarsherlock.internal.view.menu.MenuItemWrapper;
 import com.actionbarsherlock.internal.view.menu.MenuWrapper;
 
 /**
- * Base class for activities that want to use the support-based ActionBar and 
+ * Base class for activities that want to use the support-based ActionBar and
  * Preference APIs.
  */
 public class SherlockPreferenceActivity extends PreferenceActivity implements SupportActivity {
@@ -87,10 +87,10 @@ public class SherlockPreferenceActivity extends PreferenceActivity implements Su
         void ensureSupportActionBarAttached() {
             SherlockPreferenceActivity.this.ensureSupportActionBarAttached();
         }
-        
+
         @Override
         boolean getRetaining() {
-        	return false;
+            return false;
         }
     };
 
@@ -145,7 +145,7 @@ public class SherlockPreferenceActivity extends PreferenceActivity implements Su
             final ListView contentView = new ListView(this);
             contentView.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
             contentView.setId(android.R.id.list);
-            
+
             if ((mWindowFlags & WINDOW_FLAG_ACTION_BAR) == WINDOW_FLAG_ACTION_BAR) {
                 if ((mWindowFlags & WINDOW_FLAG_ACTION_BAR_OVERLAY) == WINDOW_FLAG_ACTION_BAR_OVERLAY) {
                     View view = getLayoutInflater().inflate(R.layout.abs__screen_action_bar_overlay, null);
@@ -504,7 +504,7 @@ public class SherlockPreferenceActivity extends PreferenceActivity implements Su
     // ------------------------------------------------------------------------
     // NEW METHODS
     // ------------------------------------------------------------------------
-    
+
     /**
      * Use this instead of {@link #onRetainNonConfigurationInstance()}.
      * Retrieve later with {@link #getLastCustomNonConfigurationInstance()}.
@@ -521,12 +521,12 @@ public class SherlockPreferenceActivity extends PreferenceActivity implements Su
         return getLastNonConfigurationInstance();
     }
 
-	/**
-	 * @deprecated Use {@link invalidateOptionsMenu}.
-	 */
-	@Deprecated
+    /**
+     * @deprecated Use {@link invalidateOptionsMenu}.
+     */
+    @Deprecated
     void supportInvalidateOptionsMenu() {
-		invalidateOptionsMenu();
+        invalidateOptionsMenu();
     }
 
     /**

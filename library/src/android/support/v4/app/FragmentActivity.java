@@ -115,10 +115,10 @@ public class FragmentActivity extends Activity implements SupportActivity {
         void ensureSupportActionBarAttached() {
             FragmentActivity.this.ensureSupportActionBarAttached();
         }
-        
+
         @Override
         boolean getRetaining() {
-        	return mRetaining;
+            return mRetaining;
         }
     };
 
@@ -974,7 +974,7 @@ public class FragmentActivity extends Activity implements SupportActivity {
     // ------------------------------------------------------------------------
     // NEW METHODS
     // ------------------------------------------------------------------------
-    
+
     /**
      * Use this instead of {@link #onRetainNonConfigurationInstance()}.
      * Retrieve later with {@link #getLastCustomNonConfigurationInstance()}.
@@ -993,12 +993,12 @@ public class FragmentActivity extends Activity implements SupportActivity {
         return nc != null ? nc.custom : null;
     }
 
-	/**
-	 * @deprecated Use {@link invalidateOptionsMenu}.
-	 */
-	@Deprecated
+    /**
+     * @deprecated Use {@link invalidateOptionsMenu}.
+     */
+    @Deprecated
     void supportInvalidateOptionsMenu() {
-		invalidateOptionsMenu();
+        invalidateOptionsMenu();
     }
 
     /**

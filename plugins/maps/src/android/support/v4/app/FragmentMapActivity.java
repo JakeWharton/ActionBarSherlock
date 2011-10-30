@@ -116,10 +116,10 @@ public abstract class FragmentMapActivity extends MapActivity implements Support
         void ensureSupportActionBarAttached() {
             FragmentMapActivity.this.ensureSupportActionBarAttached();
         }
-        
+
         @Override
         boolean getRetaining() {
-        	return mRetaining;
+            return mRetaining;
         }
     };
 
@@ -975,7 +975,7 @@ public abstract class FragmentMapActivity extends MapActivity implements Support
     // ------------------------------------------------------------------------
     // NEW METHODS
     // ------------------------------------------------------------------------
-    
+
     /**
      * Use this instead of {@link #onRetainNonConfigurationInstance()}.
      * Retrieve later with {@link #getLastCustomNonConfigurationInstance()}.
@@ -994,12 +994,12 @@ public abstract class FragmentMapActivity extends MapActivity implements Support
         return nc != null ? nc.custom : null;
     }
 
-	/**
-	 * @deprecated Use {@link invalidateOptionsMenu}.
-	 */
-	@Deprecated
+    /**
+     * @deprecated Use {@link invalidateOptionsMenu}.
+     */
+    @Deprecated
     void supportInvalidateOptionsMenu() {
-		invalidateOptionsMenu();
+        invalidateOptionsMenu();
     }
 
     /**

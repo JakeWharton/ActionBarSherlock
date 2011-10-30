@@ -444,7 +444,7 @@ public abstract class CursorAdapter extends BaseAdapter implements Filterable,
      * @see ContentObserver#onChange(boolean)
      */
     @SuppressWarnings("unused")
-	protected void onContentChanged() {
+    protected void onContentChanged() {
         if (mAutoRequery && mCursor != null && !mCursor.isClosed()) {
             if (false) Log.v("Cursor", "Auto requerying " + mCursor + " due to update");
             mDataValid = mCursor.requery();
