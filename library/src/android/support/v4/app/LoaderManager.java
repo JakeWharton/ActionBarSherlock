@@ -322,14 +322,14 @@ class LoaderManagerImpl extends LoaderManager {
                 if (DEBUG) Log.v(TAG, "  Reseting: " + this);
                 String lastBecause = null;
                 if (mActivity != null) {
-                    lastBecause = mActivity.getInternalCallbacks().getFragments().mNoTransactionsBecause;
-                    mActivity.getInternalCallbacks().getFragments().mNoTransactionsBecause = "onLoaderReset";
+                    lastBecause = mActivity.getFragments().mNoTransactionsBecause;
+                    mActivity.getFragments().mNoTransactionsBecause = "onLoaderReset";
                 }
                 try {
                     mCallbacks.onLoaderReset(mLoader);
                 } finally {
                     if (mActivity != null) {
-                        mActivity.getInternalCallbacks().getFragments().mNoTransactionsBecause = lastBecause;
+                        mActivity.getFragments().mNoTransactionsBecause = lastBecause;
                     }
                 }
             }
@@ -404,8 +404,8 @@ class LoaderManagerImpl extends LoaderManager {
             if (mCallbacks != null) {
                 String lastBecause = null;
                 if (mActivity != null) {
-                    lastBecause = mActivity.getInternalCallbacks().getFragments().mNoTransactionsBecause;
-                    mActivity.getInternalCallbacks().getFragments().mNoTransactionsBecause = "onLoadFinished";
+                    lastBecause = mActivity.getFragments().mNoTransactionsBecause;
+                    mActivity.getFragments().mNoTransactionsBecause = "onLoadFinished";
                 }
                 try {
                     if (DEBUG) Log.v(TAG, "  onLoadFinished in " + loader + ": "
@@ -413,7 +413,7 @@ class LoaderManagerImpl extends LoaderManager {
                     mCallbacks.onLoadFinished(loader, data);
                 } finally {
                     if (mActivity != null) {
-                        mActivity.getInternalCallbacks().getFragments().mNoTransactionsBecause = lastBecause;
+                        mActivity.getFragments().mNoTransactionsBecause = lastBecause;
                     }
                 }
                 mDeliveredData = true;

@@ -106,7 +106,7 @@ final class FragmentState implements Parcelable {
         mInstance.mTag = mTag;
         mInstance.mRetainInstance = mRetainInstance;
         mInstance.mDetached = mDetached;
-        mInstance.mFragmentManager = activity.getInternalCallbacks().getFragments();
+        mInstance.mFragmentManager = activity.getSupportFragmentManager();
 
         return mInstance;
     }
@@ -753,7 +753,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
             throw new IllegalStateException("Fragment " + this + " not attached to Activity");
         }
         mCheckedForLoaderManager = true;
-        mLoaderManager = mActivity.getInternalCallbacks().getLoaderManager(mIndex, mLoadersStarted, true);
+        mLoaderManager = mActivity.getLoaderManager(mIndex, mLoadersStarted, true);
         return mLoaderManager;
     }
 
@@ -960,7 +960,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
             mLoadersStarted = true;
             if (!mCheckedForLoaderManager) {
                 mCheckedForLoaderManager = true;
-                mLoaderManager = mActivity.getInternalCallbacks().getLoaderManager(mIndex, mLoadersStarted, false);
+                mLoaderManager = mActivity.getLoaderManager(mIndex, mLoadersStarted, false);
             }
             if (mLoaderManager != null) {
                 mLoaderManager.doStart();
@@ -1049,7 +1049,7 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
         //        + " mLoaderManager=" + mLoaderManager);
         if (!mCheckedForLoaderManager) {
             mCheckedForLoaderManager = true;
-            mLoaderManager = mActivity.getInternalCallbacks().getLoaderManager(mIndex, mLoadersStarted, false);
+            mLoaderManager = mActivity.getLoaderManager(mIndex, mLoadersStarted, false);
         }
         if (mLoaderManager != null) {
             mLoaderManager.doDestroy();
@@ -1328,10 +1328,10 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
             mLoadersStarted = false;
             if (!mCheckedForLoaderManager) {
                 mCheckedForLoaderManager = true;
-                mLoaderManager = mActivity.getInternalCallbacks().getLoaderManager(mIndex, mLoadersStarted, false);
+                mLoaderManager = mActivity.getLoaderManager(mIndex, mLoadersStarted, false);
             }
             if (mLoaderManager != null) {
-                if (!mActivity.getInternalCallbacks().getRetaining()) {
+                if (!mActivity.getRetaining()) {
                     mLoaderManager.doStop();
                 } else {
                     mLoaderManager.doRetain();
