@@ -106,7 +106,7 @@ final class FragmentState implements Parcelable {
         mInstance.mTag = mTag;
         mInstance.mRetainInstance = mRetainInstance;
         mInstance.mDetached = mDetached;
-        mInstance.mFragmentManager = activity.getSupportFragmentManager();
+        mInstance.mFragmentManager = activity.getFragments();
 
         return mInstance;
     }
