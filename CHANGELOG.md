@@ -1,14 +1,19 @@
 Change Log
 ===============================================================================
 
-Version 3.4.0 *(In Development)*
---------------------------------
+Version 3.4.0 *(2011-10-30)*
+----------------------------
 
  * Library now uses the `r4` version of the compatibility library for its base.
+   Ice Cream Sandwich-specific implementations are currently disabled, however,
+   but will be added in a future version of the library.
  * Context menu callbacks now use the support version of `MenuItem` to maintain
    consistency.
  * Added preference plugin which provides an action bar enhanced preference
    screen.
+ * Fix: `abHomeLayout` theme attribute is now honored.
+ * Fix: `onPrepareOptionsMenu` is now properly dispatched upon menu
+   invalidation.
 
 
 Version 3.3.1 *(2011-10-20)*

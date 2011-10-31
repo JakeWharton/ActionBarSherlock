@@ -16,10 +16,9 @@
 
 package android.support.v4.accessibilityservice;
 
-import android.accessibilityservice.AccessibilityService;
+//import android.accessibilityservice.AccessibilityService;
 import android.accessibilityservice.AccessibilityServiceInfo;
 import android.content.pm.ResolveInfo;
-import android.os.Build;
 
 /**
  * Helper for accessing newer features in AccessibilityServiceInfo.

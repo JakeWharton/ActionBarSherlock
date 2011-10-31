@@ -11,7 +11,7 @@
 	<parent>
 		<groupId>com.actionbarsherlock</groupId>
 		<artifactId>parent-sample</artifactId>
-		<version>3.4.0</version>
+		<version>3.4.1-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -38,6 +38,12 @@
 		<dependency>
 			<groupId>com.actionbarsherlock</groupId>
 			<artifactId>plugin-maps</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.actionbarsherlock</groupId>
+			<artifactId>plugin-preference</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>

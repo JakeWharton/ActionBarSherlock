@@ -45,7 +45,7 @@ import com.actionbarsherlock.internal.view.menu.MenuItemWrapper;
 import com.actionbarsherlock.internal.view.menu.MenuWrapper;
 
 /**
- * Base class for activities that want to use the support-based ActionBar and 
+ * Base class for activities that want to use the support-based ActionBar and
  * Preference APIs.
  */
 public class SherlockPreferenceActivity extends PreferenceActivity implements SupportActivity {
@@ -445,7 +445,7 @@ public class SherlockPreferenceActivity extends PreferenceActivity implements Su
     // ------------------------------------------------------------------------
     // NEW METHODS
     // ------------------------------------------------------------------------
-    
+
     /**
      * Use this instead of {@link #onRetainNonConfigurationInstance()}.
      * Retrieve later with {@link #getLastCustomNonConfigurationInstance()}.

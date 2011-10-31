@@ -25,7 +25,7 @@ class KeyEventCompatHoneycomb {
     public static int normalizeMetaState(int metaState) {
         return KeyEvent.normalizeMetaState(metaState);
     }
-    
+
     public static boolean metaStateHasModifiers(int metaState, int modifiers) {
         return KeyEvent.metaStateHasModifiers(metaState, modifiers);
     }

@@ -916,7 +916,7 @@ public class FragmentActivity extends Activity implements SupportActivity {
     // ------------------------------------------------------------------------
     // NEW METHODS
     // ------------------------------------------------------------------------
-    
+
     /**
      * Use this instead of {@link #onRetainNonConfigurationInstance()}.
      * Retrieve later with {@link #getLastCustomNonConfigurationInstance()}.

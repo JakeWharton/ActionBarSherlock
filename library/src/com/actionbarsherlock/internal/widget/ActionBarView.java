@@ -165,7 +165,7 @@ public final class ActionBarView extends RelativeLayout {
         mHomeLayout = (ViewGroup) findViewById(R.id.abs__home_wrapper);
         final int homeLayoutResource = a.getResourceId(R.styleable.SherlockTheme_abHomeLayout, R.layout.abs__action_bar_home);
         LayoutInflater.from(context).inflate(homeLayoutResource, mHomeLayout, true);
-        
+
         //Try to load the logo from the theme
         mLogo = a.getDrawable(R.styleable.SherlockTheme_abLogo);
         /*

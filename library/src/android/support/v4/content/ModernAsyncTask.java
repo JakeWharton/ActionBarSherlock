@@ -151,7 +151,7 @@ public abstract class ModernAsyncTask<Params, Progress, Result> {
 
     private Result postResult(Result result) {
         @SuppressWarnings("unchecked")
-		Message message = sHandler.obtainMessage(MESSAGE_POST_RESULT,
+        Message message = sHandler.obtainMessage(MESSAGE_POST_RESULT,
                 new AsyncTaskResult<Result>(this, result));
         message.sendToTarget();
         return result;

@@ -71,7 +71,7 @@ public class KeyEventCompat {
             }
             return metaState & META_ALL_MASK;
         }
- 
+
         @Override
         public boolean metaStateHasModifiers(int metaState, int modifiers) {
             metaState = normalizeMetaState(metaState) & META_MODIFIER_MASK;
@@ -96,7 +96,7 @@ public class KeyEventCompat {
         public int normalizeMetaState(int metaState) {
             return KeyEventCompatHoneycomb.normalizeMetaState(metaState);
         }
-        
+
         @Override
         public boolean metaStateHasModifiers(int metaState, int modifiers) {
             return KeyEventCompatHoneycomb.metaStateHasModifiers(metaState, modifiers);

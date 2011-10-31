@@ -6,7 +6,7 @@
 	<groupId>com.actionbarsherlock</groupId>
 	<artifactId>parent</artifactId>
 	<packaging>pom</packaging>
-	<version>3.4.0</version>
+	<version>3.4.1-SNAPSHOT</version>
 
 	<name>ActionBarSherlock (Parent)</name>
 	<description>Android library for implementing the action bar design pattern using the native ActionBar on 3.0+ and a custom implementation on pre-3.0 all through the same API.</description>
@@ -148,7 +148,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-checkstyle-plugin</artifactId>
-					<version>2.6</version>
+					<version>2.7</version>
 					<configuration>
 						<failsOnError>true</failsOnError>
 					</configuration>
@@ -160,7 +160,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
-				<version>2.1</version>
+				<version>2.2.1</version>
 				<configuration>
 					<autoVersionSubmodules>true</autoVersionSubmodules>
 				</configuration>
@@ -169,7 +169,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
-				<version>2.2</version>
+				<version>2.1</version>
 				<inherited>false</inherited>
 				<configuration>
 					<generateProjectInfo>false</generateProjectInfo>
@@ -181,7 +181,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-deploy-plugin</artifactId>
-				<version>2.6</version>
+				<version>2.7</version>
 				<dependencies>
 					<dependency>
 						<groupId>org.apache.maven.wagon</groupId>
