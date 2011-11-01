@@ -16,10 +16,6 @@
 
 package android.support.v4.view;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
@@ -44,6 +40,10 @@ import android.view.ViewParent;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.animation.Interpolator;
 import android.widget.Scroller;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Layout manager that allows the user to flip left and right
@@ -328,18 +328,6 @@ public class ViewPager extends ViewGroup {
     public int getCurrentItem() {
         return mCurItem;
     }
-    
-    public Object getCurrentItemObject() {
-		for (int i = 0; i < mItems.size(); i++) {
-			final ItemInfo ii = mItems.get(i);
-
-			if (null != ii && ii.position == mCurItem) {
-				return ii.object;
-			}
-		}
-
-		return null;
-	}
 
     void setCurrentItemInternal(int item, boolean smoothScroll, boolean always) {
         setCurrentItemInternal(item, smoothScroll, always, 0);
