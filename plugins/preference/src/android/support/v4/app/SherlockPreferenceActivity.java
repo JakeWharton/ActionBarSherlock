@@ -439,7 +439,7 @@ public class SherlockPreferenceActivity extends PreferenceActivity implements Su
      */
     @Override
     public void setProgressBarIndeterminateVisibility(Boolean visible) {
-        setProgressBarIndeterminateVisibility(visible);
+        mActionBarBase.setProgressBarIndeterminateVisibility(visible);
     }
 
     // ------------------------------------------------------------------------

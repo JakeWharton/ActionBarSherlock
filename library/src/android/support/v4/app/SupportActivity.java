@@ -60,12 +60,11 @@ import android.view.accessibility.AccessibilityEvent;
  * preferred, however, that you call {@link #asActivity()} instead.</p>
  */
 public interface SupportActivity {
-    public abstract Handler getHandler();
-    public abstract FragmentManagerImpl getFragments();
-    public abstract boolean getRetaining();
-    public abstract void ensureSupportActionBarAttached();
-
     Activity asActivity();
+    Handler getHandler();
+    FragmentManagerImpl getFragments();
+    boolean getRetaining();
+    void ensureSupportActionBarAttached();
 
     /*** Activity methods ***/
     void addContentView(View view, ViewGroup.LayoutParams params);
