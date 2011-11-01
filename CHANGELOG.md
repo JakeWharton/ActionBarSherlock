@@ -1,6 +1,13 @@
 Change Log
 ===============================================================================
 
+Version 3.4.1 *(In Development)*
+--------------------------------
+
+ * Fix: Home icon no longer erroneously clipped when it exceeds the size of the
+   action bar.
+
+
 Version 3.4.0 *(2011-10-30)*
 ----------------------------
 
