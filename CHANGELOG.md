@@ -1,6 +1,18 @@
 Change Log
 ===============================================================================
 
+Version 3.4.1 *(In Development)*
+--------------------------------
+
+ * The `makeFragmentName` method in `FragmentPagerAdapter` has been changed to
+   `public` scope to allow for easier access to your fragments that it is
+   managing.
+ * Fix: Home icon no longer erroneously clipped when it exceeds the size of the
+   action bar.
+ * Fix: Tabs will now scroll horizontally to mimic the native action bar
+   behavior.
+
+
 Version 3.4.0 *(2011-10-30)*
 ----------------------------
 
