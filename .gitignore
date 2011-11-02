@@ -17,3 +17,11 @@ release.properties
 pom.xml.*
 
 website/_site
+
+#Ant
+build.xml
+local.properties
+proguard.cfg
+
+#OSX
+.DS_Store
