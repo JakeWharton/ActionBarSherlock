@@ -133,15 +133,10 @@ public class SherlockPreferenceActivity extends PreferenceActivity implements Su
     }
 
     protected void ensureSupportActionBarAttached() {
-        if (IS_HONEYCOMB) {
+        if (IS_HONEYCOMB || mIsActionBarImplAttached) {
             return;
         }
-        if (!mIsActionBarImplAttached) {
-            if (isChild()) {
-                //Do not allow an action bar if we have a parent activity
-                mWindowFlags &= ~WINDOW_FLAG_ACTION_BAR;
-            }
-
+        if (!isChild()) {
             final ListView contentView = new ListView(this);
             contentView.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
             contentView.setId(android.R.id.list);
@@ -176,10 +171,10 @@ public class SherlockPreferenceActivity extends PreferenceActivity implements Su
                 ((ViewGroup)view.findViewById(R.id.abs__content)).addView(contentView);
                 super.setContentView(view);
             }
-
-            invalidateOptionsMenu();
-            mIsActionBarImplAttached = true;
         }
+
+        invalidateOptionsMenu();
+        mIsActionBarImplAttached = true;
     }
 
     // ------------------------------------------------------------------------

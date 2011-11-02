@@ -210,14 +210,10 @@ public class FragmentActivity extends Activity implements SupportActivity {
     }
 
     protected void ensureSupportActionBarAttached() {
-        if (IS_HONEYCOMB) {
+        if (IS_HONEYCOMB || mIsActionBarImplAttached) {
             return;
         }
-        if (!mIsActionBarImplAttached) {
-            if (isChild()) {
-                //Do not allow an action bar if we have a parent activity
-                mWindowFlags &= ~WINDOW_FLAG_ACTION_BAR;
-            }
+        if (!isChild()) {
             if ((mWindowFlags & WINDOW_FLAG_ACTION_BAR) == WINDOW_FLAG_ACTION_BAR) {
                 if ((mWindowFlags & WINDOW_FLAG_ACTION_BAR_OVERLAY) == WINDOW_FLAG_ACTION_BAR_OVERLAY) {
                     super.setContentView(R.layout.abs__screen_action_bar_overlay);
@@ -242,10 +238,10 @@ public class FragmentActivity extends Activity implements SupportActivity {
                 }
                 super.setContentView(R.layout.abs__screen_simple);
             }
-
-            invalidateOptionsMenu();
-            mIsActionBarImplAttached = true;
         }
+
+        invalidateOptionsMenu();
+        mIsActionBarImplAttached = true;
     }
 
     // ------------------------------------------------------------------------
