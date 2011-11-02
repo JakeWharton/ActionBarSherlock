@@ -284,7 +284,9 @@ public final class ActionBarImpl extends ActionBar {
 
     @Override
     public void hide() {
-    	mContainerView.startAnimation(mFadeOutAnimation);
+        if (mContainerView.getVisibility() != View.GONE) {
+            mContainerView.startAnimation(mFadeOutAnimation);
+        }
         mContainerView.setVisibility(View.GONE);
     }
 
@@ -429,7 +431,9 @@ public final class ActionBarImpl extends ActionBar {
 
     @Override
     public void show() {
-    	mContainerView.startAnimation(mFadeInAnimation);
+        if (mContainerView.getVisibility() != View.VISIBLE) {
+            mContainerView.startAnimation(mFadeInAnimation);
+        }
         mContainerView.setVisibility(View.VISIBLE);
     }
 }
