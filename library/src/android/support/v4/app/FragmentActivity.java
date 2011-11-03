@@ -170,44 +170,41 @@ public class FragmentActivity extends Activity implements SupportActivity {
         return mRetaining;
     }
 
-    @Override
     public void ensureSupportActionBarAttached() {
-        if (ActionBarBaseClass.IS_HONEYCOMB) {
+        if (ActionBarBaseClass.IS_HONEYCOMB || mIsActionBarImplAttached) {
             return;
         }
-        if (!mIsActionBarImplAttached) {
-            if (isChild()) {
-                //Do not allow an action bar if we have a parent activity
-                mActionBarBase.mWindowFlags &= ~ActionBarBaseClass.WINDOW_FLAG_ACTION_BAR;
-            }
-            if (mActionBarBase.isWindowsFeatureEnabled(ActionBarBaseClass.WINDOW_FLAG_ACTION_BAR)) {
-                if (mActionBarBase.isWindowsFeatureEnabled(ActionBarBaseClass.WINDOW_FLAG_ACTION_BAR_OVERLAY)) {
-                    super.setContentView(R.layout.abs__screen_action_bar_overlay);
-                } else {
-                    super.setContentView(R.layout.abs__screen_action_bar);
-                }
-
-                mActionBarBase.mActionBar = new ActionBarImpl(this);
-                mActionBarBase.getActionBarImpl().init();
-
-                final boolean textEnabled = mActionBarBase.isWindowsFeatureEnabled(ActionBarBaseClass.WINDOW_FLAG_ACTION_BAR_ITEM_TEXT);
-                mSupportMenu.setShowsActionItemText(textEnabled);
-
-                if (mActionBarBase.isWindowsFeatureEnabled(ActionBarBaseClass.WINDOW_FLAG_INDETERMINANTE_PROGRESS)) {
-                    mActionBarBase.getActionBarImpl().setProgressBarIndeterminateVisibility(false);
-                }
-
-                //TODO set other flags
-            } else {
-                if (mActionBarBase.isWindowsFeatureEnabled(ActionBarBaseClass.WINDOW_FLAG_INDETERMINANTE_PROGRESS)) {
-                    super.requestWindowFeature((int)Window.FEATURE_INDETERMINATE_PROGRESS);
-                }
-                super.setContentView(R.layout.abs__screen_simple);
-            }
-
-            invalidateOptionsMenu();
-            mIsActionBarImplAttached = true;
+        if (!isChild()) {
+            //Do not allow an action bar if we have a parent activity
+            mActionBarBase.mWindowFlags &= ~ActionBarBaseClass.WINDOW_FLAG_ACTION_BAR;
         }
+        if (mActionBarBase.isWindowsFeatureEnabled(ActionBarBaseClass.WINDOW_FLAG_ACTION_BAR)) {
+            if (mActionBarBase.isWindowsFeatureEnabled(ActionBarBaseClass.WINDOW_FLAG_ACTION_BAR_OVERLAY)) {
+                super.setContentView(R.layout.abs__screen_action_bar_overlay);
+            } else {
+                super.setContentView(R.layout.abs__screen_action_bar);
+            }
+
+            mActionBarBase.mActionBar = new ActionBarImpl(this);
+            mActionBarBase.getActionBarImpl().init();
+
+            final boolean textEnabled = mActionBarBase.isWindowsFeatureEnabled(ActionBarBaseClass.WINDOW_FLAG_ACTION_BAR_ITEM_TEXT);
+            mSupportMenu.setShowsActionItemText(textEnabled);
+
+            if (mActionBarBase.isWindowsFeatureEnabled(ActionBarBaseClass.WINDOW_FLAG_INDETERMINANTE_PROGRESS)) {
+                 mActionBarBase.getActionBarImpl().setProgressBarIndeterminateVisibility(false);
+            }
+
+            //TODO set other flags
+        } else {
+            if (mActionBarBase.isWindowsFeatureEnabled(ActionBarBaseClass.WINDOW_FLAG_INDETERMINANTE_PROGRESS)) {
+                super.requestWindowFeature((int)Window.FEATURE_INDETERMINATE_PROGRESS);
+            }
+            super.setContentView(R.layout.abs__screen_simple);
+        }
+
+        invalidateOptionsMenu();
+        mIsActionBarImplAttached = true;
     }
 
     // ------------------------------------------------------------------------

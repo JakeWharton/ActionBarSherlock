@@ -7,6 +7,7 @@ Version 3.4.1 *(In Development)*
  * The `makeFragmentName` method in `FragmentPagerAdapter` has been changed to
    `public` scope to allow for easier access to your fragments that it is
    managing.
+ * Action bar will now animate when calling `show()` or `hide()`.
  * Fix: Home icon no longer erroneously clipped when it exceeds the size of the
    action bar.
  * Fix: Tabs will now scroll horizontally to mimic the native action bar

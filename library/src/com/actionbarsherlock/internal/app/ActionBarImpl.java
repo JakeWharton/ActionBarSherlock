@@ -19,6 +19,7 @@ package com.actionbarsherlock.internal.app;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.ActionBar;
@@ -27,7 +28,10 @@ import android.support.v4.view.ActionMode;
 import android.support.v4.view.MenuItem;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.SpinnerAdapter;
+
 import com.actionbarsherlock.R;
 import com.actionbarsherlock.internal.view.menu.ActionMenuItemView;
 import com.actionbarsherlock.internal.view.menu.MenuBuilder;
@@ -44,6 +48,9 @@ public final class ActionBarImpl extends ActionBar {
 
     /** List of listeners to the menu visibility. */
     private final List<OnMenuVisibilityListener> mMenuListeners = new ArrayList<OnMenuVisibilityListener>();
+    
+    private Animation mFadeInAnimation;
+    private Animation mFadeOutAnimation;
 
 
 
@@ -68,6 +75,9 @@ public final class ActionBarImpl extends ActionBar {
         if (mActionView == null) {
             throw new IllegalStateException(getClass().getSimpleName() + " can only be used with a screen_*.xml layout");
         }
+        
+        mFadeInAnimation = AnimationUtils.loadAnimation(mContext, android.R.anim.fade_in);
+        mFadeOutAnimation = AnimationUtils.loadAnimation(mContext, android.R.anim.fade_out);
 
         if (mActionView.getTitle() == null) {
             mActionView.setTitle(mActivity.getTitle());
@@ -274,7 +284,9 @@ public final class ActionBarImpl extends ActionBar {
 
     @Override
     public void hide() {
-        //TODO: animate
+        if (mContainerView.getVisibility() != View.GONE) {
+            mContainerView.startAnimation(mFadeOutAnimation);
+        }
         mContainerView.setVisibility(View.GONE);
     }
 
@@ -419,7 +431,9 @@ public final class ActionBarImpl extends ActionBar {
 
     @Override
     public void show() {
-        //TODO: animate
+        if (mContainerView.getVisibility() != View.VISIBLE) {
+            mContainerView.startAnimation(mFadeInAnimation);
+        }
         mContainerView.setVisibility(View.VISIBLE);
     }
 }
