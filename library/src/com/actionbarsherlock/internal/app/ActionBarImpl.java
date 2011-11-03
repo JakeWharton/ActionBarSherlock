@@ -48,7 +48,7 @@ public final class ActionBarImpl extends ActionBar {
 
     /** List of listeners to the menu visibility. */
     private final List<OnMenuVisibilityListener> mMenuListeners = new ArrayList<OnMenuVisibilityListener>();
-    
+
     private Animation mFadeInAnimation;
     private Animation mFadeOutAnimation;
 
@@ -75,7 +75,7 @@ public final class ActionBarImpl extends ActionBar {
         if (mActionView == null) {
             throw new IllegalStateException(getClass().getSimpleName() + " can only be used with a screen_*.xml layout");
         }
-        
+
         mFadeInAnimation = AnimationUtils.loadAnimation(mContext, android.R.anim.fade_in);
         mFadeOutAnimation = AnimationUtils.loadAnimation(mContext, android.R.anim.fade_out);
 
@@ -286,8 +286,8 @@ public final class ActionBarImpl extends ActionBar {
     public void hide() {
         if (mContainerView.getVisibility() != View.GONE) {
             mContainerView.startAnimation(mFadeOutAnimation);
+            mContainerView.setVisibility(View.GONE);
         }
-        mContainerView.setVisibility(View.GONE);
     }
 
     @Override
@@ -433,7 +433,7 @@ public final class ActionBarImpl extends ActionBar {
     public void show() {
         if (mContainerView.getVisibility() != View.VISIBLE) {
             mContainerView.startAnimation(mFadeInAnimation);
+            mContainerView.setVisibility(View.VISIBLE);
         }
-        mContainerView.setVisibility(View.VISIBLE);
     }
 }
