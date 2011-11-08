@@ -642,8 +642,4 @@ public class SherlockPreferenceActivity extends PreferenceActivity implements Su
     public LoaderManager getSupportLoaderManager() {
         return null;
     }
-
-    LoaderManagerImpl getLoaderManager(int index, boolean started, boolean create) {
-        return null;
-    }
 }
