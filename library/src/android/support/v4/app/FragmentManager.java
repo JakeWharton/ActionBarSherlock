@@ -434,7 +434,7 @@ final class FragmentManagerImpl extends FragmentManager {
     public void popBackStack() {
         enqueueAction(new Runnable() {
             @Override public void run() {
-                popBackStackState(mActivity.getHandler(), null, -1, 0);
+                popBackStackState(mActivity.getInternalCallbacks().getHandler(), null, -1, 0);
             }
         }, false);
     }
@@ -443,14 +443,14 @@ final class FragmentManagerImpl extends FragmentManager {
     public boolean popBackStackImmediate() {
         checkStateLoss();
         executePendingTransactions();
-        return popBackStackState(mActivity.getHandler(), null, -1, 0);
+        return popBackStackState(mActivity.getInternalCallbacks().getHandler(), null, -1, 0);
     }
 
     @Override
     public void popBackStack(final String name, final int flags) {
         enqueueAction(new Runnable() {
             @Override public void run() {
-                popBackStackState(mActivity.getHandler(), name, -1, flags);
+                popBackStackState(mActivity.getInternalCallbacks().getHandler(), name, -1, flags);
             }
         }, false);
     }
@@ -459,7 +459,7 @@ final class FragmentManagerImpl extends FragmentManager {
     public boolean popBackStackImmediate(String name, int flags) {
         checkStateLoss();
         executePendingTransactions();
-        return popBackStackState(mActivity.getHandler(), name, -1, flags);
+        return popBackStackState(mActivity.getInternalCallbacks().getHandler(), name, -1, flags);
     }
 
     @Override
@@ -469,7 +469,7 @@ final class FragmentManagerImpl extends FragmentManager {
         }
         enqueueAction(new Runnable() {
             @Override public void run() {
-                popBackStackState(mActivity.getHandler(), null, id, flags);
+                popBackStackState(mActivity.getInternalCallbacks().getHandler(), null, id, flags);
             }
         }, false);
     }
@@ -481,7 +481,7 @@ final class FragmentManagerImpl extends FragmentManager {
         if (id < 0) {
             throw new IllegalArgumentException("Bad id: " + id);
         }
-        return popBackStackState(mActivity.getHandler(), null, id, flags);
+        return popBackStackState(mActivity.getInternalCallbacks().getHandler(), null, id, flags);
     }
 
     @Override
@@ -795,7 +795,7 @@ final class FragmentManagerImpl extends FragmentManager {
                         }
                     }
                     f.mActivity = mActivity;
-                    f.mFragmentManager = mActivity.getFragments();
+                    f.mFragmentManager = mActivity.getInternalCallbacks().getFragments();
                     f.mCalled = false;
                     f.onAttach(mActivity);
                     if (!f.mCalled) {
@@ -1091,7 +1091,7 @@ final class FragmentManagerImpl extends FragmentManager {
             mAvailIndices = new ArrayList<Integer>();
         }
         mAvailIndices.add(f.mIndex);
-        mActivity.invalidateSupportFragmentIndex(f.mIndex);
+        mActivity.getInternalCallbacks().invalidateSupportFragmentIndex(f.mIndex);
         f.initState();
     }
 
@@ -1275,14 +1275,14 @@ final class FragmentManagerImpl extends FragmentManager {
             if (mActivity == null) {
                 throw new IllegalStateException("Activity has been destroyed");
             }
-            mActivity.ensureSupportActionBarAttached();
+            mActivity.getInternalCallbacks().ensureSupportActionBarAttached();
             if (mPendingActions == null) {
                 mPendingActions = new ArrayList<Runnable>();
             }
             mPendingActions.add(action);
             if (mPendingActions.size() == 1) {
-                mActivity.getHandler().removeCallbacks(mExecCommit);
-                mActivity.getHandler().post(mExecCommit);
+                mActivity.getInternalCallbacks().getHandler().removeCallbacks(mExecCommit);
+                mActivity.getInternalCallbacks().getHandler().post(mExecCommit);
             }
         }
     }
@@ -1351,7 +1351,7 @@ final class FragmentManagerImpl extends FragmentManager {
             throw new IllegalStateException("Recursive entry to executePendingTransactions");
         }
 
-        if (Looper.myLooper() != mActivity.getHandler().getLooper()) {
+        if (Looper.myLooper() != mActivity.getInternalCallbacks().getHandler().getLooper()) {
             throw new IllegalStateException("Must be called from main thread of process");
         }
 
@@ -1371,7 +1371,7 @@ final class FragmentManagerImpl extends FragmentManager {
                 }
                 mPendingActions.toArray(mTmpActions);
                 mPendingActions.clear();
-                mActivity.getHandler().removeCallbacks(mExecCommit);
+                mActivity.getInternalCallbacks().getHandler().removeCallbacks(mExecCommit);
             }
 
             mExecutingActions = true;

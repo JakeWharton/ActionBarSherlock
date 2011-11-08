@@ -60,11 +60,17 @@ import android.view.accessibility.AccessibilityEvent;
  * preferred, however, that you call {@link #asActivity()} instead.</p>
  */
 public interface SupportActivity {
+    public static abstract class InternalCallbacks {
+        abstract void ensureSupportActionBarAttached();
+        abstract Handler getHandler();
+        abstract FragmentManagerImpl getFragments();
+        abstract LoaderManagerImpl getLoaderManager(int index, boolean started, boolean create);
+        abstract void invalidateSupportFragmentIndex(int index);
+        abstract boolean getRetaining();
+    }
+
+    InternalCallbacks getInternalCallbacks();
     Activity asActivity();
-    Handler getHandler();
-    FragmentManagerImpl getFragments();
-    boolean getRetaining();
-    void ensureSupportActionBarAttached();
 
     /*** Activity methods ***/
     void addContentView(View view, ViewGroup.LayoutParams params);
@@ -283,8 +289,6 @@ public interface SupportActivity {
     void recreate();
     ActionMode startActionMode(ActionMode.Callback callback);
     void startActivityFromFragment(Fragment fragment, Intent intent, int requestCode);
-    void invalidateSupportFragmentIndex(int index);
-    LoaderManagerImpl getLoaderManager(int index, boolean started, boolean create);
 
     /*** Parallel helper methods ***/
     boolean requestWindowFeature(long featureId);

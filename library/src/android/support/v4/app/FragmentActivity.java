@@ -81,6 +81,38 @@ public class FragmentActivity extends Activity implements SupportActivity {
     static final int MSG_REALLY_STOPPED = 1;
     static final int MSG_RESUME_PENDING = 2;
 
+    final SupportActivity.InternalCallbacks mInternalCallbacks = new SupportActivity.InternalCallbacks() {
+        @Override
+        void invalidateSupportFragmentIndex(int index) {
+            FragmentActivity.this.invalidateSupportFragmentIndex(index);
+        }
+
+        @Override
+        LoaderManagerImpl getLoaderManager(int index, boolean started, boolean create) {
+            return FragmentActivity.this.getLoaderManager(index, started, create);
+        }
+
+        @Override
+        Handler getHandler() {
+            return mHandler;
+        }
+
+        @Override
+        FragmentManagerImpl getFragments() {
+            return mFragments;
+        }
+
+        @Override
+        void ensureSupportActionBarAttached() {
+            FragmentActivity.this.ensureSupportActionBarAttached();
+        }
+
+        @Override
+        boolean getRetaining() {
+            return mRetaining;
+        }
+    }; 
+
     final Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -151,26 +183,16 @@ public class FragmentActivity extends Activity implements SupportActivity {
     }
 
     @Override
+    public SupportActivity.InternalCallbacks getInternalCallbacks() {
+        return mInternalCallbacks;
+    }
+
+    @Override
     public FragmentActivity asActivity() {
         return this;
     }
 
-    @Override
-    public Handler getHandler() {
-        return mHandler;
-    }
-
-    @Override
-    public FragmentManagerImpl getFragments() {
-        return mFragments;
-    }
-
-    @Override
-    public boolean getRetaining() {
-        return mRetaining;
-    }
-
-    public void ensureSupportActionBarAttached() {
+    protected void ensureSupportActionBarAttached() {
         if (ActionBarBaseClass.IS_HONEYCOMB || mIsActionBarImplAttached) {
             return;
         }
@@ -1136,7 +1158,7 @@ public class FragmentActivity extends Activity implements SupportActivity {
         super.startActivityForResult(intent, ((fragment.mIndex+1)<<16) + (requestCode&0xffff));
     }
 
-    public void invalidateSupportFragmentIndex(int index) {
+    void invalidateSupportFragmentIndex(int index) {
         //Log.v(TAG, "invalidateFragmentIndex: index=" + index);
         if (mAllLoaderManagers != null) {
             LoaderManagerImpl lm = mAllLoaderManagers.get(index);
@@ -1164,7 +1186,7 @@ public class FragmentActivity extends Activity implements SupportActivity {
         return mLoaderManager;
     }
 
-    public LoaderManagerImpl getLoaderManager(int index, boolean started, boolean create) {
+    LoaderManagerImpl getLoaderManager(int index, boolean started, boolean create) {
         if (mAllLoaderManagers == null) {
             mAllLoaderManagers = new HCSparseArray<LoaderManagerImpl>();
         }

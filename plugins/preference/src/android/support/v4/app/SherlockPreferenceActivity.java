@@ -52,6 +52,38 @@ public class SherlockPreferenceActivity extends PreferenceActivity implements Su
     private static final String TAG = "SherlockPreferenceActivity";
     private static final boolean DEBUG = false;
 
+    final SupportActivity.InternalCallbacks mInternalCallbacks = new SupportActivity.InternalCallbacks() {
+        @Override
+        void invalidateSupportFragmentIndex(int index) {
+            //No op
+        }
+
+        @Override
+        LoaderManagerImpl getLoaderManager(int index, boolean started, boolean create) {
+            return null;
+        }
+
+        @Override
+        Handler getHandler() {
+            return null;
+        }
+
+        @Override
+        FragmentManagerImpl getFragments() {
+            return null;
+        }
+
+        @Override
+        void ensureSupportActionBarAttached() {
+            SherlockPreferenceActivity.this.ensureSupportActionBarAttached();
+        }
+
+        @Override
+        boolean getRetaining() {
+            return false;
+        }
+    };
+
     ActionBarBaseClass mActionBarBase;
     boolean mIsActionBarImplAttached;
 
@@ -74,26 +106,16 @@ public class SherlockPreferenceActivity extends PreferenceActivity implements Su
     }
 
     @Override
+    public SupportActivity.InternalCallbacks getInternalCallbacks() {
+        return mInternalCallbacks;
+    }
+
+    @Override
     public SherlockPreferenceActivity asActivity() {
         return this;
     }
 
-    @Override
-    public Handler getHandler() {
-        return null;
-    }
-
-    @Override
-    public FragmentManagerImpl getFragments() {
-        return null;
-    }
-
-    @Override
-    public boolean getRetaining() {
-        return false;
-    }
-
-    public void ensureSupportActionBarAttached() {
+    protected void ensureSupportActionBarAttached() {
         if (ActionBarBaseClass.IS_HONEYCOMB || mIsActionBarImplAttached) {
             return;
         }
@@ -605,7 +627,7 @@ public class SherlockPreferenceActivity extends PreferenceActivity implements Su
         super.startActivityForResult(intent, ((fragment.mIndex+1)<<16) + (requestCode&0xffff));
     }
 
-    public void invalidateSupportFragmentIndex(int index) {
+    void invalidateSupportFragmentIndex(int index) {
         //Log.v(TAG, "invalidateFragmentIndex: index=" + index);
     }
 
@@ -621,7 +643,7 @@ public class SherlockPreferenceActivity extends PreferenceActivity implements Su
         return null;
     }
 
-    public LoaderManagerImpl getLoaderManager(int index, boolean started, boolean create) {
+    LoaderManagerImpl getLoaderManager(int index, boolean started, boolean create) {
         return null;
     }
 }
