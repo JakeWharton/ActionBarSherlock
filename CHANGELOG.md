@@ -12,6 +12,7 @@ Version 3.4.1 *(In Development)*
    action bar.
  * Fix: Tabs will now scroll horizontally to mimic the native action bar
    behavior.
+ * Fix: Plugins now properly DO NOT inline their `R.java` integer constants.
 
 
 Version 3.4.0 *(2011-10-30)*
