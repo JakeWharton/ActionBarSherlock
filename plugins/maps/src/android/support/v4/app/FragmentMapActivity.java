@@ -291,7 +291,7 @@ public abstract class FragmentMapActivity extends MapActivity implements Support
     @Override
     public void setContentView(int layoutResId) {
         ensureSupportActionBarAttached();
-        if (IS_HONEYCOMB) {
+        if (IS_HONEYCOMB || isChild()) {
             super.setContentView(layoutResId);
         } else {
             FrameLayout contentView = (FrameLayout)findViewById(R.id.abs__content);
@@ -303,7 +303,7 @@ public abstract class FragmentMapActivity extends MapActivity implements Support
     @Override
     public void setContentView(View view, LayoutParams params) {
         ensureSupportActionBarAttached();
-        if (IS_HONEYCOMB) {
+        if (IS_HONEYCOMB || isChild()) {
             super.setContentView(view, params);
         } else {
             FrameLayout contentView = (FrameLayout)findViewById(R.id.abs__content);
@@ -315,7 +315,7 @@ public abstract class FragmentMapActivity extends MapActivity implements Support
     @Override
     public void setContentView(View view) {
         ensureSupportActionBarAttached();
-        if (IS_HONEYCOMB) {
+        if (IS_HONEYCOMB || isChild()) {
             super.setContentView(view);
         } else {
             FrameLayout contentView = (FrameLayout)findViewById(R.id.abs__content);
