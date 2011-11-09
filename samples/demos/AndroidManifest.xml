@@ -21,8 +21,8 @@
      to come from a domain that you own or have control over. -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.actionbarsherlock.sample.demos"
-    android:versionCode="30"
-    android:versionName="3.4.0">
+    android:versionCode="35"
+    android:versionName="3.4.1">
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.INTERNET" />
