@@ -161,6 +161,8 @@ public abstract class SherlockPreferenceActivity extends PreferenceActivity impl
     boolean mReallyStopped;
     boolean mRetaining;
 
+    boolean mIsEnsureInflating = false;
+
     boolean mOptionsMenuInvalidated;
     boolean mOptionsMenuCreateResult;
 
@@ -209,21 +211,19 @@ public abstract class SherlockPreferenceActivity extends PreferenceActivity impl
     public Activity asActivity() {
         return this;
     }
-    
-    boolean mEnsureInflating = false;
 
     protected void ensureSupportActionBarAttached() {
         if (IS_HONEYCOMB || mIsActionBarImplAttached) {
             return;
         }
         if (!isChild()) {
-        	//Get the list view that the parent attached
+            //Get the list view that the parent attached
             final ListView contentView = (ListView)getWindow().getDecorView().findViewById(android.R.id.list);
             ((ViewGroup)contentView.getParent()).removeView(contentView);
-            
+
             //Disable the callback in PrefrenceActivity
-            mEnsureInflating = true;
-            
+            mIsEnsureInflating = true;
+
             if ((mWindowFlags & WINDOW_FLAG_ACTION_BAR) == WINDOW_FLAG_ACTION_BAR) {
                 if ((mWindowFlags & WINDOW_FLAG_ACTION_BAR_OVERLAY) == WINDOW_FLAG_ACTION_BAR_OVERLAY) {
                     super.setContentView(R.layout.abs__screen_action_bar_overlay);
@@ -251,9 +251,9 @@ public abstract class SherlockPreferenceActivity extends PreferenceActivity impl
 
             //Attach original list view to the new layout
             ((ViewGroup)findViewById(R.id.abs__content)).addView(contentView);
-            
+
             //Re-enable the callback in PreferenceActivity
-            mEnsureInflating = false;
+            mIsEnsureInflating = false;
             super.onContentChanged();
         }
 
@@ -262,17 +262,17 @@ public abstract class SherlockPreferenceActivity extends PreferenceActivity impl
     }
 
     @Override
-	public void onContentChanged() {
-		if (!mEnsureInflating) {
-			super.onContentChanged();
-		}
-	}
+    public void onContentChanged() {
+        if (!mIsEnsureInflating) {
+            super.onContentChanged();
+        }
+    }
 
     // ------------------------------------------------------------------------
     // HOOKS INTO ACTIVITY
     // ------------------------------------------------------------------------
 
-	/**
+    /**
      * Enable extended window features.
      *
      * @param featureId The desired feature as defined in
