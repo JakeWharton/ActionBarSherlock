@@ -31,6 +31,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>${apk.prefix}-${project.artifactId}-${project.version}</finalName>
 		<sourceDirectory>src</sourceDirectory>
 
 		<plugins>
