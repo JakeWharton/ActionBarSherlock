@@ -290,7 +290,7 @@ public class FragmentActivity extends Activity implements SupportActivity {
     @Override
     public void setContentView(int layoutResId) {
         ensureSupportActionBarAttached();
-        if (IS_HONEYCOMB) {
+        if (IS_HONEYCOMB || isChild()) {
             super.setContentView(layoutResId);
         } else {
             FrameLayout contentView = (FrameLayout)findViewById(R.id.abs__content);
@@ -302,7 +302,7 @@ public class FragmentActivity extends Activity implements SupportActivity {
     @Override
     public void setContentView(View view, LayoutParams params) {
         ensureSupportActionBarAttached();
-        if (IS_HONEYCOMB) {
+        if (IS_HONEYCOMB || isChild()) {
             super.setContentView(view, params);
         } else {
             FrameLayout contentView = (FrameLayout)findViewById(R.id.abs__content);
@@ -314,7 +314,7 @@ public class FragmentActivity extends Activity implements SupportActivity {
     @Override
     public void setContentView(View view) {
         ensureSupportActionBarAttached();
-        if (IS_HONEYCOMB) {
+        if (IS_HONEYCOMB || isChild()) {
             super.setContentView(view);
         } else {
             FrameLayout contentView = (FrameLayout)findViewById(R.id.abs__content);
