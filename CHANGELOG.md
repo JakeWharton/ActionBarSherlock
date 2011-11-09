@@ -8,6 +8,7 @@ Version 3.4.1 *(In Development)*
    `public` scope to allow for easier access to your fragments that it is
    managing.
  * Action bar will now animate when calling `show()` or `hide()`.
+ * `SherlockPreferenceActivity` now provides full fragment and loader support.
  * Fix: Home icon no longer erroneously clipped when it exceeds the size of the
    action bar.
  * Fix: Tabs will now scroll horizontally to mimic the native action bar
