@@ -1,19 +1,17 @@
-package com.actionbarsherlock.sample.demos.app;
+package com.actionbarsherlock.sample.plugins.app;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentMapActivity;
-import android.support.v4.view.Menu;
-import android.support.v4.view.MenuItem;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.actionbarsherlock.sample.demos.R;
+import com.actionbarsherlock.sample.plugins.R;
 import com.google.android.maps.MapView;
 
-public class MapFragmentActionBar extends FragmentMapActivity {
+public class MapFragment extends FragmentMapActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,23 +24,6 @@ public class MapFragmentActionBar extends FragmentMapActivity {
         	.add(android.R.id.content, new MyMapFragment())
         	.commit();
     }
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		menu.add("Save")
-		    .setIcon(R.drawable.ic_compose)
-		    .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-		
-		menu.add("Search")
-	        .setIcon(R.drawable.ic_search)
-	        .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-		
-		menu.add("Refresh")
-	        .setIcon(R.drawable.ic_refresh)
-	        .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-		
-		return super.onCreateOptionsMenu(menu);
-	}
     
     public static final class MyMapFragment extends Fragment {
 		@Override

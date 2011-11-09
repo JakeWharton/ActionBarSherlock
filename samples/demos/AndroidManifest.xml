@@ -29,18 +29,9 @@
 
     <uses-sdk android:minSdkVersion="4" android:targetSdkVersion="13" />
 
-    <!-- The smallest screen this app works on is a phone.  The app will
-         scale its UI to larger screens but doesn't make good use of them
-         so allow the compatibility mode button to be shown (mostly because
-         this is just convenient for testing). -->
-    <supports-screens android:requiresSmallestWidthDp="320"
-            android:compatibleWidthLimitDp="480" />
-
     <application android:label="@string/activity_sample_code"
             android:icon="@drawable/icon"
             android:hardwareAccelerated="true">
-
-        <uses-library android:name="com.google.android.maps" />
 
         <activity android:name="Support4Demos">
             <intent-filter>
@@ -79,16 +70,6 @@
         <activity
             android:name=".app.ActionBarTabsPager"
             android:label="@string/actionbar_tabs_pager"
-            android:theme="@style/Theme.Sherlock">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
-            </intent-filter>
-        </activity>
-        
-        <activity
-            android:name=".app.ActionBarPreferenceActivity"
-            android:label="@string/actionbar_preferenceactivity"
             android:theme="@style/Theme.Sherlock">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -370,14 +351,6 @@
         <provider android:name=".app.LoaderThrottleSupport$SimpleProvider"
                   android:authorities="com.actionbarsherlock.sample.demos.apis.LoaderThrottle" />
 
-        <activity android:name=".app.MapActivity"
-                android:label="@string/map_activity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
-            </intent-filter>
-        </activity>
-
         <activity android:name=".content.LocalServiceBroadcaster"
                 android:label="@string/local_service_broadcaster">
             <intent-filter>
@@ -387,31 +360,5 @@
         </activity>
         <service android:name=".content.LocalServiceBroadcaster$LocalService" />
         <!-- android:stopWithTask="true" /> THIS WAS PART OF THE SUPPORT DEMOS? -->
-
-        <activity android:name=".app.MapFragment"
-                android:label="@string/map_fragment">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
-            </intent-filter>
-        </activity>
-
-        <activity android:name=".app.MapActivityActionBar"
-                android:label="@string/map_activity_action_bar"
-                android:theme="@style/Theme.Sherlock">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
-            </intent-filter>
-        </activity>
-
-        <activity android:name=".app.MapFragmentActionBar"
-                android:label="@string/map_fragment_action_bar"
-                android:theme="@style/Theme.Sherlock">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
-            </intent-filter>
-        </activity>
     </application>
 </manifest>

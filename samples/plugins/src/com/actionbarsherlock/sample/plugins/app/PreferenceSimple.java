@@ -13,15 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.actionbarsherlock.sample.demos.app;
+package com.actionbarsherlock.sample.plugins.app;
 
 import android.os.Bundle;
 import android.support.v4.app.SherlockPreferenceActivity;
 import android.support.v4.view.Menu;
 import android.support.v4.view.MenuItem;
-import com.actionbarsherlock.sample.demos.R;
 
-public class ActionBarPreferenceActivity extends SherlockPreferenceActivity {
+import com.actionbarsherlock.sample.plugins.R;
+
+public class PreferenceSimple extends SherlockPreferenceActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.add("Save")

@@ -1,6 +1,6 @@
-package com.actionbarsherlock.sample.demos.app;
+package com.actionbarsherlock.sample.plugins.app;
 
-import com.actionbarsherlock.sample.demos.R;
+import com.actionbarsherlock.sample.plugins.R;
 import com.google.android.maps.MapView;
 import android.os.Bundle;
 import android.support.v4.app.FragmentMapActivity;
