@@ -10,6 +10,8 @@ gen
 #IntelliJ IDEA
 .idea
 *.iml
+*.ipr
+*.iws
 
 #Maven
 target
