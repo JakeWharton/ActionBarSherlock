@@ -23,7 +23,6 @@ import java.util.List;
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.ActionBar;
-import android.support.v4.app.SupportActivity;
 import android.support.v4.view.ActionMode;
 import android.support.v4.view.MenuItem;
 import android.view.LayoutInflater;
@@ -40,6 +39,8 @@ import com.actionbarsherlock.internal.widget.ActionBarContainer;
 import com.actionbarsherlock.internal.widget.ActionBarView;
 
 public final class ActionBarImpl extends ActionBar {
+    private final Activity mActivity;
+
     /** Action bar container. */
     private ActionBarContainer mContainerView;
 
@@ -54,8 +55,8 @@ public final class ActionBarImpl extends ActionBar {
 
 
 
-    public <T extends Activity & SupportActivity> ActionBarImpl(T activity) {
-        super(activity);
+    public ActionBarImpl(Activity activity) {
+        mActivity = activity;
     }
 
 
@@ -76,8 +77,8 @@ public final class ActionBarImpl extends ActionBar {
             throw new IllegalStateException(getClass().getSimpleName() + " can only be used with a screen_*.xml layout");
         }
 
-        mFadeInAnimation = AnimationUtils.loadAnimation(mContext, android.R.anim.fade_in);
-        mFadeOutAnimation = AnimationUtils.loadAnimation(mContext, android.R.anim.fade_out);
+        mFadeInAnimation = AnimationUtils.loadAnimation(mActivity, android.R.anim.fade_in);
+        mFadeOutAnimation = AnimationUtils.loadAnimation(mActivity, android.R.anim.fade_out);
 
         if (mActionView.getTitle() == null) {
             mActionView.setTitle(mActivity.getTitle());
@@ -327,7 +328,7 @@ public final class ActionBarImpl extends ActionBar {
 
     @Override
     public void setCustomView(int resId) {
-        View view = LayoutInflater.from(mContext).inflate(resId, mActionView, false);
+        View view = LayoutInflater.from(mActivity).inflate(resId, mActionView, false);
         setCustomView(view);
     }
 

@@ -188,8 +188,6 @@ public class FragmentActivity extends Activity implements SupportActivity {
 
 
     public FragmentActivity() {
-        super();
-
         if (IS_HONEYCOMB) {
             mActionBar = ActionBarWrapper.createFor(this);
             mSupportMenu = null; //Everything should be done natively
