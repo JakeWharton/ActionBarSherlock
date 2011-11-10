@@ -48,6 +48,7 @@
         <attr name="abLogo" format="reference" />
         <attr name="abDivider" format="reference|color" />
         <attr name="abBackground" format="reference|color" />
+        <attr name="abBackgroundStacked" format="reference|color" />
         <attr name="abCustomNavigationLayout" format="reference" />
         <attr name="abHeight" format="reference|dimension" />
         <attr name="abHomeLayout" format="reference" />
