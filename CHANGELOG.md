@@ -1,7 +1,7 @@
 Change Log
 ===============================================================================
 
-Version 3.4.2 *(2001-11-10)*
+Version 3.4.2 *(2001-11-09)*
 ----------------------------
 
  * Fix: Stacked action bar now properly sets the tab bar background based on
