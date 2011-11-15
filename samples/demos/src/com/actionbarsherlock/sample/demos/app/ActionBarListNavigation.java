@@ -1,23 +1,23 @@
 package com.actionbarsherlock.sample.demos.app;
 
-import com.actionbarsherlock.sample.demos.R;
 import android.os.Bundle;
-import android.support.v4.app.ActionBar;
-import android.support.v4.app.FragmentActivity;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 
-public class ActionBarListNavigation extends FragmentActivity implements ActionBar.OnNavigationListener {
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.sample.demos.R;
+
+public class ActionBarListNavigation extends SherlockActivity implements ActionBar.OnNavigationListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		//WARNING: This should normally not be needed as calling setContentView
-		//or attaching a fragment to android.R.id.content will call this. In
+		//WARNING: This should normally not be needed! In
 		//this case, however, we call it manually since initializing the list
 		//navigation will trigger a navigation changed callback and thus attach
 		//the default fragment as the content.
-		ensureSupportActionBarAttached();
-		
+		setContentView(new FrameLayout(this));
 		
 		getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 		
@@ -30,7 +30,7 @@ public class ActionBarListNavigation extends FragmentActivity implements ActionB
 	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
 		getSupportFragmentManager()
 			.beginTransaction()
-			.replace(android.R.id.content, FragmentStackSupport.CountingFragment.newInstance(itemPosition))
+			.replace(android.R.id.content, CountingFragment.newInstance(itemPosition))
 			.commit();
 		return true;
 	}

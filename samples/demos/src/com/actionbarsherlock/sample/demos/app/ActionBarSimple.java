@@ -16,11 +16,12 @@
 package com.actionbarsherlock.sample.demos.app;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.widget.TextView;
+
+import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.sample.demos.R;
 
-public class ActionBarSimple extends FragmentActivity {
+public class ActionBarSimple extends SherlockActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

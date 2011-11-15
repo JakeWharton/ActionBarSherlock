@@ -1,19 +1,19 @@
 package com.actionbarsherlock.sample.demos.app;
 
 import android.os.Bundle;
-import android.support.v4.app.ActionBar;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.ActionBar.Tab;
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.ActionBar.Tab;
+import com.actionbarsherlock.app.SherlockActivity;
 
-public class ActionBarTabNavigation extends FragmentActivity implements ActionBar.TabListener {
+public class ActionBarTabNavigation extends SherlockActivity implements ActionBar.TabListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		getSupportFragmentManager()
 			.beginTransaction()
-			.add(android.R.id.content, FragmentStackSupport.CountingFragment.newInstance(0))
+			.add(android.R.id.content, CountingFragment.newInstance(0))
 			.commit();
 		
 		getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -33,7 +33,7 @@ public class ActionBarTabNavigation extends FragmentActivity implements ActionBa
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
 		getSupportFragmentManager()
 			.beginTransaction()
-			.replace(android.R.id.content, FragmentStackSupport.CountingFragment.newInstance(tab.getPosition()))
+			.replace(android.R.id.content, CountingFragment.newInstance(tab.getPosition()))
 			.commit();
 	}
 

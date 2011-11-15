@@ -1,11 +1,13 @@
 package com.actionbarsherlock.internal.view.menu;
 
+import com.actionbarsherlock.view.ActionProvider;
+import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.SubMenu;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.support.v4.view.MenuItem;
-import android.support.v4.view.SubMenu;
-import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View;
 
 public class ActionMenuItem implements MenuItem {
@@ -68,11 +70,6 @@ public class ActionMenuItem implements MenuItem {
     @Override
     public int getItemId() {
         return mId;
-    }
-
-    @Override
-    public ContextMenu.ContextMenuInfo getMenuInfo() {
-        return null;
     }
 
     @Override
@@ -207,17 +204,6 @@ public class ActionMenuItem implements MenuItem {
     }
 
     @Override
-    public android.view.MenuItem setOnMenuItemClickListener(final android.view.MenuItem.OnMenuItemClickListener listener) {
-        mClickListener = new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                return listener.onMenuItemClick(item);
-            }
-        };
-        return null;
-    }
-
-    @Override
     public MenuItem setShortcut(char numericShortcut, char alphabeticShortcut) {
         mShortcutNumericChar = numericShortcut;
         mShortcutAlphabeticChar = alphabeticShortcut;
@@ -252,4 +238,51 @@ public class ActionMenuItem implements MenuItem {
         mFlags = (mFlags & HIDDEN) | (visible ? 0 : HIDDEN);
         return this;
     }
+
+	@Override
+	public boolean collapseActionView() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean expandActionView() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public ActionProvider getActionProvider() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isActionViewExpanded() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public MenuItem setActionProvider(ActionProvider actionProvider) {
+		// TODO Auto-generated method stub
+		return this;
+	}
+
+	@Override
+	public MenuItem setOnActionExpandListener(OnActionExpandListener listener) {
+		// TODO Auto-generated method stub
+		return this;
+	}
+
+	@Override
+	public MenuItem setShowAsActionFlags(int actionEnum) {
+		// TODO Auto-generated method stub
+		return this;
+	}
+
+	@Override
+	public ContextMenuInfo getMenuInfo() {
+		return null;
+	}
 }

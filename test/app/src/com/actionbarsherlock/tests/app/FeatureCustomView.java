@@ -2,11 +2,11 @@ package com.actionbarsherlock.tests.app;
 
 import java.util.concurrent.CountDownLatch;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.TextView;
+import com.actionbarsherlock.app.SherlockActivity;
 
-public final class FeatureCustomView extends FragmentActivity {
+public final class FeatureCustomView extends SherlockActivity {
 	public TextView customView;
 
 	@Override

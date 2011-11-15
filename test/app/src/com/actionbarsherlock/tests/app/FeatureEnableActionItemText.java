@@ -1,18 +1,16 @@
 package com.actionbarsherlock.tests.app;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.Menu;
-import android.support.v4.view.MenuItem;
-import android.support.v4.view.Window;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 
-public final class FeatureEnableActionItemText extends FragmentActivity {
+public final class FeatureEnableActionItemText extends SherlockActivity {
 	public static final String MENU_ITEM_TEXT = "Item";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_ACTION_BAR_ITEM_TEXT);
 		setContentView(R.layout.blank);
 	}
 

@@ -16,12 +16,13 @@
 package com.actionbarsherlock.sample.demos.app;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.Window;
 import android.view.View;
-import com.actionbarsherlock.sample.demos.R;
 
-public class ActionBarIndeterminateProgress extends FragmentActivity {
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.sample.demos.R;
+import com.actionbarsherlock.view.Window;
+
+public class ActionBarIndeterminateProgress extends SherlockActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -16,15 +16,14 @@
 package com.actionbarsherlock.sample.demos.app;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.Menu;
-import android.support.v4.view.MenuItem;
-import android.support.v4.view.SubMenu;
 import android.widget.TextView;
-
+import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.sample.demos.R;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.SubMenu;
 
-public class ActionBarSubMenus extends FragmentActivity {
+public class ActionBarSubMenus extends SherlockActivity {
     @Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		

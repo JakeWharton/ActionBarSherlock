@@ -2,9 +2,9 @@ package com.actionbarsherlock.tests.app;
 
 import java.util.concurrent.CountDownLatch;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import com.actionbarsherlock.app.SherlockActivity;
 
-public final class Issue0042 extends FragmentActivity {
+public final class Issue0042 extends SherlockActivity {
 	public static final String TITLE = "Hey, This Is A Test!";
 	
 	@Override

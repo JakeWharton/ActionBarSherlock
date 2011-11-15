@@ -19,13 +19,15 @@ package com.actionbarsherlock.internal.view.menu;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.support.v4.view.Menu;
-import android.support.v4.view.MenuItem;
 import android.view.KeyEvent;
 
 /**
@@ -314,7 +316,7 @@ public class MenuBuilder implements Menu {
     }
 
     @Override
-    public int addIntentOptions(int groupId, int itemId, int order, ComponentName caller, Intent[] specifics, Intent intent, int flags, android.view.MenuItem[] outSpecificItems) {
+    public int addIntentOptions(int groupId, int itemId, int order, ComponentName caller, Intent[] specifics, Intent intent, int flags, MenuItem[] outSpecificItems) {
         PackageManager pm = mContext.getPackageManager();
         final List<ResolveInfo> lri =
                 pm.queryIntentActivityOptions(caller, specifics, intent, 0);

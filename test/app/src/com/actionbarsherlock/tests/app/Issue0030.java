@@ -2,11 +2,11 @@ package com.actionbarsherlock.tests.app;
 
 import java.util.concurrent.CountDownLatch;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.Menu;
-import android.support.v4.view.MenuItem;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 
-public final class Issue0030 extends FragmentActivity {
+public final class Issue0030 extends SherlockActivity {
 	private boolean performFindItem = false;
 	private boolean performRemoveItem = false;
 	private MenuItem findItemResult;

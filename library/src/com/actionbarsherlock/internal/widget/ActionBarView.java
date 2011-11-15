@@ -6,8 +6,6 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
-import android.support.v4.app.ActionBar;
-import android.support.v4.view.Window;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,8 +20,11 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import com.actionbarsherlock.R;
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.internal.view.menu.ActionMenuItem;
 import com.actionbarsherlock.internal.view.menu.ActionMenuItemView;
+import com.actionbarsherlock.view.Window;
 
 public final class ActionBarView extends RelativeLayout {
     /** Default display options if none are defined in the theme. */
@@ -232,8 +233,8 @@ public final class ActionBarView extends RelativeLayout {
         mHomeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (context instanceof Activity) {
-                    ((Activity)context).onMenuItemSelected(Window.FEATURE_OPTIONS_PANEL, mLogoNavItem);
+                if (context instanceof SherlockActivity) {
+                    ((SherlockActivity)context).onMenuItemSelected(Window.FEATURE_OPTIONS_PANEL, mLogoNavItem);
                 }
             }
         });

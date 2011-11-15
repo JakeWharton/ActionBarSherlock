@@ -17,25 +17,25 @@
 
 package com.actionbarsherlock.sample.demos.app;
 
-import com.actionbarsherlock.sample.demos.R;
-
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.Menu;
-import android.support.v4.view.MenuItem;
-
-import android.os.Bundle;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CheckBox;
+import com.actionbarsherlock.app.OnCreateOptionsMenuListener;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.sample.demos.R;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 
 /**
  * Demonstrates how fragments can participate in the options menu.
  */
-public class ActionBarMenuSupport extends FragmentActivity {
+public class ActionBarMenuSupport extends SherlockActivity {
     Fragment mFragment1;
     Fragment mFragment2;
     CheckBox mCheckBox1;
@@ -51,7 +51,7 @@ public class ActionBarMenuSupport extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_menu);
+        setContentView(R.layout.actionbar_menu);
 
         // Make sure the two menu fragments are created.
         FragmentManager fm = getSupportFragmentManager();
@@ -100,7 +100,7 @@ public class ActionBarMenuSupport extends FragmentActivity {
      * have a UI (it does not implement onCreateView), but it could also
      * have one if it wanted.
      */
-    public static class MenuFragment extends Fragment {
+    public static class MenuFragment extends SherlockFragment {
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -123,7 +123,7 @@ public class ActionBarMenuSupport extends FragmentActivity {
     /**
      * Second fragment with a menu.
      */
-    public static class Menu2Fragment extends Fragment {
+    public static class Menu2Fragment extends Fragment implements OnCreateOptionsMenuListener {
 
         @Override
         public void onCreate(Bundle savedInstanceState) {

@@ -17,24 +17,25 @@
 package com.actionbarsherlock.sample.demos.app;
 
 import java.util.ArrayList;
-import com.actionbarsherlock.sample.demos.R;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.ActionBar.Tab;
 import android.support.v4.view.ViewPager;
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.ActionBar.Tab;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.sample.demos.R;
 
 /**
  * Demonstrates combining the action bar with a ViewPager to implement a tab UI
  * that switches between tabs and also allows the user to perform horizontal
  * flicks to move between the tabs.
  */
-public class ActionBarTabsPager extends FragmentActivity {
+public class ActionBarTabsPager extends SherlockActivity {
     ViewPager  mViewPager;
     TabsAdapter mTabsAdapter;
 
@@ -52,15 +53,15 @@ public class ActionBarTabsPager extends FragmentActivity {
 
         mViewPager = (ViewPager)findViewById(R.id.pager);
         mTabsAdapter = new TabsAdapter(this, getSupportActionBar(), mViewPager);
-        mTabsAdapter.addTab(tab1, FragmentStackSupport.CountingFragment.class);
+        mTabsAdapter.addTab(tab1, CountingFragment.class);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ECLAIR) {
-        	mTabsAdapter.addTab(tab2, FragmentStackSupport.CountingFragment.class);
-        	mTabsAdapter.addTab(tab3, FragmentStackSupport.CountingFragment.class);
-        	mTabsAdapter.addTab(tab4, FragmentStackSupport.CountingFragment.class);
+        	mTabsAdapter.addTab(tab2, CountingFragment.class);
+        	mTabsAdapter.addTab(tab3, CountingFragment.class);
+        	mTabsAdapter.addTab(tab4, CountingFragment.class);
         } else {
-        	mTabsAdapter.addTab(tab2, LoaderCursorSupport.CursorLoaderListFragment.class);
-        	mTabsAdapter.addTab(tab3, LoaderCustomSupport.AppListFragment.class);
-        	mTabsAdapter.addTab(tab4, LoaderThrottleSupport.ThrottledLoaderListFragment.class);
+        	mTabsAdapter.addTab(tab2, CursorLoaderListFragment.class);
+        	mTabsAdapter.addTab(tab3, AppListFragment.class);
+        	mTabsAdapter.addTab(tab4, ThrottledLoaderListFragment.class);
         }
 
         if (savedInstanceState != null) {

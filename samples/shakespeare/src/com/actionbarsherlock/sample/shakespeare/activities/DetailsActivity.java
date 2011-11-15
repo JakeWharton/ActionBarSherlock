@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.MenuItem;
-import com.actionbarsherlock.sample.shakespeare.fragments.DetailsFragment;
+import android.widget.FrameLayout;
 
-public class DetailsActivity extends FragmentActivity {
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.sample.shakespeare.fragments.DetailsFragment;
+import com.actionbarsherlock.view.MenuItem;
+
+public class DetailsActivity extends SherlockActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +22,9 @@ public class DetailsActivity extends FragmentActivity {
             finish();
             return;
         }
+        
+        //XXX FIX THIS
+        setContentView(new FrameLayout(this));
 
         if (savedInstanceState == null) {
             // During initial setup, plug in the details fragment.

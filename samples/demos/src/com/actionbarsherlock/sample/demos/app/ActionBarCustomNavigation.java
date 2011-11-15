@@ -16,16 +16,17 @@
 package com.actionbarsherlock.sample.demos.app;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
+
+import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.sample.demos.R;
 
-public class ActionBarCustomNavigation extends FragmentActivity {
+public class ActionBarCustomNavigation extends SherlockActivity {
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

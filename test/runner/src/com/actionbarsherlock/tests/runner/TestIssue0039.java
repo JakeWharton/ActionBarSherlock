@@ -1,9 +1,9 @@
 package com.actionbarsherlock.tests.runner;
 
-import com.actionbarsherlock.internal.view.menu.MenuBuilder;
 import android.content.Context;
 import android.test.AndroidTestCase;
-import android.view.Menu;
+import com.actionbarsherlock.internal.view.menu.MenuBuilder;
+import com.actionbarsherlock.view.Menu;
 
 public class TestIssue0039 extends AndroidTestCase {
     private static final int ITEM_A_ID = 1;

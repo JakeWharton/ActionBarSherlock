@@ -1,24 +1,24 @@
 package com.actionbarsherlock.sample.demos.app;
 
 import java.util.Random;
-import com.actionbarsherlock.sample.demos.R;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.Menu;
-import android.support.v4.view.MenuItem;
 import android.support.v4.view.ViewPager;
-import android.support.v4.view.Window;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.sample.demos.R;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 
-public class ActionBarPagerFragmentMenus extends FragmentActivity {
+public class ActionBarPagerFragmentMenus extends SherlockActivity {
     private static final Random RANDOM = new Random();
     private static final int PAGES = 10;
     private static final int MENU_ITEM_RANDOM = 1;
@@ -28,7 +28,6 @@ public class ActionBarPagerFragmentMenus extends FragmentActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_ACTION_BAR_ITEM_TEXT);
 
         setContentView(R.layout.actionbar_pagerfragmentmenus);
         mPager = (ViewPager)findViewById(R.id.pager);
@@ -68,7 +67,7 @@ public class ActionBarPagerFragmentMenus extends FragmentActivity {
         }
     }
     
-    public static class TestFragment extends Fragment {
+    public static class TestFragment extends SherlockFragment {
         String text = "???";
         
         public TestFragment() {

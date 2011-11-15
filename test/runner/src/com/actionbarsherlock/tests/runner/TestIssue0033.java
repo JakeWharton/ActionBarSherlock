@@ -1,9 +1,9 @@
 package com.actionbarsherlock.tests.runner;
 
-import android.support.v4.view.MenuItem;
 import android.view.View;
 import com.actionbarsherlock.tests.app.Issue0033;
 import com.actionbarsherlock.tests.app.R;
+import com.actionbarsherlock.view.MenuItem;
 
 public class TestIssue0033 extends BaseTestCase<Issue0033> {
     public TestIssue0033() {

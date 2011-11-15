@@ -2,18 +2,19 @@ package com.actionbarsherlock.tests.app;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.Menu;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
 
-public final class Issue0048 extends FragmentActivity {
+public final class Issue0048 extends SherlockActivity {
     private Menu mMenu;
     
 	@Override
@@ -54,7 +55,7 @@ public final class Issue0048 extends FragmentActivity {
         }
 	}
 	
-	public static class TestFragment extends Fragment {
+	public static class TestFragment extends SherlockFragment {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);

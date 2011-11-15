@@ -1,18 +1,20 @@
 package com.actionbarsherlock.sample.demos.app;
 
 import java.util.Random;
-import com.actionbarsherlock.sample.demos.R;
+
 import android.os.Bundle;
-import android.support.v4.app.ActionBar;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.Menu;
-import android.support.v4.view.MenuItem;
-import android.support.v4.view.Window;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 
-public class ActionBarFeatureToggles extends FragmentActivity {
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.sample.demos.R;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.Window;
+
+public class ActionBarFeatureToggles extends SherlockActivity {
 	private static final Random RANDOM = new Random();
 	
 	private int items = 0;

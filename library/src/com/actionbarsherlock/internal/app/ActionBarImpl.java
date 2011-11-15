@@ -22,9 +22,6 @@ import java.util.List;
 
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
-import android.support.v4.app.ActionBar;
-import android.support.v4.view.ActionMode;
-import android.support.v4.view.MenuItem;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
@@ -32,11 +29,13 @@ import android.view.animation.AnimationUtils;
 import android.widget.SpinnerAdapter;
 
 import com.actionbarsherlock.R;
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.internal.view.menu.ActionMenuItemView;
 import com.actionbarsherlock.internal.view.menu.MenuBuilder;
 import com.actionbarsherlock.internal.view.menu.MenuItemImpl;
 import com.actionbarsherlock.internal.widget.ActionBarContainer;
 import com.actionbarsherlock.internal.widget.ActionBarView;
+import com.actionbarsherlock.view.MenuItem;
 
 public final class ActionBarImpl extends ActionBar {
     private final Activity mActivity;
@@ -63,11 +62,6 @@ public final class ActionBarImpl extends ActionBar {
     // ------------------------------------------------------------------------
     // ACTION BAR SHERLOCK SUPPORT
     // ------------------------------------------------------------------------
-
-    @Override
-    protected ActionBar getPublicInstance() {
-        return this;
-    }
 
     public void init() {
         mActionView = (ActionBarView)mActivity.findViewById(R.id.abs__action_bar);
@@ -162,15 +156,6 @@ public final class ActionBarImpl extends ActionBar {
         if (mActionView != null) {
             mActionView.setProgressBarIndeterminateVisibility(visible);
         }
-    }
-
-    // ------------------------------------------------------------------------
-    // ACTION MODE METHODS
-    // ------------------------------------------------------------------------
-
-    @Override
-    protected ActionMode startActionMode(ActionMode.Callback callback) {
-        throw new RuntimeException("Not implemented.");
     }
 
     // ------------------------------------------------------------------------

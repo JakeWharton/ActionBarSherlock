@@ -2,11 +2,11 @@ package com.actionbarsherlock.tests.app;
 
 import java.util.concurrent.CountDownLatch;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.Menu;
-import android.support.v4.view.MenuItem;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 
-public final class Issue0033 extends FragmentActivity {
+public final class Issue0033 extends SherlockActivity {
     public static final int ID_VISIBLE = 1;
     public static final int ID_HIDDEN = 2;
     public static final String TEXT_VISIBLE = "Test1";
@@ -34,7 +34,7 @@ public final class Issue0033 extends FragmentActivity {
         menuItemActionVisible.setIcon(R.drawable.ic_menu_star_holo_light);
         menuItemActionVisible.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
-        getMenuInflater().inflate(R.menu.issue0033, menu);
+        getSupportMenuInflater().inflate(R.menu.issue0033, menu);
         menuItemActionXmlHidden = menu.findItem(R.id.issue0033_action);
         menuItemNativeXmlHidden = menu.findItem(R.id.issue0033_native);
 

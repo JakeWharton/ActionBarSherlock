@@ -1,8 +1,8 @@
 package com.actionbarsherlock.tests.runner;
 
-import android.support.v4.view.Menu;
 import android.test.suitebuilder.annotation.Smoke;
 import com.actionbarsherlock.tests.app.Issue0048;
+import com.actionbarsherlock.view.Menu;
 
 public class TestIssue0048 extends BaseTestCase<Issue0048> {
 	public TestIssue0048() {

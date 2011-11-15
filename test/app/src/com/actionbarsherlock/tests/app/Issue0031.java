@@ -1,11 +1,11 @@
 package com.actionbarsherlock.tests.app;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.Menu;
-import android.support.v4.view.MenuItem;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 
-public final class Issue0031 extends FragmentActivity {
+public final class Issue0031 extends SherlockActivity {
 	private MenuItem mResourceMenuItem;
 	private MenuItem mStringMenuItem;
 	
@@ -17,7 +17,7 @@ public final class Issue0031 extends FragmentActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.issue0031, menu);
+		getSupportMenuInflater().inflate(R.menu.issue0031, menu);
 		mResourceMenuItem = menu.findItem(R.id.issue0031_resource_item);
 		mStringMenuItem = menu.findItem(R.id.issue0031_string_item);
 		return false;

@@ -12,6 +12,6 @@ public class TestIssue0036 extends BaseTestCase<Issue0036> {
 	public void testMenuFindItemDoesNotError() throws InterruptedException {
 		Object menuItem = getActivity().getSubMenuItemParent();
 		assertNotNull(menuItem);
-		assertTrue(menuItem instanceof android.support.v4.view.MenuItem);
+		assertTrue(menuItem instanceof com.actionbarsherlock.view.MenuItem);
 	}
 }

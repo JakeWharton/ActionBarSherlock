@@ -18,12 +18,15 @@
 package com.actionbarsherlock.internal.view.menu;
 
 import java.lang.ref.WeakReference;
+
+import com.actionbarsherlock.view.ActionProvider;
+import com.actionbarsherlock.view.MenuItem;
+
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.support.v4.view.MenuItem;
 import android.util.Log;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -222,7 +225,12 @@ public final class MenuItemImpl implements MenuItem {
                 .setIntent(mIntent)
                 .setCheckable(isCheckable())
                 .setChecked(isChecked())
-                .setOnMenuItemClickListener(mClickListener);
+                .setOnMenuItemClickListener(new android.view.MenuItem.OnMenuItemClickListener() {
+					@Override
+					public boolean onMenuItemClick(android.view.MenuItem item) {
+						return mMenu.findItem(item.getItemId()).invoke();
+					}
+				});
 
             if (isExclusiveCheckable()) {
                 menu.setGroupCheckable(mGroupId, true, true);
@@ -509,11 +517,6 @@ public final class MenuItemImpl implements MenuItem {
     }
 
     @Override
-    public ContextMenuInfo getMenuInfo() {
-        return null;
-    }
-
-    @Override
     public MenuItem setActionView(View view) {
         mActionView = view;
         mActionViewRes = View.NO_ID;
@@ -555,16 +558,6 @@ public final class MenuItemImpl implements MenuItem {
                 mItemViews[i].get().setIcon(icon);
             }
         }
-    }
-
-    @Override
-    public android.view.MenuItem setOnMenuItemClickListener(final android.view.MenuItem.OnMenuItemClickListener menuItemClickListener) {
-        return this.setOnMenuItemClickListener(new OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                return menuItemClickListener.onMenuItemClick(new MenuItemWrapper(item));
-            }
-        });
     }
 
     @Override
@@ -660,4 +653,52 @@ public final class MenuItemImpl implements MenuItem {
             mItem.setVisible(visible);
         }
     }
+
+
+	@Override
+	public boolean collapseActionView() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean expandActionView() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public ActionProvider getActionProvider() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isActionViewExpanded() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public MenuItem setActionProvider(ActionProvider actionProvider) {
+		// TODO Auto-generated method stub
+		return this;
+	}
+
+	@Override
+	public MenuItem setOnActionExpandListener(OnActionExpandListener listener) {
+		// TODO Auto-generated method stub
+		return this;
+	}
+
+	@Override
+	public MenuItem setShowAsActionFlags(int actionEnum) {
+		// TODO Auto-generated method stub
+		return this;
+	}
+
+	@Override
+	public ContextMenuInfo getMenuInfo() {
+		return null;
+	}
 }

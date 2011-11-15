@@ -1,15 +1,15 @@
 package com.actionbarsherlock.sample.demos.app;
 
-import com.actionbarsherlock.sample.demos.R;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.Menu;
-import android.support.v4.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.sample.demos.R;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 
-public class ActionBarStyles extends FragmentActivity {
+public class ActionBarStyles extends SherlockActivity {
 	private static int THEME = R.style.Theme_Sherlock;
 	
 	@Override

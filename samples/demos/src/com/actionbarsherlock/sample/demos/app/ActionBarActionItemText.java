@@ -16,15 +16,14 @@
 package com.actionbarsherlock.sample.demos.app;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.Menu;
-import android.support.v4.view.MenuItem;
-import android.support.v4.view.Window;
 import android.widget.TextView;
 
+import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.sample.demos.R;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 
-public class ActionBarActionItemText extends FragmentActivity {
+public class ActionBarActionItemText extends SherlockActivity {
     @Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		menu.add("Text")
@@ -40,7 +39,6 @@ public class ActionBarActionItemText extends FragmentActivity {
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_ACTION_BAR_ITEM_TEXT);
         setContentView(R.layout.actionbar_text);
         ((TextView)findViewById(R.id.text)).setText(R.string.actionbar_actionitemtext_content);
     }
