@@ -409,8 +409,8 @@ public final class MenuInflater {
 
         public SubMenuBuilder addSubMenuItem() {
             itemAdded = true;
-            SubMenuBuilder subMenu = menu.addSubMenu(groupId, itemId, itemCategoryOrder, itemTitle);
-            setItem(subMenu.getItem());
+            SubMenuBuilder subMenu = (SubMenuBuilder) menu.addSubMenu(groupId, itemId, itemCategoryOrder, itemTitle);
+            setItem((MenuItemImpl) subMenu.getItem());
             return subMenu;
         }
 

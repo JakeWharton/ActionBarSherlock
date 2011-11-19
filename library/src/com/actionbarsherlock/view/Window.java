@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2006 The Android Open Source Project
- *               2011 Jake Wharton
+ * Copyright (C) 2011 Jake Wharton
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,57 +32,13 @@ import android.content.Context;
  * implementation.</p>
  */
 public abstract class Window extends android.view.Window {
-    /*
-     * We use long values so that we can intercept the call to
-     * requestWindowFeature in our Activity.
-     */
-
-    /**
-     * Flag for enabling the Action Bar. This is enabled by default for some
-     * devices. The Action Bar replaces the title bar and provides an alternate
-     * location for an on-screen menu button on some devices.
-     */
     public static final long FEATURE_ACTION_BAR = android.view.Window.FEATURE_ACTION_BAR;
-
-    /**
-     * Flag for requesting an Action Bar that overlays window content. Normally
-     * an Action Bar will sit in the space above window content, but if this
-     * feature is requested along with {@link #FEATURE_ACTION_BAR} it will be
-     * layered over the window content itself. This is useful if you would like
-     * your app to have more control over how the Action Bar is displayed, such
-     * as letting application content scroll beneath an Action Bar with a
-     * transparent background or otherwise displaying a transparent/translucent
-     * Action Bar over application content.
-     */
     public static final long FEATURE_ACTION_BAR_OVERLAY = android.view.Window.FEATURE_ACTION_BAR_OVERLAY;
-
-    /**
-     * Flag for specifying the behavior of action modes when an Action Bar is
-     * not present. If overlay is enabled, the action mode UI will be allowed to
-     * cover existing window content.
-     */
     public static final long FEATURE_ACTION_MODE_OVERLAY = android.view.Window.FEATURE_ACTION_MODE_OVERLAY;
-
-    /**
-     * Flag for indeterminate progress .
-     */
+    public static final long FEATURE_NO_TITLE = android.view.Window.FEATURE_NO_TITLE;
+    public static final long FEATURE_PROGRESS = android.view.Window.FEATURE_PROGRESS;
     public static final long FEATURE_INDETERMINATE_PROGRESS = android.view.Window.FEATURE_INDETERMINATE_PROGRESS;
     
-    /**
-     * Flag for the progress indicator feature.
-     */
-    public static final long FEATURE_PROGRESS = android.view.Window.FEATURE_PROGRESS;
-    
-    /**
-     * Flag for requesting that the action bar splits on a narrow screen. This
-     * is an alternative to specifying the manifest attribute which can be used
-     * when you are unable to compile with Android 4.0+ and/or cannot target
-     * SDK 14+. This flag will take precedance over the manifest value.
-     */
-    public static final long FEATURE_SPLIT_ACTION_BAR_WHEN_NARROW = 0x1F;
-
-
-
     /**
      * Create a new instance for a context.
      *
@@ -90,5 +46,20 @@ public abstract class Window extends android.view.Window {
      */
     public Window(Context context) {
         super(context);
+    }
+    
+    
+    public interface Callback {
+        /**
+         * Called when a panel's menu item has been selected by the user.
+         *
+         * @param featureId The panel that the menu is in.
+         * @param item The menu item that was selected.
+         *
+         * @return boolean Return true to finish processing of selection, or
+         *         false to perform the normal menu handling (calling its
+         *         Runnable or sending a Message to its target Handler).
+         */
+        public boolean onMenuItemSelected(int featureId, MenuItem item);
     }
 }

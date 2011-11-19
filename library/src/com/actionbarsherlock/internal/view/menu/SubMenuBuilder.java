@@ -1,6 +1,5 @@
 /*
  * Copyright (C) 2006 The Android Open Source Project
- * Copyright (C) 2011 Jake Wharton
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,20 +16,22 @@
 
 package com.actionbarsherlock.internal.view.menu;
 
-import com.actionbarsherlock.view.SubMenu;
-
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.SubMenu;
+
 /**
- * The model for a sub menu, which is an extension of the menu.  Most methods
- * are proxied to the parent menu.
+ * The model for a sub menu, which is an extension of the menu.  Most methods are proxied to
+ * the parent menu.
  */
-public final class SubMenuBuilder extends MenuBuilder implements SubMenu {
+public class SubMenuBuilder extends MenuBuilder implements SubMenu {
     private MenuBuilder mParentMenu;
     private MenuItemImpl mItem;
-
+    
     public SubMenuBuilder(Context context, MenuBuilder parentMenu, MenuItemImpl item) {
         super(context);
 
@@ -43,78 +44,91 @@ public final class SubMenuBuilder extends MenuBuilder implements SubMenu {
         mParentMenu.setQwertyMode(isQwerty);
     }
 
-    //@Override
-    //public boolean isQwertyMode() {
-    //    return mParentMenu.isQwertyMode();
-    //}
-
-    //@Override
-    //public void setShortcutsVisible(boolean shortcutsVisible) {
-    //    mParentMenu.setShortcutsVisible(shortcutsVisible);
-    //}
-
-    //@Override
-    //public boolean isShortcutsVisible() {
-    //    return mParentMenu.isShortcutsVisible();
-    //}
-
-    MenuBuilder getParentMenu() {
-        return mParentMenu;
+    @Override
+    public boolean isQwertyMode() {
+        return mParentMenu.isQwertyMode();
+    }
+    
+    @Override
+    public void setShortcutsVisible(boolean shortcutsVisible) {
+        mParentMenu.setShortcutsVisible(shortcutsVisible);
     }
 
     @Override
-    public MenuItemImpl getItem() {
+    public boolean isShortcutsVisible() {
+        return mParentMenu.isShortcutsVisible();
+    }
+
+    public Menu getParentMenu() {
+        return mParentMenu;
+    }
+
+    public MenuItem getItem() {
         return mItem;
     }
 
-    //@Override
-    //public Callback getCallback() {
-    //    return mParentMenu.getCallback();
-    //}
-
-    //@Override
-    //public void setCallback(Callback callback) {
-    //    mParentMenu.setCallback(callback);
-    //}
+    @Override
+    public void setCallback(Callback callback) {
+        mParentMenu.setCallback(callback);
+    }
 
     @Override
     public MenuBuilder getRootMenu() {
         return mParentMenu;
     }
 
-    public SubMenuBuilder setIcon(Drawable icon) {
+    @Override
+    boolean dispatchMenuItemSelected(MenuBuilder menu, MenuItem item) {
+        return super.dispatchMenuItemSelected(menu, item) ||
+                mParentMenu.dispatchMenuItemSelected(menu, item);
+    }
+
+    public SubMenu setIcon(Drawable icon) {
         mItem.setIcon(icon);
         return this;
     }
 
-    public SubMenuBuilder setIcon(int iconRes) {
+    public SubMenu setIcon(int iconRes) {
         mItem.setIcon(iconRes);
         return this;
     }
 
-    public SubMenuBuilder setHeaderIcon(Drawable icon) {
-        throw new RuntimeException("Method not supported.");
+    public SubMenu setHeaderIcon(Drawable icon) {
+        return (SubMenu) super.setHeaderIconInt(icon);
     }
 
-    public SubMenuBuilder setHeaderIcon(int iconRes) {
-        throw new RuntimeException("Method not supported.");
+    public SubMenu setHeaderIcon(int iconRes) {
+        return (SubMenu) super.setHeaderIconInt(iconRes);
     }
 
-    public SubMenuBuilder setHeaderTitle(CharSequence title) {
-        throw new RuntimeException("Method not supported.");
+    public SubMenu setHeaderTitle(CharSequence title) {
+        return (SubMenu) super.setHeaderTitleInt(title);
     }
 
-    public SubMenuBuilder setHeaderTitle(int titleRes) {
-        throw new RuntimeException("Method not supported.");
+    public SubMenu setHeaderTitle(int titleRes) {
+        return (SubMenu) super.setHeaderTitleInt(titleRes);
+    }
+
+    public SubMenu setHeaderView(View view) {
+        return (SubMenu) super.setHeaderViewInt(view);
     }
 
     @Override
-    public SubMenuBuilder setHeaderView(View view) {
-        throw new RuntimeException("Method not supported.");
+    public boolean expandItemActionView(MenuItemImpl item) {
+        return mParentMenu.expandItemActionView(item);
     }
 
     @Override
-    public void clearHeader() {
-        throw new RuntimeException("Method not supported.");
+    public boolean collapseItemActionView(MenuItemImpl item) {
+        return mParentMenu.collapseItemActionView(item);
+    }
+
+    @Override
+    public String getActionViewStatesKey() {
+        final int itemId = mItem != null ? mItem.getItemId() : 0;
+        if (itemId == 0) {
+            return null;
+        }
+        return super.getActionViewStatesKey() + ":" + itemId;
     }
 }

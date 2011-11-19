@@ -1,697 +1,1563 @@
+/*
+ * Copyright (C) 2010 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.actionbarsherlock.internal.widget;
 
+import org.xmlpull.v1.XmlPullParser;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.res.AssetManager;
+import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.content.res.XmlResourceParser;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
+import android.view.accessibility.AccessibilityEvent;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
+
 import com.actionbarsherlock.R;
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
 import com.actionbarsherlock.internal.view.menu.ActionMenuItem;
-import com.actionbarsherlock.internal.view.menu.ActionMenuItemView;
+import com.actionbarsherlock.internal.view.menu.ActionMenuPresenter;
+import com.actionbarsherlock.internal.view.menu.ActionMenuView;
+import com.actionbarsherlock.internal.view.menu.MenuBuilder;
+import com.actionbarsherlock.internal.view.menu.MenuItemImpl;
+import com.actionbarsherlock.internal.view.menu.MenuPresenter;
+import com.actionbarsherlock.internal.view.menu.MenuView;
+import com.actionbarsherlock.internal.view.menu.SubMenuBuilder;
+import com.actionbarsherlock.view.CollapsibleActionView;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
 
-public final class ActionBarView extends RelativeLayout {
-    /** Default display options if none are defined in the theme. */
-    private static final int DEFAULT_DISPLAY_OPTIONS = ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_SHOW_HOME;
+/**
+ * @hide
+ */
+public class ActionBarView extends AbsActionBarView {
+    private static final String TAG = "ActionBarView";
+    private static final boolean DEBUG = false;
 
-    /** Default navigation mode if one is not defined in the theme. */
-    private static final int DEFAULT_NAVIGATION_MODE = ActionBar.NAVIGATION_MODE_STANDARD;
+    /**
+     * Display options applied by default
+     */
+    public static final int DISPLAY_DEFAULT = 0;
 
+    /**
+     * Display options that require re-layout as opposed to a simple invalidate
+     */
+    private static final int DISPLAY_RELAYOUT_MASK =
+            ActionBar.DISPLAY_SHOW_HOME |
+            ActionBar.DISPLAY_USE_LOGO |
+            ActionBar.DISPLAY_HOME_AS_UP |
+            ActionBar.DISPLAY_SHOW_CUSTOM |
+            ActionBar.DISPLAY_SHOW_TITLE;
 
-
-    private final View mHomeAsUpView;
-    private final ViewGroup mHomeLayout;
-    private final ActionMenuItem mLogoNavItem;
-
-    private final CharSequence mTitle;
-    private final TextView mTitleLayout;
-
-    private final CharSequence mSubtitle;
-    private final TextView mSubtitleLayout;
-
-    /** Indeterminate progress bar. */
-    private final ProgressBar mIndeterminateProgress;
-
-    /** List view. */
-    private final Spinner mSpinner;
-    private SpinnerAdapter mSpinnerAdapter;
-    private final AdapterView.OnItemSelectedListener mNavItemSelectedListener;
-    private ActionBar.OnNavigationListener mCallback;
-
-    /** Custom view parent. */
-    private final FrameLayout mCustomView;
-    private View mCustomNavView;
-
-    private ImageView mIconView;
-    private Drawable mLogo;
+    private static final int DEFAULT_CUSTOM_GRAVITY = Gravity.LEFT | Gravity.CENTER_VERTICAL;
+    
+    private int mNavigationMode;
+    private int mDisplayOptions = -1;
+    private CharSequence mTitle;
+    private CharSequence mSubtitle;
     private Drawable mIcon;
-    private final Drawable mDivider;
+    private Drawable mLogo;
 
-    /** Container for all action items. */
-    private final LinearLayout mActionsView;
+    private HomeView mHomeLayout;
+    private HomeView mExpandedHomeLayout;
+    private LinearLayout mTitleLayout;
+    private TextView mTitleView;
+    private TextView mSubtitleView;
+    private View mTitleUpView;
 
-    /** Container for all tab items. */
-    private final LinearLayout mTabsView;
+    private Spinner mSpinner;
+    private LinearLayout mListNavLayout;
+    private ScrollingTabContainerView mTabScrollView;
+    private View mCustomNavView;
+    private ProgressBar mProgressView;
+    private ProgressBar mIndeterminateProgressView;
 
-    /**
-     * Display state flags.
-     *
-     * @see #getDisplayOptions()
-     * @see #getDisplayOptionValue(int)
-     * @see #setDisplayOptions(int)
-     * @see #setDisplayOptions(int, int)
-     * @see #setDisplayOption(int, boolean)
-     * @see #reloadDisplay()
-     */
-    private int mDisplayOptions;
+    private int mProgressBarPadding;
+    private int mItemPadding;
+    
+    private int mTitleStyleRes;
+    private int mSubtitleStyleRes;
+    //TODO private int mProgressStyle;
+    //TODO private int mIndeterminateProgressStyle;
 
-    /**
-     * Current navigation mode
-     *
-     * @see #getNavigationMode()
-     * @see #setNavigationMode(int)
-     */
-    private int mNavigationMode = -1;
+    private boolean mUserTitle;
+    private boolean mIncludeTabs;
+    private boolean mIsCollapsable;
+    private boolean mIsCollapsed;
 
-    private boolean mIsConstructing;
+    private MenuBuilder mOptionsMenu;
+    
+    private ActionBarContextView mContextView;
 
+    private ActionMenuItem mLogoNavItem;
 
+    private SpinnerAdapter mSpinnerAdapter;
+    private OnNavigationListener mCallback;
 
-    public ActionBarView(Context context) {
-        this(context, null);
-    }
+    private Runnable mTabSelector;
+
+    private ExpandedActionViewMenuPresenter mExpandedMenuPresenter;
+    View mExpandedActionView;
+
+    Window.Callback mWindowCallback;
+
+    private final AdapterView.OnItemSelectedListener mNavItemSelectedListener =
+            new AdapterView.OnItemSelectedListener() {
+        @SuppressWarnings("rawtypes")
+        public void onItemSelected(AdapterView parent, View view, int position, long id) {
+            if (mCallback != null) {
+                mCallback.onNavigationItemSelected(position, id);
+            }
+        }
+        @SuppressWarnings("rawtypes")
+        public void onNothingSelected(AdapterView parent) {
+            // Do nothing
+        }
+    };
+
+    private final OnClickListener mExpandedActionViewUpListener = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            final MenuItemImpl item = mExpandedMenuPresenter.mCurrentExpandedItem;
+            if (item != null) {
+                item.collapseActionView();
+            }
+        }
+    };
+
+    private final OnClickListener mUpClickListener = new OnClickListener() {
+        public void onClick(View v) {
+            mWindowCallback.onMenuItemSelected(Window.FEATURE_OPTIONS_PANEL, mLogoNavItem);
+        }
+    };
 
     public ActionBarView(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
-    }
+        super(context, attrs);
 
-    public ActionBarView(final Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-        mIsConstructing = true;
-        LayoutInflater.from(context).inflate(R.layout.abs__action_bar, this, true);
-
-        mNavItemSelectedListener = new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                if (mCallback != null) {
-                    mCallback.onNavigationItemSelected(arg2, arg3);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-                //No op
-            }
-        };
-
+        // Background is always provided by the container.
         setBackgroundResource(0);
 
-        final TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SherlockTheme, defStyle, 0);
-        final ApplicationInfo appInfo = context.getApplicationInfo();
-        final PackageManager pm = context.getPackageManager();
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SherlockActionBar,
+                R.attr.actionBarStyle, 0);
 
-
-        //// TITLE ////
-
-        mTitleLayout = (TextView)findViewById(R.id.abs__action_bar_title);
-
-        //Try to load title style from the theme
-        final int titleTextStyle = a.getResourceId(R.styleable.SherlockTheme_abTitleTextStyle, 0);
-        if (titleTextStyle != 0) {
-            mTitleLayout.setTextAppearance(context, titleTextStyle);
+        ApplicationInfo appInfo = context.getApplicationInfo();
+        PackageManager pm = context.getPackageManager();
+        mNavigationMode = a.getInt(R.styleable.SherlockActionBar_navigationMode,
+                ActionBar.NAVIGATION_MODE_STANDARD);
+        mTitle = a.getText(R.styleable.SherlockActionBar_title);
+        mSubtitle = a.getText(R.styleable.SherlockActionBar_subtitle);
+        
+        mLogo = a.getDrawable(R.styleable.SherlockActionBar_logo);
+        if (mLogo == null) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+                if (context instanceof Activity) {
+                    //Even though native methods existed in API 9 and 10 they don't work
+                    //so just parse the manifest to look for the logo pre-Honeycomb
+                    final int resId = loadLogoFromManifest((Activity) context);
+                    if (resId != 0) {
+                        mLogo = context.getResources().getDrawable(resId);
+                    }
+                }
+            } else {
+                if (context instanceof Activity) {
+                    mLogo = LoadLogoFromManifest.forActivity(pm, (Activity)context);
+                }
+                if (mLogo == null) {
+                    mLogo = LoadLogoFromManifest.forApplication(appInfo, pm);
+                }
+            }
         }
 
-        //Try to load title from the theme
-        mTitle = a.getString(R.styleable.SherlockTheme_abTitle);
-        if (mTitle != null) {
-            setTitle(mTitle);
+        mIcon = a.getDrawable(R.styleable.SherlockActionBar_icon);
+        if (mIcon == null) {
+            if (context instanceof Activity) {
+                try {
+                    mIcon = pm.getActivityIcon(((Activity) context).getComponentName());
+                } catch (NameNotFoundException e) {
+                    Log.e(TAG, "Activity component name not found!", e);
+                }
+            }
+            if (mIcon == null) {
+                mIcon = appInfo.loadIcon(pm);
+            }
         }
 
+        final LayoutInflater inflater = LayoutInflater.from(context);
 
-        //// SUBTITLE ////
+        final int homeResId = a.getResourceId(
+                R.styleable.SherlockActionBar_homeLayout,
+                R.layout.abs__action_bar_home);
 
-        mSubtitleLayout = (TextView)findViewById(R.id.abs__action_bar_subtitle);
+        mHomeLayout = (HomeView) inflater.inflate(homeResId, this, false);
 
-        //Try to load subtitle style from the theme
-        final int subtitleTextStyle = a.getResourceId(R.styleable.SherlockTheme_abSubtitleTextStyle, 0);
-        if (subtitleTextStyle != 0) {
-            mSubtitleLayout.setTextAppearance(context, subtitleTextStyle);
-        }
+        mExpandedHomeLayout = (HomeView) inflater.inflate(homeResId, this, false);
+        mExpandedHomeLayout.setUp(true);
+        mExpandedHomeLayout.setOnClickListener(mExpandedActionViewUpListener);
+        mExpandedHomeLayout.setContentDescription(getResources().getText(
+                R.string.abs__action_bar_up_description));
+        
+        mTitleStyleRes = a.getResourceId(R.styleable.SherlockActionBar_titleTextStyle, 0);
+        mSubtitleStyleRes = a.getResourceId(R.styleable.SherlockActionBar_subtitleTextStyle, 0);
+        /* TODO mProgressStyle = a.getResourceId(R.styleable.SherlockActionBar_progressBarStyle, 0);
+        mIndeterminateProgressStyle = a.getResourceId(
+                R.styleable.SherlockActionBar_indeterminateProgressStyle, 0);*/
 
-        //Try to load subtitle from theme
-        mSubtitle = a.getString(R.styleable.SherlockTheme_abSubtitle);
-        if (mSubtitle != null) {
-            setSubtitle(mSubtitle);
-        }
+        mProgressBarPadding = a.getDimensionPixelOffset(R.styleable.SherlockActionBar_progressBarPadding, 0);
+        mItemPadding = a.getDimensionPixelOffset(R.styleable.SherlockActionBar_itemPadding, 0);
 
+        setDisplayOptions(a.getInt(R.styleable.SherlockActionBar_displayOptions, DISPLAY_DEFAULT));
 
-        /// HOME ////
-
-        mHomeLayout = (ViewGroup)findViewById(R.id.abs__home_wrapper);
-        final int homeLayoutResource = a.getResourceId(R.styleable.SherlockTheme_abHomeLayout, R.layout.abs__action_bar_home);
-        LayoutInflater.from(context).inflate(homeLayoutResource, mHomeLayout, true);
-
-        //Try to load the logo from the theme
-        mLogo = a.getDrawable(R.styleable.SherlockTheme_abLogo);
-        /*
-        if ((mLogo == null) && (context instanceof Activity)) {
-            //LOGO LOADING DOES NOT WORK
-            //SEE: http://stackoverflow.com/questions/6105504/load-activity-and-or-application-logo-programmatically-from-manifest
-            //SEE: https://groups.google.com/forum/#!topic/android-developers/UFR4l0ZwJWc
-        }
-        */
-
-        //Try to load the icon from the theme
-        mIcon = a.getDrawable(R.styleable.SherlockTheme_abIcon);
-        if ((mIcon == null) && (context instanceof Activity)) {
-            mIcon = appInfo.loadIcon(pm);
-        }
-
-        mHomeAsUpView = findViewById(R.id.abs__up);
-        mIconView = (ImageView)findViewById(R.id.abs__home);
-
-
-        //// NAVIGATION ////
-
-        mSpinner = (Spinner)findViewById(R.id.abs__nav_list);
-        mSpinner.setOnItemSelectedListener(mNavItemSelectedListener);
-
-        mTabsView = (LinearLayout)findViewById(R.id.abs__nav_tabs);
-
-
-        //// CUSTOM VIEW ////
-
-        mCustomView = (FrameLayout)findViewById(R.id.abs__custom);
-
-        //Try to load a custom view from the theme. This will NOT automatically
-        //trigger the visibility of the custom layout, however.
-        final int customViewResourceId = a.getResourceId(R.styleable.SherlockTheme_abCustomNavigationLayout, 0);
-        if (customViewResourceId != 0) {
-            mCustomNavView = LayoutInflater.from(context).inflate(customViewResourceId, mCustomView, true);
+        final int customNavId = a.getResourceId(R.styleable.SherlockActionBar_customNavigationLayout, 0);
+        if (customNavId != 0) {
+            mCustomNavView = (View) inflater.inflate(customNavId, this, false);
             mNavigationMode = ActionBar.NAVIGATION_MODE_STANDARD;
             setDisplayOptions(mDisplayOptions | ActionBar.DISPLAY_SHOW_CUSTOM);
         }
 
-
-
-
-        mActionsView = (LinearLayout)findViewById(R.id.abs__actions);
-        mDivider = a.getDrawable(R.styleable.SherlockTheme_abDivider);
-
-        mIndeterminateProgress = (ProgressBar)findViewById(R.id.abs__iprogress);
-
-        //Try to get the display options defined in the theme, or fall back to
-        //displaying the title and home icon
-        setDisplayOptions(a.getInteger(R.styleable.SherlockTheme_abDisplayOptions, DEFAULT_DISPLAY_OPTIONS));
-
-        //Try to get the navigation defined in the theme, or, fall back to
-        //use standard navigation by default
-        setNavigationMode(a.getInteger(R.styleable.SherlockTheme_abNavigationMode, DEFAULT_NAVIGATION_MODE));
-
-
-        //Reduce, Reuse, Recycle!
+        mContentHeight = a.getLayoutDimension(R.styleable.SherlockActionBar_height, 0);
+        
         a.recycle();
-        mIsConstructing = false;
-
+        
         mLogoNavItem = new ActionMenuItem(context, 0, android.R.id.home, 0, 0, mTitle);
-        mHomeLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (context instanceof SherlockActivity) {
-                    ((SherlockActivity)context).onMenuItemSelected(Window.FEATURE_OPTIONS_PANEL, mLogoNavItem);
-                }
-            }
-        });
+        mHomeLayout.setOnClickListener(mUpClickListener);
         mHomeLayout.setClickable(true);
         mHomeLayout.setFocusable(true);
-
-        reloadDisplay();
     }
-
-
-
-    // ------------------------------------------------------------------------
-    // HELPER METHODS
-    // ------------------------------------------------------------------------
-
+    
     /**
-     * Helper to get a boolean value for a specific flag.
-     *
-     * @param flag Target flag.
-     * @return Value.
+     * Try to load the logo from the manifest. Needed because of Android 1.6.
      */
-    private boolean getDisplayOptionValue(int flag) {
-        return (mDisplayOptions & flag) == flag;
-    }
-
-    /**
-     * Reload the current action bar display state.
-     */
-    private void reloadDisplay() {
-        if (mIsConstructing) {
-            return; //Do not run if we are in the constructor
-        }
-
-        final boolean isStandard = mNavigationMode == ActionBar.NAVIGATION_MODE_STANDARD;
-        final boolean isList = mNavigationMode == ActionBar.NAVIGATION_MODE_LIST;
-        final boolean isTab = mNavigationMode == ActionBar.NAVIGATION_MODE_TABS;
-        final boolean isTabUnderAb = isTab && getContext().getString(R.string.abs__tab_under_ab_tag).equals(mTabsView.getTag());
-        final boolean hasSubtitle = (mSubtitleLayout.getText() != null) && !mSubtitleLayout.getText().equals("");
-        final boolean displayHome = getDisplayOptionValue(ActionBar.DISPLAY_SHOW_HOME);
-        final boolean displayHomeAsUp = getDisplayOptionValue(ActionBar.DISPLAY_HOME_AS_UP);
-        final boolean displayTitle = getDisplayOptionValue(ActionBar.DISPLAY_SHOW_TITLE);
-        final boolean displayCustom = getDisplayOptionValue(ActionBar.DISPLAY_SHOW_CUSTOM);
-        final boolean displayLogo = getDisplayOptionValue(ActionBar.DISPLAY_USE_LOGO) && (mLogo != null);
-
-        mHomeLayout.setVisibility(displayHome ? View.VISIBLE : View.GONE);
-        if (displayHome) {
-            if (mHomeAsUpView != null) {
-                mHomeAsUpView.setVisibility(displayHomeAsUp ? View.VISIBLE : View.GONE);
+    private static final class LoadLogoFromManifest {
+        public static Drawable forActivity(PackageManager pm, Activity activity) {
+            try {
+                return pm.getActivityLogo(activity.getComponentName());
+            } catch (NameNotFoundException e) {
+                Log.e(TAG, "Activity component name not found!", e);
             }
-            if (mIconView != null) {
-                mIconView.setImageDrawable(displayLogo ? mLogo : mIcon);
-            }
-        }
-
-        //Only show list if we are in list navigation and there are list items
-        mSpinner.setVisibility(isList ? View.VISIBLE : View.GONE);
-
-        // Show tabs if in tabs navigation mode.
-        mTabsView.setVisibility(isTab ? View.VISIBLE : View.GONE);
-
-        //Show title view if we are not in list navigation, not showing custom
-        //view, and the show title flag is true
-        mTitleLayout.setVisibility((isStandard || isTabUnderAb) && !displayCustom && displayTitle ? View.VISIBLE : View.GONE);
-        //Show subtitle view if we are not in list navigation, not showing
-        //custom view, show title flag is true, and a subtitle is set
-        mSubtitleLayout.setVisibility((isStandard || isTabUnderAb) && !displayCustom && displayTitle && hasSubtitle ? View.VISIBLE : View.GONE);
-        //Show custom view if we are not in list navigation and showing custom
-        //flag is set
-        mCustomView.setVisibility(isStandard && displayCustom ? View.VISIBLE : View.GONE);
-    }
-
-    // ------------------------------------------------------------------------
-    // ACTION BAR API
-    // ------------------------------------------------------------------------
-
-    public void addTab(ActionBar.Tab tab) {
-        final int tabCount = getTabCount();
-        addTab(tab, tabCount, tabCount == 0);
-    }
-
-    public void addTab(ActionBar.Tab tab, boolean setSelected) {
-        addTab(tab, getTabCount(), setSelected);
-    }
-
-    public void addTab(ActionBar.Tab tab, int position) {
-        addTab(tab, position, getTabCount() == 0);
-    }
-
-    public void addTab(ActionBar.Tab tab, int position, boolean setSelected) {
-        mTabsView.addView(((TabImpl)tab).mView, position);
-        if (setSelected) {
-            tab.select();
-        }
-    }
-
-    public View getCustomView() {
-        return mCustomNavView;
-    }
-
-    public int getDisplayOptions() {
-        return mDisplayOptions;
-    }
-
-    public SpinnerAdapter getDropdownAdapter() {
-        return this.mSpinnerAdapter;
-    }
-
-    public int getDropdownSelectedPosition() {
-        return this.mSpinner.getSelectedItemPosition();
-    }
-
-    public int getNavigationMode() {
-        return mNavigationMode;
-    }
-
-    public ActionBar.Tab getSelectedTab() {
-        final int count = mTabsView.getChildCount();
-        for (int i = 0; i < count; i++) {
-            TabImpl tab = (TabImpl)mTabsView.getChildAt(i).getTag();
-            if (tab.mView.isSelected()) {
-                return tab;
-            }
-        }
-        return null;
-    }
-
-    public CharSequence getSubtitle() {
-        if ((mNavigationMode == ActionBar.NAVIGATION_MODE_STANDARD) && !mSubtitleLayout.getText().equals("")) {
-            return mSubtitleLayout.getText();
-        } else {
             return null;
         }
-    }
-
-    public ActionBar.Tab getTabAt(int index) {
-        View view = mTabsView.getChildAt(index);
-        return (view != null) ? (TabImpl)view.getTag() : null;
-    }
-
-    public int getTabCount() {
-        return mTabsView.getChildCount();
-    }
-
-    public CharSequence getTitle() {
-        if ((mNavigationMode == ActionBar.NAVIGATION_MODE_STANDARD) && !mTitleLayout.getText().equals("")) {
-            return mTitleLayout.getText();
-        } else {
-            return null;
+        public static Drawable forApplication(ApplicationInfo appInfo, PackageManager pm) {
+            return appInfo.loadLogo(pm);
         }
     }
-
-    public TabImpl newTab() {
-        return new TabImpl(this);
-    }
-
-    public void removeAllTabs() {
-        TabImpl selected = (TabImpl)getSelectedTab();
-        if (selected != null) {
-            selected.unselect();
-        }
-        mTabsView.removeAllViews();
-    }
-
-    public void removeTab(ActionBar.Tab tab) {
-        final int count = mTabsView.getChildCount();
-        for (int i = 0; i < count; i++) {
-            TabImpl existingTab = (TabImpl)mTabsView.getChildAt(i).getTag();
-            if (existingTab.equals(tab)) {
-                removeTabAt(i);
-                break;
+    
+    /**
+     * Attempt to programmatically load the logo from the manifest file of an
+     * activity by using an XML pull parser. This should allow us to read the
+     * logo attribute regardless of the platform it is being run on.
+     * 
+     * @param activity Activity instance.
+     * @return Logo resource ID.
+     */
+    private int loadLogoFromManifest(Activity activity) {
+        try {
+            final String thisPackage = getClass().getName();
+            if (DEBUG) Log.i(TAG, "Parsing AndroidManifest.xml for " + thisPackage);
+            
+            final String packageName = activity.getApplicationInfo().packageName;
+            final AssetManager am = activity.createPackageContext(packageName, 0).getAssets();
+            final XmlResourceParser xml = am.openXmlResourceParser("AndroidManifest.xml");
+            
+            int eventType = xml.getEventType();
+            while (eventType != XmlPullParser.END_DOCUMENT) {
+                if (eventType == XmlPullParser.START_TAG) {
+                    String name = xml.getName();
+                    
+                    if ("application".equals(name)) {
+                        //Check if the <application> has the attribute
+                        if (DEBUG) Log.d(TAG, "Got <application>");
+                        
+                        for (int i = xml.getAttributeCount() - 1; i >= 0; i--) {
+                            if (DEBUG) Log.d(TAG, xml.getAttributeName(i) + ": " + xml.getAttributeValue(i));
+                            
+                            if ("logo".equals(xml.getAttributeName(i))) {
+                                //Found the attribute, return its value
+                                int result = xml.getAttributeResourceValue(i, 0);
+                                if (DEBUG) Log.i(TAG, "Returning " + Integer.toHexString(result));
+                                return result;
+                            }
+                        }
+                    } else if ("activity".equals(name)) {
+                        //Check if the <activity> is us and has the attribute
+                        if (DEBUG) Log.d(TAG, "Got <activity>");
+                        Integer logo = null;
+                        String activityPackage = null;
+                        boolean isOurActivity = false;
+                        
+                        for (int i = xml.getAttributeCount() - 1; i >= 0; i--) {
+                            if (DEBUG) Log.d(TAG, xml.getAttributeName(i) + ": " + xml.getAttributeValue(i));
+                            
+                            //We need both uiOptions and name attributes
+                            String attrName = xml.getAttributeName(i);
+                            if ("logo".equals(attrName)) {
+                                logo = xml.getAttributeResourceValue(i, 0);
+                            } else if ("name".equals(attrName)) {
+                                activityPackage = packageName + xml.getAttributeValue(i);
+                                if (!thisPackage.equals(activityPackage)) {
+                                    break; //on to the next
+                                }
+                                isOurActivity = true;
+                            }
+                            
+                            //Make sure we have both attributes before processing
+                            if ((logo != null) && (activityPackage != null)) {
+                                if (DEBUG) Log.i(TAG, "Returning " + Integer.toHexString(logo));
+                                return logo.intValue();
+                            }
+                        }
+                        if (isOurActivity) {
+                            //If we matched our activity but it had no logo don't
+                            //do any more processing of the manifest
+                            break;
+                        }
+                    }
+                }
+                eventType = xml.nextToken();
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        if (DEBUG) Log.i(TAG, "Returning 0x00");
+        return 0;
     }
 
-    public void removeTabAt(int position) {
-        TabImpl tab = (TabImpl)getTabAt(position);
-        if (tab != null) {
-            tab.unselect();
-            mTabsView.removeViewAt(position);
+    @Override
+    protected void onConfigurationChanged(Configuration newConfig) {
+        //TODO super.onConfigurationChanged(newConfig);
+        //TODO figure out how to call this on pre-2.2
 
-            if (position > 0) {
-                //Select previous tab
-                ((TabImpl)mTabsView.getChildAt(position - 1).getTag()).select();
-            } else if (mTabsView.getChildCount() > 0) {
-                //Select first tab
-                ((TabImpl)mTabsView.getChildAt(0).getTag()).select();
+        mTitleView = null;
+        mSubtitleView = null;
+        mTitleUpView = null;
+        if (mTitleLayout != null && mTitleLayout.getParent() == this) {
+            removeView(mTitleLayout);
+        }
+        mTitleLayout = null;
+        if ((mDisplayOptions & ActionBar.DISPLAY_SHOW_TITLE) != 0) {
+            initTitle();
+        }
+
+        if (mTabScrollView != null && mIncludeTabs) {
+            ViewGroup.LayoutParams lp = mTabScrollView.getLayoutParams();
+            if (lp != null) {
+                lp.width = LayoutParams.WRAP_CONTENT;
+                lp.height = LayoutParams.FILL_PARENT;
             }
+            mTabScrollView.setAllowCollapse(true);
         }
     }
 
-    public void setCallback(ActionBar.OnNavigationListener callback) {
+    /**
+     * Set the window callback used to invoke menu items; used for dispatching home button presses.
+     * @param cb Window callback to dispatch to
+     */
+    public void setWindowCallback(Window.Callback cb) {
+        mWindowCallback = cb;
+    }
+
+    @Override
+    public void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        removeCallbacks(mTabSelector);
+        if (mActionMenuPresenter != null) {
+            mActionMenuPresenter.hideOverflowMenu();
+            mActionMenuPresenter.hideSubMenus();
+        }
+    }
+
+    @Override
+    public boolean shouldDelayChildPressedState() {
+        return false;
+    }
+
+    public void initProgress() {
+        //TODO mProgressView = new ProgressBar(mContext, null, 0, mProgressStyle);
+    	mProgressView = new ProgressBar(mContext, null, 0);
+        mProgressView.setId(R.id.abs__progress_horizontal);
+        mProgressView.setMax(10000);
+        addView(mProgressView);
+    }
+
+    public void initIndeterminateProgress() {
+        /* TODO mIndeterminateProgressView = new ProgressBar(mContext, null, 0,
+                mIndeterminateProgressStyle);*/
+    	mIndeterminateProgressView = new ProgressBar(mContext, null, 0);
+        mIndeterminateProgressView.setId(R.id.abs__progress_circular);
+        addView(mIndeterminateProgressView);
+    }
+
+    @Override
+    public void setSplitActionBar(boolean splitActionBar) {
+        if (mSplitActionBar != splitActionBar) {
+            if (mMenuView != null) {
+                final ViewGroup oldParent = (ViewGroup) mMenuView.getParent();
+                if (oldParent != null) {
+                    oldParent.removeView(mMenuView);
+                }
+                if (splitActionBar) {
+                    if (mSplitView != null) {
+                        mSplitView.addView(mMenuView);
+                    }
+                } else {
+                    addView(mMenuView);
+                }
+            }
+            if (mSplitView != null) {
+                mSplitView.setVisibility(splitActionBar ? VISIBLE : GONE);
+            }
+            super.setSplitActionBar(splitActionBar);
+        }
+    }
+
+    public boolean isSplitActionBar() {
+        return mSplitActionBar;
+    }
+
+    public boolean hasEmbeddedTabs() {
+        return mIncludeTabs;
+    }
+
+    public void setEmbeddedTabView(ScrollingTabContainerView tabs) {
+        if (mTabScrollView != null) {
+            removeView(mTabScrollView);
+        }
+        mTabScrollView = tabs;
+        mIncludeTabs = tabs != null;
+        if (mIncludeTabs && mNavigationMode == ActionBar.NAVIGATION_MODE_TABS) {
+            addView(mTabScrollView);
+            ViewGroup.LayoutParams lp = mTabScrollView.getLayoutParams();
+            lp.width = LayoutParams.WRAP_CONTENT;
+            lp.height = LayoutParams.FILL_PARENT;
+            tabs.setAllowCollapse(true);
+        }
+    }
+
+    public void setCallback(OnNavigationListener callback) {
         mCallback = callback;
     }
 
+    public void setMenu(Menu menu, MenuPresenter.Callback cb) {
+        if (menu == mOptionsMenu) return;
+
+        if (mOptionsMenu != null) {
+            mOptionsMenu.removeMenuPresenter(mActionMenuPresenter);
+            mOptionsMenu.removeMenuPresenter(mExpandedMenuPresenter);
+        }
+
+        MenuBuilder builder = (MenuBuilder) menu;
+        mOptionsMenu = builder;
+        if (mMenuView != null) {
+            final ViewGroup oldParent = (ViewGroup) mMenuView.getParent();
+            if (oldParent != null) {
+                oldParent.removeView(mMenuView);
+            }
+        }
+        if (mActionMenuPresenter == null) {
+            mActionMenuPresenter = new ActionMenuPresenter(mContext);
+            mActionMenuPresenter.setCallback(cb);
+            mActionMenuPresenter.setId(R.id.abs__action_menu_presenter);
+            mExpandedMenuPresenter = new ExpandedActionViewMenuPresenter();
+        }
+
+        ActionMenuView menuView;
+        final LayoutParams layoutParams = new LayoutParams(LayoutParams.WRAP_CONTENT,
+                LayoutParams.FILL_PARENT);
+        if (!mSplitActionBar) {
+            mActionMenuPresenter.setExpandedActionViewsExclusive(
+                    getResources().getBoolean(
+                    R.bool.abs__action_bar_expanded_action_views_exclusive));
+            configPresenters(builder);
+            menuView = (ActionMenuView) mActionMenuPresenter.getMenuView(this);
+            final ViewGroup oldParent = (ViewGroup) menuView.getParent();
+            if (oldParent != null && oldParent != this) {
+                oldParent.removeView(menuView);
+            }
+            addView(menuView, layoutParams);
+        } else {
+            mActionMenuPresenter.setExpandedActionViewsExclusive(false);
+            // Allow full screen width in split mode.
+            mActionMenuPresenter.setWidthLimit(
+                    getContext().getResources().getDisplayMetrics().widthPixels, true);
+            // No limit to the item count; use whatever will fit.
+            mActionMenuPresenter.setItemLimit(Integer.MAX_VALUE);
+            // Span the whole width
+            layoutParams.width = LayoutParams.FILL_PARENT;
+            configPresenters(builder);
+            menuView = (ActionMenuView) mActionMenuPresenter.getMenuView(this);
+            if (mSplitView != null) {
+                final ViewGroup oldParent = (ViewGroup) menuView.getParent();
+                if (oldParent != null && oldParent != mSplitView) {
+                    oldParent.removeView(menuView);
+                }
+                menuView.setVisibility(getAnimatedVisibility());
+                mSplitView.addView(menuView, layoutParams);
+            } else {
+                // We'll add this later if we missed it this time.
+                menuView.setLayoutParams(layoutParams);
+            }
+        }
+        mMenuView = menuView;
+    }
+
+    private void configPresenters(MenuBuilder builder) {
+        if (builder != null) {
+            builder.addMenuPresenter(mActionMenuPresenter);
+            builder.addMenuPresenter(mExpandedMenuPresenter);
+        } else {
+            mActionMenuPresenter.initForMenu(mContext, null);
+            mExpandedMenuPresenter.initForMenu(mContext, null);
+            mActionMenuPresenter.updateMenuView(true);
+            mExpandedMenuPresenter.updateMenuView(true);
+        }
+    }
+
+    public boolean hasExpandedActionView() {
+        return mExpandedMenuPresenter != null &&
+                mExpandedMenuPresenter.mCurrentExpandedItem != null;
+    }
+
+    public void collapseActionView() {
+        final MenuItemImpl item = mExpandedMenuPresenter == null ? null :
+                mExpandedMenuPresenter.mCurrentExpandedItem;
+        if (item != null) {
+            item.collapseActionView();
+        }
+    }
+
     public void setCustomNavigationView(View view) {
+        final boolean showCustom = (mDisplayOptions & ActionBar.DISPLAY_SHOW_CUSTOM) != 0;
+        if (mCustomNavView != null && showCustom) {
+            removeView(mCustomNavView);
+        }
         mCustomNavView = view;
-        mCustomView.removeAllViews();
-        mCustomView.addView(view);
+        if (mCustomNavView != null && showCustom) {
+            addView(mCustomNavView);
+        }
+    }
+
+    public CharSequence getTitle() {
+        return mTitle;
+    }
+
+    /**
+     * Set the action bar title. This will always replace or override window titles.
+     * @param title Title to set
+     *
+     * @see #setWindowTitle(CharSequence)
+     */
+    public void setTitle(CharSequence title) {
+        mUserTitle = true;
+        setTitleImpl(title);
+    }
+
+    /**
+     * Set the window title. A window title will always be replaced or overridden by a user title.
+     * @param title Title to set
+     *
+     * @see #setTitle(CharSequence)
+     */
+    public void setWindowTitle(CharSequence title) {
+        if (!mUserTitle) {
+            setTitleImpl(title);
+        }
+    }
+
+    private void setTitleImpl(CharSequence title) {
+        mTitle = title;
+        if (mTitleView != null) {
+            mTitleView.setText(title);
+            final boolean visible = mExpandedActionView == null &&
+                    (mDisplayOptions & ActionBar.DISPLAY_SHOW_TITLE) != 0 &&
+                    (!TextUtils.isEmpty(mTitle) || !TextUtils.isEmpty(mSubtitle));
+            mTitleLayout.setVisibility(visible ? VISIBLE : GONE);
+        }
+        if (mLogoNavItem != null) {
+            mLogoNavItem.setTitle(title);
+        }
+    }
+
+    public CharSequence getSubtitle() {
+        return mSubtitle;
+    }
+
+    public void setSubtitle(CharSequence subtitle) {
+        mSubtitle = subtitle;
+        if (mSubtitleView != null) {
+            mSubtitleView.setText(subtitle);
+            mSubtitleView.setVisibility(subtitle != null ? VISIBLE : GONE);
+            final boolean visible = mExpandedActionView == null &&
+                    (mDisplayOptions & ActionBar.DISPLAY_SHOW_TITLE) != 0 &&
+                    (!TextUtils.isEmpty(mTitle) || !TextUtils.isEmpty(mSubtitle));
+            mTitleLayout.setVisibility(visible ? VISIBLE : GONE);
+        }
+    }
+
+    public void setHomeButtonEnabled(boolean enable) {
+        mHomeLayout.setEnabled(enable);
+        // Make sure the home button has an accurate content description for accessibility.
+        if (!enable) {
+            mHomeLayout.setContentDescription(null);
+        } else if ((mDisplayOptions & ActionBar.DISPLAY_HOME_AS_UP) != 0) {
+            mHomeLayout.setContentDescription(mContext.getResources().getText(
+                    R.string.abs__action_bar_up_description));
+        } else {
+            mHomeLayout.setContentDescription(mContext.getResources().getText(
+                    R.string.abs__action_bar_home_description));
+        }
     }
 
     public void setDisplayOptions(int options) {
+        final int flagsChanged = mDisplayOptions == -1 ? -1 : options ^ mDisplayOptions;
         mDisplayOptions = options;
-        reloadDisplay();
+
+        if ((flagsChanged & DISPLAY_RELAYOUT_MASK) != 0) {
+            final boolean showHome = (options & ActionBar.DISPLAY_SHOW_HOME) != 0;
+            final int vis = showHome ? VISIBLE : GONE;
+            mHomeLayout.setVisibility(vis);
+
+            if ((flagsChanged & ActionBar.DISPLAY_HOME_AS_UP) != 0) {
+                final boolean setUp = (options & ActionBar.DISPLAY_HOME_AS_UP) != 0;
+                mHomeLayout.setUp(setUp);
+
+                // Showing home as up implicitly enables interaction with it.
+                // In honeycomb it was always enabled, so make this transition
+                // a bit easier for developers in the common case.
+                // (It would be silly to show it as up without responding to it.)
+                if (setUp) {
+                    setHomeButtonEnabled(true);
+                }
+            }
+
+            if ((flagsChanged & ActionBar.DISPLAY_USE_LOGO) != 0) {
+                final boolean logoVis = mLogo != null && (options & ActionBar.DISPLAY_USE_LOGO) != 0;
+                mHomeLayout.setIcon(logoVis ? mLogo : mIcon);
+            }
+
+            if ((flagsChanged & ActionBar.DISPLAY_SHOW_TITLE) != 0) {
+                if ((options & ActionBar.DISPLAY_SHOW_TITLE) != 0) {
+                    initTitle();
+                } else {
+                    removeView(mTitleLayout);
+                }
+            }
+
+            if (mTitleLayout != null && (flagsChanged &
+                    (ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_HOME)) != 0) {
+                final boolean homeAsUp = (mDisplayOptions & ActionBar.DISPLAY_HOME_AS_UP) != 0;
+                mTitleUpView.setVisibility(!showHome ? (homeAsUp ? VISIBLE : INVISIBLE) : GONE);
+                mTitleLayout.setEnabled(!showHome && homeAsUp);
+            }
+
+            if ((flagsChanged & ActionBar.DISPLAY_SHOW_CUSTOM) != 0 && mCustomNavView != null) {
+                if ((options & ActionBar.DISPLAY_SHOW_CUSTOM) != 0) {
+                    addView(mCustomNavView);
+                } else {
+                    removeView(mCustomNavView);
+                }
+            }
+            
+            requestLayout();
+        } else {
+            invalidate();
+        }
+
+        // Make sure the home button has an accurate content description for accessibility.
+        if (!mHomeLayout.isEnabled()) {
+            mHomeLayout.setContentDescription(null);
+        } else if ((options & ActionBar.DISPLAY_HOME_AS_UP) != 0) {
+            mHomeLayout.setContentDescription(mContext.getResources().getText(
+                    R.string.abs__action_bar_up_description));
+        } else {
+            mHomeLayout.setContentDescription(mContext.getResources().getText(
+                    R.string.abs__action_bar_home_description));
+        }
     }
 
-    public void setDropdownAdapter(SpinnerAdapter spinnerAdapter) {
-        mSpinnerAdapter = spinnerAdapter;
-        if (mSpinner != null) {
-            mSpinner.setAdapter(mSpinnerAdapter);
+    public void setIcon(Drawable icon) {
+        mIcon = icon;
+        if (icon != null &&
+                ((mDisplayOptions & ActionBar.DISPLAY_USE_LOGO) == 0 || mLogo == null)) {
+            mHomeLayout.setIcon(icon);
         }
+    }
+
+    public void setIcon(int resId) {
+        setIcon(mContext.getResources().getDrawable(resId));
+    }
+
+    public void setLogo(Drawable logo) {
+        mLogo = logo;
+        if (logo != null && (mDisplayOptions & ActionBar.DISPLAY_USE_LOGO) != 0) {
+            mHomeLayout.setIcon(logo);
+        }
+    }
+
+    public void setLogo(int resId) {
+        setLogo(mContext.getResources().getDrawable(resId));
+    }
+
+    public void setNavigationMode(int mode) {
+        final int oldMode = mNavigationMode;
+        if (mode != oldMode) {
+            switch (oldMode) {
+            case ActionBar.NAVIGATION_MODE_LIST:
+                if (mListNavLayout != null) {
+                    removeView(mListNavLayout);
+                }
+                break;
+            case ActionBar.NAVIGATION_MODE_TABS:
+                if (mTabScrollView != null && mIncludeTabs) {
+                    removeView(mTabScrollView);
+                }
+            }
+            
+            switch (mode) {
+            case ActionBar.NAVIGATION_MODE_LIST:
+                if (mSpinner == null) {
+                    mSpinner = new Spinner(mContext, null,
+                            R.attr.actionDropDownStyle);
+                    /* TODO mListNavLayout = new LinearLayout(mContext, null,
+                            R.attr.actionBarTabBarStyle);*/
+                    mListNavLayout = new LinearLayout(mContext, null);
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                            LayoutParams.WRAP_CONTENT, LayoutParams.FILL_PARENT);
+                    params.gravity = Gravity.CENTER;
+                    mListNavLayout.addView(mSpinner, params);
+                }
+                if (mSpinner.getAdapter() != mSpinnerAdapter) {
+                    mSpinner.setAdapter(mSpinnerAdapter);
+                }
+                mSpinner.setOnItemSelectedListener(mNavItemSelectedListener);
+                addView(mListNavLayout);
+                break;
+            case ActionBar.NAVIGATION_MODE_TABS:
+                if (mTabScrollView != null && mIncludeTabs) {
+                    addView(mTabScrollView);
+                }
+                break;
+            }
+            mNavigationMode = mode;
+            requestLayout();
+        }
+    }
+
+    public void setDropdownAdapter(SpinnerAdapter adapter) {
+        mSpinnerAdapter = adapter;
+        if (mSpinner != null) {
+            mSpinner.setAdapter(adapter);
+        }
+    }
+
+    public SpinnerAdapter getDropdownAdapter() {
+        return mSpinnerAdapter;
     }
 
     public void setDropdownSelectedPosition(int position) {
         mSpinner.setSelection(position);
     }
 
-    public void setProgressBarIndeterminateVisibility(boolean visible) {
-        mIndeterminateProgress.setVisibility(visible ? View.VISIBLE : View.GONE);
+    public int getDropdownSelectedPosition() {
+        return mSpinner.getSelectedItemPosition();
     }
 
-    public void setNavigationMode(int mode) {
-        if ((mode != ActionBar.NAVIGATION_MODE_STANDARD) && (mode != ActionBar.NAVIGATION_MODE_LIST)
-                && (mode != ActionBar.NAVIGATION_MODE_TABS)) {
-            throw new IllegalArgumentException("Unknown navigation mode value " + Integer.toString(mode));
-        }
-
-        if (mode != mNavigationMode) {
-            mNavigationMode = mode;
-            reloadDisplay();
-        }
+    public View getCustomNavigationView() {
+        return mCustomNavView;
+    }
+    
+    public int getNavigationMode() {
+        return mNavigationMode;
+    }
+    
+    public int getDisplayOptions() {
+        return mDisplayOptions;
     }
 
-    public void selectTab(ActionBar.Tab tab) {
-        final int count = mTabsView.getChildCount();
-        for (int i = 0; i < count; i++) {
-            TabImpl existingTab = (TabImpl)mTabsView.getChildAt(i).getTag();
-            if (existingTab.equals(tab)) {
-                existingTab.select();
-                break;
+    @Override
+    protected ViewGroup.LayoutParams generateDefaultLayoutParams() {
+        // Used by custom nav views if they don't supply layout params. Everything else
+        // added to an ActionBarView should have them already.
+        return new ActionBar.LayoutParams(DEFAULT_CUSTOM_GRAVITY);
+    }
+
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+
+        addView(mHomeLayout);
+
+        if (mCustomNavView != null && (mDisplayOptions & ActionBar.DISPLAY_SHOW_CUSTOM) != 0) {
+            final ViewParent parent = mCustomNavView.getParent();
+            if (parent != this) {
+                if (parent instanceof ViewGroup) {
+                    ((ViewGroup) parent).removeView(mCustomNavView);
+                }
+                addView(mCustomNavView);
             }
         }
     }
 
-    public void setSubtitle(CharSequence subtitle) {
-        mSubtitleLayout.setText((subtitle == null) ? "" : subtitle);
-        reloadDisplay();
-    }
+    private void initTitle() {
+        if (mTitleLayout == null) {
+            LayoutInflater inflater = LayoutInflater.from(getContext());
+            mTitleLayout = (LinearLayout) inflater.inflate(R.layout.abs__action_bar_title_item,
+                    this, false);
+            mTitleView = (TextView) mTitleLayout.findViewById(R.id.abs__action_bar_title);
+            mSubtitleView = (TextView) mTitleLayout.findViewById(R.id.abs__action_bar_subtitle);
+            mTitleUpView = (View) mTitleLayout.findViewById(R.id.abs__up);
 
-    public void setSubtitle(int resId) {
-        mSubtitleLayout.setText(resId);
-        reloadDisplay();
-    }
+            mTitleLayout.setOnClickListener(mUpClickListener);
 
-    public void setTitle(CharSequence title) {
-        mTitleLayout.setText((title == null) ? "" : title);
-    }
-
-    public void setTitle(int resId) {
-        mTitleLayout.setText(resId);
-    }
-
-    // ------------------------------------------------------------------------
-    // ACTION ITEMS SUPPORT
-    // ------------------------------------------------------------------------
-
-    public ActionMenuItemView newItem() {
-        ActionMenuItemView item = (ActionMenuItemView)LayoutInflater.from(getContext()).inflate(R.layout.abs__action_bar_item_layout, mActionsView, false);
-        return item;
-    }
-
-    public void addItem(ActionMenuItemView item) {
-        if (mDivider != null) {
-            ImageView divider = new ImageView(getContext());
-            divider.setImageDrawable(mDivider);
-            divider.setScaleType(ImageView.ScaleType.FIT_XY);
-
-            LinearLayout.LayoutParams dividerParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.FILL_PARENT
-            );
-
-            mActionsView.addView(divider, dividerParams);
-            item.setDivider(divider);
-        }
-
-        mActionsView.addView(item);
-    }
-
-    public void removeAllItems() {
-        mActionsView.removeAllViews();
-    }
-
-    // ------------------------------------------------------------------------
-    // HELPER INTERFACES AND HELPER CLASSES
-    // ------------------------------------------------------------------------
-
-    private static class TabImpl extends ActionBar.Tab {
-        private static final View.OnClickListener clickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((TabImpl)v.getTag()).select();
+            if (mTitleStyleRes != 0) {
+                mTitleView.setTextAppearance(mContext, mTitleStyleRes);
             }
-        };
+            if (mTitle != null) {
+                mTitleView.setText(mTitle);
+            }
 
-        final ActionBarView mActionBar;
-        final View mView;
-        final ImageView mIconView;
-        final TextView mTextView;
-        final FrameLayout mCustomView;
+            if (mSubtitleStyleRes != 0) {
+                mSubtitleView.setTextAppearance(mContext, mSubtitleStyleRes);
+            }
+            if (mSubtitle != null) {
+                mSubtitleView.setText(mSubtitle);
+                mSubtitleView.setVisibility(VISIBLE);
+            }
 
-        ActionBar.TabListener mListener;
-        Object mTag;
-
-
-        TabImpl(ActionBarView actionBar) {
-            mActionBar = actionBar;
-            mView = LayoutInflater.from(mActionBar.getContext()).inflate(R.layout.abs__action_bar_tab_layout, actionBar.mTabsView, false);
-            mView.setTag(this);
-            mView.setOnClickListener(clickListener);
-
-            mIconView = (ImageView)mView.findViewById(R.id.abs__tab_icon);
-            mTextView = (TextView)mView.findViewById(R.id.abs__tab);
-            mCustomView = (FrameLayout)mView.findViewById(R.id.abs__tab_custom);
+            final boolean homeAsUp = (mDisplayOptions & ActionBar.DISPLAY_HOME_AS_UP) != 0;
+            final boolean showHome = (mDisplayOptions & ActionBar.DISPLAY_SHOW_HOME) != 0;
+            mTitleUpView.setVisibility(!showHome ? (homeAsUp ? VISIBLE : INVISIBLE) : GONE);
+            mTitleLayout.setEnabled(homeAsUp && !showHome);
         }
 
-        /**
-         * Update display to reflect current property state.
-         */
-        void reloadDisplay() {
-            boolean hasCustom = mCustomView.getChildCount() > 0;
-            mIconView.setVisibility(hasCustom ? View.GONE : View.VISIBLE);
-            mTextView.setVisibility(hasCustom ? View.GONE : View.VISIBLE);
-            mCustomView.setVisibility(hasCustom ? View.VISIBLE : View.GONE);
+        addView(mTitleLayout);
+        if (mExpandedActionView != null ||
+                (TextUtils.isEmpty(mTitle) && TextUtils.isEmpty(mSubtitle))) {
+            // Don't show while in expanded mode or with empty text
+            mTitleLayout.setVisibility(GONE);
         }
+    }
 
-        @Override
-        public View getCustomView() {
-            return mCustomView.getChildAt(0);
-        }
+    public void setContextView(ActionBarContextView view) {
+        mContextView = view;
+    }
 
-        @Override
-        public Drawable getIcon() {
-            return mIconView.getDrawable();
-        }
+    public void setCollapsable(boolean collapsable) {
+        mIsCollapsable = collapsable;
+    }
 
-        @Override
-        public int getPosition() {
-            final int count = mActionBar.mTabsView.getChildCount();
-            for (int i = 0; i < count; i++) {
-                if (mActionBar.mTabsView.getChildAt(i).getTag().equals(this)) {
-                    return i;
+    public boolean isCollapsed() {
+        return mIsCollapsed;
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        final int childCount = getChildCount();
+        if (mIsCollapsable) {
+            int visibleChildren = 0;
+            for (int i = 0; i < childCount; i++) {
+                final View child = getChildAt(i);
+                if (child.getVisibility() != GONE &&
+                        !(child == mMenuView && mMenuView.getChildCount() == 0)) {
+                    visibleChildren++;
                 }
             }
-            return -1;
-        }
 
-        @Override
-        public ActionBar.TabListener getTabListener() {
-            return mListener;
-        }
-
-        @Override
-        public Object getTag() {
-            return mTag;
-        }
-
-        @Override
-        public CharSequence getText() {
-            return mTextView.getText();
-        }
-
-        @Override
-        public TabImpl setCustomView(int layoutResId) {
-            mCustomView.removeAllViews();
-            LayoutInflater.from(mActionBar.getContext()).inflate(layoutResId, mCustomView, true);
-            reloadDisplay();
-            return this;
-        }
-
-        @Override
-        public TabImpl setCustomView(View view) {
-            mCustomView.removeAllViews();
-            if (view != null) {
-                mCustomView.addView(view);
-            }
-            reloadDisplay();
-            return this;
-        }
-
-        @Override
-        public TabImpl setIcon(Drawable icon) {
-            mIconView.setImageDrawable(icon);
-            return this;
-        }
-
-        @Override
-        public TabImpl setIcon(int resId) {
-            mIconView.setImageResource(resId);
-            return this;
-        }
-
-        @Override
-        public TabImpl setTabListener(ActionBar.TabListener listener) {
-            mListener = listener;
-            return this;
-        }
-
-        @Override
-        public TabImpl setTag(Object obj) {
-            mTag = obj;
-            return this;
-        }
-
-        @Override
-        public TabImpl setText(int resId) {
-            mTextView.setText(resId);
-            return this;
-        }
-
-        @Override
-        public TabImpl setText(CharSequence text) {
-            mTextView.setText(text);
-            return this;
-        }
-
-        @Override
-        public void select() {
-            if (mView.isSelected()) {
-                if (mListener != null) {
-                    mListener.onTabReselected(this, null);
-                }
+            if (visibleChildren == 0) {
+                // No size for an empty action bar when collapsable.
+                setMeasuredDimension(0, 0);
+                mIsCollapsed = true;
                 return;
             }
+        }
+        mIsCollapsed = false;
 
-            TabImpl current = (TabImpl)mActionBar.getSelectedTab();
-            if (current != null) {
-                current.unselect();
+        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+        if (widthMode != MeasureSpec.EXACTLY) {
+            throw new IllegalStateException(getClass().getSimpleName() + " can only be used " +
+                    "with android:layout_width=\"match_parent\" (or fill_parent)");
+        }
+        
+        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+        if (heightMode != MeasureSpec.AT_MOST) {
+            throw new IllegalStateException(getClass().getSimpleName() + " can only be used " +
+                    "with android:layout_height=\"wrap_content\"");
+        }
+
+        int contentWidth = MeasureSpec.getSize(widthMeasureSpec);
+
+        int maxHeight = mContentHeight > 0 ?
+                mContentHeight : MeasureSpec.getSize(heightMeasureSpec);
+        
+        final int verticalPadding = getPaddingTop() + getPaddingBottom();
+        final int paddingLeft = getPaddingLeft();
+        final int paddingRight = getPaddingRight();
+        final int height = maxHeight - verticalPadding;
+        final int childSpecHeight = MeasureSpec.makeMeasureSpec(height, MeasureSpec.AT_MOST);
+
+        int availableWidth = contentWidth - paddingLeft - paddingRight;
+        int leftOfCenter = availableWidth / 2;
+        int rightOfCenter = leftOfCenter;
+
+        HomeView homeLayout = mExpandedActionView != null ? mExpandedHomeLayout : mHomeLayout;
+
+        if (homeLayout.getVisibility() != GONE) {
+            final ViewGroup.LayoutParams lp = homeLayout.getLayoutParams();
+            int homeWidthSpec;
+            if (lp.width < 0) {
+                homeWidthSpec = MeasureSpec.makeMeasureSpec(availableWidth, MeasureSpec.AT_MOST);
+            } else {
+                homeWidthSpec = MeasureSpec.makeMeasureSpec(lp.width, MeasureSpec.EXACTLY);
             }
+            homeLayout.measure(homeWidthSpec,
+                    MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY));
+            final int homeWidth = homeLayout.getMeasuredWidth() + homeLayout.getLeftOffset();
+            availableWidth = Math.max(0, availableWidth - homeWidth);
+            leftOfCenter = Math.max(0, availableWidth - homeWidth);
+        }
+        
+        if (mMenuView != null && mMenuView.getParent() == this) {
+            availableWidth = measureChildView(mMenuView, availableWidth,
+                    childSpecHeight, 0);
+            rightOfCenter = Math.max(0, rightOfCenter - mMenuView.getMeasuredWidth());
+        }
 
-            mView.setSelected(true);
-            if (mListener != null) {
-                mListener.onTabSelected(this, null);
+        if (mIndeterminateProgressView != null &&
+                mIndeterminateProgressView.getVisibility() != GONE) {
+            availableWidth = measureChildView(mIndeterminateProgressView, availableWidth,
+                    childSpecHeight, 0);
+            rightOfCenter = Math.max(0,
+                    rightOfCenter - mIndeterminateProgressView.getMeasuredWidth());
+        }
+
+        final boolean showTitle = mTitleLayout != null && mTitleLayout.getVisibility() != GONE &&
+                (mDisplayOptions & ActionBar.DISPLAY_SHOW_TITLE) != 0;
+
+        if (mExpandedActionView == null) {
+            switch (mNavigationMode) {
+                case ActionBar.NAVIGATION_MODE_LIST:
+                    if (mListNavLayout != null) {
+                        final int itemPaddingSize = showTitle ? mItemPadding * 2 : mItemPadding;
+                        availableWidth = Math.max(0, availableWidth - itemPaddingSize);
+                        leftOfCenter = Math.max(0, leftOfCenter - itemPaddingSize);
+                        mListNavLayout.measure(
+                                MeasureSpec.makeMeasureSpec(availableWidth, MeasureSpec.AT_MOST),
+                                MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY));
+                        final int listNavWidth = mListNavLayout.getMeasuredWidth();
+                        availableWidth = Math.max(0, availableWidth - listNavWidth);
+                        leftOfCenter = Math.max(0, leftOfCenter - listNavWidth);
+                    }
+                    break;
+                case ActionBar.NAVIGATION_MODE_TABS:
+                    if (mTabScrollView != null) {
+                        final int itemPaddingSize = showTitle ? mItemPadding * 2 : mItemPadding;
+                        availableWidth = Math.max(0, availableWidth - itemPaddingSize);
+                        leftOfCenter = Math.max(0, leftOfCenter - itemPaddingSize);
+                        mTabScrollView.measure(
+                                MeasureSpec.makeMeasureSpec(availableWidth, MeasureSpec.AT_MOST),
+                                MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY));
+                        final int tabWidth = mTabScrollView.getMeasuredWidth();
+                        availableWidth = Math.max(0, availableWidth - tabWidth);
+                        leftOfCenter = Math.max(0, leftOfCenter - tabWidth);
+                    }
+                    break;
             }
         }
 
-        /**
-         * Unselect this tab. Only valid if the tab has been added to the
-         * action bar and was previously selected.
-         */
-        void unselect() {
-            if (mView.isSelected()) {
-                mView.setSelected(false);
+        View customView = null;
+        if (mExpandedActionView != null) {
+            customView = mExpandedActionView;
+        } else if ((mDisplayOptions & ActionBar.DISPLAY_SHOW_CUSTOM) != 0 &&
+                mCustomNavView != null) {
+            customView = mCustomNavView;
+        }
 
-                if (mListener != null) {
-                    mListener.onTabUnselected(this, null);
+        if (customView != null) {
+            final ViewGroup.LayoutParams lp = generateLayoutParams(customView.getLayoutParams());
+            final ActionBar.LayoutParams ablp = lp instanceof ActionBar.LayoutParams ?
+                    (ActionBar.LayoutParams) lp : null;
+
+            int horizontalMargin = 0;
+            int verticalMargin = 0;
+            if (ablp != null) {
+                horizontalMargin = ablp.leftMargin + ablp.rightMargin;
+                verticalMargin = ablp.topMargin + ablp.bottomMargin;
+            }
+
+            // If the action bar is wrapping to its content height, don't allow a custom
+            // view to MATCH_PARENT.
+            int customNavHeightMode;
+            if (mContentHeight <= 0) {
+                customNavHeightMode = MeasureSpec.AT_MOST;
+            } else {
+                customNavHeightMode = lp.height != LayoutParams.WRAP_CONTENT ?
+                        MeasureSpec.EXACTLY : MeasureSpec.AT_MOST;
+            }
+            final int customNavHeight = Math.max(0,
+                    (lp.height >= 0 ? Math.min(lp.height, height) : height) - verticalMargin);
+
+            final int customNavWidthMode = lp.width != LayoutParams.WRAP_CONTENT ?
+                    MeasureSpec.EXACTLY : MeasureSpec.AT_MOST;
+            int customNavWidth = Math.max(0,
+                    (lp.width >= 0 ? Math.min(lp.width, availableWidth) : availableWidth)
+                    - horizontalMargin);
+            final int hgrav = (ablp != null ? ablp.gravity : DEFAULT_CUSTOM_GRAVITY) &
+                    Gravity.HORIZONTAL_GRAVITY_MASK;
+
+            // Centering a custom view is treated specially; we try to center within the whole
+            // action bar rather than in the available space.
+            if (hgrav == Gravity.CENTER_HORIZONTAL && lp.width == LayoutParams.FILL_PARENT) {
+                customNavWidth = Math.min(leftOfCenter, rightOfCenter) * 2;
+            }
+
+            customView.measure(
+                    MeasureSpec.makeMeasureSpec(customNavWidth, customNavWidthMode),
+                    MeasureSpec.makeMeasureSpec(customNavHeight, customNavHeightMode));
+            availableWidth -= horizontalMargin + customView.getMeasuredWidth();
+        }
+
+        if (mExpandedActionView == null && showTitle) {
+            availableWidth = measureChildView(mTitleLayout, availableWidth,
+                    MeasureSpec.makeMeasureSpec(mContentHeight, MeasureSpec.EXACTLY), 0);
+            leftOfCenter = Math.max(0, leftOfCenter - mTitleLayout.getMeasuredWidth());
+        }
+
+        if (mContentHeight <= 0) {
+            int measuredHeight = 0;
+            for (int i = 0; i < childCount; i++) {
+                View v = getChildAt(i);
+                int paddedViewHeight = v.getMeasuredHeight() + verticalPadding;
+                if (paddedViewHeight > measuredHeight) {
+                    measuredHeight = paddedViewHeight;
                 }
             }
+            setMeasuredDimension(contentWidth, measuredHeight);
+        } else {
+            setMeasuredDimension(contentWidth, maxHeight);
+        }
+
+        if (mContextView != null) {
+            mContextView.setContentHeight(getMeasuredHeight());
+        }
+
+        if (mProgressView != null && mProgressView.getVisibility() != GONE) {
+            mProgressView.measure(MeasureSpec.makeMeasureSpec(
+                    contentWidth - mProgressBarPadding * 2, MeasureSpec.EXACTLY),
+                    MeasureSpec.makeMeasureSpec(getMeasuredHeight(), MeasureSpec.AT_MOST));
+        }
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        int x = getPaddingLeft();
+        final int y = getPaddingTop();
+        final int contentHeight = b - t - getPaddingTop() - getPaddingBottom();
+
+        if (contentHeight <= 0) {
+            // Nothing to do if we can't see anything.
+            return;
+        }
+
+        HomeView homeLayout = mExpandedActionView != null ? mExpandedHomeLayout : mHomeLayout;
+        if (homeLayout.getVisibility() != GONE) {
+            final int leftOffset = homeLayout.getLeftOffset();
+            x += positionChild(homeLayout, x + leftOffset, y, contentHeight) + leftOffset;
+        }
+
+        if (mExpandedActionView == null) {
+            final boolean showTitle = mTitleLayout != null && mTitleLayout.getVisibility() != GONE &&
+                    (mDisplayOptions & ActionBar.DISPLAY_SHOW_TITLE) != 0;
+            if (showTitle) {
+                x += positionChild(mTitleLayout, x, y, contentHeight);
+            }
+
+            switch (mNavigationMode) {
+                case ActionBar.NAVIGATION_MODE_STANDARD:
+                    break;
+                case ActionBar.NAVIGATION_MODE_LIST:
+                    if (mListNavLayout != null) {
+                        if (showTitle) x += mItemPadding;
+                        x += positionChild(mListNavLayout, x, y, contentHeight) + mItemPadding;
+                    }
+                    break;
+                case ActionBar.NAVIGATION_MODE_TABS:
+                    if (mTabScrollView != null) {
+                        if (showTitle) x += mItemPadding;
+                        x += positionChild(mTabScrollView, x, y, contentHeight) + mItemPadding;
+                    }
+                    break;
+            }
+        }
+
+        int menuLeft = r - l - getPaddingRight();
+        if (mMenuView != null && mMenuView.getParent() == this) {
+            positionChildInverse(mMenuView, menuLeft, y, contentHeight);
+            menuLeft -= mMenuView.getMeasuredWidth();
+        }
+
+        if (mIndeterminateProgressView != null &&
+                mIndeterminateProgressView.getVisibility() != GONE) {
+            positionChildInverse(mIndeterminateProgressView, menuLeft, y, contentHeight);
+            menuLeft -= mIndeterminateProgressView.getMeasuredWidth();
+        }
+
+        View customView = null;
+        if (mExpandedActionView != null) {
+            customView = mExpandedActionView;
+        } else if ((mDisplayOptions & ActionBar.DISPLAY_SHOW_CUSTOM) != 0 &&
+                mCustomNavView != null) {
+            customView = mCustomNavView;
+        }
+        if (customView != null) {
+            ViewGroup.LayoutParams lp = customView.getLayoutParams();
+            final ActionBar.LayoutParams ablp = lp instanceof ActionBar.LayoutParams ?
+                    (ActionBar.LayoutParams) lp : null;
+
+            final int gravity = ablp != null ? ablp.gravity : DEFAULT_CUSTOM_GRAVITY;
+            final int navWidth = customView.getMeasuredWidth();
+
+            int topMargin = 0;
+            int bottomMargin = 0;
+            if (ablp != null) {
+                x += ablp.leftMargin;
+                menuLeft -= ablp.rightMargin;
+                topMargin = ablp.topMargin;
+                bottomMargin = ablp.bottomMargin;
+            }
+
+            int hgravity = gravity & Gravity.HORIZONTAL_GRAVITY_MASK;
+            // See if we actually have room to truly center; if not push against left or right.
+            if (hgravity == Gravity.CENTER_HORIZONTAL) {
+                final int centeredLeft = ((getRight() - getLeft()) - navWidth) / 2;
+                if (centeredLeft < x) {
+                    hgravity = Gravity.LEFT;
+                } else if (centeredLeft + navWidth > menuLeft) {
+                    hgravity = Gravity.RIGHT;
+                }
+            } else if (gravity == -1) {
+                hgravity = Gravity.LEFT;
+            }
+
+            int xpos = 0;
+            switch (hgravity) {
+                case Gravity.CENTER_HORIZONTAL:
+                    xpos = ((getRight() - getLeft()) - navWidth) / 2;
+                    break;
+                case Gravity.LEFT:
+                    xpos = x;
+                    break;
+                case Gravity.RIGHT:
+                    xpos = menuLeft - navWidth;
+                    break;
+            }
+
+            int vgravity = gravity & Gravity.VERTICAL_GRAVITY_MASK;
+
+            if (gravity == -1) {
+                vgravity = Gravity.CENTER_VERTICAL;
+            }
+
+            int ypos = 0;
+            switch (vgravity) {
+                case Gravity.CENTER_VERTICAL:
+                    final int paddedTop = getPaddingTop();
+                    final int paddedBottom = getBottom() - getTop() - getPaddingBottom();
+                    ypos = ((paddedBottom - paddedTop) - customView.getMeasuredHeight()) / 2;
+                    break;
+                case Gravity.TOP:
+                    ypos = getPaddingTop() + topMargin;
+                    break;
+                case Gravity.BOTTOM:
+                    ypos = getHeight() - getPaddingBottom() - customView.getMeasuredHeight()
+                            - bottomMargin;
+                    break;
+            }
+            final int customWidth = customView.getMeasuredWidth();
+            customView.layout(xpos, ypos, xpos + customWidth,
+                    ypos + customView.getMeasuredHeight());
+            x += customWidth;
+        }
+
+        if (mProgressView != null) {
+            mProgressView.bringToFront();
+            final int halfProgressHeight = mProgressView.getMeasuredHeight() / 2;
+            mProgressView.layout(mProgressBarPadding, -halfProgressHeight,
+                    mProgressBarPadding + mProgressView.getMeasuredWidth(), halfProgressHeight);
+        }
+    }
+
+    @Override
+    public ViewGroup.LayoutParams generateLayoutParams(AttributeSet attrs) {
+        return new ActionBar.LayoutParams(getContext(), attrs);
+    }
+
+    @Override
+    public ViewGroup.LayoutParams generateLayoutParams(ViewGroup.LayoutParams lp) {
+        if (lp == null) {
+            lp = generateDefaultLayoutParams();
+        }
+        return lp;
+    }
+
+    @Override
+    public Parcelable onSaveInstanceState() {
+        Parcelable superState = super.onSaveInstanceState();
+        SavedState state = new SavedState(superState);
+
+        if (mExpandedMenuPresenter != null && mExpandedMenuPresenter.mCurrentExpandedItem != null) {
+            state.expandedMenuItemId = mExpandedMenuPresenter.mCurrentExpandedItem.getItemId();
+        }
+
+        state.isOverflowOpen = isOverflowMenuShowing();
+
+        return state;
+    }
+
+    @Override
+    public void onRestoreInstanceState(Parcelable p) {
+        SavedState state = (SavedState) p;
+
+        super.onRestoreInstanceState(state.getSuperState());
+
+        if (state.expandedMenuItemId != 0 &&
+                mExpandedMenuPresenter != null && mOptionsMenu != null) {
+            final MenuItem item = mOptionsMenu.findItem(state.expandedMenuItemId);
+            if (item != null) {
+                item.expandActionView();
+            }
+        }
+
+        if (state.isOverflowOpen) {
+            postShowOverflowMenu();
+        }
+    }
+
+    static class SavedState extends BaseSavedState {
+        int expandedMenuItemId;
+        boolean isOverflowOpen;
+
+        SavedState(Parcelable superState) {
+            super(superState);
+        }
+
+        private SavedState(Parcel in) {
+            super(in);
+            expandedMenuItemId = in.readInt();
+            isOverflowOpen = in.readInt() != 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel out, int flags) {
+            super.writeToParcel(out, flags);
+            out.writeInt(expandedMenuItemId);
+            out.writeInt(isOverflowOpen ? 1 : 0);
+        }
+
+        public static final Parcelable.Creator<SavedState> CREATOR =
+                new Parcelable.Creator<SavedState>() {
+            public SavedState createFromParcel(Parcel in) {
+                return new SavedState(in);
+            }
+
+            public SavedState[] newArray(int size) {
+                return new SavedState[size];
+            }
+        };
+    }
+
+    public static class HomeView extends FrameLayout {
+        private View mUpView;
+        private ImageView mIconView;
+        private int mUpWidth;
+
+        public HomeView(Context context) {
+            this(context, null);
+        }
+
+        public HomeView(Context context, AttributeSet attrs) {
+            super(context, attrs);
+        }
+
+        public void setUp(boolean isUp) {
+            mUpView.setVisibility(isUp ? VISIBLE : GONE);
+        }
+
+        public void setIcon(Drawable icon) {
+            mIconView.setImageDrawable(icon);
+        }
+
+        @Override
+        public boolean dispatchPopulateAccessibilityEvent(AccessibilityEvent event) {
+            //DONUT onPopulateAccessibilityEvent(event);
+            return true;
+        }
+
+        @Override
+        public void onPopulateAccessibilityEvent(AccessibilityEvent event) {
+            //DONUT super.onPopulateAccessibilityEvent(event);
+            final CharSequence cdesc = getContentDescription();
+            if (!TextUtils.isEmpty(cdesc)) {
+                event.getText().add(cdesc);
+            }
+        }
+
+        @Override
+        public boolean dispatchHoverEvent(MotionEvent event) {
+            // Don't allow children to hover; we want this to be treated as a single component.
+            //DONUT return onHoverEvent(event);
+            return true;
+        }
+
+        @Override
+        protected void onFinishInflate() {
+            mUpView = findViewById(R.id.abs__up);
+            mIconView = (ImageView) findViewById(R.id.abs__home);
+        }
+
+        public int getLeftOffset() {
+            return mUpView.getVisibility() == GONE ? mUpWidth : 0;
+        }
+
+        @Override
+        protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+            measureChildWithMargins(mUpView, widthMeasureSpec, 0, heightMeasureSpec, 0);
+            final LayoutParams upLp = (LayoutParams) mUpView.getLayoutParams();
+            mUpWidth = upLp.leftMargin + mUpView.getMeasuredWidth() + upLp.rightMargin;
+            int width = mUpView.getVisibility() == GONE ? 0 : mUpWidth;
+            int height = upLp.topMargin + mUpView.getMeasuredHeight() + upLp.bottomMargin;
+            measureChildWithMargins(mIconView, widthMeasureSpec, width, heightMeasureSpec, 0);
+            final LayoutParams iconLp = (LayoutParams) mIconView.getLayoutParams();
+            width += iconLp.leftMargin + mIconView.getMeasuredWidth() + iconLp.rightMargin;
+            height = Math.max(height,
+                    iconLp.topMargin + mIconView.getMeasuredHeight() + iconLp.bottomMargin);
+
+            final int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+            final int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+            final int widthSize = MeasureSpec.getSize(widthMeasureSpec);
+            final int heightSize = MeasureSpec.getSize(heightMeasureSpec);
+
+            switch (widthMode) {
+                case MeasureSpec.AT_MOST:
+                    width = Math.min(width, widthSize);
+                    break;
+                case MeasureSpec.EXACTLY:
+                    width = widthSize;
+                    break;
+                case MeasureSpec.UNSPECIFIED:
+                default:
+                    break;
+            }
+            switch (heightMode) {
+                case MeasureSpec.AT_MOST:
+                    height = Math.min(height, heightSize);
+                    break;
+                case MeasureSpec.EXACTLY:
+                    height = heightSize;
+                    break;
+                case MeasureSpec.UNSPECIFIED:
+                default:
+                    break;
+            }
+            setMeasuredDimension(width, height);
+        }
+
+        @Override
+        protected void onLayout(boolean changed, int l, int t, int r, int b) {
+            final int vCenter = (b - t) / 2;
+            //UNUSED int width = r - l;
+            int upOffset = 0;
+            if (mUpView.getVisibility() != GONE) {
+                final LayoutParams upLp = (LayoutParams) mUpView.getLayoutParams();
+                final int upHeight = mUpView.getMeasuredHeight();
+                final int upWidth = mUpView.getMeasuredWidth();
+                final int upTop = vCenter - upHeight / 2;
+                mUpView.layout(0, upTop, upWidth, upTop + upHeight);
+                upOffset = upLp.leftMargin + upWidth + upLp.rightMargin;
+                //UNUSED width -= upOffset;
+                l += upOffset;
+            }
+            final LayoutParams iconLp = (LayoutParams) mIconView.getLayoutParams();
+            final int iconHeight = mIconView.getMeasuredHeight();
+            final int iconWidth = mIconView.getMeasuredWidth();
+            final int hCenter = (r - l) / 2;
+            final int iconLeft = upOffset + Math.max(iconLp.leftMargin, hCenter - iconWidth / 2);
+            final int iconTop = Math.max(iconLp.topMargin, vCenter - iconHeight / 2);
+            mIconView.layout(iconLeft, iconTop, iconLeft + iconWidth, iconTop + iconHeight);
+        }
+    }
+
+    private class ExpandedActionViewMenuPresenter implements MenuPresenter {
+        MenuBuilder mMenu;
+        MenuItemImpl mCurrentExpandedItem;
+
+        @Override
+        public void initForMenu(Context context, MenuBuilder menu) {
+            // Clear the expanded action view when menus change.
+            if (mMenu != null && mCurrentExpandedItem != null) {
+                mMenu.collapseItemActionView(mCurrentExpandedItem);
+            }
+            mMenu = menu;
+        }
+
+        @Override
+        public MenuView getMenuView(ViewGroup root) {
+            return null;
+        }
+
+        @Override
+        public void updateMenuView(boolean cleared) {
+            // Make sure the expanded item we have is still there.
+            if (mCurrentExpandedItem != null) {
+                boolean found = false;
+
+                if (mMenu != null) {
+                    final int count = mMenu.size();
+                    for (int i = 0; i < count; i++) {
+                        final MenuItem item = mMenu.getItem(i);
+                        if (item == mCurrentExpandedItem) {
+                            found = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (!found) {
+                    // The item we had expanded disappeared. Collapse.
+                    collapseItemActionView(mMenu, mCurrentExpandedItem);
+                }
+            }
+        }
+
+        @Override
+        public void setCallback(Callback cb) {
+        }
+
+        @Override
+        public boolean onSubMenuSelected(SubMenuBuilder subMenu) {
+            return false;
+        }
+
+        @Override
+        public void onCloseMenu(MenuBuilder menu, boolean allMenusAreClosing) {
+        }
+
+        @Override
+        public boolean flagActionItems() {
+            return false;
+        }
+
+        @Override
+        public boolean expandItemActionView(MenuBuilder menu, MenuItemImpl item) {
+            mExpandedActionView = item.getActionView();
+            mExpandedHomeLayout.setIcon(mIcon.getConstantState().newDrawable(/* TODO getResources() */));
+            mCurrentExpandedItem = item;
+            if (mExpandedActionView.getParent() != ActionBarView.this) {
+                addView(mExpandedActionView);
+            }
+            if (mExpandedHomeLayout.getParent() != ActionBarView.this) {
+                addView(mExpandedHomeLayout);
+            }
+            mHomeLayout.setVisibility(GONE);
+            if (mTitleLayout != null) mTitleLayout.setVisibility(GONE);
+            if (mTabScrollView != null) mTabScrollView.setVisibility(GONE);
+            if (mSpinner != null) mSpinner.setVisibility(GONE);
+            if (mCustomNavView != null) mCustomNavView.setVisibility(GONE);
+            requestLayout();
+            item.setActionViewExpanded(true);
+
+            if (mExpandedActionView instanceof CollapsibleActionView) {
+                ((CollapsibleActionView) mExpandedActionView).onActionViewExpanded();
+            }
+
+            return true;
+        }
+
+        @Override
+        public boolean collapseItemActionView(MenuBuilder menu, MenuItemImpl item) {
+            // Do this before detaching the actionview from the hierarchy, in case
+            // it needs to dismiss the soft keyboard, etc.
+            if (mExpandedActionView instanceof CollapsibleActionView) {
+                ((CollapsibleActionView) mExpandedActionView).onActionViewCollapsed();
+            }
+
+            removeView(mExpandedActionView);
+            removeView(mExpandedHomeLayout);
+            mExpandedActionView = null;
+            if ((mDisplayOptions & ActionBar.DISPLAY_SHOW_HOME) != 0) {
+                mHomeLayout.setVisibility(VISIBLE);
+            }
+            if ((mDisplayOptions & ActionBar.DISPLAY_SHOW_TITLE) != 0) {
+                if (mTitleLayout == null) {
+                    initTitle();
+                } else {
+                    mTitleLayout.setVisibility(VISIBLE);
+                }
+            }
+            if (mTabScrollView != null && mNavigationMode == ActionBar.NAVIGATION_MODE_TABS) {
+                mTabScrollView.setVisibility(VISIBLE);
+            }
+            if (mSpinner != null && mNavigationMode == ActionBar.NAVIGATION_MODE_LIST) {
+                mSpinner.setVisibility(VISIBLE);
+            }
+            if (mCustomNavView != null && (mDisplayOptions & ActionBar.DISPLAY_SHOW_CUSTOM) != 0) {
+                mCustomNavView.setVisibility(VISIBLE);
+            }
+            mExpandedHomeLayout.setIcon(null);
+            mCurrentExpandedItem = null;
+            requestLayout();
+            item.setActionViewExpanded(false);
+
+            return true;
+        }
+
+        @Override
+        public int getId() {
+            return 0;
+        }
+
+        @Override
+        public Parcelable onSaveInstanceState() {
+            return null;
+        }
+
+        @Override
+        public void onRestoreInstanceState(Parcelable state) {
         }
     }
 }
