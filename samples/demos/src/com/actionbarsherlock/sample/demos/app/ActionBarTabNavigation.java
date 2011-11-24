@@ -1,20 +1,18 @@
 package com.actionbarsherlock.sample.demos.app;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
+import android.widget.TextView;
+
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.sample.demos.R;
 
 public class ActionBarTabNavigation extends SherlockActivity implements ActionBar.TabListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		getSupportFragmentManager()
-			.beginTransaction()
-			.add(android.R.id.content, CountingFragment.newInstance(0))
-			.commit();
+		setContentView(R.layout.actionbar_text);
 		
 		getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		for (int i = 0; i < 3; i++) {
@@ -26,18 +24,15 @@ public class ActionBarTabNavigation extends SherlockActivity implements ActionBa
 	}
 
 	@Override
-	public void onTabReselected(Tab tab, FragmentTransaction ft) {
+	public void onTabReselected(Tab tab) {
 	}
 
 	@Override
-	public void onTabSelected(Tab tab, FragmentTransaction ft) {
-		getSupportFragmentManager()
-			.beginTransaction()
-			.replace(android.R.id.content, CountingFragment.newInstance(tab.getPosition()))
-			.commit();
+	public void onTabSelected(Tab tab) {
+		((TextView)findViewById(R.id.text)).setText("Selected: " + tab.getPosition());
 	}
 
 	@Override
-	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+	public void onTabUnselected(Tab tab) {
 	}
 }

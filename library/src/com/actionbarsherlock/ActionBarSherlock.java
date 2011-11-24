@@ -13,11 +13,17 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.AndroidRuntimeException;
 import android.util.Log;
+import android.view.ActionMode;
 import android.view.KeyCharacterMap;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.ActionMode.Callback;
+import android.view.WindowManager.LayoutParams;
+import android.view.accessibility.AccessibilityEvent;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.internal.app.ActionBarImpl;
@@ -26,6 +32,7 @@ import com.actionbarsherlock.internal.view.menu.MenuPresenter;
 import com.actionbarsherlock.internal.widget.ActionBarContainer;
 import com.actionbarsherlock.internal.widget.ActionBarContextView;
 import com.actionbarsherlock.internal.widget.ActionBarView;
+import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
@@ -41,6 +48,18 @@ public final class ActionBarSherlock {
 	private static final boolean DEBUG = true;
 
     protected static final int DEFAULT_FEATURES = (1 << Window.FEATURE_ACTION_BAR);
+    
+    
+    
+    public interface OnCreateOptionsMenuListener {
+    	public boolean onCreateOptionsMenu(Menu menu);
+    }
+    public interface OnOptionsItemSelectedListener {
+    	public boolean onOptionsItemSelected(MenuItem item);
+    }
+    public interface OnPrepareOptionsMenuListener {
+    	public boolean onPrepareOptionsMenu(Menu menu);
+    }
     
     
 	

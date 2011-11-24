@@ -32,8 +32,8 @@ public class ActionBarFeatureToggles extends SherlockActivity {
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_PROGRESS);
-        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+        //TODO requestWindowFeature(Window.FEATURE_PROGRESS);
+        //TODO requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         super.onCreate(savedInstanceState);
         
         setContentView(R.layout.actionbar_feature_toggles_activity);

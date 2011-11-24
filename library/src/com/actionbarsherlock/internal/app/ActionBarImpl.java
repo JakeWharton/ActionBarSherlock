@@ -595,6 +595,7 @@ public class ActionBarImpl extends ActionBar {
         } else {
             mHideListener.onAnimationEnd(null);
         }*/
+        /*XXX*/mContainerView.setVisibility(View.GONE);
     }
 
     public boolean isShowing() {

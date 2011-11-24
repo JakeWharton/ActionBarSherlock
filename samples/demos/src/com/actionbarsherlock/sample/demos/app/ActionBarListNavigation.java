@@ -2,7 +2,7 @@ package com.actionbarsherlock.sample.demos.app;
 
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
-import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
@@ -12,12 +12,7 @@ public class ActionBarListNavigation extends SherlockActivity implements ActionB
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		//WARNING: This should normally not be needed! In
-		//this case, however, we call it manually since initializing the list
-		//navigation will trigger a navigation changed callback and thus attach
-		//the default fragment as the content.
-		setContentView(new FrameLayout(this));
+		setContentView(R.layout.actionbar_text);
 		
 		getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 		
@@ -28,10 +23,7 @@ public class ActionBarListNavigation extends SherlockActivity implements ActionB
 
 	@Override
 	public boolean onNavigationItemSelected(int itemPosition, long itemId) {
-		getSupportFragmentManager()
-			.beginTransaction()
-			.replace(android.R.id.content, CountingFragment.newInstance(itemPosition))
-			.commit();
+		((TextView)findViewById(R.id.text)).setText("Selected: " + itemPosition);
 		return true;
 	}
 }
