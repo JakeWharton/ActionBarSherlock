@@ -435,7 +435,6 @@ public final class ActionBarSherlock {
      */
     public void setContentView(int layoutResId) {
     	if (DEBUG) Log.d(TAG, "[setContentView] layoutResId: " + layoutResId);
-    	try { throw new RuntimeException(); } catch (RuntimeException e) { e.printStackTrace(); }
     	
         if (mContentParent == null) {
             installDecor();
