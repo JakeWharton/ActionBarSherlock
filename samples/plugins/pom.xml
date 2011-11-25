@@ -43,7 +43,7 @@
 
 		<dependency>
 			<groupId>com.actionbarsherlock</groupId>
-			<artifactId>plugin-preference</artifactId>
+			<artifactId>plugin-compat-lib</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>

@@ -16,9 +16,7 @@
 	</parent>
 
 	<modules>
-		<module>demos</module>
+		<!--module>demos</module-->
 		<module>plugins</module>
-		<module>shakespeare</module>
-		<module>styled</module>
 	</modules>
 </project>

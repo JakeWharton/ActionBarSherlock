@@ -435,6 +435,7 @@ public final class ActionBarSherlock {
      */
     public void setContentView(int layoutResId) {
     	if (DEBUG) Log.d(TAG, "[setContentView] layoutResId: " + layoutResId);
+    	try { throw new RuntimeException(); } catch (RuntimeException e) { e.printStackTrace(); }
     	
         if (mContentParent == null) {
             installDecor();
@@ -442,6 +443,11 @@ public final class ActionBarSherlock {
             mContentParent.removeAllViews();
         }
         mActivity.getLayoutInflater().inflate(layoutResId, mContentParent);
+        
+        android.view.Window.Callback callback = mActivity.getWindow().getCallback();
+        if (callback != null) {
+        	callback.onContentChanged();
+        }
         
     	initActionBar();
     }
@@ -454,14 +460,7 @@ public final class ActionBarSherlock {
     public void setContentView(View view) {
     	if (DEBUG) Log.d(TAG, "[setContentView] view: " + view);
     	
-        if (mContentParent == null) {
-            installDecor();
-        } else {
-            mContentParent.removeAllViews();
-        }
-        mContentParent.addView(view);
-        
-    	initActionBar();
+    	setContentView(view, new ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT));
     }
     
     /**
@@ -479,6 +478,11 @@ public final class ActionBarSherlock {
             mContentParent.removeAllViews();
         }
         mContentParent.addView(view, params);
+        
+        android.view.Window.Callback callback = mActivity.getWindow().getCallback();
+        if (callback != null) {
+        	callback.onContentChanged();
+        }
         
     	initActionBar();
     }

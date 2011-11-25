@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.actionbarsherlock.sample.plugins.app;
+package com.actionbarsherlock.sample.demos.app;
 
 import android.os.Bundle;
-import android.support.v4.app.SherlockPreferenceActivity;
-import android.support.v4.view.Menu;
-import android.support.v4.view.MenuItem;
 
+import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.actionbarsherlock.sample.plugins.R;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 
 public class PreferenceSimple extends SherlockPreferenceActivity {
     @Override

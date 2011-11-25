@@ -5,7 +5,7 @@
     android:versionCode="40"
     android:versionName="3.4.2">
 
-    <uses-sdk android:minSdkVersion="4" android:targetSdkVersion="13" />
+    <uses-sdk android:minSdkVersion="4" android:targetSdkVersion="14" />
 
     <application android:label="@string/activity_sample_code"
             android:icon="@drawable/icon"
@@ -14,7 +14,7 @@
 
         <uses-library android:name="com.google.android.maps" />
 
-        <activity android:name="Support4Demos">
+        <activity android:name=".DemoChooser">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -22,43 +22,8 @@
             </intent-filter>
         </activity>
         
-        <activity android:name=".app.MapActivity"
+        <activity android:name=".app.MapSimple"
                 android:label="@string/map_activity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.actionbarsherlock.sample.plugins.SUPPORT4_SAMPLE_CODE" />
-            </intent-filter>
-        </activity>
-
-        <activity android:name=".app.MapFragment"
-                android:label="@string/map_fragment">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.actionbarsherlock.sample.plugins.SUPPORT4_SAMPLE_CODE" />
-            </intent-filter>
-        </activity>
-
-        <activity android:name=".app.MapActivityActionBar"
-                android:label="@string/map_activity_action_bar"
-                android:theme="@style/Theme.Sherlock">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.actionbarsherlock.sample.plugins.SUPPORT4_SAMPLE_CODE" />
-            </intent-filter>
-        </activity>
-
-        <activity android:name=".app.MapFragmentActionBar"
-                android:label="@string/map_fragment_action_bar"
-                android:theme="@style/Theme.Sherlock">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.actionbarsherlock.sample.plugins.SUPPORT4_SAMPLE_CODE" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".app.PreferenceSimple"
-            android:label="@string/preference_simple">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.actionbarsherlock.sample.plugins.SUPPORT4_SAMPLE_CODE" />

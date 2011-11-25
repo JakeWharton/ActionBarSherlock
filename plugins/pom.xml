@@ -16,7 +16,7 @@
 	</parent>
 
 	<modules>
+		<module>compat-lib</module>
 		<module>maps</module>
-		<module>preference</module>
 	</modules>
 </project>

@@ -91,10 +91,13 @@
 
 		<apk.prefix>actionbarsherlock</apk.prefix>
 
+		<checkstyle.file>${project.basedir}/checkstyle.xml</checkstyle.file>
+
 		<java.version>1.6</java.version>
-		<android.version>3.2_r1</android.version>
-		<android.platform>13</android.platform>
-		<android.maps.version>13_r1</android.maps.version>
+		<android.version>4.0_r1</android.version>
+		<android.platform>14</android.platform>
+		<android.maps.version>14_r1</android.maps.version>
+		<android.compat.version>r4</android.compat.version>
 	</properties>
 
 	<dependencyManagement>
@@ -103,6 +106,12 @@
 				<groupId>android</groupId>
 				<artifactId>android</artifactId>
 				<version>${android.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>android.support</groupId>
+				<artifactId>compatibility-v4</artifactId>
+				<version>${android.compat.version}</version>
 			</dependency>
 
 			<dependency>
