@@ -105,8 +105,6 @@ public final class ActionBarSherlock {
     
     private ActionMode mActionMode;
     private ActionBarContextView mActionModeView;
-    private PopupWindow mActionModePopup;
-    private Runnable mShowActionModePopup;
     
     private boolean mIsTitleReady = false;
 
@@ -679,15 +677,12 @@ public final class ActionBarSherlock {
     	}
     	if (mActionModeView != null) {
     		mActionModeView.killMode();
-    		mode = new StandaloneActionMode(mActivity, mActionModeView, wrappedCallback, mActionModePopup == null);
+    		mode = new StandaloneActionMode(mActivity, mActionModeView, wrappedCallback, true);
             if (callback.onCreateActionMode(mode, mode.getMenu())) {
                 mode.invalidate();
                 mActionModeView.initForMode(mode);
                 mActionModeView.setVisibility(View.VISIBLE);
                 mActionMode = mode;
-                if (mActionModePopup != null) {
-                    mDecor.post(mShowActionModePopup);
-                }
                 mActionModeView.sendAccessibilityEvent(AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED);
             } else {
                 mActionMode = null;
@@ -723,13 +718,8 @@ public final class ActionBarSherlock {
 
         public void onDestroyActionMode(ActionMode mode) {
             mWrapped.onDestroyActionMode(mode);
-            if (mActionModePopup != null) {
-                mDecor.removeCallbacks(mShowActionModePopup);
-                mActionModePopup.dismiss();
-            } else if (mActionModeView != null) {
-                mActionModeView.setVisibility(View.GONE);
-            }
             if (mActionModeView != null) {
+                mActionModeView.setVisibility(View.GONE);
                 mActionModeView.removeAllViews();
             }
             if (mActivity instanceof OnActionModeFinishedListener) {
