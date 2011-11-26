@@ -13,25 +13,24 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.AndroidRuntimeException;
 import android.util.Log;
-import android.view.ActionMode;
 import android.view.KeyCharacterMap;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.view.ViewStub;
 import android.view.Window;
-import android.view.ActionMode.Callback;
-import android.view.WindowManager.LayoutParams;
 import android.view.accessibility.AccessibilityEvent;
+import android.widget.PopupWindow;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.internal.app.ActionBarImpl;
+import com.actionbarsherlock.internal.view.StandaloneActionMode;
 import com.actionbarsherlock.internal.view.menu.MenuBuilder;
 import com.actionbarsherlock.internal.view.menu.MenuPresenter;
 import com.actionbarsherlock.internal.widget.ActionBarContainer;
 import com.actionbarsherlock.internal.widget.ActionBarContextView;
 import com.actionbarsherlock.internal.widget.ActionBarView;
+import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
@@ -59,6 +58,12 @@ public final class ActionBarSherlock {
     }
     public interface OnPrepareOptionsMenuListener {
     	public boolean onPrepareOptionsMenu(Menu menu);
+    }
+    public interface OnActionModeFinishedListener {
+    	public void onActionModeFinished(ActionMode mode);
+    }
+    public interface OnActionModeStartedListener {
+    	public void onActionModeStarted(ActionMode mode);
     }
     
     
@@ -97,6 +102,11 @@ public final class ActionBarSherlock {
     private ActionBarView mActionBarView;
     private int mFeatures = DEFAULT_FEATURES;
     private int mUiOptions = 0;
+    
+    private ActionMode mActionMode;
+    private ActionBarContextView mActionModeView;
+    private PopupWindow mActionModePopup;
+    private Runnable mShowActionModePopup;
     
     private boolean mIsTitleReady = false;
 
@@ -651,5 +661,81 @@ public final class ActionBarSherlock {
             }
         }
         return mMenuInflater;
+    }
+    
+    public ActionMode startActionMode(ActionMode.Callback callback) {
+    	if (mActionMode != null) {
+    		mActionMode.finish();
+    	}
+
+        final ActionMode.Callback wrappedCallback = new ActionModeCallbackWrapper(callback);
+        ActionMode mode = null;
+        
+    	if (mActionModeView == null) {
+    		ViewStub stub = (ViewStub)mActivity.findViewById(R.id.abs__action_mode_bar_stub);
+    		if (stub != null) {
+    			mActionModeView = (ActionBarContextView)stub.inflate();
+    		}
+    	}
+    	if (mActionModeView != null) {
+    		mActionModeView.killMode();
+    		mode = new StandaloneActionMode(mActivity, mActionModeView, wrappedCallback, mActionModePopup == null);
+            if (callback.onCreateActionMode(mode, mode.getMenu())) {
+                mode.invalidate();
+                mActionModeView.initForMode(mode);
+                mActionModeView.setVisibility(View.VISIBLE);
+                mActionMode = mode;
+                if (mActionModePopup != null) {
+                    mDecor.post(mShowActionModePopup);
+                }
+                mActionModeView.sendAccessibilityEvent(AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED);
+            } else {
+                mActionMode = null;
+            }
+    	}
+    	if (mActionMode != null && mActivity instanceof OnActionModeStartedListener) {
+    		((OnActionModeStartedListener)mActivity).onActionModeStarted(mActionMode);
+    	}
+    	return mActionMode;
+    }
+    
+    /**
+     * Clears out internal reference when the action mode is destroyed.
+     */
+    private class ActionModeCallbackWrapper implements ActionMode.Callback {
+        private final ActionMode.Callback mWrapped;
+
+        public ActionModeCallbackWrapper(ActionMode.Callback wrapped) {
+            mWrapped = wrapped;
+        }
+
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            return mWrapped.onCreateActionMode(mode, menu);
+        }
+
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return mWrapped.onPrepareActionMode(mode, menu);
+        }
+
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            return mWrapped.onActionItemClicked(mode, item);
+        }
+
+        public void onDestroyActionMode(ActionMode mode) {
+            mWrapped.onDestroyActionMode(mode);
+            if (mActionModePopup != null) {
+                mDecor.removeCallbacks(mShowActionModePopup);
+                mActionModePopup.dismiss();
+            } else if (mActionModeView != null) {
+                mActionModeView.setVisibility(View.GONE);
+            }
+            if (mActionModeView != null) {
+                mActionModeView.removeAllViews();
+            }
+            if (mActivity instanceof OnActionModeFinishedListener) {
+            	((OnActionModeFinishedListener)mActivity).onActionModeFinished(mActionMode);
+            }
+            mActionMode = null;
+        }
     }
 }
