@@ -6,18 +6,40 @@ import android.preference.PreferenceActivity;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import com.actionbarsherlock.ActionBarSherlock;
+import com.actionbarsherlock.ActionBarSherlock.OnActionModeFinishedListener;
+import com.actionbarsherlock.ActionBarSherlock.OnActionModeStartedListener;
 import com.actionbarsherlock.ActionBarSherlock.OnCreateOptionsMenuListener;
 import com.actionbarsherlock.ActionBarSherlock.OnOptionsItemSelectedListener;
 import com.actionbarsherlock.ActionBarSherlock.OnPrepareOptionsMenuListener;
+import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
-public class SherlockPreferenceActivity extends PreferenceActivity implements OnCreateOptionsMenuListener, OnPrepareOptionsMenuListener, OnOptionsItemSelectedListener {
+public class SherlockPreferenceActivity extends PreferenceActivity implements OnCreateOptionsMenuListener, OnPrepareOptionsMenuListener, OnOptionsItemSelectedListener, OnActionModeStartedListener, OnActionModeFinishedListener {
 	final ActionBarSherlock mSherlock = ActionBarSherlock.asDelegateFor(this);
+
+    
+    ///////////////////////////////////////////////////////////////////////////
+    // Action bar and mode
+    ///////////////////////////////////////////////////////////////////////////
 
     public ActionBar getSupportActionBar() {
         return mSherlock.getActionBar();
+    }
+    
+    public ActionMode startActionMode(ActionMode.Callback callback) {
+    	return mSherlock.startActionMode(callback);
+    }
+    
+    @Override
+    public void onActionModeStarted(ActionMode mode) {
+    	//This space for rent.
+    }
+    
+    @Override
+    public void onActionModeFinished(ActionMode mode) {
+    	//This space for rent.
     }
 
 

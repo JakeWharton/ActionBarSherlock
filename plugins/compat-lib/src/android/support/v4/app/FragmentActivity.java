@@ -38,10 +38,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.actionbarsherlock.ActionBarSherlock;
+import com.actionbarsherlock.ActionBarSherlock.OnActionModeFinishedListener;
+import com.actionbarsherlock.ActionBarSherlock.OnActionModeStartedListener;
 import com.actionbarsherlock.ActionBarSherlock.OnCreateOptionsMenuListener;
 import com.actionbarsherlock.ActionBarSherlock.OnOptionsItemSelectedListener;
 import com.actionbarsherlock.ActionBarSherlock.OnPrepareOptionsMenuListener;
 import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
@@ -67,7 +70,7 @@ import com.actionbarsherlock.view.MenuItem;
  * state, this may be a snapshot slightly before what the user last saw.</p>
  * </ul>
  */
-public class FragmentActivity extends Activity implements OnCreateOptionsMenuListener, OnPrepareOptionsMenuListener, OnOptionsItemSelectedListener {
+public class FragmentActivity extends Activity implements OnCreateOptionsMenuListener, OnPrepareOptionsMenuListener, OnOptionsItemSelectedListener, OnActionModeStartedListener, OnActionModeFinishedListener {
     private static final String TAG = "FragmentActivity";
     
     private static final String FRAGMENTS_TAG = "android:support:fragments";
@@ -137,6 +140,20 @@ public class FragmentActivity extends Activity implements OnCreateOptionsMenuLis
     
     public ActionBar getSupportActionBar() {
         return mSherlock.getActionBar();
+    }
+    
+    public ActionMode startActionMode(ActionMode.Callback callback) {
+    	return mSherlock.startActionMode(callback);
+    }
+    
+    @Override
+    public void onActionModeStarted(ActionMode mode) {
+    	//This space for rent.
+    }
+    
+    @Override
+    public void onActionModeFinished(ActionMode mode) {
+    	//This space for rent.
     }
     
     public MenuInflater getSupportMenuInflater() {
