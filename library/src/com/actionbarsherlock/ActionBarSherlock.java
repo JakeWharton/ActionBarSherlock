@@ -527,8 +527,8 @@ public final class ActionBarSherlock {
         		}
         		
         		boolean splitActionBar = false;
-        		final boolean splitWhenNattow = (mUiOptions & ActivityInfo.UIOPTION_SPLIT_ACTION_BAR_WHEN_NARROW) != 0;
-        		if (splitWhenNattow) {
+        		final boolean splitWhenNarrow = (mUiOptions & ActivityInfo.UIOPTION_SPLIT_ACTION_BAR_WHEN_NARROW) != 0;
+        		if (splitWhenNarrow) {
         			splitActionBar = mActivity.getResources().getBoolean(R.bool.abs__split_action_bar_is_narrow);
         		} else {
         			splitActionBar = mActivity.getTheme()
@@ -539,12 +539,12 @@ public final class ActionBarSherlock {
         		if (splitView != null) {
         			mActionBarView.setSplitView(splitView);
         			mActionBarView.setSplitActionBar(splitActionBar);
-        			mActionBarView.setSplitWhenNarrow(splitWhenNattow);
+        			mActionBarView.setSplitWhenNarrow(splitWhenNarrow);
         			
-        			final ActionBarContextView cab = (ActionBarContextView)mDecor.findViewById(R.id.abs__action_context_bar);
-        			cab.setSplitView(splitView);
-        			cab.setSplitActionBar(splitActionBar);
-        			cab.setSplitWhenNarrow(splitWhenNattow);
+        			mActionModeView = (ActionBarContextView)mDecor.findViewById(R.id.abs__action_context_bar);
+        			mActionModeView.setSplitView(splitView);
+        			mActionModeView.setSplitActionBar(splitActionBar);
+        			mActionModeView.setSplitWhenNarrow(splitWhenNarrow);
         		} else if (splitActionBar) {
         			Log.e(TAG, "Requested split action bar with incompatible window decor! Ignoring request.");
         		}
@@ -670,7 +670,7 @@ public final class ActionBarSherlock {
         ActionMode mode = null;
         
     	if (mActionModeView == null) {
-    		ViewStub stub = (ViewStub)mActivity.findViewById(R.id.abs__action_mode_bar_stub);
+    		ViewStub stub = (ViewStub)mDecor.findViewById(R.id.abs__action_mode_bar_stub);
     		if (stub != null) {
     			mActionModeView = (ActionBarContextView)stub.inflate();
     		}
