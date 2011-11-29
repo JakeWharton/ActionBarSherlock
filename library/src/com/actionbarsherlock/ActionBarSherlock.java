@@ -17,16 +17,15 @@ import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 import android.view.KeyCharacterMap;
 import android.view.View;
-import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.view.Window;
 import android.view.accessibility.AccessibilityEvent;
-import android.widget.PopupWindow;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.internal.app.ActionBarImpl;
 import com.actionbarsherlock.internal.view.StandaloneActionMode;
+import com.actionbarsherlock.internal.view.menu.ActionMenuPresenter;
 import com.actionbarsherlock.internal.view.menu.MenuBuilder;
 import com.actionbarsherlock.internal.view.menu.MenuPresenter;
 import com.actionbarsherlock.internal.widget.ActionBarContainer;
@@ -171,21 +170,12 @@ public final class ActionBarSherlock {
     	
         mActivity = activity;
         mIsDelegate = isDelegateOnly;
-        
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-        	mHasMenuKey = true;
-        } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-        	mHasMenuKey = false;
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            mHasMenuKey = (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB);
         } else {
-        	mHasMenuKey = HasPermanentMenuKey.invoke(mActivity);
+            mHasMenuKey = ActionMenuPresenter.HasPermanentMenuKey.invoke(mActivity);
         }
-    }
-    
-    /* For Android 1.6 */
-    private static final class HasPermanentMenuKey {
-    	public static boolean invoke(Context context) {
-    		return ViewConfiguration.get(context).hasPermanentMenuKey();
-    	}
     }
     
     

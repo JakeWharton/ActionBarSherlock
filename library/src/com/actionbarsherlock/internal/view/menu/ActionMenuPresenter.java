@@ -82,10 +82,10 @@ public class ActionMenuPresenter extends BaseMenuPresenter
         final Resources res = context.getResources();
 
         if (!mReserveOverflowSet) {
-        	if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-        		mReserveOverflow = !CheckPermanentMenuKey.invoke(context);
+        	if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+                mReserveOverflow = !(Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB);
         	} else {
-        		mReserveOverflow = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB);
+                mReserveOverflow = !HasPermanentMenuKey.invoke(context);
         	}
         }
 
@@ -117,11 +117,9 @@ public class ActionMenuPresenter extends BaseMenuPresenter
         // Drop a scrap view as it may no longer reflect the proper context/config.
         mScrapActionButtonView = null;
     }
-    
-    /**
-     * Needed for Android 1.6.
-     */
-    private static final class CheckPermanentMenuKey {
+
+    /* For Android 1.6 */
+    public static final class HasPermanentMenuKey {
         public static boolean invoke(Context context) {
             return ViewConfiguration.get(context).hasPermanentMenuKey();
         }
