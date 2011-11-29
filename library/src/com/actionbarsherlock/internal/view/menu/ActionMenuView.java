@@ -15,6 +15,8 @@
  */
 package com.actionbarsherlock.internal.view.menu;
 
+import com.actionbarsherlock.internal.widget.DividedHorizontalLayout;
+
 import android.content.Context;
 import android.content.res.Configuration;
 import android.util.AttributeSet;
@@ -22,12 +24,11 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityEvent;
-import android.widget.LinearLayout;
 
 /**
  * @hide
  */
-public class ActionMenuView extends LinearLayout implements MenuBuilder.ItemInvoker, MenuView {
+public class ActionMenuView extends DividedHorizontalLayout implements MenuBuilder.ItemInvoker, MenuView {
     //UNUSED private static final String TAG = "ActionMenuView";
     
     static final int MIN_CELL_SIZE = 56; // dips
@@ -365,7 +366,7 @@ public class ActionMenuView extends LinearLayout implements MenuBuilder.ItemInvo
 
         final int childCount = getChildCount();
         final int midVertical = (top + bottom) / 2;
-        final int dividerWidth = 0;//getDividerWidth();
+        final int dividerWidth = getDividerWidth();
         int overflowWidth = 0;
         //UNUSED int nonOverflowWidth = 0;
         int nonOverflowCount = 0;
@@ -498,7 +499,7 @@ public class ActionMenuView extends LinearLayout implements MenuBuilder.ItemInvo
         mMenu = menu;
     }
 
-    //@Override
+    @Override
     protected boolean hasDividerBeforeChildAt(int childIndex) {
         final View childBefore = getChildAt(childIndex - 1);
         final View child = getChildAt(childIndex);
@@ -521,7 +522,7 @@ public class ActionMenuView extends LinearLayout implements MenuBuilder.ItemInvo
         public boolean needsDividerAfter();
     }
 
-    public static class LayoutParams extends LinearLayout.LayoutParams {
+    public static class LayoutParams extends DividedHorizontalLayout.LayoutParams {
         public boolean isOverflowButton;
         public int cellsUsed;
         public int extraPixels;
@@ -535,7 +536,7 @@ public class ActionMenuView extends LinearLayout implements MenuBuilder.ItemInvo
         }
 
         public LayoutParams(LayoutParams other) {
-            super((LinearLayout.LayoutParams) other);
+            super((DividedHorizontalLayout.LayoutParams) other);
             isOverflowButton = other.isOverflowButton;
         }
 

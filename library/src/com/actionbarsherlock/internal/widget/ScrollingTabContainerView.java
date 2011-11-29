@@ -47,7 +47,7 @@ public class ScrollingTabContainerView extends HorizontalScrollView
     Runnable mTabSelector;
     private TabClickListener mTabClickListener;
 
-    private LinearLayout mTabLayout;
+    private DividedHorizontalLayout mTabLayout;
     private Spinner mTabSpinner;
     private boolean mAllowCollapse;
     
@@ -184,9 +184,11 @@ public class ScrollingTabContainerView extends HorizontalScrollView
         requestLayout();
     }
 
-    private LinearLayout createTabLayout() {
-    	//Workaround for not being able to specify a defStyle pre-3.0
-    	return (LinearLayout)LayoutInflater.from(getContext()).inflate(R.layout.abs__action_bar_tab_container, null);
+    private DividedHorizontalLayout createTabLayout() {
+        final DividedHorizontalLayout tabLayout = new DividedHorizontalLayout(getContext(), null, R.attr.actionBarTabBarStyle);
+        tabLayout.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
+        return tabLayout;
     }
 
     private Spinner createSpinner() {
@@ -288,7 +290,7 @@ public class ScrollingTabContainerView extends HorizontalScrollView
 
     public void addTab(ActionBar.Tab tab, boolean setSelected) {
         TabView tabView = createTabView(tab, false);
-        mTabLayout.addView(tabView, new LinearLayout.LayoutParams(0,
+        mTabLayout.addView(tabView, new DividedHorizontalLayout.LayoutParams(0,
                 LayoutParams.FILL_PARENT, 1));
         if (mTabSpinner != null) {
             ((TabAdapter) mTabSpinner.getAdapter()).notifyDataSetChanged();
@@ -303,7 +305,7 @@ public class ScrollingTabContainerView extends HorizontalScrollView
 
     public void addTab(ActionBar.Tab tab, int position, boolean setSelected) {
         final TabView tabView = createTabView(tab, false);
-        mTabLayout.addView(tabView, position, new LinearLayout.LayoutParams(
+        mTabLayout.addView(tabView, position, new DividedHorizontalLayout.LayoutParams(
                 0, LayoutParams.FILL_PARENT, 1));
         if (mTabSpinner != null) {
             ((TabAdapter) mTabSpinner.getAdapter()).notifyDataSetChanged();
