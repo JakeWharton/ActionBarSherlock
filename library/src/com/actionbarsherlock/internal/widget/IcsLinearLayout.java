@@ -35,7 +35,7 @@ import android.widget.RemoteViews.RemoteView;
  * only horizontal layouts.
  */
 @RemoteView
-public class DividedHorizontalLayout extends ViewGroup {
+public class IcsLinearLayout extends ViewGroup {
     /**
      * Don't show any dividers.
      */
@@ -136,15 +136,15 @@ public class DividedHorizontalLayout extends ViewGroup {
     private int mShowDividers;
     private int mDividerPadding;
 
-    public DividedHorizontalLayout(Context context) {
+    public IcsLinearLayout(Context context) {
         super(context);
     }
 
-    public DividedHorizontalLayout(Context context, AttributeSet attrs) {
+    public IcsLinearLayout(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
     
-    public DividedHorizontalLayout(Context context, AttributeSet attrs, int defStyle) {
+    public IcsLinearLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SherlockLinearLayout, defStyle, 0);
@@ -377,7 +377,7 @@ public class DividedHorizontalLayout extends ViewGroup {
         // getLocationOffset(child)
         int childTop = mBaselineChildTop;
 
-        DividedHorizontalLayout.LayoutParams lp = (DividedHorizontalLayout.LayoutParams) child.getLayoutParams();
+        IcsLinearLayout.LayoutParams lp = (IcsLinearLayout.LayoutParams) child.getLayoutParams();
         return childTop + lp.topMargin + childBaseline;
     }
 
@@ -535,7 +535,7 @@ public class DividedHorizontalLayout extends ViewGroup {
                 mTotalLength += mDividerWidth;
             }
 
-            final DividedHorizontalLayout.LayoutParams lp = (DividedHorizontalLayout.LayoutParams)
+            final IcsLinearLayout.LayoutParams lp = (IcsLinearLayout.LayoutParams)
                     child.getLayoutParams();
 
             totalWeight += lp.weight;
@@ -682,7 +682,7 @@ public class DividedHorizontalLayout extends ViewGroup {
                     continue;
                 }
 
-                final DividedHorizontalLayout.LayoutParams lp = (DividedHorizontalLayout.LayoutParams)
+                final IcsLinearLayout.LayoutParams lp = (IcsLinearLayout.LayoutParams)
                         child.getLayoutParams();
                 if (isExactly) {
                     mTotalLength += largestChildWidth + lp.leftMargin + lp.rightMargin +
@@ -726,8 +726,8 @@ public class DividedHorizontalLayout extends ViewGroup {
                     continue;
                 }
                 
-                final DividedHorizontalLayout.LayoutParams lp =
-                        (DividedHorizontalLayout.LayoutParams) child.getLayoutParams();
+                final IcsLinearLayout.LayoutParams lp =
+                        (IcsLinearLayout.LayoutParams) child.getLayoutParams();
 
                 float childExtra = lp.weight;
                 if (childExtra > 0) {
@@ -833,8 +833,8 @@ public class DividedHorizontalLayout extends ViewGroup {
                         continue;
                     }
 
-                    final DividedHorizontalLayout.LayoutParams lp =
-                            (DividedHorizontalLayout.LayoutParams) child.getLayoutParams();
+                    final IcsLinearLayout.LayoutParams lp =
+                            (IcsLinearLayout.LayoutParams) child.getLayoutParams();
 
                     float childExtra = lp.weight;
                     if (childExtra > 0) {
@@ -942,7 +942,7 @@ public class DividedHorizontalLayout extends ViewGroup {
         for (int i = 0; i < count; ++i) {
            final View child = getVirtualChildAt(i);
            if (child.getVisibility() != GONE) { 
-               DividedHorizontalLayout.LayoutParams lp = (DividedHorizontalLayout.LayoutParams) child.getLayoutParams();
+               IcsLinearLayout.LayoutParams lp = (IcsLinearLayout.LayoutParams) child.getLayoutParams();
                
                if (lp.height == LayoutParams.MATCH_PARENT) {
                    // Temporarily force children to reuse their old measured width
@@ -1070,8 +1070,8 @@ public class DividedHorizontalLayout extends ViewGroup {
                 final int childHeight = child.getMeasuredHeight();
                 int childBaseline = -1;
 
-                final DividedHorizontalLayout.LayoutParams lp =
-                        (DividedHorizontalLayout.LayoutParams) child.getLayoutParams();
+                final IcsLinearLayout.LayoutParams lp =
+                        (IcsLinearLayout.LayoutParams) child.getLayoutParams();
 
                 if (baselineAligned && lp.height != LayoutParams.MATCH_PARENT) {
                     childBaseline = child.getBaseline();
@@ -1180,7 +1180,7 @@ public class DividedHorizontalLayout extends ViewGroup {
     
     @Override
     public LayoutParams generateLayoutParams(AttributeSet attrs) {
-        return new DividedHorizontalLayout.LayoutParams(getContext(), attrs);
+        return new IcsLinearLayout.LayoutParams(getContext(), attrs);
     }
 
     /**
@@ -1205,7 +1205,7 @@ public class DividedHorizontalLayout extends ViewGroup {
     // Override to allow type-checking of LayoutParams.
     @Override
     protected boolean checkLayoutParams(ViewGroup.LayoutParams p) {
-        return p instanceof DividedHorizontalLayout.LayoutParams;
+        return p instanceof IcsLinearLayout.LayoutParams;
     }
     
     /**

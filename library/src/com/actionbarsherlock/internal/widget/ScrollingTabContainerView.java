@@ -47,7 +47,7 @@ public class ScrollingTabContainerView extends HorizontalScrollView
     Runnable mTabSelector;
     private TabClickListener mTabClickListener;
 
-    private DividedHorizontalLayout mTabLayout;
+    private IcsLinearLayout mTabLayout;
     private Spinner mTabSpinner;
     private boolean mAllowCollapse;
     
@@ -184,8 +184,8 @@ public class ScrollingTabContainerView extends HorizontalScrollView
         requestLayout();
     }
 
-    private DividedHorizontalLayout createTabLayout() {
-        final DividedHorizontalLayout tabLayout = new DividedHorizontalLayout(getContext(), null, R.attr.actionBarTabBarStyle);
+    private IcsLinearLayout createTabLayout() {
+        final IcsLinearLayout tabLayout = new IcsLinearLayout(getContext(), null, R.attr.actionBarTabBarStyle);
         tabLayout.setLayoutParams(new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
         return tabLayout;
@@ -290,7 +290,7 @@ public class ScrollingTabContainerView extends HorizontalScrollView
 
     public void addTab(ActionBar.Tab tab, boolean setSelected) {
         TabView tabView = createTabView(tab, false);
-        mTabLayout.addView(tabView, new DividedHorizontalLayout.LayoutParams(0,
+        mTabLayout.addView(tabView, new IcsLinearLayout.LayoutParams(0,
                 LayoutParams.FILL_PARENT, 1));
         if (mTabSpinner != null) {
             ((TabAdapter) mTabSpinner.getAdapter()).notifyDataSetChanged();
@@ -305,7 +305,7 @@ public class ScrollingTabContainerView extends HorizontalScrollView
 
     public void addTab(ActionBar.Tab tab, int position, boolean setSelected) {
         final TabView tabView = createTabView(tab, false);
-        mTabLayout.addView(tabView, position, new DividedHorizontalLayout.LayoutParams(
+        mTabLayout.addView(tabView, position, new IcsLinearLayout.LayoutParams(
                 0, LayoutParams.FILL_PARENT, 1));
         if (mTabSpinner != null) {
             ((TabAdapter) mTabSpinner.getAdapter()).notifyDataSetChanged();

@@ -15,7 +15,7 @@
  */
 package com.actionbarsherlock.internal.view.menu;
 
-import com.actionbarsherlock.internal.widget.DividedHorizontalLayout;
+import com.actionbarsherlock.internal.widget.IcsLinearLayout;
 
 import android.content.Context;
 import android.content.res.Configuration;
@@ -28,7 +28,7 @@ import android.view.accessibility.AccessibilityEvent;
 /**
  * @hide
  */
-public class ActionMenuView extends DividedHorizontalLayout implements MenuBuilder.ItemInvoker, MenuView {
+public class ActionMenuView extends IcsLinearLayout implements MenuBuilder.ItemInvoker, MenuView {
     //UNUSED private static final String TAG = "ActionMenuView";
     
     static final int MIN_CELL_SIZE = 56; // dips
@@ -522,7 +522,7 @@ public class ActionMenuView extends DividedHorizontalLayout implements MenuBuild
         public boolean needsDividerAfter();
     }
 
-    public static class LayoutParams extends DividedHorizontalLayout.LayoutParams {
+    public static class LayoutParams extends IcsLinearLayout.LayoutParams {
         public boolean isOverflowButton;
         public int cellsUsed;
         public int extraPixels;
@@ -536,7 +536,7 @@ public class ActionMenuView extends DividedHorizontalLayout implements MenuBuild
         }
 
         public LayoutParams(LayoutParams other) {
-            super((DividedHorizontalLayout.LayoutParams) other);
+            super((IcsLinearLayout.LayoutParams) other);
             isOverflowButton = other.isOverflowButton;
         }
 
