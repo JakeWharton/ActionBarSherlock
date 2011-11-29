@@ -96,7 +96,8 @@ public final class ActionBarSherlock {
     
     private final Activity mActivity;
     private final boolean mIsDelegate;
-    private final boolean mHasMenuKey;
+    private boolean mHasMenuKeyLoaded = false;
+    private boolean mHasMenuKey;
     
     private ViewGroup mDecor;
     private ViewGroup mContentParent;
@@ -172,15 +173,20 @@ public final class ActionBarSherlock {
     	
         mActivity = activity;
         mIsDelegate = isDelegateOnly;
-
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-            mHasMenuKey = (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB);
-        } else {
-            mHasMenuKey = ActionMenuPresenter.HasPermanentMenuKey.invoke(mActivity);
-        }
     }
     
     
+    private boolean hasMenuKey() {
+        if (!mHasMenuKeyLoaded) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+                mHasMenuKey = (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB);
+            } else {
+                mHasMenuKey = ActionMenuPresenter.HasPermanentMenuKey.invoke(mActivity);
+            }
+            mHasMenuKeyLoaded = true;
+        }
+        return mHasMenuKey;
+    }
     
     /**
      * Get the current action bar instance.
@@ -292,7 +298,7 @@ public final class ActionBarSherlock {
     public boolean dispatchOpenOptionsMenu() {
     	if (DEBUG) Log.d(TAG, "[dispatchOpenOptionsMenu]");
     	
-    	if (mHasMenuKey) {
+    	if (hasMenuKey()) {
     		return false;
     	}
     	
@@ -302,7 +308,7 @@ public final class ActionBarSherlock {
     public boolean dispatchCloseOptionsMenu() {
     	if (DEBUG) Log.d(TAG, "[dispatchCloseOptionsMenu]");
     	
-    	if (mHasMenuKey) {
+    	if (hasMenuKey()) {
     		return false;
     	}
     	
@@ -353,7 +359,7 @@ public final class ActionBarSherlock {
     public boolean dispatchPrepareOptionsMenu(android.view.Menu menu) {
     	if (DEBUG) Log.d(TAG, "[dispatchPrepareOptionsMenu] android.view.Menu: " + menu);
     	
-    	if (!mHasMenuKey) {
+    	if (!hasMenuKey()) {
     		return true;
     	}
     	
