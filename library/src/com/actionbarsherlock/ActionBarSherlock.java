@@ -13,6 +13,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.AndroidRuntimeException;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.ContextThemeWrapper;
 import android.view.KeyCharacterMap;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -254,8 +256,18 @@ public final class ActionBarSherlock {
     	if (DEBUG) Log.d(TAG, "[dispatchInvalidateOptionsMenu]");
     	
     	if (mMenu == null) {
-    		//TODO honor actionBarWidgetTheme attribute
-    		mMenu = new MenuBuilder(mActivity);
+    	    Context context = mActivity;
+    	    if (mActionBar != null) {
+    	        TypedValue outValue = new TypedValue();
+    	        mActivity.getTheme().resolveAttribute(R.attr.actionBarWidgetTheme, outValue, true);
+    	        if (outValue.resourceId != 0) {
+    	            //We are unable to test if this is the same as our current theme
+    	            //so we just wrap it and hope that if the attribute was specified
+    	            //then the user is intentionally specifying an alternate theme.
+    	            context = new ContextThemeWrapper(context, outValue.resourceId);
+    	        }
+    	    }
+    		mMenu = new MenuBuilder(context);
     		mMenu.setCallback(mMenuBuilderCallback);
     	}
     	
