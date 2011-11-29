@@ -2,6 +2,7 @@ package com.actionbarsherlock;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.app.Activity;
@@ -27,6 +28,7 @@ import com.actionbarsherlock.internal.app.ActionBarImpl;
 import com.actionbarsherlock.internal.view.StandaloneActionMode;
 import com.actionbarsherlock.internal.view.menu.ActionMenuPresenter;
 import com.actionbarsherlock.internal.view.menu.MenuBuilder;
+import com.actionbarsherlock.internal.view.menu.MenuItemImpl;
 import com.actionbarsherlock.internal.view.menu.MenuPresenter;
 import com.actionbarsherlock.internal.widget.ActionBarContainer;
 import com.actionbarsherlock.internal.widget.ActionBarContextView;
@@ -354,8 +356,29 @@ public final class ActionBarSherlock {
     	if (!mHasMenuKey) {
     		return true;
     	}
-    	//TODO bind to native menu as overflow
-    	return false;
+    	
+    	if (!dispatchPrepareOptionsMenu()) {
+    	    return false;
+    	}
+    	
+    	final ArrayList<MenuItemImpl> nonActionItems = mMenu.getNonActionItems();
+    	if (nonActionItems == null || nonActionItems.size() == 0) {
+    	    return false;
+    	}
+    	
+    	menu.clear();
+    	boolean visible = false;
+    	for (MenuItemImpl nonActionItem : nonActionItems) {
+    	    if (nonActionItem.isVisible()) {
+    	        visible = true;
+    	        //TODO move this binding "inward" to internal so we have access to more raw data
+    	        menu.add(nonActionItem.getGroupId(), nonActionItem.getItemId(), nonActionItem.getOrder(), nonActionItem.getTitle())
+    	            .setIcon(nonActionItem.getIcon())
+    	            .setOnMenuItemClickListener(mNativeItemListener);
+    	    }
+    	}
+    	
+    	return visible;
     }
     
     private boolean dispatchOptionsItemSelected(MenuItem item) {

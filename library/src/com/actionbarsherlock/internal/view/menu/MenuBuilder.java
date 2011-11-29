@@ -1076,7 +1076,7 @@ public class MenuBuilder implements Menu {
         return mActionItems;
     }
     
-    ArrayList<MenuItemImpl> getNonActionItems() {
+    /*TODO?*/public/*TODO?*/ ArrayList<MenuItemImpl> getNonActionItems() {
         flagActionItems();
         return mNonActionItems;
     }
