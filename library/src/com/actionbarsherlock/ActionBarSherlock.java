@@ -96,6 +96,7 @@ public final class ActionBarSherlock {
     
     private final Activity mActivity;
     private final boolean mIsDelegate;
+    
     private boolean mHasMenuKeyLoaded = false;
     private boolean mHasMenuKey;
     
@@ -114,7 +115,7 @@ public final class ActionBarSherlock {
 
     private MenuInflater mMenuInflater;
     private MenuBuilder mMenu;
-    private HashMap<android.view.MenuItem, MenuItem> mNativeItemMap;
+    private HashMap<android.view.MenuItem, MenuItemImpl> mNativeItemMap;
     private boolean mLastCreateResult;
     private boolean mLastPrepareResult;
     
@@ -150,11 +151,16 @@ public final class ActionBarSherlock {
 	private final android.view.MenuItem.OnMenuItemClickListener mNativeItemListener = new android.view.MenuItem.OnMenuItemClickListener() {
 		@Override
 		public boolean onMenuItemClick(android.view.MenuItem item) {
-			final MenuItem sherlockItem = mNativeItemMap.get(item);
+		    if (DEBUG) Log.d(TAG, "[mNativeItemListener.onMenuItemClick] item: " + item);
+		    
+			final MenuItemImpl sherlockItem = mNativeItemMap.get(item);
 			if (sherlockItem != null) {
-				return mMenuBuilderCallback.onMenuItemSelected(mMenu, sherlockItem);
+				sherlockItem.invoke();
+			} else {
+				Log.e(TAG, "Options item \"" + item + "\" not found in mapping");
 			}
-			return false;
+			
+			return true; //Do not allow continuation of native handling
 		}
 	};
 	
@@ -372,15 +378,24 @@ public final class ActionBarSherlock {
     	    return false;
     	}
     	
+    	if (mNativeItemMap == null) {
+    	    mNativeItemMap = new HashMap<android.view.MenuItem, MenuItemImpl>();
+    	} else {
+    	    mNativeItemMap.clear();
+    	}
+    	
     	menu.clear();
     	boolean visible = false;
     	for (MenuItemImpl nonActionItem : nonActionItems) {
     	    if (nonActionItem.isVisible()) {
     	        visible = true;
     	        //TODO move this binding "inward" to internal so we have access to more raw data
-    	        menu.add(nonActionItem.getGroupId(), nonActionItem.getItemId(), nonActionItem.getOrder(), nonActionItem.getTitle())
-    	            .setIcon(nonActionItem.getIcon())
-    	            .setOnMenuItemClickListener(mNativeItemListener);
+    	        android.view.MenuItem nativeItem = menu.add(nonActionItem.getGroupId(), nonActionItem.getItemId(),
+    	                nonActionItem.getOrder(), nonActionItem.getTitle());
+    	        nativeItem.setIcon(nonActionItem.getIcon());
+    	        nativeItem.setOnMenuItemClickListener(mNativeItemListener);
+    	        
+    	        mNativeItemMap.put(nativeItem, nonActionItem);
     	    }
     	}
     	
