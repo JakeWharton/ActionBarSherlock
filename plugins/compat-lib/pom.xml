@@ -89,7 +89,7 @@
 								</artifactItem>
 							</artifactItems>
 							<excludes>**/FragmentActivity*,**/FragmentManager*</excludes>
-							<outputDirectory>${project.build.directory}/sources</outputDirectory>
+							<outputDirectory>${project.build.directory}/classes</outputDirectory>
 						</configuration>
 					</execution>
 				</executions>
