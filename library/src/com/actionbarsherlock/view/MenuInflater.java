@@ -233,11 +233,6 @@ public final class MenuInflater {
         private static final int defaultItemShowAsAction = 0;
         private static final int defaultIconResId = View.NO_ID;
 
-        /** Mirror of package-scoped Menu.CATEGORY_MASK. */
-        private static final int Menu__CATEGORY_MASK = 0xffff0000;
-        /** Mirror of package-scoped Menu.USER_MASK. */
-        private static final int Menu__USER_MASK = 0x0000ffff;
-
         public ActionBarMenuState(MenuBuilder menu) {
             this.menu = menu;
 
@@ -298,7 +293,7 @@ public final class MenuInflater {
             final int order = attrs.getAttributeIntValue(XML_NS, "orderInCategory", groupOrder);
 
             //itemCategoryOrder = (category & Menu.CATEGORY_MASK) | (order & Menu.USER_MASK);
-            itemCategoryOrder = (category & Menu__CATEGORY_MASK) | (order & Menu__USER_MASK);
+            itemCategoryOrder = (category & Menu.CATEGORY_MASK) | (order & Menu.USER_MASK);
 
             //itemTitle = a.getString(com.android.internal.R.styleable.MenuItem_title);
             final int itemTitleId = attrs.getAttributeResourceValue(XML_NS, "title", 0);
