@@ -25,6 +25,7 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Handler;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
@@ -173,6 +174,11 @@ public class ActionBarImpl extends ActionBar {
     public void onConfigurationChanged(Configuration newConfig) {
         setHasEmbeddedTabs(mContext.getResources().getBoolean(
                 R.bool.abs__action_bar_embed_tabs));
+        
+        //Manually dispatch a configuration change to the action bar view on pre-2.2
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.FROYO) {
+            mActionView.onConfigurationChanged(newConfig);
+        }
     }
 
     private void setHasEmbeddedTabs(boolean hasEmbeddedTabs) {

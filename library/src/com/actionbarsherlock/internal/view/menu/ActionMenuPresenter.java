@@ -83,9 +83,9 @@ public class ActionMenuPresenter extends BaseMenuPresenter
 
         if (!mReserveOverflowSet) {
         	if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-                mReserveOverflow = !(Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB);
+                mReserveOverflow = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB);
         	} else {
-                mReserveOverflow = !HasPermanentMenuKey.invoke(context);
+                mReserveOverflow = !ViewConfiguration.get(context).hasPermanentMenuKey();
         	}
         }
 
@@ -116,13 +116,6 @@ public class ActionMenuPresenter extends BaseMenuPresenter
 
         // Drop a scrap view as it may no longer reflect the proper context/config.
         mScrapActionButtonView = null;
-    }
-
-    /* For Android 1.6 */
-    public static final class HasPermanentMenuKey {
-        public static boolean invoke(Context context) {
-            return ViewConfiguration.get(context).hasPermanentMenuKey();
-        }
     }
 
     public void onConfigurationChanged(Configuration newConfig) {

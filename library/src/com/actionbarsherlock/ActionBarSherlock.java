@@ -18,6 +18,7 @@ import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 import android.view.KeyCharacterMap;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.view.Window;
@@ -26,7 +27,6 @@ import android.view.accessibility.AccessibilityEvent;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.internal.app.ActionBarImpl;
 import com.actionbarsherlock.internal.view.StandaloneActionMode;
-import com.actionbarsherlock.internal.view.menu.ActionMenuPresenter;
 import com.actionbarsherlock.internal.view.menu.MenuBuilder;
 import com.actionbarsherlock.internal.view.menu.MenuItemImpl;
 import com.actionbarsherlock.internal.view.menu.MenuPresenter;
@@ -187,7 +187,7 @@ public final class ActionBarSherlock {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
                 mHasMenuKey = (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB);
             } else {
-                mHasMenuKey = ActionMenuPresenter.HasPermanentMenuKey.invoke(mActivity);
+                mHasMenuKey = ViewConfiguration.get(mActivity).hasPermanentMenuKey();
             }
             mHasMenuKeyLoaded = true;
         }

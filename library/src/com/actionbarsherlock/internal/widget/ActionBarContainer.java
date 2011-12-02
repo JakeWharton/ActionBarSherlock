@@ -119,9 +119,9 @@ public class ActionBarContainer extends FrameLayout {
         return true;
     }
 
-    //@Override
+    @Override
     public boolean onHoverEvent(MotionEvent ev) {
-        //DONUT super.onHoverEvent(ev);
+        super.onHoverEvent(ev);
 
         // An action bar always eats hover events.
         return true;

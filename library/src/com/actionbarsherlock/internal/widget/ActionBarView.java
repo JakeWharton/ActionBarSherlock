@@ -198,10 +198,14 @@ public class ActionBarView extends AbsActionBarView {
                 }
             } else {
                 if (context instanceof Activity) {
-                    mLogo = LoadLogoFromManifest.forActivity(pm, (Activity)context);
+                    try {
+                        mLogo = pm.getActivityLogo(((Activity) context).getComponentName());
+                    } catch (NameNotFoundException e) {
+                        Log.e(TAG, "Activity component name not found!", e);
+                    }
                 }
                 if (mLogo == null) {
-                    mLogo = LoadLogoFromManifest.forApplication(appInfo, pm);
+                    mLogo = appInfo.loadLogo(pm);
                 }
             }
         }
@@ -260,23 +264,6 @@ public class ActionBarView extends AbsActionBarView {
         mHomeLayout.setOnClickListener(mUpClickListener);
         mHomeLayout.setClickable(true);
         mHomeLayout.setFocusable(true);
-    }
-    
-    /**
-     * Try to load the logo from the manifest. Needed because of Android 1.6.
-     */
-    private static final class LoadLogoFromManifest {
-        public static Drawable forActivity(PackageManager pm, Activity activity) {
-            try {
-                return pm.getActivityLogo(activity.getComponentName());
-            } catch (NameNotFoundException e) {
-                Log.e(TAG, "Activity component name not found!", e);
-            }
-            return null;
-        }
-        public static Drawable forApplication(ApplicationInfo appInfo, PackageManager pm) {
-            return appInfo.loadLogo(pm);
-        }
     }
     
     /**
@@ -359,10 +346,14 @@ public class ActionBarView extends AbsActionBarView {
         return 0;
     }
 
+    /*
+     * Must be public so we can dispatch pre-2.2 via ActionBarImpl.
+     */
     @Override
-    protected void onConfigurationChanged(Configuration newConfig) {
-        //TODO super.onConfigurationChanged(newConfig);
-        //TODO figure out how to call this on pre-2.2
+    public void onConfigurationChanged(Configuration newConfig) {
+    	if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
+    		super.onConfigurationChanged(newConfig);
+    	}
 
         mTitleView = null;
         mSubtitleView = null;
@@ -1324,13 +1315,15 @@ public class ActionBarView extends AbsActionBarView {
 
         @Override
         public boolean dispatchPopulateAccessibilityEvent(AccessibilityEvent event) {
-            //DONUT onPopulateAccessibilityEvent(event);
+            onPopulateAccessibilityEvent(event);
             return true;
         }
 
         @Override
         public void onPopulateAccessibilityEvent(AccessibilityEvent event) {
-            //DONUT super.onPopulateAccessibilityEvent(event);
+        	if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+        		super.onPopulateAccessibilityEvent(event);
+        	}
             final CharSequence cdesc = getContentDescription();
             if (!TextUtils.isEmpty(cdesc)) {
                 event.getText().add(cdesc);
@@ -1340,8 +1333,7 @@ public class ActionBarView extends AbsActionBarView {
         @Override
         public boolean dispatchHoverEvent(MotionEvent event) {
             // Don't allow children to hover; we want this to be treated as a single component.
-            //DONUT return onHoverEvent(event);
-            return true;
+            return onHoverEvent(event);
         }
 
         @Override
