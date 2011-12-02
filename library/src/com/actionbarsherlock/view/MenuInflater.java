@@ -292,7 +292,6 @@ public final class MenuInflater {
             //final int order = a.getInt(com.android.internal.R.styleable.MenuItem_orderInCategory, groupOrder);
             final int order = attrs.getAttributeIntValue(XML_NS, "orderInCategory", groupOrder);
 
-            //itemCategoryOrder = (category & Menu.CATEGORY_MASK) | (order & Menu.USER_MASK);
             itemCategoryOrder = (category & Menu.CATEGORY_MASK) | (order & Menu.USER_MASK);
 
             //itemTitle = a.getString(com.android.internal.R.styleable.MenuItem_title);
