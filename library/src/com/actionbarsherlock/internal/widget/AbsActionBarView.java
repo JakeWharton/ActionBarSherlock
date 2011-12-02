@@ -33,7 +33,7 @@ public abstract class AbsActionBarView extends ViewGroup {
     protected boolean mSplitActionBar;
     protected boolean mSplitWhenNarrow;
     protected int mContentHeight;
-    
+
     final Context mContext;
 
     //TODO protected Animator mVisibilityAnim;
@@ -45,17 +45,17 @@ public abstract class AbsActionBarView extends ViewGroup {
 
     public AbsActionBarView(Context context) {
         super(context);
-    	mContext = context;
+        mContext = context;
     }
 
     public AbsActionBarView(Context context, AttributeSet attrs) {
         super(context, attrs);
-    	mContext = context;
+        mContext = context;
     }
 
     public AbsActionBarView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-    	mContext = context;
+        mContext = context;
     }
 
     //@Override

@@ -18,7 +18,6 @@ package com.actionbarsherlock.internal.view.menu;
 
 import android.content.Context;
 import android.os.Parcelable;
-import android.view.Menu;
 import android.view.ViewGroup;
 
 /**

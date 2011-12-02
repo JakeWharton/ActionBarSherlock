@@ -72,9 +72,9 @@ import com.actionbarsherlock.view.MenuItem;
  */
 public class FragmentActivity extends Activity implements OnCreateOptionsMenuListener, OnPrepareOptionsMenuListener, OnOptionsItemSelectedListener, OnActionModeStartedListener, OnActionModeFinishedListener {
     private static final String TAG = "FragmentActivity";
-    
+
     private static final String FRAGMENTS_TAG = "android:support:fragments";
-    
+
     // This is the SDK API version of Honeycomb (3.0).
     private static final int HONEYCOMB = 11;
 
@@ -101,7 +101,7 @@ public class FragmentActivity extends Activity implements OnCreateOptionsMenuLis
 
     };
     final FragmentManagerImpl mFragments = new FragmentManagerImpl();
-    
+
     boolean mCreated;
     boolean mResumed;
     boolean mStopped;
@@ -114,9 +114,9 @@ public class FragmentActivity extends Activity implements OnCreateOptionsMenuLis
     boolean mLoadersStarted;
     HCSparseArray<LoaderManagerImpl> mAllLoaderManagers;
     LoaderManagerImpl mLoaderManager;
-    
+
     final ActionBarSherlock mSherlock = ActionBarSherlock.asDelegateFor(this);
-    
+
     static final class NonConfigurationInstances {
         Object activity;
         Object custom;
@@ -124,7 +124,7 @@ public class FragmentActivity extends Activity implements OnCreateOptionsMenuLis
         ArrayList<Fragment> fragments;
         HCSparseArray<LoaderManagerImpl> loaders;
     }
-    
+
     static class FragmentTag {
         public static final int[] Fragment = {
             0x01010003, 0x010100d0, 0x010100d1
@@ -133,38 +133,38 @@ public class FragmentActivity extends Activity implements OnCreateOptionsMenuLis
         public static final int Fragment_name = 0;
         public static final int Fragment_tag = 2;
     }
-    
+
     ///////////////////////////////////////////////////////////////////////////
     // Sherlock methods
     ///////////////////////////////////////////////////////////////////////////
-    
+
     public ActionBar getSupportActionBar() {
         return mSherlock.getActionBar();
     }
-    
+
     public ActionMode startActionMode(ActionMode.Callback callback) {
-    	return mSherlock.startActionMode(callback);
+        return mSherlock.startActionMode(callback);
     }
-    
+
     @Override
     public void onActionModeStarted(ActionMode mode) {
-    	//This space for rent.
+        //This space for rent.
     }
-    
+
     @Override
     public void onActionModeFinished(ActionMode mode) {
-    	//This space for rent.
+        //This space for rent.
     }
-    
+
     public MenuInflater getSupportMenuInflater() {
         return mSherlock.getMenuInflater();
     }
 
     @Override
     public final boolean onCreateOptionsMenu(android.view.Menu menu) {
-    	return true;
+        return true;
     }
-    
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return true;
@@ -189,23 +189,23 @@ public class FragmentActivity extends Activity implements OnCreateOptionsMenuLis
     public boolean onOptionsItemSelected(MenuItem item) {
         return false;
     }
-    
+
     public void invalidateOptionsMenu() {
-    	mSherlock.dispatchInvalidateOptionsMenu();
+        mSherlock.dispatchInvalidateOptionsMenu();
     }
 
     @Override
     public void openOptionsMenu() {
-    	if (!mSherlock.dispatchOpenOptionsMenu()) {
-    		super.openOptionsMenu();
-    	}
+        if (!mSherlock.dispatchOpenOptionsMenu()) {
+            super.openOptionsMenu();
+        }
     }
 
     @Override
     public void closeOptionsMenu() {
-    	if (!mSherlock.dispatchCloseOptionsMenu()) {
-    		super.closeOptionsMenu();
-    	}
+        if (!mSherlock.dispatchCloseOptionsMenu()) {
+            super.closeOptionsMenu();
+        }
     }
 
     @Override
@@ -233,11 +233,11 @@ public class FragmentActivity extends Activity implements OnCreateOptionsMenuLis
         mSherlock.dispatchTitleChanged(title, color);
         super.onTitleChanged(title, color);
     }
-    
+
     @Override
     public final boolean onMenuOpened(int featureId, android.view.Menu menu) {
         if (mSherlock.dispatchMenuOpened(featureId, menu)) {
-        	return true;
+            return true;
         }
         return super.onMenuOpened(featureId, menu);
     }
@@ -247,11 +247,11 @@ public class FragmentActivity extends Activity implements OnCreateOptionsMenuLis
         mSherlock.dispatchPanelClosed(featureId, menu);
         super.onPanelClosed(featureId, menu);
     }
-    
+
     // ------------------------------------------------------------------------
     // HOOKS INTO ACTIVITY
     // ------------------------------------------------------------------------
-    
+
     /**
      * Dispatch incoming result to the correct fragment.
      */
@@ -273,7 +273,7 @@ public class FragmentActivity extends Activity implements OnCreateOptionsMenuLis
             frag.onActivityResult(requestCode&0xffff, resultCode, data);
             return;
         }
-        
+
         super.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -307,9 +307,9 @@ public class FragmentActivity extends Activity implements OnCreateOptionsMenuLis
         if (getLayoutInflater().getFactory() == null) {
             getLayoutInflater().setFactory(this);
         }
-        
+
         super.onCreate(savedInstanceState);
-        
+
         NonConfigurationInstances nc = (NonConfigurationInstances)
                 getLastNonConfigurationInstance();
         if (nc != null) {
@@ -321,7 +321,7 @@ public class FragmentActivity extends Activity implements OnCreateOptionsMenuLis
         }
         mFragments.dispatchCreate();
     }
-    
+
     /**
      * Add support for inflating the &lt;fragment> tag.
      */
@@ -330,7 +330,7 @@ public class FragmentActivity extends Activity implements OnCreateOptionsMenuLis
         if (!"fragment".equals(name)) {
             return super.onCreateView(name, context, attrs);
         }
-        
+
         String fname = attrs.getAttributeValue(null, "class");
         TypedArray a =  context.obtainStyledAttributes(attrs, FragmentTag.Fragment);
         if (fname == null) {
@@ -339,7 +339,7 @@ public class FragmentActivity extends Activity implements OnCreateOptionsMenuLis
         int id = a.getResourceId(FragmentTag.Fragment_id, View.NO_ID);
         String tag = a.getString(FragmentTag.Fragment_tag);
         a.recycle();
-        
+
         View parent = null; // NOTE: no way to get parent pre-Honeycomb.
         int containerId = parent != null ? parent.getId() : 0;
         if (containerId == View.NO_ID && id == View.NO_ID && tag == null) {
@@ -454,7 +454,7 @@ public class FragmentActivity extends Activity implements OnCreateOptionsMenuLis
         if (super.onMenuItemSelected(featureId, item)) {
             return true;
         }
-        
+
         switch (featureId) {
             case Window.FEATURE_CONTEXT_MENU:
                 return mFragments.dispatchContextItemSelected(item);
@@ -463,7 +463,7 @@ public class FragmentActivity extends Activity implements OnCreateOptionsMenuLis
                 return false;
         }
     }
-    
+
     /**
      * Dispatch onPause() to fragments.
      */
@@ -532,7 +532,7 @@ public class FragmentActivity extends Activity implements OnCreateOptionsMenuLis
         if (fragments == null && !retainLoaders && custom == null) {
             return null;
         }
-        
+
         NonConfigurationInstances nci = new NonConfigurationInstances();
         nci.activity = null;
         nci.custom = custom;
@@ -573,7 +573,7 @@ public class FragmentActivity extends Activity implements OnCreateOptionsMenuLis
 
         mFragments.noteStateNotSaved();
         mFragments.execPendingActions();
-        
+
         if (!mLoadersStarted) {
             mLoadersStarted = true;
             if (mLoaderManager != null) {
@@ -584,7 +584,7 @@ public class FragmentActivity extends Activity implements OnCreateOptionsMenuLis
             mCheckedForLoaderManager = true;
         }
         // NOTE: HC onStart goes here.
-        
+
         mFragments.dispatchStart();
         if (mAllLoaderManagers != null) {
             for (int i=mAllLoaderManagers.size()-1; i>=0; i--) {
@@ -600,20 +600,20 @@ public class FragmentActivity extends Activity implements OnCreateOptionsMenuLis
      */
     @Override
     protected void onStop() {
-    	mSherlock.dispatchStop();
-    	
+        mSherlock.dispatchStop();
+
         super.onStop();
 
         mStopped = true;
         mHandler.sendEmptyMessage(MSG_REALLY_STOPPED);
-        
+
         mFragments.dispatchStop();
     }
 
     // ------------------------------------------------------------------------
     // NEW METHODS
     // ------------------------------------------------------------------------
-    
+
     /**
      * Use this instead of {@link #onRetainNonConfigurationInstance()}.
      * Retrieve later with {@link #getLastCustomNonConfigurationInstance()}.
@@ -644,7 +644,7 @@ public class FragmentActivity extends Activity implements OnCreateOptionsMenuLis
         // the options menu the next time it is prepared.
         mOptionsMenuInvalidated = true;
     }
-    
+
     /**
      * Print the Activity's state into the given stream.  This gets invoked if
      * you run "adb shell dumpsys activity <activity_component_name>".
@@ -714,13 +714,13 @@ public class FragmentActivity extends Activity implements OnCreateOptionsMenuLis
     // ------------------------------------------------------------------------
     // FRAGMENT SUPPORT
     // ------------------------------------------------------------------------
-    
+
     /**
      * Called when a fragment is attached to the activity.
      */
     public void onAttachFragment(Fragment fragment) {
     }
-    
+
     /**
      * Return the FragmentManager for interacting with fragments associated
      * with this activity.
@@ -744,7 +744,7 @@ public class FragmentActivity extends Activity implements OnCreateOptionsMenuLis
     /**
      * Called by Fragment.startActivityForResult() to implement its behavior.
      */
-    public void startActivityFromFragment(Fragment fragment, Intent intent, 
+    public void startActivityFromFragment(Fragment fragment, Intent intent,
             int requestCode) {
         if (requestCode == -1) {
             super.startActivityForResult(intent, -1);
@@ -755,7 +755,7 @@ public class FragmentActivity extends Activity implements OnCreateOptionsMenuLis
         }
         super.startActivityForResult(intent, ((fragment.mIndex+1)<<16) + (requestCode&0xffff));
     }
-    
+
     void invalidateSupportFragmentIndex(int index) {
         //Log.v(TAG, "invalidateFragmentIndex: index=" + index);
         if (mAllLoaderManagers != null) {
@@ -766,11 +766,11 @@ public class FragmentActivity extends Activity implements OnCreateOptionsMenuLis
             }
         }
     }
-    
+
     // ------------------------------------------------------------------------
     // LOADER SUPPORT
     // ------------------------------------------------------------------------
-    
+
     /**
      * Return the LoaderManager for this fragment, creating it if needed.
      */
@@ -782,7 +782,7 @@ public class FragmentActivity extends Activity implements OnCreateOptionsMenuLis
         mLoaderManager = getLoaderManager(-1, mLoadersStarted, true);
         return mLoaderManager;
     }
-    
+
     LoaderManagerImpl getLoaderManager(int index, boolean started, boolean create) {
         if (mAllLoaderManagers == null) {
             mAllLoaderManagers = new HCSparseArray<LoaderManagerImpl>();

@@ -38,7 +38,7 @@ public abstract class Window extends android.view.Window {
     public static final long FEATURE_NO_TITLE = android.view.Window.FEATURE_NO_TITLE;
     public static final long FEATURE_PROGRESS = android.view.Window.FEATURE_PROGRESS;
     public static final long FEATURE_INDETERMINATE_PROGRESS = android.view.Window.FEATURE_INDETERMINATE_PROGRESS;
-    
+
     /**
      * Create a new instance for a context.
      *
@@ -47,8 +47,8 @@ public abstract class Window extends android.view.Window {
     public Window(Context context) {
         super(context);
     }
-    
-    
+
+
     public interface Callback {
         /**
          * Called when a panel's menu item has been selected by the user.

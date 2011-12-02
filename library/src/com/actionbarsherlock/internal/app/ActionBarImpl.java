@@ -75,18 +75,18 @@ public class ActionBarImpl extends ActionBar {
 
     private TabImpl mSelectedTab;
     private int mSavedTabPosition = INVALID_POSITION;
-    
+
     ActionModeImpl mActionMode;
     ActionMode mDeferredDestroyActionMode;
     ActionMode.Callback mDeferredModeDestroyCallback;
-    
+
     private boolean mLastMenuVisibility;
     private ArrayList<OnMenuVisibilityListener> mMenuVisibilityListeners =
             new ArrayList<OnMenuVisibilityListener>();
 
     private static final int CONTEXT_DISPLAY_NORMAL = 0;
     private static final int CONTEXT_DISPLAY_SPLIT = 1;
-    
+
     private static final int INVALID_POSITION = -1;
 
     private int mContextDisplayMode;
@@ -161,20 +161,21 @@ public class ActionBarImpl extends ActionBar {
 
         // Older apps get the home button interaction enabled by default.
         // Newer apps need to enable it explicitly.
-        setHomeButtonEnabled(mContext.getApplicationInfo().targetSdkVersion < 14);
+        //setHomeButtonEnabled(mContext.getApplicationInfo().targetSdkVersion < 14);
+        //We're all new brotha! This is ActionBarSherlock!
 
         setHasEmbeddedTabs(mContext.getResources().getBoolean(
                 R.bool.abs__action_bar_embed_tabs));
     }
-    
+
     public void setMenu(Menu menu, MenuPresenter.Callback cb) {
-    	mActionView.setMenu(menu, cb);
+        mActionView.setMenu(menu, cb);
     }
 
     public void onConfigurationChanged(Configuration newConfig) {
         setHasEmbeddedTabs(mContext.getResources().getBoolean(
                 R.bool.abs__action_bar_embed_tabs));
-        
+
         //Manually dispatch a configuration change to the action bar view on pre-2.2
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.FROYO) {
             mActionView.onConfigurationChanged(newConfig);
@@ -232,7 +233,7 @@ public class ActionBarImpl extends ActionBar {
      * @param enabled true to animate, false to not animate.
      */
     public void setShowHideAnimationEnabled(boolean enabled) {
-    	/* TODO mShowHideAnimationEnabled = enabled;
+        /* TODO mShowHideAnimationEnabled = enabled;
         if (!enabled && mCurrentShowAnim != null) {
             mCurrentShowAnim.end();
         }*/
@@ -345,7 +346,7 @@ public class ActionBarImpl extends ActionBar {
     }
 
     public void setDisplayOptions(int options, int mask) {
-        final int current = mActionView.getDisplayOptions(); 
+        final int current = mActionView.getDisplayOptions();
         mActionView.setDisplayOptions((options & mask) | (current & ~mask));
     }
 
@@ -630,7 +631,7 @@ public class ActionBarImpl extends ActionBar {
             currentTheme.resolveAttribute(R.attr.actionBarWidgetTheme,
                     outValue, true);
             final int targetThemeRes = outValue.resourceId;
-            
+
             if (targetThemeRes != 0) { //TODO && mContext.getThemeResId() != targetThemeRes) {
                 mThemedContext = new ContextThemeWrapper(mContext, targetThemeRes);
             } else {
@@ -639,15 +640,15 @@ public class ActionBarImpl extends ActionBar {
         }
         return mThemedContext;
     }
-    
+
     /**
-     * @hide 
+     * @hide
      */
     public class ActionModeImpl extends ActionMode implements MenuBuilder.Callback {
         private ActionMode.Callback mCallback;
         private MenuBuilder mMenu;
         private WeakReference<View> mCustomView;
-        
+
         public ActionModeImpl(ActionMode.Callback callback) {
             mCallback = callback;
             mMenu = new MenuBuilder(getThemedContext())
@@ -750,7 +751,7 @@ public class ActionBarImpl extends ActionBar {
         public CharSequence getSubtitle() {
             return mContextView.getSubtitle();
         }
-        
+
         @Override
         public View getCustomView() {
             return mCustomView != null ? mCustomView.get() : null;

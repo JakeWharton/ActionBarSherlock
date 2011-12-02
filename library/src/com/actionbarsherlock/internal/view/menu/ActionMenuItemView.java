@@ -61,7 +61,7 @@ public class ActionMenuItemView extends LinearLayout
 
     public ActionMenuItemView(Context context, AttributeSet attrs, int defStyle) {
         //TODO super(context, attrs, defStyle);
-    	super(context, attrs);
+        super(context, attrs);
         final Resources res = context.getResources();
         mAllowTextWithIcon = res.getBoolean(
                 R.bool.abs__config_allowActionMenuItemTextWithIcon);
@@ -70,7 +70,7 @@ public class ActionMenuItemView extends LinearLayout
 
     @Override
     public void onFinishInflate() {
-    	
+
         mImageButton = (ImageButton) findViewById(R.id.abs__imageButton);
         mTextButton = (Button) findViewById(R.id.abs__textButton);
         mImageButton.setOnClickListener(this);

@@ -16,7 +16,6 @@
 
 package com.actionbarsherlock.view;
 
-import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.view.KeyEvent;
@@ -108,7 +107,7 @@ public interface Menu {
     static final int CATEGORY_SECONDARY = 0x00030000;
 
     /**
-     * Category code for the order integer for items/groups that are 
+     * Category code for the order integer for items/groups that are
      * alternative actions on the data that is currently displayed -- or/add
      * this with your base value.
      */
@@ -132,20 +131,20 @@ public interface Menu {
      * the prepared state.
      */
     static final int FLAG_ALWAYS_PERFORM_CLOSE = 0x0002;
-    
+
     /**
      * Add a new item to the menu. This item displays the given title for its
      * label.
-     * 
+     *
      * @param title The text to display for the item.
      * @return The newly added menu item.
      */
     public MenuItem add(CharSequence title);
-    
+
     /**
      * Add a new item to the menu. This item displays the given title for its
      * label.
-     * 
+     *
      * @param titleRes Resource identifier of title string.
      * @return The newly added menu item.
      */
@@ -154,7 +153,7 @@ public interface Menu {
     /**
      * Add a new item to the menu. This item displays the given title for its
      * label.
-     * 
+     *
      * @param groupId The group identifier that this item should be part of.
      *        This can be used to define groups of items for batch state
      *        changes. Normally use {@link #NONE} if an item should not be in a
@@ -171,7 +170,7 @@ public interface Menu {
     /**
      * Variation on {@link #add(int, int, int, CharSequence)} that takes a
      * string resource identifier instead of the string itself.
-     * 
+     *
      * @param groupId The group identifier that this item should be part of.
      *        This can also be used to define groups of items for batch state
      *        changes. Normally use {@link #NONE} if an item should not be in a
@@ -189,7 +188,7 @@ public interface Menu {
      * Add a new sub-menu to the menu. This item displays the given title for
      * its label. To modify other attributes on the submenu's menu item, use
      * {@link SubMenu#getItem()}.
-     * 
+     *
      * @param title The text to display for the item.
      * @return The newly added sub-menu
      */
@@ -199,7 +198,7 @@ public interface Menu {
      * Add a new sub-menu to the menu. This item displays the given title for
      * its label. To modify other attributes on the submenu's menu item, use
      * {@link SubMenu#getItem()}.
-     * 
+     *
      * @param titleRes Resource identifier of title string.
      * @return The newly added sub-menu
      */
@@ -213,7 +212,7 @@ public interface Menu {
      * Note that you can only have one level of sub-menus, i.e. you cannnot add
      * a subMenu to a subMenu: An {@link UnsupportedOperationException} will be
      * thrown if you try.
-     * 
+     *
      * @param groupId The group identifier that this item should be part of.
      *        This can also be used to define groups of items for batch state
      *        changes. Normally use {@link #NONE} if an item should not be in a
@@ -230,7 +229,7 @@ public interface Menu {
     /**
      * Variation on {@link #addSubMenu(int, int, int, CharSequence)} that takes
      * a string resource identifier for the title instead of the string itself.
-     * 
+     *
      * @param groupId The group identifier that this item should be part of.
      *        This can also be used to define groups of items for batch state
      *        changes. Normally use {@link #NONE} if an item should not be in a group.
@@ -250,13 +249,13 @@ public interface Menu {
      * {@link Intent#CATEGORY_SELECTED_ALTERNATIVE} to find activities that have
      * said they would like to be included as optional action. You can, however,
      * use any Intent you want.
-     * 
+     *
      * <p>
      * See {@link android.content.pm.PackageManager#queryIntentActivityOptions}
      * for more * details on the <var>caller</var>, <var>specifics</var>, and
      * <var>intent</var> arguments. The list returned by that function is used
      * to populate the resulting menu items.
-     * 
+     *
      * <p>
      * All of the menu items of possible options for the intent will be added
      * with the given group and id. You can use the group to control ordering of
@@ -267,7 +266,7 @@ public interface Menu {
      * generated items {@link MenuItem#setIntent} is called to associate the
      * appropriate Intent with the item; this means the activity will
      * automatically be started for you without having to do anything else.
-     * 
+     *
      * @param groupId The group identifier that the items should be part of.
      *        This can also be used to define groups of items for batch state
      *        changes. Normally use {@link #NONE} if the items should not be in
@@ -288,7 +287,7 @@ public interface Menu {
      *        requested. Entries may be null if no activity was found for that
      *        specific action.
      * @return The number of menu items that were added.
-     * 
+     *
      * @see #FLAG_APPEND_TO_GROUP
      * @see MenuItem#setIntent
      * @see android.content.pm.PackageManager#queryIntentActivityOptions
@@ -348,7 +347,7 @@ public interface Menu {
      * @see MenuItem#setVisible
      */
     public void setGroupVisible(int group, boolean visible);
-    
+
     /**
      * Enable or disable all menu items that are in the given group.
      *
@@ -358,7 +357,7 @@ public interface Menu {
      * @see MenuItem#setEnabled
      */
     public void setGroupEnabled(int group, boolean enabled);
-    
+
     /**
      * Return whether the menu currently has item items that are visible.
      *
@@ -387,19 +386,19 @@ public interface Menu {
 
     /**
      * Gets the menu item at the given index.
-     * 
+     *
      * @param index The index of the menu item to return.
      * @return The menu item.
      * @exception IndexOutOfBoundsException
      *                when {@code index < 0 || >= size()}
      */
     public MenuItem getItem(int index);
-    
+
     /**
      * Closes the menu, if open.
      */
     public void close();
-    
+
     /**
      * Execute the menu item action associated with the given shortcut
      * character.
@@ -421,16 +420,16 @@ public interface Menu {
      * @param event the {@link KeyEvent} to use to help check.
      */
     boolean isShortcutKey(int keyCode, KeyEvent event);
-    
+
     /**
      * Execute the menu item action associated with the given menu identifier.
-     * 
-     * @param id Identifier associated with the menu item. 
+     *
+     * @param id Identifier associated with the menu item.
      * @param flags Additional option flags or 0.
-     * 
+     *
      * @return If the given identifier exists and is shown, returns
      *         true; else returns false.
-     * 
+     *
      * @see #FLAG_PERFORM_NO_CLOSE
      */
     public boolean performIdentifierAction(int id, int flags);
@@ -439,7 +438,7 @@ public interface Menu {
     /**
      * Control whether the menu should be running in qwerty mode (alphabetic
      * shortcuts) or 12-key mode (numeric shortcuts).
-     * 
+     *
      * @param isQwerty If true the menu will use alphabetic shortcuts; else it
      *                 will use numeric shortcuts.
      */

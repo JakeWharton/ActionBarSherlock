@@ -17,9 +17,9 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
 public class SherlockExpandableListActivity extends ExpandableListActivity implements OnCreateOptionsMenuListener, OnPrepareOptionsMenuListener, OnOptionsItemSelectedListener, OnActionModeStartedListener, OnActionModeFinishedListener {
-	final ActionBarSherlock mSherlock = ActionBarSherlock.asDelegateFor(this);
+    final ActionBarSherlock mSherlock = ActionBarSherlock.asDelegateFor(this);
 
-    
+
     ///////////////////////////////////////////////////////////////////////////
     // Action bar and mode
     ///////////////////////////////////////////////////////////////////////////
@@ -27,22 +27,22 @@ public class SherlockExpandableListActivity extends ExpandableListActivity imple
     public ActionBar getSupportActionBar() {
         return mSherlock.getActionBar();
     }
-    
+
     public ActionMode startActionMode(ActionMode.Callback callback) {
-    	return mSherlock.startActionMode(callback);
-    }
-    
-    @Override
-    public void onActionModeStarted(ActionMode mode) {
-    	//This space for rent.
-    }
-    
-    @Override
-    public void onActionModeFinished(ActionMode mode) {
-    	//This space for rent.
+        return mSherlock.startActionMode(callback);
     }
 
-    
+    @Override
+    public void onActionModeStarted(ActionMode mode) {
+        //This space for rent.
+    }
+
+    @Override
+    public void onActionModeFinished(ActionMode mode) {
+        //This space for rent.
+    }
+
+
     ///////////////////////////////////////////////////////////////////////////
     // General lifecycle/callback dispatching
     ///////////////////////////////////////////////////////////////////////////
@@ -58,17 +58,17 @@ public class SherlockExpandableListActivity extends ExpandableListActivity imple
         super.onPostResume();
         mSherlock.dispatchPostResume();
     }
-    
+
     @Override
     protected void onStop() {
         mSherlock.dispatchStop();
         super.onStop();
     }
-    
+
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
-    	mSherlock.dispatchPostCreate(savedInstanceState);
-    	super.onPostCreate(savedInstanceState);
+        mSherlock.dispatchPostCreate(savedInstanceState);
+        super.onPostCreate(savedInstanceState);
     }
 
     @Override
@@ -76,11 +76,11 @@ public class SherlockExpandableListActivity extends ExpandableListActivity imple
         mSherlock.dispatchTitleChanged(title, color);
         super.onTitleChanged(title, color);
     }
-    
+
     @Override
     public final boolean onMenuOpened(int featureId, android.view.Menu menu) {
         if (mSherlock.dispatchMenuOpened(featureId, menu)) {
-        	return true;
+            return true;
         }
         return super.onMenuOpened(featureId, menu);
     }
@@ -90,21 +90,21 @@ public class SherlockExpandableListActivity extends ExpandableListActivity imple
         mSherlock.dispatchPanelClosed(featureId, menu);
         super.onPanelClosed(featureId, menu);
     }
-    
-    
+
+
     ///////////////////////////////////////////////////////////////////////////
     // Menu handling
     ///////////////////////////////////////////////////////////////////////////
-    
+
     public MenuInflater getSupportMenuInflater() {
         return mSherlock.getMenuInflater();
     }
 
     @Override
     public final boolean onCreateOptionsMenu(android.view.Menu menu) {
-    	return true;
+        return true;
     }
-    
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return true;
@@ -129,11 +129,11 @@ public class SherlockExpandableListActivity extends ExpandableListActivity imple
     public boolean onOptionsItemSelected(MenuItem item) {
         return false;
     }
-    
+
     public void invalidateOptionsMenu() {
-    	mSherlock.dispatchInvalidateOptionsMenu();
+        mSherlock.dispatchInvalidateOptionsMenu();
     }
-    
+
     /** @deprecated Use {@link #invalidateOptionsMenu()}. */
     @Deprecated
     public void supportInvalidateOptionsMenu() {
@@ -142,19 +142,19 @@ public class SherlockExpandableListActivity extends ExpandableListActivity imple
 
     @Override
     public void openOptionsMenu() {
-    	if (!mSherlock.dispatchOpenOptionsMenu()) {
-    		super.openOptionsMenu();
-    	}
+        if (!mSherlock.dispatchOpenOptionsMenu()) {
+            super.openOptionsMenu();
+        }
     }
 
     @Override
     public void closeOptionsMenu() {
-    	if (!mSherlock.dispatchCloseOptionsMenu()) {
-    		super.closeOptionsMenu();
-    	}
+        if (!mSherlock.dispatchCloseOptionsMenu()) {
+            super.closeOptionsMenu();
+        }
     }
-    
-    
+
+
     ///////////////////////////////////////////////////////////////////////////
     // Content
     ///////////////////////////////////////////////////////////////////////////

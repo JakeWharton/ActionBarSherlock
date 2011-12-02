@@ -82,11 +82,11 @@ public class ActionMenuPresenter extends BaseMenuPresenter
         final Resources res = context.getResources();
 
         if (!mReserveOverflowSet) {
-        	if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
                 mReserveOverflow = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB);
-        	} else {
+            } else {
                 mReserveOverflow = !ViewConfiguration.get(context).hasPermanentMenuKey();
-        	}
+            }
         }
 
         if (!mWidthLimitSet) {

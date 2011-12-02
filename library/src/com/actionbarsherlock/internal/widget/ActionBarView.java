@@ -88,7 +88,7 @@ public class ActionBarView extends AbsActionBarView {
             ActionBar.DISPLAY_SHOW_TITLE;
 
     private static final int DEFAULT_CUSTOM_GRAVITY = Gravity.LEFT | Gravity.CENTER_VERTICAL;
-    
+
     private int mNavigationMode;
     private int mDisplayOptions = -1;
     private CharSequence mTitle;
@@ -112,7 +112,7 @@ public class ActionBarView extends AbsActionBarView {
 
     private int mProgressBarPadding;
     private int mItemPadding;
-    
+
     private int mTitleStyleRes;
     private int mSubtitleStyleRes;
     //TODO private int mProgressStyle;
@@ -124,7 +124,7 @@ public class ActionBarView extends AbsActionBarView {
     private boolean mIsCollapsed;
 
     private MenuBuilder mOptionsMenu;
-    
+
     private ActionBarContextView mContextView;
 
     private ActionMenuItem mLogoNavItem;
@@ -184,7 +184,7 @@ public class ActionBarView extends AbsActionBarView {
                 ActionBar.NAVIGATION_MODE_STANDARD);
         mTitle = a.getText(R.styleable.SherlockActionBar_title);
         mSubtitle = a.getText(R.styleable.SherlockActionBar_subtitle);
-        
+
         mLogo = a.getDrawable(R.styleable.SherlockActionBar_logo);
         if (mLogo == null) {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
@@ -237,7 +237,7 @@ public class ActionBarView extends AbsActionBarView {
         mExpandedHomeLayout.setOnClickListener(mExpandedActionViewUpListener);
         mExpandedHomeLayout.setContentDescription(getResources().getText(
                 R.string.abs__action_bar_up_description));
-        
+
         mTitleStyleRes = a.getResourceId(R.styleable.SherlockActionBar_titleTextStyle, 0);
         mSubtitleStyleRes = a.getResourceId(R.styleable.SherlockActionBar_subtitleTextStyle, 0);
         /* TODO mProgressStyle = a.getResourceId(R.styleable.SherlockActionBar_progressBarStyle, 0);
@@ -257,20 +257,20 @@ public class ActionBarView extends AbsActionBarView {
         }
 
         mContentHeight = a.getLayoutDimension(R.styleable.SherlockActionBar_height, 0);
-        
+
         a.recycle();
-        
+
         mLogoNavItem = new ActionMenuItem(context, 0, android.R.id.home, 0, 0, mTitle);
         mHomeLayout.setOnClickListener(mUpClickListener);
         mHomeLayout.setClickable(true);
         mHomeLayout.setFocusable(true);
     }
-    
+
     /**
      * Attempt to programmatically load the logo from the manifest file of an
      * activity by using an XML pull parser. This should allow us to read the
      * logo attribute regardless of the platform it is being run on.
-     * 
+     *
      * @param activity Activity instance.
      * @return Logo resource ID.
      */
@@ -278,23 +278,23 @@ public class ActionBarView extends AbsActionBarView {
         try {
             final String thisPackage = getClass().getName();
             if (DEBUG) Log.i(TAG, "Parsing AndroidManifest.xml for " + thisPackage);
-            
+
             final String packageName = activity.getApplicationInfo().packageName;
             final AssetManager am = activity.createPackageContext(packageName, 0).getAssets();
             final XmlResourceParser xml = am.openXmlResourceParser("AndroidManifest.xml");
-            
+
             int eventType = xml.getEventType();
             while (eventType != XmlPullParser.END_DOCUMENT) {
                 if (eventType == XmlPullParser.START_TAG) {
                     String name = xml.getName();
-                    
+
                     if ("application".equals(name)) {
                         //Check if the <application> has the attribute
                         if (DEBUG) Log.d(TAG, "Got <application>");
-                        
+
                         for (int i = xml.getAttributeCount() - 1; i >= 0; i--) {
                             if (DEBUG) Log.d(TAG, xml.getAttributeName(i) + ": " + xml.getAttributeValue(i));
-                            
+
                             if ("logo".equals(xml.getAttributeName(i))) {
                                 //Found the attribute, return its value
                                 int result = xml.getAttributeResourceValue(i, 0);
@@ -308,10 +308,10 @@ public class ActionBarView extends AbsActionBarView {
                         Integer logo = null;
                         String activityPackage = null;
                         boolean isOurActivity = false;
-                        
+
                         for (int i = xml.getAttributeCount() - 1; i >= 0; i--) {
                             if (DEBUG) Log.d(TAG, xml.getAttributeName(i) + ": " + xml.getAttributeValue(i));
-                            
+
                             //We need both uiOptions and name attributes
                             String attrName = xml.getAttributeName(i);
                             if ("logo".equals(attrName)) {
@@ -323,7 +323,7 @@ public class ActionBarView extends AbsActionBarView {
                                 }
                                 isOurActivity = true;
                             }
-                            
+
                             //Make sure we have both attributes before processing
                             if ((logo != null) && (activityPackage != null)) {
                                 if (DEBUG) Log.i(TAG, "Returning " + Integer.toHexString(logo));
@@ -351,9 +351,9 @@ public class ActionBarView extends AbsActionBarView {
      */
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
-    	if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
-    		super.onConfigurationChanged(newConfig);
-    	}
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
+            super.onConfigurationChanged(newConfig);
+        }
 
         mTitleView = null;
         mSubtitleView = null;
@@ -401,7 +401,7 @@ public class ActionBarView extends AbsActionBarView {
 
     public void initProgress() {
         //TODO mProgressView = new ProgressBar(mContext, null, 0, mProgressStyle);
-    	mProgressView = new ProgressBar(mContext, null, 0);
+        mProgressView = new ProgressBar(mContext, null, 0);
         mProgressView.setId(R.id.abs__progress_horizontal);
         mProgressView.setMax(10000);
         addView(mProgressView);
@@ -410,7 +410,7 @@ public class ActionBarView extends AbsActionBarView {
     public void initIndeterminateProgress() {
         /* TODO mIndeterminateProgressView = new ProgressBar(mContext, null, 0,
                 mIndeterminateProgressStyle);*/
-    	mIndeterminateProgressView = new ProgressBar(mContext, null, 0);
+        mIndeterminateProgressView = new ProgressBar(mContext, null, 0);
         mIndeterminateProgressView.setId(R.id.abs__progress_circular);
         addView(mIndeterminateProgressView);
     }
@@ -684,7 +684,7 @@ public class ActionBarView extends AbsActionBarView {
                     removeView(mCustomNavView);
                 }
             }
-            
+
             requestLayout();
         } else {
             invalidate();
@@ -739,7 +739,7 @@ public class ActionBarView extends AbsActionBarView {
                     removeView(mTabScrollView);
                 }
             }
-            
+
             switch (mode) {
             case ActionBar.NAVIGATION_MODE_LIST:
                 if (mSpinner == null) {
@@ -792,11 +792,11 @@ public class ActionBarView extends AbsActionBarView {
     public View getCustomNavigationView() {
         return mCustomNavView;
     }
-    
+
     public int getNavigationMode() {
         return mNavigationMode;
     }
-    
+
     public int getDisplayOptions() {
         return mDisplayOptions;
     }
@@ -904,7 +904,7 @@ public class ActionBarView extends AbsActionBarView {
             throw new IllegalStateException(getClass().getSimpleName() + " can only be used " +
                     "with android:layout_width=\"match_parent\" (or fill_parent)");
         }
-        
+
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);
         if (heightMode != MeasureSpec.AT_MOST) {
             throw new IllegalStateException(getClass().getSimpleName() + " can only be used " +
@@ -915,7 +915,7 @@ public class ActionBarView extends AbsActionBarView {
 
         int maxHeight = mContentHeight > 0 ?
                 mContentHeight : MeasureSpec.getSize(heightMeasureSpec);
-        
+
         final int verticalPadding = getPaddingTop() + getPaddingBottom();
         final int paddingLeft = getPaddingLeft();
         final int paddingRight = getPaddingRight();
@@ -942,7 +942,7 @@ public class ActionBarView extends AbsActionBarView {
             availableWidth = Math.max(0, availableWidth - homeWidth);
             leftOfCenter = Math.max(0, availableWidth - homeWidth);
         }
-        
+
         if (mMenuView != null && mMenuView.getParent() == this) {
             availableWidth = measureChildView(mMenuView, availableWidth,
                     childSpecHeight, 0);
@@ -1321,9 +1321,9 @@ public class ActionBarView extends AbsActionBarView {
 
         @Override
         public void onPopulateAccessibilityEvent(AccessibilityEvent event) {
-        	if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-        		super.onPopulateAccessibilityEvent(event);
-        	}
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+                super.onPopulateAccessibilityEvent(event);
+            }
             final CharSequence cdesc = getContentDescription();
             if (!TextUtils.isEmpty(cdesc)) {
                 event.getText().add(cdesc);

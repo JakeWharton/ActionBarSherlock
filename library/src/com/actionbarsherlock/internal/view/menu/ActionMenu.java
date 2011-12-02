@@ -35,16 +35,16 @@ import com.actionbarsherlock.view.SubMenu;
  */
 public class ActionMenu implements Menu {
     private Context mContext;
-    
+
     private boolean mIsQwerty;
-    
+
     private ArrayList<ActionMenuItem> mItems;
-    
+
     public ActionMenu(Context context) {
         mContext = context;
         mItems = new ArrayList<ActionMenuItem>();
     }
-    
+
     public Context getContext() {
         return mContext;
     }
@@ -60,7 +60,7 @@ public class ActionMenu implements Menu {
     public MenuItem add(int groupId, int itemId, int order, int titleRes) {
         return add(groupId, itemId, order, mContext.getResources().getString(titleRes));
     }
-    
+
     public MenuItem add(int groupId, int itemId, int order, CharSequence title) {
         ActionMenuItem item = new ActionMenuItem(getContext(),
                 groupId, itemId, 0, order, title);
@@ -125,7 +125,7 @@ public class ActionMenu implements Menu {
 
     public void close() {
     }
-    
+
     private int findItemIndex(int id) {
         final ArrayList<ActionMenuItem> items = mItems;
         final int itemCount = items.size();
@@ -134,7 +134,7 @@ public class ActionMenu implements Menu {
                 return i;
             }
         }
-        
+
         return -1;
     }
 
@@ -149,22 +149,22 @@ public class ActionMenu implements Menu {
     public boolean hasVisibleItems() {
         final ArrayList<ActionMenuItem> items = mItems;
         final int itemCount = items.size();
-        
+
         for (int i = 0; i < itemCount; i++) {
             if (items.get(i).isVisible()) {
                 return true;
             }
         }
-        
+
         return false;
     }
-    
+
     private ActionMenuItem findItemWithShortcut(int keyCode, KeyEvent event) {
         // TODO Make this smarter.
         final boolean qwerty = mIsQwerty;
         final ArrayList<ActionMenuItem> items = mItems;
         final int itemCount = items.size();
-        
+
         for (int i = 0; i < itemCount; i++) {
             ActionMenuItem item = items.get(i);
             final char shortcut = qwerty ? item.getAlphabeticShortcut() :
@@ -194,7 +194,7 @@ public class ActionMenu implements Menu {
         if (item == null) {
             return false;
         }
-        
+
         return item.invoke();
     }
 
@@ -220,7 +220,7 @@ public class ActionMenu implements Menu {
             boolean exclusive) {
         final ArrayList<ActionMenuItem> items = mItems;
         final int itemCount = items.size();
-        
+
         for (int i = 0; i < itemCount; i++) {
             ActionMenuItem item = items.get(i);
             if (item.getGroupId() == group) {
@@ -233,7 +233,7 @@ public class ActionMenu implements Menu {
     public void setGroupEnabled(int group, boolean enabled) {
         final ArrayList<ActionMenuItem> items = mItems;
         final int itemCount = items.size();
-        
+
         for (int i = 0; i < itemCount; i++) {
             ActionMenuItem item = items.get(i);
             if (item.getGroupId() == group) {
@@ -245,7 +245,7 @@ public class ActionMenu implements Menu {
     public void setGroupVisible(int group, boolean visible) {
         final ArrayList<ActionMenuItem> items = mItems;
         final int itemCount = items.size();
-        
+
         for (int i = 0; i < itemCount; i++) {
             ActionMenuItem item = items.get(i);
             if (item.getGroupId() == group) {

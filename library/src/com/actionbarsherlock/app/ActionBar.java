@@ -24,7 +24,6 @@ import android.view.View;
 import android.view.ViewDebug;
 import android.view.ViewGroup;
 import android.view.ViewGroup.MarginLayoutParams;
-import android.view.Window;
 import android.widget.SpinnerAdapter;
 
 /**
@@ -63,14 +62,14 @@ public abstract class ActionBar {
      * a MenuItem with item ID android.R.id.home.
      */
     public static final int NAVIGATION_MODE_STANDARD = 1;
-    
+
     /**
      * List navigation mode. Instead of static title text this mode
      * presents a list menu for navigation within the activity.
      * e.g. this might be presented to the user as a dropdown list.
      */
     public static final int NAVIGATION_MODE_LIST = 2;
-    
+
     /**
      * Tab navigation mode. Instead of static title text this mode
      * presents a series of tabs for navigation within the activity.
@@ -85,7 +84,7 @@ public abstract class ActionBar {
      * @see #setDisplayOptions(int, int)
      */
     public static final int DISPLAY_USE_LOGO = 0x01;
-    
+
     /**
      * Show 'home' elements in this action bar, leaving more space for other
      * navigation elements. This includes logo and icon.
@@ -147,7 +146,7 @@ public abstract class ActionBar {
     /**
      * Set the action bar into custom navigation mode, supplying a view
      * for custom navigation.
-     * 
+     *
      * <p>Custom navigation views appear between the application icon and
      * any action buttons and may use any space available there. Common
      * use cases for custom navigation views might include an auto-suggesting
@@ -156,7 +155,7 @@ public abstract class ActionBar {
      *
      * <p>The display option {@link #DISPLAY_SHOW_CUSTOM} must be set for
      * the custom view to be displayed.</p>
-     * 
+     *
      * @param view Custom navigation view to place in the ActionBar.
      * @param layoutParams How this custom view should layout in the bar.
      *
@@ -330,21 +329,21 @@ public abstract class ActionBar {
     /**
      * Set display options. This changes all display option bits at once. To change
      * a limited subset of display options, see {@link #setDisplayOptions(int, int)}.
-     * 
+     *
      * @param options A combination of the bits defined by the DISPLAY_ constants
      *                defined in ActionBar.
      */
     public abstract void setDisplayOptions(int options);
-    
+
     /**
      * Set selected display options. Only the options specified by mask will be changed.
      * To change all display option bits at once, see {@link #setDisplayOptions(int)}.
-     * 
+     *
      * <p>Example: setDisplayOptions(0, DISPLAY_SHOW_HOME) will disable the
      * {@link #DISPLAY_SHOW_HOME} option.
      * setDisplayOptions(DISPLAY_SHOW_HOME, DISPLAY_SHOW_HOME | DISPLAY_USE_LOGO)
      * will enable {@link #DISPLAY_SHOW_HOME} and disable {@link #DISPLAY_USE_LOGO}.
-     * 
+     *
      * @param options A combination of the bits defined by the DISPLAY_ constants
      *                defined in ActionBar.
      * @param mask A bit mask declaring which display options should be changed.
@@ -419,7 +418,7 @@ public abstract class ActionBar {
     /**
      * Set the ActionBar's background. This will be used for the primary
      * action bar.
-     * 
+     *
      * @param d Background drawable
      * @see #setStackedBackgroundDrawable(Drawable)
      * @see #setSplitBackgroundDrawable(Drawable)
@@ -452,21 +451,21 @@ public abstract class ActionBar {
     /**
      * Returns the current ActionBar title in standard mode.
      * Returns null if {@link #getNavigationMode()} would not return
-     * {@link #NAVIGATION_MODE_STANDARD}. 
+     * {@link #NAVIGATION_MODE_STANDARD}.
      *
      * @return The current ActionBar title or null.
      */
     public abstract CharSequence getTitle();
-    
+
     /**
      * Returns the current ActionBar subtitle in standard mode.
      * Returns null if {@link #getNavigationMode()} would not return
-     * {@link #NAVIGATION_MODE_STANDARD}. 
+     * {@link #NAVIGATION_MODE_STANDARD}.
      *
      * @return The current ActionBar subtitle or null.
      */
     public abstract CharSequence getSubtitle();
-    
+
     /**
      * Returns the current navigation mode. The result will be one of:
      * <ul>
@@ -490,7 +489,7 @@ public abstract class ActionBar {
     public abstract void setNavigationMode(int mode);
 
     /**
-     * @return The current set of display options. 
+     * @return The current set of display options.
      */
     public abstract int getDisplayOptions();
 
@@ -675,7 +674,7 @@ public abstract class ActionBar {
         /**
          * This method is called whenever a navigation item in your action bar
          * is selected.
-         *    
+         *
          * @param itemPosition Position of the item clicked.
          * @param itemId ID of the item clicked.
          * @return True if the event was handled, false otherwise.

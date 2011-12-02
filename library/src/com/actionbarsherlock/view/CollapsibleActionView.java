@@ -16,8 +16,6 @@
 
 package com.actionbarsherlock.view;
 
-import com.actionbarsherlock.view.MenuItem.OnActionExpandListener;
-
 /**
  * When a {@link View} implements this interface it will receive callbacks
  * when expanded or collapsed as an action view alongside the optional,

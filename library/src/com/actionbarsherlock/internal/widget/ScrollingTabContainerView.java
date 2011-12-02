@@ -50,7 +50,7 @@ public class ScrollingTabContainerView extends HorizontalScrollView
     private IcsLinearLayout mTabLayout;
     private Spinner mTabSpinner;
     private boolean mAllowCollapse;
-    
+
     private LayoutInflater mInflater;
 
     int mMaxTabWidth;
@@ -72,7 +72,7 @@ public class ScrollingTabContainerView extends HorizontalScrollView
                 R.attr.actionBarStyle, 0);
         setContentHeight(a.getLayoutDimension(R.styleable.SherlockActionBar_height, 0));
         a.recycle();
-        
+
         mInflater = LayoutInflater.from(context);
 
         mTabLayout = createTabLayout();
@@ -269,10 +269,10 @@ public class ScrollingTabContainerView extends HorizontalScrollView
     }
 
     private TabView createTabView(ActionBar.Tab tab, boolean forAdapter) {
-    	//Workaround for not being able to pass a defStyle on pre-3.0
+        //Workaround for not being able to pass a defStyle on pre-3.0
         final TabView tabView = (TabView)mInflater.inflate(R.layout.abs__action_bar_tab, null);
         tabView.init(this, tab, forAdapter);
-        
+
         if (forAdapter) {
             tabView.setBackgroundDrawable(null);
             tabView.setLayoutParams(new ListView.LayoutParams(ListView.LayoutParams.FILL_PARENT,
@@ -359,7 +359,7 @@ public class ScrollingTabContainerView extends HorizontalScrollView
     }
 
     public static class TabView extends LinearLayout {
-    	private ScrollingTabContainerView mParent;
+        private ScrollingTabContainerView mParent;
         private ActionBar.Tab mTab;
         private TextView mTextView;
         private ImageView mIconView;
@@ -367,11 +367,11 @@ public class ScrollingTabContainerView extends HorizontalScrollView
 
         public TabView(Context context, AttributeSet attrs) {
             //TODO super(context, null, R.attr.actionBarTabStyle);
-        	super(context, attrs);
+            super(context, attrs);
         }
-        
+
         public void init(ScrollingTabContainerView parent, ActionBar.Tab tab, boolean forList) {
-        	mParent = parent;
+            mParent = parent;
             mTab = tab;
 
             if (forList) {

@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2006 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -143,7 +143,7 @@ public class IcsLinearLayout extends ViewGroup {
     public IcsLinearLayout(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
-    
+
     public IcsLinearLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
@@ -322,7 +322,7 @@ public class IcsLinearLayout extends ViewGroup {
      * When true, all children with a weight will be considered having
      * the minimum size of the largest child. If false, all children are
      * measured normally.
-     * 
+     *
      * @return True to measure children with a weight using the minimum
      *         size of the largest child, false otherwise.
      */
@@ -334,9 +334,9 @@ public class IcsLinearLayout extends ViewGroup {
      * When set to true, all children with a weight will be considered having
      * the minimum size of the largest child. If false, all children are
      * measured normally.
-     * 
+     *
      * Disabled by default.
-     * 
+     *
      * @param enabled True to measure children with a weight using the
      *        minimum size of the largest child, false otherwise.
      */
@@ -393,7 +393,7 @@ public class IcsLinearLayout extends ViewGroup {
     /**
      * @param i The index of the child that will be used if this layout is
      *          part of a larger layout that is baseline aligned.
-     * 
+     *
      * @attr ref android.R.styleable#LinearLayout_baselineAlignedChildIndex
      */
     public void setBaselineAlignedChildIndex(int i) {
@@ -493,7 +493,7 @@ public class IcsLinearLayout extends ViewGroup {
         float totalWeight = 0;
 
         final int count = getVirtualChildCount();
-        
+
         final int widthMode = MeasureSpec.getMode(widthMeasureSpec);
         final int heightMode = MeasureSpec.getMode(heightMeasureSpec);
 
@@ -512,7 +512,7 @@ public class IcsLinearLayout extends ViewGroup {
 
         final boolean baselineAligned = mBaselineAligned;
         final boolean useLargestChild = mUseLargestChild;
-        
+
         final boolean isExactly = widthMode == MeasureSpec.EXACTLY;
 
         int largestChildWidth = Integer.MIN_VALUE;
@@ -525,7 +525,7 @@ public class IcsLinearLayout extends ViewGroup {
                 mTotalLength += measureNullChild(i);
                 continue;
             }
-           
+
             if (child.getVisibility() == GONE) {
                 i += getChildrenSkipCount(child, i);
                 continue;
@@ -539,7 +539,7 @@ public class IcsLinearLayout extends ViewGroup {
                     child.getLayoutParams();
 
             totalWeight += lp.weight;
-            
+
             if (widthMode == MeasureSpec.EXACTLY && lp.width == 0 && lp.weight > 0) {
                 // Optimization: don't bother measuring children who are going to use
                 // leftover space. These views will get measured again down below if
@@ -697,16 +697,16 @@ public class IcsLinearLayout extends ViewGroup {
 
         // Add in our padding
         mTotalLength += getPaddingLeft() + getPaddingRight();
-        
+
         int widthSize = mTotalLength;
-        
+
         // Check against our minimum width
         widthSize = Math.max(widthSize, getSuggestedMinimumWidth());
-        
+
         // Reconcile our calculated size with the widthMeasureSpec
         int widthSizeAndState = resolveSizeAndStateInt(widthSize, widthMeasureSpec, 0);
         widthSize = widthSizeAndState & MEASURED_SIZE_MASK;
-        
+
         // Either expand children with weight to take up available space or
         // shrink them if they extend beyond our current bounds
         int delta = widthSize - mTotalLength;
@@ -725,7 +725,7 @@ public class IcsLinearLayout extends ViewGroup {
                 if (child == null || child.getVisibility() == View.GONE) {
                     continue;
                 }
-                
+
                 final IcsLinearLayout.LayoutParams lp =
                         (IcsLinearLayout.LayoutParams) child.getLayoutParams();
 
@@ -850,12 +850,12 @@ public class IcsLinearLayout extends ViewGroup {
         if (!allFillParent && heightMode != MeasureSpec.EXACTLY) {
             maxHeight = alternativeMaxHeight;
         }
-        
+
         maxHeight += getPaddingTop() + getPaddingBottom();
 
         // Check against our minimum height
         maxHeight = Math.max(maxHeight, getSuggestedMinimumHeight());
-        
+
         setMeasuredDimension(widthSizeAndState | (childState&MEASURED_STATE_MASK),
                 resolveSizeAndStateInt(maxHeight, heightMeasureSpec,
                         (childState<<MEASURED_HEIGHT_STATE_SHIFT)));
@@ -941,15 +941,15 @@ public class IcsLinearLayout extends ViewGroup {
                 MeasureSpec.EXACTLY);
         for (int i = 0; i < count; ++i) {
            final View child = getVirtualChildAt(i);
-           if (child.getVisibility() != GONE) { 
+           if (child.getVisibility() != GONE) {
                IcsLinearLayout.LayoutParams lp = (IcsLinearLayout.LayoutParams) child.getLayoutParams();
-               
+
                if (lp.height == LayoutParams.MATCH_PARENT) {
                    // Temporarily force children to reuse their old measured width
                    // FIXME: this may not be right for something like wrapping text?
                    int oldWidth = lp.width;
                    lp.width = child.getMeasuredWidth();
-                   
+
                    // Remeasure with new dimensions
                    measureChildWithMargins(child, widthMeasureSpec, 0, uniformMeasureSpec, 0);
                    lp.width = oldWidth;
@@ -1031,11 +1031,11 @@ public class IcsLinearLayout extends ViewGroup {
 
         int childTop;
         int childLeft;
-        
+
         // Where bottom of child should go
         final int height = getBottom() - getTop();
-        int childBottom = height - getPaddingBottom(); 
-        
+        int childBottom = height - getPaddingBottom();
+
         // Space available for child
         int childSpace = height - paddingTop - getPaddingBottom();
 
@@ -1048,7 +1048,7 @@ public class IcsLinearLayout extends ViewGroup {
 
         final int[] maxAscent = mMaxAscent;
         final int[] maxDescent = mMaxDescent;
-        
+
         childLeft = getPaddingLeft();
 
         int start = 0;
@@ -1076,12 +1076,12 @@ public class IcsLinearLayout extends ViewGroup {
                 if (baselineAligned && lp.height != LayoutParams.MATCH_PARENT) {
                     childBaseline = child.getBaseline();
                 }
-                
+
                 int gravity = lp.gravity;
                 if (gravity < 0) {
                     gravity = minorGravity;
                 }
-                
+
                 switch (gravity & Gravity.VERTICAL_GRAVITY_MASK) {
                     case Gravity.TOP:
                         childTop = paddingTop + lp.topMargin;
@@ -1133,7 +1133,7 @@ public class IcsLinearLayout extends ViewGroup {
         }
     }
 
-    private void setChildFrame(View child, int left, int top, int width, int height) {        
+    private void setChildFrame(View child, int left, int top, int width, int height) {
         child.layout(left, top, left + width, top + height);
     }
 
@@ -1142,9 +1142,9 @@ public class IcsLinearLayout extends ViewGroup {
      * this layout has a VERTICAL orientation, this controls where all the child
      * views are placed if there is extra vertical space. If this layout has a
      * HORIZONTAL orientation, this controls the alignment of the children.
-     * 
+     *
      * @param gravity See {@link android.view.Gravity}
-     * 
+     *
      * @attr ref android.R.styleable#LinearLayout_gravity
      */
     public void setGravity(int gravity) {
@@ -1177,7 +1177,7 @@ public class IcsLinearLayout extends ViewGroup {
             requestLayout();
         }
     }
-    
+
     @Override
     public LayoutParams generateLayoutParams(AttributeSet attrs) {
         return new IcsLinearLayout.LayoutParams(getContext(), attrs);
@@ -1207,10 +1207,10 @@ public class IcsLinearLayout extends ViewGroup {
     protected boolean checkLayoutParams(ViewGroup.LayoutParams p) {
         return p instanceof IcsLinearLayout.LayoutParams;
     }
-    
+
     /**
      * Per-child layout information associated with ViewLinearLayout.
-     * 
+     *
      * @attr ref android.R.styleable#LinearLayout_Layout_layout_weight
      * @attr ref android.R.styleable#LinearLayout_Layout_layout_gravity
      */

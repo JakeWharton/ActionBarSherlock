@@ -27,7 +27,6 @@ import android.view.View;
 import android.view.ViewDebug;
 import android.widget.LinearLayout;
 
-import com.actionbarsherlock.internal.view.menu.MenuView.ItemView;
 import com.actionbarsherlock.view.ActionProvider;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.SubMenu;
@@ -37,7 +36,7 @@ import com.actionbarsherlock.view.SubMenu;
  */
 public final class MenuItemImpl implements MenuItem {
     private static final String TAG = "MenuItemImpl";
-    
+
     private static final int SHOW_AS_ACTION_MASK = SHOW_AS_ACTION_NEVER |
             SHOW_AS_ACTION_IF_ROOM |
             SHOW_AS_ACTION_ALWAYS;
@@ -58,14 +57,14 @@ public final class MenuItemImpl implements MenuItem {
      * The icon's resource ID which is used to get the Drawable when it is
      * needed (if the Drawable isn't already obtained--only one of the two is
      * needed).
-     */ 
+     */
     private int mIconResId = NO_ICON;
-    
+
     /** The menu to which this item belongs */
     private MenuBuilder mMenu;
     /** If this item should launch a sub menu, this is the sub menu to launch */
     private SubMenuBuilder mSubMenu;
-    
+
     private Runnable mItemCallback;
     private MenuItem.OnMenuItemClickListener mClickListener;
 
@@ -90,15 +89,15 @@ public final class MenuItemImpl implements MenuItem {
     /**
      * Current use case is for context menu: Extra information linked to the
      * View that added this item to the context menu.
-     */ 
+     */
     private ContextMenuInfo mMenuInfo;
-    
+
     private static String sPrependShortcutLabel;
     private static String sEnterShortcutLabel;
     private static String sDeleteShortcutLabel;
     private static String sSpaceShortcutLabel;
-    
-    
+
+
     /**
      * Instantiates this menu item.
      *
@@ -115,7 +114,7 @@ public final class MenuItemImpl implements MenuItem {
             CharSequence title, int showAsAction) {
 
         /* TODO if (sPrependShortcutLabel == null) {
-            // This is instantiated from the UI thread, so no chance of sync issues 
+            // This is instantiated from the UI thread, so no chance of sync issues
             sPrependShortcutLabel = menu.getContext().getResources().getString(
                     com.android.internal.R.string.prepend_shortcut_label);
             sEnterShortcutLabel = menu.getContext().getResources().getString(
@@ -125,7 +124,7 @@ public final class MenuItemImpl implements MenuItem {
             sSpaceShortcutLabel = menu.getContext().getResources().getString(
                     com.android.internal.R.string.menu_space_shortcut_label);
         }*/
-        
+
         mMenu = menu;
         mId = id;
         mGroup = group;
@@ -134,10 +133,10 @@ public final class MenuItemImpl implements MenuItem {
         mTitle = title;
         mShowAsAction = showAsAction;
     }
-    
+
     /**
      * Invokes the item by calling various listeners or callbacks.
-     * 
+     *
      * @return true if the invocation was handled, false otherwise
      */
     public boolean invoke() {
@@ -170,7 +169,7 @@ public final class MenuItemImpl implements MenuItem {
 
         return false;
     }
-    
+
     public boolean isEnabled() {
         return (mFlags & ENABLED) != 0;
     }
@@ -183,10 +182,10 @@ public final class MenuItemImpl implements MenuItem {
         }
 
         mMenu.onItemsChanged(false);
-        
+
         return this;
     }
-    
+
     public int getGroupId() {
         return mGroup;
     }
@@ -199,11 +198,11 @@ public final class MenuItemImpl implements MenuItem {
     public int getOrder() {
         return mCategoryOrder;
     }
-    
+
     public int getOrdering() {
-        return mOrdering; 
+        return mOrdering;
     }
-    
+
     public Intent getIntent() {
         return mIntent;
     }
@@ -216,23 +215,23 @@ public final class MenuItemImpl implements MenuItem {
     Runnable getCallback() {
         return mItemCallback;
     }
-    
+
     public MenuItem setCallback(Runnable callback) {
         mItemCallback = callback;
         return this;
     }
-    
+
     public char getAlphabeticShortcut() {
         return mShortcutAlphabeticChar;
     }
 
     public MenuItem setAlphabeticShortcut(char alphaChar) {
         if (mShortcutAlphabeticChar == alphaChar) return this;
-        
+
         mShortcutAlphabeticChar = Character.toLowerCase(alphaChar);
-        
+
         mMenu.onItemsChanged(false);
-        
+
         return this;
     }
 
@@ -242,20 +241,20 @@ public final class MenuItemImpl implements MenuItem {
 
     public MenuItem setNumericShortcut(char numericChar) {
         if (mShortcutNumericChar == numericChar) return this;
-        
+
         mShortcutNumericChar = numericChar;
-        
+
         mMenu.onItemsChanged(false);
-        
+
         return this;
     }
 
     public MenuItem setShortcut(char numericChar, char alphaChar) {
         mShortcutNumericChar = numericChar;
         mShortcutAlphabeticChar = Character.toLowerCase(alphaChar);
-        
+
         mMenu.onItemsChanged(false);
-        
+
         return this;
     }
 
@@ -265,7 +264,7 @@ public final class MenuItemImpl implements MenuItem {
     char getShortcut() {
         return (mMenu.isQwertyMode() ? mShortcutAlphabeticChar : mShortcutNumericChar);
     }
-    
+
     /**
      * @return The label to show for the shortcut. This includes the chording
      *         key (for example 'Menu+a'). Also, any non-human readable
@@ -277,30 +276,30 @@ public final class MenuItemImpl implements MenuItem {
         if (shortcut == 0) {
             return "";
         }
-        
+
         StringBuilder sb = new StringBuilder(sPrependShortcutLabel);
         switch (shortcut) {
-        
+
             case '\n':
                 sb.append(sEnterShortcutLabel);
                 break;
-            
+
             case '\b':
                 sb.append(sDeleteShortcutLabel);
                 break;
-            
+
             case ' ':
                 sb.append(sSpaceShortcutLabel);
                 break;
-            
+
             default:
                 sb.append(shortcut);
                 break;
         }
-        
+
         return sb.toString();
     }
-    
+
     /**
      * @return Whether this menu item should be showing shortcuts (depends on
      *         whether the menu should show shortcuts and whether this item has
@@ -310,7 +309,7 @@ public final class MenuItemImpl implements MenuItem {
         // Show shortcuts if the menu is supposed to show shortcuts AND this item has a shortcut
         return mMenu.isShortcutsVisible() && (getShortcut() != 0);
     }
-    
+
     public SubMenu getSubMenu() {
         return mSubMenu;
     }
@@ -321,10 +320,10 @@ public final class MenuItemImpl implements MenuItem {
 
     void setSubMenu(SubMenuBuilder subMenu) {
         mSubMenu = subMenu;
-        
+
         subMenu.setHeaderTitle(getTitle());
     }
-    
+
     @ViewDebug.CapturedViewProperty
     public CharSequence getTitle() {
         return mTitle;
@@ -332,7 +331,7 @@ public final class MenuItemImpl implements MenuItem {
 
     /**
      * Gets the title for a particular {@link ItemView}
-     * 
+     *
      * @param itemView The ItemView that is receiving the title
      * @return Either the title or condensed title based on what the ItemView
      *         prefers
@@ -347,32 +346,32 @@ public final class MenuItemImpl implements MenuItem {
         mTitle = title;
 
         mMenu.onItemsChanged(false);
-        
+
         if (mSubMenu != null) {
             mSubMenu.setHeaderTitle(title);
         }
-        
+
         return this;
     }
-    
+
     public MenuItem setTitle(int title) {
         return setTitle(mMenu.getContext().getString(title));
     }
-    
+
     public CharSequence getTitleCondensed() {
         return mTitleCondensed != null ? mTitleCondensed : mTitle;
     }
-    
+
     public MenuItem setTitleCondensed(CharSequence title) {
         mTitleCondensed = title;
 
-        // Could use getTitle() in the loop below, but just cache what it would do here 
+        // Could use getTitle() in the loop below, but just cache what it would do here
         if (title == null) {
             title = mTitle;
         }
-        
+
         mMenu.onItemsChanged(false);
-        
+
         return this;
     }
 
@@ -384,28 +383,28 @@ public final class MenuItemImpl implements MenuItem {
         if (mIconResId != NO_ICON) {
             return mMenu.getResources().getDrawable(mIconResId);
         }
-        
+
         return null;
     }
-    
+
     public MenuItem setIcon(Drawable icon) {
         mIconResId = NO_ICON;
         mIconDrawable = icon;
         mMenu.onItemsChanged(false);
-        
+
         return this;
     }
-    
+
     public MenuItem setIcon(int iconResId) {
         mIconDrawable = null;
         mIconResId = iconResId;
 
         // If we have a view, we need to push the Drawable to them
         mMenu.onItemsChanged(false);
-        
+
         return this;
     }
-    
+
     public boolean isCheckable() {
         return (mFlags & CHECKABLE) == CHECKABLE;
     }
@@ -416,7 +415,7 @@ public final class MenuItemImpl implements MenuItem {
         if (oldFlags != mFlags) {
             mMenu.onItemsChanged(false);
         }
-        
+
         return this;
     }
 
@@ -427,7 +426,7 @@ public final class MenuItemImpl implements MenuItem {
     public boolean isExclusiveCheckable() {
         return (mFlags & EXCLUSIVE) != 0;
     }
-    
+
     public boolean isChecked() {
         return (mFlags & CHECKED) == CHECKED;
     }
@@ -440,7 +439,7 @@ public final class MenuItemImpl implements MenuItem {
         } else {
             setCheckedInt(checked);
         }
-        
+
         return this;
     }
 
@@ -451,7 +450,7 @@ public final class MenuItemImpl implements MenuItem {
             mMenu.onItemsChanged(false);
         }
     }
-    
+
     public boolean isVisible() {
         return (mFlags & HIDDEN) == 0;
     }
@@ -461,7 +460,7 @@ public final class MenuItemImpl implements MenuItem {
      * parent menu of a change in this item, so this should only be called from
      * methods that will eventually trigger this change.  If unsure, use {@link #setVisible(boolean)}
      * instead.
-     * 
+     *
      * @param shown Whether to show (true) or hide (false).
      * @return Whether the item's shown state was changed
      */
@@ -470,13 +469,13 @@ public final class MenuItemImpl implements MenuItem {
         mFlags = (mFlags & ~HIDDEN) | (shown ? 0 : HIDDEN);
         return oldFlags != mFlags;
     }
-    
+
     public MenuItem setVisible(boolean shown) {
         // Try to set the shown state to the given state. If the shown state was changed
         // (i.e. the previous state isn't the same as given state), notify the parent menu that
         // the shown state has changed for this item
         if (setVisibleInt(shown)) mMenu.onItemVisibleChanged(this);
-        
+
         return this;
     }
 
@@ -484,7 +483,7 @@ public final class MenuItemImpl implements MenuItem {
         mClickListener = clickListener;
         return this;
     }
-    
+
     @Override
     public String toString() {
         return mTitle.toString();
@@ -493,7 +492,7 @@ public final class MenuItemImpl implements MenuItem {
     void setMenuInfo(ContextMenuInfo menuInfo) {
         mMenuInfo = menuInfo;
     }
-    
+
     public ContextMenuInfo getMenuInfo() {
         return mMenuInfo;
     }
@@ -508,15 +507,15 @@ public final class MenuItemImpl implements MenuItem {
     public boolean shouldShowIcon() {
         return mMenu.getOptionalIconsVisible();
     }
-    
+
     public boolean isActionButton() {
         return (mFlags & IS_ACTION) == IS_ACTION;
     }
-    
+
     public boolean requestsActionButton() {
         return (mShowAsAction & SHOW_AS_ACTION_IF_ROOM) == SHOW_AS_ACTION_IF_ROOM;
     }
-    
+
     public boolean requiresActionButton() {
         return (mShowAsAction & SHOW_AS_ACTION_ALWAYS) == SHOW_AS_ACTION_ALWAYS;
     }

@@ -41,76 +41,76 @@ import com.actionbarsherlock.view.MenuItem;
 /**
  * Helper class which manages interaction with the custom ICS action bar
  * implementation.
- * 
+ *
  * @author Jake Wharton <jakewharton@gmail.com>
  * @version 4.0.0
  */
 public final class ActionBarSherlock {
-	private static final String TAG = "ActionBarSherlock";
-	private static final boolean DEBUG = true;
+    private static final String TAG = "ActionBarSherlock";
+    private static final boolean DEBUG = true;
 
     protected static final int DEFAULT_FEATURES = (1 << Window.FEATURE_ACTION_BAR);
-    
-    
-    
+
+
+
     public interface OnCreateOptionsMenuListener {
-    	public boolean onCreateOptionsMenu(Menu menu);
+        public boolean onCreateOptionsMenu(Menu menu);
     }
     public interface OnOptionsItemSelectedListener {
-    	public boolean onOptionsItemSelected(MenuItem item);
+        public boolean onOptionsItemSelected(MenuItem item);
     }
     public interface OnPrepareOptionsMenuListener {
-    	public boolean onPrepareOptionsMenu(Menu menu);
+        public boolean onPrepareOptionsMenu(Menu menu);
     }
     public interface OnActionModeFinishedListener {
-    	public void onActionModeFinished(ActionMode mode);
+        public void onActionModeFinished(ActionMode mode);
     }
     public interface OnActionModeStartedListener {
-    	public void onActionModeStarted(ActionMode mode);
+        public void onActionModeStarted(ActionMode mode);
     }
-    
-    
-	
+
+
+
     /**
      * Wrap an existing activity with a custom action bar implementation.
-     * 
+     *
      * @param activity Activity to wrap.
      * @return Instance to interact with the action bar.
      */
     public static ActionBarSherlock wrap(Activity activity) {
         return new ActionBarSherlock(activity, false);
     }
-    
+
     /**
      * Act as a delegate for another class which is providing the services
      * of an action bar along with its normal responsibility.
-     * 
+     *
      * @param activity Owning activity.
      * @return Instance to interact with the action bar.
      */
     public static ActionBarSherlock asDelegateFor(Activity activity) {
-    	return new ActionBarSherlock(activity, true);
+        return new ActionBarSherlock(activity, true);
     }
-    
-    
-    
+
+
+
     private final Activity mActivity;
     private final boolean mIsDelegate;
-    
+
     private boolean mHasMenuKeyLoaded = false;
     private boolean mHasMenuKey;
-    
+
     private ViewGroup mDecor;
     private ViewGroup mContentParent;
-    
+
     private ActionBarImpl mActionBar;
     private ActionBarView mActionBarView;
     private int mFeatures = DEFAULT_FEATURES;
     private int mUiOptions = 0;
-    
+
     private ActionMode mActionMode;
     private ActionBarContextView mActionModeView;
-    
+
     private boolean mIsTitleReady = false;
 
     private MenuInflater mMenuInflater;
@@ -118,70 +118,70 @@ public final class ActionBarSherlock {
     private HashMap<android.view.MenuItem, MenuItemImpl> mNativeItemMap;
     private boolean mLastCreateResult;
     private boolean mLastPrepareResult;
-    
-    
+
+
     /** Action bar menu-related callbacks. */
     private final MenuPresenter.Callback mMenuPresenterCallback = new MenuPresenter.Callback() {
-		@Override
-		public boolean onOpenSubMenu(MenuBuilder subMenu) {
-			// TODO Auto-generated method stub
-			return false;
-		}
-		
-		@Override
-		public void onCloseMenu(MenuBuilder menu, boolean allMenusAreClosing) {
-			// TODO Auto-generated method stub
-		}
-	};
-	
-	/** Menu callbacks triggered with actions on our items. */
-	private final MenuBuilder.Callback mMenuBuilderCallback = new MenuBuilder.Callback() {
-		@Override
-		public void onMenuModeChange(MenuBuilder menu) {
-			// TODO Auto-generated method stub
-		}
-		
-		@Override
-		public boolean onMenuItemSelected(MenuBuilder menu, MenuItem item) {
-			return dispatchOptionsItemSelected(item);
-		}
-	};
-	
-	/** Native menu item callback which proxies to our callback. */
-	private final android.view.MenuItem.OnMenuItemClickListener mNativeItemListener = new android.view.MenuItem.OnMenuItemClickListener() {
-		@Override
-		public boolean onMenuItemClick(android.view.MenuItem item) {
-		    if (DEBUG) Log.d(TAG, "[mNativeItemListener.onMenuItemClick] item: " + item);
-		    
-			final MenuItemImpl sherlockItem = mNativeItemMap.get(item);
-			if (sherlockItem != null) {
-				sherlockItem.invoke();
-			} else {
-				Log.e(TAG, "Options item \"" + item + "\" not found in mapping");
-			}
-			
-			return true; //Do not allow continuation of native handling
-		}
-	};
-	
-	/** Window callback for the home action item. */
-	private final com.actionbarsherlock.view.Window.Callback mWindowCallback = new com.actionbarsherlock.view.Window.Callback() {
-		@Override
-		public boolean onMenuItemSelected(int featureId, MenuItem item) {
-			return dispatchOptionsItemSelected(item);
-		}
-	};
-    
-	
-    
+        @Override
+        public boolean onOpenSubMenu(MenuBuilder subMenu) {
+            // TODO Auto-generated method stub
+            return false;
+        }
+
+        @Override
+        public void onCloseMenu(MenuBuilder menu, boolean allMenusAreClosing) {
+            // TODO Auto-generated method stub
+        }
+    };
+
+    /** Menu callbacks triggered with actions on our items. */
+    private final MenuBuilder.Callback mMenuBuilderCallback = new MenuBuilder.Callback() {
+        @Override
+        public void onMenuModeChange(MenuBuilder menu) {
+            // TODO Auto-generated method stub
+        }
+
+        @Override
+        public boolean onMenuItemSelected(MenuBuilder menu, MenuItem item) {
+            return dispatchOptionsItemSelected(item);
+        }
+    };
+
+    /** Native menu item callback which proxies to our callback. */
+    private final android.view.MenuItem.OnMenuItemClickListener mNativeItemListener = new android.view.MenuItem.OnMenuItemClickListener() {
+        @Override
+        public boolean onMenuItemClick(android.view.MenuItem item) {
+            if (DEBUG) Log.d(TAG, "[mNativeItemListener.onMenuItemClick] item: " + item);
+
+            final MenuItemImpl sherlockItem = mNativeItemMap.get(item);
+            if (sherlockItem != null) {
+                sherlockItem.invoke();
+            } else {
+                Log.e(TAG, "Options item \"" + item + "\" not found in mapping");
+            }
+
+            return true; //Do not allow continuation of native handling
+        }
+    };
+
+    /** Window callback for the home action item. */
+    private final com.actionbarsherlock.view.Window.Callback mWindowCallback = new com.actionbarsherlock.view.Window.Callback() {
+        @Override
+        public boolean onMenuItemSelected(int featureId, MenuItem item) {
+            return dispatchOptionsItemSelected(item);
+        }
+    };
+
+
+
     private ActionBarSherlock(Activity activity, boolean isDelegateOnly) {
-    	if (DEBUG) Log.d(TAG, "[<ctor>] activity: " + activity + ", isDelegateOnly: " + isDelegateOnly);
-    	
+        if (DEBUG) Log.d(TAG, "[<ctor>] activity: " + activity + ", isDelegateOnly: " + isDelegateOnly);
+
         mActivity = activity;
         mIsDelegate = isDelegateOnly;
     }
-    
-    
+
+
     private boolean hasMenuKey() {
         if (!mHasMenuKeyLoaded) {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
@@ -193,37 +193,37 @@ public final class ActionBarSherlock {
         }
         return mHasMenuKey;
     }
-    
+
     /**
      * Get the current action bar instance.
-     * 
+     *
      * @return Action bar instance.
      */
     public ActionBar getActionBar() {
-    	if (DEBUG) Log.d(TAG, "[getActionBar]");
-    	
-    	initActionBar();
+        if (DEBUG) Log.d(TAG, "[getActionBar]");
+
+        initActionBar();
         return mActionBar;
     }
-    
+
     private void initActionBar() {
-    	if (DEBUG) Log.d(TAG, "[initActionBar]");
-    	
+        if (DEBUG) Log.d(TAG, "[initActionBar]");
+
         // Initializing the window decor can change window feature flags.
         // Make sure that we have the correct set before performing the test below.
-    	if (mDecor == null) {
-    		installDecor();
-    	}
+        if (mDecor == null) {
+            installDecor();
+        }
 
         if ((mActionBar != null) || !hasFeature(Window.FEATURE_ACTION_BAR) || mActivity.isChild()) {
             return;
         }
-        
+
         mActionBar = new ActionBarImpl(mActivity);
-        
+
         if (!mIsDelegate) {
-        	//We may never get another chance to set the title
-        	mActionBar.setTitle(mActivity.getTitle());
+            //We may never get another chance to set the title
+            mActionBar.setTitle(mActivity.getTitle());
         }
     }
 
@@ -231,231 +231,231 @@ public final class ActionBarSherlock {
     ///////////////////////////////////////////////////////////////////////////
     // Lifecycle and interaction callbacks
     ///////////////////////////////////////////////////////////////////////////
-    
+
     public void dispatchConfigurationChanged(Configuration newConfig) {
-    	if (DEBUG) Log.d(TAG, "[dispatchConfigurationChanged] newConfig: " + newConfig);
-    	
-    	if (mActionBar != null) {
-    		mActionBar.onConfigurationChanged(newConfig);
-    	}
+        if (DEBUG) Log.d(TAG, "[dispatchConfigurationChanged] newConfig: " + newConfig);
+
+        if (mActionBar != null) {
+            mActionBar.onConfigurationChanged(newConfig);
+        }
     }
-    
+
     public void dispatchPostResume() {
-    	if (DEBUG) Log.d(TAG, "[dispatchPostResume]");
-    	
-    	if (mActionBar != null) {
-    		mActionBar.setShowHideAnimationEnabled(true);
-    	}
+        if (DEBUG) Log.d(TAG, "[dispatchPostResume]");
+
+        if (mActionBar != null) {
+            mActionBar.setShowHideAnimationEnabled(true);
+        }
     }
-    
+
     public void dispatchStop() {
-    	if (DEBUG) Log.d(TAG, "[dispatchStop]");
-    	
-    	if (mActionBar != null) {
-    		mActionBar.setShowHideAnimationEnabled(false);
-    	}
+        if (DEBUG) Log.d(TAG, "[dispatchStop]");
+
+        if (mActionBar != null) {
+            mActionBar.setShowHideAnimationEnabled(false);
+        }
     }
-    
+
     public void dispatchInvalidateOptionsMenu() {
-    	if (DEBUG) Log.d(TAG, "[dispatchInvalidateOptionsMenu]");
-    	
-    	if (mMenu == null) {
-    	    Context context = mActivity;
-    	    if (mActionBar != null) {
-    	        TypedValue outValue = new TypedValue();
-    	        mActivity.getTheme().resolveAttribute(R.attr.actionBarWidgetTheme, outValue, true);
-    	        if (outValue.resourceId != 0) {
-    	            //We are unable to test if this is the same as our current theme
-    	            //so we just wrap it and hope that if the attribute was specified
-    	            //then the user is intentionally specifying an alternate theme.
-    	            context = new ContextThemeWrapper(context, outValue.resourceId);
-    	        }
-    	    }
-    		mMenu = new MenuBuilder(context);
-    		mMenu.setCallback(mMenuBuilderCallback);
-    	}
-    	
-    	mMenu.stopDispatchingItemsChanged();
-    	mMenu.clear();
-    	
-    	if (!dispatchCreateOptionsMenu()) {
-    		if (mActionBar != null) {
-    			mActionBar.setMenu(null, mMenuPresenterCallback);
-    		}
-    		return;
-    	}
-    	
-    	if (!dispatchPrepareOptionsMenu()) {
-    		if (mActionBar != null) {
-    			mActionBar.setMenu(null, mMenuPresenterCallback);
-    		}
-    		mMenu.startDispatchingItemsChanged();
-    		return;
-    	}
-    	
-    	//TODO figure out KeyEvent? See PhoneWindow#preparePanel
-    	KeyCharacterMap kmap = KeyCharacterMap.load(KeyCharacterMap.VIRTUAL_KEYBOARD);
-    	mMenu.setQwertyMode(kmap.getKeyboardType() != KeyCharacterMap.NUMERIC);
-    	mMenu.startDispatchingItemsChanged();
-    	
-    	mActionBar.setMenu(mMenu, mMenuPresenterCallback);
+        if (DEBUG) Log.d(TAG, "[dispatchInvalidateOptionsMenu]");
+
+        if (mMenu == null) {
+            Context context = mActivity;
+            if (mActionBar != null) {
+                TypedValue outValue = new TypedValue();
+                mActivity.getTheme().resolveAttribute(R.attr.actionBarWidgetTheme, outValue, true);
+                if (outValue.resourceId != 0) {
+                    //We are unable to test if this is the same as our current theme
+                    //so we just wrap it and hope that if the attribute was specified
+                    //then the user is intentionally specifying an alternate theme.
+                    context = new ContextThemeWrapper(context, outValue.resourceId);
+                }
+            }
+            mMenu = new MenuBuilder(context);
+            mMenu.setCallback(mMenuBuilderCallback);
+        }
+
+        mMenu.stopDispatchingItemsChanged();
+        mMenu.clear();
+
+        if (!dispatchCreateOptionsMenu()) {
+            if (mActionBar != null) {
+                mActionBar.setMenu(null, mMenuPresenterCallback);
+            }
+            return;
+        }
+
+        if (!dispatchPrepareOptionsMenu()) {
+            if (mActionBar != null) {
+                mActionBar.setMenu(null, mMenuPresenterCallback);
+            }
+            mMenu.startDispatchingItemsChanged();
+            return;
+        }
+
+        //TODO figure out KeyEvent? See PhoneWindow#preparePanel
+        KeyCharacterMap kmap = KeyCharacterMap.load(KeyCharacterMap.VIRTUAL_KEYBOARD);
+        mMenu.setQwertyMode(kmap.getKeyboardType() != KeyCharacterMap.NUMERIC);
+        mMenu.startDispatchingItemsChanged();
+
+        mActionBar.setMenu(mMenu, mMenuPresenterCallback);
     }
-    
+
     public boolean dispatchOpenOptionsMenu() {
-    	if (DEBUG) Log.d(TAG, "[dispatchOpenOptionsMenu]");
-    	
-    	if (hasMenuKey()) {
-    		return false;
-    	}
-    	
-    	return mActionBarView.showOverflowMenu();
+        if (DEBUG) Log.d(TAG, "[dispatchOpenOptionsMenu]");
+
+        if (hasMenuKey()) {
+            return false;
+        }
+
+        return mActionBarView.showOverflowMenu();
     }
-    
+
     public boolean dispatchCloseOptionsMenu() {
-    	if (DEBUG) Log.d(TAG, "[dispatchCloseOptionsMenu]");
-    	
-    	if (hasMenuKey()) {
-    		return false;
-    	}
-    	
-    	return mActionBarView.hideOverflowMenu();
+        if (DEBUG) Log.d(TAG, "[dispatchCloseOptionsMenu]");
+
+        if (hasMenuKey()) {
+            return false;
+        }
+
+        return mActionBarView.hideOverflowMenu();
     }
-    
+
     public void dispatchPostCreate(Bundle savedInstanceState) {
-    	if (DEBUG) Log.d(TAG, "[dispatchOnPostCreate]");
-    	
-    	if (mIsDelegate) {
-    		mIsTitleReady = true;
-    	}
+        if (DEBUG) Log.d(TAG, "[dispatchOnPostCreate]");
+
+        if (mIsDelegate) {
+            mIsTitleReady = true;
+        }
     }
-    
+
     public void dispatchTitleChanged(CharSequence title, int color) {
-    	if (DEBUG) Log.d(TAG, "[dispatchTitleChanged] title: " + title + ", color: " + color);
-    	
-    	if (mIsDelegate && !mIsTitleReady) {
-    		return;
-    	}
-    	if (mActionBar != null) {
-    		mActionBar.setTitle(title);
-    	}
+        if (DEBUG) Log.d(TAG, "[dispatchTitleChanged] title: " + title + ", color: " + color);
+
+        if (mIsDelegate && !mIsTitleReady) {
+            return;
+        }
+        if (mActionBar != null) {
+            mActionBar.setTitle(title);
+        }
     }
-    
+
     private boolean dispatchCreateOptionsMenu() {
-    	if (DEBUG) Log.d(TAG, "[dispatchCreateOptionsMenu]");
-    	
-    	mLastCreateResult = false;
-    	if (mActivity instanceof OnCreateOptionsMenuListener) {
-    		OnCreateOptionsMenuListener listener = (OnCreateOptionsMenuListener)mActivity;
-    		mLastCreateResult = listener.onCreateOptionsMenu(mMenu);
-    	}
-    	return mLastCreateResult;
+        if (DEBUG) Log.d(TAG, "[dispatchCreateOptionsMenu]");
+
+        mLastCreateResult = false;
+        if (mActivity instanceof OnCreateOptionsMenuListener) {
+            OnCreateOptionsMenuListener listener = (OnCreateOptionsMenuListener)mActivity;
+            mLastCreateResult = listener.onCreateOptionsMenu(mMenu);
+        }
+        return mLastCreateResult;
     }
-    
+
     private boolean dispatchPrepareOptionsMenu() {
-    	if (DEBUG) Log.d(TAG, "[dispatchPrepareOptionsMenu]");
-    	
-    	mLastPrepareResult = false;
-    	if (mActivity instanceof OnPrepareOptionsMenuListener) {
-    		OnPrepareOptionsMenuListener listener = (OnPrepareOptionsMenuListener)mActivity;
-    		mLastPrepareResult = listener.onPrepareOptionsMenu(mMenu);
-    	}
-    	return mLastPrepareResult;
+        if (DEBUG) Log.d(TAG, "[dispatchPrepareOptionsMenu]");
+
+        mLastPrepareResult = false;
+        if (mActivity instanceof OnPrepareOptionsMenuListener) {
+            OnPrepareOptionsMenuListener listener = (OnPrepareOptionsMenuListener)mActivity;
+            mLastPrepareResult = listener.onPrepareOptionsMenu(mMenu);
+        }
+        return mLastPrepareResult;
     }
-    
+
     public boolean dispatchPrepareOptionsMenu(android.view.Menu menu) {
-    	if (DEBUG) Log.d(TAG, "[dispatchPrepareOptionsMenu] android.view.Menu: " + menu);
-    	
-    	if (!hasMenuKey()) {
-    		return true;
-    	}
-    	
-    	if (!dispatchPrepareOptionsMenu()) {
-    	    return false;
-    	}
-    	
-    	final ArrayList<MenuItemImpl> nonActionItems = mMenu.getNonActionItems();
-    	if (nonActionItems == null || nonActionItems.size() == 0) {
-    	    return false;
-    	}
-    	
-    	if (mNativeItemMap == null) {
-    	    mNativeItemMap = new HashMap<android.view.MenuItem, MenuItemImpl>();
-    	} else {
-    	    mNativeItemMap.clear();
-    	}
-    	
-    	menu.clear();
-    	boolean visible = false;
-    	for (MenuItemImpl nonActionItem : nonActionItems) {
-    	    if (nonActionItem.isVisible()) {
-    	        visible = true;
-    	        //TODO move this binding "inward" to internal so we have access to more raw data
-    	        android.view.MenuItem nativeItem = menu.add(nonActionItem.getGroupId(), nonActionItem.getItemId(),
-    	                nonActionItem.getOrder(), nonActionItem.getTitle());
-    	        nativeItem.setIcon(nonActionItem.getIcon());
-    	        nativeItem.setOnMenuItemClickListener(mNativeItemListener);
-    	        
-    	        mNativeItemMap.put(nativeItem, nonActionItem);
-    	    }
-    	}
-    	
-    	return visible;
+        if (DEBUG) Log.d(TAG, "[dispatchPrepareOptionsMenu] android.view.Menu: " + menu);
+
+        if (!hasMenuKey()) {
+            return true;
+        }
+
+        if (!dispatchPrepareOptionsMenu()) {
+            return false;
+        }
+
+        final ArrayList<MenuItemImpl> nonActionItems = mMenu.getNonActionItems();
+        if (nonActionItems == null || nonActionItems.size() == 0) {
+            return false;
+        }
+
+        if (mNativeItemMap == null) {
+            mNativeItemMap = new HashMap<android.view.MenuItem, MenuItemImpl>();
+        } else {
+            mNativeItemMap.clear();
+        }
+
+        menu.clear();
+        boolean visible = false;
+        for (MenuItemImpl nonActionItem : nonActionItems) {
+            if (nonActionItem.isVisible()) {
+                visible = true;
+                //TODO move this binding "inward" to internal so we have access to more raw data
+                android.view.MenuItem nativeItem = menu.add(nonActionItem.getGroupId(), nonActionItem.getItemId(),
+                        nonActionItem.getOrder(), nonActionItem.getTitle());
+                nativeItem.setIcon(nonActionItem.getIcon());
+                nativeItem.setOnMenuItemClickListener(mNativeItemListener);
+
+                mNativeItemMap.put(nativeItem, nonActionItem);
+            }
+        }
+
+        return visible;
     }
-    
+
     private boolean dispatchOptionsItemSelected(MenuItem item) {
-    	if (DEBUG) Log.d(TAG, "[dispatchOptionsItemSelected] item: " + item);
-    	
-    	if (mActivity instanceof OnOptionsItemSelectedListener) {
-    		OnOptionsItemSelectedListener listener = (OnOptionsItemSelectedListener)mActivity;
-    		return listener.onOptionsItemSelected(item);
-    	}
-    	return false;
+        if (DEBUG) Log.d(TAG, "[dispatchOptionsItemSelected] item: " + item);
+
+        if (mActivity instanceof OnOptionsItemSelectedListener) {
+            OnOptionsItemSelectedListener listener = (OnOptionsItemSelectedListener)mActivity;
+            return listener.onOptionsItemSelected(item);
+        }
+        return false;
     }
-    
+
     public boolean dispatchMenuOpened(int featureId, android.view.Menu menu) {
-    	if (DEBUG) Log.d(TAG, "[dispatchMenuOpened] featureId: " + featureId + ", menu: " + menu);
-    	
-    	if (featureId == Window.FEATURE_ACTION_BAR || featureId == Window.FEATURE_OPTIONS_PANEL) {
-    		if (mActionBar != null) {
-    			mActionBar.dispatchMenuVisibilityChanged(true);
-    		}
-    		return true;
-    	}
-    	
-    	return false;
+        if (DEBUG) Log.d(TAG, "[dispatchMenuOpened] featureId: " + featureId + ", menu: " + menu);
+
+        if (featureId == Window.FEATURE_ACTION_BAR || featureId == Window.FEATURE_OPTIONS_PANEL) {
+            if (mActionBar != null) {
+                mActionBar.dispatchMenuVisibilityChanged(true);
+            }
+            return true;
+        }
+
+        return false;
     }
-    
+
     public void dispatchPanelClosed(int featureId, android.view.Menu menu){
-    	if (DEBUG) Log.d(TAG, "[dispatchPanelClosed] featureId: " + featureId + ", menu: " + menu);
-    	
-    	if (featureId == Window.FEATURE_ACTION_BAR || featureId == Window.FEATURE_OPTIONS_PANEL) {
-    		if (mActionBar != null) {
-    			mActionBar.dispatchMenuVisibilityChanged(false);
-    		}
-    	}
+        if (DEBUG) Log.d(TAG, "[dispatchPanelClosed] featureId: " + featureId + ", menu: " + menu);
+
+        if (featureId == Window.FEATURE_ACTION_BAR || featureId == Window.FEATURE_OPTIONS_PANEL) {
+            if (mActionBar != null) {
+                mActionBar.dispatchMenuVisibilityChanged(false);
+            }
+        }
     }
-    
-    
-    
+
+
+
     public int getFeatures() {
-    	if (DEBUG) Log.d(TAG, "[getFeatures]");
-    	
+        if (DEBUG) Log.d(TAG, "[getFeatures]");
+
         return mFeatures;
     }
-    
+
     public boolean hasFeature(int featureId) {
-    	if (DEBUG) Log.d(TAG, "[hasFeature] featureId: " + featureId);
-    	
+        if (DEBUG) Log.d(TAG, "[hasFeature] featureId: " + featureId);
+
         return (mFeatures & (1 << featureId)) != 0;
     }
-    
+
     public boolean requestFeature(int featureId) {
-    	if (DEBUG) Log.d(TAG, "[requestFeature] featureId: " + featureId);
-    	
+        if (DEBUG) Log.d(TAG, "[requestFeature] featureId: " + featureId);
+
         if (mContentParent != null) {
             throw new AndroidRuntimeException("requestFeature() must be called before adding content");
         }
-        
+
         switch (featureId) {
             case Window.FEATURE_ACTION_BAR:
             case Window.FEATURE_ACTION_BAR_OVERLAY:
@@ -465,154 +465,154 @@ public final class ActionBarSherlock {
             case Window.FEATURE_PROGRESS:
                 mFeatures |= (1 << featureId);
                 return true;
-                
+
             default:
                 return false;
         }
     }
 
     public void setUiOptions(int uiOptions) {
-    	if (DEBUG) Log.d(TAG, "[setUiOptions] uiOptions: " + uiOptions);
-    	
+        if (DEBUG) Log.d(TAG, "[setUiOptions] uiOptions: " + uiOptions);
+
         mUiOptions = uiOptions;
     }
     public void setUiOptions(int uiOptions, int mask) {
-    	if (DEBUG) Log.d(TAG, "[setUiOptions] uiOptions: " + uiOptions + ", mask: " + mask);
-    	
+        if (DEBUG) Log.d(TAG, "[setUiOptions] uiOptions: " + uiOptions + ", mask: " + mask);
+
         mUiOptions = (mUiOptions & ~mask) | (uiOptions & mask);
     }
-    
+
     /**
      * Set the content of the activity inside the action bar.
-     * 
+     *
      * @param layoutResId Layout resource ID.
      */
     public void setContentView(int layoutResId) {
-    	if (DEBUG) Log.d(TAG, "[setContentView] layoutResId: " + layoutResId);
-    	
+        if (DEBUG) Log.d(TAG, "[setContentView] layoutResId: " + layoutResId);
+
         if (mContentParent == null) {
             installDecor();
         } else {
             mContentParent.removeAllViews();
         }
         mActivity.getLayoutInflater().inflate(layoutResId, mContentParent);
-        
+
         android.view.Window.Callback callback = mActivity.getWindow().getCallback();
         if (callback != null) {
-        	callback.onContentChanged();
+            callback.onContentChanged();
         }
-        
-    	initActionBar();
+
+        initActionBar();
     }
-    
+
     /**
      * Set the content of the activity inside the action bar.
-     * 
+     *
      * @param view The desired content to display.
      */
     public void setContentView(View view) {
-    	if (DEBUG) Log.d(TAG, "[setContentView] view: " + view);
-    	
-    	setContentView(view, new ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT));
+        if (DEBUG) Log.d(TAG, "[setContentView] view: " + view);
+
+        setContentView(view, new ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT));
     }
-    
+
     /**
      * Set the content of the activity inside the action bar.
-     * 
+     *
      * @param view The desired content to display.
      * @param params Layout paramaters to apply to the view.
      */
     public void setContentView(View view, ViewGroup.LayoutParams params) {
-    	if (DEBUG) Log.d(TAG, "[setContentView] view: " + view + ", params: " + params);
-    	
+        if (DEBUG) Log.d(TAG, "[setContentView] view: " + view + ", params: " + params);
+
         if (mContentParent == null) {
             installDecor();
         } else {
             mContentParent.removeAllViews();
         }
         mContentParent.addView(view, params);
-        
+
         android.view.Window.Callback callback = mActivity.getWindow().getCallback();
         if (callback != null) {
-        	callback.onContentChanged();
+            callback.onContentChanged();
         }
-        
-    	initActionBar();
+
+        initActionBar();
     }
-    
+
     public void addContentView(View view, ViewGroup.LayoutParams params) {
-    	if (DEBUG) Log.d(TAG, "[addContentView] view: " + view + ", params: " + params);
-    	
+        if (DEBUG) Log.d(TAG, "[addContentView] view: " + view + ", params: " + params);
+
         if (mContentParent == null) {
             installDecor();
         }
         mContentParent.addView(view, params);
-        
-    	initActionBar();
+
+        initActionBar();
     }
-    
+
     private void installDecor() {
-    	if (DEBUG) Log.d(TAG, "[installDecor]");
-    	
+        if (DEBUG) Log.d(TAG, "[installDecor]");
+
         if (mDecor == null) {
             mDecor = (ViewGroup)mActivity.getWindow().getDecorView().findViewById(android.R.id.content);
         }
         if (mContentParent == null) {
-        	mContentParent = generateLayout();
-        	mActionBarView = (ActionBarView)mDecor.findViewById(R.id.abs__action_bar);
-        	if (mActionBarView != null) {
-        		mActionBarView.setWindowCallback(mWindowCallback);
-        		if (mActionBarView.getTitle() == null) {
-        			mActionBarView.setWindowTitle(mActivity.getTitle());
-        		}
-        		if (hasFeature(Window.FEATURE_PROGRESS)) {
-        			mActionBarView.initProgress();
-        		}
-        		if (hasFeature(Window.FEATURE_INDETERMINATE_PROGRESS)) {
-        			mActionBarView.initIndeterminateProgress();
-        		}
-        		
-        		boolean splitActionBar = false;
-        		final boolean splitWhenNarrow = (mUiOptions & ActivityInfo.UIOPTION_SPLIT_ACTION_BAR_WHEN_NARROW) != 0;
-        		if (splitWhenNarrow) {
-        			splitActionBar = mActivity.getResources().getBoolean(R.bool.abs__split_action_bar_is_narrow);
-        		} else {
-        			splitActionBar = mActivity.getTheme()
-        					.obtainStyledAttributes(R.styleable.SherlockTheme)
-        					.getBoolean(R.styleable.SherlockTheme_windowSplitActionBar, false);
-        		}
-        		final ActionBarContainer splitView = (ActionBarContainer)mDecor.findViewById(R.id.abs__split_action_bar);
-        		if (splitView != null) {
-        			mActionBarView.setSplitView(splitView);
-        			mActionBarView.setSplitActionBar(splitActionBar);
-        			mActionBarView.setSplitWhenNarrow(splitWhenNarrow);
-        			
-        			mActionModeView = (ActionBarContextView)mDecor.findViewById(R.id.abs__action_context_bar);
-        			mActionModeView.setSplitView(splitView);
-        			mActionModeView.setSplitActionBar(splitActionBar);
-        			mActionModeView.setSplitWhenNarrow(splitWhenNarrow);
-        		} else if (splitActionBar) {
-        			Log.e(TAG, "Requested split action bar with incompatible window decor! Ignoring request.");
-        		}
+            mContentParent = generateLayout();
+            mActionBarView = (ActionBarView)mDecor.findViewById(R.id.abs__action_bar);
+            if (mActionBarView != null) {
+                mActionBarView.setWindowCallback(mWindowCallback);
+                if (mActionBarView.getTitle() == null) {
+                    mActionBarView.setWindowTitle(mActivity.getTitle());
+                }
+                if (hasFeature(Window.FEATURE_PROGRESS)) {
+                    mActionBarView.initProgress();
+                }
+                if (hasFeature(Window.FEATURE_INDETERMINATE_PROGRESS)) {
+                    mActionBarView.initIndeterminateProgress();
+                }
+
+                boolean splitActionBar = false;
+                final boolean splitWhenNarrow = (mUiOptions & ActivityInfo.UIOPTION_SPLIT_ACTION_BAR_WHEN_NARROW) != 0;
+                if (splitWhenNarrow) {
+                    splitActionBar = mActivity.getResources().getBoolean(R.bool.abs__split_action_bar_is_narrow);
+                } else {
+                    splitActionBar = mActivity.getTheme()
+                            .obtainStyledAttributes(R.styleable.SherlockTheme)
+                            .getBoolean(R.styleable.SherlockTheme_windowSplitActionBar, false);
+                }
+                final ActionBarContainer splitView = (ActionBarContainer)mDecor.findViewById(R.id.abs__split_action_bar);
+                if (splitView != null) {
+                    mActionBarView.setSplitView(splitView);
+                    mActionBarView.setSplitActionBar(splitActionBar);
+                    mActionBarView.setSplitWhenNarrow(splitWhenNarrow);
+
+                    mActionModeView = (ActionBarContextView)mDecor.findViewById(R.id.abs__action_context_bar);
+                    mActionModeView.setSplitView(splitView);
+                    mActionModeView.setSplitActionBar(splitActionBar);
+                    mActionModeView.setSplitWhenNarrow(splitWhenNarrow);
+                } else if (splitActionBar) {
+                    Log.e(TAG, "Requested split action bar with incompatible window decor! Ignoring request.");
+                }
 
                 // Post the panel invalidate for later; avoid application onCreateOptionsMenu
                 // being called in the middle of onCreate or similar.
-        		mDecor.post(new Runnable() {
-					@Override
-					public void run() {
-						//Invalidate if the panel menu hasn't been created before this.
-						if (mMenu == null) {
-							dispatchInvalidateOptionsMenu();
-						}
-					}
-				});
-        	}
+                mDecor.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        //Invalidate if the panel menu hasn't been created before this.
+                        if (mMenu == null) {
+                            dispatchInvalidateOptionsMenu();
+                        }
+                    }
+                });
+            }
         }
     }
-    
+
     private ViewGroup generateLayout() {
-    	if (DEBUG) Log.d(TAG, "[generateLayout]");
-    	
+        if (DEBUG) Log.d(TAG, "[generateLayout]");
+
         // Apply data from current theme.
 
         TypedArray a = mActivity.getTheme().obtainStyledAttributes(R.styleable.SherlockTheme);
@@ -631,9 +631,9 @@ public final class ActionBarSherlock {
         if (a.getBoolean(R.styleable.SherlockTheme_windowActionModeOverlay, false)) {
             requestFeature(Window.FEATURE_ACTION_MODE_OVERLAY);
         }
-        
+
         a.recycle();
-        
+
         int layoutResource;
         if (hasFeature(Window.FEATURE_ACTION_BAR)) {
             if (hasFeature(Window.FEATURE_ACTION_BAR_OVERLAY)) {
@@ -646,15 +646,15 @@ public final class ActionBarSherlock {
         } else {
             layoutResource = R.layout.abs__screen_simple;
         }
-        
+
         View in = mActivity.getLayoutInflater().inflate(layoutResource, null);
         mDecor.addView(in, new ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT));
-        
+
         ViewGroup contentParent = (ViewGroup)mDecor.findViewById(R.id.abs__content);
         if (contentParent == null) {
             throw new RuntimeException("Couldn't find content container view");
         }
-        
+
         //Make our new child the true content view (for fragments). VERY VOLATILE!
         mDecor.setId(View.NO_ID);
         contentParent.setId(android.R.id.content);
@@ -664,37 +664,37 @@ public final class ActionBarSherlock {
             if (progress != null) {
                 progress.setIndeterminate(true);
             }
-		*/
-        
+        */
+
         return contentParent;
     }
-    
+
     /**
      * Change the title associated with this activity.
      */
     public void setTitle(CharSequence title) {
-    	if (DEBUG) Log.d(TAG, "[setTitle] title: " + title);
-    	
-    	dispatchTitleChanged(title, 0);
+        if (DEBUG) Log.d(TAG, "[setTitle] title: " + title);
+
+        dispatchTitleChanged(title, 0);
     }
-    
+
     /**
      * Change the title associated with this activity.
      */
     public void setTitle(int resId) {
-    	if (DEBUG) Log.d(TAG, "[setTitle] resId: " + resId);
-    	
-    	setTitle(mActivity.getString(resId));
+        if (DEBUG) Log.d(TAG, "[setTitle] resId: " + resId);
+
+        setTitle(mActivity.getString(resId));
     }
-    
+
     /**
      * Get a menu inflater instance which supports the newer menu attributes.
-     * 
+     *
      * @return Menu inflater instance.
      */
     public MenuInflater getMenuInflater() {
-    	if (DEBUG) Log.d(TAG, "[getMenuInflater]");
-    	
+        if (DEBUG) Log.d(TAG, "[getMenuInflater]");
+
         // Make sure that action views can get an appropriate theme.
         if (mMenuInflater == null) {
             initActionBar();
@@ -706,24 +706,24 @@ public final class ActionBarSherlock {
         }
         return mMenuInflater;
     }
-    
+
     public ActionMode startActionMode(ActionMode.Callback callback) {
-    	if (mActionMode != null) {
-    		mActionMode.finish();
-    	}
+        if (mActionMode != null) {
+            mActionMode.finish();
+        }
 
         final ActionMode.Callback wrappedCallback = new ActionModeCallbackWrapper(callback);
         ActionMode mode = null;
-        
-    	if (mActionModeView == null) {
-    		ViewStub stub = (ViewStub)mDecor.findViewById(R.id.abs__action_mode_bar_stub);
-    		if (stub != null) {
-    			mActionModeView = (ActionBarContextView)stub.inflate();
-    		}
-    	}
-    	if (mActionModeView != null) {
-    		mActionModeView.killMode();
-    		mode = new StandaloneActionMode(mActivity, mActionModeView, wrappedCallback, true);
+
+        if (mActionModeView == null) {
+            ViewStub stub = (ViewStub)mDecor.findViewById(R.id.abs__action_mode_bar_stub);
+            if (stub != null) {
+                mActionModeView = (ActionBarContextView)stub.inflate();
+            }
+        }
+        if (mActionModeView != null) {
+            mActionModeView.killMode();
+            mode = new StandaloneActionMode(mActivity, mActionModeView, wrappedCallback, true);
             if (callback.onCreateActionMode(mode, mode.getMenu())) {
                 mode.invalidate();
                 mActionModeView.initForMode(mode);
@@ -733,13 +733,13 @@ public final class ActionBarSherlock {
             } else {
                 mActionMode = null;
             }
-    	}
-    	if (mActionMode != null && mActivity instanceof OnActionModeStartedListener) {
-    		((OnActionModeStartedListener)mActivity).onActionModeStarted(mActionMode);
-    	}
-    	return mActionMode;
+        }
+        if (mActionMode != null && mActivity instanceof OnActionModeStartedListener) {
+            ((OnActionModeStartedListener)mActivity).onActionModeStarted(mActionMode);
+        }
+        return mActionMode;
     }
-    
+
     /**
      * Clears out internal reference when the action mode is destroyed.
      */
@@ -769,7 +769,7 @@ public final class ActionBarSherlock {
                 mActionModeView.removeAllViews();
             }
             if (mActivity instanceof OnActionModeFinishedListener) {
-            	((OnActionModeFinishedListener)mActivity).onActionModeFinished(mActionMode);
+                ((OnActionModeFinishedListener)mActivity).onActionModeFinished(mActionMode);
             }
             mActionMode = null;
         }

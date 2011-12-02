@@ -8,20 +8,19 @@ import com.actionbarsherlock.ActionBarSherlock;
 import com.actionbarsherlock.ActionBarSherlock.OnCreateOptionsMenuListener;
 import com.actionbarsherlock.ActionBarSherlock.OnOptionsItemSelectedListener;
 import com.actionbarsherlock.ActionBarSherlock.OnPrepareOptionsMenuListener;
-import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.android.maps.MapActivity;
 
 public abstract class SherlockMapActivity extends MapActivity implements OnCreateOptionsMenuListener, OnPrepareOptionsMenuListener, OnOptionsItemSelectedListener {
-	final ActionBarSherlock mSherlock = ActionBarSherlock.asDelegateFor(this);
+    final ActionBarSherlock mSherlock = ActionBarSherlock.asDelegateFor(this);
 
     public ActionBar getSupportActionBar() {
         return mSherlock.getActionBar();
     }
 
-    
+
     ///////////////////////////////////////////////////////////////////////////
     // General lifecycle/callback dispatching
     ///////////////////////////////////////////////////////////////////////////
@@ -37,17 +36,17 @@ public abstract class SherlockMapActivity extends MapActivity implements OnCreat
         super.onPostResume();
         mSherlock.dispatchPostResume();
     }
-    
+
     @Override
     protected void onStop() {
         mSherlock.dispatchStop();
         super.onStop();
     }
-    
+
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
-    	mSherlock.dispatchPostCreate(savedInstanceState);
-    	super.onPostCreate(savedInstanceState);
+        mSherlock.dispatchPostCreate(savedInstanceState);
+        super.onPostCreate(savedInstanceState);
     }
 
     @Override
@@ -55,11 +54,11 @@ public abstract class SherlockMapActivity extends MapActivity implements OnCreat
         mSherlock.dispatchTitleChanged(title, color);
         super.onTitleChanged(title, color);
     }
-    
+
     @Override
     public final boolean onMenuOpened(int featureId, android.view.Menu menu) {
         if (mSherlock.dispatchMenuOpened(featureId, menu)) {
-        	return true;
+            return true;
         }
         return super.onMenuOpened(featureId, menu);
     }
@@ -69,21 +68,21 @@ public abstract class SherlockMapActivity extends MapActivity implements OnCreat
         mSherlock.dispatchPanelClosed(featureId, menu);
         super.onPanelClosed(featureId, menu);
     }
-    
-    
+
+
     ///////////////////////////////////////////////////////////////////////////
     // Menu handling
     ///////////////////////////////////////////////////////////////////////////
-    
+
     public MenuInflater getSupportMenuInflater() {
         return mSherlock.getMenuInflater();
     }
 
     @Override
     public final boolean onCreateOptionsMenu(android.view.Menu menu) {
-    	return true;
+        return true;
     }
-    
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return true;
@@ -108,11 +107,11 @@ public abstract class SherlockMapActivity extends MapActivity implements OnCreat
     public boolean onOptionsItemSelected(MenuItem item) {
         return false;
     }
-    
+
     public void invalidateOptionsMenu() {
-    	mSherlock.dispatchInvalidateOptionsMenu();
+        mSherlock.dispatchInvalidateOptionsMenu();
     }
-    
+
     /** @deprecated Use {@link #invalidateOptionsMenu()}. */
     @Deprecated
     public void supportInvalidateOptionsMenu() {
@@ -121,19 +120,19 @@ public abstract class SherlockMapActivity extends MapActivity implements OnCreat
 
     @Override
     public void openOptionsMenu() {
-    	if (!mSherlock.dispatchOpenOptionsMenu()) {
-    		super.openOptionsMenu();
-    	}
+        if (!mSherlock.dispatchOpenOptionsMenu()) {
+            super.openOptionsMenu();
+        }
     }
 
     @Override
     public void closeOptionsMenu() {
-    	if (!mSherlock.dispatchCloseOptionsMenu()) {
-    		super.closeOptionsMenu();
-    	}
+        if (!mSherlock.dispatchCloseOptionsMenu()) {
+            super.closeOptionsMenu();
+        }
     }
-    
-    
+
+
     ///////////////////////////////////////////////////////////////////////////
     // Content
     ///////////////////////////////////////////////////////////////////////////
