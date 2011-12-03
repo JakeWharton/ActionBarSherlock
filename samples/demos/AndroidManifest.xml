@@ -27,7 +27,9 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <uses-sdk android:minSdkVersion="4" android:targetSdkVersion="13" />
+    <uses-sdk
+        android:minSdkVersion="7"
+        android:targetSdkVersion="14" />
 
     <application android:label="@string/activity_sample_code"
             android:icon="@drawable/icon"

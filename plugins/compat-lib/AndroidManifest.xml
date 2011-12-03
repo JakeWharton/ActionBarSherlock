@@ -7,7 +7,7 @@
 	android:versionName="4.0.0-SNAPSHOT">
 	
     <uses-sdk
-    	android:minSdkVersion="4"
-    	android:targetSdkVersion="14" />
+        android:minSdkVersion="7"
+        android:targetSdkVersion="14" />
 
 </manifest>

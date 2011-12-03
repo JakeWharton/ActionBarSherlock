@@ -5,7 +5,9 @@
     android:versionCode="45"
     android:versionName="4.0.0-SNAPSHOT">
 
-    <uses-sdk android:minSdkVersion="4" android:targetSdkVersion="14" />
+    <uses-sdk
+        android:minSdkVersion="7"
+        android:targetSdkVersion="14" />
 
     <application android:label="@string/activity_sample_code"
             android:icon="@drawable/icon"
