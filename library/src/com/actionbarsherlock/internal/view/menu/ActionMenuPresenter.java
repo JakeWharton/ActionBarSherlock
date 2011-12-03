@@ -62,12 +62,12 @@ public class ActionMenuPresenter extends BaseMenuPresenter
 
     private View mScrapActionButtonView;
 
-    //TODO private OverflowPopup mOverflowPopup;
-    //TODO private ActionButtonSubmenu mActionButtonPopup;
+    private OverflowPopup mOverflowPopup;
+    private ActionButtonSubmenu mActionButtonPopup;
 
-    //TODO private OpenOverflowRunnable mPostedOpenRunnable;
+    private OpenOverflowRunnable mPostedOpenRunnable;
 
-    //TODO final PopupPresenterCallback mPopupPresenterCallback = new PopupPresenterCallback();
+    final PopupPresenterCallback mPopupPresenterCallback = new PopupPresenterCallback();
     int mOpenSubMenuId;
 
     public ActionMenuPresenter(Context context) {
@@ -255,9 +255,9 @@ public class ActionMenuPresenter extends BaseMenuPresenter
         }
 
         mOpenSubMenuId = subMenu.getItem().getItemId();
-        /* TODO mActionButtonPopup = new ActionButtonSubmenu(mContext, subMenu);
+        mActionButtonPopup = new ActionButtonSubmenu(mContext, subMenu);
         mActionButtonPopup.setAnchorView(anchor);
-        mActionButtonPopup.show();*/
+        mActionButtonPopup.show();
         super.onSubMenuSelected(subMenu);
         return true;
     }
@@ -283,11 +283,11 @@ public class ActionMenuPresenter extends BaseMenuPresenter
      */
     public boolean showOverflowMenu() {
         if (mReserveOverflow && !isOverflowMenuShowing() && mMenu != null && mMenuView != null &&
-                true) { //TODO mPostedOpenRunnable == null) {
-            /* TODO OverflowPopup popup = new OverflowPopup(mContext, mMenu, mOverflowButton, true);
+                mPostedOpenRunnable == null) {
+            OverflowPopup popup = new OverflowPopup(mContext, mMenu, mOverflowButton, true);
             mPostedOpenRunnable = new OpenOverflowRunnable(popup);
             // Post this for later; we might still need a layout for the anchor to be right.
-            ((View) mMenuView).post(mPostedOpenRunnable);*/
+            ((View) mMenuView).post(mPostedOpenRunnable);
 
             // ActionMenuPresenter uses null as a callback argument here
             // to indicate overflow is opening.
@@ -304,16 +304,16 @@ public class ActionMenuPresenter extends BaseMenuPresenter
      * @return true if the overflow menu was hidden, false otherwise.
      */
     public boolean hideOverflowMenu() {
-        /* TODO if (mPostedOpenRunnable != null && mMenuView != null) {
+        if (mPostedOpenRunnable != null && mMenuView != null) {
             ((View) mMenuView).removeCallbacks(mPostedOpenRunnable);
             return true;
-        }*/
+        }
 
-        /* TODO MenuPopupHelper popup = mOverflowPopup;
+        MenuPopupHelper popup = mOverflowPopup;
         if (popup != null) {
             popup.dismiss();
             return true;
-        }*/
+        }
         return false;
     }
 
@@ -333,10 +333,10 @@ public class ActionMenuPresenter extends BaseMenuPresenter
      * @return true if popups were dismissed, false otherwise. (This can be because none were open.)
      */
     public boolean hideSubMenus() {
-        /* TODO if (mActionButtonPopup != null) {
+        if (mActionButtonPopup != null) {
             mActionButtonPopup.dismiss();
             return true;
-        }*/
+        }
         return false;
     }
 
@@ -344,7 +344,7 @@ public class ActionMenuPresenter extends BaseMenuPresenter
      * @return true if the overflow menu is currently showing
      */
     public boolean isOverflowMenuShowing() {
-        return false; //TODO mOverflowPopup != null && mOverflowPopup.isShowing();
+        return mOverflowPopup != null && mOverflowPopup.isShowing();
     }
 
     /**
@@ -583,7 +583,7 @@ public class ActionMenuPresenter extends BaseMenuPresenter
         }
     }
 
-    /* TODO private class OverflowPopup extends MenuPopupHelper {
+    private class OverflowPopup extends MenuPopupHelper {
         public OverflowPopup(Context context, MenuBuilder menu, View anchorView,
                 boolean overflowOnly) {
             super(context, menu, anchorView, overflowOnly);
@@ -596,9 +596,9 @@ public class ActionMenuPresenter extends BaseMenuPresenter
             mMenu.close();
             mOverflowPopup = null;
         }
-    }*/
+    }
 
-    /* TODO private class ActionButtonSubmenu extends MenuPopupHelper {
+    private class ActionButtonSubmenu extends MenuPopupHelper {
         //UNUSED private SubMenuBuilder mSubMenu;
 
         public ActionButtonSubmenu(Context context, SubMenuBuilder subMenu) {
@@ -631,10 +631,9 @@ public class ActionMenuPresenter extends BaseMenuPresenter
             mActionButtonPopup = null;
             mOpenSubMenuId = 0;
         }
-    }*/
+    }
 
-    /* TODO private class PopupPresenterCallback implements MenuPresenter.Callback {
-
+    private class PopupPresenterCallback implements MenuPresenter.Callback {
         @Override
         public boolean onOpenSubMenu(MenuBuilder subMenu) {
             if (subMenu == null) return false;
@@ -649,9 +648,9 @@ public class ActionMenuPresenter extends BaseMenuPresenter
                 ((SubMenuBuilder) menu).getRootMenu().close(false);
             }
         }
-    }*/
+    }
 
-    /* TODO private class OpenOverflowRunnable implements Runnable {
+    private class OpenOverflowRunnable implements Runnable {
         private OverflowPopup mPopup;
 
         public OpenOverflowRunnable(OverflowPopup popup) {
@@ -661,9 +660,9 @@ public class ActionMenuPresenter extends BaseMenuPresenter
         public void run() {
             mMenu.changeMenuMode();
             if (mPopup.tryShow()) {
-                //TODO mOverflowPopup = mPopup;
+                mOverflowPopup = mPopup;
                 mPostedOpenRunnable = null;
             }
         }
-    }*/
+    }
 }

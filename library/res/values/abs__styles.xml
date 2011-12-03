@@ -32,6 +32,8 @@
         
         <item name="textColorPrimary">@color/abs__primary_text_holo_dark</item>
         
+        <item name="dropdownListPreferredItemHeight">?android:attr/listPreferredItemHeightSmall</item>
+        
         <item name="windowActionBar">true</item>
         <item name="windowActionModeOverlay">false</item>
         <item name="windowContentOverlay">@null</item>
