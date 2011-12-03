@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -175,19 +176,23 @@ public class ActionMenuItemView extends LinearLayout
         return true;
     }
 
-    //@Override
+    @Override
     public void onPopulateAccessibilityEvent(AccessibilityEvent event) {
-        //super.onPopulateAccessibilityEvent(event);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            super.onPopulateAccessibilityEvent(event);
+        }
         final CharSequence cdesc = getContentDescription();
         if (!TextUtils.isEmpty(cdesc)) {
             event.getText().add(cdesc);
         }
     }
 
-    //@Override
+    @Override
     public boolean dispatchHoverEvent(MotionEvent event) {
         // Don't allow children to hover; we want this to be treated as a single component.
-        //TODO return onHoverEvent(event);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            return onHoverEvent(event);
+        }
         return false;
     }
 
