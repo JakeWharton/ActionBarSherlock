@@ -17,6 +17,8 @@
 package com.actionbarsherlock.internal.view.menu;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import android.content.Context;
 import android.content.res.Configuration;
@@ -33,6 +35,8 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import com.actionbarsherlock.R;
+import com.actionbarsherlock.internal.view.View_HasStateListenerSupport;
+import com.actionbarsherlock.internal.view.View_OnAttachStateChangeListener;
 import com.actionbarsherlock.internal.view.menu.ActionMenuView.ActionMenuChildView;
 import com.actionbarsherlock.view.ActionProvider;
 import com.actionbarsherlock.view.MenuItem;
@@ -553,7 +557,9 @@ public class ActionMenuPresenter extends BaseMenuPresenter
         };
     }
 
-    private class OverflowMenuButton extends ImageButton implements ActionMenuChildView {
+    private class OverflowMenuButton extends ImageButton implements ActionMenuChildView, View_HasStateListenerSupport {
+        private final Set<View_OnAttachStateChangeListener> mListeners = new HashSet<View_OnAttachStateChangeListener>();
+
         public OverflowMenuButton(Context context) {
             super(context, null, R.attr.actionOverflowButtonStyle);
 
@@ -580,6 +586,32 @@ public class ActionMenuPresenter extends BaseMenuPresenter
 
         public boolean needsDividerAfter() {
             return false;
+        }
+
+        @Override
+        protected void onAttachedToWindow() {
+            super.onAttachedToWindow();
+            for (View_OnAttachStateChangeListener listener : mListeners) {
+                listener.onViewAttachedToWindow(this);
+            }
+        }
+
+        @Override
+        protected void onDetachedFromWindow() {
+            super.onDetachedFromWindow();
+            for (View_OnAttachStateChangeListener listener : mListeners) {
+                listener.onViewDetachedFromWindow(this);
+            }
+        }
+
+		@Override
+        public void addOnAttachStateChangeListener(View_OnAttachStateChangeListener listener) {
+            mListeners.add(listener);
+        }
+
+        @Override
+        public void removeOnAttachStateChangeListener(View_OnAttachStateChangeListener listener) {
+            mListeners.remove(listener);
         }
     }
 

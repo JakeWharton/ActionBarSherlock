@@ -34,6 +34,8 @@ import android.widget.ListAdapter;
 import android.widget.ListPopupWindow;
 import android.widget.PopupWindow;
 import com.actionbarsherlock.R;
+import com.actionbarsherlock.internal.view.View_HasStateListenerSupport;
+import com.actionbarsherlock.internal.view.View_OnAttachStateChangeListener;
 import com.actionbarsherlock.view.MenuItem;
 
 /**
@@ -42,7 +44,7 @@ import com.actionbarsherlock.view.MenuItem;
  */
 public class MenuPopupHelper implements AdapterView.OnItemClickListener, View.OnKeyListener,
         ViewTreeObserver.OnGlobalLayoutListener, PopupWindow.OnDismissListener,
-        View.OnAttachStateChangeListener, MenuPresenter {
+        View_OnAttachStateChangeListener, MenuPresenter {
     //UNUSED private static final String TAG = "MenuPopupHelper";
 
     static final int ITEM_LAYOUT = R.layout.abs__popup_menu_item_layout;
@@ -116,7 +118,7 @@ public class MenuPopupHelper implements AdapterView.OnItemClickListener, View.On
             final boolean addGlobalListener = mTreeObserver == null;
             mTreeObserver = anchor.getViewTreeObserver(); // Refresh to latest
             if (addGlobalListener) mTreeObserver.addOnGlobalLayoutListener(this);
-            anchor.addOnAttachStateChangeListener(this);
+            ((View_HasStateListenerSupport)anchor).addOnAttachStateChangeListener(this);
             mPopup.setAnchorView(anchor);
         } else {
             return false;
@@ -143,7 +145,7 @@ public class MenuPopupHelper implements AdapterView.OnItemClickListener, View.On
             mTreeObserver.removeGlobalOnLayoutListener(this);
             mTreeObserver = null;
         }
-        mAnchorView.removeOnAttachStateChangeListener(this);
+        ((View_HasStateListenerSupport)mAnchorView).removeOnAttachStateChangeListener(this);
     }
 
     public boolean isShowing() {
@@ -213,7 +215,7 @@ public class MenuPopupHelper implements AdapterView.OnItemClickListener, View.On
             if (!mTreeObserver.isAlive()) mTreeObserver = v.getViewTreeObserver();
             mTreeObserver.removeGlobalOnLayoutListener(this);
         }
-        v.removeOnAttachStateChangeListener(this);
+        ((View_HasStateListenerSupport)v).removeOnAttachStateChangeListener(this);
     }
 
     @Override
