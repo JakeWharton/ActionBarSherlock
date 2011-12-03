@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.content.res.Resources;
 import android.database.DataSetObserver;
+import android.os.Build;
 import android.os.Parcelable;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -48,6 +49,7 @@ public class MenuPopupHelper implements AdapterView.OnItemClickListener, View.On
     //UNUSED private static final String TAG = "MenuPopupHelper";
 
     static final int ITEM_LAYOUT = R.layout.abs__popup_menu_item_layout;
+    static final boolean SHOWS_DIALOG = (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB); //TODO use AlertDialog w/list
 
     private Context mContext;
     private LayoutInflater mInflater;
