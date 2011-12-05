@@ -1,6 +1,13 @@
 Change Log
 ===============================================================================
 
+Version 3.4.3 *(In Development)*
+--------------------------------
+
+ * Fix: Updates in `onPrepareOptionsMenu` now properly reflected in the pre-3.0
+   overflow menu.
+
+
 Version 3.4.2 *(2001-11-09)*
 ----------------------------
 

@@ -750,19 +750,17 @@ public abstract class SherlockPreferenceActivity extends PreferenceActivity impl
                 }
             }
 
-            if (mOptionsMenuInvalidated) {
-                if (DEBUG) Log.d(TAG, "onPrepareOptionsMenu(android.view.Menu): Clearing existing options menu.");
-                menu.clear();
-                mOptionsMenuInvalidated = false;
+            if (DEBUG) Log.d(TAG, "onPrepareOptionsMenu(android.view.Menu): Clearing existing options menu.");
+            menu.clear();
+            mOptionsMenuInvalidated = false;
 
-                if (mOptionsMenuCreateResult && prepareResult) {
-                    if (DEBUG) Log.d(TAG, "onPrepareOptionsMenu(android.view.Menu): Adding any action items that are not displayed on the action bar.");
-                    //Only add items that have not already been added to our custom
-                    //action bar implementation
-                    for (MenuItemImpl item : mSupportMenu.getItems()) {
-                        if (!item.isShownOnActionBar()) {
-                            item.addTo(menu);
-                        }
+            if (mOptionsMenuCreateResult && prepareResult) {
+                if (DEBUG) Log.d(TAG, "onPrepareOptionsMenu(android.view.Menu): Adding any action items that are not displayed on the action bar.");
+                //Only add items that have not already been added to our custom
+                //action bar implementation
+                for (MenuItemImpl item : mSupportMenu.getItems()) {
+                    if (!item.isShownOnActionBar()) {
+                        item.addTo(menu);
                     }
                 }
             }
