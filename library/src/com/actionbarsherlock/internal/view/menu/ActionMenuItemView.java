@@ -16,6 +16,8 @@
 
 package com.actionbarsherlock.internal.view.menu;
 
+import java.util.HashSet;
+import java.util.Set;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Rect;
@@ -33,13 +35,15 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.actionbarsherlock.R;
+import com.actionbarsherlock.internal.view.View_HasStateListenerSupport;
+import com.actionbarsherlock.internal.view.View_OnAttachStateChangeListener;
 
 /**
  * @hide
  */
 public class ActionMenuItemView extends LinearLayout
         implements MenuView.ItemView, View.OnClickListener, View.OnLongClickListener,
-        ActionMenuView.ActionMenuChildView {
+        ActionMenuView.ActionMenuChildView, View_HasStateListenerSupport {
     //UNUSED private static final String TAG = "ActionMenuItemView";
 
     private MenuItemImpl mItemData;
@@ -51,6 +55,8 @@ public class ActionMenuItemView extends LinearLayout
     private boolean mAllowTextWithIcon;
     //UNUSED private boolean mShowTextAllCaps;
     private boolean mExpandedFormat;
+
+    private final Set<View_OnAttachStateChangeListener> mListeners = new HashSet<View_OnAttachStateChangeListener>();
 
     public ActionMenuItemView(Context context) {
         this(context, null);
@@ -67,6 +73,32 @@ public class ActionMenuItemView extends LinearLayout
         mAllowTextWithIcon = res.getBoolean(
                 R.bool.abs__config_allowActionMenuItemTextWithIcon);
         //UNUSED mShowTextAllCaps = res.getBoolean(R.bool.abs__config_actionMenuItemAllCaps);
+    }
+
+    @Override
+    public void addOnAttachStateChangeListener(View_OnAttachStateChangeListener listener) {
+        mListeners.add(listener);
+    }
+
+    @Override
+    public void removeOnAttachStateChangeListener(View_OnAttachStateChangeListener listener) {
+        mListeners.remove(listener);
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        for (View_OnAttachStateChangeListener listener : mListeners) {
+            listener.onViewAttachedToWindow(this);
+        }
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        for (View_OnAttachStateChangeListener listener : mListeners) {
+            listener.onViewDetachedFromWindow(this);
+        }
     }
 
     @Override
