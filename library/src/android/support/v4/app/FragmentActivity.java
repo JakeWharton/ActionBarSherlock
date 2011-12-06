@@ -1071,6 +1071,7 @@ public class FragmentActivity extends Activity implements SupportActivity {
      */
     @Override
     public ActionBar getSupportActionBar() {
+        ensureSupportActionBarAttached();
         return (mActionBar != null) ? mActionBar.getPublicInstance() : null;
     }
 

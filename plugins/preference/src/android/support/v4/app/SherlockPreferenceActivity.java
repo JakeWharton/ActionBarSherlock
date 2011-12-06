@@ -1062,6 +1062,7 @@ public abstract class SherlockPreferenceActivity extends PreferenceActivity impl
      */
     @Override
     public ActionBar getSupportActionBar() {
+        ensureSupportActionBarAttached();
         return (mActionBar != null) ? mActionBar.getPublicInstance() : null;
     }
 

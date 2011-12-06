@@ -1072,6 +1072,7 @@ public abstract class FragmentMapActivity extends MapActivity implements Support
      */
     @Override
     public ActionBar getSupportActionBar() {
+        ensureSupportActionBarAttached();
         return (mActionBar != null) ? mActionBar.getPublicInstance() : null;
     }
 
