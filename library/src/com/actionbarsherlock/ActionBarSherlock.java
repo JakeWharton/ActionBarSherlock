@@ -39,8 +39,12 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
 /**
- * Helper class which manages interaction with the custom ICS action bar
- * implementation.
+ * <p>Helper for implementing the action bar design pattern across all versions
+ * of Android.</p>
+ *
+ * <p>This class will manage interaction with a custom action bar based on the
+ * Android 4.0 source code. The exposed API mirrors that of its native
+ * counterpart and you should refer to its documentation for instruction.</p>
  *
  * @author Jake Wharton <jakewharton@gmail.com>
  * @version 4.0.0
@@ -49,22 +53,27 @@ public final class ActionBarSherlock {
     private static final String TAG = "ActionBarSherlock";
     private static final boolean DEBUG = true;
 
+    /** Window features which are enabled by default. */
     protected static final int DEFAULT_FEATURES = (1 << Window.FEATURE_ACTION_BAR);
 
 
-
+    /** Activity interface for menu creation callback. */
     public interface OnCreateOptionsMenuListener {
         public boolean onCreateOptionsMenu(Menu menu);
     }
+    /** Activity interface for menu item selection callback. */
     public interface OnOptionsItemSelectedListener {
         public boolean onOptionsItemSelected(MenuItem item);
     }
+    /** Activity interface for menu preparation callback. */
     public interface OnPrepareOptionsMenuListener {
         public boolean onPrepareOptionsMenu(Menu menu);
     }
+    /** Activity interface for action mode finished callback. */
     public interface OnActionModeFinishedListener {
         public void onActionModeFinished(ActionMode mode);
     }
+    /** Activity interface for action mode started callback. */
     public interface OnActionModeStartedListener {
         public void onActionModeStarted(ActionMode mode);
     }
@@ -94,29 +103,47 @@ public final class ActionBarSherlock {
 
 
 
+    /** Activity which is displaying the action bar. Also used for context. */
     private final Activity mActivity;
+    /** Whether delegating actions for the activity or managing ourselves. */
     private final boolean mIsDelegate;
 
-    private boolean mHasMenuKeyLoaded = false;
+    /** Whether or not the device has a dedicated menu key button. */
     private boolean mHasMenuKey;
+    /** Lazy-load indicator for {@link #mHasMenuKey}. */
+    private boolean mHasMenuKeyLoaded = false;
 
+    /** Parent view of the window decoration (action bar, mode, etc.). */
     private ViewGroup mDecor;
+    /** Parent view of the activity content. */
     private ViewGroup mContentParent;
 
+    /** Implementation which backs the action bar interface API. */
     private ActionBarImpl mActionBar;
+    /** Main action bar view which displays the core content. */
     private ActionBarView mActionBarView;
+    /** Relevant window and action bar features flags. */
     private int mFeatures = DEFAULT_FEATURES;
+    /** Relevant user interface option flags. */
     private int mUiOptions = 0;
 
+    /** Current displayed context action bar, if any. */
     private ActionMode mActionMode;
+    /** Parent view in which the context action bar is displayed. */
     private ActionBarContextView mActionModeView;
 
+    /** Whether or not the title is stable and can be displayed. */
     private boolean mIsTitleReady = false;
 
+    /** Reference to our custom menu inflater which supports action items. */
     private MenuInflater mMenuInflater;
+    /** Current menu instance for managing action items. */
     private MenuBuilder mMenu;
+    /** Map between native options items and sherlock items (pre-3.0 only). */
     private HashMap<android.view.MenuItem, MenuItemImpl> mNativeItemMap;
+    /** Result of the last dispatch of menu creation. */
     private boolean mLastCreateResult;
+    /** Result of the last dispatch of menu preparation. */
     private boolean mLastPrepareResult;
 
 
@@ -182,6 +209,11 @@ public final class ActionBarSherlock {
     }
 
 
+    /**
+     * Determine whether or not the device has a dedicated menu key.
+     *
+     * @return {@code true} if native menu key is present.
+     */
     private boolean hasMenuKey() {
         if (!mHasMenuKeyLoaded) {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
@@ -229,9 +261,23 @@ public final class ActionBarSherlock {
 
 
     ///////////////////////////////////////////////////////////////////////////
-    // Lifecycle and interaction callbacks
+    // Lifecycle and interaction callbacks when delegating
     ///////////////////////////////////////////////////////////////////////////
 
+    /**
+     * Notify action bar of a configuration change event. Should be dispatched
+     * after the call to the superclass implementation.
+     *
+     * <blockquote><pre>
+     * @Override
+     * public void onConfigurationChanged(Configuration newConfig) {
+     *     super.onConfigurationChanged(newConfig);
+     *     mSherlock.dispatchConfigurationChanged(newConfig);
+     * }
+     * </pre></blockquote>
+     *
+     * @param newConfig The new device configuration.
+     */
     public void dispatchConfigurationChanged(Configuration newConfig) {
         if (DEBUG) Log.d(TAG, "[dispatchConfigurationChanged] newConfig: " + newConfig);
 
@@ -240,6 +286,18 @@ public final class ActionBarSherlock {
         }
     }
 
+    /**
+     * Notify the action bar that the activity has finished its resume process.
+     * Should be dispatched after the class to the superclass implementation.
+     *
+     * <blockquote><pre>
+     * @Override
+     * protected void onPostResume() {
+     *     super.onPostResume();
+     *     mSherlock.dispatchPostResume();
+     * }
+     * </pre></blockquote>
+     */
     public void dispatchPostResume() {
         if (DEBUG) Log.d(TAG, "[dispatchPostResume]");
 
@@ -248,6 +306,18 @@ public final class ActionBarSherlock {
         }
     }
 
+    /**
+     * Notify the action bar that the activity is stopping. This should be
+     * called before the superclass implementation.
+     *
+     * <blockquote><p>
+     * @Override
+     * protected void onStop() {
+     *     mSherlock.dispatchStop();
+     *     super.onStop();
+     * }
+     * </p></blockquote>
+     */
     public void dispatchStop() {
         if (DEBUG) Log.d(TAG, "[dispatchStop]");
 
@@ -256,6 +326,10 @@ public final class ActionBarSherlock {
         }
     }
 
+    /**
+     * Indicate that the menu should be recreated by calling
+     * {@link OnCreateOptionsMenuListener#onCreateOptionsMenu(com.actionbarsherlock.view.Menu)}.
+     */
     public void dispatchInvalidateOptionsMenu() {
         if (DEBUG) Log.d(TAG, "[dispatchInvalidateOptionsMenu]");
 
@@ -301,6 +375,22 @@ public final class ActionBarSherlock {
         mActionBar.setMenu(mMenu, mMenuPresenterCallback);
     }
 
+    /**
+     * Notify the action bar that it should display its overflow menu if it is
+     * appropriate for the device. The implementation should conditionally
+     * call the superclass method only if this method returns {@code false}.
+     *
+     * <blockquote><p>
+     * @Override
+     * public void openOptionsMenu() {
+     *     if (!mSherlock.dispatchOpenOptionsMenu()) {
+     *         super.openOptionsMenu();
+     *     }
+     * }
+     * </p></blockquote>
+     *
+     * @return {@code true} if the opening of the menu was handled internally.
+     */
     public boolean dispatchOpenOptionsMenu() {
         if (DEBUG) Log.d(TAG, "[dispatchOpenOptionsMenu]");
 
@@ -311,6 +401,22 @@ public final class ActionBarSherlock {
         return mActionBarView.showOverflowMenu();
     }
 
+    /**
+     * Notify the action bar that it should close its overflow menu if it is
+     * appropriate for the device. This implementation should conditionally
+     * call the superclass method only if this method returns {@code false}.
+     *
+     * <blockquote><pre>
+     * @Override
+     * public void closeOptionsMenu() {
+     *     if (!mSherlock.dispatchCloseOptionsMenu()) {
+     *         super.closeOptionsMenu();
+     *     }
+     * }
+     * </pre></blockquote>
+     *
+     * @return {@code true} if the closing of the menu was handled internally.
+     */
     public boolean dispatchCloseOptionsMenu() {
         if (DEBUG) Log.d(TAG, "[dispatchCloseOptionsMenu]");
 
@@ -321,6 +427,24 @@ public final class ActionBarSherlock {
         return mActionBarView.hideOverflowMenu();
     }
 
+    /**
+     * Notify the class that the activity has finished its creation. This
+     * should be called after the superclass implementation.
+     *
+     * <blockquote><pre>
+     * @Override
+     * protected void onPostCreate(Bundle savedInstanceState) {
+     *     mSherlock.dispatchPostCreate(savedInstanceState);
+     *     super.onPostCreate(savedInstanceState);
+     * }
+     * </pre></blockquote>
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *                           previously being shut down then this Bundle
+     *                           contains the data it most recently supplied in
+     *                           {@link Activity#}onSaveInstanceState(Bundle)}.
+     *                           <strong>Note: Otherwise it is null.</strong>
+     */
     public void dispatchPostCreate(Bundle savedInstanceState) {
         if (DEBUG) Log.d(TAG, "[dispatchOnPostCreate]");
 
@@ -329,6 +453,22 @@ public final class ActionBarSherlock {
         }
     }
 
+    /**
+     * Notify the action bar that the title has changed and the action bar
+     * should be updated to reflect the change. This should be called before
+     * the superclass implementation.
+     *
+     * <blockquote><pre>
+     *  @Override
+     *  protected void onTitleChanged(CharSequence title, int color) {
+     *      mSherlock.dispatchTitleChanged(title, color);
+     *      super.onTitleChanged(title, color);
+     *  }
+     * </pre></blockquote>
+     *
+     * @param title New activity title.
+     * @param color New activity color.
+     */
     public void dispatchTitleChanged(CharSequence title, int color) {
         if (DEBUG) Log.d(TAG, "[dispatchTitleChanged] title: " + title + ", color: " + color);
 
@@ -340,6 +480,11 @@ public final class ActionBarSherlock {
         }
     }
 
+    /**
+     * Internal method to trigger the menu creation process.
+     *
+     * @return {@code true} if menu creation should proceeed.
+     */
     private boolean dispatchCreateOptionsMenu() {
         if (DEBUG) Log.d(TAG, "[dispatchCreateOptionsMenu]");
 
@@ -351,6 +496,11 @@ public final class ActionBarSherlock {
         return mLastCreateResult;
     }
 
+    /**
+     * Internal method to trigger the menu preparation process.
+     *
+     * @return {@code true} if menu preparation should proceed.
+     */
     private boolean dispatchPrepareOptionsMenu() {
         if (DEBUG) Log.d(TAG, "[dispatchPrepareOptionsMenu]");
 
@@ -362,6 +512,22 @@ public final class ActionBarSherlock {
         return mLastPrepareResult;
     }
 
+    /**
+     * Notify the action bar that the Activity has triggered a menu preparation
+     * which usually means that the user has requested the overflow menu via a
+     * hardware menu key. You should return the result of this method call and
+     * not call the superclass implementation.
+     *
+     * <blockquote><p>
+     * @Override
+     * public final boolean onPrepareOptionsMenu(android.view.Menu menu) {
+     *     return mSherlock.dispatchPrepareOptionsMenu(menu);
+     * }
+     * </p></blockquote>
+     *
+     * @param menu Activity native menu
+     * @return {@code true} if menu display should proceed.
+     */
     public boolean dispatchPrepareOptionsMenu(android.view.Menu menu) {
         if (DEBUG) Log.d(TAG, "[dispatchPrepareOptionsMenu] android.view.Menu: " + menu);
 
@@ -402,6 +568,13 @@ public final class ActionBarSherlock {
         return visible;
     }
 
+    /**
+     * Internal method for dispatching options menu selection to the owning
+     * activity callback.
+     *
+     * @param item Selected options menu item.
+     * @return {@code true} if the item selection was handled in the callback.
+     */
     private boolean dispatchOptionsItemSelected(MenuItem item) {
         if (DEBUG) Log.d(TAG, "[dispatchOptionsItemSelected] item: " + item);
 
@@ -412,6 +585,26 @@ public final class ActionBarSherlock {
         return false;
     }
 
+    /**
+     * Notify the action bar that the overflow menu has been opened. The
+     * implementation should conditionally return {@code true} if this method
+     * returns {@code true}, otherwise return the result of the superclass
+     * method.
+     *
+     * <blockquote><p>
+     * @Override
+     * public final boolean onMenuOpened(int featureId, android.view.Menu menu) {
+     *     if (mSherlock.dispatchMenuOpened(featureId, menu)) {
+     *         return true;
+     *     }
+     *     return super.onMenuOpened(featureId, menu);
+     * }
+     * </p></blockquote>
+     *
+     * @param featureId Window feature which triggered the event.
+     * @param menu Activity native menu.
+     * @return {@code true} if the event was handled by this method.
+     */
     public boolean dispatchMenuOpened(int featureId, android.view.Menu menu) {
         if (DEBUG) Log.d(TAG, "[dispatchMenuOpened] featureId: " + featureId + ", menu: " + menu);
 
@@ -425,6 +618,21 @@ public final class ActionBarSherlock {
         return false;
     }
 
+    /**
+     * Notify the action bar that the overflow menu has been closed. This
+     * method should be called before the superclass implementation.
+     *
+     * <blockquote><p>
+     * @Override
+     * public void onPanelClosed(int featureId, android.view.Menu menu) {
+     *     mSherlock.dispatchPanelClosed(featureId, menu);
+     *     super.onPanelClosed(featureId, menu);
+     * }
+     * </p></blockquote>
+     *
+     * @param featureId
+     * @param menu
+     */
     public void dispatchPanelClosed(int featureId, android.view.Menu menu){
         if (DEBUG) Log.d(TAG, "[dispatchPanelClosed] featureId: " + featureId + ", menu: " + menu);
 
@@ -435,20 +643,47 @@ public final class ActionBarSherlock {
         }
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
 
 
+    /**
+     * Return the feature bits that are enabled. This is the set of features
+     * that were given to requestFeature(), and are being handled by this
+     * Window itself or its container. That is, it is the set of requested
+     * features that you can actually use.
+     *
+     * @return The feature bits.
+     */
     public int getFeatures() {
         if (DEBUG) Log.d(TAG, "[getFeatures]");
 
         return mFeatures;
     }
 
+    /**
+     * Query for the availability of a certain feature.
+     *
+     * @param featureId The feature ID to check.
+     * @return {@code true} if feature is enabled, {@code false} otherwise.
+     */
     public boolean hasFeature(int featureId) {
         if (DEBUG) Log.d(TAG, "[hasFeature] featureId: " + featureId);
 
         return (mFeatures & (1 << featureId)) != 0;
     }
 
+    /**
+     * Enable extended screen features. This must be called before
+     * {@code setContentView()}. May be called as many times as desired as long
+     * as it is before {@code setContentView()}. If not called, no extended
+     * features will be available. You can not turn off a feature once it is
+     * requested.
+     *
+     * @param featureId The desired features, defined as constants by Window.
+     * @return Returns true if the requested feature is supported and now
+     * enabled.
+     */
     public boolean requestFeature(int featureId) {
         if (DEBUG) Log.d(TAG, "[requestFeature] featureId: " + featureId);
 
@@ -471,11 +706,25 @@ public final class ActionBarSherlock {
         }
     }
 
+    /**
+     * Set extra options that will influence the UI for this window.
+     *
+     * @param uiOptions Flags specifying extra options for this window.
+     */
     public void setUiOptions(int uiOptions) {
         if (DEBUG) Log.d(TAG, "[setUiOptions] uiOptions: " + uiOptions);
 
         mUiOptions = uiOptions;
     }
+
+    /**
+     * Set extra options that will influence the UI for this window. Only the
+     * bits filtered by mask will be modified.
+     *
+     * @param uiOptions Flags specifying extra options for this window.
+     * @param mask Flags specifying which options should be modified. Others
+     *             will remain unchanged.
+     */
     public void setUiOptions(int uiOptions, int mask) {
         if (DEBUG) Log.d(TAG, "[setUiOptions] uiOptions: " + uiOptions + ", mask: " + mask);
 
@@ -520,7 +769,7 @@ public final class ActionBarSherlock {
      * Set the content of the activity inside the action bar.
      *
      * @param view The desired content to display.
-     * @param params Layout paramaters to apply to the view.
+     * @param params Layout parameters to apply to the view.
      */
     public void setContentView(View view, ViewGroup.LayoutParams params) {
         if (DEBUG) Log.d(TAG, "[setContentView] view: " + view + ", params: " + params);
@@ -540,6 +789,14 @@ public final class ActionBarSherlock {
         initActionBar();
     }
 
+    /**
+     * Variation on {@link #setContentView(android.view.View, android.view.ViewGroup.LayoutParams)}
+     * to add an additional content view to the screen. Added after any
+     * existing ones on the screen -- existing views are NOT removed.
+     *
+     * @param view The desired content to display.
+     * @param params Layout parameters for the view.
+     */
     public void addContentView(View view, ViewGroup.LayoutParams params) {
         if (DEBUG) Log.d(TAG, "[addContentView] view: " + view + ", params: " + params);
 
@@ -707,6 +964,14 @@ public final class ActionBarSherlock {
         return mMenuInflater;
     }
 
+    /**
+     * Start an action mode.
+     *
+     * @param callback Callback that will manage lifecycle events for this
+     *                 context mode.
+     * @return The ContextMode that was started, or null if it was canceled.
+     * @see ActionMode
+     */
     public ActionMode startActionMode(ActionMode.Callback callback) {
         if (mActionMode != null) {
             mActionMode.finish();
