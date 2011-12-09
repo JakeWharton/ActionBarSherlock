@@ -21,10 +21,15 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.Interpolator;
 
 import com.actionbarsherlock.R;
 import com.actionbarsherlock.internal.view.menu.ActionMenuPresenter;
 import com.actionbarsherlock.internal.view.menu.ActionMenuView;
+import com.jakewharton.nineoldandroids.Animator;
+import com.jakewharton.nineoldandroids.AnimatorSet;
+import com.jakewharton.nineoldandroids.ObjectAnimator;
 
 public abstract class AbsActionBarView extends ViewGroup {
     protected ActionMenuView mMenuView;
@@ -36,12 +41,12 @@ public abstract class AbsActionBarView extends ViewGroup {
 
     final Context mContext;
 
-    //TODO protected Animator mVisibilityAnim;
-    //TODO protected final VisibilityAnimListener mVisAnimListener = new VisibilityAnimListener();
+    protected Animator mVisibilityAnim;
+    protected final VisibilityAnimListener mVisAnimListener = new VisibilityAnimListener();
 
-    //TODO private static final TimeInterpolator sAlphaInterpolator = new DecelerateInterpolator();
+    private static final /*Time*/Interpolator sAlphaInterpolator = new DecelerateInterpolator();
 
-    //TODO private static final int FADE_DURATION = 200;
+    private static final int FADE_DURATION = 200;
 
     public AbsActionBarView(Context context) {
         super(context);
@@ -110,13 +115,13 @@ public abstract class AbsActionBarView extends ViewGroup {
      * @return Current visibility or if animating, the visibility being animated to.
      */
     public int getAnimatedVisibility() {
-        /* TODO if (mVisibilityAnim != null) {
+        if (mVisibilityAnim != null) {
             return mVisAnimListener.mFinalVisibility;
-        }*/
+        }
         return getVisibility();
     }
 
-    /* TODO public void animateToVisibility(int visibility) {
+    public void animateToVisibility(int visibility) {
         if (mVisibilityAnim != null) {
             mVisibilityAnim.cancel();
         }
@@ -157,13 +162,13 @@ public abstract class AbsActionBarView extends ViewGroup {
                 anim.start();
             }
         }
-    }*/
+    }
 
     @Override
     public void setVisibility(int visibility) {
-        /* TODO if (mVisibilityAnim != null) {
+        if (mVisibilityAnim != null) {
             mVisibilityAnim.end();
-        }*/
+        }
         super.setVisibility(visibility);
     }
 
@@ -237,7 +242,7 @@ public abstract class AbsActionBarView extends ViewGroup {
         return childWidth;
     }
 
-    /* TODO protected class VisibilityAnimListener implements Animator.AnimatorListener {
+    protected class VisibilityAnimListener implements Animator.AnimatorListener {
         private boolean mCanceled = false;
         int mFinalVisibility;
 
@@ -272,5 +277,5 @@ public abstract class AbsActionBarView extends ViewGroup {
         @Override
         public void onAnimationRepeat(Animator animation) {
         }
-    }*/
+    }
 }

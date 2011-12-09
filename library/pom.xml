@@ -21,6 +21,11 @@
 			<artifactId>android</artifactId>
 			<scope>provided</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>com.jakewharton</groupId>
+			<artifactId>nine-old-androids</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>

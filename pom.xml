@@ -98,6 +98,7 @@
 		<android.platform>14</android.platform>
 		<android.maps.version>14_r1</android.maps.version>
 		<android.compat.version>r4</android.compat.version>
+		<nine-old-androids.version>1.0.0</nine-old-androids.version>
 	</properties>
 
 	<dependencyManagement>
@@ -118,6 +119,12 @@
 				<groupId>com.google.android.maps</groupId>
 				<artifactId>maps</artifactId>
 				<version>${android.maps.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.jakewharton</groupId>
+				<artifactId>nine-old-androids</artifactId>
+				<version>${nine-old-androids.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -219,4 +226,11 @@
 			</extension>
 		</extensions>
 	</build>
+
+	<repositories>
+		<repository>
+			<id>com.jakewharton</id>
+			<url>http://r.jakewharton.com/maven/release</url>
+		</repository>
+	</repositories>
 </project>

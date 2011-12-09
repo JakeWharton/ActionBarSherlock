@@ -24,6 +24,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityEvent;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -32,11 +33,15 @@ import com.actionbarsherlock.internal.view.menu.ActionMenuPresenter;
 import com.actionbarsherlock.internal.view.menu.ActionMenuView;
 import com.actionbarsherlock.internal.view.menu.MenuBuilder;
 import com.actionbarsherlock.view.ActionMode;
+import com.jakewharton.nineoldandroids.Animator;
+import com.jakewharton.nineoldandroids.Animator.AnimatorListener;
+import com.jakewharton.nineoldandroids.AnimatorSet;
+import com.jakewharton.nineoldandroids.ObjectAnimator;
 
 /**
  * @hide
  */
-public class ActionBarContextView extends AbsActionBarView /*implements AnimatorListener*/ {
+public class ActionBarContextView extends AbsActionBarView implements AnimatorListener {
     //UNUSED private static final String TAG = "ActionBarContextView";
 
     private CharSequence mTitle;
@@ -51,13 +56,13 @@ public class ActionBarContextView extends AbsActionBarView /*implements Animator
     private int mSubtitleStyleRes;
     private Drawable mSplitBackground;
 
-    //TODO private Animator mCurrentAnimation;
-    //TODO private boolean mAnimateInOnLayout;
-    //TODO private int mAnimationMode;
+    private Animator mCurrentAnimation;
+    private boolean mAnimateInOnLayout;
+    private int mAnimationMode;
 
-    //TODO private static final int ANIMATE_IDLE = 0;
-    //TODO private static final int ANIMATE_IN = 1;
-    //TODO private static final int ANIMATE_OUT = 2;
+    private static final int ANIMATE_IDLE = 0;
+    private static final int ANIMATE_IN = 1;
+    private static final int ANIMATE_OUT = 2;
 
     public ActionBarContextView(Context context) {
         this(context, null);
@@ -235,42 +240,42 @@ public class ActionBarContextView extends AbsActionBarView /*implements Animator
             mSplitView.addView(mMenuView, layoutParams);
         }
 
-        //TODO mAnimateInOnLayout = true;
+        mAnimateInOnLayout = true;
     }
 
     public void closeMode() {
-        /* TODO if (mAnimationMode == ANIMATE_OUT) {
+        if (mAnimationMode == ANIMATE_OUT) {
             // Called again during close; just finish what we were doing.
             return;
-        }*/
+        }
         if (mClose == null) {
             killMode();
             return;
         }
 
-        //TODO finishAnimation();
-        //TODO mAnimationMode = ANIMATE_OUT;
-        //TODO mCurrentAnimation = makeOutAnimation();
-        //TODO mCurrentAnimation.start();
+        finishAnimation();
+        mAnimationMode = ANIMATE_OUT;
+        mCurrentAnimation = makeOutAnimation();
+        mCurrentAnimation.start();
     }
 
-    /* TODO private void finishAnimation() {
+    private void finishAnimation() {
         final Animator a = mCurrentAnimation;
         if (a != null) {
             mCurrentAnimation = null;
             a.end();
         }
-    }*/
+    }
 
     public void killMode() {
-        //TODO finishAnimation();
+        finishAnimation();
         removeAllViews();
         if (mSplitView != null) {
             mSplitView.removeView(mMenuView);
         }
         mCustomView = null;
         mMenuView = null;
-        //TODO mAnimateInOnLayout = false;
+        mAnimateInOnLayout = false;
     }
 
     @Override
@@ -378,7 +383,7 @@ public class ActionBarContextView extends AbsActionBarView /*implements Animator
         }
     }
 
-    /* TODO private Animator makeInAnimation() {
+    private Animator makeInAnimation() {
         mClose.setTranslationX(-mClose.getWidth() -
                 ((MarginLayoutParams) mClose.getLayoutParams()).leftMargin);
         ObjectAnimator buttonAnimator = ObjectAnimator.ofFloat(mClose, "translationX", 0);
@@ -404,9 +409,9 @@ public class ActionBarContextView extends AbsActionBarView /*implements Animator
         }
 
         return set;
-    }*/
+    }
 
-    /* TODO private Animator makeOutAnimation() {
+    private Animator makeOutAnimation() {
         ObjectAnimator buttonAnimator = ObjectAnimator.ofFloat(mClose, "translationX",
                 -mClose.getWidth() - ((MarginLayoutParams) mClose.getLayoutParams()).leftMargin);
         buttonAnimator.setDuration(200);
@@ -431,7 +436,7 @@ public class ActionBarContextView extends AbsActionBarView /*implements Animator
         }
 
         return set;
-    }*/
+    }
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
@@ -445,12 +450,12 @@ public class ActionBarContextView extends AbsActionBarView /*implements Animator
             x += positionChild(mClose, x, y, contentHeight);
             x += lp.rightMargin;
 
-            /* TODO if (mAnimateInOnLayout) {
+            if (mAnimateInOnLayout) {
                 mAnimationMode = ANIMATE_IN;
                 mCurrentAnimation = makeInAnimation();
                 mCurrentAnimation.start();
                 mAnimateInOnLayout = false;
-            }*/
+            }
         }
 
         if (mTitleLayout != null && mCustomView == null) {
@@ -468,7 +473,6 @@ public class ActionBarContextView extends AbsActionBarView /*implements Animator
         }
     }
 
-    /* TODO
     @Override
     public void onAnimationStart(Animator animation) {
     }
@@ -488,7 +492,6 @@ public class ActionBarContextView extends AbsActionBarView /*implements Animator
     @Override
     public void onAnimationRepeat(Animator animation) {
     }
-    */
 
     //@Override
     public boolean shouldDelayChildPressedState() {

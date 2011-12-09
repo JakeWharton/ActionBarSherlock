@@ -25,6 +25,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.Interpolator;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.HorizontalScrollView;
@@ -36,6 +38,8 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.R;
 import com.actionbarsherlock.app.ActionBar;
+import com.jakewharton.nineoldandroids.Animator;
+import com.jakewharton.nineoldandroids.ObjectAnimator;
 
 /**
  * This widget implements the dynamic action bar tab behavior that can change
@@ -57,12 +61,12 @@ public class ScrollingTabContainerView extends HorizontalScrollView
     private int mContentHeight;
     private int mSelectedTabIndex;
 
-    //TODO protected Animator mVisibilityAnim;
-    //TODO protected final VisibilityAnimListener mVisAnimListener = new VisibilityAnimListener();
+    protected Animator mVisibilityAnim;
+    protected final VisibilityAnimListener mVisAnimListener = new VisibilityAnimListener();
 
-    //TODO private static final TimeInterpolator sAlphaInterpolator = new DecelerateInterpolator();
+    private static final /*Time*/Interpolator sAlphaInterpolator = new DecelerateInterpolator();
 
-    //TODO private static final int FADE_DURATION = 200;
+    private static final int FADE_DURATION = 200;
 
     public ScrollingTabContainerView(Context context) {
         super(context);
@@ -212,7 +216,7 @@ public class ScrollingTabContainerView extends HorizontalScrollView
         a.recycle();
     }
 
-    /* TODO public void animateToVisibility(int visibility) {
+    public void animateToVisibility(int visibility) {
         if (mVisibilityAnim != null) {
             mVisibilityAnim.cancel();
         }
@@ -234,7 +238,7 @@ public class ScrollingTabContainerView extends HorizontalScrollView
             anim.addListener(mVisAnimListener.withFinalVisibility(visibility));
             anim.start();
         }
-    }*/
+    }
 
     public void animateToTab(final int position) {
         final View tabView = mTabLayout.getChildAt(position);
@@ -503,7 +507,7 @@ public class ScrollingTabContainerView extends HorizontalScrollView
         }
     }
 
-    /* TODO protected class VisibilityAnimListener implements Animator.AnimatorListener {
+    protected class VisibilityAnimListener implements Animator.AnimatorListener {
         private boolean mCanceled = false;
         private int mFinalVisibility;
 
@@ -535,5 +539,5 @@ public class ScrollingTabContainerView extends HorizontalScrollView
         @Override
         public void onAnimationRepeat(Animator animation) {
         }
-    }*/
+    }
 }

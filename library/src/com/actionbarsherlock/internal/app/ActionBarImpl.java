@@ -48,6 +48,11 @@ import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import com.jakewharton.nineoldandroids.Animator;
+import com.jakewharton.nineoldandroids.Animator.AnimatorListener;
+import com.jakewharton.nineoldandroids.AnimatorListenerAdapter;
+import com.jakewharton.nineoldandroids.AnimatorSet;
+import com.jakewharton.nineoldandroids.ObjectAnimator;
 
 /**
  * ActionBarImpl is the ActionBar implementation used
@@ -68,7 +73,7 @@ public class ActionBarImpl extends ActionBar {
     private ActionBarView mActionView;
     private ActionBarContextView mContextView;
     private ActionBarContainer mSplitView;
-    //UNUSED private View mContentView;
+    private View mContentView;
     private ScrollingTabContainerView mTabScrollView;
 
     private ArrayList<TabImpl> mTabs = new ArrayList<TabImpl>();
@@ -95,12 +100,12 @@ public class ActionBarImpl extends ActionBar {
     final Handler mHandler = new Handler();
     Runnable mTabSelector;
 
-    //TODO private Animator mCurrentShowAnim;
-    //TODO private Animator mCurrentModeAnim;
-    //TODO private boolean mShowHideAnimationEnabled;
+    private Animator mCurrentShowAnim;
+    private Animator mCurrentModeAnim;
+    private boolean mShowHideAnimationEnabled;
     boolean mWasHiddenBeforeMode;
 
-    /* TODO final AnimatorListener mHideListener = new AnimatorListenerAdapter() {
+    final AnimatorListener mHideListener = new AnimatorListenerAdapter() {
         @Override
         public void onAnimationEnd(Animator animation) {
             if (mContentView != null) {
@@ -115,24 +120,25 @@ public class ActionBarImpl extends ActionBar {
             mCurrentShowAnim = null;
             completeDeferredDestroyActionMode();
         }
-    };*/
+    };
 
-    /* TODO final AnimatorListener mShowListener = new AnimatorListenerAdapter() {
+    final AnimatorListener mShowListener = new AnimatorListenerAdapter() {
         @Override
         public void onAnimationEnd(Animator animation) {
             mCurrentShowAnim = null;
             mContainerView.requestLayout();
         }
-    };*/
+    };
 
     public ActionBarImpl(Activity activity) {
         //UNUSED mActivity = activity;
         Window window = activity.getWindow();
         View decor = window.getDecorView();
         init(decor);
-        /* UNUSED if (!mActivity.getWindow().hasFeature(Window.FEATURE_ACTION_BAR_OVERLAY)) {
+        //TODO this shouldn't check on window?
+        if (!window.hasFeature(Window.FEATURE_ACTION_BAR_OVERLAY)) {
             mContentView = decor.findViewById(android.R.id.content);
-        }*/
+        }
     }
 
     public ActionBarImpl(Dialog dialog) {
@@ -162,7 +168,7 @@ public class ActionBarImpl extends ActionBar {
         // Older apps get the home button interaction enabled by default.
         // Newer apps need to enable it explicitly.
         //setHomeButtonEnabled(mContext.getApplicationInfo().targetSdkVersion < 14);
-        //We're all new brotha! This is ActionBarSherlock!
+        // We're all new brotha!  This. Is. ActionBarSherlock!
 
         setHasEmbeddedTabs(mContext.getResources().getBoolean(
                 R.bool.abs__action_bar_embed_tabs));
@@ -233,10 +239,10 @@ public class ActionBarImpl extends ActionBar {
      * @param enabled true to animate, false to not animate.
      */
     public void setShowHideAnimationEnabled(boolean enabled) {
-        /* TODO mShowHideAnimationEnabled = enabled;
+        mShowHideAnimationEnabled = enabled;
         if (!enabled && mCurrentShowAnim != null) {
             mCurrentShowAnim.end();
-        }*/
+        }
     }
 
     public void addOnMenuVisibilityListener(OnMenuVisibilityListener listener) {
@@ -397,7 +403,7 @@ public class ActionBarImpl extends ActionBar {
             mWasHiddenBeforeMode = !isShowing() || wasHidden;
             mode.invalidate();
             mContextView.initForMode(mode);
-            //TODO animateToMode(true);
+            animateToMode(true);
             if (mSplitView != null && mContextDisplayMode == CONTEXT_DISPLAY_SPLIT) {
                 // TODO animate this
                 mSplitView.setVisibility(View.VISIBLE);
@@ -498,26 +504,26 @@ public class ActionBarImpl extends ActionBar {
             return;
         }
 
-        /* TODO final FragmentTransaction trans = mActivity.getSupportFragmentManager().beginTransaction()
+        /* XXX final FragmentTransaction trans = mActivity.getSupportFragmentManager().beginTransaction()
                 .disallowAddToBackStack();*/
 
         if (mSelectedTab == tab) {
             if (mSelectedTab != null) {
-                mSelectedTab.getCallback().onTabReselected(mSelectedTab); //TODO, trans);
+                mSelectedTab.getCallback().onTabReselected(mSelectedTab); //XXX, trans);
                 mTabScrollView.animateToTab(tab.getPosition());
             }
         } else {
             mTabScrollView.setTabSelected(tab != null ? tab.getPosition() : Tab.INVALID_POSITION);
             if (mSelectedTab != null) {
-                mSelectedTab.getCallback().onTabUnselected(mSelectedTab); //TODO, trans);
+                mSelectedTab.getCallback().onTabUnselected(mSelectedTab); //XXX, trans);
             }
             mSelectedTab = (TabImpl) tab;
             if (mSelectedTab != null) {
-                mSelectedTab.getCallback().onTabSelected(mSelectedTab); //TODO, trans);
+                mSelectedTab.getCallback().onTabSelected(mSelectedTab); //XXX, trans);
             }
         }
 
-        /* TODO if (!trans.isEmpty()) {
+        /* XXX if (!trans.isEmpty()) {
             trans.commit();
         }*/
     }
@@ -538,16 +544,16 @@ public class ActionBarImpl extends ActionBar {
     }
 
     void show(boolean markHiddenBeforeMode) {
-        /* TODO if (mCurrentShowAnim != null) {
+        if (mCurrentShowAnim != null) {
             mCurrentShowAnim.end();
-        }*/
+        }
         if (mContainerView.getVisibility() == View.VISIBLE) {
             if (markHiddenBeforeMode) mWasHiddenBeforeMode = false;
             return;
         }
         mContainerView.setVisibility(View.VISIBLE);
 
-        /* TODO if (mShowHideAnimationEnabled) {
+        if (mShowHideAnimationEnabled) {
             mContainerView.setAlpha(0);
             AnimatorSet anim = new AnimatorSet();
             AnimatorSet.Builder b = anim.play(ObjectAnimator.ofFloat(mContainerView, "alpha", 1));
@@ -569,19 +575,19 @@ public class ActionBarImpl extends ActionBar {
             mContainerView.setAlpha(1);
             mContainerView.setTranslationY(0);
             mShowListener.onAnimationEnd(null);
-        }*/
+        }
     }
 
     @Override
     public void hide() {
-        /* TODO if (mCurrentShowAnim != null) {
+        if (mCurrentShowAnim != null) {
             mCurrentShowAnim.end();
-        }*/
+        }
         if (mContainerView.getVisibility() == View.GONE) {
             return;
         }
 
-        /* TODO if (mShowHideAnimationEnabled) {
+        if (mShowHideAnimationEnabled) {
             mContainerView.setAlpha(1);
             mContainerView.setTransitioning(true);
             AnimatorSet anim = new AnimatorSet();
@@ -601,15 +607,14 @@ public class ActionBarImpl extends ActionBar {
             anim.start();
         } else {
             mHideListener.onAnimationEnd(null);
-        }*/
-        /*XXX*/mContainerView.setVisibility(View.GONE);
+        }
     }
 
     public boolean isShowing() {
         return mContainerView.getVisibility() == View.VISIBLE;
     }
 
-    /* TODO void animateToMode(boolean toActionMode) {
+    void animateToMode(boolean toActionMode) {
         if (toActionMode) {
             show(false);
         }
@@ -622,7 +627,7 @@ public class ActionBarImpl extends ActionBar {
         if (mTabScrollView != null && !mActionView.hasEmbeddedTabs() && mActionView.isCollapsed()) {
             mTabScrollView.animateToVisibility(toActionMode ? View.GONE : View.VISIBLE);
         }
-    }*/
+    }
 
     public Context getThemedContext() {
         if (mThemedContext == null) {
@@ -684,7 +689,7 @@ public class ActionBarImpl extends ActionBar {
                 mCallback.onDestroyActionMode(this);
             }
             mCallback = null;
-            //TODO animateToMode(false);
+            animateToMode(false);
 
             // Clear out the context mode views after the animation finishes
             mContextView.closeMode();
