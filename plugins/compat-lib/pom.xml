@@ -25,6 +25,8 @@
 		<dependency>
 			<groupId>android.support</groupId>
 			<artifactId>compatibility-v4</artifactId>
+			<scope>provided</scope>
+			<!-- We mark this as provided since we include its sources -->
 		</dependency>
 
 		<dependency>
