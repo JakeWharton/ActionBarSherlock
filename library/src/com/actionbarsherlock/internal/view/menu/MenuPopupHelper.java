@@ -34,6 +34,7 @@ import android.widget.FrameLayout;
 import android.widget.ListAdapter;
 import android.widget.ListPopupWindow;
 import android.widget.PopupWindow;
+import android.widget.Toast;
 import com.actionbarsherlock.R;
 import com.actionbarsherlock.internal.view.View_HasStateListenerSupport;
 import com.actionbarsherlock.internal.view.View_OnAttachStateChangeListener;
@@ -107,29 +108,33 @@ public class MenuPopupHelper implements AdapterView.OnItemClickListener, View.On
     }
 
     public boolean tryShow() {
-        mPopup = new ListPopupWindow(mContext, null, R.attr.popupMenuStyle);
-        mPopup.setOnDismissListener(this);
-        mPopup.setOnItemClickListener(this);
-
-        mAdapter = new MenuAdapter(mMenu);
-        mPopup.setAdapter(mAdapter);
-        mPopup.setModal(true);
-
-        View anchor = mAnchorView;
-        if (anchor != null) {
-            final boolean addGlobalListener = mTreeObserver == null;
-            mTreeObserver = anchor.getViewTreeObserver(); // Refresh to latest
-            if (addGlobalListener) mTreeObserver.addOnGlobalLayoutListener(this);
-            ((View_HasStateListenerSupport)anchor).addOnAttachStateChangeListener(this);
-            mPopup.setAnchorView(anchor);
+        if (SHOWS_DIALOG) {
+            Toast.makeText(mContext, "Got submenu trigger.", Toast.LENGTH_SHORT).show();
         } else {
-            return false;
-        }
+            mPopup = new ListPopupWindow(mContext, null, R.attr.popupMenuStyle);
+            mPopup.setOnDismissListener(this);
+            mPopup.setOnItemClickListener(this);
 
-        mPopup.setContentWidth(Math.min(measureContentWidth(mAdapter), mPopupMaxWidth));
-        mPopup.setInputMethodMode(PopupWindow.INPUT_METHOD_NOT_NEEDED);
-        mPopup.show();
-        mPopup.getListView().setOnKeyListener(this);
+            mAdapter = new MenuAdapter(mMenu);
+            mPopup.setAdapter(mAdapter);
+            mPopup.setModal(true);
+
+            View anchor = mAnchorView;
+            if (anchor != null) {
+                final boolean addGlobalListener = mTreeObserver == null;
+                mTreeObserver = anchor.getViewTreeObserver(); // Refresh to latest
+                if (addGlobalListener) mTreeObserver.addOnGlobalLayoutListener(this);
+                ((View_HasStateListenerSupport)anchor).addOnAttachStateChangeListener(this);
+                mPopup.setAnchorView(anchor);
+            } else {
+                return false;
+            }
+
+            mPopup.setContentWidth(Math.min(measureContentWidth(mAdapter), mPopupMaxWidth));
+            mPopup.setInputMethodMode(PopupWindow.INPUT_METHOD_NOT_NEEDED);
+            mPopup.show();
+            mPopup.getListView().setOnKeyListener(this);
+        }
         return true;
     }
 
