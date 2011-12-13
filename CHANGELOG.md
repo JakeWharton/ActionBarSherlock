@@ -4,6 +4,9 @@ Change Log
 Version 3.4.3 *(In Development)*
 --------------------------------
 
+ * Library now uses the `r5` version of the compatibility library for its base.
+   Ice Cream Sandwich-specific implementations are currently disabled, however,
+   but will be added in a future version of the library.
  * Fix: Updates in `onPrepareOptionsMenu` now properly reflected in the pre-3.0
    overflow menu.
 

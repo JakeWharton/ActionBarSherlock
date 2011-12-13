@@ -33,7 +33,8 @@ public class AccessibilityDelegateCompat {
                 AccessibilityEvent event);
         public void onInitializeAccessibilityEvent(Object delegate, View host,
                 AccessibilityEvent event);
-        public void onInitializeAccessibilityNodeInfo(Object delegate, View host, Object info);
+        public void onInitializeAccessibilityNodeInfo(Object delegate, View host,
+                AccessibilityNodeInfoCompat info);
         public void onPopulateAccessibilityEvent(Object delegate, View host,
                 AccessibilityEvent event);
         public boolean onRequestSendAccessibilityEvent(Object delegate, ViewGroup host, View child,
@@ -62,7 +63,8 @@ public class AccessibilityDelegateCompat {
 
         }
 
-        public void onInitializeAccessibilityNodeInfo(Object delegate, View host, Object info) {
+        public void onInitializeAccessibilityNodeInfo(Object delegate, View host,
+                AccessibilityNodeInfoCompat info) {
 
         }
 
@@ -150,8 +152,10 @@ public class AccessibilityDelegateCompat {
         }
 
         @Override
-        public void onInitializeAccessibilityNodeInfo(Object delegate, View host, Object info) {
-            AccessibilityDelegateCompatIcs.onInitializeAccessibilityNodeInfo(delegate, host, info);
+        public void onInitializeAccessibilityNodeInfo(Object delegate, View host,
+                AccessibilityNodeInfoCompat info) {
+            AccessibilityDelegateCompatIcs.onInitializeAccessibilityNodeInfo(delegate, host,
+                    info.getImpl());
         }
 
         @Override

@@ -57,14 +57,13 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
         String name = makeFragmentName(container.getId(), position);
         Fragment fragment = mFragmentManager.findFragmentByTag(name);
         if (fragment != null) {
-            if (DEBUG)
-                Log.v(TAG, "Attaching item #" + position + ": f=" + fragment);
+            if (DEBUG) Log.v(TAG, "Attaching item #" + position + ": f=" + fragment);
             mCurTransaction.attach(fragment);
         } else {
             fragment = getItem(position);
-            if (DEBUG)
-                Log.v(TAG, "Adding item #" + position + ": f=" + fragment);
-            mCurTransaction.add(container.getId(), fragment, makeFragmentName(container.getId(), position));
+            if (DEBUG) Log.v(TAG, "Adding item #" + position + ": f=" + fragment);
+            mCurTransaction.add(container.getId(), fragment,
+                    makeFragmentName(container.getId(), position));
         }
         if (fragment != mCurrentPrimaryItem) {
             fragment.setMenuVisibility(false);
@@ -78,14 +77,14 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
         if (mCurTransaction == null) {
             mCurTransaction = mFragmentManager.beginTransaction();
         }
-        if (DEBUG)
-            Log.v(TAG, "Detaching item #" + position + ": f=" + object + " v=" + ((Fragment) object).getView());
-        mCurTransaction.detach((Fragment) object);
+        if (DEBUG) Log.v(TAG, "Detaching item #" + position + ": f=" + object
+                + " v=" + ((Fragment)object).getView());
+        mCurTransaction.detach((Fragment)object);
     }
 
     @Override
     public void setPrimaryItem(View container, int position, Object object) {
-        Fragment fragment = (Fragment) object;
+        Fragment fragment = (Fragment)object;
         if (fragment != mCurrentPrimaryItem) {
             if (mCurrentPrimaryItem != null) {
                 mCurrentPrimaryItem.setMenuVisibility(false);
@@ -108,7 +107,7 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
-        return ((Fragment) object).getView() == view;
+        return ((Fragment)object).getView() == view;
     }
 
     @Override

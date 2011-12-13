@@ -21,6 +21,7 @@ import android.accessibilityservice.AccessibilityServiceInfo;
 import android.view.accessibility.AccessibilityManager;
 //import android.support.v4.view.accessibility.AccessibilityManagerCompatIcs.AccessibilityStateChangeListenerBridge;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -60,12 +61,12 @@ public class AccessibilityManagerCompat {
 
         public List<AccessibilityServiceInfo> getEnabledAccessibilityServiceList(
                 AccessibilityManager manager, int feedbackTypeFlags) {
-            return null;
+            return Collections.emptyList();
         }
 
         public List<AccessibilityServiceInfo> getInstalledAccessibilityServiceList(
                 AccessibilityManager manager) {
-            return null;
+            return Collections.emptyList();
         }
 
         public boolean isTouchExplorationEnabled(AccessibilityManager manager) {

@@ -21,6 +21,7 @@ import android.graphics.Rect;
 import android.view.View;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -100,7 +101,7 @@ public class AccessibilityNodeInfoCompat {
         }
 
         public List<Object> findAccessibilityNodeInfosByText(Object info, String text) {
-            return null;
+            return Collections.emptyList();
         }
 
         public int getActions(Object info) {

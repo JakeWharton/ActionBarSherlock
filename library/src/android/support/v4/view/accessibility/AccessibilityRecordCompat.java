@@ -20,6 +20,7 @@ package android.support.v4.view.accessibility;
 import android.os.Parcelable;
 import android.view.View;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -141,7 +142,7 @@ public class AccessibilityRecordCompat {
         }
 
         public List<CharSequence> getText(Object record) {
-            return null;
+            return Collections.emptyList();
         }
 
         public int getToIndex(Object record) {
