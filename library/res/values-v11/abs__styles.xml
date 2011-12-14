@@ -20,7 +20,9 @@
         <item name="popupMenuStyle">@style/Widget.Sherlock.PopupMenu</item>
         <item name="selectableItemBackground">@drawable/abs__item_background_holo_dark</item>
         <item name="windowActionBar">true</item>
+        <item name="windowActionBarOverlay">false</item>
         <item name="windowActionModeOverlay">false</item>
+        <item name="windowNoTitle">false</item>
 
         <!-- These should be in `Widget.Sherlock.ActionBar` but there is no way to then -->
         <!-- reference them as sibling attributes to their native counterparts. See: -->
@@ -61,7 +63,9 @@
         <item name="android:popupMenuStyle">?popupMenuStyle</item>
         <item name="android:selectableItemBackground">?selectableItemBackground</item>
         <item name="android:windowActionBar">?windowActionBar</item>
+        <item name="android:windowActionBarOverlay">?windowActionBarOverlay</item>
         <item name="android:windowActionModeOverlay">?windowActionModeOverlay</item>
+        <item name="android:windowNoTitle">?windowNoTitle</item>
     </style>
 
     <style name="Internal.Widget.Sherlock.ActionBar" parent="android:Widget.Holo.ActionBar">
@@ -114,7 +118,9 @@
         <item name="popupMenuStyle">@style/Widget.Sherlock.Light.PopupMenu</item>
         <item name="selectableItemBackground">@drawable/abs__item_background_holo_light</item>
         <item name="windowActionBar">true</item>
+        <item name="windowActionBarOverlay">false</item>
         <item name="windowActionModeOverlay">false</item>
+        <item name="windowNoTitle">false</item>
 
         <!-- These should be in `Widget.Sherlock.ActionBar` but there is no way to then -->
         <!-- reference them as sibling attributes to their native counterparts. See: -->
@@ -154,7 +160,9 @@
         <item name="android:popupMenuStyle">?popupMenuStyle</item>
         <item name="android:selectableItemBackground">?selectableItemBackground</item>
         <item name="android:windowActionBar">?windowActionBar</item>
+        <item name="android:windowActionBarOverlay">?windowActionBarOverlay</item>
         <item name="android:windowActionModeOverlay">?windowActionModeOverlay</item>
+        <item name="android:windowNoTitle">?windowNoTitle</item>
     </style>
     
     <style name="Internal.Widget.Sherlock.Light.ActionBar" parent="android:Widget.Holo.Light.ActionBar">

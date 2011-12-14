@@ -70,11 +70,6 @@ public final class ActionBarWrapper {
             return mActivity.getActionBar();
         }
 
-        @Override
-        protected ActionBar getPublicInstance() {
-            return (getActionBar() != null) ? this : null;
-        }
-
         /**
          * Converts our Tab wrapper to a native version containing the wrapper
          * instance as its tag.

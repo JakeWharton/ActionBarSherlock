@@ -41,7 +41,6 @@ import android.view.animation.Animation.AnimationListener;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.actionbarsherlock.R;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -1199,12 +1198,6 @@ final class FragmentManagerImpl extends FragmentManager {
     }
 
     public Fragment findFragmentById(int id) {
-        if (!HONEYCOMB && (id == android.R.id.content)) {
-            // android.R.id.content would point to the entire content area,
-            // including the custom action bar
-            id = R.id.abs__content;
-        }
-
         if (mActive != null) {
             // First look through added fragments.
             for (int i=mAdded.size()-1; i>=0; i--) {
@@ -1275,7 +1268,6 @@ final class FragmentManagerImpl extends FragmentManager {
             if (mActivity == null) {
                 throw new IllegalStateException("Activity has been destroyed");
             }
-            mActivity.getInternalCallbacks().ensureSupportActionBarAttached();
             if (mPendingActions == null) {
                 mPendingActions = new ArrayList<Runnable>();
             }

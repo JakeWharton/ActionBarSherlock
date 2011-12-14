@@ -11,14 +11,6 @@ public class ActionBarListNavigation extends FragmentActivity implements ActionB
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		//WARNING: This should normally not be needed as calling setContentView
-		//or attaching a fragment to android.R.id.content will call this. In
-		//this case, however, we call it manually since initializing the list
-		//navigation will trigger a navigation changed callback and thus attach
-		//the default fragment as the content.
-		ensureSupportActionBarAttached();
-		
-		
 		getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 		
 		ArrayAdapter<CharSequence> list = ArrayAdapter.createFromResource(this, R.array.locations, R.layout.abs__simple_spinner_item);

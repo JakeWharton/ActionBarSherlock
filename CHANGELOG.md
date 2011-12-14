@@ -1,7 +1,7 @@
 Change Log
 ===============================================================================
 
-Version 3.4.3 *(In Development)*
+Version 3.5.0 *(In Development)*
 --------------------------------
 
  * Library now uses the `r5` version of the compatibility library for its base.

@@ -46,6 +46,7 @@ public final class ActionBarView extends RelativeLayout {
 
     /** Indeterminate progress bar. */
     private final ProgressBar mIndeterminateProgress;
+    private boolean mAllowsIndeterminateProgress = false;
 
     /** List view. */
     private final Spinner mSpinner;
@@ -304,6 +305,10 @@ public final class ActionBarView extends RelativeLayout {
         //flag is set
         mCustomView.setVisibility(isStandard && displayCustom ? View.VISIBLE : View.GONE);
     }
+    
+    public void initIndeterminateProgress() {
+        mAllowsIndeterminateProgress = true;
+    }
 
     // ------------------------------------------------------------------------
     // ACTION BAR API
@@ -451,7 +456,9 @@ public final class ActionBarView extends RelativeLayout {
     }
 
     public void setProgressBarIndeterminateVisibility(boolean visible) {
-        mIndeterminateProgress.setVisibility(visible ? View.VISIBLE : View.GONE);
+        if (mAllowsIndeterminateProgress) {
+            mIndeterminateProgress.setVisibility(visible ? View.VISIBLE : View.GONE);
+        }
     }
 
     public void setNavigationMode(int mode) {

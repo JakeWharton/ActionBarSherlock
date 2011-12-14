@@ -21,20 +21,11 @@ import java.io.FileDescriptor;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
-import com.actionbarsherlock.R;
-import com.actionbarsherlock.internal.app.ActionBarWrapper;
-import com.actionbarsherlock.internal.app.ActionBarImpl;
-import com.actionbarsherlock.internal.view.menu.MenuBuilder;
-import com.actionbarsherlock.internal.view.menu.MenuInflaterWrapper;
-import com.actionbarsherlock.internal.view.menu.MenuItemImpl;
-import com.actionbarsherlock.internal.view.menu.MenuItemWrapper;
-import com.actionbarsherlock.internal.view.menu.MenuWrapper;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
-import android.content.res.Resources.Theme;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -49,8 +40,17 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.FrameLayout;
+import com.actionbarsherlock.R;
+import com.actionbarsherlock.internal.app.ActionBarImpl;
+import com.actionbarsherlock.internal.app.ActionBarWrapper;
+import com.actionbarsherlock.internal.view.menu.MenuBuilder;
+import com.actionbarsherlock.internal.view.menu.MenuInflaterWrapper;
+import com.actionbarsherlock.internal.view.menu.MenuItemImpl;
+import com.actionbarsherlock.internal.view.menu.MenuItemWrapper;
+import com.actionbarsherlock.internal.view.menu.MenuWrapper;
+import com.actionbarsherlock.internal.widget.ActionBarView;
 
 /**
  * Base class for activities that want to use the support-based ActionBar,
@@ -84,12 +84,6 @@ public class FragmentActivity extends Activity implements SupportActivity {
     static final int MSG_REALLY_STOPPED = 1;
     static final int MSG_RESUME_PENDING = 2;
 
-    private static final int WINDOW_FLAG_ACTION_BAR = 1 << Window.FEATURE_ACTION_BAR;
-    private static final int WINDOW_FLAG_ACTION_BAR_ITEM_TEXT = 1 << Window.FEATURE_ACTION_BAR_ITEM_TEXT;
-    private static final int WINDOW_FLAG_ACTION_BAR_OVERLAY = 1 << Window.FEATURE_ACTION_BAR_OVERLAY;
-    private static final int WINDOW_FLAG_ACTION_MODE_OVERLAY = 1 << Window.FEATURE_ACTION_MODE_OVERLAY;
-    private static final int WINDOW_FLAG_INDETERMINANTE_PROGRESS = 1 << Window.FEATURE_INDETERMINATE_PROGRESS;
-
     final SupportActivity.InternalCallbacks mInternalCallbacks = new SupportActivity.InternalCallbacks() {
         @Override
         void invalidateSupportFragmentIndex(int index) {
@@ -109,11 +103,6 @@ public class FragmentActivity extends Activity implements SupportActivity {
         @Override
         FragmentManagerImpl getFragments() {
             return mFragments;
-        }
-
-        @Override
-        void ensureSupportActionBarAttached() {
-            FragmentActivity.this.ensureSupportActionBarAttached();
         }
 
         @Override
@@ -142,11 +131,14 @@ public class FragmentActivity extends Activity implements SupportActivity {
     };
     final FragmentManagerImpl mFragments = new FragmentManagerImpl();
 
+    ViewGroup mDecor;
+    ViewGroup mContentParent;
     ActionBar mActionBar;
-    boolean mIsActionBarImplAttached;
+    ActionBarView mActionBarView;
     long mWindowFlags = 0;
 
-    final MenuBuilder mSupportMenu;
+    android.view.MenuInflater mMenuInflater;
+    MenuBuilder mSupportMenu;
     final MenuBuilder.Callback mSupportMenuCallback = new MenuBuilder.Callback() {
         @Override
         public boolean onMenuItemSelected(MenuBuilder menu, MenuItem item) {
@@ -189,7 +181,6 @@ public class FragmentActivity extends Activity implements SupportActivity {
 
     public FragmentActivity() {
         if (IS_HONEYCOMB) {
-            mActionBar = ActionBarWrapper.createFor(this);
             mSupportMenu = null; //Everything should be done natively
         } else {
             mSupportMenu = new MenuBuilder(this);
@@ -207,39 +198,124 @@ public class FragmentActivity extends Activity implements SupportActivity {
         return this;
     }
 
-    protected void ensureSupportActionBarAttached() {
-        if (IS_HONEYCOMB || mIsActionBarImplAttached) {
+    private void initActionBar() {
+        if (DEBUG) Log.d(TAG, "[initActionBar]");
+
+        // Initializing the window decor can change window feature flags.
+        // Make sure that we have the correct set before performing the test below.
+        if (mDecor == null) {
+            installDecor();
+        }
+
+        if ((mActionBar != null) || !hasFeature(Window.FEATURE_ACTION_BAR) || isChild()) {
             return;
         }
-        if (!isChild()) {
-            if ((mWindowFlags & WINDOW_FLAG_ACTION_BAR) == WINDOW_FLAG_ACTION_BAR) {
-                if ((mWindowFlags & WINDOW_FLAG_ACTION_BAR_OVERLAY) == WINDOW_FLAG_ACTION_BAR_OVERLAY) {
-                    super.setContentView(R.layout.abs__screen_action_bar_overlay);
-                } else {
-                    super.setContentView(R.layout.abs__screen_action_bar);
-                }
-
-                mActionBar = new ActionBarImpl(this);
-                ((ActionBarImpl)mActionBar).init();
-
-                final boolean textEnabled = ((mWindowFlags & WINDOW_FLAG_ACTION_BAR_ITEM_TEXT) == WINDOW_FLAG_ACTION_BAR_ITEM_TEXT);
-                mSupportMenu.setShowsActionItemText(textEnabled);
-
-                if ((mWindowFlags & WINDOW_FLAG_INDETERMINANTE_PROGRESS) == WINDOW_FLAG_INDETERMINANTE_PROGRESS) {
-                    ((ActionBarImpl)mActionBar).setProgressBarIndeterminateVisibility(false);
-                }
-
-                //TODO set other flags
+        
+        if (IS_HONEYCOMB) {
+            mActionBar = ActionBarWrapper.createFor(this);
+        } else {
+            mActionBar = new ActionBarImpl(this);
+        }
+    }
+    
+    private void installDecor() {
+        if (DEBUG) Log.d(TAG, "[installDecor]");
+        
+        if (mDecor == null) {
+            if (IS_HONEYCOMB) {
+                mDecor = (ViewGroup)getWindow().getDecorView();
             } else {
-                if ((mWindowFlags & WINDOW_FLAG_INDETERMINANTE_PROGRESS) == WINDOW_FLAG_INDETERMINANTE_PROGRESS) {
-                    super.requestWindowFeature((int)Window.FEATURE_INDETERMINATE_PROGRESS);
-                }
-                super.setContentView(R.layout.abs__screen_simple);
+                mDecor = (ViewGroup)getWindow().getDecorView().findViewById(android.R.id.content);
             }
         }
+        if (mContentParent == null) {
+            if (IS_HONEYCOMB) {
+                mContentParent = (ViewGroup)mDecor.findViewById(android.R.id.content);
+            } else {
+                mContentParent = generateLayout();
+                mActionBarView = (ActionBarView)mDecor.findViewById(R.id.abs__action_bar);
+                if (mActionBarView != null) {
+                    if (mActionBarView.getTitle() == null) {
+                        mActionBarView.setTitle(getTitle());
+                    }
+                    if (hasFeature(Window.FEATURE_INDETERMINATE_PROGRESS)) {
+                        mActionBarView.initIndeterminateProgress();
+                    }
+                }
 
-        invalidateOptionsMenu();
-        mIsActionBarImplAttached = true;
+                // Post the panel invalidate for later; avoid application onCreateOptionsMenu
+                // being called in the middle of onCreate or similar.
+                mDecor.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        //Invalidate if the panel menu hasn't been created before this.
+                        if (mSupportMenu == null) {
+                            invalidateOptionsMenu();
+                        }
+                    }
+                });
+            }
+        }
+    }
+    
+    private ViewGroup generateLayout() {
+        if (DEBUG) Log.d(TAG, "[generateLayout]");
+
+        // Apply data from current theme.
+
+        TypedArray a = getTheme().obtainStyledAttributes(R.styleable.SherlockTheme);
+
+        if (a.getBoolean(R.styleable.SherlockTheme_windowNoTitle, false)) {
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
+        } else if (a.getBoolean(R.styleable.SherlockTheme_windowActionBar, true)) {
+            // Don't allow an action bar if there is no title.
+            requestWindowFeature(Window.FEATURE_ACTION_BAR);
+        }
+
+        if (a.getBoolean(R.styleable.SherlockTheme_windowActionBarOverlay, false)) {
+            requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
+        }
+
+        if (a.getBoolean(R.styleable.SherlockTheme_windowActionModeOverlay, false)) {
+            requestWindowFeature(Window.FEATURE_ACTION_MODE_OVERLAY);
+        }
+
+        a.recycle();
+
+        int layoutResource;
+        if (hasFeature(Window.FEATURE_ACTION_BAR)) {
+            if (hasFeature(Window.FEATURE_ACTION_BAR_OVERLAY)) {
+                layoutResource = R.layout.abs__screen_action_bar_overlay;
+            } else {
+                layoutResource = R.layout.abs__screen_action_bar;
+            }
+        //} else if (hasFeature(Window.FEATURE_ACTION_MODE_OVERLAY)) {
+        //    layoutResource = R.layout.abs__screen_simple_overlay_action_mode;
+        } else {
+            layoutResource = R.layout.abs__screen_simple;
+        }
+
+        View in = getLayoutInflater().inflate(layoutResource, null);
+        mDecor.addView(in, new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
+        ViewGroup contentParent = (ViewGroup)mDecor.findViewById(R.id.abs__content);
+        if (contentParent == null) {
+            throw new RuntimeException("Couldn't find content container view");
+        }
+
+        //Make our new child the true content view (for fragments). VERY VOLATILE!
+        mDecor.setId(View.NO_ID);
+        contentParent.setId(android.R.id.content);
+
+        return contentParent;
+    }
+    
+    private boolean hasFeature(long featureId) {
+        if (IS_HONEYCOMB) {
+            return getWindow().hasFeature((int)featureId);
+        }
+        return (mWindowFlags & (1 << featureId)) != 0;
     }
 
     // ------------------------------------------------------------------------
@@ -264,7 +340,7 @@ public class FragmentActivity extends Activity implements SupportActivity {
                 case (int)Window.FEATURE_ACTION_MODE_OVERLAY:
                 case (int)Window.FEATURE_INDETERMINATE_PROGRESS:
                     mWindowFlags |= (1 << featureId);
-                return true;
+                    return true;
             }
         }
         return super.requestWindowFeature((int)featureId);
@@ -272,58 +348,86 @@ public class FragmentActivity extends Activity implements SupportActivity {
 
     @Override
     public android.view.MenuInflater getMenuInflater() {
+        if (DEBUG) Log.d(TAG, "[getMenuInflater]");
+        
+    	if (mMenuInflater == null) {
+            initActionBar();
+    	}
         if (IS_HONEYCOMB) {
             if (DEBUG) Log.d(TAG, "getMenuInflater(): Wrapping native inflater.");
 
             //Wrap the native inflater so it can unwrap the native menu first
-            return new MenuInflaterWrapper(this, super.getMenuInflater());
+            mMenuInflater = new MenuInflaterWrapper(this, super.getMenuInflater());
+        } else {
+            if (DEBUG) Log.d(TAG, "getMenuInflater(): Returning support inflater.");
+
+            //Use our custom menu inflater
+            mMenuInflater = new MenuInflater(this, super.getMenuInflater());
         }
 
-        if (DEBUG) Log.d(TAG, "getMenuInflater(): Returning support inflater.");
-
-        //Use our custom menu inflater
-        return new MenuInflater(this, super.getMenuInflater());
+        return mMenuInflater;
     }
 
     @Override
     public void setContentView(int layoutResId) {
-        ensureSupportActionBarAttached();
-        if (IS_HONEYCOMB || isChild()) {
-            super.setContentView(layoutResId);
+        if (DEBUG) Log.d(TAG, "[setContentView] layoutResId: " + layoutResId);
+        
+        if (mContentParent == null) {
+            installDecor();
         } else {
-            FrameLayout contentView = (FrameLayout)findViewById(R.id.abs__content);
-            contentView.removeAllViews();
-            getLayoutInflater().inflate(layoutResId, contentView, true);
+            mContentParent.removeAllViews();
         }
+        getLayoutInflater().inflate(layoutResId, mContentParent);
+        
+        android.view.Window.Callback callback = getWindow().getCallback();
+        if (callback != null) {
+            callback.onContentChanged();
+        }
+        initActionBar();
     }
 
     @Override
     public void setContentView(View view, LayoutParams params) {
-        ensureSupportActionBarAttached();
-        if (IS_HONEYCOMB || isChild()) {
-            super.setContentView(view, params);
+        if (DEBUG) Log.d(TAG, "[setContentView] view: " + view + ", params: " + params);
+
+        if (mContentParent == null) {
+            installDecor();
         } else {
-            FrameLayout contentView = (FrameLayout)findViewById(R.id.abs__content);
-            contentView.removeAllViews();
-            contentView.addView(view, params);
+            mContentParent.removeAllViews();
         }
+        mContentParent.addView(view, params);
+
+        android.view.Window.Callback callback = getWindow().getCallback();
+        if (callback != null) {
+            callback.onContentChanged();
+        }
+
+        initActionBar();
     }
 
     @Override
     public void setContentView(View view) {
-        ensureSupportActionBarAttached();
-        if (IS_HONEYCOMB || isChild()) {
-            super.setContentView(view);
-        } else {
-            FrameLayout contentView = (FrameLayout)findViewById(R.id.abs__content);
-            contentView.removeAllViews();
-            contentView.addView(view);
+        if (DEBUG) Log.d(TAG, "[setContentView] view: " + view);
+
+        setContentView(view, new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+    }
+    
+    @Override
+    public void addContentView(View view, ViewGroup.LayoutParams params) {
+        if (DEBUG) Log.d(TAG, "[addContentView] view: " + view + ", params: " + params);
+
+        if (mContentParent == null) {
+            installDecor();
         }
+        mContentParent.addView(view, params);
+
+        initActionBar();
     }
 
     @Override
     public void setTitle(CharSequence title) {
-        if (IS_HONEYCOMB || (getSupportActionBar() == null)) {
+        if (IS_HONEYCOMB || (mActionBar == null)) {
             super.setTitle(title);
         } else {
             getSupportActionBar().setTitle(title);
@@ -332,7 +436,7 @@ public class FragmentActivity extends Activity implements SupportActivity {
 
     @Override
     public void setTitle(int titleId) {
-        if (IS_HONEYCOMB || (getSupportActionBar() == null)) {
+        if (IS_HONEYCOMB || (mActionBar == null)) {
             super.setTitle(titleId);
         } else {
             getSupportActionBar().setTitle(titleId);
@@ -363,20 +467,6 @@ public class FragmentActivity extends Activity implements SupportActivity {
         }
 
         super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
-    protected void onApplyThemeResource(Theme theme, int resid, boolean first) {
-        TypedArray attrs = theme.obtainStyledAttributes(resid, R.styleable.SherlockTheme);
-
-        final boolean actionBar = attrs.getBoolean(R.styleable.SherlockTheme_windowActionBar, false);
-        mWindowFlags |= actionBar ? WINDOW_FLAG_ACTION_BAR : 0;
-
-        final boolean actionModeOverlay = attrs.getBoolean(R.styleable.SherlockTheme_windowActionModeOverlay, false);
-        mWindowFlags |= actionModeOverlay ? WINDOW_FLAG_ACTION_MODE_OVERLAY : 0;
-
-        attrs.recycle();
-        super.onApplyThemeResource(theme, resid, first);
     }
 
     /**
@@ -449,7 +539,7 @@ public class FragmentActivity extends Activity implements SupportActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (DEBUG) Log.d(TAG, "onCreateOptionsMenu(Menu): Returning " + menu.hasVisibleItems());
-        return menu.hasVisibleItems();
+        return true;
     }
 
     @Override
@@ -559,25 +649,39 @@ public class FragmentActivity extends Activity implements SupportActivity {
 
         if (IS_HONEYCOMB) {
             HoneycombInvalidateOptionsMenu.invoke(this);
-        } else {
-            mSupportMenu.clear();
+            return;
+        }
 
-            mOptionsMenuCreateResult  = onCreateOptionsMenu(mSupportMenu);
-            mOptionsMenuCreateResult |= mFragments.dispatchCreateOptionsMenu(mSupportMenu, getMenuInflater());
+        // We'll use a hack, to manually rebuild the options menu the next time it is prepared.
+        mOptionsMenuInvalidated = true;
+        
+        if (mSupportMenu == null) {
+        	mSupportMenu = new MenuBuilder(this);
+        	mSupportMenu.setCallback(mSupportMenuCallback);
+        }
 
-            if (getSupportActionBar() != null) {
-                if (onPrepareOptionsMenu(mSupportMenu)) {
-                    mFragments.dispatchPrepareOptionsMenu(mSupportMenu);
-                }
+        mSupportMenu.clear();
 
-                //Since we now know we are using a custom action bar, perform the
-                //inflation callback to allow it to display any items it wants.
-                ((ActionBarImpl)mActionBar).onMenuInflated(mSupportMenu);
+        mOptionsMenuCreateResult  = onCreateOptionsMenu(mSupportMenu);
+        mOptionsMenuCreateResult |= mFragments.dispatchCreateOptionsMenu(mSupportMenu, getMenuInflater());
+        if (!mOptionsMenuCreateResult) {
+        	if (mActionBar != null) {
+        		((ActionBarImpl)mActionBar).setMenu(null);
+        	}
+        	return;
+        }
+        
+        if (mActionBar != null) {
+            if (onPrepareOptionsMenu(mSupportMenu)) {
+                mFragments.dispatchPrepareOptionsMenu(mSupportMenu);
+            } else {
+            	((ActionBarImpl)mActionBar).setMenu(null);
+            	return;
             }
-
-            // Whoops, older platform...  we'll use a hack, to manually rebuild
-            // the options menu the next time it is prepared.
-            mOptionsMenuInvalidated = true;
+            
+            //Since we now know we are using a custom action bar, perform the
+            //inflation callback to allow it to display any items it wants.
+            ((ActionBarImpl)mActionBar).setMenu(mSupportMenu);
         }
     }
 
@@ -899,7 +1003,6 @@ public class FragmentActivity extends Activity implements SupportActivity {
 
         if (!mCreated) {
             mCreated = true;
-            ensureSupportActionBarAttached(); //Needed for retained fragments
             mFragments.dispatchActivityCreated();
         }
 
@@ -956,10 +1059,10 @@ public class FragmentActivity extends Activity implements SupportActivity {
      */
     @Override
     public void setProgressBarIndeterminateVisibility(Boolean visible) {
-        if (IS_HONEYCOMB || (getSupportActionBar() == null)) {
+        if (IS_HONEYCOMB || (mActionBar == null)) {
             super.setProgressBarIndeterminateVisibility(visible);
-        } else if ((mWindowFlags & WINDOW_FLAG_INDETERMINANTE_PROGRESS) == WINDOW_FLAG_INDETERMINANTE_PROGRESS) {
-            ((ActionBarImpl)mActionBar).setProgressBarIndeterminateVisibility(visible);
+        } else {
+            mActionBarView.setProgressBarIndeterminateVisibility(visible);
         }
     }
 
@@ -1071,8 +1174,8 @@ public class FragmentActivity extends Activity implements SupportActivity {
      */
     @Override
     public ActionBar getSupportActionBar() {
-        ensureSupportActionBarAttached();
-        return (mActionBar != null) ? mActionBar.getPublicInstance() : null;
+        initActionBar();
+        return mActionBar;
     }
 
     /**
@@ -1159,6 +1262,8 @@ public class FragmentActivity extends Activity implements SupportActivity {
      */
     @Override
     public FragmentManager getSupportFragmentManager() {
+    	//PLEASE let no one be dumb enough to call this too soon...
+    	initActionBar();
         return mFragments;
     }
 
