@@ -33,7 +33,6 @@ import android.os.Message;
 import android.os.Parcelable;
 import android.support.v4.view.ActionMode;
 import android.support.v4.view.Menu;
-import android.support.v4.view.MenuInflater;
 import android.support.v4.view.MenuItem;
 import android.support.v4.view.Window;
 import android.util.AttributeSet;
@@ -46,9 +45,11 @@ import com.actionbarsherlock.R;
 import com.actionbarsherlock.internal.app.ActionBarImpl;
 import com.actionbarsherlock.internal.app.ActionBarWrapper;
 import com.actionbarsherlock.internal.view.menu.MenuBuilder;
+import com.actionbarsherlock.internal.view.menu.MenuInflaterImpl;
 import com.actionbarsherlock.internal.view.menu.MenuInflaterWrapper;
 import com.actionbarsherlock.internal.view.menu.MenuItemImpl;
 import com.actionbarsherlock.internal.view.menu.MenuItemWrapper;
+import com.actionbarsherlock.internal.view.menu.MenuPresenter;
 import com.actionbarsherlock.internal.view.menu.MenuWrapper;
 import com.actionbarsherlock.internal.widget.ActionBarView;
 
@@ -75,7 +76,7 @@ import com.actionbarsherlock.internal.widget.ActionBarView;
  */
 public class FragmentActivity extends Activity implements SupportActivity {
     private static final String TAG = "FragmentActivity";
-    private static final boolean DEBUG = false;
+    private static final boolean DEBUG = true;
 
     private static final String FRAGMENTS_TAG = "android:support:fragments";
 
@@ -138,11 +139,48 @@ public class FragmentActivity extends Activity implements SupportActivity {
     long mWindowFlags = 0;
 
     android.view.MenuInflater mMenuInflater;
+    
     MenuBuilder mSupportMenu;
     final MenuBuilder.Callback mSupportMenuCallback = new MenuBuilder.Callback() {
         @Override
         public boolean onMenuItemSelected(MenuBuilder menu, MenuItem item) {
             return FragmentActivity.this.onMenuItemSelected(Window.FEATURE_OPTIONS_PANEL, item);
+        }
+
+		@Override
+		public void onMenuModeChange(MenuBuilder menu) {
+			// No-op
+		}
+    };
+    private final MenuPresenter.Callback mMenuPresenterCallback = new MenuPresenter.Callback() {
+        @Override
+        public boolean onOpenSubMenu(MenuBuilder subMenu) {
+            // TODO Auto-generated method stub
+            return false;
+        }
+
+        @Override
+        public void onCloseMenu(MenuBuilder menu, boolean allMenusAreClosing) {
+            // TODO Auto-generated method stub
+        }
+    };
+    
+    /** Map between native options items and sherlock items (pre-3.0 only). */
+    private HashMap<android.view.MenuItem, MenuItemImpl> mNativeItemMap;
+    /** Native menu item callback which proxies to our callback. */
+    private final android.view.MenuItem.OnMenuItemClickListener mNativeItemListener = new android.view.MenuItem.OnMenuItemClickListener() {
+        @Override
+        public boolean onMenuItemClick(android.view.MenuItem item) {
+            if (DEBUG) Log.d(TAG, "[mNativeItemListener.onMenuItemClick] item: " + item);
+
+            final MenuItemImpl sherlockItem = mNativeItemMap.get(item);
+            if (sherlockItem != null) {
+                sherlockItem.invoke();
+            } else {
+                Log.e(TAG, "Options item \"" + item + "\" not found in mapping");
+            }
+
+            return true; //Do not allow continuation of native handling
         }
     };
 
@@ -178,15 +216,8 @@ public class FragmentActivity extends Activity implements SupportActivity {
     }
 
 
+    
 
-    public FragmentActivity() {
-        if (IS_HONEYCOMB) {
-            mSupportMenu = null; //Everything should be done natively
-        } else {
-            mSupportMenu = new MenuBuilder(this);
-            mSupportMenu.setCallback(mSupportMenuCallback);
-        }
-    }
 
     @Override
     public SupportActivity.InternalCallbacks getInternalCallbacks() {
@@ -335,7 +366,6 @@ public class FragmentActivity extends Activity implements SupportActivity {
         if (!IS_HONEYCOMB) {
             switch ((int)featureId) {
                 case (int)Window.FEATURE_ACTION_BAR:
-                case (int)Window.FEATURE_ACTION_BAR_ITEM_TEXT:
                 case (int)Window.FEATURE_ACTION_BAR_OVERLAY:
                 case (int)Window.FEATURE_ACTION_MODE_OVERLAY:
                 case (int)Window.FEATURE_INDETERMINATE_PROGRESS:
@@ -362,7 +392,7 @@ public class FragmentActivity extends Activity implements SupportActivity {
             if (DEBUG) Log.d(TAG, "getMenuInflater(): Returning support inflater.");
 
             //Use our custom menu inflater
-            mMenuInflater = new MenuInflater(this, super.getMenuInflater());
+            mMenuInflater = new MenuInflaterImpl(this, super.getMenuInflater());
         }
 
         return mMenuInflater;
@@ -538,7 +568,7 @@ public class FragmentActivity extends Activity implements SupportActivity {
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (DEBUG) Log.d(TAG, "onCreateOptionsMenu(Menu): Returning " + menu.hasVisibleItems());
+        if (DEBUG) Log.d(TAG, "onCreateOptionsMenu(Menu): Returning true");
         return true;
     }
 
@@ -560,6 +590,14 @@ public class FragmentActivity extends Activity implements SupportActivity {
         return result;
     }
 
+    private boolean dispatchCreateOptionsMenu() {
+        if (DEBUG) Log.d(TAG, "[dispatchCreateOptionsMenu]");
+        
+    	boolean result = onCreateOptionsMenu(mSupportMenu);
+    	result |= mFragments.dispatchCreateOptionsMenu(mSupportMenu, getMenuInflater());
+    	return result;
+    }
+    
     /**
      * Add support for inflating the &lt;fragment> tag.
      */
@@ -645,44 +683,39 @@ public class FragmentActivity extends Activity implements SupportActivity {
 
     @Override
     public void invalidateOptionsMenu() {
-        if (DEBUG) Log.d(TAG, "supportInvalidateOptionsMenu(): Invalidating menu.");
+        if (DEBUG) Log.d(TAG, "[invalidateOptionsMenu]");
 
         if (IS_HONEYCOMB) {
             HoneycombInvalidateOptionsMenu.invoke(this);
             return;
         }
 
-        // We'll use a hack, to manually rebuild the options menu the next time it is prepared.
-        mOptionsMenuInvalidated = true;
-        
         if (mSupportMenu == null) {
-        	mSupportMenu = new MenuBuilder(this);
-        	mSupportMenu.setCallback(mSupportMenuCallback);
+            mSupportMenu = new MenuBuilder(this);
+            mSupportMenu.setCallback(mSupportMenuCallback);
         }
 
+        mSupportMenu.stopDispatchingItemsChanged();
         mSupportMenu.clear();
 
-        mOptionsMenuCreateResult  = onCreateOptionsMenu(mSupportMenu);
-        mOptionsMenuCreateResult |= mFragments.dispatchCreateOptionsMenu(mSupportMenu, getMenuInflater());
-        if (!mOptionsMenuCreateResult) {
-        	if (mActionBar != null) {
-        		((ActionBarImpl)mActionBar).setMenu(null);
-        	}
-        	return;
-        }
-        
-        if (mActionBar != null) {
-            if (onPrepareOptionsMenu(mSupportMenu)) {
-                mFragments.dispatchPrepareOptionsMenu(mSupportMenu);
-            } else {
-            	((ActionBarImpl)mActionBar).setMenu(null);
-            	return;
+        if (!dispatchCreateOptionsMenu()) {
+            if (mActionBar != null) {
+                ((ActionBarImpl)mActionBar).setMenu(null, mMenuPresenterCallback);
             }
-            
-            //Since we now know we are using a custom action bar, perform the
-            //inflation callback to allow it to display any items it wants.
-            ((ActionBarImpl)mActionBar).setMenu(mSupportMenu);
+            return;
         }
+
+        if (!dispatchPrepareOptionsMenu()) {
+            if (mActionBar != null) {
+            	((ActionBarImpl)mActionBar).setMenu(null, mMenuPresenterCallback);
+            }
+            mSupportMenu.startDispatchingItemsChanged();
+            return;
+        }
+
+        mSupportMenu.startDispatchingItemsChanged();
+
+        ((ActionBarImpl)mActionBar).setMenu(mSupportMenu, mMenuPresenterCallback);
     }
 
     private static final class HoneycombInvalidateOptionsMenu {
@@ -837,66 +870,63 @@ public class FragmentActivity extends Activity implements SupportActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        boolean result = menu.hasVisibleItems();
-        if (DEBUG) Log.d(TAG, "onPrepareOptionsMenu(Menu): Returning " + result);
-        return result;
+        return true;
     }
 
     @Override
     public final boolean onPrepareOptionsMenu(android.view.Menu menu) {
-        boolean result = super.onPrepareOptionsMenu(menu);
-
-        if (!IS_HONEYCOMB) {
-            if (DEBUG) {
-                Log.d(TAG, "onPrepareOptionsMenu(android.view.Menu): mOptionsMenuCreateResult = " + mOptionsMenuCreateResult);
-                Log.d(TAG, "onPrepareOptionsMenu(android.view.Menu): mOptionsMenuInvalidated = " + mOptionsMenuInvalidated);
-            }
-
-            boolean prepareResult = true;
-            if (mOptionsMenuCreateResult) {
-                if (DEBUG) Log.d(TAG, "onPrepareOptionsMenu(android.view.Menu): Calling support method with custom menu.");
-                prepareResult = onPrepareOptionsMenu(mSupportMenu);
-                if (DEBUG) Log.d(TAG, "onPrepareOptionsMenu(android.view.Menu): Support method result returned " + prepareResult);
-                if (prepareResult) {
-                    if (DEBUG) Log.d(TAG, "onPrepareOptionsMenu(android.view.Menu): Dispatching fragment method with custom menu.");
-                    mFragments.dispatchPrepareOptionsMenu(mSupportMenu);
-                }
-            }
-
-            if (DEBUG) Log.d(TAG, "onPrepareOptionsMenu(android.view.Menu): Clearing existing options menu.");
-            menu.clear();
-            mOptionsMenuInvalidated = false;
-
-            if (mOptionsMenuCreateResult && prepareResult) {
-                if (DEBUG) Log.d(TAG, "onPrepareOptionsMenu(android.view.Menu): Adding any action items that are not displayed on the action bar.");
-                //Only add items that have not already been added to our custom
-                //action bar implementation
-                for (MenuItemImpl item : mSupportMenu.getItems()) {
-                    if (!item.isShownOnActionBar()) {
-                        item.addTo(menu);
-                    }
-                }
-            }
-
-            if (mOptionsMenuCreateResult && prepareResult && menu.hasVisibleItems()) {
-                if (getSupportActionBar() != null) {
-                    if (DEBUG) Log.d(TAG, "onPrepareOptionsMenu(android.view.Menu): Dispatch menu visibility true to custom action bar.");
-                    ((ActionBarImpl)mActionBar).onMenuVisibilityChanged(true);
-                }
-                result = true;
-            }
-        } else {
+        if (IS_HONEYCOMB) {
             if (DEBUG) Log.d(TAG, "onPrepareOptionsMenu(android.view.Menu): Calling support method with wrapped native menu.");
             final MenuWrapper wrappedMenu = new MenuWrapper(menu);
-            result = onPrepareOptionsMenu(wrappedMenu);
+            boolean result = onPrepareOptionsMenu(wrappedMenu);
             if (result) {
                 if (DEBUG) Log.d(TAG, "onPrepareOptionsMenu(android.view.Menu): Dispatching fragment method with wrapped native menu.");
                 mFragments.dispatchPrepareOptionsMenu(wrappedMenu);
             }
+            return result;
         }
 
-        if (DEBUG) Log.d(TAG, "onPrepareOptionsMenu(android.view.Menu): Returning " + result);
-        return result;
+        if (!dispatchPrepareOptionsMenu()) {
+            return false;
+        }
+
+        final ArrayList<MenuItemImpl> nonActionItems = mSupportMenu.getNonActionItems();
+        if (nonActionItems == null || nonActionItems.size() == 0) {
+            return false;
+        }
+
+        if (mNativeItemMap == null) {
+            mNativeItemMap = new HashMap<android.view.MenuItem, MenuItemImpl>();
+        } else {
+            mNativeItemMap.clear();
+        }
+
+        menu.clear();
+        boolean visible = false;
+        for (MenuItemImpl nonActionItem : nonActionItems) {
+            if (nonActionItem.isVisible()) {
+                visible = true;
+                //TODO move this binding "inward" to internal so we have access to more raw data
+                android.view.MenuItem nativeItem = menu.add(nonActionItem.getGroupId(), nonActionItem.getItemId(),
+                        nonActionItem.getOrder(), nonActionItem.getTitle());
+                nativeItem.setIcon(nonActionItem.getIcon());
+                nativeItem.setOnMenuItemClickListener(mNativeItemListener);
+
+                mNativeItemMap.put(nativeItem, nonActionItem);
+            }
+        }
+
+        return visible;
+    }
+    
+    private boolean dispatchPrepareOptionsMenu() {
+        if (DEBUG) Log.d(TAG, "[dispatchPrepareOptionsMenu]");
+
+        if (onPrepareOptionsMenu(mSupportMenu)) {
+        	mFragments.dispatchPrepareOptionsMenu(mSupportMenu);
+        	return true;
+        }
+        return false;
     }
 
     /**

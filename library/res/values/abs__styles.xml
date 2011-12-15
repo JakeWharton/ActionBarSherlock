@@ -65,10 +65,12 @@
     </style>
     
     <style name="Widget.Sherlock.ActionButton" parent="android:Widget">
-        <item name="android:background">?selectableItemBackground</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:minHeight">?attr/actionBarSize</item>
+        <item name="android:minWidth">48dip</item>
         <item name="android:gravity">center</item>
-        <item name="android:paddingLeft">6dip</item>
-        <item name="android:paddingRight">6dip</item>
+        <item name="android:paddingLeft">12dip</item>
+        <item name="android:paddingRight">12dip</item>
         <item name="android:scaleType">center</item>
     </style>
     
@@ -110,7 +112,7 @@
     
     
     <style name="Theme.Sherlock.Light" parent="android:Theme.Light.NoTitleBar">
-        <item name="actionBarSize">45dip</item>
+        <item name="actionBarSize">48dip</item>
         <item name="actionBarTabStyle">@style/Widget.Sherlock.Light.ActionBar.TabView</item>
         <item name="actionBarTabBarStyle">@style/Widget.Sherlock.Light.ActionBar.TabBar</item>
         <item name="actionBarTabTextStyle">@style/Widget.Sherlock.Light.ActionBar.TabText</item>
@@ -173,10 +175,12 @@
     </style>
     
     <style name="Widget.Sherlock.Light.ActionButton" parent="android:Widget">
-        <item name="android:background">?selectableItemBackground</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:minHeight">?attr/actionBarSize</item>
+        <item name="android:minWidth">48dip</item>
         <item name="android:gravity">center</item>
-        <item name="android:paddingLeft">6dip</item>
-        <item name="android:paddingRight">6dip</item>
+        <item name="android:paddingLeft">12dip</item>
+        <item name="android:paddingRight">12dip</item>
         <item name="android:scaleType">center</item>
     </style>
     

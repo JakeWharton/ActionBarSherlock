@@ -19,7 +19,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.Menu;
 import android.support.v4.view.MenuItem;
-import android.support.v4.view.Window;
 import android.widget.TextView;
 
 import com.actionbarsherlock.sample.demos.R;
@@ -40,7 +39,6 @@ public class ActionBarActionItemText extends FragmentActivity {
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_ACTION_BAR_ITEM_TEXT);
         setContentView(R.layout.actionbar_text);
         ((TextView)findViewById(R.id.text)).setText(R.string.actionbar_actionitemtext_content);
     }

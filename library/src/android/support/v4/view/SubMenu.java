@@ -3,7 +3,10 @@ package android.support.v4.view;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 
-public interface SubMenu extends android.view.SubMenu {
+public interface SubMenu extends android.view.SubMenu, Menu {
+	@Override
+	MenuItem findItem(int id);
+
     @Override
     MenuItem getItem();
 

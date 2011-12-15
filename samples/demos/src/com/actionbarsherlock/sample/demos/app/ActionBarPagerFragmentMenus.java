@@ -1,7 +1,7 @@
 package com.actionbarsherlock.sample.demos.app;
 
 import java.util.Random;
-import com.actionbarsherlock.sample.demos.R;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -10,13 +10,14 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.Menu;
 import android.support.v4.view.MenuItem;
 import android.support.v4.view.ViewPager;
-import android.support.v4.view.Window;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.actionbarsherlock.sample.demos.R;
 
 public class ActionBarPagerFragmentMenus extends FragmentActivity {
     private static final Random RANDOM = new Random();
@@ -28,7 +29,6 @@ public class ActionBarPagerFragmentMenus extends FragmentActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_ACTION_BAR_ITEM_TEXT);
 
         setContentView(R.layout.actionbar_pagerfragmentmenus);
         mPager = (ViewPager)findViewById(R.id.pager);

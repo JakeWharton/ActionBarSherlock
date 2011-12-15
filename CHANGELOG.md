@@ -7,8 +7,7 @@ Version 3.5.0 *(In Development)*
  * Library now uses the `r5` version of the compatibility library for its base.
    Ice Cream Sandwich-specific implementations are currently disabled, however,
    but will be added in a future version of the library.
- * Fix: Updates in `onPrepareOptionsMenu` now properly reflected in the pre-3.0
-   overflow menu.
+ * Rewritten menu and action item support from Ice Cream Sandwich.
 
 
 Version 3.4.2 *(2001-11-09)*
