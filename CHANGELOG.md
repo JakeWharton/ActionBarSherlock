@@ -7,9 +7,15 @@ Version 3.5.0 *(In Development)*
  * Library now uses the `r5` version of the compatibility library for its base.
    Ice Cream Sandwich-specific implementations are currently disabled, however,
    but will be added in a future version of the library.
- * Rewritten menu and action item support from Ice Cream Sandwich.
+ * Rewritten menu and action item support from Ice Cream Sandwich. (*Note: This
+   has removed the need for the custom `Window.FEATURE_ACTION_ITEM_TEXT` flag.
+   You should now use the `setShowAsAction(int)` method on each `MenuItem` to
+   control whether or not it shows text.*)
  * Fix: List navigation no longer becomes usable on certain device
    configurations.
+ * Fix: `SubMenu`'s `findItem(int)` method now properly returns the support
+   version of `MenuItem`.
+ * Fix: Invisible sub-menu items are no longer shown on the pre-3.0 popup list.
 
 
 Version 3.4.2 *(2001-11-09)*
