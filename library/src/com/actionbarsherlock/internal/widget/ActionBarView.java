@@ -76,6 +76,7 @@ public final class ActionBarView extends RelativeLayout {
 
     /** Container for all tab items. */
     private final LinearLayout mTabsView;
+    private final ViewGroup mTabViewContainer;
 
     /**
      * Display state flags.
@@ -202,6 +203,7 @@ public final class ActionBarView extends RelativeLayout {
         mSpinner.setOnItemSelectedListener(mNavItemSelectedListener);
 
         mTabsView = (LinearLayout)findViewById(R.id.abs__nav_tabs);
+        mTabViewContainer = (ViewGroup)findViewById(R.id.abs__nav_tabs_layout);
 
 
         //// CUSTOM VIEW ////
@@ -302,6 +304,9 @@ public final class ActionBarView extends RelativeLayout {
 
         // Show tabs if in tabs navigation mode.
         mTabsView.setVisibility(isTab ? View.VISIBLE : View.GONE);
+        if (mTabViewContainer != null) {
+            mTabViewContainer.setVisibility(isTab ? View.VISIBLE : View.GONE);
+        }
 
         //Show title view if we are not in list navigation, not showing custom
         //view, and the show title flag is true

@@ -8,6 +8,8 @@ Version 3.5.0 *(In Development)*
    Ice Cream Sandwich-specific implementations are currently disabled, however,
    but will be added in a future version of the library.
  * Rewritten menu and action item support from Ice Cream Sandwich.
+ * Fix: List navigation no longer becomes usable on certain device
+   configurations.
 
 
 Version 3.4.2 *(2001-11-09)*
