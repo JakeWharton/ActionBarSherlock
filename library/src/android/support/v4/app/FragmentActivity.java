@@ -139,7 +139,7 @@ public class FragmentActivity extends Activity implements SupportActivity {
     long mWindowFlags = 0;
 
     android.view.MenuInflater mMenuInflater;
-    
+
     MenuBuilder mSupportMenu;
     final MenuBuilder.Callback mSupportMenuCallback = new MenuBuilder.Callback() {
         @Override
@@ -147,10 +147,10 @@ public class FragmentActivity extends Activity implements SupportActivity {
             return FragmentActivity.this.onMenuItemSelected(Window.FEATURE_OPTIONS_PANEL, item);
         }
 
-		@Override
-		public void onMenuModeChange(MenuBuilder menu) {
-			// No-op
-		}
+        @Override
+        public void onMenuModeChange(MenuBuilder menu) {
+            // No-op
+        }
     };
     private final MenuPresenter.Callback mMenuPresenterCallback = new MenuPresenter.Callback() {
         @Override
@@ -164,7 +164,7 @@ public class FragmentActivity extends Activity implements SupportActivity {
             // TODO Auto-generated method stub
         }
     };
-    
+
     /** Map between native options items and sherlock items (pre-3.0 only). */
     private HashMap<android.view.MenuItem, MenuItemImpl> mNativeItemMap;
     /** Native menu item callback which proxies to our callback. */
@@ -216,7 +216,7 @@ public class FragmentActivity extends Activity implements SupportActivity {
     }
 
 
-    
+
 
 
     @Override
@@ -241,17 +241,17 @@ public class FragmentActivity extends Activity implements SupportActivity {
         if ((mActionBar != null) || !hasFeature(Window.FEATURE_ACTION_BAR) || isChild()) {
             return;
         }
-        
+
         if (IS_HONEYCOMB) {
             mActionBar = ActionBarWrapper.createFor(this);
         } else {
             mActionBar = new ActionBarImpl(this);
         }
     }
-    
+
     private void installDecor() {
         if (DEBUG) Log.d(TAG, "[installDecor]");
-        
+
         if (mDecor == null) {
             if (IS_HONEYCOMB) {
                 mDecor = (ViewGroup)getWindow().getDecorView();
@@ -288,7 +288,7 @@ public class FragmentActivity extends Activity implements SupportActivity {
             }
         }
     }
-    
+
     private ViewGroup generateLayout() {
         if (DEBUG) Log.d(TAG, "[generateLayout]");
 
@@ -341,7 +341,7 @@ public class FragmentActivity extends Activity implements SupportActivity {
 
         return contentParent;
     }
-    
+
     private boolean hasFeature(long featureId) {
         if (IS_HONEYCOMB) {
             return getWindow().hasFeature((int)featureId);
@@ -379,10 +379,10 @@ public class FragmentActivity extends Activity implements SupportActivity {
     @Override
     public android.view.MenuInflater getMenuInflater() {
         if (DEBUG) Log.d(TAG, "[getMenuInflater]");
-        
-    	if (mMenuInflater == null) {
+
+        if (mMenuInflater == null) {
             initActionBar();
-    	}
+        }
         if (IS_HONEYCOMB) {
             if (DEBUG) Log.d(TAG, "getMenuInflater(): Wrapping native inflater.");
 
@@ -401,14 +401,14 @@ public class FragmentActivity extends Activity implements SupportActivity {
     @Override
     public void setContentView(int layoutResId) {
         if (DEBUG) Log.d(TAG, "[setContentView] layoutResId: " + layoutResId);
-        
+
         if (mContentParent == null) {
             installDecor();
         } else {
             mContentParent.removeAllViews();
         }
         getLayoutInflater().inflate(layoutResId, mContentParent);
-        
+
         android.view.Window.Callback callback = getWindow().getCallback();
         if (callback != null) {
             callback.onContentChanged();
@@ -442,7 +442,7 @@ public class FragmentActivity extends Activity implements SupportActivity {
         setContentView(view, new ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
     }
-    
+
     @Override
     public void addContentView(View view, ViewGroup.LayoutParams params) {
         if (DEBUG) Log.d(TAG, "[addContentView] view: " + view + ", params: " + params);
@@ -592,12 +592,12 @@ public class FragmentActivity extends Activity implements SupportActivity {
 
     private boolean dispatchCreateOptionsMenu() {
         if (DEBUG) Log.d(TAG, "[dispatchCreateOptionsMenu]");
-        
-    	boolean result = onCreateOptionsMenu(mSupportMenu);
-    	result |= mFragments.dispatchCreateOptionsMenu(mSupportMenu, getMenuInflater());
-    	return result;
+
+        boolean result = onCreateOptionsMenu(mSupportMenu);
+        result |= mFragments.dispatchCreateOptionsMenu(mSupportMenu, getMenuInflater());
+        return result;
     }
-    
+
     /**
      * Add support for inflating the &lt;fragment> tag.
      */
@@ -707,7 +707,7 @@ public class FragmentActivity extends Activity implements SupportActivity {
 
         if (!dispatchPrepareOptionsMenu()) {
             if (mActionBar != null) {
-            	((ActionBarImpl)mActionBar).setMenu(null, mMenuPresenterCallback);
+                ((ActionBarImpl)mActionBar).setMenu(null, mMenuPresenterCallback);
             }
             mSupportMenu.startDispatchingItemsChanged();
             return;
@@ -890,41 +890,21 @@ public class FragmentActivity extends Activity implements SupportActivity {
             return false;
         }
 
-        final ArrayList<MenuItemImpl> nonActionItems = mSupportMenu.getNonActionItems();
-        if (nonActionItems == null || nonActionItems.size() == 0) {
-            return false;
-        }
-
         if (mNativeItemMap == null) {
             mNativeItemMap = new HashMap<android.view.MenuItem, MenuItemImpl>();
         } else {
             mNativeItemMap.clear();
         }
 
-        menu.clear();
-        boolean visible = false;
-        for (MenuItemImpl nonActionItem : nonActionItems) {
-            if (nonActionItem.isVisible()) {
-                visible = true;
-                //TODO move this binding "inward" to internal so we have access to more raw data
-                android.view.MenuItem nativeItem = menu.add(nonActionItem.getGroupId(), nonActionItem.getItemId(),
-                        nonActionItem.getOrder(), nonActionItem.getTitle());
-                nativeItem.setIcon(nonActionItem.getIcon());
-                nativeItem.setOnMenuItemClickListener(mNativeItemListener);
-
-                mNativeItemMap.put(nativeItem, nonActionItem);
-            }
-        }
-
-        return visible;
+        return mSupportMenu.bindOverflowToNative(menu, mNativeItemListener, mNativeItemMap);
     }
-    
+
     private boolean dispatchPrepareOptionsMenu() {
         if (DEBUG) Log.d(TAG, "[dispatchPrepareOptionsMenu]");
 
         if (onPrepareOptionsMenu(mSupportMenu)) {
-        	mFragments.dispatchPrepareOptionsMenu(mSupportMenu);
-        	return true;
+            mFragments.dispatchPrepareOptionsMenu(mSupportMenu);
+            return true;
         }
         return false;
     }
@@ -1292,8 +1272,8 @@ public class FragmentActivity extends Activity implements SupportActivity {
      */
     @Override
     public FragmentManager getSupportFragmentManager() {
-    	//PLEASE let no one be dumb enough to call this too soon...
-    	initActionBar();
+        //PLEASE let no one be dumb enough to call this too soon...
+        initActionBar();
         return mFragments;
     }
 
