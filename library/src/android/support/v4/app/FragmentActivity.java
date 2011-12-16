@@ -896,7 +896,10 @@ public class FragmentActivity extends Activity implements SupportActivity {
             mNativeItemMap.clear();
         }
 
-        return mSupportMenu.bindOverflowToNative(menu, mNativeItemListener, mNativeItemMap);
+        if (mSupportMenu != null) {
+            return mSupportMenu.bindOverflowToNative(menu, mNativeItemListener, mNativeItemMap);
+        }
+        return false;
     }
 
     private boolean dispatchPrepareOptionsMenu() {

@@ -897,7 +897,10 @@ public abstract class FragmentMapActivity extends MapActivity implements Support
             mNativeItemMap.clear();
         }
 
-        return mSupportMenu.bindOverflowToNative(menu, mNativeItemListener, mNativeItemMap);
+        if (mSupportMenu != null) {
+            return mSupportMenu.bindOverflowToNative(menu, mNativeItemListener, mNativeItemMap);
+        }
+        return false;
     }
 
     private boolean dispatchPrepareOptionsMenu() {

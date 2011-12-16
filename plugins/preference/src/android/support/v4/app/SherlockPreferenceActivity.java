@@ -897,7 +897,10 @@ public abstract class SherlockPreferenceActivity extends PreferenceActivity impl
             mNativeItemMap.clear();
         }
 
-        return mSupportMenu.bindOverflowToNative(menu, mNativeItemListener, mNativeItemMap);
+        if (mSupportMenu != null) {
+            return mSupportMenu.bindOverflowToNative(menu, mNativeItemListener, mNativeItemMap);
+        }
+        return false;
     }
 
     private boolean dispatchPrepareOptionsMenu() {
