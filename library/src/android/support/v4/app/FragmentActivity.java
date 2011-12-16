@@ -296,7 +296,7 @@ public class FragmentActivity extends Activity implements SupportActivity {
 
         if (a.getBoolean(R.styleable.SherlockTheme_windowNoTitle, false)) {
             requestWindowFeature(Window.FEATURE_NO_TITLE);
-        } else if (a.getBoolean(R.styleable.SherlockTheme_windowActionBar, true)) {
+        } else if (a.getBoolean(R.styleable.SherlockTheme_windowActionBar, false)) {
             // Don't allow an action bar if there is no title.
             requestWindowFeature(Window.FEATURE_ACTION_BAR);
         }
@@ -713,7 +713,9 @@ public class FragmentActivity extends Activity implements SupportActivity {
 
         mSupportMenu.startDispatchingItemsChanged();
 
-        ((ActionBarImpl)mActionBar).setMenu(mSupportMenu, mMenuPresenterCallback);
+        if (mActionBar != null) {
+            ((ActionBarImpl)mActionBar).setMenu(mSupportMenu, mMenuPresenterCallback);
+        }
     }
 
     private static final class HoneycombInvalidateOptionsMenu {
