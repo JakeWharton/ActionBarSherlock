@@ -76,7 +76,7 @@ import com.actionbarsherlock.internal.widget.ActionBarView;
  */
 public class FragmentActivity extends Activity implements SupportActivity {
     private static final String TAG = "FragmentActivity";
-    private static final boolean DEBUG = true;
+    private static final boolean DEBUG = false;
 
     private static final String FRAGMENTS_TAG = "android:support:fragments";
 
@@ -155,13 +155,11 @@ public class FragmentActivity extends Activity implements SupportActivity {
     private final MenuPresenter.Callback mMenuPresenterCallback = new MenuPresenter.Callback() {
         @Override
         public boolean onOpenSubMenu(MenuBuilder subMenu) {
-            // TODO Auto-generated method stub
             return false;
         }
 
         @Override
         public void onCloseMenu(MenuBuilder menu, boolean allMenusAreClosing) {
-            // TODO Auto-generated method stub
         }
     };
 
