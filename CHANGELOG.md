@@ -4,7 +4,7 @@ Change Log
 Version 3.5.0 *(In Development)*
 --------------------------------
 
- * Library now uses the `r5` version of the compatibility library for its base.
+ * Library now uses the `r6` version of the compatibility library for its base.
    Ice Cream Sandwich-specific implementations are currently disabled, however,
    but will be added in a future version of the library.
  * Rewritten menu and action item support from Ice Cream Sandwich. (*Note: This

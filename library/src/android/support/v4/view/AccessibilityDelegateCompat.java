@@ -22,7 +22,8 @@ import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityEvent;
 
 /**
- * Helper for accessing AccessibilityDelegate from newer platform versions.
+ * Helper for accessing {@link View.AccessibilityDelegate} introduced after
+ * API level 4 in a backwards compatible fashion.
  */
 public class AccessibilityDelegateCompat {
 
