@@ -7,6 +7,10 @@ Version 3.5.0 *(In Development)*
  * Library now uses the `r6` version of the compatibility library for its base.
    Ice Cream Sandwich-specific implementations are currently disabled, however,
    but will be added in a future version of the library.
+
+   `MenuCompat`, `MenuItemCompat`, and `ActivityCompat` have be added back in
+   to ease transition to this library but all their methods and the classes
+   themselves have been deprecated.
  * Rewritten menu and action item support from Ice Cream Sandwich. (*Note: This
    has removed the need for the custom `Window.FEATURE_ACTION_ITEM_TEXT` flag.
    You should now use the `setShowAsAction(int)` method on each `MenuItem` to
