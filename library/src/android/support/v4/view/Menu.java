@@ -71,7 +71,7 @@ public interface Menu extends android.view.Menu {
      */
     static final int FLAG_APPEND_TO_GROUP = 0x0001;
 
-    
+
     @Override
     MenuItem add(CharSequence title);
 

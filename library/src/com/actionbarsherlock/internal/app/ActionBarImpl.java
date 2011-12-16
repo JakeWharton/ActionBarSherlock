@@ -56,9 +56,9 @@ public final class ActionBarImpl extends ActionBar {
 
 
     public ActionBarImpl(Activity activity) {
-    	Window window = activity.getWindow();
-    	View decor = window.getDecorView();
-    	init(decor);
+        Window window = activity.getWindow();
+        View decor = window.getDecorView();
+        init(decor);
     }
 
 
@@ -80,7 +80,7 @@ public final class ActionBarImpl extends ActionBar {
     }
 
     public void setMenu(MenuBuilder menu, MenuPresenter.Callback cb) {
-    	mActionView.setMenu(menu, cb);
+        mActionView.setMenu(menu, cb);
     }
 
     public void onMenuVisibilityChanged(boolean isVisible) {

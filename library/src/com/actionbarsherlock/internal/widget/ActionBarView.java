@@ -39,7 +39,7 @@ public final class ActionBarView extends RelativeLayout {
 
 
     private final Context mContext;
-    
+
     private final View mHomeAsUpView;
     private final ViewGroup mHomeLayout;
     private final ActionMenuItem mLogoNavItem;
@@ -318,7 +318,7 @@ public final class ActionBarView extends RelativeLayout {
         //flag is set
         mCustomView.setVisibility(isStandard && displayCustom ? View.VISIBLE : View.GONE);
     }
-    
+
     public void initIndeterminateProgress() {
         mAllowsIndeterminateProgress = true;
     }

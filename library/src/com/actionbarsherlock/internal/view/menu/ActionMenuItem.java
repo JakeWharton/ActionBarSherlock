@@ -183,11 +183,11 @@ public class ActionMenuItem implements MenuItem {
 
     public MenuItem setOnMenuItemClickListener(final android.view.MenuItem.OnMenuItemClickListener menuItemClickListener) {
         mClickListener = new OnMenuItemClickListener() {
-			@Override
-			public boolean onMenuItemClick(MenuItem item) {
-				return menuItemClickListener.onMenuItemClick(item);
-			}
-		};
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                return menuItemClickListener.onMenuItemClick(item);
+            }
+        };
         return this;
     }
 

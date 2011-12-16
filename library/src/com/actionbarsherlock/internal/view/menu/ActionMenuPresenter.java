@@ -28,15 +28,9 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v4.view.MenuItem;
 import android.util.SparseBooleanArray;
-import android.view.ContextThemeWrapper;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.MeasureSpec;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.actionbarsherlock.R;
 
