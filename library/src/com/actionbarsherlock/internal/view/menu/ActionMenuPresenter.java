@@ -17,17 +17,26 @@
 package com.actionbarsherlock.internal.view.menu;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v4.view.MenuItem;
 import android.util.SparseBooleanArray;
+import android.view.ContextThemeWrapper;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.MeasureSpec;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.R;
 
@@ -45,6 +54,8 @@ public class ActionMenuPresenter extends BaseMenuPresenter {
     private boolean mWidthLimitSet;
 
     private int mMinCellSize;
+
+    private AlertDialog mDialog;
 
     // Group IDs that have been added as actions - used temporarily, allocated here for reuse.
     private final SparseBooleanArray mActionButtonGroups = new SparseBooleanArray();
@@ -161,7 +172,33 @@ public class ActionMenuPresenter extends BaseMenuPresenter {
         }
 
         mOpenSubMenuId = subMenu.getItem().getItemId();
-        //TODO submenu
+
+        final List<MenuItemImpl> items = subMenu.getVisibleItems();
+        final int itemsSize = items.size();
+        final CharSequence[] itemText = new CharSequence[itemsSize];
+        for (int i = 0; i < itemsSize; i++) {
+            itemText[i] = items.get(i).getTitle();
+        }
+
+        mDialog = new AlertDialog.Builder(mContext)
+                .setItems(itemText, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        items.get(which).invoke();
+                        mDialog = null;
+                    }
+                })
+                .setTitle(subMenu.getItem().getTitle())
+                .setIcon(subMenu.getItem().getIcon())
+                .setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+                        mDialog = null;
+                    }
+                })
+                .setCancelable(true)
+                .show();
+
         super.onSubMenuSelected(subMenu);
         return true;
     }
@@ -195,7 +232,15 @@ public class ActionMenuPresenter extends BaseMenuPresenter {
      * @return true if popups were dismissed, false otherwise. (This can be because none were open.)
      */
     public boolean hideSubMenus() {
-    	//TODO if submenu, hide, return true
+        if (mDialog != null) {
+            try {
+                mDialog.dismiss();
+            } catch (Exception e) {
+                //Must have been dismissed or cancelled already
+            }
+            mDialog = null;
+            return true;
+        }
         return false;
     }
 
