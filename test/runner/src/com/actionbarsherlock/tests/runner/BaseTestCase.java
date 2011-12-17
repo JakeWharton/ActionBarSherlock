@@ -71,7 +71,7 @@ public abstract class BaseTestCase<T extends Activity> extends ActivityInstrumen
 		} else {
 			items = findViewsByClassName(getActivity().getWindow().getDecorView(), "com.actionbarsherlock.internal.view.menu.ActionMenuItemView");
 			for (View item : items) {
-				TextView textView = (TextView)findViewByClassName(item, "android.widget.TextView");
+				TextView textView = (TextView)findViewByClassName(item, "android.widget.Button");
 				if (textView != null && text.equals(textView.getText())) {
 					return item;
 				}
