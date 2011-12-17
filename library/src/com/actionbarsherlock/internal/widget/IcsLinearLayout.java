@@ -16,8 +16,6 @@
 
 package com.actionbarsherlock.internal.widget;
 
-import com.actionbarsherlock.R;
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -36,6 +34,23 @@ import android.widget.RemoteViews.RemoteView;
  */
 @RemoteView
 public class IcsLinearLayout extends ViewGroup {
+
+	private static final int[] LinearLayout = new int[] {
+		/* 0 */ android.R.attr.divider,
+		/* 1 */ android.R.attr.dividerPadding,
+		/* 2 */ android.R.attr.weightSum,
+		/* 3 */ android.R.attr.measureWithLargestChild,
+		/* 4 */ android.R.attr.showDividers,
+		/* 5 */ android.R.attr.baselineAlignedChildIndex,
+	};
+	private static final int LinearLayout_divider = 0;
+	private static final int LinearLayout_dividerPadding = 1;
+	private static final int LinearLayout_weightSum = 2;
+	private static final int LinearLayout_measureWithLargestChild = 3;
+	private static final int LinearLayout_showDividers = 4;
+	private static final int LinearLayout_baselineAlignedChildIndex = 5;
+
+
     /**
      * Don't show any dividers.
      */
@@ -147,7 +162,7 @@ public class IcsLinearLayout extends ViewGroup {
     public IcsLinearLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SherlockLinearLayout, defStyle, 0);
+        TypedArray a = context.obtainStyledAttributes(attrs, /*com.android.internal.R.styleable.*/LinearLayout, defStyle, 0);
 
         //int index = a.getInt(com.android.internal.R.styleable.LinearLayout_orientation, -1);
         //if (index >= 0) {
@@ -164,16 +179,15 @@ public class IcsLinearLayout extends ViewGroup {
         //    setBaselineAligned(baselineAligned);
         //}
 
-        mWeightSum = -1.0f; //a.getFloat(R.styleable.LinearLayout_weightSum, -1.0f);
+        mWeightSum = a.getFloat(/*com.android.internal.R.styleable.*/LinearLayout_weightSum, -1.0f);
 
-        mBaselineAlignedChildIndex = -1;
-                //a.getInt(com.android.internal.R.styleable.LinearLayout_baselineAlignedChildIndex, -1);
+        mBaselineAlignedChildIndex = a.getInt(/*com.android.internal.R.styleable.*/LinearLayout_baselineAlignedChildIndex, -1);
 
-        mUseLargestChild = a.getBoolean(R.styleable.SherlockLinearLayout_measureWithLargestChild, false);
+        mUseLargestChild = a.getBoolean(/*com.android.internal.R.styleable.*/LinearLayout_measureWithLargestChild, false);
 
-        setDividerDrawable(a.getDrawable(R.styleable.SherlockLinearLayout_divider));
-        mShowDividers = a.getInt(R.styleable.SherlockLinearLayout_showDividers, SHOW_DIVIDER_NONE);
-        mDividerPadding = a.getDimensionPixelSize(R.styleable.SherlockLinearLayout_dividerPadding, 0);
+        setDividerDrawable(a.getDrawable(/*com.android.internal.R.styleable.*/LinearLayout_divider));
+        mShowDividers = a.getInt(/*com.android.internal.R.styleable.*/LinearLayout_showDividers, SHOW_DIVIDER_NONE);
+        mDividerPadding = a.getDimensionPixelSize(/*com.android.internal.R.styleable.*/LinearLayout_dividerPadding, 0);
 
         a.recycle();
     }

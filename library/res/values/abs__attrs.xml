@@ -218,22 +218,4 @@
         <!-- Whether space should be reserved in layout when an icon is missing. -->
         <attr name="preserveIconSpacing" format="boolean" />
     </declare-styleable>
-    
-    <declare-styleable name="SherlockLinearLayout">
-        <!-- When set to true, all children with a weight will be considered having
-             the minimum size of the largest child. If false, all children are
-             measured normally. -->
-        <attr name="measureWithLargestChild" format="boolean" />
-        <!-- Drawable to use as a vertical divider between buttons. -->
-        <attr name="divider" />
-        <!-- Setting for which dividers to show. -->
-        <attr name="showDividers">
-            <flag name="none" value="0" />
-            <flag name="beginning" value="1" />
-            <flag name="middle" value="2" />
-            <flag name="end" value="4" />
-        </attr>
-        <!-- Size of padding on either end of a divider. -->
-        <attr name="dividerPadding" format="dimension" />
-    </declare-styleable>
 </resources>
