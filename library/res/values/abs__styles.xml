@@ -10,7 +10,7 @@
         <item name="actionDropDownStyle">@style/Widget.Sherlock.Spinner</item>
         <item name="actionHomeButtonStyle">@style/Widget.Sherlock.ActionButton.Home</item>
         <item name="actionMenuTextAppearance">?android:attr/textAppearanceMedium</item>
-        <item name="actionMenuTextColor">?android:attr/textColorPrimary</item>
+        <item name="actionMenuTextColor">?android:attr/textColorPrimaryNoDisable</item>
         <item name="actionModeBackground">@drawable/abs__cab_background_holo_dark</item>
         <item name="actionModeCloseDrawable">@drawable/abs__cab_ic_close_holo</item>
         <item name="actionModeCloseButtonStyle">@style/Widget.Sherlock.ActionButton.CloseMode</item>
@@ -120,7 +120,7 @@
         <item name="actionDropDownStyle">@style/Widget.Sherlock.Light.Spinner</item>
         <item name="actionHomeButtonStyle">@style/Widget.Sherlock.Light.ActionButton.Home</item>
         <item name="actionMenuTextAppearance">?android:attr/textAppearanceMedium</item>
-        <item name="actionMenuTextColor">?android:attr/textColorPrimary</item>
+        <item name="actionMenuTextColor">?android:attr/textColorPrimaryNoDisable</item>
         <item name="actionModeBackground">@drawable/abs__cab_background_holo_light</item>
         <item name="actionModeCloseDrawable">@drawable/abs__cab_ic_close_holo</item>
         <item name="actionModeCloseButtonStyle">@style/Widget.Sherlock.Light.ActionButton.CloseMode</item>
