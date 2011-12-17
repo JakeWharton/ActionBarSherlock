@@ -47,6 +47,7 @@ import java.lang.reflect.Method;
  */
 public class MenuInflaterImpl extends android.view.MenuInflater {
     private static final String LOG_TAG = "MenuInflater";
+    private static final String XML_NS = "http://schemas.android.com/apk/res/android";
 
 
     private static final int[] MenuGroup = new int[] {
@@ -85,7 +86,7 @@ public class MenuInflaterImpl extends android.view.MenuInflater {
     private static final int MenuItem_orderInCategory = 2;
     private static final int MenuItem_title = 3;
     private static final int MenuItem_titleCondensed = 4;
-    private static final int MenuItem_icon = 5;
+    //private static final int MenuItem_icon = 5;
     private static final int MenuItem_alphabeticShortcut = 6;
     private static final int MenuItem_numericShortcut = 7;
     private static final int MenuItem_checkable = 8;
@@ -381,7 +382,8 @@ public class MenuInflaterImpl extends android.view.MenuInflater {
             itemCategoryOrder = (category & Menu.CATEGORY_MASK) | (order & Menu.USER_MASK);
             itemTitle = a.getText(/*com.android.internal.R.styleable.*/MenuItem_title);
             itemTitleCondensed = a.getText(/*com.android.internal.R.styleable.*/MenuItem_titleCondensed);
-            itemIconResId = a.getResourceId(/*com.android.internal.R.styleable.*/MenuItem_icon, 0);
+            //itemIconResId = a.getResourceId(/*com.android.internal.R.styleable.*/MenuItem_icon, 0);
+            //XXX Previous line doesn't work for some odd reason. Oh wells. Fix is below.
             itemAlphabeticShortcut =
                     getShortcut(a.getString(/*com.android.internal.R.styleable.*/MenuItem_alphabeticShortcut));
             itemNumericShortcut =
@@ -398,10 +400,11 @@ public class MenuInflaterImpl extends android.view.MenuInflater {
             itemVisible = a.getBoolean(/*com.android.internal.R.styleable.*/MenuItem_visible, groupVisible);
             itemEnabled = a.getBoolean(/*com.android.internal.R.styleable.*/MenuItem_enabled, groupEnabled);
             //itemShowAsAction = a.getInt(/*com.android.internal.R.styleable.*/MenuItem_showAsAction, -1);
-            //Previous line doesn't work for some odd reason. Oh wells. Fix is below.
+            //XXX Previous line doesn't work for some odd reason. Oh wells. Fix is below.
             itemListenerMethodName = a.getString(/*com.android.internal.R.styleable.*/MenuItem_onClick);
 
-            itemShowAsAction = attrs.getAttributeIntValue("http://schemas.android.com/apk/res/android", "showAsAction", -1);
+            itemIconResId = attrs.getAttributeResourceValue(XML_NS, "icon", 0);
+            itemShowAsAction = attrs.getAttributeIntValue(XML_NS, "showAsAction", -1);
 
             a.recycle();
 
