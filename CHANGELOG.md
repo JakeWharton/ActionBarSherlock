@@ -11,10 +11,17 @@ Version 3.5.0 *(In Development)*
     `MenuCompat`, `MenuItemCompat`, and `ActivityCompat` have be added back in
     to ease transition to this library but all their methods and the classes
     themselves have been deprecated.
- *  Rewritten menu and action item support from Ice Cream Sandwich. (*Note: This
-    has removed the need for the custom `Window.FEATURE_ACTION_ITEM_TEXT` flag.
-    You should now use the `setShowAsAction(int)` method on each `MenuItem` to
-    control whether or not it shows text.*)
+ *  Rewritten menu and action item support from Ice Cream Sandwich.
+    
+    * Removed the need for the custom `Window.FEATURE_ACTION_ITEM_TEXT` flag.
+      You should now use the `showAsAction` attribute and/or the
+      `setShowAsAction(int)` method on each `MenuItem` to control whether or
+      not text is shown
+    * Action item dividers are now added automatically only when necessary
+      to distinguish possible confusion between action items.
+    * Fix: Action views now properly size themselves within the bounded space
+      of the menu.
+
  *  Fix: List navigation no longer becomes usable on certain device
     configurations.
  *  Fix: `SubMenu`'s `findItem(int)` method now properly returns the support
