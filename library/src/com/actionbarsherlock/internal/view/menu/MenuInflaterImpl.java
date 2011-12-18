@@ -21,7 +21,6 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.content.res.XmlResourceParser;
 import android.support.v4.view.Menu;
 import android.support.v4.view.MenuItem;
@@ -50,51 +49,63 @@ public class MenuInflaterImpl extends android.view.MenuInflater {
     private static final String XML_NS = "http://schemas.android.com/apk/res/android";
 
 
+    /*
+    This doesn't work reliably and I can't yet figure out why.
+
+
     private static final int[] MenuGroup = new int[] {
-        /* 0 */ android.R.attr.id,
-        /* 1 */ android.R.attr.menuCategory,
-        /* 2 */ android.R.attr.orderInCategory,
-        /* 3 */ android.R.attr.checkableBehavior,
-        /* 4 */ android.R.attr.visible,
-        /* 5 */ android.R.attr.enabled,
+        //Ascending order by value
+        android.R.attr.enabled,
+        android.R.attr.id,
+        android.R.attr.visible,
+        android.R.attr.menuCategory,
+        android.R.attr.orderInCategory,
+        android.R.attr.checkableBehavior,
     };
-    private static final int MenuGroup_id = 0;
-    private static final int MenuGroup_menuCategory = 1;
-    private static final int MenuGroup_orderInCategory = 2;
-    private static final int MenuGroup_checkableBehavior = 3;
-    private static final int MenuGroup_visible = 4;
-    private static final int MenuGroup_enabled = 5;
+    private static final int MenuGroup_enabled = 0;
+    private static final int MenuGroup_id = 1;
+    private static final int MenuGroup_visible = 2;
+    private static final int MenuGroup_menuCategory = 3;
+    private static final int MenuGroup_orderInCategory = 4;
+    private static final int MenuGroup_checkableBehavior = 5;
+
 
     private static final int[] MenuItem = new int[] {
-        /* 0  */ android.R.attr.id,
-        /* 1  */ android.R.attr.menuCategory,
-        /* 2  */ android.R.attr.orderInCategory,
-        /* 3  */ android.R.attr.title,
-        /* 4  */ android.R.attr.titleCondensed,
-        /* 5  */ android.R.attr.icon,
-        /* 6  */ android.R.attr.alphabeticShortcut,
-        /* 7  */ android.R.attr.numericShortcut,
-        /* 8  */ android.R.attr.checkable,
-        /* 9  */ android.R.attr.checked,
-        /* 10 */ android.R.attr.visible,
-        /* 11 */ android.R.attr.enabled,
-        /* 12 */ android.R.attr.showAsAction,
-        /* 13 */ android.R.attr.onClick,
+        //Ascending order by value
+        android.R.attr.icon,
+        android.R.attr.enabled,
+        android.R.attr.id,
+        android.R.attr.checked,
+        android.R.attr.visible,
+        android.R.attr.menuCategory,
+        android.R.attr.orderInCategory,
+        android.R.attr.title,
+        android.R.attr.titleCondensed,
+        android.R.attr.alphabeticShortcut,
+        android.R.attr.numericShortcut,
+        android.R.attr.checkable,
+        android.R.attr.onClick,
+        android.R.attr.showAsAction,
+        android.R.attr.actionLayout,
+        android.R.attr.actionViewClass,
     };
-    private static final int MenuItem_id = 0;
-    private static final int MenuItem_menuCategory = 1;
-    private static final int MenuItem_orderInCategory = 2;
-    private static final int MenuItem_title = 3;
-    private static final int MenuItem_titleCondensed = 4;
-    //private static final int MenuItem_icon = 5;
-    private static final int MenuItem_alphabeticShortcut = 6;
-    private static final int MenuItem_numericShortcut = 7;
-    private static final int MenuItem_checkable = 8;
-    private static final int MenuItem_checked = 9;
-    private static final int MenuItem_visible = 10;
-    private static final int MenuItem_enabled = 11;
-    //private static final int MenuItem_showAsAction = 12;
-    private static final int MenuItem_onClick = 13;
+    private static final int MenuItem_icon = 0;
+    private static final int MenuItem_enabled = 1;
+    private static final int MenuItem_id = 2;
+    private static final int MenuItem_checked = 3;
+    private static final int MenuItem_visible = 4;
+    private static final int MenuItem_menuCategory = 5;
+    private static final int MenuItem_orderInCategory = 6;
+    private static final int MenuItem_title = 7;
+    private static final int MenuItem_titleCondensed = 8;
+    private static final int MenuItem_alphabeticShortcut = 9;
+    private static final int MenuItem_numericShortcut = 10;
+    private static final int MenuItem_checkable = 11;
+    private static final int MenuItem_onClick = 12;
+    private static final int MenuItem_showAsAction = 13;
+    private static final int MenuItem_actionLayout = 14;
+    private static final int MenuItem_actionViewClass = 15;
+    */
 
 
     /** Menu tag name in XML. */
@@ -355,58 +366,90 @@ public class MenuInflaterImpl extends android.view.MenuInflater {
          * Called when the parser is pointing to a group tag.
          */
         public void readGroup(AttributeSet attrs) {
-            TypedArray a = mContext.obtainStyledAttributes(attrs,
-                    /*com.android.internal.R.styleable.*/MenuGroup);
+            //TypedArray a = mContext.obtainStyledAttributes(attrs,
+            //        /*com.android.internal.R.styleable.*/MenuGroup);
 
-            groupId = a.getResourceId(/*com.android.internal.R.styleable.*/MenuGroup_id, defaultGroupId);
-            groupCategory = a.getInt(/*com.android.internal.R.styleable.*/MenuGroup_menuCategory, defaultItemCategory);
-            groupOrder = a.getInt(/*com.android.internal.R.styleable.*/MenuGroup_orderInCategory, defaultItemOrder);
-            groupCheckable = a.getInt(/*com.android.internal.R.styleable.*/MenuGroup_checkableBehavior, defaultItemCheckable);
-            groupVisible = a.getBoolean(/*com.android.internal.R.styleable.*/MenuGroup_visible, defaultItemVisible);
-            groupEnabled = a.getBoolean(/*com.android.internal.R.styleable.*/MenuGroup_enabled, defaultItemEnabled);
+            //groupId = a.getResourceId(/*com.android.internal.R.styleable.*/MenuGroup_id, defaultGroupId);
+            groupId = attrs.getAttributeResourceValue(XML_NS, "id", defaultGroupId);
+            //groupCategory = a.getInt(/*com.android.internal.R.styleable.*/MenuGroup_menuCategory, defaultItemCategory);
+            groupCategory = attrs.getAttributeIntValue(XML_NS, "menuCategory", defaultItemCategory);
+            //groupOrder = a.getInt(/*com.android.internal.R.styleable.*/MenuGroup_orderInCategory, defaultItemOrder);
+            groupOrder = attrs.getAttributeIntValue(XML_NS, "orderInCategory", defaultItemOrder);
+            //groupCheckable = a.getInt(/*com.android.internal.R.styleable.*/MenuGroup_checkableBehavior, defaultItemCheckable);
+            groupCheckable = attrs.getAttributeIntValue(XML_NS, "checkableBehavior", defaultItemCheckable);
+            //groupVisible = a.getBoolean(/*com.android.internal.R.styleable.*/MenuGroup_visible, defaultItemVisible);
+            groupVisible = attrs.getAttributeBooleanValue(XML_NS, "visible", defaultItemVisible);
+            //groupEnabled = a.getBoolean(/*com.android.internal.R.styleable.*/MenuGroup_enabled, defaultItemEnabled);
+            groupEnabled = attrs.getAttributeBooleanValue(XML_NS, "enabled", defaultItemEnabled);
 
-            a.recycle();
+            //a.recycle();
         }
 
         /**
          * Called when the parser is pointing to an item tag.
          */
         public void readItem(AttributeSet attrs) {
-            TypedArray a = mContext.obtainStyledAttributes(attrs,
-                    /*com.android.internal.R.styleable.*/MenuItem);
+            //TypedArray a = mContext.obtainStyledAttributes(attrs,
+            //        /*com.android.internal.R.styleable.*/MenuItem);
 
             // Inherit attributes from the group as default value
-            itemId = a.getResourceId(/*com.android.internal.R.styleable.*/MenuItem_id, defaultItemId);
-            final int category = a.getInt(/*com.android.internal.R.styleable.*/MenuItem_menuCategory, groupCategory);
-            final int order = a.getInt(/*com.android.internal.R.styleable.*/MenuItem_orderInCategory, groupOrder);
+            //itemId = a.getResourceId(/*com.android.internal.R.styleable.*/MenuItem_id, defaultItemId);
+            itemId = attrs.getAttributeResourceValue(XML_NS, "id", defaultItemId);
+            //final int category = a.getInt(/*com.android.internal.R.styleable.*/MenuItem_menuCategory, groupCategory);
+            final int category = attrs.getAttributeIntValue(XML_NS, "menuCategory", groupCategory);
+            //final int order = a.getInt(/*com.android.internal.R.styleable.*/MenuItem_orderInCategory, groupOrder);
+            final int order = attrs.getAttributeIntValue(XML_NS, "orderInCategory", groupOrder);
             itemCategoryOrder = (category & Menu.CATEGORY_MASK) | (order & Menu.USER_MASK);
-            itemTitle = a.getText(/*com.android.internal.R.styleable.*/MenuItem_title);
-            itemTitleCondensed = a.getText(/*com.android.internal.R.styleable.*/MenuItem_titleCondensed);
+            //itemTitle = a.getText(/*com.android.internal.R.styleable.*/MenuItem_title);
+            final int itemTitleId = attrs.getAttributeResourceValue(XML_NS, "title", 0);
+            if (itemTitleId != 0) {
+                itemTitle = mContext.getString(itemTitleId);
+            } else {
+                itemTitle = attrs.getAttributeValue(XML_NS, "title");
+            }
+            //itemTitleCondensed = a.getText(/*com.android.internal.R.styleable.*/MenuItem_titleCondensed);
+            final int itemTitleCondensedId = attrs.getAttributeResourceValue(XML_NS, "titleCondensed", 0);
+            if (itemTitleCondensedId != 0) {
+                itemTitleCondensed = mContext.getString(itemTitleCondensedId);
+            } else {
+                itemTitleCondensed = attrs.getAttributeValue(XML_NS, "titleCondensed");
+            }
             //itemIconResId = a.getResourceId(/*com.android.internal.R.styleable.*/MenuItem_icon, 0);
-            //XXX Previous line doesn't work for some odd reason. Oh wells. Fix is below.
+            itemIconResId = attrs.getAttributeResourceValue(XML_NS, "icon", 0);
+            //itemAlphabeticShortcut =
+            //        getShortcut(a.getString(/*com.android.internal.R.styleable.*/MenuItem_alphabeticShortcut));
             itemAlphabeticShortcut =
-                    getShortcut(a.getString(/*com.android.internal.R.styleable.*/MenuItem_alphabeticShortcut));
+                    getShortcut(attrs.getAttributeValue(XML_NS, "alphabeticShortcut"));
+            //itemNumericShortcut =
+            //        getShortcut(a.getString(/*com.android.internal.R.styleable.*/MenuItem_numericShortcut));
             itemNumericShortcut =
-                    getShortcut(a.getString(/*com.android.internal.R.styleable.*/MenuItem_numericShortcut));
-            if (a.hasValue(/*com.android.internal.R.styleable.*/MenuItem_checkable)) {
+                    getShortcut(attrs.getAttributeValue(XML_NS, "numericShortcut"));
+            //if (a.hasValue(/*com.android.internal.R.styleable.*/MenuItem_checkable)) {
+            if (attrs.getAttributeValue(XML_NS, "checkable") != null) {
                 // Item has attribute checkable, use it
-                itemCheckable = a.getBoolean(/*com.android.internal.R.styleable.*/MenuItem_checkable, false) ? 1 : 0;
+                //itemCheckable = a.getBoolean(/*com.android.internal.R.styleable.*/MenuItem_checkable, false) ? 1 : 0;
+                itemCheckable = attrs.getAttributeBooleanValue(XML_NS, "checkable", false) ? 1 : 0;
             } else {
                 // Item does not have attribute, use the group's (group can have one more state
                 // for checkable that represents the exclusive checkable)
                 itemCheckable = groupCheckable;
             }
-            itemChecked = a.getBoolean(/*com.android.internal.R.styleable.*/MenuItem_checked, defaultItemChecked);
-            itemVisible = a.getBoolean(/*com.android.internal.R.styleable.*/MenuItem_visible, groupVisible);
-            itemEnabled = a.getBoolean(/*com.android.internal.R.styleable.*/MenuItem_enabled, groupEnabled);
+            //itemChecked = a.getBoolean(/*com.android.internal.R.styleable.*/MenuItem_checked, defaultItemChecked);
+            itemChecked = attrs.getAttributeBooleanValue(XML_NS, "checked", defaultItemChecked);
+            //itemVisible = a.getBoolean(/*com.android.internal.R.styleable.*/MenuItem_visible, groupVisible);
+            itemVisible = attrs.getAttributeBooleanValue(XML_NS, "visible", groupVisible);
+            //itemEnabled = a.getBoolean(/*com.android.internal.R.styleable.*/MenuItem_enabled, groupEnabled);
+            itemEnabled = attrs.getAttributeBooleanValue(XML_NS, "enabled", groupEnabled);
             //itemShowAsAction = a.getInt(/*com.android.internal.R.styleable.*/MenuItem_showAsAction, -1);
-            //XXX Previous line doesn't work for some odd reason. Oh wells. Fix is below.
-            itemListenerMethodName = a.getString(/*com.android.internal.R.styleable.*/MenuItem_onClick);
-
-            itemIconResId = attrs.getAttributeResourceValue(XML_NS, "icon", 0);
             itemShowAsAction = attrs.getAttributeIntValue(XML_NS, "showAsAction", -1);
+            //itemListenerMethodName = a.getString(/*com.android.internal.R.styleable.*/MenuItem_onClick);
+            itemListenerMethodName = attrs.getAttributeValue(XML_NS, "onClick");
+            //itemActionViewLayout = a.getResourceId(/*com.android.internal.R.styleable.*/MenuItem_actionLayout, 0);
+            itemActionViewLayout = attrs.getAttributeResourceValue(XML_NS, "actionLayout", 0);
+            //itemActionViewClassName = a.getString(/*com.android.internal.R.styleable.*/MenuItem_actionViewClass);
+            itemActionViewClassName = attrs.getAttributeValue(XML_NS, "actionViewClass");
 
-            a.recycle();
+            //a.recycle();
 
             itemAdded = false;
         }
