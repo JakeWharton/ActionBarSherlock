@@ -174,25 +174,60 @@ public class ActionMenuPresenter extends BaseMenuPresenter {
             itemText[i] = items.get(i).getTitle();
         }
 
-        mDialog = new AlertDialog.Builder(mContext)
-                .setItems(itemText, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        items.get(which).invoke();
-                        mDialog = null;
-                    }
-                })
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext)
                 .setTitle(subMenu.getItem().getTitle())
                 .setIcon(subMenu.getItem().getIcon())
+                .setCancelable(true)
                 .setOnCancelListener(new DialogInterface.OnCancelListener() {
                     @Override
                     public void onCancel(DialogInterface dialog) {
                         mDialog = null;
                     }
-                })
-                .setCancelable(true)
-                .show();
+                });
 
+        final boolean isExclusive = ((MenuItemImpl)subMenu.getItem(0)).isExclusiveCheckable();
+        final boolean isCheckable = ((MenuItemImpl)subMenu.getItem(0)).isCheckable();
+        if (isExclusive) {
+            int selected = -1;
+            for (int i = 0; i < itemsSize; i++) {
+                if (items.get(i).isChecked()) {
+                    selected = i;
+                    break;
+                }
+            }
+            builder.setSingleChoiceItems(itemText, selected, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    items.get(which).invoke();
+                    //dialog.dismiss();
+                    mDialog = null;
+                }
+            });
+        } else if (isCheckable) {
+            boolean[] selected = new boolean[itemsSize];
+            for (int i = 0; i < itemsSize; i++) {
+                selected[i] = items.get(i).isChecked();
+            }
+            builder.setMultiChoiceItems(itemText, selected, new DialogInterface.OnMultiChoiceClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                    items.get(which).setChecked(isChecked);
+                    //dialog.dismiss();
+                    mDialog = null;
+                }
+            });
+        } else {
+            builder.setItems(itemText, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    items.get(which).invoke();
+                    //dialog.dismiss();
+                    mDialog = null;
+                }
+            });
+        }
+
+        mDialog = builder.show();
         super.onSubMenuSelected(subMenu);
         return true;
     }

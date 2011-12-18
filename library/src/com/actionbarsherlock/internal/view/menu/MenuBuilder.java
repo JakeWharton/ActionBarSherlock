@@ -228,6 +228,12 @@ public class MenuBuilder implements Menu {
                         nativeSubItem.setNumericShortcut(subItem.getNumericShortcut());
                         nativeSubItem.setAlphabeticShortcut(subItem.getAlphabeticShortcut());
                         nativeSubItem.setTitleCondensed(subItem.getTitleCondensed());
+                        nativeSubItem.setCheckable(subItem.isCheckable());
+                        nativeSubItem.setChecked(subItem.isChecked());
+
+                        if (subItem.isExclusiveCheckable()) {
+                            nativeSub.setGroupCheckable(subItem.getGroupId(), true, true);
+                        }
 
                         map.put(nativeSubItem, subItem);
                     }
@@ -244,6 +250,12 @@ public class MenuBuilder implements Menu {
                 nativeItem.setNumericShortcut(nonActionItem.getNumericShortcut());
                 nativeItem.setAlphabeticShortcut(nonActionItem.getAlphabeticShortcut());
                 nativeItem.setTitleCondensed(nonActionItem.getTitleCondensed());
+                nativeItem.setCheckable(nonActionItem.isCheckable());
+                nativeItem.setChecked(nonActionItem.isChecked());
+
+                if (nonActionItem.isExclusiveCheckable()) {
+                    menu.setGroupCheckable(nonActionItem.getGroupId(), true, true);
+                }
 
                 map.put(nativeItem, nonActionItem);
             }
