@@ -32,7 +32,6 @@ public class TestIssue0033 extends BaseTestCase<Issue0033> {
         assertFalse(nativeItem.isVisible());
         assertFalse(getInstrumentation().invokeMenuActionSync(getActivity(), Issue0033.ID_VISIBLE, 0));
         assertFalse(actionItem.isVisible());
-        assertEquals(View.GONE, actionItemView.getVisibility());
     }
 
     public void testHiddenMenuItems() throws InterruptedException {
@@ -60,10 +59,8 @@ public class TestIssue0033 extends BaseTestCase<Issue0033> {
 
         //Test action items are not present
         View codeView = findActionItem(Issue0033.TEXT_HIDDEN);
-        assertNotNull(codeView);
-        assertEquals(View.GONE, codeView.getVisibility());
+        assertNull(codeView);
         View xmlView = findActionItem(getActivity().getXmlHiddenText());
-        assertNotNull(xmlView);
-        assertEquals(View.GONE, xmlView.getVisibility());
+        assertNull(xmlView);
     }
 }
