@@ -16,7 +16,6 @@
 
 package android.support.v4.view;
 
-import android.support.v4.app.FragmentActivity;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -27,29 +26,27 @@ import android.view.View;
 public class MenuItemCompat {
 
     /**
-     * Never show this item as a button in an Action Bar.
+     * @Deprecated Use {@link MenuItem#SHOW_AS_ACTION_NEVER}.
      */
+    @Deprecated
     public static final int SHOW_AS_ACTION_NEVER = 0;
 
     /**
-     * Show this item as a button in an Action Bar if the system
-     * decides there is room for it.
+     * @Deprecated Use {@link MenuItem#SHOW_AS_ACTION_IF_ROOM}.
      */
+    @Deprecated
     public static final int SHOW_AS_ACTION_IF_ROOM = 1;
 
     /**
-     * Always show this item as a button in an Action Bar. Use sparingly!
-     * If too many items are set to always show in the Action Bar it can
-     * crowd the Action Bar and degrade the user experience on devices with
-     * smaller screens. A good rule of thumb is to have no more than 2
-     * items set to always show at a time.
+     * @Deprecated Use {@link MenuItem#SHOW_AS_ACTION_ALWAYS}.
      */
+    @Deprecated
     public static final int SHOW_AS_ACTION_ALWAYS = 2;
 
     /**
-     * When this item is in the action bar, always show it with a
-     * text label even if it also has an icon specified.
+     * @Deprecated Use {@link MenuItem#SHOW_AS_ACTION_WITH_TEXT}.
      */
+    @Deprecated
     public static final int SHOW_AS_ACTION_WITH_TEXT = 4;
 
     /**

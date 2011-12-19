@@ -26,14 +26,14 @@ import java.io.PrintWriter;
  */
 @Deprecated
 class ActivityCompatHoneycomb {
-	/** @Deprecated Use {@link FragmentActivity#invalidateOptionsMenu()}. */
-	@Deprecated
+    /** @Deprecated Use {@link FragmentActivity#invalidateOptionsMenu()}. */
+    @Deprecated
     static void invalidateOptionsMenu(Activity activity) {
         activity.invalidateOptionsMenu();
     }
 
-	/** @Deprecated Use {@link FragmentActivity#dump(String, FileDescriptor, PrintWriter, String[])}. */
-	@Deprecated
+    /** @Deprecated Use {@link FragmentActivity#dump(String, FileDescriptor, PrintWriter, String[])}. */
+    @Deprecated
     static void dump(Activity activity, String prefix, FileDescriptor fd,
             PrintWriter writer, String[] args) {
         activity.dump(prefix, fd, writer, args);

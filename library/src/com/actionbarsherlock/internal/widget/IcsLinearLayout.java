@@ -32,20 +32,20 @@ import android.view.ViewGroup;
  */
 public class IcsLinearLayout extends ViewGroup {
 
-	private static final int[] LinearLayout = new int[] {
-		/* 0 */ android.R.attr.divider,
-		/* 1 */ android.R.attr.dividerPadding,
-		/* 2 */ android.R.attr.weightSum,
-		/* 3 */ android.R.attr.measureWithLargestChild,
-		/* 4 */ android.R.attr.showDividers,
-		/* 5 */ android.R.attr.baselineAlignedChildIndex,
-	};
-	private static final int LinearLayout_divider = 0;
-	private static final int LinearLayout_dividerPadding = 1;
-	private static final int LinearLayout_weightSum = 2;
-	private static final int LinearLayout_measureWithLargestChild = 3;
-	private static final int LinearLayout_showDividers = 4;
-	private static final int LinearLayout_baselineAlignedChildIndex = 5;
+    private static final int[] LinearLayout = new int[] {
+        /* 0 */ android.R.attr.divider,
+        /* 1 */ android.R.attr.dividerPadding,
+        /* 2 */ android.R.attr.weightSum,
+        /* 3 */ android.R.attr.measureWithLargestChild,
+        /* 4 */ android.R.attr.showDividers,
+        /* 5 */ android.R.attr.baselineAlignedChildIndex,
+    };
+    private static final int LinearLayout_divider = 0;
+    private static final int LinearLayout_dividerPadding = 1;
+    private static final int LinearLayout_weightSum = 2;
+    private static final int LinearLayout_measureWithLargestChild = 3;
+    private static final int LinearLayout_showDividers = 4;
+    private static final int LinearLayout_baselineAlignedChildIndex = 5;
 
 
     /**
