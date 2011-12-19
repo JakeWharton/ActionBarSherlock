@@ -77,9 +77,7 @@ public class ActionMenuPresenter extends BaseMenuPresenter {
             mMaxItems = res.getInteger(R.integer.abs__max_action_buttons);
         }
 
-        int width = mWidthLimit;
-
-        mActionItemWidthLimit = width;
+        mActionItemWidthLimit = mWidthLimit;
 
         mMinCellSize = (int) (ActionMenuView.MIN_CELL_SIZE * res.getDisplayMetrics().density);
 
