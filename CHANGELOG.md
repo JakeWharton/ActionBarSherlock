@@ -1,8 +1,8 @@
 Change Log
 ===============================================================================
 
-Version 3.5.0 *(In Development)*
---------------------------------
+Version 3.5.0 *(2011-12-18)*
+----------------------------
 
  *  Library now uses the `r6` version of the compatibility library for its base.
     Ice Cream Sandwich-specific implementations are currently disabled, however,
@@ -22,14 +22,14 @@ Version 3.5.0 *(In Development)*
     * Fix: Action views now properly size themselves within the bounded space
       of the menu.
 
- *  Fix: List navigation no longer becomes usable on certain device
+ *  Fix: List navigation no longer becomes unusable on certain device
     configurations.
  *  Fix: `SubMenu`'s `findItem(int)` method now properly returns the support
     version of `MenuItem`.
  *  Fix: Invisible sub-menu items are no longer shown on the pre-3.0 popup list.
 
 
-Version 3.4.2 *(2001-11-09)*
+Version 3.4.2 *(2011-11-09)*
 ----------------------------
 
  * Fix: Stacked action bar now properly sets the tab bar background based on
