@@ -73,9 +73,9 @@
         <item name="android:paddingRight">16dip</item>
     </style>
     <style name="Widget.Sherlock.ActionBar.TabBar" parent="Widget">
-        <item name="divider">?attr/actionBarDivider</item>
-        <item name="showDividers">middle</item>
-        <item name="dividerPadding">12dip</item>
+        <item name="android:divider">?attr/actionBarDivider</item>
+        <item name="android:showDividers">middle</item>
+        <item name="android:dividerPadding">12dip</item>
     </style>
     <style name="Widget.Sherlock.ActionBar.TabText" parent="Widget">
         <item name="android:textAppearance">@style/TextAppearance.Sherlock.Medium</item>
