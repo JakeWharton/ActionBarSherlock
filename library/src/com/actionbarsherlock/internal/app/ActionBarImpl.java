@@ -130,13 +130,14 @@ public class ActionBarImpl extends ActionBar {
         }
     };
 
-    public ActionBarImpl(Activity activity) {
+    public ActionBarImpl(Activity activity, int features) {
         //UNUSED mActivity = activity;
         Window window = activity.getWindow();
         View decor = window.getDecorView();
         init(decor);
-        //TODO this shouldn't check on window?
-        if (!window.hasFeature(Window.FEATURE_ACTION_BAR_OVERLAY)) {
+
+        //window.hasFeature() workaround for pre-3.0
+        if ((features & (1 << Window.FEATURE_ACTION_BAR_OVERLAY)) == 0) {
             mContentView = decor.findViewById(android.R.id.content);
         }
     }

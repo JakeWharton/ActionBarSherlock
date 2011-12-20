@@ -251,7 +251,7 @@ public final class ActionBarSherlock {
             return;
         }
 
-        mActionBar = new ActionBarImpl(mActivity);
+        mActionBar = new ActionBarImpl(mActivity, mFeatures);
 
         if (!mIsDelegate) {
             //We may never get another chance to set the title
