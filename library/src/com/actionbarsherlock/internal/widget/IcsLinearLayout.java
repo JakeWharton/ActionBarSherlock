@@ -151,31 +151,9 @@ public class IcsLinearLayout extends ViewGroup {
         a.recycle();
     }
 
-    /**
-     * Set how dividers should be shown between items in this layout
-     *
-     * @param showDividers One or more of {@link #SHOW_DIVIDER_BEGINNING},
-     *                     {@link #SHOW_DIVIDER_MIDDLE}, or {@link #SHOW_DIVIDER_END},
-     *                     or {@link #SHOW_DIVIDER_NONE} to show no dividers.
-     */
-    public void setShowDividers(int showDividers) {
-        if (showDividers != mShowDividers) {
-            requestLayout();
-        }
-        mShowDividers = showDividers;
-    }
-
-    //@Override
+    @Override
     public boolean shouldDelayChildPressedState() {
         return false;
-    }
-
-    /**
-     * @return A flag set indicating how dividers should be shown around items.
-     * @see #setShowDividers(int)
-     */
-    public int getShowDividers() {
-        return mShowDividers;
     }
 
     /**
@@ -195,30 +173,6 @@ public class IcsLinearLayout extends ViewGroup {
         }
         setWillNotDraw(divider == null);
         requestLayout();
-    }
-
-    /**
-     * Set padding displayed on both ends of dividers.
-     *
-     * @param padding Padding value in pixels that will be applied to each end
-     *
-     * @see #setShowDividers(int)
-     * @see #setDividerDrawable(Drawable)
-     * @see #getDividerPadding()
-     */
-    public void setDividerPadding(int padding) {
-        mDividerPadding = padding;
-    }
-
-    /**
-     * Get the padding size used to inset dividers in pixels
-     *
-     * @see #setShowDividers(int)
-     * @see #setDividerDrawable(Drawable)
-     * @see #setDividerPadding(int)
-     */
-    public int getDividerPadding() {
-        return mDividerPadding;
     }
 
     /**
@@ -269,16 +223,6 @@ public class IcsLinearLayout extends ViewGroup {
     }
 
     /**
-     * <p>Indicates whether widgets contained within this layout are aligned
-     * on their baseline or not.</p>
-     *
-     * @return true when widgets are baseline-aligned, false otherwise
-     */
-    public boolean isBaselineAligned() {
-        return mBaselineAligned;
-    }
-
-    /**
      * <p>Defines whether widgets contained in this layout are
      * baseline-aligned or not.</p>
      *
@@ -289,32 +233,6 @@ public class IcsLinearLayout extends ViewGroup {
      */
     public void setBaselineAligned(boolean baselineAligned) {
         mBaselineAligned = baselineAligned;
-    }
-
-    /**
-     * When true, all children with a weight will be considered having
-     * the minimum size of the largest child. If false, all children are
-     * measured normally.
-     *
-     * @return True to measure children with a weight using the minimum
-     *         size of the largest child, false otherwise.
-     */
-    public boolean isMeasureWithLargestChildEnabled() {
-        return mUseLargestChild;
-    }
-
-    /**
-     * When set to true, all children with a weight will be considered having
-     * the minimum size of the largest child. If false, all children are
-     * measured normally.
-     *
-     * Disabled by default.
-     *
-     * @param enabled True to measure children with a weight using the
-     *        minimum size of the largest child, false otherwise.
-     */
-    public void setMeasureWithLargestChildEnabled(boolean enabled) {
-        mUseLargestChild = enabled;
     }
 
     @Override
@@ -355,29 +273,6 @@ public class IcsLinearLayout extends ViewGroup {
     }
 
     /**
-     * @return The index of the child that will be used if this layout is
-     *   part of a larger layout that is baseline aligned, or -1 if none has
-     *   been set.
-     */
-    public int getBaselineAlignedChildIndex() {
-        return mBaselineAlignedChildIndex;
-    }
-
-    /**
-     * @param i The index of the child that will be used if this layout is
-     *          part of a larger layout that is baseline aligned.
-     *
-     * @attr ref android.R.styleable#LinearLayout_baselineAlignedChildIndex
-     */
-    public void setBaselineAlignedChildIndex(int i) {
-        if ((i < 0) || (i >= getChildCount())) {
-            throw new IllegalArgumentException("base aligned child index out "
-                    + "of range (0, " + getChildCount() + ")");
-        }
-        mBaselineAlignedChildIndex = i;
-    }
-
-    /**
      * <p>Returns the view at the specified index. This method can be overriden
      * to take into account virtual children. Refer to
      * {@link android.widget.TableLayout} and {@link android.widget.TableRow}
@@ -401,33 +296,6 @@ public class IcsLinearLayout extends ViewGroup {
      */
     int getVirtualChildCount() {
         return getChildCount();
-    }
-
-    /**
-     * Returns the desired weights sum.
-     *
-     * @return A number greater than 0.0f if the weight sum is defined, or
-     *         a number lower than or equals to 0.0f if not weight sum is
-     *         to be used.
-     */
-    public float getWeightSum() {
-        return mWeightSum;
-    }
-
-    /**
-     * Defines the desired weights sum. If unspecified the weights sum is computed
-     * at layout time by adding the layout_weight of each child.
-     *
-     * This can be used for instance to give a single child 50% of the total
-     * available space by giving it a layout_weight of 0.5 and setting the
-     * weightSum to 1.0.
-     *
-     * @param weightSum a number greater than 0.0f, or a number lower than or equals
-     *        to 0.0f if the weight sum should be computed from the children's
-     *        layout_weight
-     */
-    public void setWeightSum(float weightSum) {
-        mWeightSum = Math.max(0.0f, weightSum);
     }
 
     /**
@@ -851,14 +719,6 @@ public class IcsLinearLayout extends ViewGroup {
     }
 
     /**
-     * Version of {@link #resolveSizeAndState(int, int, int)}
-     * returning only the {@link #MEASURED_SIZE_MASK} bits of the result.
-     */
-    public static int resolveSizeInt(int size, int measureSpec) {
-        return resolveSizeAndStateInt(size, measureSpec, 0) & MEASURED_SIZE_MASK;
-    }
-
-    /**
      * Utility to reconcile a desired size and state, with constraints imposed
      * by a MeasureSpec.  Will take the desired size, unless a different size
      * is imposed by the constraints.  The returned value is a compound integer,
@@ -1108,47 +968,6 @@ public class IcsLinearLayout extends ViewGroup {
 
     private void setChildFrame(View child, int left, int top, int width, int height) {
         child.layout(left, top, left + width, top + height);
-    }
-
-    /**
-     * Describes how the child views are positioned. Defaults to GRAVITY_TOP. If
-     * this layout has a VERTICAL orientation, this controls where all the child
-     * views are placed if there is extra vertical space. If this layout has a
-     * HORIZONTAL orientation, this controls the alignment of the children.
-     *
-     * @param gravity See {@link android.view.Gravity}
-     *
-     * @attr ref android.R.styleable#LinearLayout_gravity
-     */
-    public void setGravity(int gravity) {
-        if (mGravity != gravity) {
-            if ((gravity & Gravity.RELATIVE_HORIZONTAL_GRAVITY_MASK) == 0) {
-                gravity |= Gravity.START;
-            }
-
-            if ((gravity & Gravity.VERTICAL_GRAVITY_MASK) == 0) {
-                gravity |= Gravity.TOP;
-            }
-
-            mGravity = gravity;
-            requestLayout();
-        }
-    }
-
-    public void setHorizontalGravity(int horizontalGravity) {
-        final int gravity = horizontalGravity & Gravity.RELATIVE_HORIZONTAL_GRAVITY_MASK;
-        if ((mGravity & Gravity.RELATIVE_HORIZONTAL_GRAVITY_MASK) != gravity) {
-            mGravity = (mGravity & ~Gravity.RELATIVE_HORIZONTAL_GRAVITY_MASK) | gravity;
-            requestLayout();
-        }
-    }
-
-    public void setVerticalGravity(int verticalGravity) {
-        final int gravity = verticalGravity & Gravity.VERTICAL_GRAVITY_MASK;
-        if ((mGravity & Gravity.VERTICAL_GRAVITY_MASK) != gravity) {
-            mGravity = (mGravity & ~Gravity.VERTICAL_GRAVITY_MASK) | gravity;
-            requestLayout();
-        }
     }
 
     @Override
