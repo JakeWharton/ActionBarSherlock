@@ -204,7 +204,7 @@
         <item name="actionSpinnerItemStyle">@android:style/Widget.Holo.TextView.SpinnerItem</item>
         <item name="dropDownListViewStyle">@style/Widget.Sherlock.ListView.DropDown</item>
         <item name="dropdownListPreferredItemHeight">48dip</item>
-        <item name="popupMenuStyle">@style/Widget.Sherlock.PopupMenu</item>
+        <item name="popupMenuStyle">@style/Widget.Sherlock.Light.PopupMenu</item>
         <item name="selectableItemBackground">@drawable/abs__item_background_holo_dark</item>
         <item name="windowActionBar">true</item>
         <item name="windowActionBarOverlay">false</item>
