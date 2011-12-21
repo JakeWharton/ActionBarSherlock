@@ -8,6 +8,7 @@
         <item name="actionBarTabTextStyle">@style/Widget.Sherlock.ActionBar.TabText</item>
         <item name="actionButtonStyle">@style/Widget.Sherlock.ActionButton</item>
         <item name="actionDropDownStyle">@style/Widget.Sherlock.Spinner</item>
+        <item name="actionMenuTextAppearance">@android:style/TextAppearance.Holo.Widget.ActionBar.Menu</item>
         <item name="actionMenuTextColor">?android:attr/textColorPrimary</item>
         <item name="actionModeBackground">@drawable/abs__cab_background_holo_dark</item>
         <item name="actionModeCloseDrawable">@drawable/abs__cab_ic_close_holo</item>
@@ -52,6 +53,7 @@
         <item name="android:actionBarTabTextStyle">?actionBarTabTextStyle</item>
         <item name="android:actionButtonStyle">?actionButtonStyle</item>
         <item name="android:actionDropDownStyle">?actionDropDownStyle</item>
+        <item name="android:actionMenuTextAppearance">?actionMenuTextAppearance</item>
         <item name="android:actionMenuTextColor">?actionMenuTextColor</item>
         <item name="android:actionModeBackground">?actionModeBackground</item>
         <item name="android:actionModeCloseButtonStyle">?actionModeCloseButtonStyle</item>
@@ -104,6 +106,7 @@
         <item name="actionBarTabTextStyle">@style/Widget.Sherlock.Light.ActionBar.TabText</item>
         <item name="actionButtonStyle">@style/Widget.Sherlock.Light.ActionButton</item>
         <item name="actionDropDownStyle">@style/Widget.Sherlock.Light.Spinner</item>
+        <item name="actionMenuTextAppearance">@android:style/TextAppearance.Holo.Widget.ActionBar.Menu</item>
         <item name="actionMenuTextColor">?android:attr/textColorPrimary</item>
         <item name="actionModeBackground">@drawable/abs__cab_background_holo_light</item>
         <item name="actionModeCloseDrawable">@drawable/abs__cab_ic_close_holo</item>
@@ -147,6 +150,7 @@
         <item name="android:actionBarTabTextStyle">?actionBarTabTextStyle</item>
         <item name="android:actionButtonStyle">?actionButtonStyle</item>
         <item name="android:actionDropDownStyle">?actionDropDownStyle</item>
+        <item name="android:actionMenuTextAppearance">?actionMenuTextAppearance</item>
         <item name="android:actionMenuTextColor">?actionMenuTextColor</item>
         <item name="android:actionModeBackground">?actionModeBackground</item>
         <item name="android:actionModeCloseButtonStyle">?actionModeCloseButtonStyle</item>
@@ -196,6 +200,7 @@
         <item name="actionBarTabTextStyle">@style/Widget.Sherlock.Light.ActionBar.TabText.Inverse</item>
         <item name="actionButtonStyle">@style/Widget.Sherlock.ActionButton</item>
         <item name="actionDropDownStyle">@style/Widget.Sherlock.Spinner</item>
+        <item name="actionMenuTextAppearance">@android:style/TextAppearance.Holo.Widget.ActionBar.Menu</item>
         <item name="actionMenuTextColor">?android:attr/textColorPrimaryInverse</item>
         <item name="actionModeBackground">@drawable/abs__cab_background_holo_dark</item>
         <item name="actionModeCloseDrawable">@drawable/abs__cab_ic_close_holo</item>
@@ -240,6 +245,7 @@
         <item name="android:actionBarTabTextStyle">?actionBarTabTextStyle</item>
         <item name="android:actionButtonStyle">?actionButtonStyle</item>
         <item name="android:actionDropDownStyle">?actionDropDownStyle</item>
+        <item name="android:actionMenuTextAppearance">?actionMenuTextAppearance</item>
         <item name="android:actionMenuTextColor">?actionMenuTextColor</item>
         <item name="android:actionModeBackground">?actionModeBackground</item>
         <item name="android:actionModeCloseButtonStyle">?actionModeCloseButtonStyle</item>
