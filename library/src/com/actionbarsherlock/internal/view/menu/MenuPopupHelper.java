@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.content.res.Resources;
 import android.database.DataSetObserver;
-import android.os.Build;
 import android.os.Parcelable;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -32,12 +31,11 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListAdapter;
-import android.widget.ListPopupWindow;
 import android.widget.PopupWindow;
-import android.widget.Toast;
 import com.actionbarsherlock.R;
 import com.actionbarsherlock.internal.view.View_HasStateListenerSupport;
 import com.actionbarsherlock.internal.view.View_OnAttachStateChangeListener;
+import com.actionbarsherlock.internal.widget.ListPopupWindow;
 import com.actionbarsherlock.view.MenuItem;
 
 /**
@@ -50,7 +48,6 @@ public class MenuPopupHelper implements AdapterView.OnItemClickListener, View.On
     //UNUSED private static final String TAG = "MenuPopupHelper";
 
     static final int ITEM_LAYOUT = R.layout.abs__popup_menu_item_layout;
-    static final boolean SHOWS_DIALOG = (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB); //TODO use AlertDialog w/list
 
     private Context mContext;
     private LayoutInflater mInflater;
@@ -108,33 +105,29 @@ public class MenuPopupHelper implements AdapterView.OnItemClickListener, View.On
     }
 
     public boolean tryShow() {
-        if (SHOWS_DIALOG) {
-            Toast.makeText(mContext, "Got submenu trigger.", Toast.LENGTH_SHORT).show();
+        mPopup = new ListPopupWindow(mContext, null, R.attr.popupMenuStyle);
+        mPopup.setOnDismissListener(this);
+        mPopup.setOnItemClickListener(this);
+
+        mAdapter = new MenuAdapter(mMenu);
+        mPopup.setAdapter(mAdapter);
+        mPopup.setModal(true);
+
+        View anchor = mAnchorView;
+        if (anchor != null) {
+            final boolean addGlobalListener = mTreeObserver == null;
+            mTreeObserver = anchor.getViewTreeObserver(); // Refresh to latest
+            if (addGlobalListener) mTreeObserver.addOnGlobalLayoutListener(this);
+            ((View_HasStateListenerSupport)anchor).addOnAttachStateChangeListener(this);
+            mPopup.setAnchorView(anchor);
         } else {
-            mPopup = new ListPopupWindow(mContext, null, R.attr.popupMenuStyle);
-            mPopup.setOnDismissListener(this);
-            mPopup.setOnItemClickListener(this);
-
-            mAdapter = new MenuAdapter(mMenu);
-            mPopup.setAdapter(mAdapter);
-            mPopup.setModal(true);
-
-            View anchor = mAnchorView;
-            if (anchor != null) {
-                final boolean addGlobalListener = mTreeObserver == null;
-                mTreeObserver = anchor.getViewTreeObserver(); // Refresh to latest
-                if (addGlobalListener) mTreeObserver.addOnGlobalLayoutListener(this);
-                ((View_HasStateListenerSupport)anchor).addOnAttachStateChangeListener(this);
-                mPopup.setAnchorView(anchor);
-            } else {
-                return false;
-            }
-
-            mPopup.setContentWidth(Math.min(measureContentWidth(mAdapter), mPopupMaxWidth));
-            mPopup.setInputMethodMode(PopupWindow.INPUT_METHOD_NOT_NEEDED);
-            mPopup.show();
-            mPopup.getListView().setOnKeyListener(this);
+            return false;
         }
+
+        mPopup.setContentWidth(Math.min(measureContentWidth(mAdapter), mPopupMaxWidth));
+        mPopup.setInputMethodMode(PopupWindow.INPUT_METHOD_NOT_NEEDED);
+        mPopup.show();
+        mPopup.getListView().setOnKeyListener(this);
         return true;
     }
 
