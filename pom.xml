@@ -17,7 +17,7 @@
 		<module>library</module>
 		<module>plugins</module>
 		<module>samples</module>
-		<module>test</module>
+		<!--module>test</module-->
 	</modules>
 
 	<scm>
