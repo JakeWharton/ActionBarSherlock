@@ -8,6 +8,6 @@
 	
     <uses-sdk
         android:minSdkVersion="7"
-        android:targetSdkVersion="14" />
+        android:targetSdkVersion="15" />
 
 </manifest>

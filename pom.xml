@@ -94,10 +94,10 @@
 		<checkstyle.file>${session.executionRootDirectory}/checkstyle.xml</checkstyle.file>
 
 		<java.version>1.6</java.version>
-		<android.version>4.0_r1</android.version>
-		<android.platform>14</android.platform>
-		<android.maps.version>14_r1</android.maps.version>
-		<android.compat.version>r4</android.compat.version>
+		<android.version>4.0.3_r1</android.version>
+		<android.platform>15</android.platform>
+		<android.maps.version>15_r1</android.maps.version>
+		<android.compat.version>r6</android.compat.version>
 		<nine-old-androids.version>1.0.0</nine-old-androids.version>
 	</properties>
 
