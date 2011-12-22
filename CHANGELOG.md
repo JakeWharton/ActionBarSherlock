@@ -4,8 +4,10 @@ Change Log
 Version 3.5.1 *(In Development)*
 --------------------------------
 
- * Fix potential `NullPointerException` in `FragmentManager` where an attempt
-   was being made to save to a `Bundle` that had not yet been created.
+ * Fix: `NullPointerException` in `FragmentManager` can no longer occur when an
+   attempt is being made to save to a `Bundle` that has not yet been created.
+ * Fix: Pre-3.0 action item submenu dialogs now properly dismiss themselves
+   when an item of theirs is selected.
 
 
 Version 3.5.0 *(2011-12-18)*

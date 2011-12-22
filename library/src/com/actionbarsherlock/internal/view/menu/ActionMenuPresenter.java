@@ -197,7 +197,7 @@ public class ActionMenuPresenter extends BaseMenuPresenter {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     items.get(which).invoke();
-                    //dialog.dismiss();
+                    dialog.dismiss();
                     mDialog = null;
                 }
             });
@@ -210,7 +210,7 @@ public class ActionMenuPresenter extends BaseMenuPresenter {
                 @Override
                 public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                     items.get(which).setChecked(isChecked);
-                    //dialog.dismiss();
+                    dialog.dismiss();
                     mDialog = null;
                 }
             });
@@ -219,7 +219,7 @@ public class ActionMenuPresenter extends BaseMenuPresenter {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     items.get(which).invoke();
-                    //dialog.dismiss();
+                    dialog.dismiss();
                     mDialog = null;
                 }
             });
