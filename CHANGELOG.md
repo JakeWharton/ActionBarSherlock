@@ -1,6 +1,13 @@
 Change Log
 ===============================================================================
 
+Version 3.5.1 *(In Development)*
+--------------------------------
+
+ * Fix potential `NullPointerException` in `FragmentManager` where an attempt
+   was being made to save to a `Bundle` that had not yet been created.
+
+
 Version 3.5.0 *(2011-12-18)*
 ----------------------------
 
