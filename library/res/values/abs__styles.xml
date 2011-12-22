@@ -247,7 +247,7 @@
         <!-- These should be in `Widget.Sherlock.ActionBar` but there is no way to then -->
         <!-- reference them as sibling attributes to their native counterparts. See: -->
         <!-- http://stackoverflow.com/questions/6486594/access-sibling-style-attributes-in-a-non-theme-style -->
-        <item name="abBackground">@android:color/transparent</item>
+        <item name="abBackground">@drawable/abs__ab_solid_dark_holo</item>
         <item name="abBackgroundStacked">@drawable/abs__ab_stacked_transparent_dark_holo</item>
         <item name="abCustomNavigationLayout">@null</item>
         <item name="abDisplayOptions">useLogo|showHome|showTitle</item>
