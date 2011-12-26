@@ -1,24 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2007 The Android Open Source Project
 
-     Licensed under the Apache License, Version 2.0 (the "License");
-     you may not use this file except in compliance with the License.
-     You may obtain a copy of the License at
-
-          http://www.apache.org/licenses/LICENSE-2.0
-
-     Unless required by applicable law or agreed to in writing, software
-     distributed under the License is distributed on an "AS IS" BASIS,
-     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-     See the License for the specific language governing permissions and
-     limitations under the License.
--->
-
-<!-- Declare the contents of this Android application.  The namespace
-     attribute brings in the Android platform namespace, and the package
-     supplies a unique name for the application.  When writing your
-     own application, the package name must be changed from "com.example.*"
-     to come from a domain that you own or have control over. -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.actionbarsherlock.sample.demos"
     android:versionCode="45"
@@ -28,9 +9,9 @@
         android:minSdkVersion="7"
         android:targetSdkVersion="15" />
 
-    <application android:label="@string/activity_sample_code"
-            android:icon="@drawable/icon"
-            android:hardwareAccelerated="true">
+    <application
+        android:label="@string/activity_sample_code"
+        android:icon="@drawable/icon">
 
         <activity android:name=".SampleList">
             <intent-filter>
@@ -39,37 +20,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
-        <activity
-            android:name=".FeatureToggles"
-            android:label="@string/actionbar_feature_toggles"
-            android:theme="@style/Theme.Sherlock">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
-            </intent-filter>
-        </activity>
-        
-        <activity
-            android:name=".SubMenus"
-            android:label="@string/actionbar_submenus"
-            android:theme="@style/Theme.Sherlock">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
-            </intent-filter>
-        </activity>
-        
-        <activity
-            android:name=".ListNavigation"
-            android:label="@string/actionbar_list_navigation"
-            android:theme="@style/Theme.Sherlock">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
-            </intent-filter>
-        </activity>
-        
+
+
         <activity
             android:name=".CustomNavigation"
             android:label="@string/actionbar_customnavigation"
@@ -81,18 +33,8 @@
         </activity>
         
         <activity
-            android:name=".TabNavigation"
-            android:label="@string/actionbar_tab_navigation"
-            android:theme="@style/Theme.Sherlock">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
-            </intent-filter>
-        </activity>
-        
-        <activity
-            android:name=".Overlay"
-            android:label="@string/actionbar_overlay"
+            android:name=".FeatureToggles"
+            android:label="@string/actionbar_feature_toggles"
             android:theme="@style/Theme.Sherlock">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -111,8 +53,18 @@
         </activity>
         
         <activity
-            android:name=".Simple"
-            android:label="@string/actionbar_simple"
+            android:name=".ListNavigation"
+            android:label="@string/actionbar_list_navigation"
+            android:theme="@style/Theme.Sherlock">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+        
+        <activity
+            android:name=".Overlay"
+            android:label="@string/actionbar_overlay"
             android:theme="@style/Theme.Sherlock">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -129,5 +81,36 @@
                 <category android:name="com.actionbarsherlock.sample.plugins.SUPPORT4_SAMPLE_CODE" />
             </intent-filter>
         </activity>
+        
+        <activity
+            android:name=".Simple"
+            android:label="@string/actionbar_simple"
+            android:theme="@style/Theme.Sherlock">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+        
+        <activity
+            android:name=".SubMenus"
+            android:label="@string/actionbar_submenus"
+            android:theme="@style/Theme.Sherlock">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+        
+        <activity
+            android:name=".TabNavigation"
+            android:label="@string/actionbar_tab_navigation"
+            android:theme="@style/Theme.Sherlock">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+
     </application>
 </manifest>
