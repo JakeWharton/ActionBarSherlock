@@ -77,7 +77,7 @@
 				<artifactId>maven-dependency-plugin</artifactId>
 				<executions>
 					<execution>
-						<phase>package</phase>
+						<phase>generate-sources</phase>
 						<goals>
 							<goal>unpack</goal>
 						</goals>
