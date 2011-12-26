@@ -1,4 +1,4 @@
-package com.actionbarsherlock.sample.demos.app;
+package com.actionbarsherlock.sample.demos;
 
 import java.util.Random;
 
@@ -14,7 +14,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
 
-public class ActionBarFeatureToggles extends SherlockActivity {
+public class FeatureToggles extends SherlockActivity {
 	private static final Random RANDOM = new Random();
 	
 	private int items = 0;
@@ -32,19 +32,19 @@ public class ActionBarFeatureToggles extends SherlockActivity {
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
-        //TODO requestWindowFeature(Window.FEATURE_PROGRESS);
-        //TODO requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+        requestWindowFeature(Window.FEATURE_PROGRESS);
+        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         super.onCreate(savedInstanceState);
         
-        setContentView(R.layout.actionbar_feature_toggles_activity);
+        setContentView(R.layout.feature_toggles_activity);
         setProgressBarIndeterminateVisibility(Boolean.FALSE);
         setProgressBarVisibility(false);
  
-        getSupportActionBar().setCustomView(R.layout.actionbar_custom_view);
+        getSupportActionBar().setCustomView(R.layout.custom_view);
         getSupportActionBar().setDisplayShowCustomEnabled(false);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
         
-        ArrayAdapter<CharSequence> listAdapter = ArrayAdapter.createFromResource(this, R.array.locations, R.layout.abs__simple_spinner_item);
+        ArrayAdapter<CharSequence> listAdapter = ArrayAdapter.createFromResource(this, R.array.locations, android.R.layout.simple_dropdown_item_1line);
         listAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         getSupportActionBar().setListNavigationCallbacks(listAdapter, null);
         
@@ -209,7 +209,7 @@ public class ActionBarFeatureToggles extends SherlockActivity {
 				ActionBar.Tab newTab = getSupportActionBar().newTab();
 				
 				if (RANDOM.nextBoolean()) {
-					newTab.setCustomView(R.layout.actionbar_tab_custom_view);
+					newTab.setCustomView(R.layout.tab_custom_view);
 				} else {
 					boolean icon = RANDOM.nextBoolean();
 					if (icon) {

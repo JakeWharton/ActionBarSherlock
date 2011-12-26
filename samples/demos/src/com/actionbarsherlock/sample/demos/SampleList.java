@@ -33,7 +33,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Support4Demos extends ListActivity {
+public class SampleList extends ListActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -126,7 +126,7 @@ public class Support4Demos extends ListActivity {
     
     protected Intent browseIntent(String path) {
         Intent result = new Intent();
-        result.setClass(this, Support4Demos.class);
+        result.setClass(this, SampleList.class);
         result.putExtra("com.example.android.apis.Path", path);
         return result;
     }

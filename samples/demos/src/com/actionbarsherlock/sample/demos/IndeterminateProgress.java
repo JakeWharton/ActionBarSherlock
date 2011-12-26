@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.actionbarsherlock.sample.demos.app;
+package com.actionbarsherlock.sample.demos;
 
 import android.os.Bundle;
 import android.view.View;
@@ -22,7 +22,7 @@ import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.sample.demos.R;
 import com.actionbarsherlock.view.Window;
 
-public class ActionBarIndeterminateProgress extends SherlockActivity {
+public class IndeterminateProgress extends SherlockActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +31,7 @@ public class ActionBarIndeterminateProgress extends SherlockActivity {
         //class in android.support.v4.view and NOT android.view
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         
-        setContentView(R.layout.actionbar_iprogress);
+        setContentView(R.layout.iprogress);
         setProgressBarIndeterminateVisibility(Boolean.FALSE);
         
         

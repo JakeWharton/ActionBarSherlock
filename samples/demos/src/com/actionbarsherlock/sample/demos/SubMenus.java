@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.actionbarsherlock.sample.demos.app;
+package com.actionbarsherlock.sample.demos;
 
 import android.os.Bundle;
 import android.widget.TextView;
@@ -23,7 +23,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.SubMenu;
 
-public class ActionBarSubMenus extends SherlockActivity {
+public class SubMenus extends SherlockActivity {
     @Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		
@@ -51,7 +51,7 @@ public class ActionBarSubMenus extends SherlockActivity {
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.actionbar_text);
+        setContentView(R.layout.text);
         ((TextView)findViewById(R.id.text)).setText(R.string.actionbar_submenus_content);
     }
 }

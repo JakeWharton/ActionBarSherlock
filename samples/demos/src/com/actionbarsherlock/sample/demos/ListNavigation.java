@@ -1,4 +1,4 @@
-package com.actionbarsherlock.sample.demos.app;
+package com.actionbarsherlock.sample.demos;
 
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
@@ -8,15 +8,15 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.sample.demos.R;
 
-public class ActionBarListNavigation extends SherlockActivity implements ActionBar.OnNavigationListener {
+public class ListNavigation extends SherlockActivity implements ActionBar.OnNavigationListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.actionbar_text);
+		setContentView(R.layout.text);
 		
 		getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 		
-		ArrayAdapter<CharSequence> list = ArrayAdapter.createFromResource(this, R.array.locations, R.layout.abs__simple_spinner_item);
+		ArrayAdapter<CharSequence> list = ArrayAdapter.createFromResource(this, R.array.locations, android.R.layout.simple_dropdown_item_1line);
         list.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		getSupportActionBar().setListNavigationCallbacks(list, this);
 	}

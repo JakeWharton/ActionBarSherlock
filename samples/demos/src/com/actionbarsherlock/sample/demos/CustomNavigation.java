@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.actionbarsherlock.sample.demos.app;
+package com.actionbarsherlock.sample.demos;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -26,21 +26,21 @@ import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.sample.demos.R;
 
-public class ActionBarCustomNavigation extends SherlockActivity {
+public class CustomNavigation extends SherlockActivity {
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.actionbar_text);
+        setContentView(R.layout.text);
         ((TextView)findViewById(R.id.text)).setText(R.string.actionbar_customnavigation_content);
 
         //Inflate the custom view
-        View customNav = LayoutInflater.from(this).inflate(R.layout.actionbar_custom_view, null);
+        View customNav = LayoutInflater.from(this).inflate(R.layout.custom_view, null);
 
         //Bind to its state change
         ((RadioGroup)customNav.findViewById(R.id.radio_nav)).setOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                Toast.makeText(ActionBarCustomNavigation.this, "Navigation selection changed.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CustomNavigation.this, "Navigation selection changed.", Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.actionbarsherlock.sample.demos.app;
+package com.actionbarsherlock.sample.demos;
 
 import android.os.Bundle;
 import android.widget.TextView;
@@ -21,11 +21,11 @@ import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.sample.demos.R;
 
-public class ActionBarSimple extends SherlockActivity {
+public class Simple extends SherlockActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.actionbar_text);
+        setContentView(R.layout.text);
         ((TextView)findViewById(R.id.text)).setText(R.string.actionbar_simple_content);
     }
 }

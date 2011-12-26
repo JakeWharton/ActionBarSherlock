@@ -35,7 +35,7 @@
             android:icon="@drawable/icon"
             android:hardwareAccelerated="true">
 
-        <activity android:name="Support4Demos">
+        <activity android:name=".SampleList">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -43,20 +43,8 @@
             </intent-filter>
         </activity>
         
-        <!-- ActionBar Support Samples -->
-        
         <activity
-            android:name=".app.ActionBarActionItemText"
-            android:label="@string/actionbar_actionitemtext"
-            android:theme="@style/Theme.Sherlock">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
-            </intent-filter>
-        </activity>
-        
-        <activity
-            android:name=".app.ActionBarFeatureToggles"
+            android:name=".FeatureToggles"
             android:label="@string/actionbar_feature_toggles"
             android:theme="@style/Theme.Sherlock">
             <intent-filter>
@@ -66,36 +54,7 @@
         </activity>
         
         <activity
-            android:name=".app.ActionBarTabsPager"
-            android:label="@string/actionbar_tabs_pager"
-            android:theme="@style/Theme.Sherlock">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
-            </intent-filter>
-        </activity>
-        
-        <activity
-            android:name=".app.ActionBarStyles"
-            android:label="@string/actionbar_styles">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
-            </intent-filter>
-        </activity>
-        
-        <activity
-            android:name=".app.ActionBarPagerFragmentMenus"
-            android:label="@string/actionbar_pagerfragmentmenus"
-            android:theme="@style/Theme.Sherlock">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
-            </intent-filter>
-        </activity>
-        
-        <activity
-            android:name=".app.ActionBarSubMenus"
+            android:name=".SubMenus"
             android:label="@string/actionbar_submenus"
             android:theme="@style/Theme.Sherlock">
             <intent-filter>
@@ -105,7 +64,7 @@
         </activity>
         
         <activity
-            android:name=".app.ActionBarListNavigation"
+            android:name=".ListNavigation"
             android:label="@string/actionbar_list_navigation"
             android:theme="@style/Theme.Sherlock">
             <intent-filter>
@@ -115,7 +74,7 @@
         </activity>
         
         <activity
-            android:name=".app.ActionBarCustomNavigation"
+            android:name=".CustomNavigation"
             android:label="@string/actionbar_customnavigation"
             android:theme="@style/Theme.Sherlock">
             <intent-filter>
@@ -125,17 +84,7 @@
         </activity>
         
         <activity
-            android:name=".app.ActionBarMenuSupport"
-            android:label="@string/actionbar_menu_support"
-            android:theme="@style/Theme.Sherlock">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
-            </intent-filter>
-        </activity>
-        
-        <activity
-            android:name=".app.ActionBarTabNavigation"
+            android:name=".TabNavigation"
             android:label="@string/actionbar_tab_navigation"
             android:theme="@style/Theme.Sherlock">
             <intent-filter>
@@ -145,7 +94,7 @@
         </activity>
         
         <activity
-            android:name=".app.ActionBarOverlay"
+            android:name=".Overlay"
             android:label="@string/actionbar_overlay"
             android:theme="@style/Theme.Sherlock">
             <intent-filter>
@@ -155,7 +104,7 @@
         </activity>
         
         <activity
-            android:name=".app.ActionBarIndeterminateProgress"
+            android:name=".IndeterminateProgress"
             android:label="@string/actionbar_iprogress"
             android:theme="@style/Theme.Sherlock">
             <intent-filter>
@@ -165,7 +114,7 @@
         </activity>
         
         <activity
-            android:name=".app.ActionBarSimple"
+            android:name=".Simple"
             android:label="@string/actionbar_simple"
             android:theme="@style/Theme.Sherlock">
             <intent-filter>
@@ -175,8 +124,9 @@
         </activity>
 
         <activity
-            android:name=".app.PreferenceSimple"
-            android:label="@string/preference_simple">
+            android:name=".PreferenceSimple"
+            android:label="@string/preference_simple"
+            android:theme="@style/Theme.Sherlock">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.actionbarsherlock.sample.plugins.SUPPORT4_SAMPLE_CODE" />

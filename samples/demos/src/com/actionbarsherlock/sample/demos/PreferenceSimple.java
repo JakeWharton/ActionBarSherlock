@@ -13,33 +13,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.actionbarsherlock.sample.demos.app;
+package com.actionbarsherlock.sample.demos;
 
 import android.os.Bundle;
-import android.widget.TextView;
-
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.sample.demos.R;
+import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
-public class ActionBarActionItemText extends SherlockActivity {
+public class PreferenceSimple extends SherlockPreferenceActivity {
     @Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		menu.add("Text")
-		    .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
-
-		menu.add("Text")
-		    .setIcon(R.drawable.ic_title_share_default)
-		    .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
-
-		return super.onCreateOptionsMenu(menu);
-	}
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add("Save")
+            .setIcon(R.drawable.ic_compose)
+            .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        
+        menu.add("Search")
+            .setIcon(R.drawable.ic_search)
+            .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        
+        menu.add("Refresh")
+            .setIcon(R.drawable.ic_refresh)
+            .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        
+        return super.onCreateOptionsMenu(menu);
+    }
 
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.actionbar_text);
-        ((TextView)findViewById(R.id.text)).setText(R.string.actionbar_actionitemtext_content);
+        
+        addPreferencesFromResource(R.xml.preferences);
     }
 }
