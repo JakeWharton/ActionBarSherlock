@@ -591,6 +591,17 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
     }
 
     /**
+     * Return the FragmentManager for interacting with fragments associated
+     * with this fragment's activity.  Note that this will be non-null slightly
+     * before {@link #getActivity()}, during the time from when the fragment is
+     * placed in a {@link FragmentTransaction} until it is committed and
+     * attached to its activity.
+     */
+    final public FragmentManager getSupportFragmentManager() {
+        return mFragmentManager;
+    }
+
+    /**
      * Return true if the fragment is currently added to its activity.
      */
     final public boolean isAdded() {
