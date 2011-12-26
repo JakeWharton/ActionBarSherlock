@@ -18,7 +18,6 @@ package com.actionbarsherlock.internal.app;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -34,9 +33,13 @@ import android.view.View;
 import android.view.Window;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.SpinnerAdapter;
-
 import com.actionbarsherlock.R;
 import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.internal.nineoldandroids.Animator;
+import com.actionbarsherlock.internal.nineoldandroids.Animator.AnimatorListener;
+import com.actionbarsherlock.internal.nineoldandroids.AnimatorListenerAdapter;
+import com.actionbarsherlock.internal.nineoldandroids.AnimatorSet;
+import com.actionbarsherlock.internal.nineoldandroids.ObjectAnimator;
 import com.actionbarsherlock.internal.view.menu.MenuBuilder;
 import com.actionbarsherlock.internal.view.menu.MenuPresenter;
 import com.actionbarsherlock.internal.view.menu.SubMenuBuilder;
@@ -48,11 +51,6 @@ import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import com.jakewharton.nineoldandroids.Animator;
-import com.jakewharton.nineoldandroids.Animator.AnimatorListener;
-import com.jakewharton.nineoldandroids.AnimatorListenerAdapter;
-import com.jakewharton.nineoldandroids.AnimatorSet;
-import com.jakewharton.nineoldandroids.ObjectAnimator;
 
 /**
  * ActionBarImpl is the ActionBar implementation used

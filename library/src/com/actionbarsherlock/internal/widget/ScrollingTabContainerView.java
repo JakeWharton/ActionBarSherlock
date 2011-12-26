@@ -35,11 +35,10 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import com.actionbarsherlock.R;
 import com.actionbarsherlock.app.ActionBar;
-import com.jakewharton.nineoldandroids.Animator;
-import com.jakewharton.nineoldandroids.ObjectAnimator;
+import com.actionbarsherlock.internal.nineoldandroids.Animator;
+import com.actionbarsherlock.internal.nineoldandroids.ObjectAnimator;
 
 /**
  * This widget implements the dynamic action bar tab behavior that can change

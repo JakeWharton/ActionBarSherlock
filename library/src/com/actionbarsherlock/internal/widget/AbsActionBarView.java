@@ -23,13 +23,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
-
 import com.actionbarsherlock.R;
+import com.actionbarsherlock.internal.nineoldandroids.Animator;
+import com.actionbarsherlock.internal.nineoldandroids.AnimatorSet;
+import com.actionbarsherlock.internal.nineoldandroids.ObjectAnimator;
 import com.actionbarsherlock.internal.view.menu.ActionMenuPresenter;
 import com.actionbarsherlock.internal.view.menu.ActionMenuView;
-import com.jakewharton.nineoldandroids.Animator;
-import com.jakewharton.nineoldandroids.AnimatorSet;
-import com.jakewharton.nineoldandroids.ObjectAnimator;
 
 public abstract class AbsActionBarView extends ViewGroup {
     protected ActionMenuView mMenuView;

@@ -27,16 +27,15 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.actionbarsherlock.R;
+import com.actionbarsherlock.internal.nineoldandroids.Animator;
+import com.actionbarsherlock.internal.nineoldandroids.Animator.AnimatorListener;
+import com.actionbarsherlock.internal.nineoldandroids.AnimatorSet;
+import com.actionbarsherlock.internal.nineoldandroids.ObjectAnimator;
 import com.actionbarsherlock.internal.view.menu.ActionMenuPresenter;
 import com.actionbarsherlock.internal.view.menu.ActionMenuView;
 import com.actionbarsherlock.internal.view.menu.MenuBuilder;
 import com.actionbarsherlock.view.ActionMode;
-import com.jakewharton.nineoldandroids.Animator;
-import com.jakewharton.nineoldandroids.Animator.AnimatorListener;
-import com.jakewharton.nineoldandroids.AnimatorSet;
-import com.jakewharton.nineoldandroids.ObjectAnimator;
 
 /**
  * @hide
