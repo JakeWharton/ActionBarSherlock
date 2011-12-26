@@ -178,4 +178,8 @@ public class SherlockPreferenceActivity extends PreferenceActivity implements On
     public void setContentView(View view) {
         mSherlock.setContentView(view);
     }
+
+    public void requestWindowFeature(long featureId) {
+        mSherlock.requestFeature((int)featureId);
+    }
 }

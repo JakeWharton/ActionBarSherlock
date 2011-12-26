@@ -254,6 +254,10 @@ public class FragmentActivity extends Activity implements OnCreateOptionsMenuLis
         super.onPanelClosed(featureId, menu);
     }
 
+    public void requestWindowFeature(long featureId) {
+        mSherlock.requestFeature((int)featureId);
+    }
+
     // ------------------------------------------------------------------------
     // HOOKS INTO ACTIVITY
     // ------------------------------------------------------------------------

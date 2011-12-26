@@ -178,4 +178,8 @@ public class SherlockListActivity extends ListActivity implements OnCreateOption
     public void setContentView(View view) {
         mSherlock.setContentView(view);
     }
+
+    public void requestWindowFeature(long featureId) {
+        mSherlock.requestFeature((int)featureId);
+    }
 }

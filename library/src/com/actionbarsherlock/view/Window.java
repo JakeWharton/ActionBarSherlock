@@ -44,7 +44,7 @@ public abstract class Window extends android.view.Window {
      *
      * @param context Context.
      */
-    public Window(Context context) {
+    private Window(Context context) {
         super(context);
     }
 
