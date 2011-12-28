@@ -78,7 +78,7 @@
             android:theme="@style/Theme.Sherlock">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.actionbarsherlock.sample.plugins.SUPPORT4_SAMPLE_CODE" />
+                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
             </intent-filter>
         </activity>
         

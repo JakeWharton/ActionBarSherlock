@@ -6,41 +6,23 @@
     <string name="hello_world">Hello, World!</string>
     <string name="hello_actionbar">Hello, ActionBar!</string>
     
-    <string name="actionbar_feature_toggles">Action Bar/Feature Toggles</string>
-    <string name="actionbar_list_navigation">Action Bar/List Navigation</string>
-    <string name="actionbar_tab_navigation">Action Bar/Tab Navigation</string>
-    <string name="actionbar_tabs_pager">Action Bar/Tabs and Pager</string>
-    <string name="actionbar_overlay">Action Bar/Overlay</string>
+    <string name="actionbar_feature_toggles">Feature Toggles</string>
+    <string name="actionbar_list_navigation">List Navigation</string>
+    <string name="actionbar_tab_navigation">Tab Navigation</string>
+    <string name="actionbar_overlay">Overlay</string>
     
-    <string name="actionbar_menu_support">Action Bar/Menu Support</string>
-    <string name="actionbar_menu_msg">Build menus from two fragments, allowing
-        you to hide them to remove them..</string>
-    <string name="actionbar1menu">Show fragment 1 menu</string>
-    <string name="actionbar2menu">Show fragment 2 menu</string>
+    <string name="actionbar_iprogress">Indeterminate Progress</string>
     
-    <string name="actionbar_iprogress">Action Bar/Indeterminate Progress</string>
-    
-    <string name="actionbar_pagerfragmentmenus">Action Bar/Pager + Fragment Menus</string>
-    <string name="actionbar_pagerfragmentmenus_content">Only the selected fragment contributes menu items to the action bar.</string>
-    
-    <string name="actionbar_customnavigation">Action Bar/Custom Navigation</string>
+    <string name="actionbar_customnavigation">Custom Navigation</string>
     <string name="actionbar_customnavigation_content">If you find that list and tab navigation are not suitable for your application you may replace it with a custom layout.</string>
     
-    <string name="actionbar_actionitemtext">Action Bar/Action Item Text</string>
-    <string name="actionbar_actionitemtext_content">Controlling the display of action item text on phones is as easy as requesting a window feature. See the source code for this activity for specific usage.</string>
-    
-    <string name="actionbar_simple">Action Bar/Simple</string>
+    <string name="actionbar_simple">Simple</string>
     <string name="actionbar_simple_content">This is a simple showcase of how easy it is to add the action bar to your activities. Take a look at the source code, it\'s surprisingly simple!</string>
     
-    <string name="actionbar_submenus">Action Bar/Sub-menus</string>
+    <string name="actionbar_submenus">Sub-menus</string>
     <string name="actionbar_submenus_content">This activity is a demonstration of how sub-menus work when they are either an action item or an item in the overflow menu.</string>
     
-    <string name="actionbar_styles">Action Bar/Styles</string>
-    <string name="actionbar_styles_dark">Dark Theme</string>
-    <string name="actionbar_styles_light">Light Theme</string>
-    <string name="actionbar_styles_custom">Custom Theme</string>
-    
-    <string name="preference_simple">Preference/Simple</string>
+    <string name="preference_simple">Preference</string>
     <string name="preference_simple_content">You can use the `SherlockPreferenceActivity` base class to place the action bar on top of a normal `PreferenceActivity`.\n\nThis does not yet support the use of `PreferenceFragments`, however.</string>
     
 
