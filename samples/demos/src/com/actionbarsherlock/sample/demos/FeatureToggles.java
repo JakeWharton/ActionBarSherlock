@@ -8,13 +8,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 
 import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.sample.demos.R;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
 
-public class FeatureToggles extends SherlockActivity {
+public class FeatureToggles extends SherlockActivity implements ActionBar.TabListener {
 	private static final Random RANDOM = new Random();
 	
 	private int items = 0;
@@ -219,7 +220,7 @@ public class FeatureToggles extends SherlockActivity {
 						newTab.setText("Text!");
 					}
 				}
-				
+				newTab.setTabListener(FeatureToggles.this);
 				getSupportActionBar().addTab(newTab);
 			}
 		});
@@ -253,4 +254,13 @@ public class FeatureToggles extends SherlockActivity {
 			}
 		});
     }
+
+    @Override
+    public void onTabSelected(Tab tab) {}
+
+    @Override
+    public void onTabUnselected(Tab tab) {}
+
+    @Override
+    public void onTabReselected(Tab tab) {}
 }
