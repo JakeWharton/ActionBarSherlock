@@ -919,11 +919,9 @@ public abstract class FragmentMapActivity extends MapActivity implements Support
     private boolean dispatchPrepareOptionsMenu() {
         if (DEBUG) Log.d(TAG, "[dispatchPrepareOptionsMenu]");
 
-        if (onPrepareOptionsMenu(mSupportMenu)) {
-            mFragments.dispatchPrepareOptionsMenu(mSupportMenu);
-            return true;
-        }
-        return false;
+        boolean result = onPrepareOptionsMenu(mSupportMenu);
+        result |= mFragments.dispatchPrepareOptionsMenu(mSupportMenu);
+        return result;
     }
 
     /**
