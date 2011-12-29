@@ -274,9 +274,9 @@ public class ActionBarView extends AbsActionBarView {
      * @param activity Activity instance.
      * @return Logo resource ID.
      */
-    private int loadLogoFromManifest(Activity activity) {
+    private static int loadLogoFromManifest(Activity activity) {
         try {
-            final String thisPackage = getClass().getName();
+            final String thisPackage = activity.getClass().getName();
             if (DEBUG) Log.i(TAG, "Parsing AndroidManifest.xml for " + thisPackage);
 
             final String packageName = activity.getApplicationInfo().packageName;
@@ -317,7 +317,11 @@ public class ActionBarView extends AbsActionBarView {
                             if ("logo".equals(attrName)) {
                                 logo = xml.getAttributeResourceValue(i, 0);
                             } else if ("name".equals(attrName)) {
-                                activityPackage = packageName + xml.getAttributeValue(i);
+                                activityPackage = xml.getAttributeValue(i);
+                                //Handle FQCN or relative
+                                if (!activityPackage.startsWith(thisPackage) && activityPackage.startsWith(".")) {
+                                    activityPackage = thisPackage + activityPackage;
+                                }
                                 if (!thisPackage.equals(activityPackage)) {
                                     break; //on to the next
                                 }

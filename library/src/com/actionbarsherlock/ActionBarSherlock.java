@@ -4,12 +4,15 @@ import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import org.xmlpull.v1.XmlPullParser;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.content.res.XmlResourceParser;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.AndroidRuntimeException;
@@ -829,6 +832,9 @@ public final class ActionBarSherlock {
                     mActionBarView.initIndeterminateProgress();
                 }
 
+                //Since we don't require onCreate dispatching, parse for uiOptions here
+                mUiOptions = loadUiOptionsFromManifest(mActivity);
+
                 boolean splitActionBar = false;
                 final boolean splitWhenNarrow = (mUiOptions & ActivityInfo.UIOPTION_SPLIT_ACTION_BAR_WHEN_NARROW) != 0;
                 if (splitWhenNarrow) {
@@ -865,6 +871,68 @@ public final class ActionBarSherlock {
                 });
             }
         }
+    }
+
+    private static int loadUiOptionsFromManifest(Activity activity) {
+        try {
+            final String thisPackage = activity.getClass().getName();
+            if (DEBUG) Log.i(TAG, "Parsing AndroidManifest.xml for " + thisPackage);
+
+            final String packageName = activity.getApplicationInfo().packageName;
+            final AssetManager am = activity.createPackageContext(packageName, 0).getAssets();
+            final XmlResourceParser xml = am.openXmlResourceParser("AndroidManifest.xml");
+
+            int eventType = xml.getEventType();
+            while (eventType != XmlPullParser.END_DOCUMENT) {
+                if (eventType == XmlPullParser.START_TAG) {
+                    String name = xml.getName();
+
+                    if ("activity".equals(name)) {
+                        //Check if the <activity> is us and has the attribute
+                        if (DEBUG) Log.d(TAG, "Got <activity>");
+                        Integer uiOptions = null;
+                        String activityPackage = null;
+                        boolean isOurActivity = false;
+
+                        for (int i = xml.getAttributeCount() - 1; i >= 0; i--) {
+                            if (DEBUG) Log.d(TAG, xml.getAttributeName(i) + ": " + xml.getAttributeValue(i));
+
+                            //We need both uiOptions and name attributes
+                            String attrName = xml.getAttributeName(i);
+                            if ("uiOptions".equals(attrName)) {
+                                uiOptions = xml.getAttributeIntValue(i, 0);
+                            } else if ("name".equals(attrName)) {
+                                activityPackage = xml.getAttributeValue(i);
+                                //Handle FQCN or relative
+                                if (!activityPackage.startsWith(thisPackage) && activityPackage.startsWith(".")) {
+                                    activityPackage = thisPackage + activityPackage;
+                                }
+                                if (!thisPackage.equals(activityPackage)) {
+                                    break; //on to the next
+                                }
+                                isOurActivity = true;
+                            }
+
+                            //Make sure we have both attributes before processing
+                            if ((uiOptions != null) && (activityPackage != null)) {
+                                if (DEBUG) Log.i(TAG, "Returning " + Integer.toHexString(uiOptions));
+                                return uiOptions.intValue();
+                            }
+                        }
+                        if (isOurActivity) {
+                            //If we matched our activity but it had no logo don't
+                            //do any more processing of the manifest
+                            break;
+                        }
+                    }
+                }
+                eventType = xml.nextToken();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (DEBUG) Log.i(TAG, "Returning 0x00");
+        return 0;
     }
 
     private ViewGroup generateLayout() {
