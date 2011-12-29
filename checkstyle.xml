@@ -97,7 +97,7 @@
         <!--module name="SimplifyBooleanReturn"/-->
         <module name="StringLiteralEquality"/>
         <module name="CovariantEquals"/>
-        <module name="NoClone"/>
+        <!--module name="NoClone"/-->
         <module name="NoFinalizer"/>
         <module name="PackageDeclaration"/>
         <module name="FallThrough"/>
