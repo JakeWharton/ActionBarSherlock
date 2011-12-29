@@ -350,9 +350,15 @@ public abstract class SherlockPreferenceActivity extends PreferenceActivity impl
 
     private boolean hasFeature(long featureId) {
         if (IS_HONEYCOMB) {
-            return getWindow().hasFeature((int)featureId);
+            return HoneycombHasFeature.invoke(getWindow(), (int)featureId);
         }
         return (mWindowFlags & (1 << featureId)) != 0;
+    }
+
+    private static final class HoneycombHasFeature {
+        public static boolean invoke(android.view.Window window, int featureId) {
+            return window.hasFeature(featureId);
+        }
     }
 
     // ------------------------------------------------------------------------
