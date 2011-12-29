@@ -43,6 +43,16 @@
         </activity>
         
         <activity
+            android:name=".ForcedOverflowItem"
+            android:label="@string/actionbar_forced_overflow"
+            android:theme="@style/Theme.ForcedOverflow">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+        
+        <activity
             android:name=".IndeterminateProgress"
             android:label="@string/actionbar_iprogress"
             android:theme="@style/Theme.Sherlock">

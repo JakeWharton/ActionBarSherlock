@@ -23,6 +23,7 @@ import java.util.Set;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -86,11 +87,8 @@ public class ActionMenuPresenter extends BaseMenuPresenter
         final Resources res = context.getResources();
 
         if (!mReserveOverflowSet) {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-                mReserveOverflow = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB);
-            } else {
-                mReserveOverflow = !ViewConfiguration.get(context).hasPermanentMenuKey();
-            }
+            mReserveOverflow = reserveOverflow(mContext);
+            mReserveOverflowSet = true;
         }
 
         if (!mWidthLimitSet) {
@@ -120,6 +118,22 @@ public class ActionMenuPresenter extends BaseMenuPresenter
 
         // Drop a scrap view as it may no longer reflect the proper context/config.
         mScrapActionButtonView = null;
+    }
+
+    public static boolean reserveOverflow(Context context) {
+        //Check for theme-forced overflow action item
+        TypedArray a = context.getTheme().obtainStyledAttributes(R.styleable.SherlockTheme);
+        boolean result = a.getBoolean(R.styleable.SherlockTheme_absForceOverflow, false);
+        a.recycle();
+        if (result) {
+            return true;
+        }
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            return (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB);
+        } else {
+            return !ViewConfiguration.get(context).hasPermanentMenuKey();
+        }
     }
 
     public void onConfigurationChanged(Configuration newConfig) {

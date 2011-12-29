@@ -126,6 +126,9 @@
         <attr name="windowActionBarOverlay" format="boolean"/>
         <attr name="windowActionModeOverlay" format="boolean"/>
         <attr name="windowSplitActionBar" format="boolean" />
+        
+        <!-- Specified if we are forcing an action item overflow menu. -->
+        <attr name="absForceOverflow" format="boolean" />
     </declare-styleable>
     
 

@@ -4,6 +4,7 @@ import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import org.xmlpull.v1.XmlPullParser;
 
 import android.app.Activity;
@@ -13,7 +14,6 @@ import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.content.res.XmlResourceParser;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.AndroidRuntimeException;
 import android.util.Log;
@@ -21,7 +21,6 @@ import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 import android.view.KeyCharacterMap;
 import android.view.View;
-import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.view.Window;
@@ -30,6 +29,7 @@ import android.view.accessibility.AccessibilityEvent;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.internal.app.ActionBarImpl;
 import com.actionbarsherlock.internal.view.StandaloneActionMode;
+import com.actionbarsherlock.internal.view.menu.ActionMenuPresenter;
 import com.actionbarsherlock.internal.view.menu.MenuBuilder;
 import com.actionbarsherlock.internal.view.menu.MenuItemImpl;
 import com.actionbarsherlock.internal.view.menu.MenuPresenter;
@@ -112,9 +112,9 @@ public final class ActionBarSherlock {
     private final boolean mIsDelegate;
 
     /** Whether or not the device has a dedicated menu key button. */
-    private boolean mHasMenuKey;
-    /** Lazy-load indicator for {@link #mHasMenuKey}. */
-    private boolean mHasMenuKeyLoaded = false;
+    private boolean mReserveOverflow;
+    /** Lazy-load indicator for {@link #mReserveOverflow}. */
+    private boolean mReserveOverflowSet = false;
 
     /** Parent view of the window decoration (action bar, mode, etc.). */
     private ViewGroup mDecor;
@@ -217,16 +217,12 @@ public final class ActionBarSherlock {
      *
      * @return {@code true} if native menu key is present.
      */
-    private boolean hasMenuKey() {
-        if (!mHasMenuKeyLoaded) {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-                mHasMenuKey = (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB);
-            } else {
-                mHasMenuKey = ViewConfiguration.get(mActivity).hasPermanentMenuKey();
-            }
-            mHasMenuKeyLoaded = true;
+    private boolean isReservingOverflow() {
+        if (!mReserveOverflowSet) {
+            mReserveOverflow = ActionMenuPresenter.reserveOverflow(mActivity);
+            mReserveOverflowSet = true;
         }
-        return mHasMenuKey;
+        return mReserveOverflow;
     }
 
     /**
@@ -397,7 +393,7 @@ public final class ActionBarSherlock {
     public boolean dispatchOpenOptionsMenu() {
         if (DEBUG) Log.d(TAG, "[dispatchOpenOptionsMenu]");
 
-        if (hasMenuKey()) {
+        if (!isReservingOverflow()) {
             return false;
         }
 
@@ -423,7 +419,7 @@ public final class ActionBarSherlock {
     public boolean dispatchCloseOptionsMenu() {
         if (DEBUG) Log.d(TAG, "[dispatchCloseOptionsMenu]");
 
-        if (hasMenuKey()) {
+        if (!isReservingOverflow()) {
             return false;
         }
 
@@ -534,8 +530,9 @@ public final class ActionBarSherlock {
     public boolean dispatchPrepareOptionsMenu(android.view.Menu menu) {
         if (DEBUG) Log.d(TAG, "[dispatchPrepareOptionsMenu] android.view.Menu: " + menu);
 
-        if (!hasMenuKey()) {
-            return true;
+        if (isReservingOverflow()) {
+            mActionBarView.showOverflowMenu();
+            return false;
         }
 
         if (!dispatchPrepareOptionsMenu()) {
