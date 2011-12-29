@@ -20,4 +20,12 @@
 <resources>
     <!-- Default height of an action bar. -->
     <dimen name="abs__action_bar_default_height">40dip</dimen>
+    <!-- Text size for action bar titles -->
+    <dimen name="abs__action_bar_title_text_size">16dp</dimen>
+    <!-- Text size for action bar subtitles -->
+    <dimen name="abs__action_bar_subtitle_text_size">12dp</dimen>
+    <!-- Top margin for action bar subtitles -->
+    <dimen name="abs__action_bar_subtitle_top_margin">-2dp</dimen>
+    <!-- Bottom margin for action bar subtitles -->
+    <dimen name="abs__action_bar_subtitle_bottom_margin">4dip</dimen>
 </resources>

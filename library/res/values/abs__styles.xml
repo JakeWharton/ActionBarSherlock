@@ -276,8 +276,10 @@
     
     <style name="TextAppearance.Widget.Title" parent="@android:style/TextAppearance.Medium">
         <item name="android:textColor">?android:attr/textColorSecondary</item>
+        <item name="android:textSize">@dimen/abs__action_bar_title_text_size</item>
     </style>
     <style name="TextAppearance.Widget.Subtitle" parent="@android:style/TextAppearance.Small">
         <item name="android:textColor">?android:attr/textColorSecondary</item>
+        <item name="android:textSize">@dimen/abs__action_bar_subtitle_text_size</item>
     </style>
 </resources>
