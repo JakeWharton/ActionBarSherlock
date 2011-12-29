@@ -1,6 +1,20 @@
 Change Log
 ===============================================================================
 
+Version 4.0.0 *(In Development)*
+--------------------------------
+
+Complete rewrite of the library to backport the Android 4.0 action bar.
+
+ * The minimum supported version of Android is now 2.1 (API 7).
+ * Action bar-enabled `FragmentActivity` is now provided by a plugin rather than
+   in the core library.
+ * Theming now mirrors that of the native action bar through the use of multiple
+   styles rather than through `ab`- and `am`-prefixed attributes in the theme.
+ * The action bar can be statically attached to an activity view without the
+   requirement of using one of the provided base activities.
+
+
 Version 3.5.0 *(2011-12-18)*
 ----------------------------
 
