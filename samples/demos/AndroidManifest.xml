@@ -58,6 +58,16 @@
         </activity>
         
         <activity
+            android:name=".app.ActionBarActionItemCustomView"
+            android:label="@string/actionbar_actionitemcustom"
+            android:theme="@style/Theme.Sherlock">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+        
+        <activity
             android:name=".app.ActionBarFeatureToggles"
             android:label="@string/actionbar_feature_toggles"
             android:theme="@style/Theme.Sherlock">
