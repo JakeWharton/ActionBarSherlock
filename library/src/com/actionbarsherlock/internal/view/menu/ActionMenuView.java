@@ -19,7 +19,6 @@ import com.actionbarsherlock.internal.widget.IcsLinearLayout;
 
 import android.content.Context;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
@@ -67,10 +66,10 @@ public class ActionMenuView extends IcsLinearLayout implements MenuBuilder.ItemI
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
-            super.onConfigurationChanged(newConfig);
-            //TODO figure out a way to call this pre-2.2
-        }
+        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
+        //    super.onConfigurationChanged(newConfig);
+        //    //TODO figure out a way to call this pre-2.2
+        //}
         mPresenter.updateMenuView(false);
     }
 
