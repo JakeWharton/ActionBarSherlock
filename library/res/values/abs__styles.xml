@@ -131,8 +131,19 @@
     <style name="Widget.Sherlock.PopupWindow.ActionMode" parent="Widget"></style>
 
 
-    <style name="Widget.Sherlock.ProgressBar" parent="Widget"></style>
-    <style name="Widget.Sherlock.ProgressBar.Horizontal" parent="Widget"></style>
+
+    <style name="Widget.Sherlock.ProgressBar" parent="android:Widget.ProgressBar">
+        <item name="android:indeterminateDrawable">@drawable/abs__progress_medium_holo</item>
+        <item name="android:animationResolution">33</item>
+    </style>
+
+    <style name="Widget.Sherlock.ProgressBar.Horizontal" parent="android:Widget.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/abs__progress_horizontal_holo_dark</item>
+        <!--item name="android:indeterminateDrawable">@drawable/abs__progress_indeterminate_horizontal_holo</item-->
+        <item name="android:minHeight">16dip</item>
+        <item name="android:maxHeight">16dip</item>
+    </style>
+
 
 
     <style name="TextAppearance.Sherlock.Medium" parent="Widget"></style>

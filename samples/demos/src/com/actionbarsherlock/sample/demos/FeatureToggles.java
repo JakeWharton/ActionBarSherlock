@@ -38,8 +38,8 @@ public class FeatureToggles extends SherlockActivity implements ActionBar.TabLis
         super.onCreate(savedInstanceState);
         
         setContentView(R.layout.feature_toggles_activity);
-        setProgressBarIndeterminateVisibility(Boolean.FALSE);
-        setProgressBarVisibility(false);
+        setSupportProgressBarIndeterminateVisibility(false);
+        setSupportProgressBarVisibility(false);
  
         getSupportActionBar().setCustomView(R.layout.custom_view);
         getSupportActionBar().setDisplayShowCustomEnabled(false);
@@ -52,29 +52,29 @@ public class FeatureToggles extends SherlockActivity implements ActionBar.TabLis
         findViewById(R.id.display_progress_show).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				setProgressBarVisibility(true);
-				setProgressBarIndeterminateVisibility(Boolean.FALSE);
-				setProgress(RANDOM.nextInt(8000) + 10);
+				setSupportProgressBarVisibility(true);
+				setSupportProgressBarIndeterminateVisibility(false);
+				setSupportProgress(RANDOM.nextInt(8000) + 10);
 			}
 		});
         findViewById(R.id.display_progress_hide).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				setProgressBarVisibility(false);
+				setSupportProgressBarVisibility(false);
 			}
 		});
         findViewById(R.id.display_iprogress_show).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				setProgressBarIndeterminateVisibility(Boolean.TRUE);
-				//Hack to hide the regular progress bar
-				setProgress(0);
+                //Hack to hide the regular progress bar
+                setSupportProgress(Window.PROGRESS_END);
+				setSupportProgressBarIndeterminateVisibility(true);
 			}
 		});
         findViewById(R.id.display_iprogress_hide).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				setProgressBarIndeterminateVisibility(Boolean.FALSE);
+				setSupportProgressBarIndeterminateVisibility(false);
 			}
 		});
         

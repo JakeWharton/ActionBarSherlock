@@ -44,7 +44,6 @@ import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
@@ -107,16 +106,16 @@ public class ActionBarView extends AbsActionBarView {
     private LinearLayout mListNavLayout;
     private ScrollingTabContainerView mTabScrollView;
     private View mCustomNavView;
-    private ProgressBar mProgressView;
-    private ProgressBar mIndeterminateProgressView;
+    private IcsProgressBar mProgressView;
+    private IcsProgressBar mIndeterminateProgressView;
 
     private int mProgressBarPadding;
     private int mItemPadding;
 
     private int mTitleStyleRes;
     private int mSubtitleStyleRes;
-    //TODO private int mProgressStyle;
-    //TODO private int mIndeterminateProgressStyle;
+    private int mProgressStyle;
+    private int mIndeterminateProgressStyle;
 
     private boolean mUserTitle;
     private boolean mIncludeTabs;
@@ -240,9 +239,9 @@ public class ActionBarView extends AbsActionBarView {
 
         mTitleStyleRes = a.getResourceId(R.styleable.SherlockActionBar_titleTextStyle, 0);
         mSubtitleStyleRes = a.getResourceId(R.styleable.SherlockActionBar_subtitleTextStyle, 0);
-        /* TODO mProgressStyle = a.getResourceId(R.styleable.SherlockActionBar_progressBarStyle, 0);
+        mProgressStyle = a.getResourceId(R.styleable.SherlockActionBar_progressBarStyle, 0);
         mIndeterminateProgressStyle = a.getResourceId(
-                R.styleable.SherlockActionBar_indeterminateProgressStyle, 0);*/
+                R.styleable.SherlockActionBar_indeterminateProgressStyle, 0);
 
         mProgressBarPadding = a.getDimensionPixelOffset(R.styleable.SherlockActionBar_progressBarPadding, 0);
         mItemPadding = a.getDimensionPixelOffset(R.styleable.SherlockActionBar_itemPadding, 0);
@@ -404,17 +403,14 @@ public class ActionBarView extends AbsActionBarView {
     }
 
     public void initProgress() {
-        //TODO mProgressView = new ProgressBar(mContext, null, 0, mProgressStyle);
-        mProgressView = new ProgressBar(mContext, null, 0);
+        mProgressView = new IcsProgressBar(mContext, null, 0, mProgressStyle);
         mProgressView.setId(R.id.abs__progress_horizontal);
         mProgressView.setMax(10000);
         addView(mProgressView);
     }
 
     public void initIndeterminateProgress() {
-        /* TODO mIndeterminateProgressView = new ProgressBar(mContext, null, 0,
-                mIndeterminateProgressStyle);*/
-        mIndeterminateProgressView = new ProgressBar(mContext, null, 0);
+        mIndeterminateProgressView = new IcsProgressBar(mContext, null, 0, mIndeterminateProgressStyle);
         mIndeterminateProgressView.setId(R.id.abs__progress_circular);
         addView(mIndeterminateProgressView);
     }

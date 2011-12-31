@@ -1,12 +1,9 @@
 package com.actionbarsherlock;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import org.xmlpull.v1.XmlPullParser;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
@@ -25,7 +22,8 @@ import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.view.Window;
 import android.view.accessibility.AccessibilityEvent;
-
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.internal.app.ActionBarImpl;
 import com.actionbarsherlock.internal.view.StandaloneActionMode;
@@ -36,6 +34,7 @@ import com.actionbarsherlock.internal.view.menu.MenuPresenter;
 import com.actionbarsherlock.internal.widget.ActionBarContainer;
 import com.actionbarsherlock.internal.widget.ActionBarContextView;
 import com.actionbarsherlock.internal.widget.ActionBarView;
+import com.actionbarsherlock.internal.widget.IcsProgressBar;
 import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
@@ -129,6 +128,11 @@ public final class ActionBarSherlock {
     private int mFeatures = DEFAULT_FEATURES;
     /** Relevant user interface option flags. */
     private int mUiOptions = 0;
+
+    /** Decor indeterminate progress indicator. */
+    private IcsProgressBar mCircularProgressBar;
+    /** Decor progress indicator. */
+    private IcsProgressBar mHorizontalProgressBar;
 
     /** Current displayed context action bar, if any. */
     private ActionMode mActionMode;
@@ -981,12 +985,12 @@ public final class ActionBarSherlock {
         mDecor.setId(View.NO_ID);
         contentParent.setId(android.R.id.content);
 
-        /* TODO if (hasFeature(Window.FEATURE_INDETERMINATE_PROGRESS)) {
-            ProgressBar progress = getCircularProgressBar(false);
+        if (hasFeature(Window.FEATURE_INDETERMINATE_PROGRESS)) {
+            IcsProgressBar progress = getCircularProgressBar(false);
             if (progress != null) {
                 progress.setIndeterminate(true);
             }
-        */
+        }
 
         return contentParent;
     }
@@ -1007,6 +1011,231 @@ public final class ActionBarSherlock {
         if (DEBUG) Log.d(TAG, "[setTitle] resId: " + resId);
 
         setTitle(mActivity.getString(resId));
+    }
+
+    /**
+     * Sets the visibility of the progress bar in the title.
+     * <p>
+     * In order for the progress bar to be shown, the feature must be requested
+     * via {@link #requestWindowFeature(int)}.
+     *
+     * @param visible Whether to show the progress bars in the title.
+     */
+    public void setProgressBarVisibility(boolean visible) {
+        setFeatureInt(Window.FEATURE_PROGRESS, visible ? Window.PROGRESS_VISIBILITY_ON :
+            Window.PROGRESS_VISIBILITY_OFF);
+    }
+
+    /**
+     * Sets the visibility of the indeterminate progress bar in the title.
+     * <p>
+     * In order for the progress bar to be shown, the feature must be requested
+     * via {@link #requestWindowFeature(int)}.
+     *
+     * @param visible Whether to show the progress bars in the title.
+     */
+    public void setProgressBarIndeterminateVisibility(boolean visible) {
+        setFeatureInt(Window.FEATURE_INDETERMINATE_PROGRESS,
+                visible ? Window.PROGRESS_VISIBILITY_ON : Window.PROGRESS_VISIBILITY_OFF);
+    }
+
+    /**
+     * Sets whether the horizontal progress bar in the title should be indeterminate (the circular
+     * is always indeterminate).
+     * <p>
+     * In order for the progress bar to be shown, the feature must be requested
+     * via {@link #requestWindowFeature(int)}.
+     *
+     * @param indeterminate Whether the horizontal progress bar should be indeterminate.
+     */
+    public void setProgressBarIndeterminate(boolean indeterminate) {
+        setFeatureInt(Window.FEATURE_PROGRESS,
+                indeterminate ? Window.PROGRESS_INDETERMINATE_ON : Window.PROGRESS_INDETERMINATE_OFF);
+    }
+
+    /**
+     * Sets the progress for the progress bars in the title.
+     * <p>
+     * In order for the progress bar to be shown, the feature must be requested
+     * via {@link #requestWindowFeature(int)}.
+     *
+     * @param progress The progress for the progress bar. Valid ranges are from
+     *            0 to 10000 (both inclusive). If 10000 is given, the progress
+     *            bar will be completely filled and will fade out.
+     */
+    public void setProgress(int progress) {
+        setFeatureInt(Window.FEATURE_PROGRESS, progress + Window.PROGRESS_START);
+    }
+
+    /**
+     * Sets the secondary progress for the progress bar in the title. This
+     * progress is drawn between the primary progress (set via
+     * {@link #setProgress(int)} and the background. It can be ideal for media
+     * scenarios such as showing the buffering progress while the default
+     * progress shows the play progress.
+     * <p>
+     * In order for the progress bar to be shown, the feature must be requested
+     * via {@link #requestWindowFeature(int)}.
+     *
+     * @param secondaryProgress The secondary progress for the progress bar. Valid ranges are from
+     *            0 to 10000 (both inclusive).
+     */
+    public void setSecondaryProgress(int secondaryProgress) {
+        setFeatureInt(Window.FEATURE_PROGRESS,
+                secondaryProgress + Window.PROGRESS_SECONDARY_START);
+    }
+
+    private void setFeatureInt(int featureId, int value) {
+        updateInt(featureId, value, false);
+    }
+
+    private void updateInt(int featureId, int value, boolean fromResume) {
+        // Do nothing if the decor is not yet installed... an update will
+        // need to be forced when we eventually become active.
+        if (mContentParent == null) {
+            return;
+        }
+
+        final int featureMask = 1 << featureId;
+
+        if ((getFeatures() & featureMask) == 0 && !fromResume) {
+            return;
+        }
+
+        onIntChanged(featureId, value);
+    }
+
+    /**
+     * Called when an int feature changes, for the window to update its
+     * graphics.
+     *
+     * @param featureId The feature being changed.
+     * @param value The new integer value.
+     */
+    private void onIntChanged(int featureId, int value) {
+        if (featureId == Window.FEATURE_PROGRESS || featureId == Window.FEATURE_INDETERMINATE_PROGRESS) {
+            updateProgressBars(value);
+        }
+    }
+
+    /**
+     * Updates the progress bars that are shown in the title bar.
+     *
+     * @param value Can be one of {@link Window#PROGRESS_VISIBILITY_ON},
+     *            {@link Window#PROGRESS_VISIBILITY_OFF},
+     *            {@link Window#PROGRESS_INDETERMINATE_ON},
+     *            {@link Window#PROGRESS_INDETERMINATE_OFF}, or a value
+     *            starting at {@link Window#PROGRESS_START} through
+     *            {@link Window#PROGRESS_END} for setting the default
+     *            progress (if {@link Window#PROGRESS_END} is given,
+     *            the progress bar widgets in the title will be hidden after an
+     *            animation), a value between
+     *            {@link Window#PROGRESS_SECONDARY_START} -
+     *            {@link Window#PROGRESS_SECONDARY_END} for the
+     *            secondary progress (if
+     *            {@link Window#PROGRESS_SECONDARY_END} is given, the
+     *            progress bar widgets will still be shown with the secondary
+     *            progress bar will be completely filled in.)
+     */
+    private void updateProgressBars(int value) {
+        IcsProgressBar circularProgressBar = getCircularProgressBar(true);
+        IcsProgressBar horizontalProgressBar = getHorizontalProgressBar(true);
+
+        final int features = mFeatures;//getLocalFeatures();
+        if (value == Window.PROGRESS_VISIBILITY_ON) {
+            if ((features & (1 << Window.FEATURE_PROGRESS)) != 0) {
+                int level = horizontalProgressBar.getProgress();
+                int visibility = (horizontalProgressBar.isIndeterminate() || level < 10000) ?
+                        View.VISIBLE : View.INVISIBLE;
+                horizontalProgressBar.setVisibility(visibility);
+            }
+            if ((features & (1 << Window.FEATURE_INDETERMINATE_PROGRESS)) != 0) {
+                circularProgressBar.setVisibility(View.VISIBLE);
+            }
+        } else if (value == Window.PROGRESS_VISIBILITY_OFF) {
+            if ((features & (1 << Window.FEATURE_PROGRESS)) != 0) {
+                horizontalProgressBar.setVisibility(View.GONE);
+            }
+            if ((features & (1 << Window.FEATURE_INDETERMINATE_PROGRESS)) != 0) {
+                circularProgressBar.setVisibility(View.GONE);
+            }
+        } else if (value == Window.PROGRESS_INDETERMINATE_ON) {
+            horizontalProgressBar.setIndeterminate(true);
+        } else if (value == Window.PROGRESS_INDETERMINATE_OFF) {
+            horizontalProgressBar.setIndeterminate(false);
+        } else if (Window.PROGRESS_START <= value && value <= Window.PROGRESS_END) {
+            // We want to set the progress value before testing for visibility
+            // so that when the progress bar becomes visible again, it has the
+            // correct level.
+            horizontalProgressBar.setProgress(value - Window.PROGRESS_START);
+
+            if (value < Window.PROGRESS_END) {
+                showProgressBars(horizontalProgressBar, circularProgressBar);
+            } else {
+                hideProgressBars(horizontalProgressBar, circularProgressBar);
+            }
+        } else if (Window.PROGRESS_SECONDARY_START <= value && value <= Window.PROGRESS_SECONDARY_END) {
+            horizontalProgressBar.setSecondaryProgress(value - Window.PROGRESS_SECONDARY_START);
+
+            showProgressBars(horizontalProgressBar, circularProgressBar);
+        }
+    }
+
+    private void showProgressBars(IcsProgressBar horizontalProgressBar, IcsProgressBar spinnyProgressBar) {
+        final int features = mFeatures;//getLocalFeatures();
+        if ((features & (1 << Window.FEATURE_INDETERMINATE_PROGRESS)) != 0 &&
+                spinnyProgressBar.getVisibility() == View.INVISIBLE) {
+            spinnyProgressBar.setVisibility(View.VISIBLE);
+        }
+        // Only show the progress bars if the primary progress is not complete
+        if ((features & (1 << Window.FEATURE_PROGRESS)) != 0 &&
+                horizontalProgressBar.getProgress() < 10000) {
+            horizontalProgressBar.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void hideProgressBars(IcsProgressBar horizontalProgressBar, IcsProgressBar spinnyProgressBar) {
+        final int features = mFeatures;//getLocalFeatures();
+        Animation anim = AnimationUtils.loadAnimation(mActivity, android.R.anim.fade_out);
+        anim.setDuration(1000);
+        if ((features & (1 << Window.FEATURE_INDETERMINATE_PROGRESS)) != 0 &&
+                spinnyProgressBar.getVisibility() == View.VISIBLE) {
+            spinnyProgressBar.startAnimation(anim);
+            spinnyProgressBar.setVisibility(View.INVISIBLE);
+        }
+        if ((features & (1 << Window.FEATURE_PROGRESS)) != 0 &&
+                horizontalProgressBar.getVisibility() == View.VISIBLE) {
+            horizontalProgressBar.startAnimation(anim);
+            horizontalProgressBar.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private IcsProgressBar getCircularProgressBar(boolean shouldInstallDecor) {
+        if (mCircularProgressBar != null) {
+            return mCircularProgressBar;
+        }
+        if (mContentParent == null && shouldInstallDecor) {
+            installDecor();
+        }
+        mCircularProgressBar = (IcsProgressBar)mDecor.findViewById(R.id.abs__progress_circular);
+        if (mCircularProgressBar != null) {
+            mCircularProgressBar.setVisibility(View.INVISIBLE);
+        }
+        return mCircularProgressBar;
+    }
+
+    private IcsProgressBar getHorizontalProgressBar(boolean shouldInstallDecor) {
+        if (mHorizontalProgressBar != null) {
+            return mHorizontalProgressBar;
+        }
+        if (mContentParent == null && shouldInstallDecor) {
+            installDecor();
+        }
+        mHorizontalProgressBar = (IcsProgressBar)mDecor.findViewById(R.id.abs__progress_horizontal);
+        if (mHorizontalProgressBar != null) {
+            mHorizontalProgressBar.setVisibility(View.INVISIBLE);
+        }
+        return mHorizontalProgressBar;
     }
 
     /**

@@ -32,8 +32,6 @@ public class IndeterminateProgress extends SherlockActivity {
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         
         setContentView(R.layout.iprogress);
-        setProgressBarIndeterminateVisibility(Boolean.FALSE);
-        
         
         //Bind to the buttons which enable and disable the progress spinner.
         //Notice how we *MUST* pass TRUE/FALSE objects rather than the native
@@ -41,13 +39,13 @@ public class IndeterminateProgress extends SherlockActivity {
         findViewById(R.id.enable).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				setProgressBarIndeterminateVisibility(Boolean.TRUE);
+			    setSupportProgressBarIndeterminateVisibility(true);
 			}
 		});
         findViewById(R.id.disable).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				setProgressBarIndeterminateVisibility(Boolean.FALSE);
+			    setSupportProgressBarIndeterminateVisibility(false);
 			}
 		});
     }

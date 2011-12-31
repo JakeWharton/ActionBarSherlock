@@ -258,6 +258,26 @@ public class FragmentActivity extends Activity implements OnCreateOptionsMenuLis
         mSherlock.requestFeature((int)featureId);
     }
 
+    public void setSupportProgress(int progress) {
+        mSherlock.setProgress(progress);
+    }
+
+    public void setSupportProgressBarIndeterminate(boolean indeterminate) {
+        mSherlock.setProgressBarIndeterminate(indeterminate);
+    }
+
+    public void setSupportProgressBarIndeterminateVisibility(boolean visible) {
+        mSherlock.setProgressBarIndeterminateVisibility(visible);
+    }
+
+    public void setSupportProgressBarVisibility(boolean visible) {
+        mSherlock.setProgressBarVisibility(visible);
+    }
+
+    public void setSupportSecondaryProgress(int secondaryProgress) {
+        mSherlock.setSecondaryProgress(secondaryProgress);
+    }
+
     // ------------------------------------------------------------------------
     // HOOKS INTO ACTIVITY
     // ------------------------------------------------------------------------
