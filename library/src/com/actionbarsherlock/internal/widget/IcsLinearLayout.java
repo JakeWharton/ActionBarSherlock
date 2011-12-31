@@ -452,7 +452,7 @@ public class IcsLinearLayout extends ViewGroup {
 
             final int margin = lp.topMargin + lp.bottomMargin;
             final int childHeight = child.getMeasuredHeight() + margin;
-            childState = combineMeasuredStatesInt(childState, getMeasuredStateInt(child));
+            childState = combineMeasuredStatesInt(childState, IcsView.getMeasuredStateInt(child));
 
             if (baselineAligned) {
                 final int childBaseline = child.getBaseline();
@@ -545,7 +545,7 @@ public class IcsLinearLayout extends ViewGroup {
         widthSize = Math.max(widthSize, getSuggestedMinimumWidth());
 
         // Reconcile our calculated size with the widthMeasureSpec
-        int widthSizeAndState = resolveSizeAndStateInt(widthSize, widthMeasureSpec, 0);
+        int widthSizeAndState = IcsView.resolveSizeAndState(widthSize, widthMeasureSpec, 0);
         widthSize = widthSizeAndState & MEASURED_SIZE_MASK;
 
         // Either expand children with weight to take up available space or
@@ -604,7 +604,7 @@ public class IcsLinearLayout extends ViewGroup {
 
                     // Child may now not fit in horizontal dimension.
                     childState = combineMeasuredStatesInt(childState,
-                            getMeasuredStateInt(child) & MEASURED_STATE_MASK);
+                            IcsView.getMeasuredStateInt(child) & MEASURED_STATE_MASK);
                 }
 
                 if (isExactly) {
@@ -698,7 +698,7 @@ public class IcsLinearLayout extends ViewGroup {
         maxHeight = Math.max(maxHeight, getSuggestedMinimumHeight());
 
         setMeasuredDimension(widthSizeAndState | (childState&MEASURED_STATE_MASK),
-                resolveSizeAndStateInt(maxHeight, heightMeasureSpec,
+                IcsView.resolveSizeAndState(maxHeight, heightMeasureSpec,
                         (childState<<MEASURED_HEIGHT_STATE_SHIFT)));
 
         if (matchHeight) {
@@ -716,54 +716,6 @@ public class IcsLinearLayout extends ViewGroup {
      */
     public static int combineMeasuredStatesInt(int curState, int newState) {
         return curState | newState;
-    }
-
-    /**
-     * Utility to reconcile a desired size and state, with constraints imposed
-     * by a MeasureSpec.  Will take the desired size, unless a different size
-     * is imposed by the constraints.  The returned value is a compound integer,
-     * with the resolved size in the {@link #MEASURED_SIZE_MASK} bits and
-     * optionally the bit {@link #MEASURED_STATE_TOO_SMALL} set if the resulting
-     * size is smaller than the size the view wants to be.
-     *
-     * @param size How big the view wants to be
-     * @param measureSpec Constraints imposed by the parent
-     * @return Size information bit mask as defined by
-     * {@link #MEASURED_SIZE_MASK} and {@link #MEASURED_STATE_TOO_SMALL}.
-     */
-    public static int resolveSizeAndStateInt(int size, int measureSpec, int childMeasuredState) {
-        int result = size;
-        int specMode = MeasureSpec.getMode(measureSpec);
-        int specSize =  MeasureSpec.getSize(measureSpec);
-        switch (specMode) {
-        case MeasureSpec.UNSPECIFIED:
-            result = size;
-            break;
-        case MeasureSpec.AT_MOST:
-            if (specSize < size) {
-                result = specSize | MEASURED_STATE_TOO_SMALL;
-            } else {
-                result = size;
-            }
-            break;
-        case MeasureSpec.EXACTLY:
-            result = specSize;
-            break;
-        }
-        return result | (childMeasuredState&MEASURED_STATE_MASK);
-    }
-
-    /**
-     * Return only the state bits of {@link #getMeasuredWidthAndState()}
-     * and {@link #getMeasuredHeightAndState()}, combined into one integer.
-     * The width component is in the regular bits {@link #MEASURED_STATE_MASK}
-     * and the height component is at the shifted bits
-     * {@link #MEASURED_HEIGHT_STATE_SHIFT}>>{@link #MEASURED_STATE_MASK}.
-     */
-    public static int getMeasuredStateInt(View child) {
-        return (child.getMeasuredWidth()&MEASURED_STATE_MASK)
-                | ((child.getMeasuredHeight()>>MEASURED_HEIGHT_STATE_SHIFT)
-                        & (MEASURED_STATE_MASK>>MEASURED_HEIGHT_STATE_SHIFT));
     }
 
     private void forceUniformHeight(int count, int widthMeasureSpec) {

@@ -1042,8 +1042,8 @@ public class IcsProgressBar extends View {
         dw += getPaddingLeft() + getPaddingRight();
         dh += getPaddingTop() + getPaddingBottom();
 
-        setMeasuredDimension(resolveSizeAndState(dw, widthMeasureSpec, 0),
-                resolveSizeAndState(dh, heightMeasureSpec, 0));
+        setMeasuredDimension(IcsView.resolveSizeAndState(dw, widthMeasureSpec, 0),
+                IcsView.resolveSizeAndState(dh, heightMeasureSpec, 0));
     }
 
     @Override
