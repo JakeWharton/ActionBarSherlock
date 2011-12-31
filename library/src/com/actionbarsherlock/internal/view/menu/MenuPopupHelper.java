@@ -35,7 +35,7 @@ import android.widget.PopupWindow;
 import com.actionbarsherlock.R;
 import com.actionbarsherlock.internal.view.View_HasStateListenerSupport;
 import com.actionbarsherlock.internal.view.View_OnAttachStateChangeListener;
-import com.actionbarsherlock.internal.widget.ListPopupWindow;
+import com.actionbarsherlock.internal.widget.IcsListPopupWindow;
 import com.actionbarsherlock.view.MenuItem;
 
 /**
@@ -51,7 +51,7 @@ public class MenuPopupHelper implements AdapterView.OnItemClickListener, View.On
 
     private Context mContext;
     private LayoutInflater mInflater;
-    private ListPopupWindow mPopup;
+    private IcsListPopupWindow mPopup;
     private MenuBuilder mMenu;
     private int mPopupMaxWidth;
     private View mAnchorView;
@@ -105,7 +105,7 @@ public class MenuPopupHelper implements AdapterView.OnItemClickListener, View.On
     }
 
     public boolean tryShow() {
-        mPopup = new ListPopupWindow(mContext, null, R.attr.popupMenuStyle);
+        mPopup = new IcsListPopupWindow(mContext, null, R.attr.popupMenuStyle);
         mPopup.setOnDismissListener(this);
         mPopup.setOnItemClickListener(this);
 

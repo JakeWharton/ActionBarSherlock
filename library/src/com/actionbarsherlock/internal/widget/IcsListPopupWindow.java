@@ -25,7 +25,7 @@ import android.widget.PopupWindow;
 /**
  * A proxy between pre- and post-Honeycomb implementations of this class.
  */
-public class ListPopupWindow {
+public class IcsListPopupWindow {
     /**
      * This value controls the length of time that the user
      * must leave a pointer down without scrolling to expand
@@ -72,7 +72,7 @@ public class ListPopupWindow {
     private static final int POSITION_PROMPT_ABOVE = 0;
     private static final int POSITION_PROMPT_BELOW = 1;
 
-    public ListPopupWindow(Context context, AttributeSet attrs, int defStyleAttr) {
+    public IcsListPopupWindow(Context context, AttributeSet attrs, int defStyleAttr) {
         mContext = context;
         mPopup = new PopupWindow(context, attrs, defStyleAttr);
         mPopup.setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);
