@@ -151,10 +151,23 @@
 
     <style name="TextAppearance.Sherlock.Medium" parent="Widget"></style>
     <style name="TextAppearance.Sherlock.Widget.ActionBar.Menu" parent="Widget"></style>
-    <style name="TextAppearance.Sherlock.Widget.ActionBar.Title" parent="Widget"></style>
-    <style name="TextAppearance.Sherlock.Widget.ActionBar.Subtitle" parent="Widget"></style>
-    <style name="TextAppearance.Sherlock.Widget.ActionMode.Title" parent="Widget"></style>
-    <style name="TextAppearance.Sherlock.Widget.ActionMode.Subtitle" parent="Widget"></style>
+
+    <style name="TextAppearance.Sherlock.Widget.ActionBar.Title" parent="Widget">
+        <item name="android:textSize">@dimen/abs__action_bar_title_text_size</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+    </style>
+    <style name="TextAppearance.Sherlock.Widget.ActionBar.Subtitle" parent="Widget">
+        <item name="android:textSize">@dimen/abs__action_bar_subtitle_text_size</item>
+        <item name="android:textColor">?android:attr/textColorSecondary</item>
+    </style>
+    <style name="TextAppearance.Sherlock.Widget.ActionMode.Title" parent="Widget">
+        <item name="android:textSize">@dimen/abs__action_bar_title_text_size</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+    </style>
+    <style name="TextAppearance.Sherlock.Widget.ActionMode.Subtitle" parent="Widget">
+        <item name="android:textSize">@dimen/abs__action_bar_subtitle_text_size</item>
+        <item name="android:textColor">?android:attr/textColorSecondary</item>
+    </style>
     
     <style name="TextAppearance.Sherlock.Widget.PopupMenu" parent="Widget">
         <item name="android:textColor">?attr/textColorPrimary</item>
