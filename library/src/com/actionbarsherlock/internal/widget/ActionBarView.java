@@ -103,7 +103,7 @@ public class ActionBarView extends AbsActionBarView {
     private View mTitleUpView;
 
     private Spinner mSpinner;
-    private LinearLayout mListNavLayout;
+    private IcsLinearLayout mListNavLayout;
     private ScrollingTabContainerView mTabScrollView;
     private View mCustomNavView;
     private IcsProgressBar mProgressView;
@@ -745,9 +745,8 @@ public class ActionBarView extends AbsActionBarView {
                 if (mSpinner == null) {
                     mSpinner = new Spinner(mContext, null,
                             R.attr.actionDropDownStyle);
-                    /* TODO mListNavLayout = new LinearLayout(mContext, null,
-                            R.attr.actionBarTabBarStyle);*/
-                    mListNavLayout = new LinearLayout(mContext, null);
+                    mListNavLayout = new IcsLinearLayout(mContext, null,
+                            R.attr.actionBarTabBarStyle);
                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                             LayoutParams.WRAP_CONTENT, LayoutParams.FILL_PARENT);
                     params.gravity = Gravity.CENTER;
