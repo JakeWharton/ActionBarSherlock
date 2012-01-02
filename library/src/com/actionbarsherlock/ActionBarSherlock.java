@@ -60,16 +60,16 @@ public final class ActionBarSherlock {
 
 
     /** Activity interface for menu creation callback. */
-    public interface OnCreateOptionsMenuListener {
-        public boolean onCreateOptionsMenu(Menu menu);
+    public interface OnCreatePanelMenuListener {
+        public boolean onCreatePanelMenu(int featureId, Menu menu);
     }
     /** Activity interface for menu item selection callback. */
-    public interface OnOptionsItemSelectedListener {
-        public boolean onOptionsItemSelected(MenuItem item);
+    public interface OnMenuItemSelectedListener {
+        public boolean onMenuItemSelected(int featureId, MenuItem item);
     }
     /** Activity interface for menu preparation callback. */
-    public interface OnPrepareOptionsMenuListener {
-        public boolean onPrepareOptionsMenu(Menu menu);
+    public interface OnPreparePanelListener {
+        public boolean onPreparePanel(int featureId, View view, Menu menu);
     }
     /** Activity interface for action mode finished callback. */
     public interface OnActionModeFinishedListener {
@@ -486,15 +486,15 @@ public final class ActionBarSherlock {
     /**
      * Internal method to trigger the menu creation process.
      *
-     * @return {@code true} if menu creation should proceeed.
+     * @return {@code true} if menu creation should proceed.
      */
     private boolean dispatchCreateOptionsMenu() {
         if (DEBUG) Log.d(TAG, "[dispatchCreateOptionsMenu]");
 
         mLastCreateResult = false;
-        if (mActivity instanceof OnCreateOptionsMenuListener) {
-            OnCreateOptionsMenuListener listener = (OnCreateOptionsMenuListener)mActivity;
-            mLastCreateResult = listener.onCreateOptionsMenu(mMenu);
+        if (mActivity instanceof OnCreatePanelMenuListener) {
+            OnCreatePanelMenuListener listener = (OnCreatePanelMenuListener)mActivity;
+            mLastCreateResult = listener.onCreatePanelMenu(Window.FEATURE_OPTIONS_PANEL, mMenu);
         }
         return mLastCreateResult;
     }
@@ -508,9 +508,9 @@ public final class ActionBarSherlock {
         if (DEBUG) Log.d(TAG, "[dispatchPrepareOptionsMenu]");
 
         mLastPrepareResult = false;
-        if (mActivity instanceof OnPrepareOptionsMenuListener) {
-            OnPrepareOptionsMenuListener listener = (OnPrepareOptionsMenuListener)mActivity;
-            mLastPrepareResult = listener.onPrepareOptionsMenu(mMenu);
+        if (mActivity instanceof OnPreparePanelListener) {
+            OnPreparePanelListener listener = (OnPreparePanelListener)mActivity;
+            mLastPrepareResult = listener.onPreparePanel(Window.FEATURE_OPTIONS_PANEL, null, mMenu);
         }
         return mLastPrepareResult;
     }
@@ -582,9 +582,9 @@ public final class ActionBarSherlock {
     private boolean dispatchOptionsItemSelected(MenuItem item) {
         if (DEBUG) Log.d(TAG, "[dispatchOptionsItemSelected] item: " + item);
 
-        if (mActivity instanceof OnOptionsItemSelectedListener) {
-            OnOptionsItemSelectedListener listener = (OnOptionsItemSelectedListener)mActivity;
-            return listener.onOptionsItemSelected(item);
+        if (mActivity instanceof OnMenuItemSelectedListener) {
+            OnMenuItemSelectedListener listener = (OnMenuItemSelectedListener)mActivity;
+            return listener.onMenuItemSelected(Window.FEATURE_OPTIONS_PANEL, item);
         }
         return false;
     }

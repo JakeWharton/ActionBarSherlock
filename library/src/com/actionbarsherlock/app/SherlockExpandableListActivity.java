@@ -5,18 +5,19 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.view.Window;
 import com.actionbarsherlock.ActionBarSherlock;
 import com.actionbarsherlock.ActionBarSherlock.OnActionModeFinishedListener;
 import com.actionbarsherlock.ActionBarSherlock.OnActionModeStartedListener;
-import com.actionbarsherlock.ActionBarSherlock.OnCreateOptionsMenuListener;
-import com.actionbarsherlock.ActionBarSherlock.OnOptionsItemSelectedListener;
-import com.actionbarsherlock.ActionBarSherlock.OnPrepareOptionsMenuListener;
+import com.actionbarsherlock.ActionBarSherlock.OnCreatePanelMenuListener;
+import com.actionbarsherlock.ActionBarSherlock.OnMenuItemSelectedListener;
+import com.actionbarsherlock.ActionBarSherlock.OnPreparePanelListener;
 import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
-public class SherlockExpandableListActivity extends ExpandableListActivity implements OnCreateOptionsMenuListener, OnPrepareOptionsMenuListener, OnOptionsItemSelectedListener, OnActionModeStartedListener, OnActionModeFinishedListener {
+public class SherlockExpandableListActivity extends ExpandableListActivity implements OnCreatePanelMenuListener, OnPreparePanelListener, OnMenuItemSelectedListener, OnActionModeStartedListener, OnActionModeFinishedListener {
     final ActionBarSherlock mSherlock = ActionBarSherlock.asDelegateFor(this);
 
 
@@ -106,6 +107,13 @@ public class SherlockExpandableListActivity extends ExpandableListActivity imple
     }
 
     @Override
+    public boolean onCreatePanelMenu(int featureId, Menu menu) {
+        if (featureId == Window.FEATURE_OPTIONS_PANEL) {
+            return onCreateOptionsMenu(menu);
+        }
+        return false;
+    }
+
     public boolean onCreateOptionsMenu(Menu menu) {
         return true;
     }
@@ -116,6 +124,13 @@ public class SherlockExpandableListActivity extends ExpandableListActivity imple
     }
 
     @Override
+    public boolean onPreparePanel(int featureId, View view, Menu menu) {
+        if (featureId == Window.FEATURE_OPTIONS_PANEL) {
+            return onPrepareOptionsMenu(menu);
+        }
+        return false;
+    }
+
     public boolean onPrepareOptionsMenu(Menu menu) {
         return true;
     }
@@ -126,6 +141,13 @@ public class SherlockExpandableListActivity extends ExpandableListActivity imple
     }
 
     @Override
+    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+        if (featureId == Window.FEATURE_OPTIONS_PANEL) {
+            return onOptionsItemSelected(item);
+        }
+        return false;
+    }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         return false;
     }

@@ -16,6 +16,10 @@
 
 package android.support.v4.app;
 
+import java.io.FileDescriptor;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -29,20 +33,14 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.Window;
 import android.view.ViewGroup.LayoutParams;
-
-import java.io.FileDescriptor;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-
+import android.view.Window;
 import com.actionbarsherlock.ActionBarSherlock;
 import com.actionbarsherlock.ActionBarSherlock.OnActionModeFinishedListener;
 import com.actionbarsherlock.ActionBarSherlock.OnActionModeStartedListener;
-import com.actionbarsherlock.ActionBarSherlock.OnCreateOptionsMenuListener;
-import com.actionbarsherlock.ActionBarSherlock.OnOptionsItemSelectedListener;
-import com.actionbarsherlock.ActionBarSherlock.OnPrepareOptionsMenuListener;
+import com.actionbarsherlock.ActionBarSherlock.OnCreatePanelMenuListener;
+import com.actionbarsherlock.ActionBarSherlock.OnMenuItemSelectedListener;
+import com.actionbarsherlock.ActionBarSherlock.OnPreparePanelListener;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
@@ -76,7 +74,7 @@ import com.actionbarsherlock.view.MenuItem;
  * state, this may be a snapshot slightly before what the user last saw.</p>
  * </ul>
  */
-public class FragmentActivity extends Activity implements OnCreateOptionsMenuListener, OnPrepareOptionsMenuListener, OnOptionsItemSelectedListener, OnActionModeStartedListener, OnActionModeFinishedListener {
+public class FragmentActivity extends Activity implements OnCreatePanelMenuListener, OnPreparePanelListener, OnMenuItemSelectedListener, OnActionModeStartedListener, OnActionModeFinishedListener {
     private static final String TAG = "FragmentActivity";
 
     private static final String FRAGMENTS_TAG = "android:support:fragments";
@@ -172,6 +170,15 @@ public class FragmentActivity extends Activity implements OnCreateOptionsMenuLis
     }
 
     @Override
+    public boolean onCreatePanelMenu(int featureId, Menu menu) {
+        if (featureId == Window.FEATURE_OPTIONS_PANEL) {
+            boolean show = onCreateOptionsMenu(menu);
+            show |= mFragments.dispatchCreateOptionsMenu(menu, getSupportMenuInflater());
+            return show;
+        }
+        return false;
+    }
+
     public boolean onCreateOptionsMenu(Menu menu) {
         return true;
     }
@@ -182,6 +189,15 @@ public class FragmentActivity extends Activity implements OnCreateOptionsMenuLis
     }
 
     @Override
+    public boolean onPreparePanel(int featureId, View view, Menu menu) {
+        if (featureId == Window.FEATURE_OPTIONS_PANEL && menu != null) {
+            boolean goforit = onPrepareOptionsMenu(menu);
+            goforit |= mFragments.dispatchPrepareOptionsMenu(menu);
+            return goforit && menu.hasVisibleItems();
+        }
+        return true;
+    }
+
     public boolean onPrepareOptionsMenu(Menu menu) {
         return true;
     }
@@ -192,6 +208,19 @@ public class FragmentActivity extends Activity implements OnCreateOptionsMenuLis
     }
 
     @Override
+    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+        switch (featureId) {
+            case Window.FEATURE_OPTIONS_PANEL:
+                if (onOptionsItemSelected(item)) {
+                    return true;
+                }
+                return mFragments.dispatchOptionsItemSelected(item);
+
+            default:
+                return false;
+        }
+    }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         return false;
     }

@@ -4,20 +4,43 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.view.Window;
 import com.actionbarsherlock.ActionBarSherlock;
-import com.actionbarsherlock.ActionBarSherlock.OnCreateOptionsMenuListener;
-import com.actionbarsherlock.ActionBarSherlock.OnOptionsItemSelectedListener;
-import com.actionbarsherlock.ActionBarSherlock.OnPrepareOptionsMenuListener;
+import com.actionbarsherlock.ActionBarSherlock.OnActionModeFinishedListener;
+import com.actionbarsherlock.ActionBarSherlock.OnActionModeStartedListener;
+import com.actionbarsherlock.ActionBarSherlock.OnCreatePanelMenuListener;
+import com.actionbarsherlock.ActionBarSherlock.OnMenuItemSelectedListener;
+import com.actionbarsherlock.ActionBarSherlock.OnPreparePanelListener;
+import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.google.android.maps.MapActivity;
 
-public abstract class SherlockMapActivity extends MapActivity implements OnCreateOptionsMenuListener, OnPrepareOptionsMenuListener, OnOptionsItemSelectedListener {
+public abstract class SherlockMapActivity extends MapActivity implements OnCreatePanelMenuListener, OnPreparePanelListener, OnMenuItemSelectedListener, OnActionModeStartedListener, OnActionModeFinishedListener {
     final ActionBarSherlock mSherlock = ActionBarSherlock.asDelegateFor(this);
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Action bar and mode
+    ///////////////////////////////////////////////////////////////////////////
 
     public ActionBar getSupportActionBar() {
         return mSherlock.getActionBar();
+    }
+
+    public ActionMode startActionMode(ActionMode.Callback callback) {
+        return mSherlock.startActionMode(callback);
+    }
+
+    @Override
+    public void onActionModeStarted(ActionMode mode) {
+        //This space for rent.
+    }
+
+    @Override
+    public void onActionModeFinished(ActionMode mode) {
+        //This space for rent.
     }
 
 
@@ -84,6 +107,13 @@ public abstract class SherlockMapActivity extends MapActivity implements OnCreat
     }
 
     @Override
+    public boolean onCreatePanelMenu(int featureId, Menu menu) {
+        if (featureId == Window.FEATURE_OPTIONS_PANEL) {
+            return onCreateOptionsMenu(menu);
+        }
+        return false;
+    }
+
     public boolean onCreateOptionsMenu(Menu menu) {
         return true;
     }
@@ -94,6 +124,13 @@ public abstract class SherlockMapActivity extends MapActivity implements OnCreat
     }
 
     @Override
+    public boolean onPreparePanel(int featureId, View view, Menu menu) {
+        if (featureId == Window.FEATURE_OPTIONS_PANEL) {
+            return onPrepareOptionsMenu(menu);
+        }
+        return false;
+    }
+
     public boolean onPrepareOptionsMenu(Menu menu) {
         return true;
     }
@@ -104,6 +141,13 @@ public abstract class SherlockMapActivity extends MapActivity implements OnCreat
     }
 
     @Override
+    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+        if (featureId == Window.FEATURE_OPTIONS_PANEL) {
+            return onOptionsItemSelected(item);
+        }
+        return false;
+    }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         return false;
     }
@@ -155,5 +199,30 @@ public abstract class SherlockMapActivity extends MapActivity implements OnCreat
     @Override
     public void setContentView(View view) {
         mSherlock.setContentView(view);
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Progress Indication
+    ///////////////////////////////////////////////////////////////////////////
+
+    public void setSupportProgress(int progress) {
+        mSherlock.setProgress(progress);
+    }
+
+    public void setSupportProgressBarIndeterminate(boolean indeterminate) {
+        mSherlock.setProgressBarIndeterminate(indeterminate);
+    }
+
+    public void setSupportProgressBarIndeterminateVisibility(boolean visible) {
+        mSherlock.setProgressBarIndeterminateVisibility(visible);
+    }
+
+    public void setSupportProgressBarVisibility(boolean visible) {
+        mSherlock.setProgressBarVisibility(visible);
+    }
+
+    public void setSupportSecondaryProgress(int secondaryProgress) {
+        mSherlock.setSecondaryProgress(secondaryProgress);
     }
 }
