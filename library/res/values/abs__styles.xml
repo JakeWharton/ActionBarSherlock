@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <style name="Theme.Sherlock" parent="android:Theme.NoTitleBar">
+    <style name="Theme.SherlockBase" parent="android:Theme.NoTitleBar"></style>
+    <style name="Theme.SherlockBase.Light" parent="android:Theme.Light.NoTitleBar"></style>
+
+    <style name="Theme.Sherlock" parent="Theme.SherlockBase">
         <!-- Action bar styles (from Theme.Holo) -->
         <item name="actionDropDownStyle">@style/Widget.Sherlock.Spinner.DropDown.ActionBar</item>
         <item name="actionButtonStyle">@style/Widget.Sherlock.ActionButton</item>
