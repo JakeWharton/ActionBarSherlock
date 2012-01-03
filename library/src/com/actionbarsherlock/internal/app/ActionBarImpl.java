@@ -641,7 +641,7 @@ public class ActionBarImpl extends ActionBar {
                     outValue, true);
             final int targetThemeRes = outValue.resourceId;
 
-            if (targetThemeRes != 0) { //TODO && mContext.getThemeResId() != targetThemeRes) {
+            if (targetThemeRes != 0) { //XXX && mContext.getThemeResId() != targetThemeRes) {
                 mThemedContext = new ContextThemeWrapper(mContext, targetThemeRes);
             } else {
                 mThemedContext = mContext;
