@@ -25,12 +25,11 @@ import org.xmlpull.v1.XmlPullParserException;
 import android.content.Context;
 import android.content.res.XmlResourceParser;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.Xml;
 import android.view.InflateException;
 import android.view.View;
-import com.actionbarsherlock.internal.view.menu.MenuBuilder;
 import com.actionbarsherlock.internal.view.menu.MenuItemImpl;
-import com.actionbarsherlock.internal.view.menu.SubMenuBuilder;
 
 /**
  * This class is used to instantiate menu XML files into Menu objects.
@@ -41,9 +40,8 @@ import com.actionbarsherlock.internal.view.menu.SubMenuBuilder;
  * it only works with an XmlPullParser returned from a compiled resource (R.
  * <em>something</em> file.)
  */
-public final class MenuInflater {
-    private static final Class<?>[] ACTION_VIEW_CONSTRUCTOR_SIGNATURE = new Class[] { Context.class };
-    private static final Class<?>[] PARAM_TYPES = new Class[] { com.actionbarsherlock.view.MenuItem.class };
+public class MenuInflater {
+    private static final String LOG_TAG = "MenuInflater";
 
     /** Android XML namespace. */
     private static final String XML_NS = "http://schemas.android.com/apk/res/android";
@@ -57,10 +55,17 @@ public final class MenuInflater {
     /** Item tag name in XML. */
     private static final String XML_ITEM = "item";
 
+    private static final int NO_ID = 0;
 
-    /** Context from which to inflate resources. */
-    private final Context mContext;
+    private static final Class<?>[] ACTION_VIEW_CONSTRUCTOR_SIGNATURE = new Class[] {Context.class};
 
+    private static final Class<?>[] ACTION_PROVIDER_CONSTRUCTOR_SIGNATURE = ACTION_VIEW_CONSTRUCTOR_SIGNATURE;
+
+    private final Object[] mActionViewConstructorArguments;
+
+    private final Object[] mActionProviderConstructorArguments;
+
+    private Context mContext;
 
     /**
      * Constructs a menu inflater.
@@ -69,8 +74,9 @@ public final class MenuInflater {
      */
     public MenuInflater(Context context) {
         mContext = context;
+        mActionViewConstructorArguments = new Object[] {context};
+        mActionProviderConstructorArguments = mActionViewConstructorArguments;
     }
-
 
     /**
      * Inflate a menu hierarchy from the specified XML resource. Throws
@@ -82,13 +88,12 @@ public final class MenuInflater {
      *            added to this Menu.
      */
     public void inflate(int menuRes, Menu menu) {
-        MenuBuilder actionBarMenu = (MenuBuilder)menu;
         XmlResourceParser parser = null;
         try {
             parser = mContext.getResources().getLayout(menuRes);
             AttributeSet attrs = Xml.asAttributeSet(parser);
 
-            parseMenu(parser, attrs, actionBarMenu);
+            parseMenu(parser, attrs, menu);
         } catch (XmlPullParserException e) {
             throw new InflateException("Error inflating menu XML", e);
         } catch (IOException e) {
@@ -102,9 +107,9 @@ public final class MenuInflater {
      * Called internally to fill the given menu. If a sub menu is seen, it will
      * call this recursively.
      */
-    private void parseMenu(XmlPullParser parser, AttributeSet attrs, MenuBuilder menu)
+    private void parseMenu(XmlPullParser parser, AttributeSet attrs, Menu menu)
             throws XmlPullParserException, IOException {
-        ActionBarMenuState menuState = new ActionBarMenuState(menu);
+        MenuState menuState = new MenuState(menu);
 
         int eventType = parser.getEventType();
         String tagName;
@@ -141,7 +146,7 @@ public final class MenuInflater {
                         menuState.readItem(attrs);
                     } else if (tagName.equals(XML_MENU)) {
                         // A menu start tag denotes a submenu for an item
-                        SubMenuBuilder subMenu = menuState.addSubMenuItem();
+                        SubMenu subMenu = menuState.addSubMenuItem();
 
                         // Parse the submenu into returned SubMenu
                         parseMenu(parser, attrs, subMenu);
@@ -162,7 +167,12 @@ public final class MenuInflater {
                         // Add the item if it hasn't been added (if the item was
                         // a submenu, it would have been added already)
                         if (!menuState.hasAddedItem()) {
-                            menuState.addItem();
+                            if (menuState.itemActionProvider != null &&
+                                    menuState.itemActionProvider.hasSubMenu()) {
+                                menuState.addSubMenuItem();
+                            } else {
+                                menuState.addItem();
+                            }
                         }
                     } else if (tagName.equals(XML_MENU)) {
                         reachedEndOfMenu = true;
@@ -177,7 +187,40 @@ public final class MenuInflater {
         }
     }
 
+    private static class InflatedOnMenuItemClickListener
+            implements MenuItem.OnMenuItemClickListener {
+        private static final Class<?>[] PARAM_TYPES = new Class[] { MenuItem.class };
 
+        private Context mContext;
+        private Method mMethod;
+
+        public InflatedOnMenuItemClickListener(Context context, String methodName) {
+            mContext = context;
+            Class<?> c = context.getClass();
+            try {
+                mMethod = c.getMethod(methodName, PARAM_TYPES);
+            } catch (Exception e) {
+                InflateException ex = new InflateException(
+                        "Couldn't resolve menu item onClick handler " + methodName +
+                        " in class " + c.getName());
+                ex.initCause(e);
+                throw ex;
+            }
+        }
+
+        public boolean onMenuItemClick(MenuItem item) {
+            try {
+                if (mMethod.getReturnType() == Boolean.TYPE) {
+                    return (Boolean) mMethod.invoke(mContext, item);
+                } else {
+                    mMethod.invoke(mContext, item);
+                    return true;
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
 
     /**
      * State for the current menu.
@@ -185,8 +228,8 @@ public final class MenuInflater {
      * Groups can not be nested unless there is another menu (which will have
      * its state class).
      */
-    private final class ActionBarMenuState {
-        private final MenuBuilder menu;
+    private class MenuState {
+        private Menu menu;
 
         /*
          * Group state is set on items as they are added, allowing an item to
@@ -202,8 +245,8 @@ public final class MenuInflater {
         private boolean itemAdded;
         private int itemId;
         private int itemCategoryOrder;
-        private String itemTitle;
-        private String itemTitleCondensed;
+        private CharSequence itemTitle;
+        private CharSequence itemTitleCondensed;
         private int itemIconResId;
         private char itemAlphabeticShortcut;
         private char itemNumericShortcut;
@@ -217,23 +260,34 @@ public final class MenuInflater {
         private boolean itemChecked;
         private boolean itemVisible;
         private boolean itemEnabled;
-        private String itemListenerMethodName;
-        private int itemShowAsAction;
-        private int itemActionLayout;
-        private String itemActionViewClassName;
 
-        private static final int defaultGroupId = View.NO_ID;
-        private static final int defaultItemId = View.NO_ID;
+        /**
+         * Sync to attrs.xml enum, values in MenuItem:
+         * - 0: never
+         * - 1: ifRoom
+         * - 2: always
+         * - -1: Safe sentinel for "no value".
+         */
+        private int itemShowAsAction;
+
+        private int itemActionViewLayout;
+        private String itemActionViewClassName;
+        private String itemActionProviderClassName;
+
+        private String itemListenerMethodName;
+
+        private ActionProvider itemActionProvider;
+
+        private static final int defaultGroupId = NO_ID;
+        private static final int defaultItemId = NO_ID;
         private static final int defaultItemCategory = 0;
         private static final int defaultItemOrder = 0;
         private static final int defaultItemCheckable = 0;
         private static final boolean defaultItemChecked = false;
         private static final boolean defaultItemVisible = true;
         private static final boolean defaultItemEnabled = true;
-        private static final int defaultItemShowAsAction = 0;
-        private static final int defaultIconResId = View.NO_ID;
 
-        public ActionBarMenuState(MenuBuilder menu) {
+        public MenuState(final Menu menu) {
             this.menu = menu;
 
             resetGroup();
@@ -311,7 +365,7 @@ public final class MenuInflater {
             }
 
             //itemIconResId = a.getResourceId(com.android.internal.R.styleable.MenuItem_icon, 0);
-            itemIconResId = attrs.getAttributeResourceValue(XML_NS, "icon", defaultIconResId);
+            itemIconResId = attrs.getAttributeResourceValue(XML_NS, "icon", 0);
 
             //itemAlphabeticShortcut = getShortcut(a.getString(com.android.internal.R.styleable.MenuItem_alphabeticShortcut));
             itemAlphabeticShortcut = getShortcut(attrs.getAttributeValue(XML_NS, "alphabeticShortcut"));
@@ -339,11 +393,33 @@ public final class MenuInflater {
             //itemEnabled = a.getBoolean(com.android.internal.R.styleable.MenuItem_enabled, groupEnabled);
             itemEnabled = attrs.getAttributeBooleanValue(XML_NS, "enabled", groupEnabled);
 
-            //presumed emulation of 3.0+'s MenuInflator:
+            //itemShowAsAction = a.getInt(com.android.internal.R.styleable.MenuItem_showAsAction, -1);
+            itemShowAsAction = attrs.getAttributeIntValue(XML_NS, "showAsAction", -1);
+
+            //itemListenerMethodName = a.getString(com.android.internal.R.styleable.MenuItem_onClick);
             itemListenerMethodName = attrs.getAttributeValue(XML_NS, "onClick");
-            itemShowAsAction = attrs.getAttributeIntValue(XML_NS, "showAsAction", defaultItemShowAsAction);
-            itemActionLayout = attrs.getAttributeResourceValue(XML_NS, "actionLayout", 0);
+
+            //itemActionViewLayout = a.getResourceId(com.android.internal.R.styleable.MenuItem_actionLayout, 0);
+            itemActionViewLayout = attrs.getAttributeResourceValue(XML_NS, "actionLayout", 0);
+
+            //itemActionViewClassName = a.getString(com.android.internal.R.styleable.MenuItem_actionViewClass);
             itemActionViewClassName = attrs.getAttributeValue(XML_NS, "actionViewClass");
+
+            //itemActionProviderClassName = a.getString(com.android.internal.R.styleable.MenuItem_actionProviderClass);
+            itemActionProviderClassName = attrs.getAttributeValue(XML_NS, "actionProviderClass");
+
+            final boolean hasActionProvider = itemActionProviderClassName != null;
+            if (hasActionProvider && itemActionViewLayout == 0 && itemActionViewClassName == null) {
+                itemActionProvider = newInstance(itemActionProviderClassName,
+                            ACTION_PROVIDER_CONSTRUCTOR_SIGNATURE,
+                            mActionProviderConstructorArguments);
+            } else {
+                if (hasActionProvider) {
+                    Log.w(LOG_TAG, "Ignoring attribute 'actionProviderClass'."
+                            + " Action view already specified.");
+                }
+                itemActionProvider = null;
+            }
 
             //a.recycle();
 
@@ -358,7 +434,7 @@ public final class MenuInflater {
             }
         }
 
-        private void setItem(MenuItemImpl item) {
+        private void setItem(MenuItem item) {
             item.setChecked(itemChecked)
                 .setVisible(itemVisible)
                 .setEnabled(itemEnabled)
@@ -368,79 +444,74 @@ public final class MenuInflater {
                 .setAlphabeticShortcut(itemAlphabeticShortcut)
                 .setNumericShortcut(itemNumericShortcut);
 
-            if (itemShowAsAction > 0) {
+            if (itemShowAsAction >= 0) {
                 item.setShowAsAction(itemShowAsAction);
             }
+
             if (itemListenerMethodName != null) {
-                if (MenuInflater.this.mContext.isRestricted()) {
-                    throw new IllegalStateException("The android:onClick attribute cannot be used within a restricted context");
+                if (mContext.isRestricted()) {
+                    throw new IllegalStateException("The android:onClick attribute cannot "
+                            + "be used within a restricted context");
                 }
-                item.setOnMenuItemClickListener(new InflatedOnMenuItemClickListener(itemListenerMethodName));
+                item.setOnMenuItemClickListener(
+                        new InflatedOnMenuItemClickListener(mContext, itemListenerMethodName));
             }
-            if (itemCheckable >= 2) {
-                item.setExclusiveCheckable(true);
+
+            if (item instanceof MenuItemImpl) {
+                MenuItemImpl impl = (MenuItemImpl) item;
+                if (itemCheckable >= 2) {
+                    impl.setExclusiveCheckable(true);
+                }
             }
+
+            boolean actionViewSpecified = false;
             if (itemActionViewClassName != null) {
-                try {
-                    Context context = MenuInflater.this.mContext;
-                    ClassLoader loader = context.getClassLoader();
-                    Class<?> actionViewClass = Class.forName(itemActionViewClassName, true, loader);
-                    Constructor<?> constructor = actionViewClass.getConstructor(ACTION_VIEW_CONSTRUCTOR_SIGNATURE);
-                    View actionView = (View)constructor.newInstance(new Object[] { context });
-                    item.setActionView(actionView);
-                } catch (Exception e) {
-                    throw new InflateException(e);
+                View actionView = (View) newInstance(itemActionViewClassName,
+                        ACTION_VIEW_CONSTRUCTOR_SIGNATURE, mActionViewConstructorArguments);
+                item.setActionView(actionView);
+                actionViewSpecified = true;
+            }
+            if (itemActionViewLayout > 0) {
+                if (!actionViewSpecified) {
+                    item.setActionView(itemActionViewLayout);
+                    actionViewSpecified = true;
+                } else {
+                    Log.w(LOG_TAG, "Ignoring attribute 'itemActionViewLayout'."
+                            + " Action view already specified.");
                 }
-            } else if (itemActionLayout > 0) {
-                item.setActionView(itemActionLayout);
+            }
+            if (itemActionProvider != null) {
+                item.setActionProvider(itemActionProvider);
             }
         }
 
         public void addItem() {
             itemAdded = true;
-            setItem((MenuItemImpl)menu.add(groupId, itemId, itemCategoryOrder, itemTitle));
+            setItem(menu.add(groupId, itemId, itemCategoryOrder, itemTitle));
         }
 
-        public SubMenuBuilder addSubMenuItem() {
+        public SubMenu addSubMenuItem() {
             itemAdded = true;
-            SubMenuBuilder subMenu = (SubMenuBuilder) menu.addSubMenu(groupId, itemId, itemCategoryOrder, itemTitle);
-            setItem((MenuItemImpl) subMenu.getItem());
+            SubMenu subMenu = menu.addSubMenu(groupId, itemId, itemCategoryOrder, itemTitle);
+            setItem(subMenu.getItem());
             return subMenu;
         }
 
         public boolean hasAddedItem() {
             return itemAdded;
         }
-    }
 
-    class InflatedOnMenuItemClickListener implements MenuItem.OnMenuItemClickListener {
-        private Method mMethod;
-
-        public InflatedOnMenuItemClickListener(String methodName) {
-            final Class<?> localClass = mContext.getClass();
+        @SuppressWarnings("unchecked")
+        private <T> T newInstance(String className, Class<?>[] constructorSignature,
+                Object[] arguments) {
             try {
-                mMethod = localClass.getMethod(methodName, PARAM_TYPES);
+                Class<?> clazz = mContext.getClassLoader().loadClass(className);
+                Constructor<?> constructor = clazz.getConstructor(constructorSignature);
+                return (T) constructor.newInstance(arguments);
             } catch (Exception e) {
-                StringBuilder b = new StringBuilder();
-                b.append("Couldn't resolve menu item onClick handler ");
-                b.append(methodName);
-                b.append(" in class ");
-                b.append(localClass.getName());
-                throw new InflateException(b.toString(), e);
+                Log.w(LOG_TAG, "Cannot instantiate class: " + className, e);
             }
-        }
-
-        @Override
-        public boolean onMenuItemClick(MenuItem item) {
-            final Object[] params = new Object[] { item };
-            try {
-                if (mMethod.getReturnType() == Boolean.TYPE) {
-                    return (Boolean)mMethod.invoke(mContext, params);
-                }
-                return false;
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+            return null;
         }
     }
 }
