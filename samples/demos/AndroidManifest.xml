@@ -103,6 +103,17 @@
         </activity>
         
         <activity
+            android:name=".SplitActionBar"
+            android:label="@string/actionbar_split"
+            android:theme="@style/Theme.Sherlock"
+            android:uiOptions="splitActionBarWhenNarrow">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+        
+        <activity
             android:name=".SubMenus"
             android:label="@string/actionbar_submenus"
             android:theme="@style/Theme.Sherlock">
