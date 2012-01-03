@@ -254,7 +254,6 @@ public class ActionBarView extends AbsActionBarView {
             mNavigationMode = ActionBar.NAVIGATION_MODE_STANDARD;
             setDisplayOptions(mDisplayOptions | ActionBar.DISPLAY_SHOW_CUSTOM);
         }
-
         mContentHeight = a.getLayoutDimension(R.styleable.SherlockActionBar_height, 0);
 
         a.recycle();
@@ -274,6 +273,7 @@ public class ActionBarView extends AbsActionBarView {
      * @return Logo resource ID.
      */
     private static int loadLogoFromManifest(Activity activity) {
+        int logo = 0;
         try {
             final String thisPackage = activity.getClass().getName();
             if (DEBUG) Log.i(TAG, "Parsing AndroidManifest.xml for " + thisPackage);
@@ -295,16 +295,14 @@ public class ActionBarView extends AbsActionBarView {
                             if (DEBUG) Log.d(TAG, xml.getAttributeName(i) + ": " + xml.getAttributeValue(i));
 
                             if ("logo".equals(xml.getAttributeName(i))) {
-                                //Found the attribute, return its value
-                                int result = xml.getAttributeResourceValue(i, 0);
-                                if (DEBUG) Log.i(TAG, "Returning " + Integer.toHexString(result));
-                                return result;
+                                logo = xml.getAttributeResourceValue(i, 0);
+                                break; //out of for loop
                             }
                         }
                     } else if ("activity".equals(name)) {
                         //Check if the <activity> is us and has the attribute
                         if (DEBUG) Log.d(TAG, "Got <activity>");
-                        Integer logo = null;
+                        Integer activityLogo = null;
                         String activityPackage = null;
                         boolean isOurActivity = false;
 
@@ -314,7 +312,7 @@ public class ActionBarView extends AbsActionBarView {
                             //We need both uiOptions and name attributes
                             String attrName = xml.getAttributeName(i);
                             if ("logo".equals(attrName)) {
-                                logo = xml.getAttributeResourceValue(i, 0);
+                                activityLogo = xml.getAttributeResourceValue(i, 0);
                             } else if ("name".equals(attrName)) {
                                 activityPackage = xml.getAttributeValue(i);
                                 //Handle FQCN or relative
@@ -328,9 +326,9 @@ public class ActionBarView extends AbsActionBarView {
                             }
 
                             //Make sure we have both attributes before processing
-                            if ((logo != null) && (activityPackage != null)) {
-                                if (DEBUG) Log.i(TAG, "Returning " + Integer.toHexString(logo));
-                                return logo.intValue();
+                            if ((activityLogo != null) && (activityPackage != null)) {
+                                //Our activity, logo specified, override with our value
+                                logo = activityLogo.intValue();
                             }
                         }
                         if (isOurActivity) {
@@ -345,8 +343,8 @@ public class ActionBarView extends AbsActionBarView {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (DEBUG) Log.i(TAG, "Returning 0x00");
-        return 0;
+        if (DEBUG) Log.i(TAG, "Returning " + Integer.toHexString(logo));
+        return logo;
     }
 
     /*

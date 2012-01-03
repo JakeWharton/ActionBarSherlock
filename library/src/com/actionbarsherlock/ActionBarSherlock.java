@@ -875,6 +875,7 @@ public final class ActionBarSherlock {
     }
 
     private static int loadUiOptionsFromManifest(Activity activity) {
+        int uiOptions = 0;
         try {
             final String thisPackage = activity.getClass().getName();
             if (DEBUG) Log.i(TAG, "Parsing AndroidManifest.xml for " + thisPackage);
@@ -888,10 +889,22 @@ public final class ActionBarSherlock {
                 if (eventType == XmlPullParser.START_TAG) {
                     String name = xml.getName();
 
-                    if ("activity".equals(name)) {
+                    if ("application".equals(name)) {
+                        //Check if the <application> has the attribute
+                        if (DEBUG) Log.d(TAG, "Got <application>");
+
+                        for (int i = xml.getAttributeCount() - 1; i >= 0; i--) {
+                            if (DEBUG) Log.d(TAG, xml.getAttributeName(i) + ": " + xml.getAttributeValue(i));
+
+                            if ("uiOptions".equals(xml.getAttributeName(i))) {
+                                uiOptions = xml.getAttributeIntValue(i, 0);
+                                break; //out of for loop
+                            }
+                        }
+                    } else if ("activity".equals(name)) {
                         //Check if the <activity> is us and has the attribute
                         if (DEBUG) Log.d(TAG, "Got <activity>");
-                        Integer uiOptions = null;
+                        Integer activityUiOptions = null;
                         String activityPackage = null;
                         boolean isOurActivity = false;
 
@@ -901,7 +914,7 @@ public final class ActionBarSherlock {
                             //We need both uiOptions and name attributes
                             String attrName = xml.getAttributeName(i);
                             if ("uiOptions".equals(attrName)) {
-                                uiOptions = xml.getAttributeIntValue(i, 0);
+                                activityUiOptions = xml.getAttributeIntValue(i, 0);
                             } else if ("name".equals(attrName)) {
                                 activityPackage = xml.getAttributeValue(i);
                                 //Handle FQCN or relative
@@ -909,15 +922,15 @@ public final class ActionBarSherlock {
                                     activityPackage = packageName + activityPackage;
                                 }
                                 if (!thisPackage.equals(activityPackage)) {
-                                    break; //on to the next
+                                    break; //out of for loop
                                 }
                                 isOurActivity = true;
                             }
 
                             //Make sure we have both attributes before processing
-                            if ((uiOptions != null) && (activityPackage != null)) {
-                                if (DEBUG) Log.i(TAG, "Returning " + Integer.toHexString(uiOptions));
-                                return uiOptions.intValue();
+                            if ((activityUiOptions != null) && (activityPackage != null)) {
+                                //Our activity, uiOptions specified, override with our value
+                                uiOptions = activityUiOptions.intValue();
                             }
                         }
                         if (isOurActivity) {
@@ -932,8 +945,8 @@ public final class ActionBarSherlock {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (DEBUG) Log.i(TAG, "Returning 0x00");
-        return 0;
+        if (DEBUG) Log.i(TAG, "Returning " + Integer.toHexString(uiOptions));
+        return uiOptions;
     }
 
     private ViewGroup generateLayout() {
