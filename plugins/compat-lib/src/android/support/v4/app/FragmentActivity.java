@@ -112,7 +112,7 @@ public class FragmentActivity extends Activity implements OnCreatePanelMenuListe
     boolean mReallyStopped;
     boolean mRetaining;
 
-    boolean mOptionsMenuInvalidated;
+    //boolean mOptionsMenuInvalidated;
 
     boolean mCheckedForLoaderManager;
     boolean mLoadersStarted;
@@ -692,16 +692,17 @@ public class FragmentActivity extends Activity implements OnCreatePanelMenuListe
     }
 
     void supportInvalidateOptionsMenu() {
-        if (android.os.Build.VERSION.SDK_INT >= HONEYCOMB) {
-            // If we are running on HC or greater, we can use the framework
-            // API to invalidate the options menu.
-            ActivityCompatHoneycomb.invalidateOptionsMenu(this);
-            return;
-        }
+        invalidateOptionsMenu();
+        //if (android.os.Build.VERSION.SDK_INT >= HONEYCOMB) {
+        //    // If we are running on HC or greater, we can use the framework
+        //    // API to invalidate the options menu.
+        //    ActivityCompatHoneycomb.invalidateOptionsMenu(this);
+        //    return;
+        //}
 
         // Whoops, older platform...  we'll use a hack, to manually rebuild
         // the options menu the next time it is prepared.
-        mOptionsMenuInvalidated = true;
+        //mOptionsMenuInvalidated = true;
     }
 
     /**
