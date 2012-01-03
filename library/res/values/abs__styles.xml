@@ -36,6 +36,7 @@
         <item name="textColorPrimary">@color/abs__primary_text_holo_dark</item>
         
         <item name="dropdownListPreferredItemHeight">48dip</item>
+        <item name="dropDownListViewStyle">@style/Widget.Sherlock.ListView.DropDown</item>
         
         <item name="textAppearanceLargePopupMenu">@style/TextAppearance.Sherlock.Widget.PopupMenu.Large</item>
         <item name="textAppearanceSmallPopupMenu">@style/TextAppearance.Sherlock.Widget.PopupMenu.Small</item>
@@ -142,6 +143,13 @@
         <item name="android:spinnerMode">dropdown</item>
         <!-- From Widget.Spinner.DropDown -->
         <item name="android:clickable">true</item>
+    </style>
+    
+    <style name="Widget.Sherlock.ListView.DropDown" parent="android:Widget.ListView">
+        <!-- From Widget.Holo.ListView.DropDown -->
+        <!-- From Widget.Holo.ListView -->
+        <item name="android:divider">@drawable/abs__list_divider_holo_dark</item>
+        <item name="android:listSelector">@drawable/abs__list_selector_holo_dark</item>
     </style>
 
 
