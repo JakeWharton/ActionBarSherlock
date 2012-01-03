@@ -18,6 +18,7 @@ package com.actionbarsherlock.internal.widget;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,9 +63,14 @@ public abstract class AbsActionBarView extends ViewGroup {
         mContext = context;
     }
 
-    //@Override
-    protected void onConfigurationChanged(Configuration newConfig) {
-        //TODO super.onConfigurationChanged(newConfig);
+    /*
+     * Must be public so we can dispatch pre-2.2 via ActionBarImpl.
+     */
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
+            super.onConfigurationChanged(newConfig);
+        }
 
         // Action bar can change size on configuration changes.
         // Reread the desired height from the theme-specified style.

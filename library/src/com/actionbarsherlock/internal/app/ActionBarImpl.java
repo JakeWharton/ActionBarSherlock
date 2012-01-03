@@ -186,6 +186,9 @@ public class ActionBarImpl extends ActionBar {
         //Manually dispatch a configuration change to the action bar view on pre-2.2
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.FROYO) {
             mActionView.onConfigurationChanged(newConfig);
+            if (mContextView != null) {
+                mContextView.onConfigurationChanged(newConfig);
+            }
         }
     }
 
