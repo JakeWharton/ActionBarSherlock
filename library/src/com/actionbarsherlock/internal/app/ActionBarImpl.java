@@ -41,6 +41,7 @@ import com.actionbarsherlock.internal.nineoldandroids.AnimatorListenerAdapter;
 import com.actionbarsherlock.internal.nineoldandroids.AnimatorSet;
 import com.actionbarsherlock.internal.nineoldandroids.ObjectAnimator;
 import com.actionbarsherlock.internal.view.menu.MenuBuilder;
+import com.actionbarsherlock.internal.view.menu.MenuPopupHelper;
 import com.actionbarsherlock.internal.view.menu.MenuPresenter;
 import com.actionbarsherlock.internal.view.menu.SubMenuBuilder;
 import com.actionbarsherlock.internal.widget.ActionBarContainer;
@@ -782,7 +783,7 @@ public class ActionBarImpl extends ActionBar {
                 return true;
             }
 
-            //TODO new MenuPopupHelper(getThemedContext(), subMenu).show();
+            new MenuPopupHelper(getThemedContext(), subMenu).show();
             return true;
         }
 
