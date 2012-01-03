@@ -57,6 +57,7 @@ public final class MenuInflater {
     /** Item tag name in XML. */
     private static final String XML_ITEM = "item";
 
+	private static final int NO_ID = 0;
 
     /** Context from which to inflate resources. */
     private final Context mContext;
@@ -222,8 +223,8 @@ public final class MenuInflater {
         private int itemActionLayout;
         private String itemActionViewClassName;
 
-        private static final int defaultGroupId = View.NO_ID;
-        private static final int defaultItemId = View.NO_ID;
+        private static final int defaultGroupId = NO_ID;
+        private static final int defaultItemId = NO_ID;
         private static final int defaultItemCategory = 0;
         private static final int defaultItemOrder = 0;
         private static final int defaultItemCheckable = 0;
@@ -231,7 +232,7 @@ public final class MenuInflater {
         private static final boolean defaultItemVisible = true;
         private static final boolean defaultItemEnabled = true;
         private static final int defaultItemShowAsAction = 0;
-        private static final int defaultIconResId = View.NO_ID;
+        private static final int defaultIconResId = NO_ID;
 
         public ActionBarMenuState(MenuBuilder menu) {
             this.menu = menu;
