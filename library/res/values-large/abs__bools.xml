@@ -17,6 +17,6 @@
 */
 -->
 <resources>
-    <bool name="action_bar_embed_tabs">true</bool>
-    <bool name="split_action_bar_is_narrow">false</bool>
+    <bool name="abs__action_bar_embed_tabs">true</bool>
+    <bool name="abs__split_action_bar_is_narrow">false</bool>
 </resources>
