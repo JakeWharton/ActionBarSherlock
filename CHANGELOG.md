@@ -1,8 +1,8 @@
 Change Log
 ===============================================================================
 
-Version 3.5.1 *(In Development)*
---------------------------------
+Version 3.5.1 *(2012-02-03)*
+----------------------------
 
  * Fix: `NullPointerException` in `FragmentManager` can no longer occur when an
    attempt is being made to save to a `Bundle` that has not yet been created.
