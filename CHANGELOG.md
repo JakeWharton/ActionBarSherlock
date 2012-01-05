@@ -1,7 +1,7 @@
 Change Log
 ===============================================================================
 
-Version 3.5.1 *(2012-02-03)*
+Version 3.5.1 *(2012-01-03)*
 ----------------------------
 
  * Fix: `NullPointerException` in `FragmentManager` can no longer occur when an
