@@ -283,6 +283,14 @@ public class FragmentActivity extends Activity implements OnCreatePanelMenuListe
         super.onPanelClosed(featureId, menu);
     }
 
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (mSherlock.dispatchKeyUp(keyCode, event)) {
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
     public void requestWindowFeature(long featureId) {
         mSherlock.requestFeature((int)featureId);
     }

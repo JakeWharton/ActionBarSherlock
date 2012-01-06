@@ -17,6 +17,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 import android.view.KeyCharacterMap;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
@@ -484,6 +485,38 @@ public final class ActionBarSherlock {
     }
 
     /**
+     * Notify the action bar that the user has pressed a key. This is used to
+     * toggle the display of the overflow action item should one be forced on
+     * a device with a menu key.
+     *
+     * <blockquote><pre>
+     *  @Override
+     *  public boolean onKeyUp(int keyCode, KeyEvent event) {
+     *      if (mSherlock.dispatchKeyUp(keyCode, event)) {
+     *          return false;
+     *      }
+     *      return super.onKeyDown(keyCode, event);
+     *  }
+     * </pre></blockquote>
+     *
+     * @param keyCode The value in event.getKeyCode().
+     * @param event Description of the key event.
+     * @return {@code true} if the event was handled.
+     */
+    public boolean dispatchKeyUp(int keyCode, KeyEvent event) {
+        if (DEBUG) Log.d(TAG, "[dispatchKeyUp] keyCode: " + keyCode + ", event: " + event);
+
+        if (isReservingOverflow() && (keyCode == KeyEvent.KEYCODE_MENU)) {
+            if (!mActionBarView.showOverflowMenu()) {
+                //assume it is already open
+                mActionBarView.hideOverflowMenu();
+            }
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Internal method to trigger the menu creation process.
      *
      * @return {@code true} if menu creation should proceed.
@@ -535,7 +568,6 @@ public final class ActionBarSherlock {
         if (DEBUG) Log.d(TAG, "[dispatchPrepareOptionsMenu] android.view.Menu: " + menu);
 
         if (isReservingOverflow()) {
-            mActionBarView.showOverflowMenu();
             return false;
         }
 

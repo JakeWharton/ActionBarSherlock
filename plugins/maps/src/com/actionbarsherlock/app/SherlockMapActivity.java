@@ -92,6 +92,14 @@ public abstract class SherlockMapActivity extends MapActivity implements OnCreat
         super.onPanelClosed(featureId, menu);
     }
 
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (mSherlock.dispatchKeyUp(keyCode, event)) {
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
 
     ///////////////////////////////////////////////////////////////////////////
     // Menu handling

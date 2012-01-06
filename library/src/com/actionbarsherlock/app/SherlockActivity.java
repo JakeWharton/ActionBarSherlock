@@ -3,6 +3,7 @@ package com.actionbarsherlock.app;
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.ViewGroup.LayoutParams;
@@ -90,6 +91,14 @@ public class SherlockActivity extends Activity implements OnCreatePanelMenuListe
     public void onPanelClosed(int featureId, android.view.Menu menu) {
         mSherlock.dispatchPanelClosed(featureId, menu);
         super.onPanelClosed(featureId, menu);
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (mSherlock.dispatchKeyUp(keyCode, event)) {
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 
