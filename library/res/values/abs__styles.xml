@@ -47,6 +47,9 @@
         <item name="windowActionModeOverlay">false</item>
         <item name="windowContentOverlay">@null</item>
     </style>
+    <style name="Theme.Sherlock.ForceOverflow">
+        <item name="absForceOverflow">true</item>
+    </style>
 
     <style name="Widget"></style>
 
