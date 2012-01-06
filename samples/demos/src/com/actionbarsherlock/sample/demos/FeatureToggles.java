@@ -244,7 +244,9 @@ public class FeatureToggles extends SherlockActivity implements ActionBar.TabLis
         findViewById(R.id.display_tab_remove).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				getSupportActionBar().removeTabAt(getSupportActionBar().getTabCount() - 1);
+			    if (getSupportActionBar().getTabCount() > 0) {
+			        getSupportActionBar().removeTabAt(getSupportActionBar().getTabCount() - 1);
+			    }
 			}
 		});
         findViewById(R.id.display_tab_remove_all).setOnClickListener(new View.OnClickListener() {
