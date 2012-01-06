@@ -507,9 +507,10 @@ public final class ActionBarSherlock {
         if (DEBUG) Log.d(TAG, "[dispatchKeyUp] keyCode: " + keyCode + ", event: " + event);
 
         if (isReservingOverflow() && (keyCode == KeyEvent.KEYCODE_MENU)) {
-            if (!mActionBarView.showOverflowMenu()) {
-                //assume it is already open
+            if (mActionBarView.isOverflowMenuShowing()) {
                 mActionBarView.hideOverflowMenu();
+            } else {
+                mActionBarView.showOverflowMenu();
             }
             return true;
         }
