@@ -1313,6 +1313,10 @@ public final class ActionBarSherlock {
      * @see ActionMode
      */
     public ActionMode startActionMode(ActionMode.Callback callback) {
+        if (mActionBar != null) {
+            return mActionBar.startActionMode(callback);
+        }
+
         if (mActionMode != null) {
             mActionMode.finish();
         }
