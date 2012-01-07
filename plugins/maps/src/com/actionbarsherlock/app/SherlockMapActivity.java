@@ -2,6 +2,7 @@ package com.actionbarsherlock.app;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
@@ -97,7 +98,7 @@ public abstract class SherlockMapActivity extends MapActivity implements OnCreat
         if (mSherlock.dispatchKeyUp(keyCode, event)) {
             return true;
         }
-        return super.onKeyDown(keyCode, event);
+        return super.onKeyUp(keyCode, event);
     }
 
 

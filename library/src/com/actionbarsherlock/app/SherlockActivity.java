@@ -98,7 +98,7 @@ public class SherlockActivity extends Activity implements OnCreatePanelMenuListe
         if (mSherlock.dispatchKeyUp(keyCode, event)) {
             return true;
         }
-        return super.onKeyDown(keyCode, event);
+        return super.onKeyUp(keyCode, event);
     }
 
 

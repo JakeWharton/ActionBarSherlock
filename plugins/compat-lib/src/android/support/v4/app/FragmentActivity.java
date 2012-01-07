@@ -288,7 +288,7 @@ public class FragmentActivity extends Activity implements OnCreatePanelMenuListe
         if (mSherlock.dispatchKeyUp(keyCode, event)) {
             return true;
         }
-        return super.onKeyDown(keyCode, event);
+        return super.onKeyUp(keyCode, event);
     }
 
     public void requestWindowFeature(long featureId) {

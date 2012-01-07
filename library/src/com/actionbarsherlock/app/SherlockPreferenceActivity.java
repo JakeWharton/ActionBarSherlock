@@ -98,7 +98,7 @@ public class SherlockPreferenceActivity extends PreferenceActivity implements On
         if (mSherlock.dispatchKeyUp(keyCode, event)) {
             return true;
         }
-        return super.onKeyDown(keyCode, event);
+        return super.onKeyUp(keyCode, event);
     }
 
 

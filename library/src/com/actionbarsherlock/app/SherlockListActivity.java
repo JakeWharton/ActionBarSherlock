@@ -98,7 +98,7 @@ public class SherlockListActivity extends ListActivity implements OnCreatePanelM
         if (mSherlock.dispatchKeyUp(keyCode, event)) {
             return true;
         }
-        return super.onKeyDown(keyCode, event);
+        return super.onKeyUp(keyCode, event);
     }
 
 

@@ -98,7 +98,7 @@ public class SherlockExpandableListActivity extends ExpandableListActivity imple
         if (mSherlock.dispatchKeyUp(keyCode, event)) {
             return true;
         }
-        return super.onKeyDown(keyCode, event);
+        return super.onKeyUp(keyCode, event);
     }
 
 
