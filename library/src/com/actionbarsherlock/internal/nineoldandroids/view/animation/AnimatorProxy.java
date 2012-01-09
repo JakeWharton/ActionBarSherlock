@@ -1,11 +1,14 @@
 package com.actionbarsherlock.internal.nineoldandroids.view.animation;
 
 import android.graphics.Matrix;
+import android.os.Build;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 
 public final class AnimatorProxy extends Animation {
+    public static final boolean NEEDS_PROXY = Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB;
+
     public static AnimatorProxy wrap(View view) {
         return new AnimatorProxy(view);
     }
