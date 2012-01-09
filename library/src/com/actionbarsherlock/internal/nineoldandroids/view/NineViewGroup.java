@@ -39,6 +39,20 @@ public abstract class NineViewGroup extends ViewGroup {
             super.setAlpha(alpha);
         }
     }
+    public float getTranslationX() {
+        if (NEEDS_PROXY) {
+            return mProxy.getTranslationX();
+        } else {
+            return super.getTranslationX();
+        }
+    }
+    public void setTranslationX(float translationX) {
+        if (NEEDS_PROXY) {
+            mProxy.setTranslationX(translationX);
+        } else {
+            super.setTranslationX(translationX);
+        }
+    }
     public float getTranslationY() {
         if (NEEDS_PROXY) {
             return mProxy.getTranslationY();

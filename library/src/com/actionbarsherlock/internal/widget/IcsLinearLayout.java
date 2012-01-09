@@ -16,6 +16,8 @@
 
 package com.actionbarsherlock.internal.widget;
 
+import com.actionbarsherlock.internal.nineoldandroids.view.NineViewGroup;
+
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -30,7 +32,7 @@ import android.view.ViewGroup;
  * This is a super-stripped version of LinearLayout from API 14 which supports
  * only horizontal layouts.
  */
-public class IcsLinearLayout extends ViewGroup {
+public class IcsLinearLayout extends NineViewGroup {
 
     private static final int[] LinearLayout = new int[] {
         /* 0 */ android.R.attr.baselineAlignedChildIndex,

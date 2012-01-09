@@ -32,6 +32,7 @@ import com.actionbarsherlock.internal.nineoldandroids.animation.Animator;
 import com.actionbarsherlock.internal.nineoldandroids.animation.AnimatorSet;
 import com.actionbarsherlock.internal.nineoldandroids.animation.ObjectAnimator;
 import com.actionbarsherlock.internal.nineoldandroids.animation.Animator.AnimatorListener;
+import com.actionbarsherlock.internal.nineoldandroids.view.animation.AnimatorProxy;
 import com.actionbarsherlock.internal.view.menu.ActionMenuPresenter;
 import com.actionbarsherlock.internal.view.menu.ActionMenuView;
 import com.actionbarsherlock.internal.view.menu.MenuBuilder;
@@ -47,6 +48,7 @@ public class ActionBarContextView extends AbsActionBarView implements AnimatorLi
     private CharSequence mSubtitle;
 
     private View mClose;
+    private AnimatorProxy mCloseWrap;
     private View mCustomView;
     private LinearLayout mTitleLayout;
     private TextView mTitleView;
@@ -201,6 +203,7 @@ public class ActionBarContextView extends AbsActionBarView implements AnimatorLi
         if (mClose == null) {
             LayoutInflater inflater = LayoutInflater.from(mContext);
             mClose = inflater.inflate(R.layout.abs__action_mode_close_item, this, false);
+            mCloseWrap = AnimatorProxy.wrap(mClose);
             addView(mClose);
         } else if (mClose.getParent() == null) {
             addView(mClose);
@@ -383,9 +386,9 @@ public class ActionBarContextView extends AbsActionBarView implements AnimatorLi
     }
 
     private Animator makeInAnimation() {
-        mClose.setTranslationX(-mClose.getWidth() -
+        mCloseWrap.setTranslationX(-mClose.getWidth() -
                 ((MarginLayoutParams) mClose.getLayoutParams()).leftMargin);
-        ObjectAnimator buttonAnimator = ObjectAnimator.ofFloat(mClose, "translationX", 0);
+        ObjectAnimator buttonAnimator = ObjectAnimator.ofFloat(mCloseWrap, "translationX", 0);
         buttonAnimator.setDuration(200);
         buttonAnimator.addListener(this);
         buttonAnimator.setInterpolator(new DecelerateInterpolator());
@@ -397,7 +400,7 @@ public class ActionBarContextView extends AbsActionBarView implements AnimatorLi
             final int count = mMenuView.getChildCount();
             if (count > 0) {
                 for (int i = count - 1, j = 0; i >= 0; i--, j++) {
-                    View child = mMenuView.getChildAt(i);
+                    AnimatorProxy child = AnimatorProxy.wrap(mMenuView.getChildAt(i));
                     child.setScaleY(0);
                     ObjectAnimator a = ObjectAnimator.ofFloat(child, "scaleY", 0, 1);
                     a.setDuration(100);
@@ -411,7 +414,7 @@ public class ActionBarContextView extends AbsActionBarView implements AnimatorLi
     }
 
     private Animator makeOutAnimation() {
-        ObjectAnimator buttonAnimator = ObjectAnimator.ofFloat(mClose, "translationX",
+        ObjectAnimator buttonAnimator = ObjectAnimator.ofFloat(mCloseWrap, "translationX",
                 -mClose.getWidth() - ((MarginLayoutParams) mClose.getLayoutParams()).leftMargin);
         buttonAnimator.setDuration(200);
         buttonAnimator.addListener(this);
@@ -424,7 +427,7 @@ public class ActionBarContextView extends AbsActionBarView implements AnimatorLi
             final int count = mMenuView.getChildCount();
             if (count > 0) {
                 for (int i = 0; i < 0; i++) {
-                    View child = mMenuView.getChildAt(i);
+                    AnimatorProxy child = AnimatorProxy.wrap(mMenuView.getChildAt(i));
                     child.setScaleY(0);
                     ObjectAnimator a = ObjectAnimator.ofFloat(child, "scaleY", 0);
                     a.setDuration(100);

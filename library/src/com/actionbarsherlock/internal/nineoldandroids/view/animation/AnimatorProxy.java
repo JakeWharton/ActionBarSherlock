@@ -13,7 +13,10 @@ public final class AnimatorProxy extends Animation {
     private final View mView;
 
 	private float mAlpha = 1f;
+    private float mTranslationX = 0f;
     private float mTranslationY = 0f;
+    private float mScaleX = 1f;
+    private float mScaleY = 1f;
 
     private AnimatorProxy(View view) {
         super();
@@ -32,12 +35,39 @@ public final class AnimatorProxy extends Animation {
             invalidateParent();
     	}
     }
+    public float getTranslationX() {
+        return mTranslationX;
+    }
+    public void setTranslationX(float translationX) {
+        if (mTranslationX != translationX) {
+            mTranslationX = translationX;
+            invalidateParent();
+        }
+    }
     public float getTranslationY() {
         return mTranslationY;
     }
     public void setTranslationY(float translationY) {
         if (mTranslationY != translationY) {
             mTranslationY = translationY;
+            invalidateParent();
+        }
+    }
+    public float getScaleX() {
+        return mScaleX;
+    }
+    public void setScaleX(float scale) {
+        if (mScaleX != scale) {
+            mScaleX = scale;
+            invalidateParent();
+        }
+    }
+    public float getScaleY() {
+        return mScaleY;
+    }
+    public void setScaleY(float scaleY) {
+        if (mScaleY != scaleY) {
+            mScaleY = scaleY;
             invalidateParent();
         }
     }
@@ -52,6 +82,7 @@ public final class AnimatorProxy extends Animation {
         t.setAlpha(mAlpha);
 
         final Matrix m = t.getMatrix();
-        m.setTranslate(0, mTranslationY);
+        m.setTranslate(mTranslationX, mTranslationY);
+        m.setScale(mScaleX, mScaleY);
     }
 }

@@ -23,6 +23,16 @@
 
 
         <activity
+            android:name=".ActionModes"
+            android:label="@string/actionbar_action_modes"
+            android:theme="@style/Theme.Sherlock">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name=".CustomNavigation"
             android:label="@string/actionbar_customnavigation"
             android:theme="@style/Theme.Sherlock">
