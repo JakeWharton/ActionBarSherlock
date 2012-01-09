@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.actionbarsherlock.internal.nineoldandroids;
+package com.actionbarsherlock.internal.nineoldandroids.animation;
 
 /**
  * This adapter class provides empty implementations of the methods from {@link android.animation.Animator.AnimatorListener}.

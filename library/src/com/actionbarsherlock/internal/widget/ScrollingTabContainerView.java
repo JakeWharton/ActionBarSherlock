@@ -37,8 +37,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import com.actionbarsherlock.R;
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.internal.nineoldandroids.Animator;
-import com.actionbarsherlock.internal.nineoldandroids.ObjectAnimator;
+import com.actionbarsherlock.internal.nineoldandroids.animation.Animator;
+import com.actionbarsherlock.internal.nineoldandroids.animation.ObjectAnimator;
 
 /**
  * This widget implements the dynamic action bar tab behavior that can change

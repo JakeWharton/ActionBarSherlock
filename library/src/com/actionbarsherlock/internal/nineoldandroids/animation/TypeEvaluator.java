@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.actionbarsherlock.internal.nineoldandroids;
+package com.actionbarsherlock.internal.nineoldandroids.animation;
 
 /**
  * Interface for use with the {@link ValueAnimator#setEvaluator(TypeEvaluator)} function. Evaluators

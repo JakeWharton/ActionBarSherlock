@@ -35,11 +35,12 @@ import android.view.accessibility.AccessibilityEvent;
 import android.widget.SpinnerAdapter;
 import com.actionbarsherlock.R;
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.internal.nineoldandroids.Animator;
-import com.actionbarsherlock.internal.nineoldandroids.Animator.AnimatorListener;
-import com.actionbarsherlock.internal.nineoldandroids.AnimatorListenerAdapter;
-import com.actionbarsherlock.internal.nineoldandroids.AnimatorSet;
-import com.actionbarsherlock.internal.nineoldandroids.ObjectAnimator;
+import com.actionbarsherlock.internal.nineoldandroids.animation.Animator;
+import com.actionbarsherlock.internal.nineoldandroids.animation.AnimatorListenerAdapter;
+import com.actionbarsherlock.internal.nineoldandroids.animation.AnimatorSet;
+import com.actionbarsherlock.internal.nineoldandroids.animation.ObjectAnimator;
+import com.actionbarsherlock.internal.nineoldandroids.animation.Animator.AnimatorListener;
+import com.actionbarsherlock.internal.nineoldandroids.view.animation.AnimatorProxy;
 import com.actionbarsherlock.internal.view.menu.MenuBuilder;
 import com.actionbarsherlock.internal.view.menu.MenuPopupHelper;
 import com.actionbarsherlock.internal.view.menu.MenuPresenter;
@@ -73,6 +74,7 @@ public class ActionBarImpl extends ActionBar {
     private ActionBarContextView mContextView;
     private ActionBarContainer mSplitView;
     private View mContentView;
+    private AnimatorProxy mContentWrap;
     private ScrollingTabContainerView mTabScrollView;
 
     private ArrayList<TabImpl> mTabs = new ArrayList<TabImpl>();
@@ -108,7 +110,7 @@ public class ActionBarImpl extends ActionBar {
         @Override
         public void onAnimationEnd(Animator animation) {
             if (mContentView != null) {
-                mContentView.setTranslationY(0);
+                mContentWrap.setTranslationY(0);
                 mContainerView.setTranslationY(0);
             }
             if (mSplitView != null && mContextDisplayMode == CONTEXT_DISPLAY_SPLIT) {
@@ -153,6 +155,7 @@ public class ActionBarImpl extends ActionBar {
                 R.id.abs__action_context_bar);
         mContainerView = (ActionBarContainer) decor.findViewById(
                 R.id.abs__action_bar_container);
+        mContentWrap = AnimatorProxy.wrap(mContainerView);
         mSplitView = (ActionBarContainer) decor.findViewById(
                 R.id.abs__split_action_bar);
 
@@ -562,7 +565,7 @@ public class ActionBarImpl extends ActionBar {
             AnimatorSet anim = new AnimatorSet();
             AnimatorSet.Builder b = anim.play(ObjectAnimator.ofFloat(mContainerView, "alpha", 1));
             if (mContentView != null) {
-                b.with(ObjectAnimator.ofFloat(mContentView, "translationY",
+                b.with(ObjectAnimator.ofFloat(mContentWrap, "translationY",
                         -mContainerView.getHeight(), 0));
                 mContainerView.setTranslationY(-mContainerView.getHeight());
                 b.with(ObjectAnimator.ofFloat(mContainerView, "translationY", 0));
@@ -597,7 +600,7 @@ public class ActionBarImpl extends ActionBar {
             AnimatorSet anim = new AnimatorSet();
             AnimatorSet.Builder b = anim.play(ObjectAnimator.ofFloat(mContainerView, "alpha", 0));
             if (mContentView != null) {
-                b.with(ObjectAnimator.ofFloat(mContentView, "translationY",
+                b.with(ObjectAnimator.ofFloat(mContentWrap, "translationY",
                         0, -mContainerView.getHeight()));
                 b.with(ObjectAnimator.ofFloat(mContainerView, "translationY",
                         -mContainerView.getHeight()));

@@ -24,17 +24,17 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import com.actionbarsherlock.R;
 import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.internal.nineoldandroids.widget.NineFrameLayout;
 
 /**
  * This class acts as a container for the action bar view and action mode context views.
  * It applies special styles as needed to help handle animated transitions between them.
  * @hide
  */
-public class ActionBarContainer extends FrameLayout {
+public class ActionBarContainer extends NineFrameLayout {
     private boolean mIsTransitioning;
     private View mTabContainer;
     private ActionBarView mActionBarView;

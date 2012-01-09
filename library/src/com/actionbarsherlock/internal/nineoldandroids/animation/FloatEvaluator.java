@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package com.actionbarsherlock.internal.nineoldandroids;
+package com.actionbarsherlock.internal.nineoldandroids.animation;
 
 /**
- * This evaluator can be used to perform type interpolation between <code>int</code> values.
+ * This evaluator can be used to perform type interpolation between <code>float</code> values.
  */
-public class IntEvaluator implements TypeEvaluator<Integer> {
+public class FloatEvaluator implements TypeEvaluator<Number> {
 
     /**
      * This function returns the result of linearly interpolating the start and end values, with
@@ -29,14 +29,14 @@ public class IntEvaluator implements TypeEvaluator<Integer> {
      * and <code>t</code> is <code>fraction</code>.
      *
      * @param fraction   The fraction from the starting to the ending values
-     * @param startValue The start value; should be of type <code>int</code> or
-     *                   <code>Integer</code>
-     * @param endValue   The end value; should be of type <code>int</code> or <code>Integer</code>
+     * @param startValue The start value; should be of type <code>float</code> or
+     *                   <code>Float</code>
+     * @param endValue   The end value; should be of type <code>float</code> or <code>Float</code>
      * @return A linear interpolation between the start and end values, given the
      *         <code>fraction</code> parameter.
      */
-    public Integer evaluate(float fraction, Integer startValue, Integer endValue) {
-        int startInt = startValue;
-        return (int)(startInt + fraction * (endValue - startInt));
+    public Float evaluate(float fraction, Number startValue, Number endValue) {
+        float startFloat = startValue.floatValue();
+        return startFloat + fraction * (endValue.floatValue() - startFloat);
     }
 }

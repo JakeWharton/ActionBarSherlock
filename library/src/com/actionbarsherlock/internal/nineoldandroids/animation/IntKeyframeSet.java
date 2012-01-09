@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package com.actionbarsherlock.internal.nineoldandroids;
+package com.actionbarsherlock.internal.nineoldandroids.animation;
 
 import java.util.ArrayList;
 import android.view.animation.Interpolator;
-import com.actionbarsherlock.internal.nineoldandroids.Keyframe.IntKeyframe;
+
+import com.actionbarsherlock.internal.nineoldandroids.animation.Keyframe.IntKeyframe;
 
 /**
  * This class holds a collection of IntKeyframe objects and is called by ValueAnimator to calculate

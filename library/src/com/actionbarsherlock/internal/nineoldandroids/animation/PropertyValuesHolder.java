@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.actionbarsherlock.internal.nineoldandroids;
+package com.actionbarsherlock.internal.nineoldandroids.animation;
 
 //import android.util.FloatProperty;
 //import android.util.IntProperty;
@@ -384,7 +384,7 @@ public class PropertyValuesHolder implements Cloneable {
             try {
                 returnVal = targetClass.getMethod(methodName, args);
             } catch (NoSuchMethodException e) {
-                Log.e("PropertyValuesHolder",
+                Log.e("PropertyValuesHolder", targetClass.getSimpleName() + " - " + 
                         "Couldn't find no-arg method for property " + mPropertyName + ": " + e);
             }
         } else {
@@ -412,8 +412,9 @@ public class PropertyValuesHolder implements Cloneable {
                 }
             }
             // If we got here, then no appropriate function was found
-            Log.e("PropertyValuesHolder",
-                    "Couldn't find setter/getter for property " + mPropertyName +
+            Log.e("PropertyValuesHolder", 
+                    "Couldn't find " + prefix + "ter property " + mPropertyName +
+                            " for " + targetClass.getSimpleName() +
                             " with value type "+ mValueType);
         }
 
