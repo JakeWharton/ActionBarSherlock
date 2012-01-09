@@ -140,6 +140,7 @@ public class ActionBarImpl extends ActionBar {
         //window.hasFeature() workaround for pre-3.0
         if ((features & (1 << Window.FEATURE_ACTION_BAR_OVERLAY)) == 0) {
             mContentView = decor.findViewById(android.R.id.content);
+            mContentWrap = AnimatorProxy.wrap(mContentView);
         }
     }
 
@@ -155,7 +156,6 @@ public class ActionBarImpl extends ActionBar {
                 R.id.abs__action_context_bar);
         mContainerView = (ActionBarContainer) decor.findViewById(
                 R.id.abs__action_bar_container);
-        mContentWrap = AnimatorProxy.wrap(mContainerView);
         mSplitView = (ActionBarContainer) decor.findViewById(
                 R.id.abs__split_action_bar);
 
