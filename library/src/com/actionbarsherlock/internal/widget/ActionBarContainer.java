@@ -163,11 +163,12 @@ public class ActionBarContainer extends NineFrameLayout {
         }
     }
 
-    @Override
-    public android.view.ActionMode startActionModeForChild(View child, android.view.ActionMode.Callback callback) {
-        // No starting an action mode for an action bar child! (Where would it go?)
-        return null;
-    }
+    //This causes the animation reflection to fail on pre-HC platforms
+    //@Override
+    //public android.view.ActionMode startActionModeForChild(View child, android.view.ActionMode.Callback callback) {
+    //    // No starting an action mode for an action bar child! (Where would it go?)
+    //    return null;
+    //}
 
     @Override
     public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
