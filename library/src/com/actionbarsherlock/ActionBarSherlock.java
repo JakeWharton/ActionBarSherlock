@@ -1,7 +1,6 @@
 package com.actionbarsherlock;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
-import java.util.ArrayList;
 import java.util.HashMap;
 import org.xmlpull.v1.XmlPullParser;
 import android.app.Activity;
@@ -576,33 +575,13 @@ public final class ActionBarSherlock {
             return false;
         }
 
-        final ArrayList<MenuItemImpl> nonActionItems = mMenu.getNonActionItems();
-        if (nonActionItems == null || nonActionItems.size() == 0) {
-            return false;
-        }
-
         if (mNativeItemMap == null) {
             mNativeItemMap = new HashMap<android.view.MenuItem, MenuItemImpl>();
         } else {
             mNativeItemMap.clear();
         }
 
-        menu.clear();
-        boolean visible = false;
-        for (MenuItemImpl nonActionItem : nonActionItems) {
-            if (nonActionItem.isVisible()) {
-                visible = true;
-                //TODO move this binding "inward" to internal so we have access to more raw data
-                android.view.MenuItem nativeItem = menu.add(nonActionItem.getGroupId(), nonActionItem.getItemId(),
-                        nonActionItem.getOrder(), nonActionItem.getTitle());
-                nativeItem.setIcon(nonActionItem.getIcon());
-                nativeItem.setOnMenuItemClickListener(mNativeItemListener);
-
-                mNativeItemMap.put(nativeItem, nonActionItem);
-            }
-        }
-
-        return visible;
+        return mMenu.bindNativeOverflow(menu, mNativeItemListener, mNativeItemMap);
     }
 
     /**
