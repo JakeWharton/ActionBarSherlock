@@ -173,7 +173,7 @@ public final class ActionBarSherlock {
     private final MenuBuilder.Callback mMenuBuilderCallback = new MenuBuilder.Callback() {
         @Override
         public void onMenuModeChange(MenuBuilder menu) {
-            // TODO Auto-generated method stub
+            reopenMenu(true);
         }
 
         @Override
@@ -1302,6 +1302,21 @@ public final class ActionBarSherlock {
             }
         }
         return mMenuInflater;
+    }
+
+    private void reopenMenu(boolean toggleMenuMode) {
+        if (mActionBarView != null && mActionBarView.isOverflowReserved()) {
+            if (!mActionBarView.isOverflowMenuShowing() || !toggleMenuMode) {
+                if (mActionBarView.getVisibility() == View.VISIBLE) {
+                    if (dispatchPrepareOptionsMenu()) {
+                        mActionBarView.showOverflowMenu();
+                    }
+                }
+            } else {
+                mActionBarView.hideOverflowMenu();
+            }
+            return;
+        }
     }
 
     /**
