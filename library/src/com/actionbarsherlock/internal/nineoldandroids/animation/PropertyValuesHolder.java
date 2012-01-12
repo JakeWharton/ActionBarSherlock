@@ -384,7 +384,7 @@ public class PropertyValuesHolder implements Cloneable {
             try {
                 returnVal = targetClass.getMethod(methodName, args);
             } catch (NoSuchMethodException e) {
-                Log.e("PropertyValuesHolder", targetClass.getSimpleName() + " - " + 
+                Log.e("PropertyValuesHolder", targetClass.getSimpleName() + " - " +
                         "Couldn't find no-arg method for property " + mPropertyName + ": " + e);
             }
         } else {
@@ -412,7 +412,7 @@ public class PropertyValuesHolder implements Cloneable {
                 }
             }
             // If we got here, then no appropriate function was found
-            Log.e("PropertyValuesHolder", 
+            Log.e("PropertyValuesHolder",
                     "Couldn't find " + prefix + "ter property " + mPropertyName +
                             " for " + targetClass.getSimpleName() +
                             " with value type "+ mValueType);

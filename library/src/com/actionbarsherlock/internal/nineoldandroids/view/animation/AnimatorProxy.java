@@ -15,7 +15,7 @@ public final class AnimatorProxy extends Animation {
 
     private final View mView;
 
-	private float mAlpha = 1f;
+    private float mAlpha = 1f;
     private float mTranslationX = 0f;
     private float mTranslationY = 0f;
     private float mScaleX = 1f;
@@ -36,7 +36,7 @@ public final class AnimatorProxy extends Animation {
         if (mAlpha != alpha) {
             mAlpha = alpha;
             invalidateParent();
-    	}
+        }
     }
     public float getTranslationX() {
         return mTranslationX;
