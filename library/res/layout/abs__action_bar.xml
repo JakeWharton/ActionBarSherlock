@@ -79,7 +79,7 @@
 	<LinearLayout
 		android:id="@+id/abs__nav_tabs"
 		android:layout_width="fill_parent"
-		android:layout_height="44dp"
+		android:layout_height="?attr/abTabsHeight"
 		android:focusable="true"
 		android:visibility="visible"
 		android:orientation="horizontal"

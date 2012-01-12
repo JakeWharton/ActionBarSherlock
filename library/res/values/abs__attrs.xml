@@ -54,6 +54,7 @@
         <attr name="abBackgroundStacked" format="reference|color" />
         <attr name="abCustomNavigationLayout" format="reference" />
         <attr name="abHeight" format="reference|dimension" />
+        <attr name="abTabsHeight" format="reference|dimension" />
         <attr name="abHomeLayout" format="reference" />
         <attr name="abProgressBarStyle" format="reference" />
         <attr name="abIndeterminateProgressStyle" format="reference" />
