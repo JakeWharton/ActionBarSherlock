@@ -35,6 +35,7 @@
         <item name="abDisplayOptions">useLogo|showHome|showTitle</item>
         <item name="abDivider">@drawable/abs__action_item_divider</item>
         <item name="abHeight">?actionBarSize</item>
+        <item name="abTabsHeight">@dimen/abs__action_bar_tabs_default_height</item>
         <item name="abHomeLayout">@null</item>
         <item name="abIcon">@null</item>
         <item name="abIndeterminateProgressStyle">@android:style/Widget.ProgressBar.Small</item>
@@ -145,6 +146,7 @@
         <item name="abDisplayOptions">useLogo|showHome|showTitle</item>
         <item name="abDivider">@drawable/abs__action_item_divider</item>
         <item name="abHeight">?actionBarSize</item>
+        <item name="abTabsHeight">@dimen/abs__action_bar_tabs_default_height</item>
         <item name="abHomeLayout">@null</item>
         <item name="abIcon">@null</item>
         <item name="abIndeterminateProgressStyle">@android:style/Widget.ProgressBar.Small</item>
