@@ -62,6 +62,12 @@ public class SherlockListActivity extends ListActivity implements OnCreatePanelM
     }
 
     @Override
+    protected void onPause() {
+        mSherlock.dispatchPause();
+        super.onPause();
+    }
+
+    @Override
     protected void onStop() {
         mSherlock.dispatchStop();
         super.onStop();

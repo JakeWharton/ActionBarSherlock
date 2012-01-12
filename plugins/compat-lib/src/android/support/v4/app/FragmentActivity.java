@@ -536,6 +536,7 @@ public class FragmentActivity extends Activity implements OnCreatePanelMenuListe
      */
     @Override
     protected void onPause() {
+        mSherlock.dispatchPause();
         super.onPause();
         mResumed = false;
         if (mHandler.hasMessages(MSG_RESUME_PENDING)) {

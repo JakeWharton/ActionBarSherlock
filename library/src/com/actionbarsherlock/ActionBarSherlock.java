@@ -290,8 +290,8 @@ public final class ActionBarSherlock {
     }
 
     /**
-     * Notify the action bar that the activity has finished its resume process.
-     * Should be dispatched after the class to the superclass implementation.
+     * Notify the action bar that the activity has finished its resuming. This
+     * should be dispatched after the call to the superclass implementation.
      *
      * <blockquote><pre>
      * @Override
@@ -306,6 +306,26 @@ public final class ActionBarSherlock {
 
         if (mActionBar != null) {
             mActionBar.setShowHideAnimationEnabled(true);
+        }
+    }
+
+    /**
+     * Notify the action bar that the activity is pausing. This should be
+     * dispatched before the call to the superclass implementation.
+     *
+     * <blockquote><pre>
+     * @Override
+     * protected void onPause() {
+     *     mSherlock.dispatchPause();
+     *     super.onPause();
+     * }
+     * </pre></blockquote>
+     */
+    public void dispatchPause() {
+        if (DEBUG) Log.d(TAG, "[dispatchPause]");
+
+        if (mActionBarView != null && mActionBarView.isOverflowMenuShowing()) {
+            mActionBarView.hideOverflowMenu();
         }
     }
 
