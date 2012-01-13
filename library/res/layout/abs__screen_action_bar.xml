@@ -40,7 +40,7 @@ This is an optimized layout for a screen with the Action Bar enabled.
             android:visibility="gone"
             style="?attr/actionModeStyle" />
     </com.actionbarsherlock.internal.widget.ActionBarContainer>
-    <FrameLayout
+    <com.actionbarsherlock.internal.nineoldandroids.widget.NineFrameLayout
         android:id="@+id/abs__content"
         android:layout_width="fill_parent" 
         android:layout_height="0dip"

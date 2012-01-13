@@ -6,7 +6,7 @@ import android.widget.FrameLayout;
 
 import com.actionbarsherlock.internal.nineoldandroids.view.animation.AnimatorProxy;
 
-public abstract class NineFrameLayout extends FrameLayout {
+public class NineFrameLayout extends FrameLayout {
     private final AnimatorProxy mProxy;
 
     public NineFrameLayout(Context context) {
