@@ -85,7 +85,7 @@ public final class AnimatorProxy extends Animation {
         t.setAlpha(mAlpha);
 
         final Matrix m = t.getMatrix();
-        m.setTranslate(mTranslationX, mTranslationY);
-        m.setScale(mScaleX, mScaleY);
+        m.postTranslate(mTranslationX, mTranslationY);
+        m.postScale(mScaleX, mScaleY);
     }
 }
