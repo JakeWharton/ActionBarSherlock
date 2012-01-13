@@ -28,11 +28,11 @@ public class ForcedOverflowItem extends SherlockActivity {
         menu.add("Save")
             .setIcon(R.drawable.ic_compose)
             .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        
+
         menu.add("Search")
             .setIcon(R.drawable.ic_search)
             .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        
+
         menu.add("Refresh")
             .setIcon(R.drawable.ic_refresh)
             .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
@@ -40,19 +40,19 @@ public class ForcedOverflowItem extends SherlockActivity {
         menu.add("Save")
             .setIcon(R.drawable.ic_compose)
             .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        
+
         menu.add("Search")
             .setIcon(R.drawable.ic_search)
             .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        
+
         menu.add("Refresh")
             .setIcon(R.drawable.ic_refresh)
             .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        
+
         return true;
     }
 
-	@Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.text);

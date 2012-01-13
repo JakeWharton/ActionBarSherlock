@@ -16,7 +16,7 @@
 	</parent>
 
 	<modules>
-		<!--module>demos</module-->
+		<module>demos</module>
 		<module>plugins</module>
 	</modules>
 </project>

@@ -26,73 +26,73 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
 public class ActionModes extends SherlockActivity {
-	ActionMode mMode;
-	
-	@Override
+    ActionMode mMode;
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.action_mode);
-        
+
         ((Button)findViewById(R.id.start)).setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				mMode = startActionMode(new AnActionModeOfEpicProportions());
-			}
-		});
+            @Override
+            public void onClick(View v) {
+                mMode = startActionMode(new AnActionModeOfEpicProportions());
+            }
+        });
         ((Button)findViewById(R.id.cancel)).setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if (mMode != null) {
-					mMode.finish();
-				}
-			}
-		});
+            @Override
+            public void onClick(View v) {
+                if (mMode != null) {
+                    mMode.finish();
+                }
+            }
+        });
     }
-	
-	private final class AnActionModeOfEpicProportions implements ActionMode.Callback {
-		@Override
-		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-	        menu.add("Save")
-	            .setIcon(R.drawable.ic_compose)
-	            .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-	        
-	        menu.add("Search")
-	            .setIcon(R.drawable.ic_search)
-	            .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-	        
-	        menu.add("Refresh")
-	            .setIcon(R.drawable.ic_refresh)
-	            .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-	
-	        menu.add("Save")
-	            .setIcon(R.drawable.ic_compose)
-	            .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-	        
-	        menu.add("Search")
-	            .setIcon(R.drawable.ic_search)
-	            .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-	        
-	        menu.add("Refresh")
-	            .setIcon(R.drawable.ic_refresh)
-	            .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-	        
-	        return true;
-		}
 
-		@Override
-		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-			return false;
-		}
+    private final class AnActionModeOfEpicProportions implements ActionMode.Callback {
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            menu.add("Save")
+                .setIcon(R.drawable.ic_compose)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
-		@Override
-		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-			Toast.makeText(ActionModes.this, "Got click: " + item, Toast.LENGTH_SHORT).show();
-			mode.finish();
-			return true;
-		}
+            menu.add("Search")
+                .setIcon(R.drawable.ic_search)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
-		@Override
-		public void onDestroyActionMode(ActionMode mode) {
-		}
-	}
+            menu.add("Refresh")
+                .setIcon(R.drawable.ic_refresh)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
+            menu.add("Save")
+                .setIcon(R.drawable.ic_compose)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
+            menu.add("Search")
+                .setIcon(R.drawable.ic_search)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
+            menu.add("Refresh")
+                .setIcon(R.drawable.ic_refresh)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
+            return true;
+        }
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            Toast.makeText(ActionModes.this, "Got click: " + item, Toast.LENGTH_SHORT).show();
+            mode.finish();
+            return true;
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+        }
+    }
 }

@@ -19,7 +19,6 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.sample.demos.R;
 
 public class Simple extends SherlockActivity {
     @Override

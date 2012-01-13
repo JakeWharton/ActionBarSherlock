@@ -6,7 +6,6 @@ import android.widget.TextView;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.sample.demos.R;
 
 public class TabNavigationCollapsed extends SherlockActivity implements ActionBar.TabListener {
     @Override

@@ -26,22 +26,22 @@ public class PreferenceSimple extends SherlockPreferenceActivity {
         menu.add("Save")
             .setIcon(R.drawable.ic_compose)
             .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        
+
         menu.add("Search")
             .setIcon(R.drawable.ic_search)
             .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        
+
         menu.add("Refresh")
             .setIcon(R.drawable.ic_refresh)
             .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        
+
         return super.onCreateOptionsMenu(menu);
     }
 
-	@Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
         addPreferencesFromResource(R.xml.preferences);
     }
 }

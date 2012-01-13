@@ -91,13 +91,13 @@
 
 		<apk.prefix>actionbarsherlock</apk.prefix>
 
-		<checkstyle.file>${session.executionRootDirectory}/checkstyle.xml</checkstyle.file>
-
 		<java.version>1.6</java.version>
 		<android.version>4.0.3_r1</android.version>
 		<android.platform>15</android.platform>
 		<android.maps.version>15_r1</android.maps.version>
 		<android.compat.version>r6</android.compat.version>
+
+		<android-maven.version>3.0.0</android-maven.version>
 	</properties>
 
 	<dependencyManagement>
@@ -144,7 +144,7 @@
 				<plugin>
 					<groupId>com.jayway.maven.plugins.android.generation2</groupId>
 					<artifactId>android-maven-plugin</artifactId>
-					<version>3.0.0</version>
+					<version>${android-maven.version}</version>
 					<configuration>
 						<sdk>
 							<platform>${android.platform}</platform>
