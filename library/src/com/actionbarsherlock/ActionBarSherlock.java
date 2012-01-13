@@ -474,6 +474,9 @@ public final class ActionBarSherlock {
         if (mIsDelegate) {
             mIsTitleReady = true;
         }
+        if (mDecor == null) {
+            initActionBar();
+        }
     }
 
     /**
