@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.ActionBar;
 import android.support.v4.view.Menu;
@@ -22,6 +23,7 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
+
 import com.actionbarsherlock.R;
 import com.actionbarsherlock.internal.view.menu.ActionMenuItem;
 import com.actionbarsherlock.internal.view.menu.ActionMenuPresenter;
@@ -535,6 +537,13 @@ public final class ActionBarView extends RelativeLayout {
             TabImpl existingTab = (TabImpl)mTabsView.getChildAt(i).getTag();
             if (existingTab.equals(tab)) {
                 existingTab.select();
+                
+				if (mTabViewContainer != null && existingTab.mView != null) {
+					Rect rect = new Rect();
+					existingTab.mView.getDrawingRect(rect);
+					mTabViewContainer.requestChildRectangleOnScreen(
+							existingTab.mView, rect, true);
+				}
                 break;
             }
         }
