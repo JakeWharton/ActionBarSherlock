@@ -24,6 +24,9 @@
     <string name="actionbar_simple">Simple</string>
     <string name="actionbar_simple_content">This is a simple showcase of how easy it is to add the action bar to your activities. Take a look at the source code, it\'s surprisingly simple!</string>
     
+    <string name="actionbar_static">Static Attachment</string>
+    <string name="actionbar_static_content">This is a simple showcase of how easy it is to add the action bar to your activities without having to extend from a custom activity. Take a look at the source code, it\'s surprisingly simple!</string>
+    
     <string name="actionbar_submenus">Sub-menus</string>
     <string name="actionbar_submenus_content">This activity is a demonstration of how sub-menus work when they are either an action item or an item in the overflow menu.</string>
     
