@@ -29,6 +29,9 @@
 
     <uses-sdk android:minSdkVersion="4" android:targetSdkVersion="13" />
 
+    <!--  permit installation on Google TV -->
+    <uses-feature android:name="android.hardware.touchscreen" android:required="false"/>
+
     <application android:label="@string/activity_sample_code"
             android:icon="@drawable/icon"
             android:hardwareAccelerated="true">
