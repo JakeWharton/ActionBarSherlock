@@ -16,6 +16,7 @@ layout: default
 					<p>The basis for the widget was <a href="https://github.com/johannilsson/android-actionbar/pull/25">work done</a> on Johan Nilsson's <a href="https://github.com/johannilsson/android-actionbar">Android-ActionBar</a> library. The first two versions of ActionBarSherlock used his library directly for support on pre-3.0 devices and without his work the current version of the library would not be possible.</p>
 				</td>
 			</tr>
+            <tr>
 				<th>Are there any guides for setting up my project with the library?</th>
 				<td>
 					<p>Graham Smith was kind enough to create this very quick walkthrough of getting both the library and your project working with ActionBarSherlock:</p>
@@ -24,11 +25,11 @@ layout: default
 			</tr>
 			<tr>
 				<th>What API level should I target if I want to use the library?</th>
-				<td>Both library itself as well as your application must be built using Android 3.2 (API level 13). You may set your <code>targetSdkVersion</code> in the manifest to any API 11 or higher.</td>
+				<td>Both library itself as well as your application must be built using Android 3.2 or better (API level 13 or better). You may set your <code>targetSdkVersion</code> in the manifest to any API 11 or higher.</td>
 			</tr>
 			<tr>
-				<th>Why do I have to build with API level 13?</th>
-				<td>Building with API level 13 will allow the library to use the native action bar classes so that they will be used when your app is run on devices using Android 3.0+. Since you will be compiling against new APIs but your app will likely be run on devices with older versions of Android extra care must be taken to either avoid using or properly check and call any methods that were introduced after your minimum SDK version.</td>
+				<th>Why do I have to build with API level 13 or better?</th>
+				<td>Building with API level 13 or better will allow the library to use the native action bar classes so that they will be used when your app is run on devices using Android 3.0+. Since you will be compiling against new APIs but your app will likely be run on devices with older versions of Android extra care must be taken to either avoid using or properly check and call any methods that were introduced after your minimum SDK version.</td>
 			</tr>
 			<tr>
 				<th>Why do action modes not work on pre-3.0 devices?</th>
