@@ -1,186 +1,166 @@
 package com.actionbarsherlock.internal.app;
 
+import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.SpinnerAdapter;
 
 import com.actionbarsherlock.app.ActionBar;
 
-public class ActionBarNative extends ActionBar {
+public class ActionBarWrapper extends ActionBar {
+    private final android.app.ActionBar mActionBar;
+    
+    
+    public ActionBarWrapper(Activity activity) {
+        mActionBar = activity.getActionBar();
+    }
 
+    
 	@Override
 	public void setCustomView(View view) {
-		// TODO Auto-generated method stub
-
+		mActionBar.setCustomView(view);
 	}
 
 	@Override
 	public void setCustomView(View view, LayoutParams layoutParams) {
-		// TODO Auto-generated method stub
-
+	    //TODO copy our params to native
+        mActionBar.setCustomView(view, null);
 	}
 
 	@Override
 	public void setCustomView(int resId) {
-		// TODO Auto-generated method stub
-
+        mActionBar.setCustomView(resId);
 	}
 
 	@Override
 	public void setIcon(int resId) {
-		// TODO Auto-generated method stub
-
+		mActionBar.setIcon(resId);
 	}
 
 	@Override
 	public void setIcon(Drawable icon) {
-		// TODO Auto-generated method stub
-
+		mActionBar.setIcon(icon);
 	}
 
 	@Override
 	public void setLogo(int resId) {
-		// TODO Auto-generated method stub
-
+		mActionBar.setLogo(resId);
 	}
 
 	@Override
 	public void setLogo(Drawable logo) {
-		// TODO Auto-generated method stub
-
+		mActionBar.setLogo(logo);
 	}
 
 	@Override
-	public void setListNavigationCallbacks(SpinnerAdapter adapter,
-			OnNavigationListener callback) {
+	public void setListNavigationCallbacks(SpinnerAdapter adapter, OnNavigationListener callback) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void setSelectedNavigationItem(int position) {
-		// TODO Auto-generated method stub
-
+		mActionBar.setSelectedNavigationItem(position);
 	}
 
 	@Override
 	public int getSelectedNavigationIndex() {
-		// TODO Auto-generated method stub
-		return 0;
+		return mActionBar.getSelectedNavigationIndex();
 	}
 
 	@Override
 	public int getNavigationItemCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return mActionBar.getNavigationItemCount();
 	}
 
 	@Override
 	public void setTitle(CharSequence title) {
-		// TODO Auto-generated method stub
-
+		mActionBar.setTitle(title);
 	}
 
 	@Override
 	public void setTitle(int resId) {
-		// TODO Auto-generated method stub
-
+		mActionBar.setTitle(resId);
 	}
 
 	@Override
 	public void setSubtitle(CharSequence subtitle) {
-		// TODO Auto-generated method stub
-
+		mActionBar.setSubtitle(subtitle);
 	}
 
 	@Override
 	public void setSubtitle(int resId) {
-		// TODO Auto-generated method stub
-
+		mActionBar.setSubtitle(resId);
 	}
 
 	@Override
 	public void setDisplayOptions(int options) {
-		// TODO Auto-generated method stub
-
+		mActionBar.setDisplayOptions(options);
 	}
 
 	@Override
 	public void setDisplayOptions(int options, int mask) {
-		// TODO Auto-generated method stub
-
+		mActionBar.setDisplayOptions(options, mask);
 	}
 
 	@Override
 	public void setDisplayUseLogoEnabled(boolean useLogo) {
-		// TODO Auto-generated method stub
-
+		mActionBar.setDisplayUseLogoEnabled(useLogo);
 	}
 
 	@Override
 	public void setDisplayShowHomeEnabled(boolean showHome) {
-		// TODO Auto-generated method stub
-
+		mActionBar.setDisplayShowHomeEnabled(showHome);
 	}
 
 	@Override
 	public void setDisplayHomeAsUpEnabled(boolean showHomeAsUp) {
-		// TODO Auto-generated method stub
-
+		mActionBar.setDisplayHomeAsUpEnabled(showHomeAsUp);
 	}
 
 	@Override
 	public void setDisplayShowTitleEnabled(boolean showTitle) {
-		// TODO Auto-generated method stub
-
+		mActionBar.setDisplayShowTitleEnabled(showTitle);
 	}
 
 	@Override
 	public void setDisplayShowCustomEnabled(boolean showCustom) {
-		// TODO Auto-generated method stub
-
+		mActionBar.setDisplayShowCustomEnabled(showCustom);
 	}
 
 	@Override
 	public void setBackgroundDrawable(Drawable d) {
-		// TODO Auto-generated method stub
-
+		mActionBar.setBackgroundDrawable(d);
 	}
 
 	@Override
 	public View getCustomView() {
-		// TODO Auto-generated method stub
-		return null;
+		return mActionBar.getCustomView();
 	}
 
 	@Override
 	public CharSequence getTitle() {
-		// TODO Auto-generated method stub
-		return null;
+		return mActionBar.getTitle();
 	}
 
 	@Override
 	public CharSequence getSubtitle() {
-		// TODO Auto-generated method stub
-		return null;
+		return mActionBar.getSubtitle();
 	}
 
 	@Override
 	public int getNavigationMode() {
-		// TODO Auto-generated method stub
-		return 0;
+		return mActionBar.getNavigationMode();
 	}
 
 	@Override
 	public void setNavigationMode(int mode) {
-		// TODO Auto-generated method stub
-
+		mActionBar.setNavigationMode(mode);
 	}
 
 	@Override
 	public int getDisplayOptions() {
-		// TODO Auto-generated method stub
-		return 0;
+		return mActionBar.getDisplayOptions();
 	}
 
 	@Override
@@ -221,14 +201,12 @@ public class ActionBarNative extends ActionBar {
 
 	@Override
 	public void removeTabAt(int position) {
-		// TODO Auto-generated method stub
-
+		mActionBar.removeTabAt(position);
 	}
 
 	@Override
 	public void removeAllTabs() {
-		// TODO Auto-generated method stub
-
+		mActionBar.removeAllTabs();
 	}
 
 	@Override
@@ -251,32 +229,27 @@ public class ActionBarNative extends ActionBar {
 
 	@Override
 	public int getTabCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return mActionBar.getTabCount();
 	}
 
 	@Override
 	public int getHeight() {
-		// TODO Auto-generated method stub
-		return 0;
+		return mActionBar.getHeight();
 	}
 
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
-
+		mActionBar.show();
 	}
 
 	@Override
 	public void hide() {
-		// TODO Auto-generated method stub
-
+		mActionBar.hide();
 	}
 
 	@Override
 	public boolean isShowing() {
-		// TODO Auto-generated method stub
-		return false;
+		return mActionBar.isShowing();
 	}
 
 	@Override

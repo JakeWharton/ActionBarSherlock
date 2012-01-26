@@ -401,8 +401,7 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
     // XXX
     ///////////////////////////////////////////////////////////////////////////
     
-    @Override
-    public int getFeatures() {
+    private int getFeatures() {
         if (DEBUG) Log.d(TAG, "[getFeatures]");
 
         return mFeatures;

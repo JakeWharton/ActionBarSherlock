@@ -533,19 +533,9 @@ public abstract class ActionBarSherlock {
      */
     public void dispatchPanelClosed(int featureId, android.view.Menu menu){}
 
+
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-
-
-    /**
-     * Return the feature bits that are enabled. This is the set of features
-     * that were given to requestFeature(), and are being handled by this
-     * Window itself or its container. That is, it is the set of requested
-     * features that you can actually use.
-     *
-     * @return The feature bits.
-     */
-    public abstract int getFeatures();
 
     /**
      * Query for the availability of a certain feature.
