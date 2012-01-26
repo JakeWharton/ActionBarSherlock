@@ -284,6 +284,12 @@ public class FragmentActivity extends Activity implements OnCreatePanelMenuListe
     }
 
     @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        mSherlock.dispatchPostCreate(savedInstanceState);
+    }
+
+    @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         if (mSherlock.dispatchKeyUp(keyCode, event)) {
             return true;

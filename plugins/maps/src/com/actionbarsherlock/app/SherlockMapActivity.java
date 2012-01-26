@@ -75,8 +75,8 @@ public abstract class SherlockMapActivity extends MapActivity implements OnCreat
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
-        mSherlock.dispatchPostCreate(savedInstanceState);
         super.onPostCreate(savedInstanceState);
+        mSherlock.dispatchPostCreate(savedInstanceState);
     }
 
     @Override
