@@ -316,7 +316,11 @@ public class ActionBarView extends AbsActionBarView {
                             } else if ("name".equals(attrName)) {
                                 activityPackage = xml.getAttributeValue(i);
                                 //Handle FQCN or relative
-                                if (!activityPackage.startsWith(packageName) && activityPackage.startsWith(".")) {
+                                if (!activityPackage.startsWith(packageName)) {
+                                    //Handle unqualified package name
+                                    if(!activityPackage.startsWith(".")) {
+                                        activityPackage = "." + activityPackage;
+                                    }
                                     activityPackage = packageName + activityPackage;
                                 }
                                 if (!thisPackage.equals(activityPackage)) {
