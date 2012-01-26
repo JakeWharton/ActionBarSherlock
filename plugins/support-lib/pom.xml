@@ -14,7 +14,7 @@
 		<version>4.0.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>android</groupId>
@@ -90,7 +90,7 @@
 									<type>jar</type>
 								</artifactItem>
 							</artifactItems>
-							<excludes>**/FragmentActivity*,**/FragmentManager*</excludes>
+							<excludes>**/FragmentActivity*,**/FragmentManager*,**/Fragment.*,**/Fragment$*</excludes>
 							<outputDirectory>${project.build.directory}/classes</outputDirectory>
 						</configuration>
 					</execution>
