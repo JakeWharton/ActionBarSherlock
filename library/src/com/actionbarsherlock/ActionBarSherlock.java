@@ -468,6 +468,10 @@ public abstract class ActionBarSherlock {
             mNativeItemMap.clear();
         }
 
+        if (mMenu == null) {
+        	return false;
+        }
+        
         return mMenu.bindNativeOverflow(menu, mNativeItemListener, mNativeItemMap);
     }
 
