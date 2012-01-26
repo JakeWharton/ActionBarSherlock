@@ -9,6 +9,10 @@
         android:minSdkVersion="7"
         android:targetSdkVersion="15" />
 
+    <uses-feature
+        android:name="android.hardware.touchscreen"
+        android:required="false" />
+
     <application android:label="@string/activity_sample_code"
             android:icon="@drawable/icon"
             android:theme="@style/Theme.Sherlock"
@@ -23,7 +27,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
+
         <activity android:name=".app.MapSimple"
                 android:label="@string/map_activity">
             <intent-filter>
