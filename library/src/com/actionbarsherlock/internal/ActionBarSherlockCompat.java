@@ -701,7 +701,7 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
     }
 
     public static String cleanActivityName(String manifestPackage, String activityName) {
-        if (activityName.startsWith(".")) {
+        if (activityName.charAt(0) == '.') {
             //Relative activity name (e.g., android:name=".ui.SomeClass")
             return manifestPackage + activityName;
         }
