@@ -84,9 +84,9 @@ public abstract class ActionBarSherlock {
      */
     public static ActionBarSherlock wrap(Activity activity, boolean asDelegate) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-            return new ActionBarSherlockNative(activity, asDelegate);
-        } else {
             return new ActionBarSherlockCompat(activity, asDelegate);
+        } else {
+            return new ActionBarSherlockNative(activity, asDelegate);
         }
     }
 
