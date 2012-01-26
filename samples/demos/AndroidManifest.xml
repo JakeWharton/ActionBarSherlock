@@ -128,6 +128,17 @@
         </activity>
         
         <activity
+            android:name=".SplitActionModes"
+            android:label="@string/actionbar_split_action_modes"
+            android:uiOptions="splitActionBarWhenNarrow"
+            android:theme="@style/Theme.Sherlock">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+        
+        <activity
             android:name=".StaticAttachment"
             android:label="@string/actionbar_static"
             android:theme="@style/Theme.Sherlock">

@@ -9,6 +9,7 @@
     <string name="actionbar_feature_toggles">Feature Toggles</string>
     <string name="actionbar_list_navigation">List Navigation</string>
     <string name="actionbar_action_modes">Action Modes</string>
+    <string name="actionbar_split_action_modes">Split Action Modes</string>
     <string name="actionbar_tab_navigation">Tab Navigation</string>
     <string name="actionbar_tab_navigation_collapsed">Tab Navigation (Collapsed)</string>
     <string name="actionbar_overlay">Overlay</string>
