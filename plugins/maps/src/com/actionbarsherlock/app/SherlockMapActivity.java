@@ -19,7 +19,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.google.android.maps.MapActivity;
 
 public abstract class SherlockMapActivity extends MapActivity implements OnCreatePanelMenuListener, OnPreparePanelListener, OnMenuItemSelectedListener, OnActionModeStartedListener, OnActionModeFinishedListener {
-    final ActionBarSherlock mSherlock = ActionBarSherlock.asDelegateFor(this);
+    final ActionBarSherlock mSherlock = ActionBarSherlock.wrap(this, true);
 
 
     ///////////////////////////////////////////////////////////////////////////

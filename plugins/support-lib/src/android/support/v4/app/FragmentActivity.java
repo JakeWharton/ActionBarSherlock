@@ -119,7 +119,7 @@ public class FragmentActivity extends Activity implements OnCreatePanelMenuListe
     HCSparseArray<LoaderManagerImpl> mAllLoaderManagers;
     LoaderManagerImpl mLoaderManager;
 
-    final ActionBarSherlock mSherlock = ActionBarSherlock.asDelegateFor(this);
+    final ActionBarSherlock mSherlock = ActionBarSherlock.wrap(this, true);
 
     static final class NonConfigurationInstances {
         Object activity;
