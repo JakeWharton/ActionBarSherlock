@@ -51,6 +51,7 @@ import android.widget.TextView;
 import com.actionbarsherlock.R;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
+import com.actionbarsherlock.internal.ActionBarSherlockCompat;
 import com.actionbarsherlock.internal.view.menu.ActionMenuItem;
 import com.actionbarsherlock.internal.view.menu.ActionMenuPresenter;
 import com.actionbarsherlock.internal.view.menu.ActionMenuView;
@@ -237,8 +238,8 @@ public class ActionBarView extends AbsActionBarView {
         mExpandedHomeLayout.setContentDescription(getResources().getText(
                 R.string.abs__action_bar_up_description));
 
-        mTitleStyleRes = a.getResourceId(R.styleable.SherlockActionBar_titleTextStyle, 0);
-        mSubtitleStyleRes = a.getResourceId(R.styleable.SherlockActionBar_subtitleTextStyle, 0);
+        mTitleStyleRes = 0;//XXX a.getResourceId(R.styleable.SherlockActionBar_titleTextStyle, 0);
+        mSubtitleStyleRes = 0;//XXX a.getResourceId(R.styleable.SherlockActionBar_subtitleTextStyle, 0);
         mProgressStyle = a.getResourceId(R.styleable.SherlockActionBar_progressBarStyle, 0);
         mIndeterminateProgressStyle = a.getResourceId(
                 R.styleable.SherlockActionBar_indeterminateProgressStyle, 0);
@@ -314,11 +315,7 @@ public class ActionBarView extends AbsActionBarView {
                             if ("logo".equals(attrName)) {
                                 activityLogo = xml.getAttributeResourceValue(i, 0);
                             } else if ("name".equals(attrName)) {
-                                activityPackage = xml.getAttributeValue(i);
-                                //Handle FQCN or relative
-                                if (!activityPackage.startsWith(packageName) && activityPackage.startsWith(".")) {
-                                    activityPackage = packageName + activityPackage;
-                                }
+                                activityPackage = ActionBarSherlockCompat.cleanActivityName(packageName, xml.getAttributeValue(i));
                                 if (!thisPackage.equals(activityPackage)) {
                                     break; //on to the next
                                 }
