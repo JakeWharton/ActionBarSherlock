@@ -957,9 +957,9 @@ public final class ActionBarSherlock {
                             } else if ("name".equals(attrName)) {
                                 activityPackage = xml.getAttributeValue(i);
                                 //Handle FQCN or relative
-                                if (!activityPackage.startsWith(packageName)) {
+                                if (activityPackage.indexOf('.', 1) == -1) {
                                     //Handle unqualified package name
-                                    if(!activityPackage.startsWith(".")) {
+                                    if (!activityPackage.startsWith(".")) {
                                         activityPackage = "." + activityPackage;
                                     }
                                     activityPackage = packageName + activityPackage;
