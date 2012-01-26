@@ -128,7 +128,7 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
 
         if (!mIsDelegate) {
             //We may never get another chance to set the title
-            mActionBar.setTitle(mActivity.getTitle());
+            mActionBarView.setWindowTitle(mActivity.getTitle());
         }
     }
     
@@ -278,8 +278,8 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
         if (mIsDelegate && !mIsTitleReady) {
             return;
         }
-        if (mActionBar != null) {
-            mActionBar.setTitle(title);
+        if (mActionBarView != null) {
+            mActionBarView.setWindowTitle(title);
         }
     }
     

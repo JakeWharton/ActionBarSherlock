@@ -75,8 +75,8 @@ public class SherlockPreferenceActivity extends PreferenceActivity implements On
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
-        mSherlock.dispatchPostCreate(savedInstanceState);
         super.onPostCreate(savedInstanceState);
+        mSherlock.dispatchPostCreate(savedInstanceState);
     }
 
     @Override

@@ -75,8 +75,8 @@ public class SherlockListActivity extends ListActivity implements OnCreatePanelM
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
-        mSherlock.dispatchPostCreate(savedInstanceState);
         super.onPostCreate(savedInstanceState);
+        mSherlock.dispatchPostCreate(savedInstanceState);
     }
 
     @Override
