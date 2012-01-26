@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <style name="Sherlock.Base.Theme" parent="android:Theme.Holo"></style>
+    <style name="Sherlock.Base.Theme.Light" parent="android:Theme.Holo.Light"></style>
+</resources>
