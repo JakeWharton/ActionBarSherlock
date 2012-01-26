@@ -7,9 +7,10 @@ import android.widget.SpinnerAdapter;
 
 import com.actionbarsherlock.app.ActionBar;
 
-public class ActionBarWrapper extends ActionBar {
+public class ActionBarWrapper extends ActionBar implements android.app.ActionBar.OnNavigationListener {
     private final android.app.ActionBar mActionBar;
     
+    private ActionBar.OnNavigationListener mNavigationListener;
     
     public ActionBarWrapper(Activity activity) {
         mActionBar = activity.getActionBar();
@@ -54,9 +55,16 @@ public class ActionBarWrapper extends ActionBar {
 
 	@Override
 	public void setListNavigationCallbacks(SpinnerAdapter adapter, OnNavigationListener callback) {
-		// TODO Auto-generated method stub
-
+		mNavigationListener = callback;
+		mActionBar.setListNavigationCallbacks(adapter, (callback != null) ? this : null);
 	}
+	
+    @Override
+    public boolean onNavigationItemSelected(int itemPosition, long itemId) {
+        //This should never be a NullPointerException since we only set
+        //ourselves as the listener when the callback is not null.
+        return mNavigationListener.onNavigationItemSelected(itemPosition, itemId);
+    }
 
 	@Override
 	public void setSelectedNavigationItem(int position) {
