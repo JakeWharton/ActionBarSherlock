@@ -101,8 +101,6 @@ public abstract class ActionBarSherlock {
 
     /** Whether or not the title is stable and can be displayed. */
     protected boolean mIsTitleReady = false;
-    /** Activity title. */
-    protected CharSequence mTitle;
 
     /** Reference to our custom menu inflater which supports action items. */
     protected MenuInflater mMenuInflater;
@@ -345,8 +343,8 @@ public abstract class ActionBarSherlock {
      * <blockquote><pre>
      * @Override
      * protected void onPostCreate(Bundle savedInstanceState) {
-     *     super.onPostCreate(savedInstanceState);
      *     mSherlock.dispatchPostCreate(savedInstanceState);
+     *     super.onPostCreate(savedInstanceState);
      * }
      * </pre></blockquote>
      *
@@ -361,7 +359,6 @@ public abstract class ActionBarSherlock {
 
         if (mIsDelegate) {
             mIsTitleReady = true;
-            dispatchTitleChanged(mTitle, 0);
         }
     }
 
@@ -620,7 +617,6 @@ public abstract class ActionBarSherlock {
     public void setTitle(CharSequence title) {
         if (DEBUG) Log.d(TAG, "[setTitle] title: " + title);
 
-        mTitle = title;
         dispatchTitleChanged(title, 0);
     }
 

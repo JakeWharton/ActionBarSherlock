@@ -75,8 +75,8 @@ public class SherlockExpandableListActivity extends ExpandableListActivity imple
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
         mSherlock.dispatchPostCreate(savedInstanceState);
+        super.onPostCreate(savedInstanceState);
     }
 
     @Override

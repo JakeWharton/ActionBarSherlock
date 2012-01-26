@@ -75,8 +75,8 @@ public class SherlockActivity extends Activity implements OnCreatePanelMenuListe
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
         mSherlock.dispatchPostCreate(savedInstanceState);
+        super.onPostCreate(savedInstanceState);
     }
 
     @Override
