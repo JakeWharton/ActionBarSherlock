@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <style name="Sherlock.__Theme" parent="android:Theme.Holo.NoActionBar"></style>
+    <style name="Sherlock.__Theme.Light" parent="android:Theme.Holo.Light.NoActionBar"></style>
+</resources>

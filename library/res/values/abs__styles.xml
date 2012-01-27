@@ -1,56 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <style name="Theme.SherlockBase" parent="android:Theme.NoTitleBar"></style>
-    <style name="Theme.SherlockBase.Light" parent="android:Theme.Light.NoTitleBar"></style>
-
-    <style name="Theme.Sherlock" parent="Theme.SherlockBase">
-        <!-- Action bar styles (from Theme.Holo) -->
-        <item name="actionDropDownStyle">@style/Widget.Sherlock.Spinner.DropDown.ActionBar</item>
-        <item name="actionButtonStyle">@style/Widget.Sherlock.ActionButton</item>
-        <item name="actionOverflowButtonStyle">@style/Widget.Sherlock.ActionButton.Overflow</item>
-        <item name="actionModeBackground">@drawable/abs__cab_background_top_holo_dark</item>
-        <item name="actionModeSplitBackground">@drawable/abs__cab_background_bottom_holo_dark</item>
-        <item name="actionModeCloseDrawable">@drawable/abs__ic_cab_done_holo_dark</item>
-        <item name="actionBarTabStyle">@style/Widget.Sherlock.ActionBar.TabView</item>
-        <item name="actionBarTabBarStyle">@style/Widget.Sherlock.ActionBar.TabBar</item>
-        <item name="actionBarTabTextStyle">@style/Widget.Sherlock.ActionBar.TabText</item>
-        <item name="actionModeStyle">@style/Widget.Sherlock.ActionMode</item>
-        <item name="actionModeCloseButtonStyle">@style/Widget.Sherlock.ActionButton.CloseMode</item>
-        <item name="actionBarStyle">@style/Widget.Sherlock.ActionBar</item>
-        <item name="actionBarSize">@dimen/abs__action_bar_default_height</item>
-        <item name="actionModePopupWindowStyle">@style/Widget.Sherlock.PopupWindow.ActionMode</item>
-        <item name="actionBarWidgetTheme">@null</item>
-        
-        <!-- Action bar styles (defaults from Theme) -->
-        <item name="actionBarSplitStyle">?attr/actionBarStyle</item>
-        <item name="actionMenuTextAppearance">@style/TextAppearance.Sherlock.Widget.ActionBar.Menu</item>
-        <item name="actionMenuTextColor">?attr/textColorPrimary</item>
-        <item name="actionBarDivider">?attr/dividerVertical</item>
-        <item name="actionBarItemBackground">@drawable/abs__item_background_holo_dark</item>
-        
-        <item name="homeAsUpIndicator">@drawable/abs__ic_ab_back_holo_dark</item>
-        
-        <item name="dividerVertical">@drawable/abs__list_divider_holo_dark</item>
-        
-        <item name="textColorPrimary">@color/abs__primary_text_holo_dark</item>
-        
-        <item name="dropdownListPreferredItemHeight">48dip</item>
-        <item name="dropDownListViewStyle">@style/Widget.Sherlock.ListView.DropDown</item>
-        
-        <item name="textAppearanceLargePopupMenu">@style/TextAppearance.Sherlock.Widget.PopupMenu.Large</item>
-        <item name="textAppearanceSmallPopupMenu">@style/TextAppearance.Sherlock.Widget.PopupMenu.Small</item>
-        
-        <item name="popupMenuStyle">@style/Widget.Sherlock.PopupMenu</item>
-        
-        <item name="windowActionBar">true</item>
-        <item name="windowActionModeOverlay">false</item>
-        <item name="windowContentOverlay">@null</item>
-    </style>
-    <style name="Theme.Sherlock.ForceOverflow">
-        <item name="absForceOverflow">true</item>
-    </style>
-
     <style name="Widget"></style>
 
     <style name="Widget.Sherlock.ActionBar" parent="Widget">
