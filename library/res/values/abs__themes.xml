@@ -19,7 +19,7 @@
         <item name="actionModeCloseButtonStyle">@style/Widget.Sherlock.ActionButton.CloseMode</item>
         <item name="actionBarStyle">@style/Widget.Sherlock.ActionBar</item>
         <item name="actionBarSize">@dimen/abs__action_bar_default_height</item>
-        <item name="actionModePopupWindowStyle">@style/Widget.Sherlock.PopupWindow.ActionMode</item>
+        <!-- Internal --><item name="actionModePopupWindowStyle">@style/Widget.Sherlock.PopupWindow.ActionMode</item>
         <item name="actionBarWidgetTheme">@null</item>
         
         <!-- Action bar styles (defaults from Theme) -->
@@ -35,7 +35,7 @@
         
         <item name="textColorPrimary">@color/abs__primary_text_holo_dark</item>
         
-        <item name="dropdownListPreferredItemHeight">48dip</item>
+        <!-- Internal --><item name="dropdownListPreferredItemHeight">48dip</item>
         <item name="dropDownListViewStyle">@style/Widget.Sherlock.ListView.DropDown</item>
         
         <item name="textAppearanceLargePopupMenu">@style/TextAppearance.Sherlock.Widget.PopupMenu.Large</item>

@@ -15,7 +15,6 @@
         <item name="android:actionModeCloseButtonStyle">?actionModeCloseButtonStyle</item>
         <item name="android:actionBarStyle">?actionBarStyle</item>
         <item name="android:actionBarSize">?actionBarSize</item>
-        <item name="android:actionModePopupWindowStyle">?actionModePopupWindowStyle</item>
         <item name="android:actionBarWidgetTheme">?actionBarWidgetTheme</item>
         <item name="android:actionBarSplitStyle">?actionBarSplitStyle</item>
         <item name="android:actionMenuTextAppearance">?actionMenuTextAppearance</item>
@@ -25,7 +24,6 @@
         <item name="android:homeAsUpIndicator">?homeAsUpIndicator</item>
         <item name="android:dividerVertical">?dividerVertical</item>
         <item name="android:textColorPrimary">?textColorPrimary</item>
-        <item name="android:dropdownListPreferredItemHeight">?dropdownListPreferredItemHeight</item>
         <item name="android:dropDownListViewStyle">?dropDownListViewStyle</item>
         <item name="android:textAppearanceLargePopupMenu">?textAppearanceLargePopupMenu</item>
         <item name="android:textAppearanceSmallPopupMenu">?textAppearanceSmallPopupMenu</item>
