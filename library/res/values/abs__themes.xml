@@ -15,9 +15,7 @@
         <item name="actionBarTabStyle">@style/Widget.Sherlock.ActionBar.TabView</item>
         <item name="actionBarTabBarStyle">@style/Widget.Sherlock.ActionBar.TabBar</item>
         <item name="actionBarTabTextStyle">@style/Widget.Sherlock.ActionBar.TabText</item>
-        <item name="actionModeStyle">@style/Widget.Sherlock.ActionMode</item>
         <item name="actionModeCloseButtonStyle">@style/Widget.Sherlock.ActionButton.CloseMode</item>
-        <item name="actionBarStyle">@style/Widget.Sherlock.ActionBar</item>
         <item name="actionBarSize">@dimen/abs__action_bar_default_height</item>
         <!-- Internal --><item name="actionModePopupWindowStyle">@style/Widget.Sherlock.PopupWindow.ActionMode</item>
         <item name="actionBarWidgetTheme">@null</item>
@@ -46,6 +44,29 @@
         <item name="windowActionBar">true</item>
         <item name="windowActionModeOverlay">false</item>
         <item name="windowContentOverlay">@null</item>
+        
+        
+        <!-- Action Bar Styles -->
+        <item name="abDisplayOptions">useLogo|showHome|showTitle</item>
+        <item name="abHeight">?actionBarSize</item>
+        <item name="homeLayout">@layout/abs__action_bar_home</item>
+        <item name="abTitleTextStyle">@style/TextAppearance.Sherlock.Widget.ActionBar.Title</item>
+        <item name="abSubtitleTextStyle">@style/TextAppearance.Sherlock.Widget.ActionBar.Subtitle</item>
+        <item name="abBackground">@drawable/abs__ab_transparent_dark_holo</item>
+        <item name="abBackgroundStacked">@drawable/abs__ab_stacked_transparent_dark_holo</item>
+        <item name="abBackgroundSplit">@drawable/abs__ab_bottom_transparent_dark_holo</item>
+        <item name="abDivider">?attr/dividerVertical</item>
+        <item name="abProgressBarStyle">@style/Widget.Sherlock.ProgressBar.Horizontal</item>
+        <item name="abIndeterminateProgressStyle">@style/Widget.Sherlock.ProgressBar</item>
+        <item name="abProgressBarPadding">32dip</item>
+        <item name="abItemPadding">8dip</item>
+        
+        <!-- Action Mode Styles -->
+        <item name="amBackground">?actionModeBackground</item>
+        <item name="amBackgroundSplit">?actionModeSplitBackground</item>
+        <item name="amHeight">?actionBarSize</item>
+        <item name="amTitleTextStyle">@style/TextAppearance.Sherlock.Widget.ActionMode.Title</item>
+        <item name="amSubtitleTextStyle">@style/TextAppearance.Sherlock.Widget.ActionMode.Subtitle</item>
     </style>
     <style name="Theme.Sherlock.Light" parent="Sherlock.__Theme.Light"></style>
     <style name="Theme.Sherlock.Light.DarkActionBar" parent="Sherlock.__Theme.Light"></style>

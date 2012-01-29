@@ -11,9 +11,7 @@
         <item name="android:actionBarTabStyle">?actionBarTabStyle</item>
         <item name="android:actionBarTabBarStyle">?actionBarTabBarStyle</item>
         <item name="android:actionBarTabTextStyle">?actionBarTabTextStyle</item>
-        <item name="android:actionModeStyle">?actionModeStyle</item>
         <item name="android:actionModeCloseButtonStyle">?actionModeCloseButtonStyle</item>
-        <item name="android:actionBarStyle">?actionBarStyle</item>
         <item name="android:actionBarSize">?actionBarSize</item>
         <item name="android:actionBarWidgetTheme">?actionBarWidgetTheme</item>
         <item name="android:actionBarSplitStyle">?actionBarSplitStyle</item>
@@ -31,6 +29,9 @@
         <item name="android:windowActionBar">?windowActionBar</item>
         <item name="android:windowActionModeOverlay">?windowActionModeOverlay</item>
         <item name="android:windowContentOverlay">?windowContentOverlay</item>
+        
+        <item name="android:actionBarStyle">@style/Sherlock.__Widget.ActionBar</item>
+        <item name="android:actionModeStyle">@style/Sherlock.__Widget.ActionMode</item>
     </style>
     
     <style name="Sherlock.__Theme.Light" parent="android:Theme.Holo.Light"></style>
