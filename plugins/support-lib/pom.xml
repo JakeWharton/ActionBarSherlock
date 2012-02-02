@@ -17,14 +17,14 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>android</groupId>
+			<groupId>com.google.android</groupId>
 			<artifactId>android</artifactId>
 			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
-			<groupId>android.support</groupId>
-			<artifactId>compatibility-v4</artifactId>
+			<groupId>com.google.android</groupId>
+			<artifactId>support-v4</artifactId>
 			<scope>provided</scope>
 			<!-- We mark this as provided since we include its sources -->
 		</dependency>
@@ -84,9 +84,9 @@
 						<configuration>
 							<artifactItems>
 								<artifactItem>
-									<groupId>android.support</groupId>
-									<artifactId>compatibility-v4</artifactId>
-									<version>${android.compat.version}</version>
+									<groupId>com.google.android</groupId>
+									<artifactId>support-v4</artifactId>
+									<version>${android-support.version}</version>
 									<type>jar</type>
 								</artifactItem>
 							</artifactItems>
