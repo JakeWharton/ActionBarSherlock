@@ -40,17 +40,17 @@ import android.view.animation.AnimationUtils;
 public class ActionBarSherlockCompat extends ActionBarSherlock {
     /** Window features which are enabled by default. */
     protected static final int DEFAULT_FEATURES = (1 << Window.FEATURE_ACTION_BAR);
-    
-    
+
+
     public ActionBarSherlockCompat(Activity activity, boolean isDelegate) {
         super(activity, isDelegate);
     }
 
-    
+
     ///////////////////////////////////////////////////////////////////////////
     // Properties
     ///////////////////////////////////////////////////////////////////////////
-    
+
     /** Whether or not the device has a dedicated menu key button. */
     private boolean mReserveOverflow;
     /** Lazy-load indicator for {@link #mReserveOverflow}. */
@@ -80,7 +80,7 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
     /** Parent view in which the context action bar is displayed. */
     private ActionBarContextView mActionModeView;
 
-    
+
     ///////////////////////////////////////////////////////////////////////////
     // Lifecycle and interaction callbacks when delegating
     ///////////////////////////////////////////////////////////////////////////
@@ -93,11 +93,11 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
         }
     };
 
-    
+
     ///////////////////////////////////////////////////////////////////////////
     // Instance methods
     ///////////////////////////////////////////////////////////////////////////
-    
+
     /**
      * Determine whether or not the device has a dedicated menu key.
      *
@@ -131,11 +131,11 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
             mActionBarView.setWindowTitle(mActivity.getTitle());
         }
     }
-    
+
     protected Context getThemedContext() {
         return mActionBar.getThemedContext();
     }
-    
+
     @Override
     public ActionMode startActionMode(ActionMode.Callback callback) {
         if (mActionBar != null) {
@@ -178,11 +178,11 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
     ///////////////////////////////////////////////////////////////////////////
     // Lifecycle and interaction callbacks when delegating
     ///////////////////////////////////////////////////////////////////////////
-    
+
     @Override
     public void dispatchConfigurationChanged(Configuration newConfig) {
         if (DEBUG) Log.d(TAG, "[dispatchConfigurationChanged] newConfig: " + newConfig);
-        
+
         if (mActionBar != null) {
             mActionBar.onConfigurationChanged(newConfig);
         }
@@ -225,7 +225,7 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
 
         return mActionBarView.showOverflowMenu();
     }
-    
+
     @Override
     public boolean dispatchCloseOptionsMenu() {
         if (DEBUG) Log.d(TAG, "[dispatchCloseOptionsMenu]");
@@ -236,16 +236,16 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
 
         return mActionBarView.hideOverflowMenu();
     }
-    
+
     @Override
     public void dispatchPostCreate(Bundle savedInstanceState) {
         super.dispatchPostCreate(savedInstanceState);
-        
+
         if (mDecor == null) {
             initActionBar();
         }
     }
-    
+
     @Override
     public boolean dispatchMenuOpened(int featureId, android.view.Menu menu) {
         if (DEBUG) Log.d(TAG, "[dispatchMenuOpened] featureId: " + featureId + ", menu: " + menu);
@@ -282,7 +282,7 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
             mActionBarView.setWindowTitle(title);
         }
     }
-    
+
     @Override
     public boolean dispatchKeyUp(int keyCode, KeyEvent event) {
         if (DEBUG) Log.d(TAG, "[dispatchKeyUp] keyCode: " + keyCode + ", event: " + event);
@@ -359,7 +359,7 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
             }
         }
     }
-    
+
     protected void setMenu(Menu menu, MenuPresenter.Callback cb) {
         mActionBar.setMenu(menu, cb);
     }
@@ -367,19 +367,19 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
 
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
-    
+
     @Override
     public void setProgressBarVisibility(boolean visible) {
         setFeatureInt(Window.FEATURE_PROGRESS, visible ? Window.PROGRESS_VISIBILITY_ON :
             Window.PROGRESS_VISIBILITY_OFF);
     }
-    
+
     @Override
     public void setProgressBarIndeterminateVisibility(boolean visible) {
         setFeatureInt(Window.FEATURE_INDETERMINATE_PROGRESS,
                 visible ? Window.PROGRESS_VISIBILITY_ON : Window.PROGRESS_VISIBILITY_OFF);
     }
-    
+
     @Override
     public void setProgressBarIndeterminate(boolean indeterminate) {
         setFeatureInt(Window.FEATURE_PROGRESS,
@@ -390,7 +390,7 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
     public void setProgress(int progress) {
         setFeatureInt(Window.FEATURE_PROGRESS, progress + Window.PROGRESS_START);
     }
-    
+
     @Override
     public void setSecondaryProgress(int secondaryProgress) {
         setFeatureInt(Window.FEATURE_PROGRESS,
@@ -400,20 +400,20 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
     ///////////////////////////////////////////////////////////////////////////
     // XXX
     ///////////////////////////////////////////////////////////////////////////
-    
+
     private int getFeatures() {
         if (DEBUG) Log.d(TAG, "[getFeatures]");
 
         return mFeatures;
     }
-    
+
     @Override
     public boolean hasFeature(int featureId) {
         if (DEBUG) Log.d(TAG, "[hasFeature] featureId: " + featureId);
 
         return (mFeatures & (1 << featureId)) != 0;
     }
-    
+
     @Override
     public boolean requestFeature(int featureId) {
         if (DEBUG) Log.d(TAG, "[requestFeature] featureId: " + featureId);
@@ -436,7 +436,7 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
                 return false;
         }
     }
-    
+
     @Override
     public void setUiOptions(int uiOptions) {
         if (DEBUG) Log.d(TAG, "[setUiOptions] uiOptions: " + uiOptions);
@@ -450,7 +450,7 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
 
         mUiOptions = (mUiOptions & ~mask) | (uiOptions & mask);
     }
-    
+
     @Override
     public void setContentView(int layoutResId) {
         if (DEBUG) Log.d(TAG, "[setContentView] layoutResId: " + layoutResId);
@@ -469,7 +469,7 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
 
         initActionBar();
     }
-    
+
     @Override
     public void setContentView(View view, ViewGroup.LayoutParams params) {
         if (DEBUG) Log.d(TAG, "[setContentView] view: " + view + ", params: " + params);
@@ -488,7 +488,7 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
 
         initActionBar();
     }
-    
+
     @Override
     public void addContentView(View view, ViewGroup.LayoutParams params) {
         if (DEBUG) Log.d(TAG, "[addContentView] view: " + view + ", params: " + params);
@@ -520,13 +520,13 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
 
         onIntChanged(featureId, value);
     }
-    
+
     private void onIntChanged(int featureId, int value) {
         if (featureId == Window.FEATURE_PROGRESS || featureId == Window.FEATURE_INDETERMINATE_PROGRESS) {
             updateProgressBars(value);
         }
     }
-    
+
     private void updateProgressBars(int value) {
         IcsProgressBar circularProgressBar = getCircularProgressBar(true);
         IcsProgressBar horizontalProgressBar = getHorizontalProgressBar(true);

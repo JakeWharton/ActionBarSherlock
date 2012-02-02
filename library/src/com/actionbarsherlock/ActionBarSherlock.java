@@ -293,7 +293,7 @@ public abstract class ActionBarSherlock {
 
         setMenu(mMenu, mMenuPresenterCallback);
     }
-    
+
     protected abstract void setMenu(Menu menu, MenuPresenter.Callback cb);
 
     /**
@@ -469,9 +469,9 @@ public abstract class ActionBarSherlock {
         }
 
         if (mMenu == null) {
-        	return false;
+            return false;
         }
-        
+
         return mMenu.bindNativeOverflow(menu, mNativeItemListener, mNativeItemMap);
     }
 
@@ -707,9 +707,9 @@ public abstract class ActionBarSherlock {
         }
         return mMenuInflater;
     }
-    
+
     protected abstract Context getThemedContext();
-    
+
     protected void reopenMenu(boolean toggleMenuMode) {}
 
     /**
