@@ -9,15 +9,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
-import android.view.Window;
 
 public class ActionBarSherlockNative extends ActionBarSherlock {
-    private final Window mWindow;
-    
     public ActionBarSherlockNative(Activity activity, boolean isDelegate) {
         super(activity, isDelegate);
-
-        mWindow = activity.getWindow();
     }
 
     @Override
@@ -34,39 +29,39 @@ public class ActionBarSherlockNative extends ActionBarSherlock {
 
     @Override
     public boolean hasFeature(int feature) {
-        return mWindow.hasFeature(feature);
+        return mActivity.getWindow().hasFeature(feature);
     }
 
     @Override
     public boolean requestFeature(int featureId) {
-        return mWindow.requestFeature(featureId);
+        return mActivity.getWindow().requestFeature(featureId);
     }
 
     @Override
     public void setUiOptions(int uiOptions) {
-        mWindow.setUiOptions(uiOptions);
+        mActivity.getWindow().setUiOptions(uiOptions);
     }
 
     @Override
     public void setUiOptions(int uiOptions, int mask) {
-        mWindow.setUiOptions(uiOptions, mask);
+        mActivity.getWindow().setUiOptions(uiOptions, mask);
     }
 
     @Override
     public void setContentView(int layoutResId) {
-        mWindow.setContentView(layoutResId);
+        mActivity.getWindow().setContentView(layoutResId);
         initActionBar();
     }
 
     @Override
     public void setContentView(View view, LayoutParams params) {
-        mWindow.setContentView(view, params);
+        mActivity.getWindow().setContentView(view, params);
         initActionBar();
     }
 
     @Override
     public void addContentView(View view, LayoutParams params) {
-        mWindow.addContentView(view, params);
+        mActivity.getWindow().addContentView(view, params);
         initActionBar();
     }
 
