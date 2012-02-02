@@ -61,20 +61,20 @@ public abstract class ActionBar {
      * will dispatch onOptionsItemSelected to the host Activity with
      * a MenuItem with item ID android.R.id.home.
      */
-    public static final int NAVIGATION_MODE_STANDARD = 1;
+    public static final int NAVIGATION_MODE_STANDARD = android.app.ActionBar.NAVIGATION_MODE_STANDARD;
 
     /**
      * List navigation mode. Instead of static title text this mode
      * presents a list menu for navigation within the activity.
      * e.g. this might be presented to the user as a dropdown list.
      */
-    public static final int NAVIGATION_MODE_LIST = 2;
+    public static final int NAVIGATION_MODE_LIST = android.app.ActionBar.NAVIGATION_MODE_LIST;
 
     /**
      * Tab navigation mode. Instead of static title text this mode
      * presents a series of tabs for navigation within the activity.
      */
-    public static final int NAVIGATION_MODE_TABS = 3;
+    public static final int NAVIGATION_MODE_TABS = android.app.ActionBar.NAVIGATION_MODE_TABS;
 
     /**
      * Use logo instead of icon if available. This flag will cause appropriate
@@ -83,7 +83,7 @@ public abstract class ActionBar {
      * @see #setDisplayOptions(int)
      * @see #setDisplayOptions(int, int)
      */
-    public static final int DISPLAY_USE_LOGO = 0x01;
+    public static final int DISPLAY_USE_LOGO = android.app.ActionBar.DISPLAY_USE_LOGO;
 
     /**
      * Show 'home' elements in this action bar, leaving more space for other
@@ -92,7 +92,7 @@ public abstract class ActionBar {
      * @see #setDisplayOptions(int)
      * @see #setDisplayOptions(int, int)
      */
-    public static final int DISPLAY_SHOW_HOME = 0x02;
+    public static final int DISPLAY_SHOW_HOME = android.app.ActionBar.DISPLAY_SHOW_HOME;
 
     /**
      * Display the 'home' element such that it appears as an 'up' affordance.
@@ -107,7 +107,7 @@ public abstract class ActionBar {
      * @see #setDisplayOptions(int)
      * @see #setDisplayOptions(int, int)
      */
-    public static final int DISPLAY_HOME_AS_UP = 0x04;
+    public static final int DISPLAY_HOME_AS_UP = android.app.ActionBar.DISPLAY_HOME_AS_UP;
 
     /**
      * Show the activity title and subtitle, if present.
@@ -119,7 +119,7 @@ public abstract class ActionBar {
      * @see #setDisplayOptions(int)
      * @see #setDisplayOptions(int, int)
      */
-    public static final int DISPLAY_SHOW_TITLE = 0x08;
+    public static final int DISPLAY_SHOW_TITLE = android.app.ActionBar.DISPLAY_SHOW_TITLE;
 
     /**
      * Show the custom view if one has been set.
@@ -127,7 +127,7 @@ public abstract class ActionBar {
      * @see #setDisplayOptions(int)
      * @see #setDisplayOptions(int, int)
      */
-    public static final int DISPLAY_SHOW_CUSTOM = 0x10;
+    public static final int DISPLAY_SHOW_CUSTOM = android.app.ActionBar.DISPLAY_SHOW_CUSTOM;
 
     /**
      * Set the action bar into custom navigation mode, supplying a view
