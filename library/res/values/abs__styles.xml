@@ -3,6 +3,26 @@
 <resources>
     <style name="Widget"></style>
 
+    <style name="Widget.Sherlock.ActionBar" parent="Widget">
+        <item name="displayOptions">useLogo|showHome|showTitle</item>
+        <item name="height">?attr/actionBarSize</item>
+        <item name="android:paddingLeft">0dip</item>
+        <item name="android:paddingTop">0dip</item>
+        <item name="android:paddingRight">0dip</item>
+        <item name="android:paddingBottom">0dip</item>
+        <item name="homeLayout">@layout/abs__action_bar_home</item>
+        
+        <item name="titleTextStyle">@style/TextAppearance.Sherlock.Widget.ActionBar.Title</item>
+        <item name="subtitleTextStyle">@style/TextAppearance.Sherlock.Widget.ActionBar.Subtitle</item>
+        <item name="background">@drawable/abs__ab_transparent_dark_holo</item>
+        <item name="backgroundStacked">@drawable/abs__ab_stacked_transparent_dark_holo</item>
+        <item name="backgroundSplit">@drawable/abs__ab_bottom_transparent_dark_holo</item>
+        <item name="divider">?attr/dividerVertical</item>
+        <item name="progressBarStyle">@style/Widget.Sherlock.ProgressBar.Horizontal</item>
+        <item name="indeterminateProgressStyle">@style/Widget.Sherlock.ProgressBar</item>
+        <item name="progressBarPadding">32dip</item>
+        <item name="itemPadding">8dip</item>
+    </style>
     <style name="Widget.Sherlock.ActionBar.TabView" parent="Widget">
         <item name="android:gravity">center_horizontal</item>
         <item name="android:background">@drawable/abs__tab_indicator_holo</item>
@@ -41,6 +61,15 @@
         <item name="android:src">@drawable/abs__ic_menu_moreoverflow_holo_dark</item>
         <item name="android:background">?attr/actionBarItemBackground</item>
         <item name="android:contentDescription">@string/abs__action_menu_overflow_description</item>
+    </style>
+    
+    <style name="Widget.Sherlock.ActionMode" parent="Widget">
+        <item name="background">?attr/actionModeBackground</item>
+        <item name="backgroundSplit">?attr/actionModeSplitBackground</item>
+        <item name="height">?attr/actionBarSize</item>
+        
+        <item name="titleTextStyle">@style/TextAppearance.Sherlock.Widget.ActionMode.Title</item>
+        <item name="subtitleTextStyle">@style/TextAppearance.Sherlock.Widget.ActionMode.Subtitle</item>
     </style>
     
     

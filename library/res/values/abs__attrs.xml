@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
+    <attr name="titleTextStyle" format="reference" />
+    <attr name="subtitleTextStyle" format="reference" />
+    <attr name="background" format="reference" />
+    <attr name="backgroundSplit" format="reference" />
+    <attr name="height" format="dimension" />
+    <attr name="divider" format="reference" />
+    
     <declare-styleable name="SherlockTheme">
         <!-- =================== -->
         <!-- Action bar styles   -->
@@ -12,7 +19,7 @@
         <attr name="actionBarTabTextStyle" format="reference" />
         <attr name="actionOverflowButtonStyle" format="reference" />
         <!-- Reference to a style for the Action Bar -->
-        <!--attr name="actionBarStyle" format="reference" /-->
+        <attr name="actionBarStyle" format="reference" />
         <!-- Reference to a style for the split Action Bar. This style
              controls the split component that holds the menu/action
              buttons. actionBarStyle is still used for the primary
@@ -45,7 +52,7 @@
         <!-- Action mode styles  -->
         <!-- =================== -->
         <eat-comment />
-        <!--attr name="actionModeStyle" format="reference" /-->
+        <attr name="actionModeStyle" format="reference" />
         <attr name="actionModeCloseButtonStyle" format="reference" />
         <!-- Background drawable to use for action mode UI -->
         <attr name="actionModeBackground" format="reference" />
@@ -124,10 +131,11 @@
         <attr name="absForceOverflow" format="boolean" />
     </declare-styleable>
     
+
     <!-- Attributes used to style the Action Bar. -->
     <declare-styleable name="SherlockActionBar">
         <!-- The type of navigation to use. -->
-        <attr name="abNavigationMode">
+        <attr name="navigationMode">
             <!-- Normal static title text -->
             <enum name="normal" value="0" />
             <!-- The action bar will use a selection list for navigation. -->
@@ -136,7 +144,7 @@
             <enum name="tabMode" value="2" />
         </attr>
         <!-- Options affecting how the action bar is displayed. -->
-        <attr name="abDisplayOptions">
+        <attr name="displayOptions">
             <flag name="useLogo" value="0x1" />
             <flag name="showHome" value="0x2" />
             <flag name="homeAsUp" value="0x4" />
@@ -145,53 +153,54 @@
             <flag name="disableHome" value="0x20" />
         </attr>
         <!-- Specifies title text used for navigationMode="normal" -->
-        <attr name="abTitle" format="string" />
+        <attr name="title" format="string" />
         <!-- Specifies subtitle text used for navigationMode="normal" -->
-        <attr name="abSubtitle" format="string" />
+        <attr name="subtitle" format="string" />
         <!-- Specifies a style to use for title text. -->
-        <attr name="abTitleTextStyle" format="reference" />
+        <attr name="titleTextStyle" />
         <!-- Specifies a style to use for subtitle text. -->
-        <attr name="abSubtitleTextStyle" format="reference" />
+        <attr name="subtitleTextStyle" />
         <!-- Specifies the drawable used for the application icon. -->
-        <attr name="abIcon" format="reference" />
+        <attr name="icon" format="reference" />
         <!-- Specifies the drawable used for the application logo. -->
-        <attr name="abLogo" format="reference" />
+        <attr name="logo" format="reference" />
         <!-- Specifies the drawable used for item dividers. -->
-        <attr name="abDivider" format="reference" />
+        <attr name="divider" />
         <!-- Specifies a background drawable for the action bar. -->
-        <attr name="abBackground" format="reference" />
+        <attr name="background" />
         <!-- Specifies a background drawable for a second stacked row of the action bar. -->
-        <attr name="abBackgroundStacked" format="reference|color" />
+        <attr name="backgroundStacked" format="reference|color" />
         <!-- Specifies a background drawable for the bottom component of a split action bar. -->
-        <attr name="abBackgroundSplit" format="reference" />
+        <attr name="backgroundSplit" />
         <!-- Specifies a layout for custom navigation. Overrides navigationMode. -->
-        <attr name="abCustomNavigationLayout" format="reference" />
+        <attr name="customNavigationLayout" format="reference" />
         <!-- Specifies a fixed height. -->
-        <attr name="abHeight" format="dimension" />
+        <attr name="height" />
         <!-- Specifies a layout to use for the "home" section of the action bar. -->
-        <!-- Internal --><attr name="homeLayout" format="reference" />
+        <attr name="homeLayout" format="reference" />
         <!-- Specifies a style resource to use for an embedded progress bar. -->
-        <attr name="abProgressBarStyle" format="reference" />
+        <attr name="progressBarStyle" format="reference" />
         <!-- Specifies a style resource to use for an indeterminate progress spinner. -->
-        <attr name="abIndeterminateProgressStyle" format="reference" />
+        <attr name="indeterminateProgressStyle" format="reference" />
         <!-- Specifies the horizontal padding on either end for an embedded progress bar. -->
-        <attr name="abProgressBarPadding" format="dimension" />
+        <attr name="progressBarPadding" format="dimension" />
         <!-- Specifies padding that should be applied to the left and right sides of
              system-provided items in the bar. -->
-        <attr name="abItemPadding" format="dimension" />
+        <attr name="itemPadding" format="dimension" />
     </declare-styleable>
     
+
     <declare-styleable name="SherlockActionMode">
         <!-- Specifies a style to use for title text. -->
-        <attr name="amTitleTextStyle" format="reference" />
+        <attr name="titleTextStyle" />
         <!-- Specifies a style to use for subtitle text. -->
-        <attr name="amSubtitleTextStyle" format="reference" />
+        <attr name="subtitleTextStyle" />
         <!-- Specifies a background for the action mode bar. -->
-        <attr name="amBackground" format="reference" />
+        <attr name="background" />
         <!-- Specifies a background for the split action mode bar. -->
-        <attr name="amBackgroundSplit" format="reference" />
+        <attr name="backgroundSplit" />
         <!-- Specifies a fixed height for the action mode bar. -->
-        <attr name="amHeight" format="dimension" />
+        <attr name="height" />
     </declare-styleable>
     
     <declare-styleable name="SherlockMenuView">
