@@ -4,6 +4,8 @@ import com.actionbarsherlock.ActionBarSherlock;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.internal.app.ActionBarWrapper;
 import com.actionbarsherlock.view.ActionMode;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
@@ -15,6 +17,7 @@ import android.view.ViewGroup.LayoutParams;
 
 public class ActionBarSherlockNative extends ActionBarSherlock {
     private ActionBarWrapper mActionBar;
+    private ActionModeWrapper mActionMode;
 
     public ActionBarSherlockNative(Activity activity, boolean isDelegate) {
         super(activity, isDelegate);
@@ -188,7 +191,116 @@ public class ActionBarSherlockNative extends ActionBarSherlock {
     public ActionMode startActionMode(com.actionbarsherlock.view.ActionMode.Callback callback) {
         if (DEBUG) Log.d(TAG, "[startActionMode] callback: " + callback);
 
-        // TODO Auto-generated method stub
-        return null;
+        if (mActionMode != null) {
+            mActionMode.finish();
+        }
+        ActionModeCallbackWrapper wrapped = null;
+        if (callback != null) {
+            wrapped = new ActionModeCallbackWrapper(callback);
+        }
+        android.view.ActionMode actionMode = mActivity.startActionMode(wrapped);
+        if (actionMode != null) {
+            mActionMode = new ActionModeWrapper(actionMode);
+        } else {
+            mActionMode = null;
+        }
+        return mActionMode;
+    }
+
+    private class ActionModeCallbackWrapper implements android.view.ActionMode.Callback {
+        private final ActionMode.Callback mCallback;
+
+        public ActionModeCallbackWrapper(ActionMode.Callback callback) {
+            mCallback = callback;
+        }
+
+        @Override
+        public boolean onCreateActionMode(android.view.ActionMode mode, android.view.Menu menu) {
+            return mCallback.onCreateActionMode(mActionMode, mActionMode.getMenu());
+        }
+
+        @Override
+        public boolean onPrepareActionMode(android.view.ActionMode mode, android.view.Menu menu) {
+            return mCallback.onPrepareActionMode(mActionMode, mActionMode.getMenu());
+        }
+
+        @Override
+        public boolean onActionItemClicked(android.view.ActionMode mode, android.view.MenuItem item) {
+            return mCallback.onActionItemClicked(mActionMode, null/*TODO*/);
+        }
+
+        @Override
+        public void onDestroyActionMode(android.view.ActionMode mode) {
+            mCallback.onDestroyActionMode(mActionMode);
+        }
+    }
+
+    private class ActionModeWrapper extends ActionMode {
+        private final android.view.ActionMode mActionMode;
+
+        ActionModeWrapper(android.view.ActionMode actionMode) {
+            mActionMode = actionMode;
+        }
+
+        @Override
+        public void setTitle(CharSequence title) {
+            mActionMode.setTitle(title);
+        }
+
+        @Override
+        public void setTitle(int resId) {
+            mActionMode.setTitle(resId);
+        }
+
+        @Override
+        public void setSubtitle(CharSequence subtitle) {
+            mActionMode.setSubtitle(subtitle);
+        }
+
+        @Override
+        public void setSubtitle(int resId) {
+            mActionMode.setSubtitle(resId);
+        }
+
+        @Override
+        public void setCustomView(View view) {
+            mActionMode.setCustomView(view);
+        }
+
+        @Override
+        public void invalidate() {
+            mActionMode.invalidate();
+        }
+
+        @Override
+        public void finish() {
+            mActionMode.finish();
+        }
+
+        @Override
+        public Menu getMenu() {
+            // TODO Auto-generated method stub
+            return null;
+        }
+
+        @Override
+        public CharSequence getTitle() {
+            return mActionMode.getTitle();
+        }
+
+        @Override
+        public CharSequence getSubtitle() {
+            return mActionMode.getSubtitle();
+        }
+
+        @Override
+        public View getCustomView() {
+            return mActionMode.getCustomView();
+        }
+
+        @Override
+        public MenuInflater getMenuInflater() {
+            return ActionBarSherlockNative.this.getMenuInflater();
+        }
     }
 }
