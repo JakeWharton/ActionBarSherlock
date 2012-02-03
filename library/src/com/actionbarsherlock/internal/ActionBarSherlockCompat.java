@@ -2,13 +2,18 @@ package com.actionbarsherlock.internal;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
+import java.util.HashMap;
+
 import org.xmlpull.v1.XmlPullParser;
 
 import com.actionbarsherlock.ActionBarSherlock;
 import com.actionbarsherlock.R;
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.internal.app.ActionBarImpl;
 import com.actionbarsherlock.internal.view.StandaloneActionMode;
 import com.actionbarsherlock.internal.view.menu.ActionMenuPresenter;
+import com.actionbarsherlock.internal.view.menu.MenuBuilder;
+import com.actionbarsherlock.internal.view.menu.MenuItemImpl;
 import com.actionbarsherlock.internal.view.menu.MenuPresenter;
 import com.actionbarsherlock.internal.widget.ActionBarContainer;
 import com.actionbarsherlock.internal.widget.ActionBarContextView;
@@ -16,6 +21,7 @@ import com.actionbarsherlock.internal.widget.ActionBarView;
 import com.actionbarsherlock.internal.widget.IcsProgressBar;
 import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
 import android.app.Activity;
@@ -28,6 +34,9 @@ import android.content.res.XmlResourceParser;
 import android.os.Bundle;
 import android.util.AndroidRuntimeException;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.ContextThemeWrapper;
+import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,6 +102,20 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
         }
     };
 
+    /** Action bar menu-related callbacks. */
+    private final MenuPresenter.Callback mMenuPresenterCallback = new MenuPresenter.Callback() {
+        @Override
+        public boolean onOpenSubMenu(MenuBuilder subMenu) {
+            // TODO Auto-generated method stub
+            return false;
+        }
+
+        @Override
+        public void onCloseMenu(MenuBuilder menu, boolean allMenusAreClosing) {
+            // TODO Auto-generated method stub
+        }
+    };
+
 
     ///////////////////////////////////////////////////////////////////////////
     // Instance methods
@@ -111,6 +134,14 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
         return mReserveOverflow;
     }
 
+    @Override
+    public ActionBar getActionBar() {
+        if (DEBUG) Log.d(TAG, "[getActionBar]");
+
+        initActionBar();
+        return mActionBar;
+    }
+
     protected void initActionBar() {
         if (DEBUG) Log.d(TAG, "[initActionBar]");
 
@@ -124,7 +155,7 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
             return;
         }
 
-        mActionBarPublic = mActionBar = new ActionBarImpl(mActivity, mFeatures);
+        mActionBar = new ActionBarImpl(mActivity, mFeatures);
 
         if (!mIsDelegate) {
             //We may never get another chance to set the title
@@ -132,8 +163,20 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
         }
     }
 
-    protected Context getThemedContext() {
-        return mActionBar.getThemedContext();
+    @Override
+    public MenuInflater getMenuInflater() {
+        if (DEBUG) Log.d(TAG, "[getMenuInflater]");
+
+        // Make sure that action views can get an appropriate theme.
+        if (mMenuInflater == null) {
+            initActionBar();
+            if (mActionBar != null) {
+                mMenuInflater = new MenuInflater(mActionBar.getThemedContext());
+            } else {
+                mMenuInflater = new MenuInflater(mActivity);
+            }
+        }
+        return mMenuInflater;
     }
 
     @Override
@@ -216,6 +259,52 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
     }
 
     @Override
+    public void dispatchInvalidateOptionsMenu() {
+        if (DEBUG) Log.d(TAG, "[dispatchInvalidateOptionsMenu]");
+
+        if (mMenu == null) {
+            Context context = mActivity;
+            if (mActionBar != null) {
+                TypedValue outValue = new TypedValue();
+                mActivity.getTheme().resolveAttribute(R.attr.actionBarWidgetTheme, outValue, true);
+                if (outValue.resourceId != 0) {
+                    //We are unable to test if this is the same as our current theme
+                    //so we just wrap it and hope that if the attribute was specified
+                    //then the user is intentionally specifying an alternate theme.
+                    context = new ContextThemeWrapper(context, outValue.resourceId);
+                }
+            }
+            mMenu = new MenuBuilder(context);
+            mMenu.setCallback(mMenuBuilderCallback);
+        }
+
+        mMenu.stopDispatchingItemsChanged();
+        mMenu.clear();
+
+        if (!dispatchCreateOptionsMenu()) {
+            if (mActionBar != null) {
+                setMenu(null, mMenuPresenterCallback);
+            }
+            return;
+        }
+
+        if (!dispatchPrepareOptionsMenu()) {
+            if (mActionBar != null) {
+                setMenu(null, mMenuPresenterCallback);
+            }
+            mMenu.startDispatchingItemsChanged();
+            return;
+        }
+
+        //TODO figure out KeyEvent? See PhoneWindow#preparePanel
+        KeyCharacterMap kmap = KeyCharacterMap.load(KeyCharacterMap.VIRTUAL_KEYBOARD);
+        mMenu.setQwertyMode(kmap.getKeyboardType() != KeyCharacterMap.NUMERIC);
+        mMenu.startDispatchingItemsChanged();
+
+        setMenu(mMenu, mMenuPresenterCallback);
+    }
+
+    @Override
     public boolean dispatchOpenOptionsMenu() {
         if (DEBUG) Log.d(TAG, "[dispatchOpenOptionsMenu]");
 
@@ -239,11 +328,40 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
 
     @Override
     public void dispatchPostCreate(Bundle savedInstanceState) {
-        super.dispatchPostCreate(savedInstanceState);
+        if (DEBUG) Log.d(TAG, "[dispatchOnPostCreate]");
+
+        if (mIsDelegate) {
+            mIsTitleReady = true;
+        }
 
         if (mDecor == null) {
             initActionBar();
         }
+    }
+
+    @Override
+    public boolean dispatchPrepareOptionsMenu(android.view.Menu menu) {
+        if (DEBUG) Log.d(TAG, "[dispatchPrepareOptionsMenu] android.view.Menu: " + menu);
+
+        if (!dispatchPrepareOptionsMenu()) {
+            return false;
+        }
+
+        if (isReservingOverflow()) {
+            return false;
+        }
+
+        if (mNativeItemMap == null) {
+            mNativeItemMap = new HashMap<android.view.MenuItem, MenuItemImpl>();
+        } else {
+            mNativeItemMap.clear();
+        }
+
+        if (mMenu == null) {
+            return false;
+        }
+
+        return mMenu.bindNativeOverflow(menu, mNativeItemListener, mNativeItemMap);
     }
 
     @Override

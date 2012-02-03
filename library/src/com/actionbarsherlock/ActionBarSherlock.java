@@ -3,14 +3,10 @@ package com.actionbarsherlock;
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import java.util.HashMap;
 import android.app.Activity;
-import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.TypedValue;
-import android.view.ContextThemeWrapper;
-import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,9 +87,6 @@ public abstract class ActionBarSherlock {
     }
 
 
-    /** Implementation which backs the action bar interface API. */
-    protected ActionBar mActionBarPublic;
-
     /** Activity which is displaying the action bar. Also used for context. */
     protected final Activity mActivity;
     /** Whether delegating actions for the activity or managing ourselves. */
@@ -114,22 +107,8 @@ public abstract class ActionBarSherlock {
     protected boolean mLastPrepareResult;
 
 
-    /** Action bar menu-related callbacks. */
-    private final MenuPresenter.Callback mMenuPresenterCallback = new MenuPresenter.Callback() {
-        @Override
-        public boolean onOpenSubMenu(MenuBuilder subMenu) {
-            // TODO Auto-generated method stub
-            return false;
-        }
-
-        @Override
-        public void onCloseMenu(MenuBuilder menu, boolean allMenusAreClosing) {
-            // TODO Auto-generated method stub
-        }
-    };
-
     /** Menu callbacks triggered with actions on our items. */
-    private final MenuBuilder.Callback mMenuBuilderCallback = new MenuBuilder.Callback() {
+    protected final MenuBuilder.Callback mMenuBuilderCallback = new MenuBuilder.Callback() {
         @Override
         public void onMenuModeChange(MenuBuilder menu) {
             reopenMenu(true);
@@ -142,7 +121,7 @@ public abstract class ActionBarSherlock {
     };
 
     /** Native menu item callback which proxies to our callback. */
-    private final android.view.MenuItem.OnMenuItemClickListener mNativeItemListener = new android.view.MenuItem.OnMenuItemClickListener() {
+    protected final android.view.MenuItem.OnMenuItemClickListener mNativeItemListener = new android.view.MenuItem.OnMenuItemClickListener() {
         @Override
         public boolean onMenuItemClick(android.view.MenuItem item) {
             if (DEBUG) Log.d(TAG, "[mNativeItemListener.onMenuItemClick] item: " + item);
@@ -173,14 +152,7 @@ public abstract class ActionBarSherlock {
      *
      * @return Action bar instance.
      */
-    public ActionBar getActionBar() {
-        if (DEBUG) Log.d(TAG, "[getActionBar]");
-
-        initActionBar();
-        return mActionBarPublic;
-    }
-
-    protected abstract void initActionBar();
+    public abstract ActionBar getActionBar();
 
 
     ///////////////////////////////////////////////////////////////////////////
@@ -249,50 +221,7 @@ public abstract class ActionBarSherlock {
      * Indicate that the menu should be recreated by calling
      * {@link OnCreateOptionsMenuListener#onCreateOptionsMenu(com.actionbarsherlock.view.Menu)}.
      */
-    public void dispatchInvalidateOptionsMenu() {
-        if (DEBUG) Log.d(TAG, "[dispatchInvalidateOptionsMenu]");
-
-        if (mMenu == null) {
-            Context context = mActivity;
-            if (mActionBarPublic != null) {
-                TypedValue outValue = new TypedValue();
-                mActivity.getTheme().resolveAttribute(R.attr.actionBarWidgetTheme, outValue, true);
-                if (outValue.resourceId != 0) {
-                    //We are unable to test if this is the same as our current theme
-                    //so we just wrap it and hope that if the attribute was specified
-                    //then the user is intentionally specifying an alternate theme.
-                    context = new ContextThemeWrapper(context, outValue.resourceId);
-                }
-            }
-            mMenu = new MenuBuilder(context);
-            mMenu.setCallback(mMenuBuilderCallback);
-        }
-
-        mMenu.stopDispatchingItemsChanged();
-        mMenu.clear();
-
-        if (!dispatchCreateOptionsMenu()) {
-            if (mActionBarPublic != null) {
-                setMenu(null, mMenuPresenterCallback);
-            }
-            return;
-        }
-
-        if (!dispatchPrepareOptionsMenu()) {
-            if (mActionBarPublic != null) {
-                setMenu(null, mMenuPresenterCallback);
-            }
-            mMenu.startDispatchingItemsChanged();
-            return;
-        }
-
-        //TODO figure out KeyEvent? See PhoneWindow#preparePanel
-        KeyCharacterMap kmap = KeyCharacterMap.load(KeyCharacterMap.VIRTUAL_KEYBOARD);
-        mMenu.setQwertyMode(kmap.getKeyboardType() != KeyCharacterMap.NUMERIC);
-        mMenu.startDispatchingItemsChanged();
-
-        setMenu(mMenu, mMenuPresenterCallback);
-    }
+    public abstract void dispatchInvalidateOptionsMenu();
 
     protected abstract void setMenu(Menu menu, MenuPresenter.Callback cb);
 
@@ -312,9 +241,7 @@ public abstract class ActionBarSherlock {
      *
      * @return {@code true} if the opening of the menu was handled internally.
      */
-    public boolean dispatchOpenOptionsMenu() {
-        return false;
-    }
+    public abstract boolean dispatchOpenOptionsMenu();
 
     /**
      * Notify the action bar that it should close its overflow menu if it is
@@ -332,9 +259,7 @@ public abstract class ActionBarSherlock {
      *
      * @return {@code true} if the closing of the menu was handled internally.
      */
-    public boolean dispatchCloseOptionsMenu() {
-        return false;
-    }
+    public abstract boolean dispatchCloseOptionsMenu();
 
     /**
      * Notify the class that the activity has finished its creation. This
@@ -354,13 +279,7 @@ public abstract class ActionBarSherlock {
      *                           {@link Activity#}onSaveInstanceState(Bundle)}.
      *                           <strong>Note: Otherwise it is null.</strong>
      */
-    public void dispatchPostCreate(Bundle savedInstanceState) {
-        if (DEBUG) Log.d(TAG, "[dispatchOnPostCreate]");
-
-        if (mIsDelegate) {
-            mIsTitleReady = true;
-        }
-    }
+    public abstract void dispatchPostCreate(Bundle savedInstanceState);
 
     /**
      * Notify the action bar that the title has changed and the action bar
@@ -399,16 +318,14 @@ public abstract class ActionBarSherlock {
      * @param event Description of the key event.
      * @return {@code true} if the event was handled.
      */
-    public boolean dispatchKeyUp(int keyCode, KeyEvent event) {
-        return false;
-    }
+    public abstract boolean dispatchKeyUp(int keyCode, KeyEvent event);
 
     /**
      * Internal method to trigger the menu creation process.
      *
      * @return {@code true} if menu creation should proceed.
      */
-    private boolean dispatchCreateOptionsMenu() {
+    protected boolean dispatchCreateOptionsMenu() {
         if (DEBUG) Log.d(TAG, "[dispatchCreateOptionsMenu]");
 
         mLastCreateResult = false;
@@ -451,29 +368,7 @@ public abstract class ActionBarSherlock {
      * @param menu Activity native menu
      * @return {@code true} if menu display should proceed.
      */
-    public boolean dispatchPrepareOptionsMenu(android.view.Menu menu) {
-        if (DEBUG) Log.d(TAG, "[dispatchPrepareOptionsMenu] android.view.Menu: " + menu);
-
-        if (!dispatchPrepareOptionsMenu()) {
-            return false;
-        }
-
-        /* TODO if (isReservingOverflow()) {
-            return false;
-        }*/
-
-        if (mNativeItemMap == null) {
-            mNativeItemMap = new HashMap<android.view.MenuItem, MenuItemImpl>();
-        } else {
-            mNativeItemMap.clear();
-        }
-
-        if (mMenu == null) {
-            return false;
-        }
-
-        return mMenu.bindNativeOverflow(menu, mNativeItemListener, mNativeItemMap);
-    }
+    public abstract boolean dispatchPrepareOptionsMenu(android.view.Menu menu);
 
     /**
      * Notify the action bar that a native options menu item has been selected.
@@ -489,9 +384,7 @@ public abstract class ActionBarSherlock {
      * @param item Options menu item.
      * @return @{code true} if the selection was handled.
      */
-    public boolean dispatchOptionsItemSelected(android.view.MenuItem item) {
-        return false;
-    }
+    public abstract boolean dispatchOptionsItemSelected(android.view.MenuItem item);
 
     /**
      * Internal method for dispatching options menu selection to the owning
@@ -530,9 +423,7 @@ public abstract class ActionBarSherlock {
      * @param menu Activity native menu.
      * @return {@code true} if the event was handled by this method.
      */
-    public boolean dispatchMenuOpened(int featureId, android.view.Menu menu) {
-        return false;
-    }
+    public abstract boolean dispatchMenuOpened(int featureId, android.view.Menu menu);
 
     /**
      * Notify the action bar that the overflow menu has been closed. This
@@ -705,28 +596,12 @@ public abstract class ActionBarSherlock {
      */
     public abstract void setSecondaryProgress(int secondaryProgress);
 
-
     /**
      * Get a menu inflater instance which supports the newer menu attributes.
      *
      * @return Menu inflater instance.
      */
-    public MenuInflater getMenuInflater() {
-        if (DEBUG) Log.d(TAG, "[getMenuInflater]");
-
-        // Make sure that action views can get an appropriate theme.
-        if (mMenuInflater == null) {
-            initActionBar();
-            if (mActionBarPublic != null) {
-                mMenuInflater = new MenuInflater(getThemedContext());
-            } else {
-                mMenuInflater = new MenuInflater(mActivity);
-            }
-        }
-        return mMenuInflater;
-    }
-
-    protected abstract Context getThemedContext();
+    public abstract MenuInflater getMenuInflater();
 
     protected void reopenMenu(boolean toggleMenuMode) {}
 
