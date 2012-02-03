@@ -152,7 +152,7 @@ public class SherlockPreferenceActivity extends PreferenceActivity implements On
 
     @Override
     public final boolean onOptionsItemSelected(android.view.MenuItem item) {
-        throw new RuntimeException("This should never be called. Create reproducible test case and report!");
+        return mSherlock.dispatchOptionsItemSelected(item);
     }
 
     @Override

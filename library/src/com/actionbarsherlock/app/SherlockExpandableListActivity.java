@@ -152,7 +152,7 @@ public class SherlockExpandableListActivity extends ExpandableListActivity imple
 
     @Override
     public final boolean onOptionsItemSelected(android.view.MenuItem item) {
-        throw new RuntimeException("This should never be called. Create reproducible test case and report!");
+        return mSherlock.dispatchOptionsItemSelected(item);
     }
 
     @Override

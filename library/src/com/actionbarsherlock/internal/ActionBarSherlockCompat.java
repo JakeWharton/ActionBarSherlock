@@ -247,6 +247,11 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
     }
 
     @Override
+    public boolean dispatchOptionsItemSelected(android.view.MenuItem item) {
+        throw new IllegalStateException("Native callback invoked. Create a test case and report!");
+    }
+
+    @Override
     public boolean dispatchMenuOpened(int featureId, android.view.Menu menu) {
         if (DEBUG) Log.d(TAG, "[dispatchMenuOpened] featureId: " + featureId + ", menu: " + menu);
 

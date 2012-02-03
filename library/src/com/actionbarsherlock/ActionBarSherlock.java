@@ -476,6 +476,24 @@ public abstract class ActionBarSherlock {
     }
 
     /**
+     * Notify the action bar that a native options menu item has been selected.
+     * The implementation should return the result of this method call.
+     *
+     * <blockquote><p>
+     * @Override
+     * public final boolean onOptionsItemSelected(android.view.MenuItem item) {
+     *     return mSherlock.dispatchOptionsItemSelected(item);
+     * }
+     * </p></blockquote>
+     *
+     * @param item Options menu item.
+     * @return @{code true} if the selection was handled.
+     */
+    public boolean dispatchOptionsItemSelected(android.view.MenuItem item) {
+        return false;
+    }
+
+    /**
      * Internal method for dispatching options menu selection to the owning
      * activity callback.
      *
