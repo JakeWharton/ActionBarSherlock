@@ -99,7 +99,7 @@ public abstract class ActionBarSherlock {
     protected MenuInflater mMenuInflater;
     /** Current menu instance for managing action items. */
     protected MenuBuilder mMenu;
-    /** Map between native options items and sherlock items (pre-3.0 only). */
+    /** Map between native options items and sherlock items. */
     protected HashMap<android.view.MenuItem, MenuItemImpl> mNativeItemMap;
     /** Result of the last dispatch of menu creation. */
     protected boolean mLastCreateResult;
