@@ -37,6 +37,16 @@
         </activity>
 
         <activity
+            android:name=".ActionModesNoActionBar"
+            android:label="@string/actionbar_action_modes_no_action_bar"
+            android:theme="@style/NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name=".CustomNavigation"
             android:label="@string/actionbar_customnavigation"
             android:theme="@style/Theme.Sherlock">
@@ -59,7 +69,7 @@
         <activity
             android:name=".ForcedOverflowItem"
             android:label="@string/actionbar_forced_overflow"
-            android:theme="@style/Theme.ForcedOverflow">
+            android:theme="@style/Theme.Sherlock.ForceOverflow">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
