@@ -3,6 +3,7 @@ package com.actionbarsherlock;
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import java.util.HashMap;
 import android.app.Activity;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,7 +17,6 @@ import com.actionbarsherlock.internal.ActionBarSherlockCompat;
 import com.actionbarsherlock.internal.ActionBarSherlockNative;
 import com.actionbarsherlock.internal.view.menu.MenuBuilder;
 import com.actionbarsherlock.internal.view.menu.MenuItemImpl;
-import com.actionbarsherlock.internal.view.menu.MenuPresenter;
 import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
@@ -92,19 +92,12 @@ public abstract class ActionBarSherlock {
     /** Whether delegating actions for the activity or managing ourselves. */
     protected final boolean mIsDelegate;
 
-    /** Whether or not the title is stable and can be displayed. */
-    protected boolean mIsTitleReady = false;
-
     /** Reference to our custom menu inflater which supports action items. */
     protected MenuInflater mMenuInflater;
     /** Current menu instance for managing action items. */
     protected MenuBuilder mMenu;
     /** Map between native options items and sherlock items. */
     protected HashMap<android.view.MenuItem, MenuItemImpl> mNativeItemMap;
-    /** Result of the last dispatch of menu creation. */
-    protected boolean mLastCreateResult;
-    /** Result of the last dispatch of menu preparation. */
-    protected boolean mLastPrepareResult;
 
 
     /** Menu callbacks triggered with actions on our items. */
@@ -116,7 +109,7 @@ public abstract class ActionBarSherlock {
 
         @Override
         public boolean onMenuItemSelected(MenuBuilder menu, MenuItem item) {
-            return dispatchOptionsItemSelected(item);
+            return callbackOptionsItemSelected(item);
         }
     };
 
@@ -223,8 +216,6 @@ public abstract class ActionBarSherlock {
      */
     public abstract void dispatchInvalidateOptionsMenu();
 
-    protected abstract void setMenu(Menu menu, MenuPresenter.Callback cb);
-
     /**
      * Notify the action bar that it should display its overflow menu if it is
      * appropriate for the device. The implementation should conditionally
@@ -241,7 +232,9 @@ public abstract class ActionBarSherlock {
      *
      * @return {@code true} if the opening of the menu was handled internally.
      */
-    public abstract boolean dispatchOpenOptionsMenu();
+    public boolean dispatchOpenOptionsMenu() {
+        return false;
+    }
 
     /**
      * Notify the action bar that it should close its overflow menu if it is
@@ -259,7 +252,9 @@ public abstract class ActionBarSherlock {
      *
      * @return {@code true} if the closing of the menu was handled internally.
      */
-    public abstract boolean dispatchCloseOptionsMenu();
+    public boolean dispatchCloseOptionsMenu() {
+        return false;
+    }
 
     /**
      * Notify the class that the activity has finished its creation. This
@@ -279,7 +274,7 @@ public abstract class ActionBarSherlock {
      *                           {@link Activity#}onSaveInstanceState(Bundle)}.
      *                           <strong>Note: Otherwise it is null.</strong>
      */
-    public abstract void dispatchPostCreate(Bundle savedInstanceState);
+    public void dispatchPostCreate(Bundle savedInstanceState) {}
 
     /**
      * Notify the action bar that the title has changed and the action bar
@@ -318,39 +313,21 @@ public abstract class ActionBarSherlock {
      * @param event Description of the key event.
      * @return {@code true} if the event was handled.
      */
-    public abstract boolean dispatchKeyUp(int keyCode, KeyEvent event);
-
-    /**
-     * Internal method to trigger the menu creation process.
-     *
-     * @return {@code true} if menu creation should proceed.
-     */
-    protected boolean dispatchCreateOptionsMenu() {
-        if (DEBUG) Log.d(TAG, "[dispatchCreateOptionsMenu]");
-
-        mLastCreateResult = false;
-        if (mActivity instanceof OnCreatePanelMenuListener) {
-            OnCreatePanelMenuListener listener = (OnCreatePanelMenuListener)mActivity;
-            mLastCreateResult = listener.onCreatePanelMenu(Window.FEATURE_OPTIONS_PANEL, mMenu);
-        }
-        return mLastCreateResult;
+    public boolean dispatchKeyUp(int keyCode, KeyEvent event) {
+        return false;
     }
 
     /**
-     * Internal method to trigger the menu preparation process.
+     * Notify the action bar that the Activity has triggered a menu creation
+     * which should happen on the conclusion of {@link Activity#onCreate}. This
+     * will be used to gain a reference to the native menu for native and
+     * overflow binding as well as to indicate when compatibility create should
+     * occur for the first time.
      *
-     * @return {@code true} if menu preparation should proceed.
+     * @param menu Activity native menu.
+     * @return {@code true} since we always want to say that we have a native
      */
-    protected boolean dispatchPrepareOptionsMenu() {
-        if (DEBUG) Log.d(TAG, "[dispatchPrepareOptionsMenu]");
-
-        mLastPrepareResult = false;
-        if (mActivity instanceof OnPreparePanelListener) {
-            OnPreparePanelListener listener = (OnPreparePanelListener)mActivity;
-            mLastPrepareResult = listener.onPreparePanel(Window.FEATURE_OPTIONS_PANEL, null, mMenu);
-        }
-        return mLastPrepareResult;
-    }
+    public abstract boolean dispatchCreateOptionsMenu(android.view.Menu menu);
 
     /**
      * Notify the action bar that the Activity has triggered a menu preparation
@@ -365,7 +342,7 @@ public abstract class ActionBarSherlock {
      * }
      * </p></blockquote>
      *
-     * @param menu Activity native menu
+     * @param menu Activity native menu.
      * @return {@code true} if menu display should proceed.
      */
     public abstract boolean dispatchPrepareOptionsMenu(android.view.Menu menu);
@@ -387,23 +364,6 @@ public abstract class ActionBarSherlock {
     public abstract boolean dispatchOptionsItemSelected(android.view.MenuItem item);
 
     /**
-     * Internal method for dispatching options menu selection to the owning
-     * activity callback.
-     *
-     * @param item Selected options menu item.
-     * @return {@code true} if the item selection was handled in the callback.
-     */
-    protected boolean dispatchOptionsItemSelected(MenuItem item) {
-        if (DEBUG) Log.d(TAG, "[dispatchOptionsItemSelected] item: " + item);
-
-        if (mActivity instanceof OnMenuItemSelectedListener) {
-            OnMenuItemSelectedListener listener = (OnMenuItemSelectedListener)mActivity;
-            return listener.onMenuItemSelected(Window.FEATURE_OPTIONS_PANEL, item);
-        }
-        return false;
-    }
-
-    /**
      * Notify the action bar that the overflow menu has been opened. The
      * implementation should conditionally return {@code true} if this method
      * returns {@code true}, otherwise return the result of the superclass
@@ -423,7 +383,9 @@ public abstract class ActionBarSherlock {
      * @param menu Activity native menu.
      * @return {@code true} if the event was handled by this method.
      */
-    public abstract boolean dispatchMenuOpened(int featureId, android.view.Menu menu);
+    public boolean dispatchMenuOpened(int featureId, android.view.Menu menu) {
+        return false;
+    }
 
     /**
      * Notify the action bar that the overflow menu has been closed. This
@@ -440,11 +402,73 @@ public abstract class ActionBarSherlock {
      * @param featureId
      * @param menu
      */
-    public void dispatchPanelClosed(int featureId, android.view.Menu menu){}
+    public void dispatchPanelClosed(int featureId, android.view.Menu menu) {}
 
 
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
+
+
+    /**
+     * Internal method to trigger the menu creation process.
+     *
+     * @return {@code true} if menu creation should proceed.
+     */
+    protected final boolean callbackCreateOptionsMenu() {
+        if (DEBUG) Log.d(TAG, "[callbackCreateOptionsMenu]");
+
+        boolean result = false;
+        if (mActivity instanceof OnCreatePanelMenuListener) {
+            OnCreatePanelMenuListener listener = (OnCreatePanelMenuListener)mActivity;
+            result = listener.onCreatePanelMenu(Window.FEATURE_OPTIONS_PANEL, mMenu);
+        }
+
+        if (DEBUG) Log.d(TAG, "[callbackCreateOptionsMenu] returning " + result);
+        return result;
+    }
+
+    /**
+     * Internal method to trigger the menu preparation process.
+     *
+     * @return {@code true} if menu preparation should proceed.
+     */
+    protected final boolean callbackPrepareOptionsMenu() {
+        if (DEBUG) Log.d(TAG, "[callbackPrepareOptionsMenu]");
+
+        boolean result = false;
+        if (mActivity instanceof OnPreparePanelListener) {
+            OnPreparePanelListener listener = (OnPreparePanelListener)mActivity;
+            result = listener.onPreparePanel(Window.FEATURE_OPTIONS_PANEL, null, mMenu);
+        }
+
+        if (DEBUG) Log.d(TAG, "[callbackPrepareOptionsMenu] returning " + result);
+        return result;
+    }
+
+    /**
+     * Internal method for dispatching options menu selection to the owning
+     * activity callback.
+     *
+     * @param item Selected options menu item.
+     * @return {@code true} if the item selection was handled in the callback.
+     */
+    protected final boolean callbackOptionsItemSelected(MenuItem item) {
+        if (DEBUG) Log.d(TAG, "[callbackOptionsItemSelected] item: " + item);
+
+        boolean result = false;
+        if (mActivity instanceof OnMenuItemSelectedListener) {
+            OnMenuItemSelectedListener listener = (OnMenuItemSelectedListener)mActivity;
+            result = listener.onMenuItemSelected(Window.FEATURE_OPTIONS_PANEL, item);
+        }
+
+        if (DEBUG) Log.d(TAG, "[callbackOptionsItemSelected] returning " + result);
+        return result;
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+
 
     /**
      * Query for the availability of a certain feature.
@@ -523,11 +547,7 @@ public abstract class ActionBarSherlock {
     /**
      * Change the title associated with this activity.
      */
-    public void setTitle(CharSequence title) {
-        if (DEBUG) Log.d(TAG, "[setTitle] title: " + title);
-
-        dispatchTitleChanged(title, 0);
-    }
+    public abstract void setTitle(CharSequence title);
 
     /**
      * Change the title associated with this activity.
@@ -601,7 +621,21 @@ public abstract class ActionBarSherlock {
      *
      * @return Menu inflater instance.
      */
-    public abstract MenuInflater getMenuInflater();
+    public MenuInflater getMenuInflater() {
+        if (DEBUG) Log.d(TAG, "[getMenuInflater]");
+
+        // Make sure that action views can get an appropriate theme.
+        if (mMenuInflater == null) {
+            if (getActionBar() != null) {
+                mMenuInflater = new MenuInflater(getThemedContext());
+            } else {
+                mMenuInflater = new MenuInflater(mActivity);
+            }
+        }
+        return mMenuInflater;
+    }
+
+    protected abstract Context getThemedContext();
 
     protected void reopenMenu(boolean toggleMenuMode) {}
 

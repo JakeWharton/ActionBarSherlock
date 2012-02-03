@@ -21,7 +21,6 @@ import com.actionbarsherlock.internal.widget.ActionBarView;
 import com.actionbarsherlock.internal.widget.IcsProgressBar;
 import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
 import android.app.Activity;
@@ -70,6 +69,9 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
     /** Parent view of the activity content. */
     private ViewGroup mContentParent;
 
+    /** Whether or not the title is stable and can be displayed. */
+    private boolean mIsTitleReady = false;
+
     /** Implementation which backs the action bar interface API. */
     private ActionBarImpl mActionBar;
     /** Main action bar view which displays the core content. */
@@ -98,7 +100,7 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
     private final com.actionbarsherlock.view.Window.Callback mWindowCallback = new com.actionbarsherlock.view.Window.Callback() {
         @Override
         public boolean onMenuItemSelected(int featureId, MenuItem item) {
-            return dispatchOptionsItemSelected(item);
+            return callbackOptionsItemSelected(item);
         }
     };
 
@@ -164,19 +166,8 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
     }
 
     @Override
-    public MenuInflater getMenuInflater() {
-        if (DEBUG) Log.d(TAG, "[getMenuInflater]");
-
-        // Make sure that action views can get an appropriate theme.
-        if (mMenuInflater == null) {
-            initActionBar();
-            if (mActionBar != null) {
-                mMenuInflater = new MenuInflater(mActionBar.getThemedContext());
-            } else {
-                mMenuInflater = new MenuInflater(mActivity);
-            }
-        }
-        return mMenuInflater;
+    protected Context getThemedContext() {
+        return mActionBar.getThemedContext();
     }
 
     @Override
@@ -281,16 +272,16 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
         mMenu.stopDispatchingItemsChanged();
         mMenu.clear();
 
-        if (!dispatchCreateOptionsMenu()) {
+        if (!callbackCreateOptionsMenu()) {
             if (mActionBar != null) {
-                setMenu(null, mMenuPresenterCallback);
+                mActionBar.setMenu(null, mMenuPresenterCallback);
             }
             return;
         }
 
-        if (!dispatchPrepareOptionsMenu()) {
+        if (!callbackPrepareOptionsMenu()) {
             if (mActionBar != null) {
-                setMenu(null, mMenuPresenterCallback);
+                mActionBar.setMenu(null, mMenuPresenterCallback);
             }
             mMenu.startDispatchingItemsChanged();
             return;
@@ -301,7 +292,7 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
         mMenu.setQwertyMode(kmap.getKeyboardType() != KeyCharacterMap.NUMERIC);
         mMenu.startDispatchingItemsChanged();
 
-        setMenu(mMenu, mMenuPresenterCallback);
+        mActionBar.setMenu(mMenu, mMenuPresenterCallback);
     }
 
     @Override
@@ -340,10 +331,16 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
     }
 
     @Override
+    public boolean dispatchCreateOptionsMenu(android.view.Menu menu) {
+        //TODO
+        return true;
+    }
+
+    @Override
     public boolean dispatchPrepareOptionsMenu(android.view.Menu menu) {
         if (DEBUG) Log.d(TAG, "[dispatchPrepareOptionsMenu] android.view.Menu: " + menu);
 
-        if (!dispatchPrepareOptionsMenu()) {
+        if (!callbackPrepareOptionsMenu()) {
             return false;
         }
 
@@ -483,10 +480,6 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
         }
     }
 
-    protected void setMenu(Menu menu, MenuPresenter.Callback cb) {
-        mActionBar.setMenu(menu, cb);
-    }
-
 
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
@@ -622,6 +615,13 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
         mContentParent.addView(view, params);
 
         initActionBar();
+    }
+
+    @Override
+    public void setTitle(CharSequence title) {
+        if (DEBUG) Log.d(TAG, "[setTitle] title: " + title);
+
+        dispatchTitleChanged(title, 0);
     }
 
     private void setFeatureInt(int featureId, int value) {
@@ -899,7 +899,7 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
         if (mActionBarView != null && mActionBarView.isOverflowReserved()) {
             if (!mActionBarView.isOverflowMenuShowing() || !toggleMenuMode) {
                 if (mActionBarView.getVisibility() == View.VISIBLE) {
-                    if (dispatchPrepareOptionsMenu()) {
+                    if (callbackPrepareOptionsMenu()) {
                         mActionBarView.showOverflowMenu();
                     }
                 }
