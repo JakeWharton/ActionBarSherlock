@@ -198,12 +198,13 @@ public class ActionBarSherlockNative extends ActionBarSherlock {
         if (callback != null) {
             wrapped = new ActionModeCallbackWrapper(callback);
         }
-        android.view.ActionMode actionMode = mActivity.startActionMode(wrapped);
-        if (actionMode != null) {
-            mActionMode = new ActionModeWrapper(actionMode);
-        } else {
-            mActionMode = null;
-        }
+
+        //Calling this will trigger the callback wrapper's onCreate which
+        //is where we will set the new instance to mActionMode since we need
+        //to pass it through to the sherlock callbacks and the call below
+        //will not have returned yet to store its value.
+        mActivity.startActionMode(wrapped);
+
         return mActionMode;
     }
 
@@ -216,6 +217,9 @@ public class ActionBarSherlockNative extends ActionBarSherlock {
 
         @Override
         public boolean onCreateActionMode(android.view.ActionMode mode, android.view.Menu menu) {
+            //See ActionBarSherlockNative#startActionMode
+            mActionMode = new ActionModeWrapper(mode);
+
             return mCallback.onCreateActionMode(mActionMode, mActionMode.getMenu());
         }
 
