@@ -19,7 +19,6 @@ package com.actionbarsherlock.internal.view.menu;
 import java.util.HashSet;
 import java.util.Set;
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -37,6 +36,8 @@ import android.widget.Toast;
 import com.actionbarsherlock.R;
 import com.actionbarsherlock.internal.view.View_HasStateListenerSupport;
 import com.actionbarsherlock.internal.view.View_OnAttachStateChangeListener;
+
+import static com.actionbarsherlock.internal.ActionBarSherlockCompat.getResources_getBoolean;
 
 /**
  * @hide
@@ -69,8 +70,7 @@ public class ActionMenuItemView extends LinearLayout
     public ActionMenuItemView(Context context, AttributeSet attrs, int defStyle) {
         //TODO super(context, attrs, defStyle);
         super(context, attrs);
-        final Resources res = context.getResources();
-        mAllowTextWithIcon = res.getBoolean(
+        mAllowTextWithIcon = getResources_getBoolean(context,
                 R.bool.abs__config_allowActionMenuItemTextWithIcon);
         //UNUSED mShowTextAllCaps = res.getBoolean(R.bool.abs__config_actionMenuItemAllCaps);
     }

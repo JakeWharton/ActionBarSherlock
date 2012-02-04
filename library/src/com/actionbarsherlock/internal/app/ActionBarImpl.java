@@ -53,6 +53,7 @@ import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+import static com.actionbarsherlock.internal.ActionBarSherlockCompat.getResources_getBoolean;
 
 /**
  * ActionBarImpl is the ActionBar implementation used
@@ -172,7 +173,7 @@ public class ActionBarImpl extends ActionBar {
         // We're all new brotha!  This. Is. ActionBarSherlock!
         setHomeButtonEnabled(false);
 
-        setHasEmbeddedTabs(mContext.getResources().getBoolean(
+        setHasEmbeddedTabs(getResources_getBoolean(mContext,
                 R.bool.abs__action_bar_embed_tabs));
     }
 
@@ -181,7 +182,7 @@ public class ActionBarImpl extends ActionBar {
     }
 
     public void onConfigurationChanged(Configuration newConfig) {
-        setHasEmbeddedTabs(mContext.getResources().getBoolean(
+        setHasEmbeddedTabs(getResources_getBoolean(mContext,
                 R.bool.abs__action_bar_embed_tabs));
 
         //Manually dispatch a configuration change to the action bar view on pre-2.2

@@ -65,6 +65,8 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
 
+import static com.actionbarsherlock.internal.ActionBarSherlockCompat.getResources_getBoolean;
+
 /**
  * @hide
  */
@@ -488,7 +490,7 @@ public class ActionBarView extends AbsActionBarView {
                 LayoutParams.FILL_PARENT);
         if (!mSplitActionBar) {
             mActionMenuPresenter.setExpandedActionViewsExclusive(
-                    getResources().getBoolean(
+                    getResources_getBoolean(getContext(),
                     R.bool.abs__action_bar_expanded_action_views_exclusive));
             configPresenters(builder);
             menuView = (ActionMenuView) mActionMenuPresenter.getMenuView(this);

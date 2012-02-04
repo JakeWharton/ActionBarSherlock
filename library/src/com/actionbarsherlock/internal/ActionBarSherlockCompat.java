@@ -30,8 +30,10 @@ import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.content.res.XmlResourceParser;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.AndroidRuntimeException;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
@@ -445,7 +447,7 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
                 boolean splitActionBar = false;
                 final boolean splitWhenNarrow = (mUiOptions & ActivityInfo.UIOPTION_SPLIT_ACTION_BAR_WHEN_NARROW) != 0;
                 if (splitWhenNarrow) {
-                    splitActionBar = mActivity.getResources().getBoolean(R.bool.abs__split_action_bar_is_narrow);
+                    splitActionBar = getResources_getBoolean(mActivity, R.bool.abs__split_action_bar_is_narrow);
                 } else {
                     splitActionBar = mActivity.getTheme()
                             .obtainStyledAttributes(R.styleable.SherlockTheme)
@@ -942,6 +944,54 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
                 ((OnActionModeFinishedListener)mActivity).onActionModeFinished(mActionMode);
             }
             mActionMode = null;
+        }
+    }
+
+    /**
+     * Support implementation of {@code getResources().getBoolean()} that we
+     * can use to simulate filtering based on width and smallest width
+     * qualifiers on pre-3.2.
+     *
+     * @param context Context to load booleans from on 3.2+
+     * @param id Id of boolean to load.
+     * @return Associated boolean value as reflected by the current display
+     * metrics.
+     */
+    public static boolean getResources_getBoolean(Context context, int id) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            return context.getResources().getBoolean(id);
+        } else {
+            DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+            float widthDp = metrics.widthPixels * metrics.density;
+            float heightDp = metrics.heightPixels * metrics.density;
+            float smallestWidthDp = (widthDp < heightDp) ? widthDp : heightDp;
+
+            if (id == R.bool.abs__action_bar_embed_tabs) {
+                if (widthDp >= 480) {
+                    return true; //values-w480dp
+                }
+                return false; //values
+            }
+            if (id == R.bool.abs__split_action_bar_is_narrow) {
+                if (widthDp >= 480) {
+                    return false; //values-w480dp
+                }
+                return true; //values
+            }
+            if (id == R.bool.abs__action_bar_expanded_action_views_exclusive) {
+                if (smallestWidthDp >= 600) {
+                    return false; //values-sw600dp
+                }
+                return true; //values
+            }
+            if (id == R.bool.abs__config_allowActionMenuItemTextWithIcon) {
+                if (widthDp >= 480) {
+                    return true; //values-w480dp
+                }
+                return false; //values
+            }
+
+            throw new IllegalArgumentException("Unknown boolean resource ID " + id);
         }
     }
 }
