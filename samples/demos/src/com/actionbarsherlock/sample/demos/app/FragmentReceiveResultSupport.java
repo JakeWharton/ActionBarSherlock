@@ -40,8 +40,8 @@ public class FragmentReceiveResultSupport extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT);
+                ViewGroup.LayoutParams.FILL_PARENT,
+                ViewGroup.LayoutParams.FILL_PARENT);
         FrameLayout frame = new FrameLayout(this);
         frame.setId(R.id.simple_fragment);
         setContentView(frame, lp);

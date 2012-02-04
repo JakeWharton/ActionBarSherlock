@@ -25,7 +25,9 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TabHost;
+import android.widget.TabWidget;
 
 import java.util.ArrayList;
 
@@ -50,6 +52,7 @@ public class FragmentTabsPager extends FragmentActivity {
         mViewPager = (ViewPager)findViewById(R.id.pager);
 
         mTabsAdapter = new TabsAdapter(this, mTabHost, mViewPager);
+
         mTabsAdapter.addTab(mTabHost.newTabSpec("simple").setIndicator("Simple"),
                 FragmentStackSupport.CountingFragment.class, null);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ECLAIR) {
@@ -168,7 +171,16 @@ public class FragmentTabsPager extends FragmentActivity {
 
         @Override
         public void onPageSelected(int position) {
+            // Unfortunately when TabHost changes the current tab, it kindly
+            // also takes care of putting focus on it when not in touch mode.
+            // The jerk.
+            // This hack tries to prevent this from pulling focus out of our
+            // ViewPager.
+            TabWidget widget = mTabHost.getTabWidget();
+            int oldFocusability = widget.getDescendantFocusability();
+            widget.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
             mTabHost.setCurrentTab(position);
+            widget.setDescendantFocusability(oldFocusability);
         }
 
         @Override
