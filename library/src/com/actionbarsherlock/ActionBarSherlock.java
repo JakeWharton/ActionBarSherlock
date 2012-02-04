@@ -1,7 +1,6 @@
 package com.actionbarsherlock;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
-import java.util.HashMap;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -15,8 +14,6 @@ import android.view.Window;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.internal.ActionBarSherlockCompat;
 import com.actionbarsherlock.internal.ActionBarSherlockNative;
-import com.actionbarsherlock.internal.view.menu.MenuBuilder;
-import com.actionbarsherlock.internal.view.menu.MenuItemImpl;
 import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
@@ -94,41 +91,6 @@ public abstract class ActionBarSherlock {
 
     /** Reference to our custom menu inflater which supports action items. */
     protected MenuInflater mMenuInflater;
-    /** Current menu instance for managing action items. */
-    protected MenuBuilder mMenu;
-    /** Map between native options items and sherlock items. */
-    protected HashMap<android.view.MenuItem, MenuItemImpl> mNativeItemMap;
-
-
-    /** Menu callbacks triggered with actions on our items. */
-    protected final MenuBuilder.Callback mMenuBuilderCallback = new MenuBuilder.Callback() {
-        @Override
-        public void onMenuModeChange(MenuBuilder menu) {
-            reopenMenu(true);
-        }
-
-        @Override
-        public boolean onMenuItemSelected(MenuBuilder menu, MenuItem item) {
-            return callbackOptionsItemSelected(item);
-        }
-    };
-
-    /** Native menu item callback which proxies to our callback. */
-    protected final android.view.MenuItem.OnMenuItemClickListener mNativeItemListener = new android.view.MenuItem.OnMenuItemClickListener() {
-        @Override
-        public boolean onMenuItemClick(android.view.MenuItem item) {
-            if (DEBUG) Log.d(TAG, "[mNativeItemListener.onMenuItemClick] item: " + item);
-
-            final MenuItemImpl sherlockItem = mNativeItemMap.get(item);
-            if (sherlockItem != null) {
-                sherlockItem.invoke();
-            } else {
-                Log.e(TAG, "Options item \"" + item + "\" not found in mapping");
-            }
-
-            return true; //Do not allow continuation of native handling
-        }
-    };
 
 
 
@@ -414,13 +376,13 @@ public abstract class ActionBarSherlock {
      *
      * @return {@code true} if menu creation should proceed.
      */
-    protected final boolean callbackCreateOptionsMenu() {
+    protected final boolean callbackCreateOptionsMenu(Menu menu) {
         if (DEBUG) Log.d(TAG, "[callbackCreateOptionsMenu]");
 
         boolean result = false;
         if (mActivity instanceof OnCreatePanelMenuListener) {
             OnCreatePanelMenuListener listener = (OnCreatePanelMenuListener)mActivity;
-            result = listener.onCreatePanelMenu(Window.FEATURE_OPTIONS_PANEL, mMenu);
+            result = listener.onCreatePanelMenu(Window.FEATURE_OPTIONS_PANEL, menu);
         }
 
         if (DEBUG) Log.d(TAG, "[callbackCreateOptionsMenu] returning " + result);
@@ -432,13 +394,13 @@ public abstract class ActionBarSherlock {
      *
      * @return {@code true} if menu preparation should proceed.
      */
-    protected final boolean callbackPrepareOptionsMenu() {
+    protected final boolean callbackPrepareOptionsMenu(Menu menu) {
         if (DEBUG) Log.d(TAG, "[callbackPrepareOptionsMenu]");
 
         boolean result = false;
         if (mActivity instanceof OnPreparePanelListener) {
             OnPreparePanelListener listener = (OnPreparePanelListener)mActivity;
-            result = listener.onPreparePanel(Window.FEATURE_OPTIONS_PANEL, null, mMenu);
+            result = listener.onPreparePanel(Window.FEATURE_OPTIONS_PANEL, null, menu);
         }
 
         if (DEBUG) Log.d(TAG, "[callbackPrepareOptionsMenu] returning " + result);
@@ -636,8 +598,6 @@ public abstract class ActionBarSherlock {
     }
 
     protected abstract Context getThemedContext();
-
-    protected void reopenMenu(boolean toggleMenuMode) {}
 
     /**
      * Start an action mode.

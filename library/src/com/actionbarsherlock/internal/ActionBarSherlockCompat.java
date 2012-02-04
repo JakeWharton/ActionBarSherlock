@@ -66,6 +66,11 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
     /** Lazy-load indicator for {@link #mReserveOverflow}. */
     private boolean mReserveOverflowSet = false;
 
+    /** Current menu instance for managing action items. */
+    private MenuBuilder mMenu;
+    /** Map between native options items and sherlock items. */
+    protected HashMap<android.view.MenuItem, MenuItemImpl> mNativeItemMap;
+
     /** Parent view of the window decoration (action bar, mode, etc.). */
     private ViewGroup mDecor;
     /** Parent view of the activity content. */
@@ -117,6 +122,36 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
         @Override
         public void onCloseMenu(MenuBuilder menu, boolean allMenusAreClosing) {
             // TODO Auto-generated method stub
+        }
+    };
+
+    /** Native menu item callback which proxies to our callback. */
+    protected final android.view.MenuItem.OnMenuItemClickListener mNativeItemListener = new android.view.MenuItem.OnMenuItemClickListener() {
+        @Override
+        public boolean onMenuItemClick(android.view.MenuItem item) {
+            if (DEBUG) Log.d(TAG, "[mNativeItemListener.onMenuItemClick] item: " + item);
+
+            final MenuItemImpl sherlockItem = mNativeItemMap.get(item);
+            if (sherlockItem != null) {
+                sherlockItem.invoke();
+            } else {
+                Log.e(TAG, "Options item \"" + item + "\" not found in mapping");
+            }
+
+            return true; //Do not allow continuation of native handling
+        }
+    };
+
+    /** Menu callbacks triggered with actions on our items. */
+    protected final MenuBuilder.Callback mMenuBuilderCallback = new MenuBuilder.Callback() {
+        @Override
+        public void onMenuModeChange(MenuBuilder menu) {
+            reopenMenu(true);
+        }
+
+        @Override
+        public boolean onMenuItemSelected(MenuBuilder menu, MenuItem item) {
+            return callbackOptionsItemSelected(item);
         }
     };
 
@@ -274,14 +309,14 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
         mMenu.stopDispatchingItemsChanged();
         mMenu.clear();
 
-        if (!callbackCreateOptionsMenu()) {
+        if (!callbackCreateOptionsMenu(mMenu)) {
             if (mActionBar != null) {
                 mActionBar.setMenu(null, mMenuPresenterCallback);
             }
             return;
         }
 
-        if (!callbackPrepareOptionsMenu()) {
+        if (!callbackPrepareOptionsMenu(mMenu)) {
             if (mActionBar != null) {
                 mActionBar.setMenu(null, mMenuPresenterCallback);
             }
@@ -342,7 +377,7 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
     public boolean dispatchPrepareOptionsMenu(android.view.Menu menu) {
         if (DEBUG) Log.d(TAG, "[dispatchPrepareOptionsMenu] android.view.Menu: " + menu);
 
-        if (!callbackPrepareOptionsMenu()) {
+        if (!callbackPrepareOptionsMenu(mMenu)) {
             return false;
         }
 
@@ -896,12 +931,11 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
         return contentParent;
     }
 
-    @Override
-    protected void reopenMenu(boolean toggleMenuMode) {
+    private void reopenMenu(boolean toggleMenuMode) {
         if (mActionBarView != null && mActionBarView.isOverflowReserved()) {
             if (!mActionBarView.isOverflowMenuShowing() || !toggleMenuMode) {
                 if (mActionBarView.getVisibility() == View.VISIBLE) {
-                    if (callbackPrepareOptionsMenu()) {
+                    if (callbackPrepareOptionsMenu(mMenu)) {
                         mActionBarView.showOverflowMenu();
                     }
                 }

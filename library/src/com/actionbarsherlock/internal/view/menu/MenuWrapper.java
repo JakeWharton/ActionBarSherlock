@@ -126,6 +126,10 @@ public class MenuWrapper implements Menu {
         return (nativeItem != null) ? mNativeMap.get(nativeItem) : null;
     }
 
+    public MenuItem findItem(android.view.MenuItem nativeItem) {
+        return (nativeItem != null) ? mNativeMap.get(nativeItem) : null;
+    }
+
     @Override
     public int size() {
         return mNativeMenu.size();

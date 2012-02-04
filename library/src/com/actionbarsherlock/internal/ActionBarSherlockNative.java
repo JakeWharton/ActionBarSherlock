@@ -3,8 +3,8 @@ package com.actionbarsherlock.internal;
 import com.actionbarsherlock.ActionBarSherlock;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.internal.app.ActionBarWrapper;
+import com.actionbarsherlock.internal.view.menu.MenuWrapper;
 import com.actionbarsherlock.view.ActionMode;
-import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import android.app.Activity;
 import android.content.Context;
@@ -18,6 +18,7 @@ import android.view.ViewGroup.LayoutParams;
 public class ActionBarSherlockNative extends ActionBarSherlock {
     private ActionBarWrapper mActionBar;
     private ActionModeWrapper mActionMode;
+    private MenuWrapper mMenu;
 
     public ActionBarSherlockNative(Activity activity, boolean isDelegate) {
         super(activity, isDelegate);
@@ -48,10 +49,10 @@ public class ActionBarSherlockNative extends ActionBarSherlock {
         if (DEBUG) Log.d(TAG, "[dispatchCreateOptionsMenu] menu: " + menu);
 
         if (mMenu == null) {
-            //TODO create menu
+            mMenu = new MenuWrapper(menu);
         }
 
-        final boolean result = callbackCreateOptionsMenu();
+        final boolean result = callbackCreateOptionsMenu(mMenu);
         if (DEBUG) Log.d(TAG, "[dispatchCreateOptionsMenu] returning " + result);
         return result;
     }
@@ -60,8 +61,7 @@ public class ActionBarSherlockNative extends ActionBarSherlock {
     public boolean dispatchPrepareOptionsMenu(android.view.Menu menu) {
         if (DEBUG) Log.d(TAG, "[dispatchPrepareOptionsMenu] menu: " + menu);
 
-        final boolean result = callbackPrepareOptionsMenu();
-        //TODO bind to native
+        final boolean result = callbackPrepareOptionsMenu(mMenu);
         if (DEBUG) Log.d(TAG, "[dispatchPrepareOptionsMenu] returning " + result);
         return result;
     }
@@ -70,7 +70,7 @@ public class ActionBarSherlockNative extends ActionBarSherlock {
     public boolean dispatchOptionsItemSelected(android.view.MenuItem item) {
         if (DEBUG) Log.d(TAG, "[dispatchOptionsItemSelected] item: " + item);
 
-        final boolean result = callbackOptionsItemSelected(mNativeItemMap.get(item));
+        final boolean result = callbackOptionsItemSelected(mMenu.findItem(item));
         if (DEBUG) Log.d(TAG, "[dispatchOptionsItemSelected] returning " + result);
         return result;
     }
@@ -230,7 +230,7 @@ public class ActionBarSherlockNative extends ActionBarSherlock {
 
         @Override
         public boolean onActionItemClicked(android.view.ActionMode mode, android.view.MenuItem item) {
-            return mCallback.onActionItemClicked(mActionMode, null/*TODO*/);
+            return mCallback.onActionItemClicked(mActionMode, mActionMode.getMenu().findItem(item));
         }
 
         @Override
@@ -241,6 +241,7 @@ public class ActionBarSherlockNative extends ActionBarSherlock {
 
     private class ActionModeWrapper extends ActionMode {
         private final android.view.ActionMode mActionMode;
+        private MenuWrapper mMenu = null;
 
         ActionModeWrapper(android.view.ActionMode actionMode) {
             mActionMode = actionMode;
@@ -282,9 +283,11 @@ public class ActionBarSherlockNative extends ActionBarSherlock {
         }
 
         @Override
-        public Menu getMenu() {
-            // TODO Auto-generated method stub
-            return null;
+        public MenuWrapper getMenu() {
+            if (mMenu == null) {
+                mMenu = new MenuWrapper(mActionMode.getMenu());
+            }
+            return mMenu;
         }
 
         @Override
