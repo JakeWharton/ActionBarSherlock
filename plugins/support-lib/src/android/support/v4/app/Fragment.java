@@ -35,6 +35,7 @@ import android.view.ViewGroup;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnCreateContextMenuListener;
 import android.view.animation.Animation;
+import android.widget.AdapterView;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -145,7 +146,7 @@ final class FragmentState implements Parcelable {
  * Static library support version of the framework's {@link android.app.Fragment}.
  * Used to write apps that run on platforms prior to Android 3.0.  When running
  * on Android 3.0 or above, this implementation is still used; it does not try
- * to switch to the framework's implementation.  See the framework SDK
+ * to switch to the framework's implementation. See the framework SDK
  * documentation for a class overview.
  */
 public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener {
@@ -597,13 +598,8 @@ public class Fragment implements ComponentCallbacks, OnCreateContextMenuListener
         return mFragmentManager;
     }
 
-    /**
-     * Return the FragmentManager for interacting with fragments associated
-     * with this fragment's activity.  Note that this will be non-null slightly
-     * before {@link #getActivity()}, during the time from when the fragment is
-     * placed in a {@link FragmentTransaction} until it is committed and
-     * attached to its activity.
-     */
+    /** @deprecated Use {@link #getFragmentManager()}. */
+    @Deprecated
     final public FragmentManager getSupportFragmentManager() {
         return mFragmentManager;
     }

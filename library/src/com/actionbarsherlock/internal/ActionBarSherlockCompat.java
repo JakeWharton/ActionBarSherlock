@@ -369,7 +369,6 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
 
     @Override
     public boolean dispatchCreateOptionsMenu(android.view.Menu menu) {
-        //TODO
         return true;
     }
 
