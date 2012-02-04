@@ -4,8 +4,8 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
+import android.view.ViewGroup.LayoutParams;
 import com.actionbarsherlock.ActionBarSherlock;
 import com.actionbarsherlock.ActionBarSherlock.OnActionModeFinishedListener;
 import com.actionbarsherlock.ActionBarSherlock.OnActionModeStartedListener;
@@ -35,14 +35,10 @@ public abstract class SherlockMapActivity extends MapActivity implements OnCreat
     }
 
     @Override
-    public void onActionModeStarted(ActionMode mode) {
-        //This space for rent.
-    }
+    public void onActionModeStarted(ActionMode mode) {}
 
     @Override
-    public void onActionModeFinished(ActionMode mode) {
-        //This space for rent.
-    }
+    public void onActionModeFinished(ActionMode mode) {}
 
 
     ///////////////////////////////////////////////////////////////////////////
@@ -109,17 +105,56 @@ public abstract class SherlockMapActivity extends MapActivity implements OnCreat
 
 
     ///////////////////////////////////////////////////////////////////////////
-    // Menu handling
+    // Native menu handling
     ///////////////////////////////////////////////////////////////////////////
 
     public MenuInflater getSupportMenuInflater() {
         return mSherlock.getMenuInflater();
     }
 
+    public void invalidateOptionsMenu() {
+        mSherlock.dispatchInvalidateOptionsMenu();
+    }
+
+    /** @deprecated Use {@link #invalidateOptionsMenu()}. */
+    @Deprecated
+    public void supportInvalidateOptionsMenu() {
+        invalidateOptionsMenu();
+    }
+
     @Override
     public final boolean onCreateOptionsMenu(android.view.Menu menu) {
-        return true;
+        return mSherlock.dispatchCreateOptionsMenu(menu);
     }
+
+    @Override
+    public final boolean onPrepareOptionsMenu(android.view.Menu menu) {
+        return mSherlock.dispatchPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public final boolean onOptionsItemSelected(android.view.MenuItem item) {
+        return mSherlock.dispatchOptionsItemSelected(item);
+    }
+
+    @Override
+    public void openOptionsMenu() {
+        if (!mSherlock.dispatchOpenOptionsMenu()) {
+            super.openOptionsMenu();
+        }
+    }
+
+    @Override
+    public void closeOptionsMenu() {
+        if (!mSherlock.dispatchCloseOptionsMenu()) {
+            super.closeOptionsMenu();
+        }
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Sherlock menu handling
+    ///////////////////////////////////////////////////////////////////////////
 
     @Override
     public boolean onCreatePanelMenu(int featureId, Menu menu) {
@@ -131,11 +166,6 @@ public abstract class SherlockMapActivity extends MapActivity implements OnCreat
 
     public boolean onCreateOptionsMenu(Menu menu) {
         return true;
-    }
-
-    @Override
-    public final boolean onPrepareOptionsMenu(android.view.Menu menu) {
-        return mSherlock.dispatchPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -151,11 +181,6 @@ public abstract class SherlockMapActivity extends MapActivity implements OnCreat
     }
 
     @Override
-    public final boolean onOptionsItemSelected(android.view.MenuItem item) {
-        return mSherlock.dispatchOptionsItemSelected(item);
-    }
-
-    @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
         if (featureId == Window.FEATURE_OPTIONS_PANEL) {
             return onOptionsItemSelected(item);
@@ -165,30 +190,6 @@ public abstract class SherlockMapActivity extends MapActivity implements OnCreat
 
     public boolean onOptionsItemSelected(MenuItem item) {
         return false;
-    }
-
-    public void invalidateOptionsMenu() {
-        mSherlock.dispatchInvalidateOptionsMenu();
-    }
-
-    /** @deprecated Use {@link #invalidateOptionsMenu()}. */
-    @Deprecated
-    public void supportInvalidateOptionsMenu() {
-        invalidateOptionsMenu();
-    }
-
-    @Override
-    public void openOptionsMenu() {
-        if (!mSherlock.dispatchOpenOptionsMenu()) {
-            super.openOptionsMenu();
-        }
-    }
-
-    @Override
-    public void closeOptionsMenu() {
-        if (!mSherlock.dispatchCloseOptionsMenu()) {
-            super.closeOptionsMenu();
-        }
     }
 
 
@@ -214,6 +215,10 @@ public abstract class SherlockMapActivity extends MapActivity implements OnCreat
     @Override
     public void setContentView(View view) {
         mSherlock.setContentView(view);
+    }
+
+    public void requestWindowFeature(long featureId) {
+        mSherlock.requestFeature((int)featureId);
     }
 
 
