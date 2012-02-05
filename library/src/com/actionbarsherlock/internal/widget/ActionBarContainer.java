@@ -135,7 +135,7 @@ public class ActionBarContainer extends NineFrameLayout {
         if (tabView != null) {
             addView(tabView);
             final ViewGroup.LayoutParams lp = tabView.getLayoutParams();
-            lp.width = LayoutParams.FILL_PARENT;
+            lp.width = LayoutParams.MATCH_PARENT;
             lp.height = LayoutParams.WRAP_CONTENT;
             tabView.setAllowCollapse(false);
         }
