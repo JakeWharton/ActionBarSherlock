@@ -2,7 +2,6 @@ package com.actionbarsherlock.internal.nineoldandroids.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.widget.LinearLayout;
 
 import com.actionbarsherlock.internal.nineoldandroids.view.animation.AnimatorProxy;
