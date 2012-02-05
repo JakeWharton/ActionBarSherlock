@@ -1,16 +1,26 @@
 package com.actionbarsherlock.internal.nineoldandroids.view.animation;
 
+import java.util.WeakHashMap;
 import android.graphics.Matrix;
 import android.os.Build;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 
 public final class AnimatorProxy extends Animation {
     public static final boolean NEEDS_PROXY = Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB;
 
+    private static final WeakHashMap<View, AnimatorProxy> PROXIES =
+            new WeakHashMap<View, AnimatorProxy>();
+
     public static AnimatorProxy wrap(View view) {
-        return new AnimatorProxy(view);
+        AnimatorProxy proxy = PROXIES.get(view);
+        if (proxy == null) {
+            proxy = new AnimatorProxy(view);
+            PROXIES.put(view, proxy);
+        }
+        return proxy;
     }
 
     private final View mView;
@@ -22,7 +32,6 @@ public final class AnimatorProxy extends Animation {
     private float mScaleY = 1f;
 
     private AnimatorProxy(View view) {
-        super();
         setDuration(0); //perform transformation immediately
         setFillAfter(true); //persist transformation beyond duration
         view.setAnimation(this);
@@ -35,7 +44,7 @@ public final class AnimatorProxy extends Animation {
     public void setAlpha(float alpha) {
         if (mAlpha != alpha) {
             mAlpha = alpha;
-            invalidateParent();
+            mView.invalidate();
         }
     }
     public float getTranslationX() {
@@ -76,8 +85,7 @@ public final class AnimatorProxy extends Animation {
     }
 
     private void invalidateParent() {
-        //TODO only invalidate what we need to change
-        ((View)mView.getParent()).invalidate();
+        ((ViewGroup)mView.getParent()).invalidate();
     }
 
     @Override

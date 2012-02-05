@@ -14,7 +14,7 @@
      limitations under the License.
 -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.actionbarsherlock.internal.nineoldandroids.widget.NineLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/abs__action_mode_close_button"
         android:focusable="true"
         android:clickable="true"
@@ -28,4 +28,4 @@
                android:layout_gravity="center"
                android:scaleType="fitCenter"
                android:src="?attr/actionModeCloseDrawable" />
-</LinearLayout>
+</com.actionbarsherlock.internal.nineoldandroids.widget.NineLinearLayout>
