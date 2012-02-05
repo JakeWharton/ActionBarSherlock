@@ -998,8 +998,8 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
             return context.getResources().getBoolean(id);
         } else {
             DisplayMetrics metrics = context.getResources().getDisplayMetrics();
-            float widthDp = metrics.widthPixels * metrics.density;
-            float heightDp = metrics.heightPixels * metrics.density;
+            float widthDp = metrics.widthPixels / metrics.density;
+            float heightDp = metrics.heightPixels / metrics.density;
             float smallestWidthDp = (widthDp < heightDp) ? widthDp : heightDp;
 
             if (id == R.bool.abs__action_bar_embed_tabs) {
