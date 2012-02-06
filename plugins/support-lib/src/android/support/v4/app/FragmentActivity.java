@@ -231,11 +231,11 @@ public class FragmentActivity extends Activity implements OnCreatePanelMenuListe
     */
 
     @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
-        if (mSherlock.dispatchKeyUp(keyCode, event)) {
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (mSherlock.dispatchKeyEvent(event)) {
             return true;
         }
-        return super.onKeyUp(keyCode, event);
+        return super.dispatchKeyEvent(event);
     }
 
 

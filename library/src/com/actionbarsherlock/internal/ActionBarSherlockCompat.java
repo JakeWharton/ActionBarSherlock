@@ -209,10 +209,6 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
 
     @Override
     public ActionMode startActionMode(ActionMode.Callback callback) {
-        if (mActionBar != null) {
-            return mActionBar.startActionMode(callback);
-        }
-
         if (mActionMode != null) {
             mActionMode.finish();
         }
@@ -220,23 +216,33 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
         final ActionMode.Callback wrappedCallback = new ActionModeCallbackWrapper(callback);
         ActionMode mode = null;
 
-        if (mActionModeView == null) {
-            ViewStub stub = (ViewStub)mDecor.findViewById(R.id.abs__action_mode_bar_stub);
-            if (stub != null) {
-                mActionModeView = (ActionBarContextView)stub.inflate();
-            }
+        //Emulate Activity's onWindowStartingActionMode:
+        initActionBar();
+        if (mActionBar != null) {
+            mode = mActionBar.startActionMode(wrappedCallback);
         }
-        if (mActionModeView != null) {
-            mActionModeView.killMode();
-            mode = new StandaloneActionMode(mActivity, mActionModeView, wrappedCallback, true);
-            if (callback.onCreateActionMode(mode, mode.getMenu())) {
-                mode.invalidate();
-                mActionModeView.initForMode(mode);
-                mActionModeView.setVisibility(View.VISIBLE);
-                mActionMode = mode;
-                mActionModeView.sendAccessibilityEvent(AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED);
-            } else {
-                mActionMode = null;
+
+        if (mode != null) {
+            mActionMode = mode;
+        } else {
+            if (mActionModeView == null) {
+                ViewStub stub = (ViewStub)mDecor.findViewById(R.id.abs__action_mode_bar_stub);
+                if (stub != null) {
+                    mActionModeView = (ActionBarContextView)stub.inflate();
+                }
+            }
+            if (mActionModeView != null) {
+                mActionModeView.killMode();
+                mode = new StandaloneActionMode(mActivity, mActionModeView, wrappedCallback, true);
+                if (callback.onCreateActionMode(mode, mode.getMenu())) {
+                    mode.invalidate();
+                    mActionModeView.initForMode(mode);
+                    mActionModeView.setVisibility(View.VISIBLE);
+                    mActionMode = mode;
+                    mActionModeView.sendAccessibilityEvent(AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED);
+                } else {
+                    mActionMode = null;
+                }
             }
         }
         if (mActionMode != null && mActivity instanceof OnActionModeStartedListener) {
@@ -443,17 +449,45 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
     }
 
     @Override
-    public boolean dispatchKeyUp(int keyCode, KeyEvent event) {
-        if (DEBUG) Log.d(TAG, "[dispatchKeyUp] keyCode: " + keyCode + ", event: " + event);
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (DEBUG) Log.d(TAG, "[dispatchKeyEvent] event: " + event);
 
-        if (isReservingOverflow() && (keyCode == KeyEvent.KEYCODE_MENU)) {
+        final int keyCode = event.getKeyCode();
+
+        // Not handled by the view hierarchy, does the action bar want it
+        // to cancel out of something special?
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            final int action = event.getAction();
+            // Back cancels action modes first.
+            if (mActionMode != null) {
+                if (action == KeyEvent.ACTION_UP) {
+                    mActionMode.finish();
+                }
+                if (DEBUG) Log.d(TAG, "[dispatchKeyEvent] returning true");
+                return true;
+            }
+
+            // Next collapse any expanded action views.
+            if (mActionBar != null && mActionBarView.hasExpandedActionView()) {
+                if (action == KeyEvent.ACTION_UP) {
+                    mActionBarView.collapseActionView();
+                }
+                if (DEBUG) Log.d(TAG, "[dispatchKeyEvent] returning true");
+                return true;
+            }
+        }
+
+        if (keyCode == KeyEvent.KEYCODE_MENU && event.getAction() == KeyEvent.ACTION_UP && isReservingOverflow()) {
             if (mActionBarView.isOverflowMenuShowing()) {
                 mActionBarView.hideOverflowMenu();
             } else {
                 mActionBarView.showOverflowMenu();
             }
+            if (DEBUG) Log.d(TAG, "[dispatchKeyEvent] returning true");
             return true;
         }
+
+        if (DEBUG) Log.d(TAG, "[dispatchKeyEvent] returning false");
         return false;
     }
 

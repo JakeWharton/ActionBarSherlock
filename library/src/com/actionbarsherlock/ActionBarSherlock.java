@@ -257,25 +257,24 @@ public abstract class ActionBarSherlock {
     public void dispatchTitleChanged(CharSequence title, int color) {}
 
     /**
-     * Notify the action bar that the user has pressed a key. This is used to
-     * toggle the display of the overflow action item should one be forced on
-     * a device with a menu key.
+     * Notify the action bar the user has created a key event. This is used to
+     * toggle the display of the overflow action item with the menu key and to
+     * close the action mode or expanded action item with the back key.
      *
      * <blockquote><pre>
-     *  @Override
-     *  public boolean onKeyUp(int keyCode, KeyEvent event) {
-     *      if (mSherlock.dispatchKeyUp(keyCode, event)) {
-     *          return true;
-     *      }
-     *      return super.onKeyDown(keyCode, event);
-     *  }
+     * @Override
+     * public boolean dispatchKeyEvent(KeyEvent event) {
+     *     if (mSherlock.dispatchKeyEvent(event)) {
+     *         return true;
+     *     }
+     *     return super.dispatchKeyEvent(event);
+     * }
      * </pre></blockquote>
      *
-     * @param keyCode The value in event.getKeyCode().
      * @param event Description of the key event.
      * @return {@code true} if the event was handled.
      */
-    public boolean dispatchKeyUp(int keyCode, KeyEvent event) {
+    public boolean dispatchKeyEvent(KeyEvent event) {
         return false;
     }
 
