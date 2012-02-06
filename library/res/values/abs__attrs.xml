@@ -221,4 +221,8 @@
         <!-- Whether space should be reserved in layout when an icon is missing. -->
         <attr name="preserveIconSpacing" format="boolean" />
     </declare-styleable>
+    
+    <declare-styleable name="SherlockActionMenuItemView">
+        <attr name="android:minWidth" />
+    </declare-styleable>
 </resources>

@@ -19,6 +19,7 @@ package com.actionbarsherlock.internal.view.menu;
 import java.util.HashSet;
 import java.util.Set;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -54,8 +55,8 @@ public class ActionMenuItemView extends LinearLayout
     private ImageButton mImageButton;
     private Button mTextButton;
     private boolean mAllowTextWithIcon;
-    //UNUSED private boolean mShowTextAllCaps;
     private boolean mExpandedFormat;
+    private int mMinWidth;
 
     private final Set<View_OnAttachStateChangeListener> mListeners = new HashSet<View_OnAttachStateChangeListener>();
 
@@ -72,7 +73,11 @@ public class ActionMenuItemView extends LinearLayout
         super(context, attrs);
         mAllowTextWithIcon = getResources_getBoolean(context,
                 R.bool.abs__config_allowActionMenuItemTextWithIcon);
-        //UNUSED mShowTextAllCaps = res.getBoolean(R.bool.abs__config_actionMenuItemAllCaps);
+        TypedArray a = context.obtainStyledAttributes(attrs,
+                R.styleable.SherlockActionMenuItemView, 0, 0);
+        mMinWidth = a.getDimensionPixelSize(
+                R.styleable.SherlockActionMenuItemView_android_minWidth, 0);
+        a.recycle();
     }
 
     @Override
@@ -269,5 +274,22 @@ public class ActionMenuItemView extends LinearLayout
         }
         cheatSheet.show();
         return true;
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+        final int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+        final int specSize = MeasureSpec.getSize(widthMeasureSpec);
+        final int oldMeasuredWidth = getMeasuredWidth();
+        final int targetWidth = widthMode == MeasureSpec.AT_MOST ? Math.min(specSize, mMinWidth)
+                : mMinWidth;
+
+        if (widthMode != MeasureSpec.EXACTLY && mMinWidth > 0 && oldMeasuredWidth < targetWidth) {
+            // Remeasure at exactly the minimum width.
+            super.onMeasure(MeasureSpec.makeMeasureSpec(targetWidth, MeasureSpec.EXACTLY),
+                    heightMeasureSpec);
+        }
     }
 }
