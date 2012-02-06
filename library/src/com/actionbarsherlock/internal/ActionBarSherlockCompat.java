@@ -316,6 +316,7 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
         mMenu.clear();
 
         if (!callbackCreateOptionsMenu(mMenu)) {
+            mMenu = null;
             if (mActionBar != null) {
                 if (DEBUG) Log.d(TAG, "[dispatchInvalidateOptionsMenu] setting action bar menu to null");
                 mActionBar.setMenu(null, mMenuPresenterCallback);
