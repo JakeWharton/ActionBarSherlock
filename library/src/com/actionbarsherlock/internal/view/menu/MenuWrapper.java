@@ -3,6 +3,7 @@ package com.actionbarsherlock.internal.view.menu;
 import java.util.WeakHashMap;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.util.Log;
 import android.view.KeyEvent;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
@@ -123,11 +124,41 @@ public class MenuWrapper implements Menu {
     @Override
     public MenuItem findItem(int id) {
         android.view.MenuItem nativeItem = mNativeMenu.findItem(id);
-        return (nativeItem != null) ? mNativeMap.get(nativeItem) : null;
+        return findItem(nativeItem);
     }
 
     public MenuItem findItem(android.view.MenuItem nativeItem) {
-        return (nativeItem != null) ? mNativeMap.get(nativeItem) : null;
+    	if (nativeItem == null) {
+    		return null;
+    	}
+    	MenuItem found = mNativeMap.get(nativeItem);
+    	if (found != null) {
+    		return found;
+    	}
+
+    	// special handling for the home item
+    	// because it is not a part of mNativeMenu
+    	// but still must be handled.
+    	// Also check findItem(id), just to make this
+    	// code bullet proof.
+    	android.view.MenuItem nativeItem2 = mNativeMenu.findItem(nativeItem.getItemId());
+    	if (nativeItem2 != nativeItem) {
+    		Log.e("TEST", "findItem(nativeItem) - instances mismatch");
+    		if (nativeItem.getItemId() == android.R.id.home && nativeItem2 == null) {
+    			Log.e("TEST", "findItem(home)");
+    			return new MenuItemWrapper(nativeItem);
+    		}
+    		return findItem(nativeItem2);
+    	}
+
+    	// this menuItem is a part of the native menu
+    	// but not of us. This should never happen!
+    	// But at least we know how to repair it and
+    	// not cause an NPE.
+    	if (nativeItem2 != null) {
+    		return addInternal(nativeItem2);
+    	}
+        return null;
     }
 
     @Override
