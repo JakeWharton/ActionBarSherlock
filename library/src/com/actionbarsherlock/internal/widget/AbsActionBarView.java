@@ -20,6 +20,7 @@ import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
@@ -64,6 +65,13 @@ public abstract class AbsActionBarView extends NineViewGroup {
     public AbsActionBarView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         mContext = context;
+    }
+
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        //Workaround for #209
+        return getVisibility() != VISIBLE;
     }
 
     /*
