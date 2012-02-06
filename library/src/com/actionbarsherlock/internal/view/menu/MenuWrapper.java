@@ -123,11 +123,27 @@ public class MenuWrapper implements Menu {
     @Override
     public MenuItem findItem(int id) {
         android.view.MenuItem nativeItem = mNativeMenu.findItem(id);
-        return (nativeItem != null) ? mNativeMap.get(nativeItem) : null;
+        return findItem(nativeItem);
     }
 
     public MenuItem findItem(android.view.MenuItem nativeItem) {
-        return (nativeItem != null) ? mNativeMap.get(nativeItem) : null;
+        if (nativeItem == null) {
+            return null;
+        }
+
+        MenuItem wrapped = mNativeMap.get(nativeItem);
+        if (wrapped != null) {
+            return wrapped;
+        }
+
+        //Account for home item never being mapped initially
+        if (nativeItem.getItemId() == android.R.id.home) {
+            wrapped = new MenuItemWrapper(nativeItem);
+            mNativeMap.put(nativeItem, wrapped);
+            return wrapped;
+        }
+
+        throw new IllegalStateException("Unknown native menu item " + nativeItem);
     }
 
     @Override
