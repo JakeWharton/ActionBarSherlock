@@ -138,9 +138,7 @@ public class MenuWrapper implements Menu {
 
         //Account for home item never being mapped initially
         if (nativeItem.getItemId() == android.R.id.home) {
-            wrapped = new MenuItemWrapper(nativeItem);
-            mNativeMap.put(nativeItem, wrapped);
-            return wrapped;
+            return addInternal(nativeItem);
         }
 
         throw new IllegalStateException("Unknown native menu item " + nativeItem);
