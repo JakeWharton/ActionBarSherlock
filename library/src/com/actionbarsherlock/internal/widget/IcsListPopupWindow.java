@@ -400,11 +400,11 @@ public class IcsListPopupWindow {
 
         final ListAdapter adapter = mAdapter;
         if (adapter == null) {
-            return mDropDownList.getTop() + mDropDownList.getBottom();
+            return mDropDownList.getListPaddingTop() + mDropDownList.getListPaddingBottom();
         }
 
         // Include the padding of the list
-        int returnedHeight = mDropDownList.getTop() + mDropDownList.getBottom();
+        int returnedHeight = mDropDownList.getListPaddingTop() + mDropDownList.getListPaddingBottom();
         final int dividerHeight = ((mDropDownList.getDividerHeight() > 0) && mDropDownList.getDivider() != null) ? mDropDownList.getDividerHeight() : 0;
         // The previous height value that was less than maxHeight and contained
         // no partial children
