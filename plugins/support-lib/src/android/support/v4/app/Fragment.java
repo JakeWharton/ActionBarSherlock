@@ -35,7 +35,6 @@ import android.view.ViewGroup;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnCreateContextMenuListener;
 import android.view.animation.Animation;
-import android.widget.AdapterView;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
