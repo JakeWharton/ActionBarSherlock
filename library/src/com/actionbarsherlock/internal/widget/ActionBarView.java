@@ -240,8 +240,8 @@ public class ActionBarView extends AbsActionBarView {
         mExpandedHomeLayout.setContentDescription(getResources().getText(
                 R.string.abs__action_bar_up_description));
 
-        mTitleStyleRes = 0;//XXX a.getResourceId(R.styleable.SherlockActionBar_titleTextStyle, 0);
-        mSubtitleStyleRes = 0;//XXX a.getResourceId(R.styleable.SherlockActionBar_subtitleTextStyle, 0);
+        mTitleStyleRes = a.getResourceId(R.styleable.SherlockActionBar_titleTextStyle, 0);
+        mSubtitleStyleRes = a.getResourceId(R.styleable.SherlockActionBar_subtitleTextStyle, 0);
         mProgressStyle = a.getResourceId(R.styleable.SherlockActionBar_progressBarStyle, 0);
         mIndeterminateProgressStyle = a.getResourceId(
                 R.styleable.SherlockActionBar_indeterminateProgressStyle, 0);
