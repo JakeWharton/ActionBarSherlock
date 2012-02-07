@@ -35,7 +35,7 @@
         <item name="android:dividerPadding">12dip</item>
     </style>
     <style name="Widget.Sherlock.ActionBar.TabText" parent="Widget">
-        <item name="android:textAppearance">@style/TextAppearance.Sherlock.Medium</item>
+        <item name="android:textAppearance">@null</item>
         <item name="android:textColor">?attr/textColorPrimary</item>
         <item name="android:textSize">12sp</item>
         <item name="android:textStyle">bold</item>
@@ -124,7 +124,6 @@
 
 
 
-    <style name="TextAppearance.Sherlock.Medium" parent="Widget"></style>
     <style name="TextAppearance.Sherlock.Widget.ActionBar.Menu" parent="Widget">
         <item name="android:textSize">12sp</item>
         <item name="android:textStyle">bold</item>
