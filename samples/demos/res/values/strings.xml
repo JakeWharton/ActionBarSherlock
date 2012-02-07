@@ -34,7 +34,10 @@
     
     <string name="actionbar_split">Split Action Items</string>
     <string name="actionbar_split_content">This activity is a demonstration of how split action items work. When you are concerned about the available room for items on small screens you should use this feature.</string>
-    
+
+    <string name="actionbar_collapsible">Collapsible Action Items</string>
+    <string name="actionbar_collapsible_content">This activity is a demonstration of how collapsible action items work. When you are concerned about the available room for items on small screens you should use this feature.</string>
+
     <string name="preference_simple">Preference</string>
     <string name="preference_simple_content">You can use the `SherlockPreferenceActivity` base class to place the action bar on top of a normal `PreferenceActivity`.\n\nThis does not yet support the use of `PreferenceFragments`, however.</string>
     
