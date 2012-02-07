@@ -125,7 +125,12 @@
 
 
     <style name="TextAppearance.Sherlock.Medium" parent="Widget"></style>
-    <style name="TextAppearance.Sherlock.Widget.ActionBar.Menu" parent="Widget"></style>
+    <style name="TextAppearance.Sherlock.Widget.ActionBar.Menu" parent="Widget">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/actionMenuTextColor</item>
+        <item name="android:textAllCaps">@bool/abs__config_actionMenuItemAllCaps</item>
+    </style>
 
     <style name="TextAppearance.Sherlock.Widget.ActionBar.Title" parent="Widget">
         <item name="android:textSize">@dimen/abs__action_bar_title_text_size</item>
