@@ -51,6 +51,14 @@
     <style name="Theme.Sherlock.Light.DarkActionBar" parent="Sherlock.__Theme.Light"></style>
     
     
+    <style name="Theme.Sherlock.NoActionBar" parent="Theme.Sherlock">
+        <item name="windowActionBar">false</item>
+    </style>
+    <style name="Theme.Sherlock.Light.NoActionBar" parent="Theme.Sherlock.Light">
+        <item name="windowActionBar">false</item>
+    </style>
+    
+    
     <style name="Theme.Sherlock.ForceOverflow">
         <item name="absForceOverflow">true</item>
     </style>

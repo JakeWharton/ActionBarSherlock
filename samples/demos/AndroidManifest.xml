@@ -39,7 +39,7 @@
         <activity
             android:name=".ActionModesNoActionBar"
             android:label="@string/actionbar_action_modes_no_action_bar"
-            android:theme="@style/NoActionBar">
+            android:theme="@style/Theme.Sherlock.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />

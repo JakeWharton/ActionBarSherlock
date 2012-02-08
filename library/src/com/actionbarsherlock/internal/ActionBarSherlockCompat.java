@@ -49,7 +49,7 @@ import android.view.animation.AnimationUtils;
 
 public class ActionBarSherlockCompat extends ActionBarSherlock {
     /** Window features which are enabled by default. */
-    protected static final int DEFAULT_FEATURES = (1 << Window.FEATURE_ACTION_BAR);
+    protected static final int DEFAULT_FEATURES = 0;
 
 
     public ActionBarSherlockCompat(Activity activity, boolean isDelegate) {
@@ -918,7 +918,7 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
 
         if (a.getBoolean(R.styleable.SherlockTheme_windowNoTitle, false)) {
             requestFeature(Window.FEATURE_NO_TITLE);
-        } else if (a.getBoolean(R.styleable.SherlockTheme_windowActionBar, true)) {
+        } else if (a.getBoolean(R.styleable.SherlockTheme_windowActionBar, false)) {
             // Don't allow an action bar if there is no title.
             requestFeature(Window.FEATURE_ACTION_BAR);
         }
