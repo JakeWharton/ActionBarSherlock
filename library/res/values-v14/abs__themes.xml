@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <style name="Sherlock.__Theme" parent="android:Theme.Holo"></style>
-    <style name="Sherlock.__Theme.Light" parent="android:Theme.Holo.Light"></style>
-    <style name="Sherlock.__Theme.DarkActionBar" parent="android:Theme.Holo.Light.DarkActionBar"></style>
+    <style name="Sherlock.__Theme" parent="android:Theme.Holo">
+    </style>
+    <style name="Sherlock.__Theme.Light" parent="android:Theme.Holo.Light">
+    </style>
+    <style name="Sherlock.__Theme.DarkActionBar" parent="android:Theme.Holo.Light.DarkActionBar">
+    </style>
+    
+    <style name="Theme.Sherlock.NoActionBar">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">false</item>
+    </style>
+    <style name="Theme.Sherlock.Light.NoActionBar">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">false</item>
+    </style>
 </resources>
