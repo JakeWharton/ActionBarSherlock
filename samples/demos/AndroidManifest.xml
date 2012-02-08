@@ -47,6 +47,16 @@
         </activity>
 
         <activity
+            android:name=".ActionProviders"
+            android:label="@string/actionbar_action_providers"
+            android:theme="@style/Theme.Sherlock">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name=".CollapsibleActionItem"
             android:label="@string/actionbar_collapsible"
             android:theme="@style/Theme.Sherlock">

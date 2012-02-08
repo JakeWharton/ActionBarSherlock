@@ -17,6 +17,9 @@
     
     <string name="actionbar_iprogress">Indeterminate Progress</string>
     
+    <string name="actionbar_action_providers">Action Providers</string>
+    <string name="actionbar_action_providers_content">This activity demonstrates how to implement an ActionProvider for adding functionality to the Action Bar. In particular this demo creates an ActionProvider for launching the system settings and adds a menu item with that provider.</string>
+    
     <string name="actionbar_customnavigation">Custom Navigation</string>
     <string name="actionbar_customnavigation_content">If you find that list and tab navigation are not suitable for your application you may replace it with a custom layout.</string>
     
