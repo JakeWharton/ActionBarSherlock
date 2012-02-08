@@ -30,6 +30,10 @@ public class SherlockExpandableListActivity extends ExpandableListActivity imple
         mSherlock = ActionBarSherlock.wrap(this, flags);
     }
 
+    public <T extends ActionBarSherlock> SherlockExpandableListActivity(int flags, Class<T> implementation) {
+        mSherlock = ActionBarSherlock.wrap(this, flags, implementation);
+    }
+
 
     ///////////////////////////////////////////////////////////////////////////
     // Action bar and mode

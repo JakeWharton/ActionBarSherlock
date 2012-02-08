@@ -30,6 +30,10 @@ public abstract class SherlockMapActivity extends MapActivity implements OnCreat
         mSherlock = ActionBarSherlock.wrap(this, flags);
     }
 
+    public <T extends ActionBarSherlock> SherlockMapActivity(int flags, Class<T> implementation) {
+        mSherlock = ActionBarSherlock.wrap(this, flags, implementation);
+    }
+
 
     ///////////////////////////////////////////////////////////////////////////
     // Action bar and mode

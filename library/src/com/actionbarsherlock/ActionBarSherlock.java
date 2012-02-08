@@ -1,6 +1,8 @@
 package com.actionbarsherlock;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -35,6 +37,8 @@ public abstract class ActionBarSherlock {
     protected static final String TAG = "ActionBarSherlock";
     protected static final boolean DEBUG = true;
 
+    private static final Class<?>[] CONSTRUCTOR_ARGS = new Class[] { Activity.class, int.class };
+
     /**
      * If set, the logic in these classes will assume that an {@link Activity}
      * is dispatching all of the required events to the class. This flag should
@@ -47,6 +51,12 @@ public abstract class ActionBarSherlock {
      * be used rather than proxying to the native version on API 14 and newer.
      **/
     public static final int FLAG_ALWAYS_COMPAT = 2;
+    /**
+     * If set, the supplied custom implementation will be used instead of the
+     * built-in implementations to provide action bar functionality. This flag
+     * will only be honored by calling {@link #wrap(Activity, int, Class)}.
+     */
+    public static final int FLAG_CUSTOM_IMPLEMENTATION = 4;
 
 
     /** Activity interface for menu creation callback. */
@@ -73,7 +83,9 @@ public abstract class ActionBarSherlock {
 
 
     /**
-     * Wrap an existing activity with a custom action bar implementation.
+     * Wrap an activity with an action bar abstraction which will enable the
+     * use of a custom implementation on platforms where a native version does
+     * not exist.
      *
      * @param activity Activity to wrap.
      * @return Instance to interact with the action bar.
@@ -83,8 +95,9 @@ public abstract class ActionBarSherlock {
     }
 
     /**
-     * Act as a delegate for another class which is providing the services
-     * of an action bar along with its normal responsibility.
+     * Wrap an activity with an action bar abstraction which will enable the
+     * use of a custom implementation on platforms where a native version does
+     * not exist.
      *
      * @param activity Owning activity.
      * @param flags Option flags to control behavior.
@@ -96,6 +109,41 @@ public abstract class ActionBarSherlock {
         } else {
             return new ActionBarSherlockNative(activity, flags);
         }
+    }
+
+    /**
+     * <p>Wrap an activity with an action bar abstraction which will enable the
+     * use of a custom implementation on platforms where a native version does
+     * not exist.</p>
+     *
+     * <p><strong>Note</strong>: The custom implementation will only be used if
+     * {@link #FLAG_CUSTOM_IMPLEMENTATION} is specified. You can use the
+     * presence of this flag to enable and disable the implementation without
+     * needing to change which {@code wrap} method you are calling.</p>
+     *
+     * @param activity Owning activity.
+     * @param flags Option flags to control behavior.
+     * @param implementation Custom action bar provider.
+     * @return Instance to interact with the action bar.
+     */
+    public static <T extends ActionBarSherlock> ActionBarSherlock wrap(Activity activity, int flags, Class<T> implementation) {
+        if ((flags & FLAG_CUSTOM_IMPLEMENTATION) != 0 && implementation != null) {
+            try {
+                Constructor<T> ctor = implementation.getConstructor(CONSTRUCTOR_ARGS);
+                return ctor.newInstance(activity, flags);
+            } catch (NoSuchMethodException e) {
+                Log.w(TAG, "Unable to instantiate custom ActionBarSherlock implementation.", e);
+            } catch (IllegalArgumentException e) {
+                Log.w(TAG, "Unable to instantiate custom ActionBarSherlock implementation.", e);
+            } catch (InstantiationException e) {
+                Log.w(TAG, "Unable to instantiate custom ActionBarSherlock implementation.", e);
+            } catch (IllegalAccessException e) {
+                Log.w(TAG, "Unable to instantiate custom ActionBarSherlock implementation.", e);
+            } catch (InvocationTargetException e) {
+                Log.w(TAG, "Unable to instantiate custom ActionBarSherlock implementation.", e);
+            }
+        }
+        return wrap(activity, flags);
     }
 
 

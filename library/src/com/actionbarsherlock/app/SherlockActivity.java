@@ -30,6 +30,10 @@ public class SherlockActivity extends Activity implements OnCreatePanelMenuListe
         mSherlock = ActionBarSherlock.wrap(this, flags);
     }
 
+    public <T extends ActionBarSherlock> SherlockActivity(int flags, Class<T> implementation) {
+        mSherlock = ActionBarSherlock.wrap(this, flags, implementation);
+    }
+
 
     ///////////////////////////////////////////////////////////////////////////
     // Action bar and mode
