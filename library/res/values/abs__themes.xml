@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <style name="Sherlock.__Theme" parent="android:Theme"></style>
-    <style name="Sherlock.__Theme.Light" parent="android:Theme.Light"></style>
+    <style name="Sherlock.__Theme" parent="android:Theme.NoTitleBar"></style>
+    <style name="Sherlock.__Theme.Light" parent="android:Theme.Light.NoTitleBar"></style>
     <style name="Sherlock.__Theme.DarkActionBar" parent="Theme.Sherlock.Light"></style>
     
     <style name="Theme.Sherlock" parent="Sherlock.__Theme">
@@ -47,8 +47,6 @@
         <item name="windowActionBar">true</item>
         <item name="windowActionModeOverlay">false</item>
         <item name="windowContentOverlay">@null</item>
-        
-        <item name="android:windowNoTitle">true</item>
     </style>
     <style name="Theme.Sherlock.Light" parent="Sherlock.__Theme.Light">
         <!-- Action bar styles (from Theme.Holo) -->
@@ -92,8 +90,6 @@
         <item name="windowActionBar">true</item>
         <item name="windowActionModeOverlay">false</item>
         <item name="windowContentOverlay">@null</item>
-        
-        <item name="android:windowNoTitle">true</item>
     </style>
     <style name="Theme.Sherlock.Light.DarkActionBar" parent="Sherlock.__Theme.DarkActionBar">
         <item name="windowContentOverlay">@drawable/abs__ab_solid_shadow_holo</item>
