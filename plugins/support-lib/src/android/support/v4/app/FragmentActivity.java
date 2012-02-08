@@ -144,7 +144,16 @@ public class FragmentActivity extends Activity implements OnCreatePanelMenuListe
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
-    final ActionBarSherlock mSherlock = ActionBarSherlock.wrap(this, true);
+    private final ActionBarSherlock mSherlock;
+
+
+    public FragmentActivity() {
+        this(ActionBarSherlock.FLAG_DELEGATE);
+    }
+
+    public FragmentActivity(int flags) {
+        mSherlock = ActionBarSherlock.wrap(this, flags);
+    }
 
 
     ///////////////////////////////////////////////////////////////////////////

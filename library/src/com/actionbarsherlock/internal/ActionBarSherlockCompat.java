@@ -52,8 +52,8 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
     protected static final int DEFAULT_FEATURES = 0;
 
 
-    public ActionBarSherlockCompat(Activity activity, boolean isDelegate) {
-        super(activity, isDelegate);
+    public ActionBarSherlockCompat(Activity activity, int flags) {
+        super(activity, flags);
     }
 
 

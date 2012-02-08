@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.internal.ActionBarSherlockCompat;
 import com.actionbarsherlock.internal.ActionBarSherlockNative;
 import com.actionbarsherlock.view.ActionMode;
@@ -33,6 +34,19 @@ import com.actionbarsherlock.view.MenuItem;
 public abstract class ActionBarSherlock {
     protected static final String TAG = "ActionBarSherlock";
     protected static final boolean DEBUG = true;
+
+    /**
+     * If set, the logic in these classes will assume that an {@link Activity}
+     * is dispatching all of the required events to the class. This flag should
+     * only be used internally or if you are creating your own base activity
+     * modeled after one of the included types (e.g., {@link SherlockActivity}).
+     */
+    public static final int FLAG_DELEGATE = 1;
+    /**
+     * If set, the compatibility implementation of the action bar will always
+     * be used rather than proxying to the native version on API 14 and newer.
+     **/
+    public static final int FLAG_ALWAYS_COMPAT = 2;
 
 
     /** Activity interface for menu creation callback. */
@@ -65,7 +79,7 @@ public abstract class ActionBarSherlock {
      * @return Instance to interact with the action bar.
      */
     public static ActionBarSherlock wrap(Activity activity) {
-        return wrap(activity, false);
+        return wrap(activity, 0);
     }
 
     /**
@@ -73,13 +87,14 @@ public abstract class ActionBarSherlock {
      * of an action bar along with its normal responsibility.
      *
      * @param activity Owning activity.
+     * @param flags Option flags to control behavior.
      * @return Instance to interact with the action bar.
      */
-    public static ActionBarSherlock wrap(Activity activity, boolean asDelegate) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-            return new ActionBarSherlockCompat(activity, asDelegate);
+    public static ActionBarSherlock wrap(Activity activity, int flags) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH || (flags & FLAG_ALWAYS_COMPAT) != 0) {
+            return new ActionBarSherlockCompat(activity, flags);
         } else {
-            return new ActionBarSherlockNative(activity, asDelegate);
+            return new ActionBarSherlockNative(activity, flags);
         }
     }
 
@@ -94,11 +109,11 @@ public abstract class ActionBarSherlock {
 
 
 
-    protected ActionBarSherlock(Activity activity, boolean isDelegateOnly) {
-        if (DEBUG) Log.d(TAG, "[<ctor>] activity: " + activity + ", isDelegateOnly: " + isDelegateOnly);
+    protected ActionBarSherlock(Activity activity, int flags) {
+        if (DEBUG) Log.d(TAG, "[<ctor>] activity: " + activity + ", flags: " + flags);
 
         mActivity = activity;
-        mIsDelegate = isDelegateOnly;
+        mIsDelegate = (flags & FLAG_DELEGATE) != 0;
     }
 
 

@@ -20,8 +20,8 @@ public class ActionBarSherlockNative extends ActionBarSherlock {
     private ActionModeWrapper mActionMode;
     private MenuWrapper mMenu;
 
-    public ActionBarSherlockNative(Activity activity, boolean isDelegate) {
-        super(activity, isDelegate);
+    public ActionBarSherlockNative(Activity activity, int flags) {
+        super(activity, flags);
     }
 
 

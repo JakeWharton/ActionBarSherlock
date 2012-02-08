@@ -19,7 +19,16 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
 public class SherlockPreferenceActivity extends PreferenceActivity implements OnCreatePanelMenuListener, OnPreparePanelListener, OnMenuItemSelectedListener, OnActionModeStartedListener, OnActionModeFinishedListener {
-    final ActionBarSherlock mSherlock = ActionBarSherlock.wrap(this, true);
+    private final ActionBarSherlock mSherlock;
+
+
+    public SherlockPreferenceActivity() {
+        this(ActionBarSherlock.FLAG_DELEGATE);
+    }
+
+    public SherlockPreferenceActivity(int flags) {
+        mSherlock = ActionBarSherlock.wrap(this, flags);
+    }
 
 
     ///////////////////////////////////////////////////////////////////////////

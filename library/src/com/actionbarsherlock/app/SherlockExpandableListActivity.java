@@ -19,7 +19,16 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
 public class SherlockExpandableListActivity extends ExpandableListActivity implements OnCreatePanelMenuListener, OnPreparePanelListener, OnMenuItemSelectedListener, OnActionModeStartedListener, OnActionModeFinishedListener {
-    final ActionBarSherlock mSherlock = ActionBarSherlock.wrap(this, true);
+    private final ActionBarSherlock mSherlock;
+
+
+    public SherlockExpandableListActivity() {
+        this(ActionBarSherlock.FLAG_DELEGATE);
+    }
+
+    public SherlockExpandableListActivity(int flags) {
+        mSherlock = ActionBarSherlock.wrap(this, flags);
+    }
 
 
     ///////////////////////////////////////////////////////////////////////////
