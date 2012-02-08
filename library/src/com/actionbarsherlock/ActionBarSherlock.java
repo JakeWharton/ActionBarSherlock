@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.internal.ActionBarSherlockCompat;
 import com.actionbarsherlock.internal.ActionBarSherlockNative;
 import com.actionbarsherlock.view.ActionMode;
@@ -43,7 +42,7 @@ public abstract class ActionBarSherlock {
      * If set, the logic in these classes will assume that an {@link Activity}
      * is dispatching all of the required events to the class. This flag should
      * only be used internally or if you are creating your own base activity
-     * modeled after one of the included types (e.g., {@link SherlockActivity}).
+     * modeled after one of the included types (e.g., {@code SherlockActivity}).
      */
     public static final int FLAG_DELEGATE = 1;
     /**
