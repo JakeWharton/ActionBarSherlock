@@ -915,6 +915,9 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
         // Apply data from current theme.
 
         TypedArray a = mActivity.getTheme().obtainStyledAttributes(R.styleable.SherlockTheme);
+        if (!a.hasValue(R.styleable.SherlockTheme_windowActionBar)) {
+            throw new IllegalStateException("You must use Theme.Sherlock, Theme.Sherlock.Light, Theme.Sherlock.Light.DarkActionBar, or a derivative.");
+        }
 
         if (a.getBoolean(R.styleable.SherlockTheme_windowNoTitle, false)) {
             requestFeature(Window.FEATURE_NO_TITLE);
