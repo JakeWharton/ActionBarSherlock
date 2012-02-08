@@ -3,4 +3,5 @@
 <resources>
     <style name="Sherlock.__Theme" parent="android:Theme.Holo"></style>
     <style name="Sherlock.__Theme.Light" parent="android:Theme.Holo.Light"></style>
+    <style name="Sherlock.__Theme.DarkActionBar" parent="android:Theme.Holo.Light.DarkActionBar"></style>
 </resources>
