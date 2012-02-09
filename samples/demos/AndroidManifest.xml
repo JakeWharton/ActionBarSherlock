@@ -145,6 +145,16 @@
                 <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ShareActionProviders"
+            android:label="@string/actionbar_share_action_providers"
+            android:theme="@style/Theme.Sherlock">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
         
         <activity
             android:name=".SplitActionBar"

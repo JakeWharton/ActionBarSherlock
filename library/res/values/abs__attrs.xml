@@ -60,6 +60,8 @@
         <attr name="actionModeSplitBackground" format="reference" />
         <!-- Drawable to use for the close action mode button -->
         <attr name="actionModeCloseDrawable" format="reference" />
+        <!-- Drawable to use for the Share action button in WebView selection action modes -->
+        <attr name="actionModeShareDrawable" format="reference" />
 
         <!-- PopupWindow style to use for action modes when showing as a window overlay. -->
         <attr name="actionModePopupWindowStyle" format="reference" />
@@ -126,6 +128,12 @@
         <attr name="windowActionBarOverlay" format="boolean"/>
         <attr name="windowActionModeOverlay" format="boolean"/>
         <attr name="windowSplitActionBar" format="boolean" />
+        
+        
+        <!-- Default ActivityChooserView style. -->
+        <attr name="activityChooserViewStyle" format="reference" />
+        <!-- Drawable used as a background for activated items. -->
+        <attr name="activatedBackgroundIndicator" format="reference" />
         
         <!-- Specified if we are forcing an action item overflow menu. -->
         <attr name="absForceOverflow" format="boolean" />
@@ -224,5 +232,17 @@
     
     <declare-styleable name="SherlockActionMenuItemView">
         <attr name="android:minWidth" />
+    </declare-styleable>
+
+    <declare-styleable name="SherlockActivityChooserView">
+        <!-- The maximal number of items initially shown in the activity list. -->
+        <attr name="initialActivityCount" format="string" />
+        <!-- The drawable to show in the button for expanding the activities overflow popup.
+             <strong>Note:</strong> Clients would like to set this drawable
+             as a clue about the action the chosen activity will perform. For
+             example, if share activity is to be chosen the drawable should
+             give a clue that sharing is to be performed.
+         -->
+        <attr name="expandActivityOverflowButtonDrawable" format="reference" />
     </declare-styleable>
 </resources>

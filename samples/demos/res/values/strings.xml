@@ -20,6 +20,9 @@
     <string name="actionbar_action_providers">Action Providers</string>
     <string name="actionbar_action_providers_content">This activity demonstrates how to implement an ActionProvider for adding functionality to the Action Bar. In particular this demo creates an ActionProvider for launching the system settings and adds a menu item with that provider.</string>
     
+    <string name="actionbar_share_action_providers">Share Action Providers</string>
+    <string name="actionbar_share_action_providers_content">This activity demonstrates how to use an ActionProvider for adding functionality to the Action Bar. In particular this demo is adding a menu item with ShareActionProvider as its action provider. The ShareActionProvider is responsible for managing the UI for sharing actions.</string>
+    
     <string name="actionbar_customnavigation">Custom Navigation</string>
     <string name="actionbar_customnavigation_content">If you find that list and tab navigation are not suitable for your application you may replace it with a custom layout.</string>
     
@@ -44,6 +47,8 @@
     <string name="preference_simple">Preference</string>
     <string name="preference_simple_content">You can use the `SherlockPreferenceActivity` base class to place the action bar on top of a normal `PreferenceActivity`.\n\nThis does not yet support the use of `PreferenceFragments`, however.</string>
     
+    
+    <string name="action_bar_share_with">Share with...</string>
 
 
     <string name="inline_preferences">In-line preferences</string>

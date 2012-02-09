@@ -30,6 +30,10 @@
         <item name="actionBarDivider">?attr/dividerVertical</item>
         <item name="actionBarItemBackground">@drawable/abs__item_background_holo_dark</item>
         
+        <item name="activatedBackgroundIndicator">@drawable/abs__activated_background_holo_dark</item>
+        <item name="actionModeShareDrawable">@drawable/abs__ic_menu_share_holo_dark</item>
+        <item name="activityChooserViewStyle">@style/Widget.Sherlock.ActivityChooserView</item>
+        
         <item name="homeAsUpIndicator">@drawable/abs__ic_ab_back_holo_dark</item>
         
         <item name="dividerVertical">@drawable/abs__list_divider_holo_dark</item>
@@ -73,6 +77,10 @@
         <item name="actionBarDivider">?attr/dividerVertical</item>
         <item name="actionBarItemBackground">@drawable/abs__item_background_holo_light</item>
         
+        <item name="activatedBackgroundIndicator">@drawable/abs__activated_background_holo_light</item>
+        <item name="actionModeShareDrawable">@drawable/abs__ic_menu_share_holo_light</item>
+        <item name="activityChooserViewStyle">@style/Widget.Sherlock.Light.ActivityChooserView</item>
+        
         <item name="homeAsUpIndicator">@drawable/abs__ic_ab_back_holo_light</item>
         
         <item name="dividerVertical">@drawable/abs__list_divider_holo_light</item>
@@ -112,6 +120,8 @@
         <item name="actionModeStyle">@style/Widget.Sherlock.Light.ActionMode.Inverse</item>
         <item name="actionModeCloseButtonStyle">@style/Widget.Sherlock.ActionButton.CloseMode</item>
         <item name="actionModePopupWindowStyle">@style/Widget.Sherlock.PopupWindow.ActionMode</item>
+        
+        <item name="actionModeShareDrawable">@drawable/abs__ic_menu_share_holo_dark</item>
     </style>
     
     
