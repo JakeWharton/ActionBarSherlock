@@ -147,7 +147,7 @@ public class MenuWrapper implements Menu {
     @Override
     public MenuItem getItem(int index) {
         android.view.MenuItem nativeItem = mNativeMenu.getItem(index);
-        return (nativeItem != null) ? mNativeMap.get(nativeItem) : null;
+        return findItem(nativeItem);
     }
 
     @Override
