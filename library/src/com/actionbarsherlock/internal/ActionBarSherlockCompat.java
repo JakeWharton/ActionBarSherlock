@@ -479,10 +479,12 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
         }
 
         if (keyCode == KeyEvent.KEYCODE_MENU && event.getAction() == KeyEvent.ACTION_UP && isReservingOverflow()) {
-            if (mActionBarView.isOverflowMenuShowing()) {
-                mActionBarView.hideOverflowMenu();
-            } else {
-                mActionBarView.showOverflowMenu();
+            if (mActionMode == null) {
+                if (mActionBarView.isOverflowMenuShowing()) {
+                    mActionBarView.hideOverflowMenu();
+                } else {
+                    mActionBarView.showOverflowMenu();
+                }
             }
             if (DEBUG) Log.d(TAG, "[dispatchKeyEvent] returning true");
             return true;
