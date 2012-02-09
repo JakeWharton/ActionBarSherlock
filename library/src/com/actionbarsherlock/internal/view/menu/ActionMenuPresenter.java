@@ -42,6 +42,8 @@ import com.actionbarsherlock.internal.view.menu.ActionMenuView.ActionMenuChildVi
 import com.actionbarsherlock.view.ActionProvider;
 import com.actionbarsherlock.view.MenuItem;
 
+import static com.actionbarsherlock.internal.ActionBarSherlockCompat.getResources_getInteger;
+
 /**
  * MenuPresenter for building action menus as seen in the action bar and action modes.
  */
@@ -97,7 +99,7 @@ public class ActionMenuPresenter extends BaseMenuPresenter
 
         // Measure for initial configuration
         if (!mMaxItemsSet) {
-            mMaxItems = res.getInteger(R.integer.abs__max_action_buttons);
+            mMaxItems = getResources_getInteger(context, R.integer.abs__max_action_buttons);
         }
 
         int width = mWidthLimit;
@@ -138,7 +140,7 @@ public class ActionMenuPresenter extends BaseMenuPresenter
 
     public void onConfigurationChanged(Configuration newConfig) {
         if (!mMaxItemsSet) {
-            mMaxItems = mContext.getResources().getInteger(
+            mMaxItems = getResources_getInteger(mContext,
                     R.integer.abs__max_action_buttons);
             if (mMenu != null) {
                 mMenu.onItemsChanged(true);
