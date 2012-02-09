@@ -10,6 +10,7 @@ import com.actionbarsherlock.app.SherlockActivity;
 public class ListNavigation extends SherlockActivity implements ActionBar.OnNavigationListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        setTheme(SampleList.THEME); //Used for theme switching in samples
         super.onCreate(savedInstanceState);
         setContentView(R.layout.text);
 

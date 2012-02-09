@@ -24,12 +24,15 @@ import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.Window;
 
 public class ActionModesNoActionBar extends SherlockActivity {
     ActionMode mMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(SampleList.THEME); //Used for theme switching in samples
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.action_mode);
 

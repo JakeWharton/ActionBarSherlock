@@ -30,6 +30,7 @@ public class ActionModes extends SherlockActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(SampleList.THEME);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.action_mode);
 

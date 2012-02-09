@@ -10,6 +10,7 @@ import com.actionbarsherlock.app.SherlockActivity;
 public class TabNavigation extends SherlockActivity implements ActionBar.TabListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        setTheme(SampleList.THEME); //Used for theme switching in samples
         super.onCreate(savedInstanceState);
         setContentView(R.layout.text);
 

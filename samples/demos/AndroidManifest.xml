@@ -17,7 +17,9 @@
         android:label="@string/activity_sample_code"
         android:icon="@drawable/icon">
 
-        <activity android:name=".SampleList">
+        <activity
+            android:name=".SampleList"
+            android:theme="@style/Theme.Sherlock">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -28,8 +30,7 @@
 
         <activity
             android:name=".ActionModes"
-            android:label="@string/actionbar_action_modes"
-            android:theme="@style/Theme.Sherlock">
+            android:label="@string/actionbar_action_modes">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
@@ -38,8 +39,7 @@
 
         <activity
             android:name=".ActionModesNoActionBar"
-            android:label="@string/actionbar_action_modes_no_action_bar"
-            android:theme="@style/Theme.Sherlock.NoActionBar">
+            android:label="@string/actionbar_action_modes_no_action_bar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
@@ -48,8 +48,7 @@
 
         <activity
             android:name=".ActionProviders"
-            android:label="@string/actionbar_action_providers"
-            android:theme="@style/Theme.Sherlock">
+            android:label="@string/actionbar_action_providers">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
@@ -58,8 +57,7 @@
 
         <activity
             android:name=".CollapsibleActionItem"
-            android:label="@string/actionbar_collapsible"
-            android:theme="@style/Theme.Sherlock">
+            android:label="@string/actionbar_collapsible">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
@@ -68,8 +66,7 @@
 
         <activity
             android:name=".CustomNavigation"
-            android:label="@string/actionbar_customnavigation"
-            android:theme="@style/Theme.Sherlock">
+            android:label="@string/actionbar_customnavigation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
@@ -78,8 +75,7 @@
         
         <activity
             android:name=".FeatureToggles"
-            android:label="@string/actionbar_feature_toggles"
-            android:theme="@style/Theme.Sherlock">
+            android:label="@string/actionbar_feature_toggles">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
@@ -88,8 +84,7 @@
         
         <activity
             android:name=".ForcedOverflowItem"
-            android:label="@string/actionbar_forced_overflow"
-            android:theme="@style/Theme.Sherlock.ForceOverflow">
+            android:label="@string/actionbar_forced_overflow">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
@@ -98,8 +93,7 @@
         
         <activity
             android:name=".IndeterminateProgress"
-            android:label="@string/actionbar_iprogress"
-            android:theme="@style/Theme.Sherlock">
+            android:label="@string/actionbar_iprogress">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
@@ -108,8 +102,7 @@
         
         <activity
             android:name=".ListNavigation"
-            android:label="@string/actionbar_list_navigation"
-            android:theme="@style/Theme.Sherlock">
+            android:label="@string/actionbar_list_navigation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
@@ -118,8 +111,7 @@
         
         <activity
             android:name=".Overlay"
-            android:label="@string/actionbar_overlay"
-            android:theme="@style/Theme.Sherlock">
+            android:label="@string/actionbar_overlay">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
@@ -128,8 +120,7 @@
 
         <activity
             android:name=".PreferenceSimple"
-            android:label="@string/preference_simple"
-            android:theme="@style/Theme.Sherlock">
+            android:label="@string/preference_simple">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
@@ -138,8 +129,7 @@
         
         <activity
             android:name=".Simple"
-            android:label="@string/actionbar_simple"
-            android:theme="@style/Theme.Sherlock">
+            android:label="@string/actionbar_simple">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
@@ -149,7 +139,6 @@
         <activity
             android:name=".SplitActionBar"
             android:label="@string/actionbar_split"
-            android:theme="@style/Theme.Sherlock"
             android:uiOptions="splitActionBarWhenNarrow">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -160,8 +149,7 @@
         <activity
             android:name=".SplitActionModes"
             android:label="@string/actionbar_split_action_modes"
-            android:uiOptions="splitActionBarWhenNarrow"
-            android:theme="@style/Theme.Sherlock">
+            android:uiOptions="splitActionBarWhenNarrow">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
@@ -170,8 +158,7 @@
         
         <activity
             android:name=".StaticAttachment"
-            android:label="@string/actionbar_static"
-            android:theme="@style/Theme.Sherlock">
+            android:label="@string/actionbar_static">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
@@ -180,8 +167,7 @@
         
         <activity
             android:name=".SubMenus"
-            android:label="@string/actionbar_submenus"
-            android:theme="@style/Theme.Sherlock">
+            android:label="@string/actionbar_submenus">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
@@ -190,8 +176,7 @@
         
         <activity
             android:name=".TabNavigation"
-            android:label="@string/actionbar_tab_navigation"
-            android:theme="@style/Theme.Sherlock">
+            android:label="@string/actionbar_tab_navigation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
@@ -200,8 +185,7 @@
         
         <activity
             android:name=".TabNavigationCollapsed"
-            android:label="@string/actionbar_tab_navigation_collapsed"
-            android:theme="@style/Theme.Sherlock">
+            android:label="@string/actionbar_tab_navigation_collapsed">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />

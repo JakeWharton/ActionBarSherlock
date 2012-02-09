@@ -41,6 +41,7 @@ public class ActionProviders extends SherlockActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        setTheme(SampleList.THEME); //Used for theme switching in samples
         super.onCreate(savedInstanceState);
         setContentView(R.layout.text);
         ((TextView)findViewById(R.id.text)).setText(R.string.actionbar_action_providers_content);

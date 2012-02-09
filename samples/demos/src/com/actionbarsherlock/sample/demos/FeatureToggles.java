@@ -32,6 +32,7 @@ public class FeatureToggles extends SherlockActivity implements ActionBar.TabLis
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        setTheme(SampleList.THEME); //Used for theme switching in samples
         requestWindowFeature(Window.FEATURE_PROGRESS);
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         super.onCreate(savedInstanceState);

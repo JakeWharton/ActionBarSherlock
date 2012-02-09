@@ -40,6 +40,7 @@ public class PreferenceSimple extends SherlockPreferenceActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(SampleList.THEME); //Used for theme switching in samples
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.preferences);

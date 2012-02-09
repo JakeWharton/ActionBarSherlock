@@ -23,7 +23,8 @@ import com.actionbarsherlock.view.Window;
 public class Overlay extends SherlockActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-      requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
+        setTheme(SampleList.THEME); //Used for theme switching in samples
+        requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.overlay);
 

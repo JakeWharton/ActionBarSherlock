@@ -54,6 +54,15 @@ public class ForcedOverflowItem extends SherlockActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Used for theme switching in samples
+        int theme = R.style.Theme_Sherlock_ForceOverflow;
+        if (SampleList.THEME == R.style.Theme_Sherlock_Light) {
+            theme = R.style.Theme_Sherlock_Light_ForceOverflow;
+        } else if (SampleList.THEME == R.style.Theme_Sherlock_Light_DarkActionBar) {
+            theme = R.style.Theme_Sherlock_Light_DarkActionBar_ForceOverflow;
+        }
+        setTheme(theme);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.text);
         ((TextView)findViewById(R.id.text)).setText(R.string.actionbar_forced_overflow_content);

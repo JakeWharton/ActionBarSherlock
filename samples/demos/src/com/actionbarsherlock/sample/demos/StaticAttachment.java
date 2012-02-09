@@ -23,6 +23,7 @@ import android.widget.TextView;
 public class StaticAttachment extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(SampleList.THEME); //Used for theme switching in samples
         super.onCreate(savedInstanceState);
 
         /*

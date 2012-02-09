@@ -24,6 +24,7 @@ import com.actionbarsherlock.view.Window;
 public class IndeterminateProgress extends SherlockActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(SampleList.THEME); //Used for theme switching in samples
         super.onCreate(savedInstanceState);
 
         //This has to be called before setContentView and you must use the
