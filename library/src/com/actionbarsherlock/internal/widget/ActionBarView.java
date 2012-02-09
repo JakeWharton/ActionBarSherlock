@@ -257,6 +257,7 @@ public class ActionBarView extends AbsActionBarView {
             mNavigationMode = ActionBar.NAVIGATION_MODE_STANDARD;
             setDisplayOptions(mDisplayOptions | ActionBar.DISPLAY_SHOW_CUSTOM);
         }
+
         mContentHeight = a.getLayoutDimension(R.styleable.SherlockActionBar_height, 0);
 
         a.recycle();

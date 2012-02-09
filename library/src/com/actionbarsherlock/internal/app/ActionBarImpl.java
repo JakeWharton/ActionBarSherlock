@@ -177,10 +177,6 @@ public class ActionBarImpl extends ActionBar {
                 R.bool.abs__action_bar_embed_tabs));
     }
 
-    public void setMenu(Menu menu, MenuPresenter.Callback cb) {
-        mActionView.setMenu(menu, cb);
-    }
-
     public void onConfigurationChanged(Configuration newConfig) {
         setHasEmbeddedTabs(getResources_getBoolean(mContext,
                 R.bool.abs__action_bar_embed_tabs));
@@ -510,8 +506,10 @@ public class ActionBarImpl extends ActionBar {
             return;
         }
 
-        /* XXX final FragmentTransaction trans = mActivity.getSupportFragmentManager().beginTransaction()
-                .disallowAddToBackStack();*/
+        /* XXX
+        final FragmentTransaction trans = mActivity.getFragmentManager().beginTransaction()
+                .disallowAddToBackStack();
+        */
 
         if (mSelectedTab == tab) {
             if (mSelectedTab != null) {
@@ -529,9 +527,11 @@ public class ActionBarImpl extends ActionBar {
             }
         }
 
-        /* XXX if (!trans.isEmpty()) {
+        /* XXX
+        if (!trans.isEmpty()) {
             trans.commit();
-        }*/
+        }
+        */
     }
 
     @Override

@@ -91,7 +91,14 @@ public abstract class BaseMenuPresenter implements MenuPresenter {
                 MenuItemImpl item = visibleItems.get(i);
                 if (shouldIncludeItem(childIndex, item)) {
                     final View convertView = parent.getChildAt(childIndex);
+                    final MenuItemImpl oldItem = convertView instanceof MenuView.ItemView ?
+                            ((MenuView.ItemView) convertView).getItemData() : null;
                     final View itemView = getItemView(item, convertView, parent);
+                    if (item != oldItem) {
+                        // Don't let old states linger with new data.
+                        itemView.setPressed(false);
+                        itemView.jumpDrawablesToCurrentState();
+                    }
                     if (itemView != convertView) {
                         addItemView(itemView, childIndex);
                     }
@@ -179,7 +186,7 @@ public abstract class BaseMenuPresenter implements MenuPresenter {
     /**
      * Filter item by child index and item data.
      *
-     * @param childIndex Intended presentation index of this item
+     * @param childIndex Indended presentation index of this item
      * @param item Item to present
      * @return true if this item should be included in this menu presentation; false otherwise
      */

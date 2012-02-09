@@ -25,6 +25,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.widget.AdapterView;
@@ -80,7 +81,7 @@ public class ScrollingTabContainerView extends HorizontalScrollView
 
         mTabLayout = createTabLayout();
         addView(mTabLayout, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.FILL_PARENT));
+                ViewGroup.LayoutParams.MATCH_PARENT));
     }
 
     @Override
@@ -148,7 +149,7 @@ public class ScrollingTabContainerView extends HorizontalScrollView
         }
         removeView(mTabLayout);
         addView(mTabSpinner, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.FILL_PARENT));
+                ViewGroup.LayoutParams.MATCH_PARENT));
         if (mTabSpinner.getAdapter() == null) {
             mTabSpinner.setAdapter(new TabAdapter());
         }
@@ -164,7 +165,7 @@ public class ScrollingTabContainerView extends HorizontalScrollView
 
         removeView(mTabSpinner);
         addView(mTabLayout, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.FILL_PARENT));
+                ViewGroup.LayoutParams.MATCH_PARENT));
         setTabSelected(mTabSpinner.getSelectedItemPosition());
         return false;
     }
@@ -198,7 +199,7 @@ public class ScrollingTabContainerView extends HorizontalScrollView
         final Spinner spinner = new Spinner(getContext(), null,
                 R.attr.actionDropDownStyle);
         spinner.setLayoutParams(new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.FILL_PARENT));
+                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
         spinner.setOnItemSelectedListener(this);
         return spinner;
     }
@@ -278,7 +279,7 @@ public class ScrollingTabContainerView extends HorizontalScrollView
 
         if (forAdapter) {
             tabView.setBackgroundDrawable(null);
-            tabView.setLayoutParams(new ListView.LayoutParams(ListView.LayoutParams.FILL_PARENT,
+            tabView.setLayoutParams(new ListView.LayoutParams(ListView.LayoutParams.MATCH_PARENT,
                     mContentHeight));
         } else {
             tabView.setFocusable(true);
@@ -294,7 +295,7 @@ public class ScrollingTabContainerView extends HorizontalScrollView
     public void addTab(ActionBar.Tab tab, boolean setSelected) {
         TabView tabView = createTabView(tab, false);
         mTabLayout.addView(tabView, new IcsLinearLayout.LayoutParams(0,
-                LayoutParams.FILL_PARENT, 1));
+                LayoutParams.MATCH_PARENT, 1));
         if (mTabSpinner != null) {
             ((TabAdapter) mTabSpinner.getAdapter()).notifyDataSetChanged();
         }
@@ -309,7 +310,7 @@ public class ScrollingTabContainerView extends HorizontalScrollView
     public void addTab(ActionBar.Tab tab, int position, boolean setSelected) {
         final TabView tabView = createTabView(tab, false);
         mTabLayout.addView(tabView, position, new IcsLinearLayout.LayoutParams(
-                0, LayoutParams.FILL_PARENT, 1));
+                0, LayoutParams.MATCH_PARENT, 1));
         if (mTabSpinner != null) {
             ((TabAdapter) mTabSpinner.getAdapter()).notifyDataSetChanged();
         }
@@ -404,7 +405,11 @@ public class ScrollingTabContainerView extends HorizontalScrollView
             final ActionBar.Tab tab = mTab;
             final View custom = tab.getCustomView();
             if (custom != null) {
-                addView(custom);
+                final ViewParent customParent = custom.getParent();
+                if (customParent != this) {
+                    if (customParent != null) ((ViewGroup) customParent).removeView(custom);
+                    addView(custom);
+                }
                 mCustomView = custom;
                 if (mTextView != null) mTextView.setVisibility(GONE);
                 if (mIconView != null) {

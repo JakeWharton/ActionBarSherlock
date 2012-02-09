@@ -319,7 +319,7 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
             mMenu = null;
             if (mActionBar != null) {
                 if (DEBUG) Log.d(TAG, "[dispatchInvalidateOptionsMenu] setting action bar menu to null");
-                mActionBar.setMenu(null, mMenuPresenterCallback);
+                mActionBarView.setMenu(null, mMenuPresenterCallback);
             }
             return;
         }
@@ -327,7 +327,7 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
         if (!callbackPrepareOptionsMenu(mMenu)) {
             if (mActionBar != null) {
                 if (DEBUG) Log.d(TAG, "[dispatchInvalidateOptionsMenu] setting action bar menu to null");
-                mActionBar.setMenu(null, mMenuPresenterCallback);
+                mActionBarView.setMenu(null, mMenuPresenterCallback);
             }
             mMenu.startDispatchingItemsChanged();
             return;
@@ -339,7 +339,7 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
         mMenu.startDispatchingItemsChanged();
 
         if (DEBUG) Log.d(TAG, "[dispatchInvalidateOptionsMenu] setting action bar menu to " + mMenu);
-        mActionBar.setMenu(mMenu, mMenuPresenterCallback);
+        mActionBarView.setMenu(mMenu, mMenuPresenterCallback);
     }
 
     @Override

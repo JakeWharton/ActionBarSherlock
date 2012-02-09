@@ -326,6 +326,7 @@ public class ActionMenuPresenter extends BaseMenuPresenter
     public boolean hideOverflowMenu() {
         if (mPostedOpenRunnable != null && mMenuView != null) {
             ((View) mMenuView).removeCallbacks(mPostedOpenRunnable);
+            mPostedOpenRunnable = null;
             return true;
         }
 
@@ -707,10 +708,11 @@ public class ActionMenuPresenter extends BaseMenuPresenter
 
         public void run() {
             mMenu.changeMenuMode();
-            if (mPopup.tryShow()) {
+            final View menuView = (View) mMenuView;
+            if (menuView != null && menuView.getWindowToken() != null && mPopup.tryShow()) {
                 mOverflowPopup = mPopup;
-                mPostedOpenRunnable = null;
             }
+            mPostedOpenRunnable = null;
         }
     }
 }
