@@ -5,6 +5,7 @@ import java.util.Set;
 
 import android.app.Activity;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.SpinnerAdapter;
@@ -24,6 +25,16 @@ public class ActionBarWrapper extends ActionBar implements android.app.ActionBar
         }
     }
 
+
+    @Override
+    public void setHomeButtonEnabled(boolean enabled) {
+        mActionBar.setHomeButtonEnabled(enabled);
+    }
+
+    @Override
+    public Context getThemedContext() {
+        return mActionBar.getThemedContext();
+    }
 
     @Override
     public void setCustomView(View view) {
@@ -152,6 +163,16 @@ public class ActionBarWrapper extends ActionBar implements android.app.ActionBar
     @Override
     public void setBackgroundDrawable(Drawable d) {
         mActionBar.setBackgroundDrawable(d);
+    }
+
+    @Override
+    public void setStackedBackgroundDrawable(Drawable d) {
+        mActionBar.setStackedBackgroundDrawable(d);
+    }
+
+    @Override
+    public void setSplitBackgroundDrawable(Drawable d) {
+        mActionBar.setSplitBackgroundDrawable(d);
     }
 
     @Override
