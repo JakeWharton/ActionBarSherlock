@@ -95,7 +95,7 @@
     
     <style name="Widget.Sherlock.ActionBar.TabText" parent="Widget">
         <item name="android:textAppearance">@null</item>
-        <item name="android:textColor">?attr/textColorPrimary</item>"
+        <item name="android:textColor">?attr/textColorPrimary</item>
         <item name="android:textSize">12sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textAllCaps">true</item>
