@@ -22,6 +22,19 @@ public abstract class NineViewGroup extends ViewGroup {
         mProxy = AnimatorProxy.NEEDS_PROXY ? AnimatorProxy.wrap(this) : null;
     }
 
+    @Override
+    public void setVisibility(int visibility) {
+        //Fix for:
+        // https://github.com/JakeWharton/ActionBarSherlock/issues/209
+        // https://github.com/JakeWharton/ActionBarSherlock/issues/246
+        if (visibility == GONE) {
+            clearAnimation();
+        } else if (visibility == VISIBLE && mProxy != null) {
+            setAnimation(mProxy);
+        }
+        super.setVisibility(visibility);
+    }
+
     public float getAlpha() {
         if (AnimatorProxy.NEEDS_PROXY) {
             return mProxy.getAlpha();

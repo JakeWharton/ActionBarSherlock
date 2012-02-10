@@ -21,7 +21,6 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 
@@ -47,8 +46,6 @@ public abstract class AbsActionBarView extends NineViewGroup {
 
     protected Animator mVisibilityAnim;
     protected final VisibilityAnimListener mVisAnimListener = new VisibilityAnimListener();
-
-    private Animation mAnimationHolder;
 
     private static final /*Time*/Interpolator sAlphaInterpolator = new DecelerateInterpolator();
 
@@ -179,16 +176,6 @@ public abstract class AbsActionBarView extends NineViewGroup {
     public void setVisibility(int visibility) {
         if (mVisibilityAnim != null) {
             mVisibilityAnim.end();
-        }
-        //Fix for:
-        // https://github.com/JakeWharton/ActionBarSherlock/issues/209
-        // https://github.com/JakeWharton/ActionBarSherlock/issues/246
-        if (visibility == GONE) {
-            mAnimationHolder = getAnimation();
-            clearAnimation();
-        }
-        if (visibility == VISIBLE && mAnimationHolder != null) {
-            setAnimation(mAnimationHolder);
         }
         super.setVisibility(visibility);
     }
