@@ -352,9 +352,7 @@ public class ActionBarView extends AbsActionBarView {
      */
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
-            super.onConfigurationChanged(newConfig);
-        }
+        super.onConfigurationChanged(newConfig);
 
         mTitleView = null;
         mSubtitleView = null;
