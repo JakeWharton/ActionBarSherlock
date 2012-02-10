@@ -89,6 +89,7 @@
         <attr name="textAppearanceSmall" format="reference" />
         
         <attr name="textColorPrimary" format="color" />
+        <attr name="textColorPrimaryInverse" format="color" />
         
         
 
