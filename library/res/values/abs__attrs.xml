@@ -3,8 +3,8 @@
 <resources>
     <attr name="titleTextStyle" format="reference" />
     <attr name="subtitleTextStyle" format="reference" />
-    <attr name="background" format="reference" />
-    <attr name="backgroundSplit" format="reference" />
+    <attr name="background" format="reference|color" />
+    <attr name="backgroundSplit" format="reference|color" />
     <attr name="height" format="dimension" />
     <attr name="divider" format="reference" />
     
