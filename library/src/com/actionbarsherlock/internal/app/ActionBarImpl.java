@@ -168,9 +168,7 @@ public class ActionBarImpl extends ActionBar {
 
         // Older apps get the home button interaction enabled by default.
         // Newer apps need to enable it explicitly.
-        //setHomeButtonEnabled(mContext.getApplicationInfo().targetSdkVersion < 14);
-        // We're all new brotha!  This. Is. ActionBarSherlock!
-        setHomeButtonEnabled(false);
+        setHomeButtonEnabled(mContext.getApplicationInfo().targetSdkVersion < 14);
 
         setHasEmbeddedTabs(getResources_getBoolean(mContext,
                 R.bool.abs__action_bar_embed_tabs));
