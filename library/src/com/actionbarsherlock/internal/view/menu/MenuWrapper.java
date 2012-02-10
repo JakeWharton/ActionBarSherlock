@@ -19,6 +19,9 @@ public class MenuWrapper implements Menu {
         mNativeMenu = nativeMenu;
     }
 
+    public android.view.Menu unwrap() {
+        return mNativeMenu;
+    }
 
     private MenuItem addInternal(android.view.MenuItem nativeItem) {
         MenuItem item = new MenuItemWrapper(nativeItem);
