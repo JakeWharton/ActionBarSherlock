@@ -27,10 +27,12 @@ public abstract class NineViewGroup extends ViewGroup {
         //Fix for:
         // https://github.com/JakeWharton/ActionBarSherlock/issues/209
         // https://github.com/JakeWharton/ActionBarSherlock/issues/246
-        if (visibility == GONE) {
-            clearAnimation();
-        } else if (visibility == VISIBLE && mProxy != null) {
-            setAnimation(mProxy);
+        if (mProxy != null) {
+            if (visibility == GONE) {
+                clearAnimation();
+            } else if (visibility == VISIBLE) {
+                setAnimation(mProxy);
+            }
         }
         super.setVisibility(visibility);
     }
