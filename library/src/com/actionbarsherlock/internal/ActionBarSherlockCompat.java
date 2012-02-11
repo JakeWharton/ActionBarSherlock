@@ -336,10 +336,11 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
         //TODO figure out KeyEvent? See PhoneWindow#preparePanel
         KeyCharacterMap kmap = KeyCharacterMap.load(KeyCharacterMap.VIRTUAL_KEYBOARD);
         mMenu.setQwertyMode(kmap.getKeyboardType() != KeyCharacterMap.NUMERIC);
-        mMenu.startDispatchingItemsChanged();
 
         if (DEBUG) Log.d(TAG, "[dispatchInvalidateOptionsMenu] setting action bar menu to " + mMenu);
         mActionBarView.setMenu(mMenu, mMenuPresenterCallback);
+
+        mMenu.startDispatchingItemsChanged();
     }
 
     @Override
