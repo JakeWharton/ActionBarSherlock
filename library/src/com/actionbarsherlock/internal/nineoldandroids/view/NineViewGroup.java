@@ -24,9 +24,6 @@ public abstract class NineViewGroup extends ViewGroup {
 
     @Override
     public void setVisibility(int visibility) {
-        //Fix for:
-        // https://github.com/JakeWharton/ActionBarSherlock/issues/209
-        // https://github.com/JakeWharton/ActionBarSherlock/issues/246
         if (mProxy != null) {
             if (visibility == GONE) {
                 clearAnimation();
