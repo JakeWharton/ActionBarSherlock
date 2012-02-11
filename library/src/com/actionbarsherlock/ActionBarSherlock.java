@@ -49,7 +49,7 @@ public abstract class ActionBarSherlock {
      * If set, the compatibility implementation of the action bar will always
      * be used rather than proxying to the native version on API 14 and newer.
      **/
-    public static final int FLAG_ALWAYS_COMPAT = 2;
+    private static final int FLAG_ALWAYS_COMPAT = 2;
     /**
      * If set, the supplied custom implementation will be used instead of the
      * built-in implementations to provide action bar functionality. This flag
