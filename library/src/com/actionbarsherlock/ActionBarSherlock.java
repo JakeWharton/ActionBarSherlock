@@ -62,13 +62,25 @@ public abstract class ActionBarSherlock {
     public interface OnCreatePanelMenuListener {
         public boolean onCreatePanelMenu(int featureId, Menu menu);
     }
+    /** Activity interface for menu creation callback. */
+    public interface OnCreateOptionsMenuListener {
+        public boolean onCreateOptionsMenu(Menu menu);
+    }
     /** Activity interface for menu item selection callback. */
     public interface OnMenuItemSelectedListener {
         public boolean onMenuItemSelected(int featureId, MenuItem item);
     }
+    /** Activity interface for menu item selection callback. */
+    public interface OnOptionsItemSelectedListener {
+        public boolean onOptionsItemSelected(MenuItem item);
+    }
     /** Activity interface for menu preparation callback. */
     public interface OnPreparePanelListener {
         public boolean onPreparePanel(int featureId, View view, Menu menu);
+    }
+    /** Activity interface for menu preparation callback. */
+    public interface OnPrepareOptionsMenuListener {
+        public boolean onPrepareOptionsMenu(Menu menu);
     }
     /** Activity interface for action mode finished callback. */
     public interface OnActionModeFinishedListener {
@@ -444,6 +456,9 @@ public abstract class ActionBarSherlock {
         if (mActivity instanceof OnCreatePanelMenuListener) {
             OnCreatePanelMenuListener listener = (OnCreatePanelMenuListener)mActivity;
             result = listener.onCreatePanelMenu(Window.FEATURE_OPTIONS_PANEL, menu);
+        } else if (mActivity instanceof OnCreateOptionsMenuListener) {
+            OnCreateOptionsMenuListener listener = (OnCreateOptionsMenuListener)mActivity;
+            result = listener.onCreateOptionsMenu(menu);
         }
 
         if (DEBUG) Log.d(TAG, "[callbackCreateOptionsMenu] returning " + result);
@@ -462,6 +477,9 @@ public abstract class ActionBarSherlock {
         if (mActivity instanceof OnPreparePanelListener) {
             OnPreparePanelListener listener = (OnPreparePanelListener)mActivity;
             result = listener.onPreparePanel(Window.FEATURE_OPTIONS_PANEL, null, menu);
+        } else if (mActivity instanceof OnPrepareOptionsMenuListener) {
+            OnPrepareOptionsMenuListener listener = (OnPrepareOptionsMenuListener)mActivity;
+            result = listener.onPrepareOptionsMenu(menu);
         }
 
         if (DEBUG) Log.d(TAG, "[callbackPrepareOptionsMenu] returning " + result);
@@ -482,6 +500,9 @@ public abstract class ActionBarSherlock {
         if (mActivity instanceof OnMenuItemSelectedListener) {
             OnMenuItemSelectedListener listener = (OnMenuItemSelectedListener)mActivity;
             result = listener.onMenuItemSelected(Window.FEATURE_OPTIONS_PANEL, item);
+        } else if (mActivity instanceof OnOptionsItemSelectedListener) {
+            OnOptionsItemSelectedListener listener = (OnOptionsItemSelectedListener)mActivity;
+            result = listener.onOptionsItemSelected(item);
         }
 
         if (DEBUG) Log.d(TAG, "[callbackOptionsItemSelected] returning " + result);
