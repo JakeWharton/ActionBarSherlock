@@ -16,7 +16,9 @@ public class ListNavigation extends SherlockActivity implements ActionBar.OnNavi
 
         getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 
-        ArrayAdapter<CharSequence> list = ArrayAdapter.createFromResource(this, R.array.locations, android.R.layout.simple_dropdown_item_1line);
+        //NOTE: It is very important that you use 'sherlock_spinner_item' here
+        //      and NOT 'simple_spinner_item' or you will see text color problems
+        ArrayAdapter<CharSequence> list = ArrayAdapter.createFromResource(this, R.array.locations, R.layout.sherlock_spinner_item);
         list.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         getSupportActionBar().setListNavigationCallbacks(list, this);
     }

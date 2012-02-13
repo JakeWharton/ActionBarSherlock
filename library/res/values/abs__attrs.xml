@@ -91,7 +91,7 @@
         <attr name="textColorPrimary" format="color" />
         <attr name="textColorPrimaryInverse" format="color" />
         
-        
+        <attr name="spinnerItemStyle" format="reference" />
 
         <!-- =========== -->
         <!-- List styles -->

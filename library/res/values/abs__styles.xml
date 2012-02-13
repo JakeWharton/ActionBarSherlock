@@ -230,6 +230,13 @@
 
 
 
+    <style name="Widget.Sherlock.TextView.SpinnerItem" parent="Widget">
+        <item name="android:textAppearance">@style/TextAppearance.Sherlock.Widget.TextView.SpinnerItem</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+    </style>
+
+
     <style name="TextAppearance.Sherlock.Widget.ActionBar.Menu" parent="Widget">
         <item name="android:textSize">12sp</item>
         <item name="android:textStyle">bold</item>
@@ -282,5 +289,9 @@
         <item name="android:textSize">14sp</item>
     </style>
     <style name="TextAppearance.Sherlock.Light.Widget.PopupMenu.Small" parent="TextAppearance.Sherlock.Widget.PopupMenu.Small">
+    </style>
+    
+    <style name="TextAppearance.Sherlock.Widget.TextView.SpinnerItem" parent="Widget">
+        <item name="android:textColor">?textColorPrimary</item>
     </style>
 </resources>
