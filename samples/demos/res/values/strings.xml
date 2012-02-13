@@ -32,6 +32,9 @@
     <string name="actionbar_static">Static Attachment</string>
     <string name="actionbar_static_content">This is a simple showcase of how easy it is to add the action bar to your activities without having to extend from a custom activity. Take a look at the source code, it\'s surprisingly simple!</string>
     
+    <string name="actionbar_styled">Styled</string>
+    <string name="actionbar_styled_content">This is a simple showcase of how to style the action bar to your liking. Be sure to remember that you need to consider both the custom and native action bar when styling. Looking at this activity\'s style is a good way to start.</string>
+    
     <string name="actionbar_submenus">Sub-menus</string>
     <string name="actionbar_submenus_content">This activity is a demonstration of how sub-menus work when they are either an action item or an item in the overflow menu.</string>
     

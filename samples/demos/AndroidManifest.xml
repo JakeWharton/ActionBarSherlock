@@ -166,6 +166,17 @@
         </activity>
         
         <activity
+            android:name=".Styled"
+            android:label="@string/actionbar_styled"
+            android:theme="@style/Theme.Styled"
+            android:uiOptions="splitActionBarWhenNarrow">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+        
+        <activity
             android:name=".SubMenus"
             android:label="@string/actionbar_submenus">
             <intent-filter>
