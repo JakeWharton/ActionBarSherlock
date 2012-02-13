@@ -1,10 +1,11 @@
 package com.actionbarsherlock.internal.nineoldandroids.view.animation;
 
+import java.lang.ref.WeakReference;
 import java.util.WeakHashMap;
 import android.graphics.Matrix;
+import android.graphics.RectF;
 import android.os.Build;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 
@@ -23,19 +24,23 @@ public final class AnimatorProxy extends Animation {
         return proxy;
     }
 
-    private final View mView;
+    private final WeakReference<View> mView;
 
-    private float mAlpha = 1f;
-    private float mTranslationX = 0f;
-    private float mTranslationY = 0f;
-    private float mScaleX = 1f;
-    private float mScaleY = 1f;
+    private float mAlpha = 1;
+    private float mScaleX = 1;
+    private float mScaleY = 1;
+    private float mTranslationX;
+    private float mTranslationY;
+
+    private final RectF mBefore = new RectF();
+    private final RectF mAfter = new RectF();
+    private final Matrix mTempMatrix = new Matrix();
 
     private AnimatorProxy(View view) {
         setDuration(0); //perform transformation immediately
         setFillAfter(true); //persist transformation beyond duration
         view.setAnimation(this);
-        mView = view;
+        mView = new WeakReference<View>(view);
     }
 
     public float getAlpha() {
@@ -44,34 +49,20 @@ public final class AnimatorProxy extends Animation {
     public void setAlpha(float alpha) {
         if (mAlpha != alpha) {
             mAlpha = alpha;
-            mView.invalidate();
-        }
-    }
-    public float getTranslationX() {
-        return mTranslationX;
-    }
-    public void setTranslationX(float translationX) {
-        if (mTranslationX != translationX) {
-            mTranslationX = translationX;
-            invalidateParent();
-        }
-    }
-    public float getTranslationY() {
-        return mTranslationY;
-    }
-    public void setTranslationY(float translationY) {
-        if (mTranslationY != translationY) {
-            mTranslationY = translationY;
-            invalidateParent();
+            View view = mView.get();
+            if (view != null) {
+                view.invalidate();
+            }
         }
     }
     public float getScaleX() {
         return mScaleX;
     }
-    public void setScaleX(float scale) {
-        if (mScaleX != scale) {
-            mScaleX = scale;
-            invalidateParent();
+    public void setScaleX(float scaleX) {
+        if (mScaleX != scaleX) {
+            prepareForUpdate();
+            mScaleX = scaleX;
+            invalidateAfterUpdate();
         }
     }
     public float getScaleY() {
@@ -79,21 +70,135 @@ public final class AnimatorProxy extends Animation {
     }
     public void setScaleY(float scaleY) {
         if (mScaleY != scaleY) {
+            prepareForUpdate();
             mScaleY = scaleY;
-            invalidateParent();
+            invalidateAfterUpdate();
+        }
+    }
+    public int getScrollX() {
+        View view = mView.get();
+        if (view == null) {
+            return 0;
+        }
+        return view.getScrollX();
+    }
+    public void setScrollX(int value) {
+        View view = mView.get();
+        if (view != null) {
+            view.scrollTo(value, view.getScrollY());
+        }
+    }
+    public int getScrollY() {
+        View view = mView.get();
+        if (view == null) {
+            return 0;
+        }
+        return view.getScrollY();
+    }
+    public void setScrollY(int value) {
+        View view = mView.get();
+        if (view != null) {
+            view.scrollTo(view.getScrollY(), value);
         }
     }
 
-    private void invalidateParent() {
-        ((ViewGroup)mView.getParent()).invalidate();
+    public float getTranslationX() {
+        return mTranslationX;
+    }
+    public void setTranslationX(float translationX) {
+        if (mTranslationX != translationX) {
+            prepareForUpdate();
+            mTranslationX = translationX;
+            invalidateAfterUpdate();
+        }
+    }
+    public float getTranslationY() {
+        return mTranslationY;
+    }
+    public void setTranslationY(float translationY) {
+        if (mTranslationY != translationY) {
+            prepareForUpdate();
+            mTranslationY = translationY;
+            invalidateAfterUpdate();
+        }
+    }
+
+    private void prepareForUpdate() {
+        View view = mView.get();
+        if (view != null) {
+            computeRect(mBefore, view);
+        }
+    }
+    private void invalidateAfterUpdate() {
+        View view = mView.get();
+        if (view == null) {
+            return;
+        }
+        View parent = (View)view.getParent();
+        if (parent == null) {
+            return;
+        }
+
+        final RectF after = mAfter;
+        computeRect(after, view);
+        after.union(mBefore);
+
+        parent.invalidate(
+                (int) Math.floor(after.left),
+                (int) Math.floor(after.top),
+                (int) Math.ceil(after.right),
+                (int) Math.ceil(after.bottom));
+    }
+
+    private void computeRect(final RectF r, View view) {
+        // compute current rectangle according to matrix transformation
+        final float w = view.getWidth();
+        final float h = view.getHeight();
+
+        // use a rectangle at 0,0 to make sure we don't run into issues with scaling
+        r.set(0, 0, w, h);
+
+        final Matrix m = mTempMatrix;
+        m.reset();
+        transformMatrix(m, view);
+        mTempMatrix.mapRect(r);
+
+        r.offset(view.getLeft(), view.getTop());
+
+        // Straighten coords if rotations flipped them
+        if (r.right < r.left) {
+            final float f = r.right;
+            r.right = r.left;
+            r.left = f;
+        }
+        if (r.bottom < r.top) {
+            final float f = r.top;
+            r.top = r.bottom;
+            r.bottom = f;
+        }
+    }
+
+    private void transformMatrix(Matrix m, View view) {
+        final float w = view.getWidth();
+        final float h = view.getHeight();
+
+        final float sX = mScaleX;
+        final float sY = mScaleY;
+        if ((sX != 1.0f) || (sY != 1.0f)) {
+            final float deltaSX = ((sX * w) - w) / 2f;
+            final float deltaSY = ((sY * h) - h) / 2f;
+            m.postScale(sX, sY);
+            m.postTranslate(-deltaSX, -deltaSY);
+        }
+        m.postTranslate(mTranslationX, mTranslationY);
     }
 
     @Override
     protected void applyTransformation(float interpolatedTime, Transformation t) {
-        t.setAlpha(mAlpha);
-
-        final Matrix m = t.getMatrix();
-        m.postTranslate(mTranslationX, mTranslationY);
-        m.postScale(mScaleX, mScaleY);
+        View view = mView.get();
+        if (view != null) {
+            t.setAlpha(mAlpha);
+            transformMatrix(t.getMatrix(), view);
+        }
     }
 }
