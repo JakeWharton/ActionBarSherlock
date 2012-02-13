@@ -14,6 +14,7 @@
     <string name="actionbar_tab_navigation">Tab Navigation</string>
     <string name="actionbar_tab_navigation_collapsed">Tab Navigation (Collapsed)</string>
     <string name="actionbar_overlay">Overlay</string>
+    <string name="actionbar_progress">Progress</string>
     
     <string name="actionbar_iprogress">Indeterminate Progress</string>
     

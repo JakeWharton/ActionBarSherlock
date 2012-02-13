@@ -17,6 +17,7 @@ package com.actionbarsherlock.sample.demos;
 
 import android.graphics.Shader.TileMode;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockActivity;
@@ -31,13 +32,15 @@ public class Styled extends SherlockActivity {
         ((TextView)findViewById(R.id.text)).setText(R.string.actionbar_styled_content);
 
         //This is a workaround for http://b.android.com/15340 from http://stackoverflow.com/a/5852198/132047
-        BitmapDrawable bg = (BitmapDrawable)getResources().getDrawable(R.drawable.bg_striped);
-        bg.setTileModeXY(TileMode.REPEAT, TileMode.REPEAT);
-        getSupportActionBar().setBackgroundDrawable(bg);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            BitmapDrawable bg = (BitmapDrawable)getResources().getDrawable(R.drawable.bg_striped);
+            bg.setTileModeXY(TileMode.REPEAT, TileMode.REPEAT);
+            getSupportActionBar().setBackgroundDrawable(bg);
 
-        BitmapDrawable bgSplit = (BitmapDrawable)getResources().getDrawable(R.drawable.bg_striped_split_img);
-        bgSplit.setTileModeXY(TileMode.REPEAT, TileMode.REPEAT);
-        getSupportActionBar().setSplitBackgroundDrawable(bgSplit);
+            BitmapDrawable bgSplit = (BitmapDrawable)getResources().getDrawable(R.drawable.bg_striped_split_img);
+            bgSplit.setTileModeXY(TileMode.REPEAT, TileMode.REPEAT);
+            getSupportActionBar().setSplitBackgroundDrawable(bgSplit);
+        }
     }
 
     @Override

@@ -126,6 +126,15 @@
                 <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".Progress"
+            android:label="@string/actionbar_progress">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
         
         <activity
             android:name=".Simple"

@@ -16,12 +16,31 @@
 package com.actionbarsherlock.sample.demos;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Window;
 
-public class IndeterminateProgress extends SherlockActivity {
+public class Progress extends SherlockActivity  {
+    Handler mHandler = new Handler();
+    Runnable mProgressRunner = new Runnable() {
+        @Override
+        public void run() {
+            mProgress += 2;
+            
+            //Normalize our progress along the progress bar's scale
+            int progress = (Window.PROGRESS_END - Window.PROGRESS_START) / 100 * mProgress;
+            setSupportProgress(progress);
+            
+            if (mProgress < 100) {
+                mHandler.postDelayed(mProgressRunner, 50);
+            }
+        }
+    };
+    
+    private int mProgress = 100;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(SampleList.THEME); //Used for theme switching in samples
@@ -29,20 +48,17 @@ public class IndeterminateProgress extends SherlockActivity {
 
         //This has to be called before setContentView and you must use the
         //class in com.actionbarsherlock.view and NOT android.view
-        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+        requestWindowFeature(Window.FEATURE_PROGRESS);
 
-        setContentView(R.layout.iprogress);
+        setContentView(R.layout.progress);
 
-        findViewById(R.id.enable).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.go).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                setSupportProgressBarIndeterminateVisibility(true);
-            }
-        });
-        findViewById(R.id.disable).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                setSupportProgressBarIndeterminateVisibility(false);
+                if (mProgress == 100) {
+                    mProgress = 0;
+                    mProgressRunner.run();
+                }
             }
         });
     }
