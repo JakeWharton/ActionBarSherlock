@@ -14,11 +14,12 @@
         android:required="false" />
 
     <application
-        android:label="@string/activity_sample_code"
+        android:label="@string/application_name"
         android:icon="@drawable/icon">
 
         <activity
             android:name=".SampleList"
+            android:label="@string/activity_name"
             android:theme="@style/Theme.Sherlock">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

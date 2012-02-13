@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <string name="activity_sample_code">ABS: Support Demos</string>
+    <string name="application_name">ActionBarSherlock Demos</string>
+    <string name="activity_name">ABS: Demos</string>
     
     <string name="hello_world">Hello, World!</string>
     <string name="hello_actionbar">Hello, ActionBar!</string>
