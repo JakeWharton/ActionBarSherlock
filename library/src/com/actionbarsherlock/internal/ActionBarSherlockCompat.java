@@ -387,7 +387,7 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
     public boolean dispatchPrepareOptionsMenu(android.view.Menu menu) {
         if (DEBUG) Log.d(TAG, "[dispatchPrepareOptionsMenu] android.view.Menu: " + menu);
 
-        if (!callbackPrepareOptionsMenu(mMenu)) {
+        if (mMenu == null || !callbackPrepareOptionsMenu(mMenu)) {
             return false;
         }
 
