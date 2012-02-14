@@ -37,7 +37,7 @@ public class FeatureToggles extends SherlockActivity implements ActionBar.TabLis
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.feature_toggles_activity);
+        setContentView(R.layout.feature_toggles);
         setSupportProgressBarIndeterminateVisibility(false);
         setSupportProgressBarVisibility(false);
 

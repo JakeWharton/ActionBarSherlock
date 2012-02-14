@@ -44,7 +44,7 @@ public class ActionProviders extends SherlockActivity {
         setTheme(SampleList.THEME); //Used for theme switching in samples
         super.onCreate(savedInstanceState);
         setContentView(R.layout.text);
-        ((TextView)findViewById(R.id.text)).setText(R.string.actionbar_action_providers_content);
+        ((TextView)findViewById(R.id.text)).setText(R.string.action_providers_content);
     }
 
     /**
@@ -53,7 +53,7 @@ public class ActionProviders extends SherlockActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        getSupportMenuInflater().inflate(R.menu.action_bar_settings_action_provider, menu);
+        getSupportMenuInflater().inflate(R.menu.settings_action_provider, menu);
         return true;
     }
 
@@ -95,7 +95,7 @@ public class ActionProviders extends SherlockActivity {
         public View onCreateActionView() {
             // Inflate the action view to be shown on the action bar.
             LayoutInflater layoutInflater = LayoutInflater.from(mContext);
-            View view = layoutInflater.inflate(R.layout.action_bar_settings_action_provider, null);
+            View view = layoutInflater.inflate(R.layout.settings_action_provider, null);
             ImageButton button = (ImageButton) view.findViewById(R.id.button);
             // Attach a click listener for launching the system settings.
             button.setOnClickListener(new View.OnClickListener() {

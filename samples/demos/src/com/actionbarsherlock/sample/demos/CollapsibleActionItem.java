@@ -37,6 +37,6 @@ public class CollapsibleActionItem extends SherlockActivity {
         setTheme(SampleList.THEME); //Used for theme switching in samples
         super.onCreate(savedInstanceState);
         setContentView(R.layout.text);
-        ((TextView)findViewById(R.id.text)).setText(R.string.actionbar_collapsible_content);
+        ((TextView)findViewById(R.id.text)).setText(R.string.collapsible_content);
     }
 }

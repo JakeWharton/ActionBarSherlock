@@ -65,6 +65,6 @@ public class ForcedOverflowItem extends SherlockActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.text);
-        ((TextView)findViewById(R.id.text)).setText(R.string.actionbar_forced_overflow_content);
+        ((TextView)findViewById(R.id.text)).setText(R.string.forced_overflow_content);
     }
 }

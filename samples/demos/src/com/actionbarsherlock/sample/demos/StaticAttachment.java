@@ -48,7 +48,7 @@ public class StaticAttachment extends Activity implements OnCreateOptionsMenuLis
         mSherlock.setUiOptions(ActivityInfo.UIOPTION_SPLIT_ACTION_BAR_WHEN_NARROW);
         mSherlock.setContentView(R.layout.text);
 
-        ((TextView)findViewById(R.id.text)).setText(R.string.actionbar_static_content);
+        ((TextView)findViewById(R.id.text)).setText(R.string.static_attach_content);
     }
 
     /*

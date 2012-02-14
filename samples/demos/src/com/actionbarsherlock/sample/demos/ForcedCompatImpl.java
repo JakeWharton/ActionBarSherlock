@@ -31,6 +31,6 @@ public class ForcedCompatImpl extends SherlockActivity {
         setTheme(SampleList.THEME); //Used for theme switching in samples
         super.onCreate(savedInstanceState);
         setContentView(R.layout.text);
-        ((TextView)findViewById(R.id.text)).setText(R.string.actionbar_forced_compat_content);
+        ((TextView)findViewById(R.id.text)).setText(R.string.forced_compat_content);
     }
 }

@@ -45,6 +45,6 @@ public class SplitActionBar extends SherlockActivity {
         setTheme(SampleList.THEME); //Used for theme switching in samples
         super.onCreate(savedInstanceState);
         setContentView(R.layout.text);
-        ((TextView)findViewById(R.id.text)).setText(R.string.actionbar_split_content);
+        ((TextView)findViewById(R.id.text)).setText(R.string.split_content);
     }
 }
