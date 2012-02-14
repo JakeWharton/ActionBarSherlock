@@ -129,7 +129,7 @@
         </activity>
 
         <activity
-            android:name=".PreferenceSimple"
+            android:name=".Preference"
             android:label="@string/preference">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

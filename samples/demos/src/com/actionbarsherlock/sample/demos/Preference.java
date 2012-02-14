@@ -20,7 +20,7 @@ import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
-public class PreferenceSimple extends SherlockPreferenceActivity {
+public class Preference extends SherlockPreferenceActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.add("Save")
