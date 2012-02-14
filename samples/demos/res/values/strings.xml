@@ -4,35 +4,48 @@
     <string name="application_name">ActionBarSherlock Demos</string>
     <string name="activity_name">ABS: Demos</string>
     
+    
+    
     <string name="action_modes">Action Modes</string>
     <string name="action_modes_content">Action modes are used to display contextual information based on some interaction made by the user (long press, checkbox selection, etc). Like the normal action bar they also support splitting the action items to the bottom of the screen on small devices.</string>
     
-    <string name="feature_toggles">Feature Toggles</string>
-    <string name="list_navigation">List Navigation</string>
-    
     <string name="action_modes_no_action_bar">Action Modes (No Action Bar)</string>
-    <string name="split_action_modes">Split Action Modes</string>
-    <string name="tab_navigation">Tab Navigation</string>
-    <string name="tab_navigation_collapsed">Tab Navigation (Collapsed)</string>
-    <string name="overlay">Overlay</string>
-    <string name="progress">Progress</string>
-    
-    <string name="iprogress">Indeterminate Progress</string>
     
     <string name="action_providers">Action Providers</string>
     <string name="action_providers_content">This activity demonstrates how to implement an ActionProvider for adding functionality to the Action Bar. In particular this demo creates an ActionProvider for launching the system settings and adds a menu item with that provider.</string>
     
+    <string name="collapsible">Collapsible Action Items</string>
+    <string name="collapsible_content">This activity is a demonstration of how collapsible action items work. When you are concerned about the available room for items on small screens you should use this feature.</string>
+    
     <string name="custom_navigation">Custom Navigation</string>
     <string name="custom_navigation_content">If you find that list and tab navigation are not suitable for your application you may replace it with a custom layout.</string>
     
-    <string name="forced_overflow">Forced Overflow Item</string>
-    <string name="forced_overflow_content">If you choose, you can force the presence of the overflow menu as an action item. Google\'s own research indicates that the regular options menu is lost on most users and doing this will place it always on screen. You can use a theme ending in `ForceOverflow` or add the `absForceOverflow` attribute to a custom theme.\n\nNote: This will only work on the pre-ICS action bar.</string>
+    <string name="feature_toggles">Feature Toggles</string>
     
     <string name="forced_compat">Forced Compat Implementation</string>
     <string name="forced_compat_content">Though an extremely rare situation, sometimes you may want to always use the internal implementation of the action bar in lieu of the native action bar when on Ice Cream Sandwich and newer. By adding a special constructor to your activity this can easily be done.\n\nCan\'t tell the difference from the native version? That\'s the point!</string>
     
+    <string name="forced_overflow">Forced Overflow Item</string>
+    <string name="forced_overflow_content">If you choose, you can force the presence of the overflow menu as an action item. Google\'s own research indicates that the regular options menu is lost on most users and doing this will place it always on screen. You can use a theme ending in `ForceOverflow` or add the `absForceOverflow` attribute to a custom theme.\n\nNote: This will only work on the pre-ICS action bar.</string>
+    
+    <string name="iprogress">Indeterminate Progress</string>
+    
+    <string name="list_navigation">List Navigation</string>
+    
+    <string name="overlay">Overlay</string>
+    
+    <string name="preference">Preference</string>
+    <string name="preference_content">You can use the `SherlockPreferenceActivity` base class to place the action bar on top of a normal `PreferenceActivity`.\n\nThis does not yet support the use of `PreferenceFragments`, however.</string>
+    
+    <string name="progress">Progress</string>
+    
     <string name="simple">Simple</string>
     <string name="simple_content">This is a simple showcase of how easy it is to add the action bar to your activities. Take a look at the source code, it\'s surprisingly simple!</string>
+    
+    <string name="split">Split Action Items</string>
+    <string name="split_content">This activity is a demonstration of how split action items work. When you are concerned about the available room for items on small screens you should use this feature.</string>
+    
+    <string name="split_action_modes">Split Action Modes</string>
     
     <string name="static_attach">Static Attachment</string>
     <string name="static_attach_content">This is a simple showcase of how easy it is to add the action bar to your activities without having to extend from a custom activity. Take a look at the source code, it\'s surprisingly simple!</string>
@@ -43,17 +56,11 @@
     <string name="submenus">Sub-menus</string>
     <string name="submenus_content">This activity is a demonstration of how sub-menus work when they are either an action item or an item in the overflow menu.</string>
     
-    <string name="split">Split Action Items</string>
-    <string name="split_content">This activity is a demonstration of how split action items work. When you are concerned about the available room for items on small screens you should use this feature.</string>
-
-    <string name="collapsible">Collapsible Action Items</string>
-    <string name="collapsible_content">This activity is a demonstration of how collapsible action items work. When you are concerned about the available room for items on small screens you should use this feature.</string>
-
-    <string name="preference">Preference</string>
-    <string name="preference_content">You can use the `SherlockPreferenceActivity` base class to place the action bar on top of a normal `PreferenceActivity`.\n\nThis does not yet support the use of `PreferenceFragments`, however.</string>
+    <string name="tab_navigation">Tab Navigation</string>
+    <string name="tab_navigation_collapsed">Tab Navigation (Collapsed)</string>
     
-
-
+    
+    
     <string name="inline_preferences">In-line preferences</string>
     <string name="dialog_based_preferences">Dialog-based preferences</string>
     <string name="launch_preferences">Launch preferences</string>
