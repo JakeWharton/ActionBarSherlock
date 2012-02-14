@@ -567,10 +567,6 @@ public final class MenuItemImpl implements MenuItem {
     }
 
     public View getActionView() {
-        if (mActionView != null) {
-            return mActionView;
-        } else {
-            return null;
-        }
+        return mActionView;
     }
 }
