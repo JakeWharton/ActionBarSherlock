@@ -26,7 +26,7 @@
     <string name="actionbar_customnavigation_content">If you find that list and tab navigation are not suitable for your application you may replace it with a custom layout.</string>
     
     <string name="actionbar_forced_overflow">Forced Overflow Item</string>
-    <string name="actionbar_forced_overflow_content">Forced Overflow Item</string>
+    <string name="actionbar_forced_overflow_content">If you choose, you can force the presence of the overflow menu as an action item. Google\'s own research indicates that the regular options menu is lost on most users and doing this will place it always on screen. You can use a theme ending in `ForceOverflow` or add the `absForceOverflow` attribute to a custom theme.\n\nNote: This will only work on the pre-ICS action bar.</string>
     
     <string name="actionbar_forced_compat">Forced Compat Implementation</string>
     <string name="actionbar_forced_compat_content">Though an extremely rare situation, sometimes you may want to always use the internal implementation of the action bar in lieu of the native action bar when on Ice Cream Sandwich and newer. By adding a special constructor to your activity this can easily be done.\n\nCan\'t tell the difference from the native version? That\'s the point!</string>
