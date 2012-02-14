@@ -129,8 +129,6 @@ public abstract class SherlockMapActivity extends MapActivity implements OnCreat
         mSherlock.dispatchInvalidateOptionsMenu();
     }
 
-    /** @deprecated Use {@link #invalidateOptionsMenu()}. */
-    @Deprecated
     public void supportInvalidateOptionsMenu() {
         invalidateOptionsMenu();
     }

@@ -129,8 +129,6 @@ public class SherlockExpandableListActivity extends ExpandableListActivity imple
         mSherlock.dispatchInvalidateOptionsMenu();
     }
 
-    /** @deprecated Use {@link #invalidateOptionsMenu()}. */
-    @Deprecated
     public void supportInvalidateOptionsMenu() {
         invalidateOptionsMenu();
     }

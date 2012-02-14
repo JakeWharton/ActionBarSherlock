@@ -129,8 +129,6 @@ public class SherlockListActivity extends ListActivity implements OnCreatePanelM
         mSherlock.dispatchInvalidateOptionsMenu();
     }
 
-    /** @deprecated Use {@link #invalidateOptionsMenu()}. */
-    @Deprecated
     public void supportInvalidateOptionsMenu() {
         invalidateOptionsMenu();
     }

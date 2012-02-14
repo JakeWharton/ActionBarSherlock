@@ -129,8 +129,6 @@ public class SherlockPreferenceActivity extends PreferenceActivity implements On
         mSherlock.dispatchInvalidateOptionsMenu();
     }
 
-    /** @deprecated Use {@link #invalidateOptionsMenu()}. */
-    @Deprecated
     public void supportInvalidateOptionsMenu() {
         invalidateOptionsMenu();
     }
