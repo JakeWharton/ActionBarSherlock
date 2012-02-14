@@ -8,10 +8,20 @@
         android:layout_height="fill_parent"
         android:paddingLeft="10dip"
         android:paddingRight="10dip">
-        <TextView
-            android:id="@+id/bunch_of_text"
+        <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-        	android:paddingTop="?actionBarSize" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:paddingTop="?actionBarSize"
+                android:text="@string/overlay_content" />
+            <TextView
+                android:id="@+id/bunch_of_text"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
     </ScrollView>
 </FrameLayout>
