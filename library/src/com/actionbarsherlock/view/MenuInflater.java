@@ -457,13 +457,13 @@ public class MenuInflater {
                         new InflatedOnMenuItemClickListener(mContext, itemListenerMethodName));
             }
 
-            if (item instanceof MenuItemImpl) {
-                MenuItemImpl impl = (MenuItemImpl) item;
-                if (itemCheckable >= 2) {
+            if (itemCheckable >= 2) {
+                if (item instanceof MenuItemImpl) {
+                    MenuItemImpl impl = (MenuItemImpl) item;
                     impl.setExclusiveCheckable(true);
+                } else {
+                    menu.setGroupCheckable(groupId, true, true);
                 }
-            } else {
-                menu.setGroupCheckable(groupId, true, true);
             }
 
             boolean actionViewSpecified = false;
