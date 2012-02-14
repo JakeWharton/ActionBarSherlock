@@ -11,8 +11,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="15dip"
-            android:layout_marginTop="20dip">
+            android:padding="15dip">
             
             <!-- ACTION BAR DISPLAY -->
             <TextView
