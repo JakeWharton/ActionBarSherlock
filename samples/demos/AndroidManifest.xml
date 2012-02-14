@@ -84,6 +84,15 @@
         </activity>
         
         <activity
+            android:name=".ForcedCompatImpl"
+            android:label="@string/actionbar_forced_compat">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+        
+        <activity
             android:name=".ForcedOverflowItem"
             android:label="@string/actionbar_forced_overflow">
             <intent-filter>
