@@ -517,7 +517,10 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
                 }
 
                 //Since we don't require onCreate dispatching, parse for uiOptions here
-                mUiOptions = loadUiOptionsFromManifest(mActivity);
+                int uiOptions = loadUiOptionsFromManifest(mActivity);
+                if (uiOptions != 0) {
+                    mUiOptions = uiOptions;
+                }
 
                 boolean splitActionBar = false;
                 final boolean splitWhenNarrow = (mUiOptions & ActivityInfo.UIOPTION_SPLIT_ACTION_BAR_WHEN_NARROW) != 0;
