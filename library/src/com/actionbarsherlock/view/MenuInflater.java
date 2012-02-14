@@ -31,7 +31,6 @@ import android.util.Xml;
 import android.view.InflateException;
 import android.view.View;
 import com.actionbarsherlock.internal.view.menu.MenuItemImpl;
-import com.actionbarsherlock.internal.view.menu.MenuWrapper;
 
 /**
  * This class is used to instantiate menu XML files into Menu objects.
@@ -90,11 +89,6 @@ public class MenuInflater {
      *            added to this Menu.
      */
     public void inflate(int menuRes, Menu menu) {
-        if (menu instanceof MenuWrapper && mContext instanceof Activity) {
-            //Proxy to native when we're wrapping a native menu
-            ((Activity)mContext).getMenuInflater().inflate(menuRes, ((MenuWrapper)menu).unwrap());
-            return;
-        }
         XmlResourceParser parser = null;
         try {
             parser = mContext.getResources().getLayout(menuRes);
@@ -469,6 +463,8 @@ public class MenuInflater {
                 if (itemCheckable >= 2) {
                     impl.setExclusiveCheckable(true);
                 }
+            } else {
+                menu.setGroupCheckable(groupId, true, true);
             }
 
             boolean actionViewSpecified = false;
