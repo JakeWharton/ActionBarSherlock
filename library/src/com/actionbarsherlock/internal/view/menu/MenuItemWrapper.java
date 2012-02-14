@@ -270,7 +270,7 @@ public class MenuItemWrapper implements MenuItem, android.view.MenuItem.OnMenuIt
     @Override
     public boolean onMenuItemActionCollapse(android.view.MenuItem item) {
         if (mActionExpandListener != null) {
-            mActionExpandListener.onMenuItemActionCollapse(this);
+            return mActionExpandListener.onMenuItemActionCollapse(this);
         }
         return false;
     }
@@ -278,7 +278,7 @@ public class MenuItemWrapper implements MenuItem, android.view.MenuItem.OnMenuIt
     @Override
     public boolean onMenuItemActionExpand(android.view.MenuItem item) {
         if (mActionExpandListener != null) {
-            mActionExpandListener.onMenuItemActionExpand(this);
+            return mActionExpandListener.onMenuItemActionExpand(this);
         }
         return false;
     }
