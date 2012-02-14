@@ -4,9 +4,6 @@
     <string name="application_name">ActionBarSherlock Demos</string>
     <string name="activity_name">ABS: Demos</string>
     
-    <string name="hello_world">Hello, World!</string>
-    <string name="hello_actionbar">Hello, ActionBar!</string>
-    
     <string name="actionbar_feature_toggles">Feature Toggles</string>
     <string name="actionbar_list_navigation">List Navigation</string>
     <string name="actionbar_action_modes">Action Modes</string>
