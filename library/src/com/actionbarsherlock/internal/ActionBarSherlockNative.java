@@ -34,6 +34,10 @@ public class ActionBarSherlockNative extends ActionBarSherlock {
     }
 
     private void initActionBar() {
+        if (mActionBar != null || mActivity.getActionBar() == null) {
+            return;
+        }
+
         mActionBar = new ActionBarWrapper(mActivity);
     }
 
