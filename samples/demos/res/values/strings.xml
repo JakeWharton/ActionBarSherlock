@@ -62,6 +62,8 @@
     <string name="submenus_content">This activity is a demonstration of how sub-menus work when they are either an action item or an item in the overflow menu.</string>
     
     <string name="tab_navigation">Tab Navigation</string>
+    <string name="tab_navigation_content">Tabs can be useful for switching between a limited number of items. You can also collapse the main body of the action bar on small devices so that only the tab bar is displayed. See the source for more information.</string>
+    
     <string name="tab_navigation_collapsed">Tab Navigation (Collapsed)</string>
     
     

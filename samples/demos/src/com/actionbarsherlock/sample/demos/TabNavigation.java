@@ -8,14 +8,18 @@ import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.SherlockActivity;
 
 public class TabNavigation extends SherlockActivity implements ActionBar.TabListener {
+    private TextView mSelected;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         setTheme(SampleList.THEME); //Used for theme switching in samples
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.text);
+
+        setContentView(R.layout.tab_navigation);
+        mSelected = (TextView)findViewById(R.id.text);
 
         getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        for (int i = 0; i < 3; i++) {
+        for (int i = 1; i <= 3; i++) {
             ActionBar.Tab tab = getSupportActionBar().newTab();
             tab.setText("Tab " + i);
             tab.setTabListener(this);
@@ -29,7 +33,7 @@ public class TabNavigation extends SherlockActivity implements ActionBar.TabList
 
     @Override
     public void onTabSelected(Tab tab) {
-        ((TextView)findViewById(R.id.text)).setText("Selected: " + tab.getPosition());
+        mSelected.setText("Selected: " + tab.getText());
     }
 
     @Override
