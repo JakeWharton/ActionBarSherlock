@@ -38,7 +38,7 @@ public class ActionModesNoActionBar extends SherlockActivity {
         setTheme(theme);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.action_mode);
+        setContentView(R.layout.action_modes);
 
         ((Button)findViewById(R.id.start)).setOnClickListener(new View.OnClickListener() {
             @Override

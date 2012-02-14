@@ -4,9 +4,12 @@
     <string name="application_name">ActionBarSherlock Demos</string>
     <string name="activity_name">ABS: Demos</string>
     
+    <string name="action_modes">Action Modes</string>
+    <string name="action_modes_content">Action modes are used to display contextual information based on some interaction made by the user (long press, checkbox selection, etc). Like the normal action bar they also support splitting the action items to the bottom of the screen on small devices.</string>
+    
     <string name="feature_toggles">Feature Toggles</string>
     <string name="list_navigation">List Navigation</string>
-    <string name="action_modes">Action Modes</string>
+    
     <string name="action_modes_no_action_bar">Action Modes (No Action Bar)</string>
     <string name="split_action_modes">Split Action Modes</string>
     <string name="tab_navigation">Tab Navigation</string>
