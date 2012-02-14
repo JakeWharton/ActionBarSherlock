@@ -452,7 +452,7 @@ public abstract class ActionBarSherlock {
     protected final boolean callbackCreateOptionsMenu(Menu menu) {
         if (DEBUG) Log.d(TAG, "[callbackCreateOptionsMenu]");
 
-        boolean result = false;
+        boolean result = true;
         if (mActivity instanceof OnCreatePanelMenuListener) {
             OnCreatePanelMenuListener listener = (OnCreatePanelMenuListener)mActivity;
             result = listener.onCreatePanelMenu(Window.FEATURE_OPTIONS_PANEL, menu);
@@ -473,7 +473,7 @@ public abstract class ActionBarSherlock {
     protected final boolean callbackPrepareOptionsMenu(Menu menu) {
         if (DEBUG) Log.d(TAG, "[callbackPrepareOptionsMenu]");
 
-        boolean result = false;
+        boolean result = true;
         if (mActivity instanceof OnPreparePanelListener) {
             OnPreparePanelListener listener = (OnPreparePanelListener)mActivity;
             result = listener.onPreparePanel(Window.FEATURE_OPTIONS_PANEL, null, menu);
