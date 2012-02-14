@@ -33,6 +33,7 @@
     <string name="iprogress_content">The action bar includes a standard indeterminate progress bar. The methods for accessing it are prefixed with `support`. See the source for this demo for more information.</string>
     
     <string name="list_navigation">List Navigation</string>
+    <string name="list_navigation_content">List navigation requires the use of a special layout for the spinner item. Failure to use it will result in your spinner text being the same color as the action bar background on pre-3.0. See the source code of this demo for more information.</string>
     
     <string name="overlay">Overlay</string>
     
