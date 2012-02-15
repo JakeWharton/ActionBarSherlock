@@ -20,6 +20,9 @@
     <string name="custom_navigation">Custom Navigation</string>
     <string name="custom_navigation_content">If you find that list and tab navigation are not suitable for your application you may replace it with a custom layout.</string>
     
+    <string name="dialog">Dialog</string>
+    <string name="dialog_content">Dialog, bro</string>
+    
     <string name="feature_toggles">Feature Toggles</string>
     <string name="feature_toggles_content">Use these buttons to create various configurations with the action bar to see how it behaves.</string>
     

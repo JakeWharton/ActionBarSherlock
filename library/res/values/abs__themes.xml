@@ -9,6 +9,8 @@
     </style>
     <style name="Sherlock.__Theme.DarkActionBar" parent="Theme.Sherlock.Light">
     </style>
+    <style name="Sherlock.__Theme.Dialog" parent="android:Theme.Dialog">
+    </style>
     
     <style name="Theme.Sherlock" parent="Sherlock.__Theme">
         <!-- Action bar styles (from Theme.Holo) -->
@@ -144,5 +146,9 @@
     </style>
     <style name="Theme.Sherlock.Light.DarkActionBar.ForceOverflow">
         <item name="absForceOverflow">true</item>
+    </style>
+    
+    
+    <style name="Theme.Sherlock.Dialog" parent="android:Theme">
     </style>
 </resources>

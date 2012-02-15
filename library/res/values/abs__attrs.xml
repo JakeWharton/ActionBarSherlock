@@ -130,6 +130,8 @@
         
         <!-- Specified if we are forcing an action item overflow menu. -->
         <attr name="absForceOverflow" format="boolean" />
+        
+        <attr name="android:windowIsFloating" />
     </declare-styleable>
     
 

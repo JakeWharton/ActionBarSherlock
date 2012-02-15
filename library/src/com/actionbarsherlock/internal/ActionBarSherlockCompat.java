@@ -921,6 +921,9 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
         // Apply data from current theme.
 
         TypedArray a = mActivity.getTheme().obtainStyledAttributes(R.styleable.SherlockTheme);
+
+        boolean isFloating = a.getBoolean(R.styleable.SherlockTheme_android_windowIsFloating, false);
+
         if (!a.hasValue(R.styleable.SherlockTheme_windowActionBar)) {
             throw new IllegalStateException("You must use Theme.Sherlock, Theme.Sherlock.Light, Theme.Sherlock.Light.DarkActionBar, or a derivative.");
         }
@@ -944,10 +947,17 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
 
         int layoutResource;
         if (hasFeature(Window.FEATURE_ACTION_BAR)) {
-            if (hasFeature(Window.FEATURE_ACTION_BAR_OVERLAY)) {
-                layoutResource = R.layout.abs__screen_action_bar_overlay;
+            if (isFloating) {
+                TypedValue res = new TypedValue();
+                mActivity.getTheme().resolveAttribute(
+                        R.attr.dialogTitleIconsDecorLayout, res, true);
+                layoutResource = res.resourceId;
             } else {
-                layoutResource = R.layout.abs__screen_action_bar;
+                if (hasFeature(Window.FEATURE_ACTION_BAR_OVERLAY)) {
+                    layoutResource = R.layout.abs__screen_action_bar_overlay;
+                } else {
+                    layoutResource = R.layout.abs__screen_action_bar;
+                }
             }
         } else if (hasFeature(Window.FEATURE_ACTION_MODE_OVERLAY)) {
             layoutResource = R.layout.abs__screen_simple_overlay_action_mode;
