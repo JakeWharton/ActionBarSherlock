@@ -5,18 +5,19 @@
     android:layout_height="fill_parent">
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:paddingLeft="10dip"
-        android:paddingRight="10dip">
+        android:layout_height="fill_parent">
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:paddingTop="?actionBarSize"
             android:orientation="vertical">
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="30dp"
-                android:paddingTop="?actionBarSize"
                 android:text="@string/overlay_content" />
             <TextView
                 android:id="@+id/bunch_of_text"
