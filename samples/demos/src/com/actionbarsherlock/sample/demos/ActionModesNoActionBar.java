@@ -31,12 +31,11 @@ public class ActionModesNoActionBar extends SherlockActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        int theme = R.style.Theme_Sherlock_NoActionBar;
-        if (SampleList.THEME == R.style.Theme_Sherlock_Light || SampleList.THEME == R.style.Theme_Sherlock_Light_DarkActionBar) {
-            theme = R.style.Theme_Sherlock_Light_NoActionBar;
-        }
-        setTheme(theme);
+        setTheme(SampleList.THEME); //Used for theme switching in samples
+
+        //You could also use Theme.Sherlock.NoActionBar or Theme.Sherlock.Light.NoActionBar
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.action_modes);
 
