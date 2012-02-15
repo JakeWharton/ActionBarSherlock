@@ -190,7 +190,7 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
             installDecor();
         }
 
-        if ((mActionBar != null) || !hasFeature(Window.FEATURE_ACTION_BAR) || mActivity.isChild()) {
+        if ((mActionBar != null) || !hasFeature(Window.FEATURE_ACTION_BAR) || hasFeature(Window.FEATURE_NO_TITLE) || mActivity.isChild()) {
             return;
         }
 
@@ -943,13 +943,13 @@ public class ActionBarSherlockCompat extends ActionBarSherlock {
         a.recycle();
 
         int layoutResource;
-        if (hasFeature(Window.FEATURE_ACTION_BAR)) {
+        if (hasFeature(Window.FEATURE_ACTION_BAR) && !hasFeature(Window.FEATURE_NO_TITLE)) {
             if (hasFeature(Window.FEATURE_ACTION_BAR_OVERLAY)) {
                 layoutResource = R.layout.abs__screen_action_bar_overlay;
             } else {
                 layoutResource = R.layout.abs__screen_action_bar;
             }
-        } else if (hasFeature(Window.FEATURE_ACTION_MODE_OVERLAY)) {
+        } else if (hasFeature(Window.FEATURE_ACTION_MODE_OVERLAY) && !hasFeature(Window.FEATURE_NO_TITLE)) {
             layoutResource = R.layout.abs__screen_simple_overlay_action_mode;
         } else {
             layoutResource = R.layout.abs__screen_simple;
