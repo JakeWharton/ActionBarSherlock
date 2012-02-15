@@ -28,19 +28,19 @@ public class Progress extends SherlockActivity  {
         @Override
         public void run() {
             mProgress += 2;
-            
+
             //Normalize our progress along the progress bar's scale
             int progress = (Window.PROGRESS_END - Window.PROGRESS_START) / 100 * mProgress;
             setSupportProgress(progress);
-            
+
             if (mProgress < 100) {
                 mHandler.postDelayed(mProgressRunner, 50);
             }
         }
     };
-    
+
     private int mProgress = 100;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(SampleList.THEME); //Used for theme switching in samples
