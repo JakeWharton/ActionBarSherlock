@@ -69,7 +69,6 @@ public class ActionMenuView extends IcsLinearLayout implements MenuBuilder.ItemI
     public void onConfigurationChanged(Configuration newConfig) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
             super.onConfigurationChanged(newConfig);
-            //TODO figure out a way to call this pre-2.2
         }
         mPresenter.updateMenuView(false);
 
