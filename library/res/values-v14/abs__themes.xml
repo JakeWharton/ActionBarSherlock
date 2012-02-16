@@ -8,6 +8,8 @@
     <style name="Sherlock.__Theme.DarkActionBar" parent="android:Theme.Holo.Light.DarkActionBar">
         <!-- Useful for offsetting contents with an overlay action bar. -->
         <item name="actionBarSize">?android:attr/actionBarSize</item>
+        <!-- Needed for our bug-fix dropdown list navigation layout. :( -->
+        <item name="dropdownListPreferredItemHeight">48dp</item>
     </style>
     
     <style name="Theme.Sherlock.NoActionBar">
