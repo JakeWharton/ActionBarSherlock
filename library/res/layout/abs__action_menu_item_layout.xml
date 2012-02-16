@@ -37,7 +37,7 @@
                  android:adjustViewBounds="true"
                  android:background="@null"
                  android:focusable="false" />
-    <Button android:id="@+id/abs__textButton"
+    <com.actionbarsherlock.internal.widget.CapitalizingButton android:id="@+id/abs__textButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
