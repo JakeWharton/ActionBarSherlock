@@ -11,18 +11,18 @@ public class CapitalizingButton extends Button {
     private static final boolean SANS_ICE_CREAM = Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH;
     private static final boolean IS_GINGERBREAD = Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD;
 
-    private static final int[] R_styleable_TextView = new int[] {
+    private static final int[] R_styleable_Button = new int[] {
         android.R.attr.textAllCaps
     };
-    private static final int R_styleable_TextView_textAllCaps = 0;
+    private static final int R_styleable_Button_textAllCaps = 0;
 
     private boolean mAllCaps;
 
     public CapitalizingButton(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        TypedArray a = context.obtainStyledAttributes(attrs, R_styleable_TextView);
-        mAllCaps = a.getBoolean(R_styleable_TextView_textAllCaps, true);
+        TypedArray a = context.obtainStyledAttributes(attrs, R_styleable_Button);
+        mAllCaps = a.getBoolean(R_styleable_Button_textAllCaps, true);
         a.recycle();
     }
 
