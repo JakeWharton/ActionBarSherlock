@@ -32,6 +32,7 @@ import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RoundRectShape;
 import android.graphics.drawable.shapes.Shape;
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.os.SystemClock;
@@ -183,6 +184,7 @@ import android.widget.RemoteViews.RemoteView;
  */
 @RemoteView
 public class IcsProgressBar extends View {
+    private static final boolean IS_HONEYCOMB = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
     private static final int MAX_LEVEL = 10000;
     private static final int ANIMATION_RESOLUTION = 200;
     private static final int TIMEOUT_SEND_ACCESSIBILITY_EVENT = 200;
@@ -1042,8 +1044,13 @@ public class IcsProgressBar extends View {
         dw += getPaddingLeft() + getPaddingRight();
         dh += getPaddingTop() + getPaddingBottom();
 
-        setMeasuredDimension(IcsView.resolveSizeAndState(dw, widthMeasureSpec, 0),
-                IcsView.resolveSizeAndState(dh, heightMeasureSpec, 0));
+        if (IS_HONEYCOMB) {
+            setMeasuredDimension(View.resolveSizeAndState(dw, widthMeasureSpec, 0),
+                    View.resolveSizeAndState(dh, heightMeasureSpec, 0));
+        } else {
+            setMeasuredDimension(View.resolveSize(dw, widthMeasureSpec),
+                    View.resolveSize(dh, heightMeasureSpec));
+        }
     }
 
     @Override
