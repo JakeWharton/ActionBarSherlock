@@ -144,19 +144,13 @@ public class FragmentActivity extends Activity implements OnCreatePanelMenuListe
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
-    private final ActionBarSherlock mSherlock;
+    private ActionBarSherlock mSherlock;
 
-
-    public FragmentActivity() {
-        this(ActionBarSherlock.FLAG_DELEGATE);
-    }
-
-    public FragmentActivity(int flags) {
-        mSherlock = ActionBarSherlock.wrap(this, flags);
-    }
-
-    public <T extends ActionBarSherlock> FragmentActivity(int flags, Class<T> implementation) {
-        mSherlock = ActionBarSherlock.wrap(this, flags, implementation);
+    protected final ActionBarSherlock getSherlock() {
+        if (mSherlock == null) {
+            mSherlock = ActionBarSherlock.wrap(this, ActionBarSherlock.FLAG_DELEGATE);
+        }
+        return mSherlock;
     }
 
 
@@ -165,11 +159,11 @@ public class FragmentActivity extends Activity implements OnCreatePanelMenuListe
     ///////////////////////////////////////////////////////////////////////////
 
     public ActionBar getSupportActionBar() {
-        return mSherlock.getActionBar();
+        return getSherlock().getActionBar();
     }
 
     public ActionMode startActionMode(ActionMode.Callback callback) {
-        return mSherlock.startActionMode(callback);
+        return getSherlock().startActionMode(callback);
     }
 
     @Override
@@ -187,7 +181,7 @@ public class FragmentActivity extends Activity implements OnCreatePanelMenuListe
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        mSherlock.dispatchConfigurationChanged(newConfig);
+        getSherlock().dispatchConfigurationChanged(newConfig);
     }
     */
 
@@ -195,14 +189,14 @@ public class FragmentActivity extends Activity implements OnCreatePanelMenuListe
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        mSherlock.dispatchPostResume();
+        getSherlock().dispatchPostResume();
     }
     */
 
     /* Implementation added to existing override
     @Override
     protected void onPause() {
-        mSherlock.dispatchPause();
+        getSherlock().dispatchPause();
         super.onPause();
     }
     */
@@ -210,26 +204,26 @@ public class FragmentActivity extends Activity implements OnCreatePanelMenuListe
     /* Implementation added to existing override
     @Override
     protected void onStop() {
-        mSherlock.dispatchStop();
+        getSherlock().dispatchStop();
         super.onStop();
     }
     */
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
-        mSherlock.dispatchPostCreate(savedInstanceState);
+        getSherlock().dispatchPostCreate(savedInstanceState);
         super.onPostCreate(savedInstanceState);
     }
 
     @Override
     protected void onTitleChanged(CharSequence title, int color) {
-        mSherlock.dispatchTitleChanged(title, color);
+        getSherlock().dispatchTitleChanged(title, color);
         super.onTitleChanged(title, color);
     }
 
     @Override
     public final boolean onMenuOpened(int featureId, android.view.Menu menu) {
-        if (mSherlock.dispatchMenuOpened(featureId, menu)) {
+        if (getSherlock().dispatchMenuOpened(featureId, menu)) {
             return true;
         }
         return super.onMenuOpened(featureId, menu);
@@ -238,14 +232,14 @@ public class FragmentActivity extends Activity implements OnCreatePanelMenuListe
     /* Implementation added to existing override
     @Override
     public void onPanelClosed(int featureId, android.view.Menu menu) {
-        mSherlock.dispatchPanelClosed(featureId, menu);
+        getSherlock().dispatchPanelClosed(featureId, menu);
         super.onPanelClosed(featureId, menu);
     }
     */
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
-        if (mSherlock.dispatchKeyEvent(event)) {
+        if (getSherlock().dispatchKeyEvent(event)) {
             return true;
         }
         return super.dispatchKeyEvent(event);
@@ -257,11 +251,11 @@ public class FragmentActivity extends Activity implements OnCreatePanelMenuListe
     ///////////////////////////////////////////////////////////////////////////
 
     public MenuInflater getSupportMenuInflater() {
-        return mSherlock.getMenuInflater();
+        return getSherlock().getMenuInflater();
     }
 
     public void invalidateOptionsMenu() {
-        mSherlock.dispatchInvalidateOptionsMenu();
+        getSherlock().dispatchInvalidateOptionsMenu();
     }
 
     public void supportInvalidateOptionsMenu() {
@@ -270,29 +264,29 @@ public class FragmentActivity extends Activity implements OnCreatePanelMenuListe
 
     @Override
     public final boolean onCreateOptionsMenu(android.view.Menu menu) {
-        return mSherlock.dispatchCreateOptionsMenu(menu);
+        return getSherlock().dispatchCreateOptionsMenu(menu);
     }
 
     @Override
     public final boolean onPrepareOptionsMenu(android.view.Menu menu) {
-        return mSherlock.dispatchPrepareOptionsMenu(menu);
+        return getSherlock().dispatchPrepareOptionsMenu(menu);
     }
 
     @Override
     public final boolean onOptionsItemSelected(android.view.MenuItem item) {
-        return mSherlock.dispatchOptionsItemSelected(item);
+        return getSherlock().dispatchOptionsItemSelected(item);
     }
 
     @Override
     public void openOptionsMenu() {
-        if (!mSherlock.dispatchOpenOptionsMenu()) {
+        if (!getSherlock().dispatchOpenOptionsMenu()) {
             super.openOptionsMenu();
         }
     }
 
     @Override
     public void closeOptionsMenu() {
-        if (!mSherlock.dispatchCloseOptionsMenu()) {
+        if (!getSherlock().dispatchCloseOptionsMenu()) {
             super.closeOptionsMenu();
         }
     }
@@ -352,26 +346,26 @@ public class FragmentActivity extends Activity implements OnCreatePanelMenuListe
 
     @Override
     public void addContentView(View view, LayoutParams params) {
-        mSherlock.addContentView(view, params);
+        getSherlock().addContentView(view, params);
     }
 
     @Override
     public void setContentView(int layoutResId) {
-        mSherlock.setContentView(layoutResId);
+        getSherlock().setContentView(layoutResId);
     }
 
     @Override
     public void setContentView(View view, LayoutParams params) {
-        mSherlock.setContentView(view, params);
+        getSherlock().setContentView(view, params);
     }
 
     @Override
     public void setContentView(View view) {
-        mSherlock.setContentView(view);
+        getSherlock().setContentView(view);
     }
 
     public void requestWindowFeature(long featureId) {
-        mSherlock.requestFeature((int)featureId);
+        getSherlock().requestFeature((int)featureId);
     }
 
 
@@ -380,23 +374,23 @@ public class FragmentActivity extends Activity implements OnCreatePanelMenuListe
     ///////////////////////////////////////////////////////////////////////////
 
     public void setSupportProgress(int progress) {
-        mSherlock.setProgress(progress);
+        getSherlock().setProgress(progress);
     }
 
     public void setSupportProgressBarIndeterminate(boolean indeterminate) {
-        mSherlock.setProgressBarIndeterminate(indeterminate);
+        getSherlock().setProgressBarIndeterminate(indeterminate);
     }
 
     public void setSupportProgressBarIndeterminateVisibility(boolean visible) {
-        mSherlock.setProgressBarIndeterminateVisibility(visible);
+        getSherlock().setProgressBarIndeterminateVisibility(visible);
     }
 
     public void setSupportProgressBarVisibility(boolean visible) {
-        mSherlock.setProgressBarVisibility(visible);
+        getSherlock().setProgressBarVisibility(visible);
     }
 
     public void setSupportSecondaryProgress(int secondaryProgress) {
-        mSherlock.setSecondaryProgress(secondaryProgress);
+        getSherlock().setSecondaryProgress(secondaryProgress);
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -450,7 +444,7 @@ public class FragmentActivity extends Activity implements OnCreatePanelMenuListe
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        mSherlock.dispatchConfigurationChanged(newConfig);
+        getSherlock().dispatchConfigurationChanged(newConfig);
         mFragments.dispatchConfigurationChanged(newConfig);
     }
 
@@ -651,7 +645,7 @@ public class FragmentActivity extends Activity implements OnCreatePanelMenuListe
      */
     @Override
     public void onPanelClosed(int featureId, android.view.Menu menu) {
-        mSherlock.dispatchPanelClosed(featureId, menu);
+        getSherlock().dispatchPanelClosed(featureId, menu);
         switch (featureId) {
             case Window.FEATURE_OPTIONS_PANEL:
                 //TODO mFragments.dispatchOptionsMenuClosed(menu);
@@ -665,7 +659,7 @@ public class FragmentActivity extends Activity implements OnCreatePanelMenuListe
      */
     @Override
     protected void onPause() {
-        mSherlock.dispatchPause();
+        getSherlock().dispatchPause();
         super.onPause();
         mResumed = false;
         if (mHandler.hasMessages(MSG_RESUME_PENDING)) {
@@ -692,7 +686,7 @@ public class FragmentActivity extends Activity implements OnCreatePanelMenuListe
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        mSherlock.dispatchPostResume();
+        getSherlock().dispatchPostResume();
         mHandler.removeMessages(MSG_RESUME_PENDING);
         mFragments.dispatchResume();
         mFragments.execPendingActions();
@@ -817,7 +811,7 @@ public class FragmentActivity extends Activity implements OnCreatePanelMenuListe
      */
     @Override
     protected void onStop() {
-        mSherlock.dispatchStop();
+        getSherlock().dispatchStop();
         super.onStop();
 
         mStopped = true;

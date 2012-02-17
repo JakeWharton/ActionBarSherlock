@@ -1,13 +1,20 @@
 package com.actionbarsherlock;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+import java.util.Iterator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -37,25 +44,40 @@ public abstract class ActionBarSherlock {
     protected static final boolean DEBUG = true;
 
     private static final Class<?>[] CONSTRUCTOR_ARGS = new Class[] { Activity.class, int.class };
+    private static final HashMap<Implementation, Class<? extends ActionBarSherlock>> IMPLEMENTATIONS =
+            new HashMap<Implementation, Class<? extends ActionBarSherlock>>();
+
+    static {
+        //Register our two built-in implementations
+        registerImplementation(ActionBarSherlockCompat.class);
+        registerImplementation(ActionBarSherlockNative.class);
+    }
+
 
     /**
-     * If set, the logic in these classes will assume that an {@link Activity}
-     * is dispatching all of the required events to the class. This flag should
-     * only be used internally or if you are creating your own base activity
-     * modeled after one of the included types (e.g., {@code SherlockActivity}).
+     * <p>Denotes an implementation of ActionBarSherlock which provides an
+     * action bar-enhanced experience.</p>
+     *
+     * <p>The value provided to this annotation should be a
+     * <a href="http://developer.android.com/guide/topics/resources/providing-resources.html#AlternativeResources">
+     * configuration qualifier</a> with no resource name prefix (e.g., "v7-desk"
+     * would provide an implementation on 2.1+ when docked).</p>
+     *
+     * <p>Valid qualifiers, in order of precedence, are:</p>
+     * <ol>
+     *   <li>Screen pixel density (only "tvdpi" supported)</li>
+     *   <li>Platform version level (e.g., "v7", "v14")</li>
+     * </ol>
      */
-    public static final int FLAG_DELEGATE = 1;
-    /**
-     * If set, the compatibility implementation of the action bar will always
-     * be used rather than proxying to the native version on API 14 and newer.
-     **/
-    public static final int FLAG_ALWAYS_COMPAT = 2;
-    /**
-     * If set, the supplied custom implementation will be used instead of the
-     * built-in implementations to provide action bar functionality. This flag
-     * will only be honored by calling {@link #wrap(Activity, int, Class)}.
-     */
-    public static final int FLAG_CUSTOM_IMPLEMENTATION = 4;
+    @Target(ElementType.TYPE)
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface Implementation {
+        static final int DEFAULT_API = -1;
+        static final int DEFAULT_DPI = -1;
+
+        int api() default DEFAULT_API;
+        int dpi() default DEFAULT_DPI;
+    }
 
 
     /** Activity interface for menu creation callback. */
@@ -92,6 +114,46 @@ public abstract class ActionBarSherlock {
     }
 
 
+    /**
+     * If set, the logic in these classes will assume that an {@link Activity}
+     * is dispatching all of the required events to the class. This flag should
+     * only be used internally or if you are creating your own base activity
+     * modeled after one of the included types (e.g., {@code SherlockActivity}).
+     */
+    public static final int FLAG_DELEGATE = 1;
+
+
+    /**
+     * Register an ActionBarSherlock implementation.
+     *
+     * @param implementationClass Target implementation class which extends
+     * {@link ActionBarSherlock}. This class must also be annotated with
+     * {@link Implementation}.
+     */
+    public static void registerImplementation(Class<? extends ActionBarSherlock> implementationClass) {
+        if (!implementationClass.isAnnotationPresent(Implementation.class)) {
+            throw new IllegalArgumentException("Class " + implementationClass.getSimpleName() + " is not annotated with @Implementation");
+        } else if (IMPLEMENTATIONS.containsValue(implementationClass)) {
+            if (DEBUG) Log.w(TAG, "Class " + implementationClass.getSimpleName() + " already registered");
+            return;
+        }
+
+        Implementation impl = implementationClass.getAnnotation(Implementation.class);
+        if (DEBUG) Log.i(TAG, "Registering " + implementationClass.getSimpleName() + " with qualifier " + impl);
+        IMPLEMENTATIONS.put(impl, implementationClass);
+    }
+
+    /**
+     * Unregister an ActionBarSherlock implementation. <strong>This should be
+     * considered very volatile and you should only use it if you know what
+     * you are doing.</strong> You have been warned.
+     *
+     * @param implementationClass Target implementation class.
+     * @return Boolean indicating whether the class was removed.
+     */
+    public static boolean unregisterImplementation(Class<? extends ActionBarSherlock> implementationClass) {
+        return IMPLEMENTATIONS.remove(implementationClass) != null;
+    }
 
     /**
      * Wrap an activity with an action bar abstraction which will enable the
@@ -115,46 +177,80 @@ public abstract class ActionBarSherlock {
      * @return Instance to interact with the action bar.
      */
     public static ActionBarSherlock wrap(Activity activity, int flags) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH || (flags & FLAG_ALWAYS_COMPAT) != 0) {
-            return new ActionBarSherlockCompat(activity, flags);
-        } else {
-            return new ActionBarSherlockNative(activity, flags);
-        }
-    }
+        //Create a local implementation map we can modify
+        HashMap<Implementation, Class<? extends ActionBarSherlock>> impls =
+                new HashMap<Implementation, Class<? extends ActionBarSherlock>>(IMPLEMENTATIONS);
+        boolean hasQualfier;
+        final boolean isTvDpi = activity.getResources().getDisplayMetrics().densityDpi == DisplayMetrics.DENSITY_TV;
 
-    /**
-     * <p>Wrap an activity with an action bar abstraction which will enable the
-     * use of a custom implementation on platforms where a native version does
-     * not exist.</p>
-     *
-     * <p><strong>Note</strong>: The custom implementation will only be used if
-     * {@link #FLAG_CUSTOM_IMPLEMENTATION} is specified. You can use the
-     * presence of this flag to enable and disable the implementation without
-     * needing to change which {@code wrap} method you are calling.</p>
-     *
-     * @param activity Owning activity.
-     * @param flags Option flags to control behavior.
-     * @param implementation Custom action bar provider.
-     * @return Instance to interact with the action bar.
-     */
-    public static <T extends ActionBarSherlock> ActionBarSherlock wrap(Activity activity, int flags, Class<T> implementation) {
-        if ((flags & FLAG_CUSTOM_IMPLEMENTATION) != 0 && implementation != null) {
-            try {
-                Constructor<T> ctor = implementation.getConstructor(CONSTRUCTOR_ARGS);
-                return ctor.newInstance(activity, flags);
-            } catch (NoSuchMethodException e) {
-                Log.w(TAG, "Unable to instantiate custom ActionBarSherlock implementation.", e);
-            } catch (IllegalArgumentException e) {
-                Log.w(TAG, "Unable to instantiate custom ActionBarSherlock implementation.", e);
-            } catch (InstantiationException e) {
-                Log.w(TAG, "Unable to instantiate custom ActionBarSherlock implementation.", e);
-            } catch (IllegalAccessException e) {
-                Log.w(TAG, "Unable to instantiate custom ActionBarSherlock implementation.", e);
-            } catch (InvocationTargetException e) {
-                Log.w(TAG, "Unable to instantiate custom ActionBarSherlock implementation.", e);
+        /* DPI FILTERING */
+        hasQualfier = false;
+        for (Implementation key : impls.keySet()) {
+            //Only honor TVDPI as a specific qualifier
+            if (key.dpi() == DisplayMetrics.DENSITY_TV) {
+                hasQualfier = true;
+                break;
             }
         }
-        return wrap(activity, flags);
+        if (hasQualfier) {
+            //final boolean isTvDpi = activity.getResources().getDisplayMetrics().densityDpi == DisplayMetrics.DENSITY_TV;
+            for (Iterator<Implementation> keys = impls.keySet().iterator(); keys.hasNext(); ) {
+                int keyDpi = keys.next().dpi();
+                if ((isTvDpi && keyDpi != DisplayMetrics.DENSITY_TV)
+                        || (!isTvDpi && keyDpi == DisplayMetrics.DENSITY_TV)) {
+                    keys.remove();
+                }
+            }
+        }
+
+        /* API FILTERING */
+        hasQualfier = false;
+        for (Implementation key : impls.keySet()) {
+            if (key.api() != Implementation.DEFAULT_API) {
+                hasQualfier = true;
+                break;
+            }
+        }
+        if (hasQualfier) {
+            final int runtimeApi = Build.VERSION.SDK_INT;
+            int bestApi = 0;
+            for (Iterator<Implementation> keys = impls.keySet().iterator(); keys.hasNext(); ) {
+                int keyApi = keys.next().api();
+                if (keyApi > runtimeApi) {
+                    keys.remove();
+                } else if (keyApi > bestApi) {
+                    bestApi = keyApi;
+                }
+            }
+            for (Iterator<Implementation> keys = impls.keySet().iterator(); keys.hasNext(); ) {
+                if (keys.next().api() != bestApi) {
+                    keys.remove();
+                }
+            }
+        }
+
+        if (impls.size() > 1) {
+            throw new IllegalStateException("More than one implementation matches configuration.");
+        }
+        if (impls.isEmpty()) {
+            throw new IllegalStateException("No implementations match configuration.");
+        }
+        Class<? extends ActionBarSherlock> impl = impls.values().iterator().next();
+
+        try {
+            Constructor<? extends ActionBarSherlock> ctor = impl.getConstructor(CONSTRUCTOR_ARGS);
+            return ctor.newInstance(activity, flags);
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException(e);
+        } catch (InstantiationException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
