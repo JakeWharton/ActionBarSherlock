@@ -15,8 +15,6 @@
  */
 package com.actionbarsherlock.internal.view.menu;
 
-import com.actionbarsherlock.internal.widget.IcsLinearLayout;
-
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -25,11 +23,12 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityEvent;
+import android.widget.LinearLayout;
 
 /**
  * @hide
  */
-public class ActionMenuView extends IcsLinearLayout implements MenuBuilder.ItemInvoker, MenuView {
+public class ActionMenuView extends LinearLayout implements MenuBuilder.ItemInvoker, MenuView {
     //UNUSED private static final String TAG = "ActionMenuView";
 
     static final int MIN_CELL_SIZE = 56; // dips
@@ -368,7 +367,7 @@ public class ActionMenuView extends IcsLinearLayout implements MenuBuilder.ItemI
 
         final int childCount = getChildCount();
         final int midVertical = (top + bottom) / 2;
-        final int dividerWidth = getDividerWidth();
+        final int dividerWidth = 0;//getDividerWidth();
         int overflowWidth = 0;
         //UNUSED int nonOverflowWidth = 0;
         int nonOverflowCount = 0;
@@ -501,7 +500,7 @@ public class ActionMenuView extends IcsLinearLayout implements MenuBuilder.ItemI
         mMenu = menu;
     }
 
-    @Override
+    //@Override
     protected boolean hasDividerBeforeChildAt(int childIndex) {
         final View childBefore = getChildAt(childIndex - 1);
         final View child = getChildAt(childIndex);
@@ -524,7 +523,7 @@ public class ActionMenuView extends IcsLinearLayout implements MenuBuilder.ItemI
         public boolean needsDividerAfter();
     }
 
-    public static class LayoutParams extends IcsLinearLayout.LayoutParams {
+    public static class LayoutParams extends LinearLayout.LayoutParams {
         public boolean isOverflowButton;
         public int cellsUsed;
         public int extraPixels;
@@ -538,7 +537,7 @@ public class ActionMenuView extends IcsLinearLayout implements MenuBuilder.ItemI
         }
 
         public LayoutParams(LayoutParams other) {
-            super((IcsLinearLayout.LayoutParams) other);
+            super((LinearLayout.LayoutParams) other);
             isOverflowButton = other.isOverflowButton;
         }
 
