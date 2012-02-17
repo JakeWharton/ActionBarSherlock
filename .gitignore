@@ -27,5 +27,6 @@ build.xml
 local.properties
 proguard.cfg
 
-#OSX
+#Other
 .DS_Store
+tmp
