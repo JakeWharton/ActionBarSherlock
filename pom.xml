@@ -104,6 +104,7 @@
 		<android-support.version>r6</android-support.version>
 
 		<android-maven.version>3.1.0</android-maven.version>
+		<robolectric.version>1.0</robolectric.version>
 		<junit.version>4.10</junit.version>
 	</properties>
 
@@ -127,6 +128,11 @@
 				<version>${android.maps.version}</version>
 			</dependency>
 
+			<dependency>
+				<groupId>com.pivotallabs</groupId>
+				<artifactId>robolectric</artifactId>
+				<version>${robolectric.version}</version>
+			</dependency>
 			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>

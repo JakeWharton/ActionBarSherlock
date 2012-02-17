@@ -249,7 +249,7 @@ public class ActionBarSherlockCompat extends ActionBarSherlock implements MenuBu
             mMenu.clear();
         }
         mMenuRefreshContent = true;
-        
+
         // Prepare the options panel if we have an action bar
         if (wActionBar != null) {
             mMenuIsPrepared = false;
