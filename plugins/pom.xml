@@ -17,6 +17,5 @@
 
 	<modules>
 		<module>support-lib</module>
-		<module>maps</module>
 	</modules>
 </project>

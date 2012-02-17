@@ -17,6 +17,5 @@
 
 	<modules>
 		<module>demos</module>
-		<module>plugins</module>
 	</modules>
 </project>

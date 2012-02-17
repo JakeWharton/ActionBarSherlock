@@ -54,16 +54,6 @@
 	</licenses>
 
 	<distributionManagement>
-		<repository>
-			<id>personal-repository</id>
-			<name>JakeWharton.com Maven Repository</name>
-			<url>scp://r.jakewharton.com/home/jakewharton_repository/r.jakewharton.com/maven/release/</url>
-		</repository>
-		<snapshotRepository>
-			<id>personal-repository</id>
-			<name>JakeWharton.com Maven Repository</name>
-			<url>scp://r.jakewharton.com/home/jakewharton_repository/r.jakewharton.com/maven/snapshot/</url>
-		</snapshotRepository>
 		<site>
 			<id>github-project-site</id>
 			<name>GitHub Project Pages</name>
@@ -100,7 +90,6 @@
 		<java.version>1.6</java.version>
 		<android.version>4.0.1.2</android.version>
 		<android.platform>14</android.platform>
-		<android.maps.version>15_r1</android.maps.version>
 		<android-support.version>r6</android-support.version>
 
 		<android-maven.version>3.1.0</android-maven.version>
@@ -115,17 +104,10 @@
 				<artifactId>android</artifactId>
 				<version>${android.version}</version>
 			</dependency>
-
 			<dependency>
 				<groupId>com.google.android</groupId>
 				<artifactId>support-v4</artifactId>
 				<version>${android-support.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>com.google.android.maps</groupId>
-				<artifactId>maps</artifactId>
-				<version>${android.maps.version}</version>
 			</dependency>
 
 			<dependency>
