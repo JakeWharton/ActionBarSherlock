@@ -40,6 +40,7 @@ import java.util.HashMap;
  * out of an animation. This behavior can be changed by calling
  * {@link ValueAnimator#setInterpolator(TimeInterpolator)}.</p>
  */
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class ValueAnimator extends Animator {
 
     /**
@@ -145,8 +146,8 @@ public class ValueAnimator extends Animator {
             new AccelerateDecelerateInterpolator();
 
     // type evaluators for the primitive types handled by this implementation
-    private static final TypeEvaluator sIntEvaluator = new IntEvaluator();
-    private static final TypeEvaluator sFloatEvaluator = new FloatEvaluator();
+    //private static final TypeEvaluator sIntEvaluator = new IntEvaluator();
+    //private static final TypeEvaluator sFloatEvaluator = new FloatEvaluator();
 
     /**
      * Used to indicate whether the animation is currently playing in reverse. This causes the

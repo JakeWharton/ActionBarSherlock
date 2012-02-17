@@ -42,6 +42,7 @@ import android.view.animation.Interpolator;
  * circular dependencies do not make logical sense anyway), circular dependencies
  * should be avoided, and the dependency flow of animations should only be in one direction.
  */
+@SuppressWarnings("unchecked")
 public final class AnimatorSet extends Animator {
 
     /**
@@ -278,7 +279,6 @@ public final class AnimatorSet extends Animator {
      * <p>Note that canceling a <code>AnimatorSet</code> also cancels all of the animations that it
      * is responsible for.</p>
      */
-    @SuppressWarnings("unchecked")
     @Override
     public void cancel() {
         mTerminated = true;
@@ -445,7 +445,6 @@ public final class AnimatorSet extends Animator {
      * it is responsible. The details of when exactly those animations are started depends on
      * the dependency relationships that have been set up between the animations.
      */
-    @SuppressWarnings("unchecked")
     @Override
     public void start() {
         mTerminated = false;
@@ -727,7 +726,6 @@ public final class AnimatorSet extends Animator {
             }
         }
 
-        @SuppressWarnings("unchecked")
         public void onAnimationEnd(Animator animation) {
             animation.removeListener(this);
             mPlayingSet.remove(animation);
