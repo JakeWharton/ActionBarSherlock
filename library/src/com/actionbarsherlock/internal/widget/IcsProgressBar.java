@@ -238,6 +238,8 @@ public class IcsProgressBar extends View {
     private Transformation mTransformation;
     private AlphaAnimation mAnimation;
     private Drawable mIndeterminateDrawable;
+    private int mIndeterminateRealLeft;
+    private int mIndeterminateRealTop;
     private Drawable mProgressDrawable;
     private Drawable mCurrentDrawable;
     Bitmap mSampleTile;
@@ -988,7 +990,9 @@ public class IcsProgressBar extends View {
                     }
                 }
             }
-            mIndeterminateDrawable.setBounds(left, top, right, bottom);
+            mIndeterminateDrawable.setBounds(0, 0, right - left, bottom - top);
+            mIndeterminateRealLeft = left;
+            mIndeterminateRealTop = top;
         }
 
         if (mProgressDrawable != null) {
@@ -1005,7 +1009,7 @@ public class IcsProgressBar extends View {
             // Translate canvas so a indeterminate circular progress bar with padding
             // rotates properly in its animation
             canvas.save();
-            canvas.translate(getPaddingLeft(), getPaddingTop());
+            canvas.translate(getPaddingLeft() + mIndeterminateRealLeft, getPaddingTop() + mIndeterminateRealTop);
             long time = getDrawingTime();
             if (mAnimation != null) {
                 mAnimation.getTransformation(time, mTransformation);
