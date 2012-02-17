@@ -47,15 +47,15 @@ public class Styled extends SherlockActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.add("Save")
             .setIcon(R.drawable.ic_compose)
-            .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+            .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 
         menu.add("Search")
             .setIcon(R.drawable.ic_search)
-            .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+            .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 
         menu.add("Refresh")
             .setIcon(R.drawable.ic_refresh)
-            .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+            .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 
         return super.onCreateOptionsMenu(menu);
     }
