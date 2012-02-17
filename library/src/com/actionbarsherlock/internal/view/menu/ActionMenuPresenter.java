@@ -16,7 +16,7 @@
 
 package com.actionbarsherlock.internal.view.menu;
 
-import static com.actionbarsherlock.internal.ActionBarSherlockCompat.getResources_getInteger;
+import static com.actionbarsherlock.internal.ResourcesCompat.getResources_getInteger;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
