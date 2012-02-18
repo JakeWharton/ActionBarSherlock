@@ -546,7 +546,7 @@ public abstract class ActionBarSherlock {
      * @return {@code true} if menu creation should proceed.
      */
     protected final boolean callbackCreateOptionsMenu(Menu menu) {
-        if (DEBUG) Log.d(TAG, "[callbackCreateOptionsMenu]");
+        if (DEBUG) Log.d(TAG, "[callbackCreateOptionsMenu] menu: " + menu);
 
         boolean result = true;
         if (mActivity instanceof OnCreatePanelMenuListener) {
@@ -567,7 +567,7 @@ public abstract class ActionBarSherlock {
      * @return {@code true} if menu preparation should proceed.
      */
     protected final boolean callbackPrepareOptionsMenu(Menu menu) {
-        if (DEBUG) Log.d(TAG, "[callbackPrepareOptionsMenu]");
+        if (DEBUG) Log.d(TAG, "[callbackPrepareOptionsMenu] menu: " + menu);
 
         boolean result = true;
         if (mActivity instanceof OnPreparePanelListener) {
@@ -590,7 +590,7 @@ public abstract class ActionBarSherlock {
      * @return {@code true} if the item selection was handled in the callback.
      */
     protected final boolean callbackOptionsItemSelected(MenuItem item) {
-        if (DEBUG) Log.d(TAG, "[callbackOptionsItemSelected] item: " + item);
+        if (DEBUG) Log.d(TAG, "[callbackOptionsItemSelected] item: " + item.getTitleCondensed());
 
         boolean result = false;
         if (mActivity instanceof OnMenuItemSelectedListener) {

@@ -150,6 +150,8 @@ public class ActionBarSherlockCompat extends ActionBarSherlock implements MenuBu
 
     @Override
     public ActionMode startActionMode(ActionMode.Callback callback) {
+        if (DEBUG) Log.d(TAG, "[startActionMode] callback: " + callback);
+
         if (mActionMode != null) {
             mActionMode.finish();
         }
@@ -588,29 +590,39 @@ public class ActionBarSherlockCompat extends ActionBarSherlock implements MenuBu
 
     @Override
     public void setProgressBarVisibility(boolean visible) {
+        if (DEBUG) Log.d(TAG, "[setProgressBarVisibility] visible: " + visible);
+
         setFeatureInt(Window.FEATURE_PROGRESS, visible ? Window.PROGRESS_VISIBILITY_ON :
             Window.PROGRESS_VISIBILITY_OFF);
     }
 
     @Override
     public void setProgressBarIndeterminateVisibility(boolean visible) {
+        if (DEBUG) Log.d(TAG, "[setProgressBarIndeterminateVisibility] visible: " + visible);
+
         setFeatureInt(Window.FEATURE_INDETERMINATE_PROGRESS,
                 visible ? Window.PROGRESS_VISIBILITY_ON : Window.PROGRESS_VISIBILITY_OFF);
     }
 
     @Override
     public void setProgressBarIndeterminate(boolean indeterminate) {
+        if (DEBUG) Log.d(TAG, "[setProgressBarIndeterminate] indeterminate: " + indeterminate);
+
         setFeatureInt(Window.FEATURE_PROGRESS,
                 indeterminate ? Window.PROGRESS_INDETERMINATE_ON : Window.PROGRESS_INDETERMINATE_OFF);
     }
 
     @Override
     public void setProgress(int progress) {
+        if (DEBUG) Log.d(TAG, "[setProgress] progress: " + progress);
+
         setFeatureInt(Window.FEATURE_PROGRESS, progress + Window.PROGRESS_START);
     }
 
     @Override
     public void setSecondaryProgress(int secondaryProgress) {
+        if (DEBUG) Log.d(TAG, "[setSecondaryProgress] secondaryProgress: " + secondaryProgress);
+
         setFeatureInt(Window.FEATURE_PROGRESS,
                 secondaryProgress + Window.PROGRESS_SECONDARY_START);
     }
@@ -748,7 +760,7 @@ public class ActionBarSherlockCompat extends ActionBarSherlock implements MenuBu
     ///////////////////////////////////////////////////////////////////////////
 
     private int getFeatures() {
-        if (DEBUG) Log.d(TAG, "[getFeatures]");
+        if (DEBUG) Log.d(TAG, "[getFeatures] returning " + mFeatures);
 
         return mFeatures;
     }
@@ -757,7 +769,9 @@ public class ActionBarSherlockCompat extends ActionBarSherlock implements MenuBu
     public boolean hasFeature(int featureId) {
         if (DEBUG) Log.d(TAG, "[hasFeature] featureId: " + featureId);
 
-        return (mFeatures & (1 << featureId)) != 0;
+        boolean result = (mFeatures & (1 << featureId)) != 0;
+        if (DEBUG) Log.d(TAG, "[hasFeature] returning " + result);
+        return result;
     }
 
     @Override
