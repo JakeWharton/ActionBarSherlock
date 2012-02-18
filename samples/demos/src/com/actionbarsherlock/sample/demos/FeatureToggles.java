@@ -45,8 +45,17 @@ public class FeatureToggles extends SherlockActivity implements ActionBar.TabLis
         getSupportActionBar().setDisplayShowCustomEnabled(false);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
 
-        ArrayAdapter<CharSequence> listAdapter = ArrayAdapter.createFromResource(this, R.array.locations, android.R.layout.simple_dropdown_item_1line);
-        listAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        int layoutRes = R.layout.sherlock_spinner_item;
+        int dropRes = android.R.layout.simple_spinner_dropdown_item;
+
+        if (SampleList.THEME == R.style.Theme_Sherlock_Light_DarkActionBar) {
+            layoutRes = R.layout.sherlock_spinner_item_light_dark;
+            dropRes = R.layout.sherlock_spinner_dropdown_item_light_dark;
+        }
+
+        ArrayAdapter<CharSequence> listAdapter = ArrayAdapter.createFromResource(this, R.array.locations, layoutRes);
+        listAdapter.setDropDownViewResource(dropRes);
+
         getSupportActionBar().setListNavigationCallbacks(listAdapter, null);
 
         findViewById(R.id.display_progress_show).setOnClickListener(new View.OnClickListener() {
