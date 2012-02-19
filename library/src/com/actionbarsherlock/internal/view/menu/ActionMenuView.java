@@ -15,6 +15,7 @@
  */
 package com.actionbarsherlock.internal.view.menu;
 
+import com.actionbarsherlock.internal.nineoldandroids.widget.NineLinearLayout;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -28,7 +29,9 @@ import android.widget.LinearLayout;
 /**
  * @hide
  */
-public class ActionMenuView extends LinearLayout implements MenuBuilder.ItemInvoker, MenuView {
+//Use NineLinearLayout directly until we can fix IcsLinearLayout to do
+//measurement and children updates properly.
+public class ActionMenuView extends NineLinearLayout implements MenuBuilder.ItemInvoker, MenuView {
     //UNUSED private static final String TAG = "ActionMenuView";
 
     static final int MIN_CELL_SIZE = 56; // dips
