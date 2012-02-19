@@ -24,15 +24,18 @@ public class Preference extends SherlockPreferenceActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.add("Save")
-            .setIcon(R.drawable.ic_compose)
+            .setIcon(SampleList.THEME == R.style.Theme_Sherlock_Light ?
+                    R.drawable.ic_compose_inverse : R.drawable.ic_compose)
             .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 
         menu.add("Search")
-            .setIcon(R.drawable.ic_search)
+            .setIcon(SampleList.THEME == R.style.Theme_Sherlock_Light ?
+                    R.drawable.ic_search_inverse : R.drawable.ic_search)
             .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 
         menu.add("Refresh")
-            .setIcon(R.drawable.ic_refresh)
+            .setIcon(SampleList.THEME == R.style.Theme_Sherlock_Light ?
+                    R.drawable.ic_refresh_inverse : R.drawable.ic_refresh)
             .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 
         return super.onCreateOptionsMenu(menu);

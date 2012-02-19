@@ -26,7 +26,8 @@ public class CollapsibleActionItem extends SherlockActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.add("Search")
-            .setIcon(R.drawable.ic_search)
+            .setIcon(SampleList.THEME == R.style.Theme_Sherlock_Light ?
+                    R.drawable.ic_search_inverse : R.drawable.ic_search)
             .setActionView(R.layout.collapsible_edittext)
             .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
 
