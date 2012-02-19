@@ -74,19 +74,19 @@ public class StaticAttachment extends Activity implements OnCreateOptionsMenuLis
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        //Used to put dark icons on light action bar
+        boolean isLight = SampleList.THEME == R.style.Theme_Sherlock_Light;
+
         menu.add("Save")
-            .setIcon(SampleList.THEME == R.style.Theme_Sherlock_Light ?
-                R.drawable.ic_compose_inverse : R.drawable.ic_compose)
+            .setIcon(isLight ? R.drawable.ic_compose_inverse : R.drawable.ic_compose)
             .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 
         menu.add("Search")
-            .setIcon(SampleList.THEME == R.style.Theme_Sherlock_Light ?
-                    R.drawable.ic_search_inverse : R.drawable.ic_search)
+            .setIcon(isLight ? R.drawable.ic_search_inverse : R.drawable.ic_search)
             .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 
         menu.add("Refresh")
-            .setIcon(SampleList.THEME == R.style.Theme_Sherlock_Light ?
-                    R.drawable.ic_refresh_inverse : R.drawable.ic_refresh)
+            .setIcon(isLight ? R.drawable.ic_refresh_inverse : R.drawable.ic_refresh)
             .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 
         return true;
