@@ -17,5 +17,6 @@
 
 	<modules>
 		<module>demos</module>
+		<module>fragments</module>
 	</modules>
 </project>
