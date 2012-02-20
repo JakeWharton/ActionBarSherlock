@@ -149,7 +149,6 @@
         <activity
             android:name=".SplitActionBar"
             android:label="@string/split"
-            android:configChanges="orientation|screenSize|keyboardHidden"
             android:uiOptions="splitActionBarWhenNarrow">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
