@@ -22,7 +22,7 @@ import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
-public class SplitActionBar extends SherlockActivity {
+public class ActionItems extends SherlockActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         //Used to put dark icons on light action bar
@@ -30,10 +30,9 @@ public class SplitActionBar extends SherlockActivity {
 
         menu.add("Save")
             .setIcon(isLight ? R.drawable.ic_compose_inverse : R.drawable.ic_compose)
-            .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+            .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
         menu.add("Search")
-            .setIcon(isLight ? R.drawable.ic_search_inverse : R.drawable.ic_search)
             .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 
         menu.add("Refresh")
@@ -48,6 +47,10 @@ public class SplitActionBar extends SherlockActivity {
         setTheme(SampleList.THEME); //Used for theme switching in samples
         super.onCreate(savedInstanceState);
         setContentView(R.layout.text);
-        ((TextView)findViewById(R.id.text)).setText(R.string.split_content);
+        setContent((TextView)findViewById(R.id.text));
+    }
+
+    protected void setContent(TextView view) {
+        view.setText(R.string.action_items_content);
     }
 }

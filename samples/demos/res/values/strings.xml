@@ -6,6 +6,9 @@
     
     
     
+    <string name="action_items">Action Items</string>
+    <string name="action_items_content">The action bar creates a unified and persistant navigation experience for your application and action items are a great way to provide a clear indication of what the user can do.</string>
+    
     <string name="action_modes">Action Modes</string>
     <string name="action_modes_content">Action modes are used to display contextual information based on some interaction made by the user (long press, checkbox selection, etc). Like the normal action bar they also support splitting the action items to the bottom of the screen on small devices.</string>
     
