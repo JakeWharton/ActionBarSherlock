@@ -73,7 +73,7 @@ public abstract class AbsActionBarView extends NineViewGroup {
     public void onConfigurationChanged(Configuration newConfig) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
             super.onConfigurationChanged(newConfig);
-        } else {
+        } else if (mMenuView != null) {
             mMenuView.onConfigurationChanged(newConfig);
         }
 
