@@ -13,6 +13,10 @@ public class SherlockListFragment extends ListFragment {
 
     private SherlockFragmentActivity mActivity;
 
+    public SherlockFragmentActivity getSherlockActivity() {
+        return mActivity;
+    }
+
     @Override
     public void onAttach(Activity activity) {
         if (!(activity instanceof SherlockFragmentActivity)) {

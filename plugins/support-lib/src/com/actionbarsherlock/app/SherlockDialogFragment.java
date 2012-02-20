@@ -13,6 +13,10 @@ public class SherlockDialogFragment extends DialogFragment {
 
     private SherlockFragmentActivity mActivity;
 
+    public SherlockFragmentActivity getSherlockActivity() {
+        return mActivity;
+    }
+
     @Override
     public void onAttach(Activity activity) {
         if (!(activity instanceof SherlockFragmentActivity)) {
