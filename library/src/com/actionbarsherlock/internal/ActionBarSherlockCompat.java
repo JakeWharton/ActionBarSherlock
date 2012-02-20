@@ -2,24 +2,10 @@ package com.actionbarsherlock.internal;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static com.actionbarsherlock.internal.ResourcesCompat.getResources_getBoolean;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import org.xmlpull.v1.XmlPullParser;
-import com.actionbarsherlock.ActionBarSherlock;
-import com.actionbarsherlock.R;
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.internal.app.ActionBarImpl;
-import com.actionbarsherlock.internal.view.StandaloneActionMode;
-import com.actionbarsherlock.internal.view.menu.ActionMenuPresenter;
-import com.actionbarsherlock.internal.view.menu.MenuBuilder;
-import com.actionbarsherlock.internal.view.menu.MenuItemImpl;
-import com.actionbarsherlock.internal.view.menu.MenuPresenter;
-import com.actionbarsherlock.internal.widget.ActionBarContainer;
-import com.actionbarsherlock.internal.widget.ActionBarContextView;
-import com.actionbarsherlock.internal.widget.ActionBarView;
-import com.actionbarsherlock.internal.widget.IcsProgressBar;
-import com.actionbarsherlock.view.ActionMode;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
@@ -42,6 +28,22 @@ import android.view.Window;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import com.actionbarsherlock.ActionBarSherlock;
+import com.actionbarsherlock.R;
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.internal.app.ActionBarImpl;
+import com.actionbarsherlock.internal.view.StandaloneActionMode;
+import com.actionbarsherlock.internal.view.menu.ActionMenuPresenter;
+import com.actionbarsherlock.internal.view.menu.MenuBuilder;
+import com.actionbarsherlock.internal.view.menu.MenuItemImpl;
+import com.actionbarsherlock.internal.view.menu.MenuPresenter;
+import com.actionbarsherlock.internal.widget.ActionBarContainer;
+import com.actionbarsherlock.internal.widget.ActionBarContextView;
+import com.actionbarsherlock.internal.widget.ActionBarView;
+import com.actionbarsherlock.internal.widget.IcsProgressBar;
+import com.actionbarsherlock.view.ActionMode;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 
 @ActionBarSherlock.Implementation(api = 7)
 public class ActionBarSherlockCompat extends ActionBarSherlock implements MenuBuilder.Callback, com.actionbarsherlock.view.Window.Callback, MenuPresenter.Callback, android.view.MenuItem.OnMenuItemClickListener {
@@ -868,7 +870,29 @@ public class ActionBarSherlockCompat extends ActionBarSherlock implements MenuBu
             mDecor = (ViewGroup)mActivity.getWindow().getDecorView().findViewById(android.R.id.content);
         }
         if (mContentParent == null) {
+            //Since we are not operating at the window level we need to take
+            //into account the fact that the true decor may have already been
+            //initialized and had content attached to it. If that is the case,
+            //copy over its children to our new content container.
+            List<View> views = null;
+            if (mDecor.getChildCount() > 0) {
+                views = new ArrayList<View>(1); //Usually there's only one child
+                for (int i = 0, children = mDecor.getChildCount(); i < children; i++) {
+                    View child = mDecor.getChildAt(0);
+                    mDecor.removeView(child);
+                    views.add(child);
+                }
+            }
+
             mContentParent = generateLayout();
+
+            //Copy over the old children. See above for explanation.
+            if (views != null) {
+                for (View child : views) {
+                    mContentParent.addView(child);
+                }
+            }
+
             wActionBar = (ActionBarView)mDecor.findViewById(R.id.abs__action_bar);
             if (wActionBar != null) {
                 wActionBar.setWindowCallback(this);
