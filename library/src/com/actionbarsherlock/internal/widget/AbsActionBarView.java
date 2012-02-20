@@ -74,7 +74,8 @@ public abstract class AbsActionBarView extends NineViewGroup {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
             super.onConfigurationChanged(newConfig);
         } else {
-            mMenuView.onConfigurationChanged(newConfig);
+            if (mMenuView != null)
+                mMenuView.onConfigurationChanged(newConfig);
         }
 
         // Action bar can change size on configuration changes.
