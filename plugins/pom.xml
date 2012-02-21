@@ -16,6 +16,7 @@
 	</parent>
 
 	<modules>
+		<module>native-honeycomb</module>
 		<module>support-lib</module>
 	</modules>
 </project>
