@@ -11,7 +11,7 @@ is used (e.g., programmatically changing icon/logo).
 Usage
 -----
 
-You need to register this plugin as an available impelementation for use. The
+You need to register this plugin as an available implementation for use. The
 best place to do this would be in a static block in a base activity that you
 always extend from.
 
