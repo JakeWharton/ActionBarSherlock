@@ -25,8 +25,11 @@ import com.actionbarsherlock.view.MenuItem;
 public class CollapsibleActionItem extends SherlockActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        //Used to put dark icons on light action bar
+        boolean isLight = SampleList.THEME == R.style.Theme_Sherlock_Light;
+
         menu.add("Search")
-            .setIcon(R.drawable.ic_search)
+            .setIcon(isLight ? R.drawable.ic_search_inverse : R.drawable.ic_search)
             .setActionView(R.layout.collapsible_edittext)
             .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
 

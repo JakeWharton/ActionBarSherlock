@@ -32,7 +32,7 @@ import com.actionbarsherlock.internal.nineoldandroids.view.NineViewGroup;
 import com.actionbarsherlock.internal.view.menu.ActionMenuPresenter;
 import com.actionbarsherlock.internal.view.menu.ActionMenuView;
 
-import static com.actionbarsherlock.internal.ActionBarSherlockCompat.getResources_getBoolean;
+import static com.actionbarsherlock.internal.ResourcesCompat.getResources_getBoolean;
 
 public abstract class AbsActionBarView extends NineViewGroup {
     protected ActionMenuView mMenuView;
@@ -73,6 +73,8 @@ public abstract class AbsActionBarView extends NineViewGroup {
     public void onConfigurationChanged(Configuration newConfig) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
             super.onConfigurationChanged(newConfig);
+        } else if (mMenuView != null) {
+            mMenuView.onConfigurationChanged(newConfig);
         }
 
         // Action bar can change size on configuration changes.

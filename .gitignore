@@ -14,6 +14,7 @@ lint.xml
 *.iml
 *.ipr
 *.iws
+classes
 
 #Maven
 target
@@ -27,5 +28,6 @@ build.xml
 local.properties
 proguard.cfg
 
-#OSX
+#Other
 .DS_Store
+tmp

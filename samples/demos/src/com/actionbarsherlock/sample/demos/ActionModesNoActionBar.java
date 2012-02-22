@@ -31,12 +31,11 @@ public class ActionModesNoActionBar extends SherlockActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        int theme = R.style.Theme_Sherlock_NoActionBar;
-        if (SampleList.THEME == R.style.Theme_Sherlock_Light || SampleList.THEME == R.style.Theme_Sherlock_Light_DarkActionBar) {
-            theme = R.style.Theme_Sherlock_Light_NoActionBar;
-        }
-        setTheme(theme);
+        setTheme(SampleList.THEME); //Used for theme switching in samples
+
+        //You could also use Theme.Sherlock.NoActionBar or Theme.Sherlock.Light.NoActionBar
         requestWindowFeature(Window.FEATURE_NO_TITLE);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.action_modes);
 
@@ -59,28 +58,31 @@ public class ActionModesNoActionBar extends SherlockActivity {
     private final class AnActionModeOfEpicProportions implements ActionMode.Callback {
         @Override
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            //Used to put dark icons on light action bar
+            boolean isLight = SampleList.THEME == R.style.Theme_Sherlock_Light;
+
             menu.add("Save")
-                .setIcon(R.drawable.ic_compose)
+                .setIcon(isLight ? R.drawable.ic_compose_inverse : R.drawable.ic_compose)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
             menu.add("Search")
-                .setIcon(R.drawable.ic_search)
+                .setIcon(isLight ? R.drawable.ic_search_inverse : R.drawable.ic_search)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
             menu.add("Refresh")
-                .setIcon(R.drawable.ic_refresh)
+                .setIcon(isLight ? R.drawable.ic_refresh_inverse : R.drawable.ic_refresh)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
             menu.add("Save")
-                .setIcon(R.drawable.ic_compose)
+                .setIcon(isLight ? R.drawable.ic_compose_inverse : R.drawable.ic_compose)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
             menu.add("Search")
-                .setIcon(R.drawable.ic_search)
+                .setIcon(isLight ? R.drawable.ic_search_inverse : R.drawable.ic_search)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
             menu.add("Refresh")
-                .setIcon(R.drawable.ic_refresh)
+                .setIcon(isLight ? R.drawable.ic_refresh_inverse : R.drawable.ic_refresh)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
             return true;

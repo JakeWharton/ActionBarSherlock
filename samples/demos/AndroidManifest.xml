@@ -30,6 +30,15 @@
 
 
         <activity
+            android:name=".ActionItems"
+            android:label="@string/action_items">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name=".ActionModes"
             android:label="@string/action_modes">
             <intent-filter>
@@ -86,15 +95,6 @@
         <activity
             android:name=".FeatureToggles"
             android:label="@string/feature_toggles">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
-            </intent-filter>
-        </activity>
-        
-        <activity
-            android:name=".ForcedCompatImpl"
-            android:label="@string/forced_compat">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
@@ -165,7 +165,7 @@
         </activity>
         
         <activity
-            android:name=".SplitActionBar"
+            android:name=".SplitActionItems"
             android:label="@string/split"
             android:uiOptions="splitActionBarWhenNarrow">
             <intent-filter>

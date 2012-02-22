@@ -65,7 +65,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
 
-import static com.actionbarsherlock.internal.ActionBarSherlockCompat.getResources_getBoolean;
+import static com.actionbarsherlock.internal.ResourcesCompat.getResources_getBoolean;
 
 /**
  * @hide
@@ -141,15 +141,14 @@ public class ActionBarView extends AbsActionBarView {
 
     Window.Callback mWindowCallback;
 
+    @SuppressWarnings("rawtypes")
     private final AdapterView.OnItemSelectedListener mNavItemSelectedListener =
             new AdapterView.OnItemSelectedListener() {
-        @SuppressWarnings("rawtypes")
         public void onItemSelected(AdapterView parent, View view, int position, long id) {
             if (mCallback != null) {
                 mCallback.onNavigationItemSelected(position, id);
             }
         }
-        @SuppressWarnings("rawtypes")
         public void onNothingSelected(AdapterView parent) {
             // Do nothing
         }

@@ -16,7 +16,7 @@
 	</parent>
 
 	<modules>
+		<module>native-honeycomb</module>
 		<module>support-lib</module>
-		<module>maps</module>
 	</modules>
 </project>

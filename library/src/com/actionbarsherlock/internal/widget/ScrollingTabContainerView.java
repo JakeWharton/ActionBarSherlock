@@ -35,7 +35,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import com.actionbarsherlock.R;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.internal.nineoldandroids.animation.Animator;
@@ -365,7 +364,7 @@ public class ScrollingTabContainerView extends HorizontalScrollView
     public static class TabView extends LinearLayout {
         private ScrollingTabContainerView mParent;
         private ActionBar.Tab mTab;
-        private TextView mTextView;
+        private CapitalizingTextView mTextView;
         private ImageView mIconView;
         private View mCustomView;
 
@@ -444,7 +443,7 @@ public class ScrollingTabContainerView extends HorizontalScrollView
 
                 if (text != null) {
                     if (mTextView == null) {
-                        TextView textView = new TextView(getContext(), null,
+                        CapitalizingTextView textView = new CapitalizingTextView(getContext(), null,
                                 R.attr.actionBarTabTextStyle);
                         textView.setEllipsize(TruncateAt.END);
                         LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT,
@@ -454,7 +453,7 @@ public class ScrollingTabContainerView extends HorizontalScrollView
                         addView(textView);
                         mTextView = textView;
                     }
-                    mTextView.setText(text);
+                    mTextView.setTextCompat(text);
                     mTextView.setVisibility(VISIBLE);
                 } else if (mTextView != null) {
                     mTextView.setVisibility(GONE);

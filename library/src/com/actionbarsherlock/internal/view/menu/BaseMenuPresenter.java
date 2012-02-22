@@ -16,12 +16,12 @@
 
 package com.actionbarsherlock.internal.view.menu;
 
+import java.util.ArrayList;
 import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import java.util.ArrayList;
 
 /**
  * Base class for MenuPresenters that have a consistent container view and item
@@ -29,6 +29,8 @@ import java.util.ArrayList;
  * be reused if possible when items change.
  */
 public abstract class BaseMenuPresenter implements MenuPresenter {
+    private static final boolean IS_HONEYCOMB = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
+
     protected Context mSystemContext;
     protected Context mContext;
     protected MenuBuilder mMenu;
@@ -97,7 +99,7 @@ public abstract class BaseMenuPresenter implements MenuPresenter {
                     if (item != oldItem) {
                         // Don't let old states linger with new data.
                         itemView.setPressed(false);
-                        //XXX itemView.jumpDrawablesToCurrentState();
+                        if (IS_HONEYCOMB) itemView.jumpDrawablesToCurrentState();
                     }
                     if (itemView != convertView) {
                         addItemView(itemView, childIndex);

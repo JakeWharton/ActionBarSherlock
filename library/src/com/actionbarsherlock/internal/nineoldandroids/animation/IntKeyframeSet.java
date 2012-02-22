@@ -31,6 +31,7 @@ import com.actionbarsherlock.internal.nineoldandroids.animation.Keyframe.IntKeyf
  * TypeEvaluator set for the animation, so that values can be calculated without autoboxing to the
  * Object equivalents of these primitive types.</p>
  */
+@SuppressWarnings("unchecked")
 class IntKeyframeSet extends KeyframeSet {
     private int firstValue;
     private int lastValue;

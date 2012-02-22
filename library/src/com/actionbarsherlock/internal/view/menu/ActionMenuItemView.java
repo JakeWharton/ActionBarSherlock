@@ -29,7 +29,6 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -37,8 +36,9 @@ import android.widget.Toast;
 import com.actionbarsherlock.R;
 import com.actionbarsherlock.internal.view.View_HasStateListenerSupport;
 import com.actionbarsherlock.internal.view.View_OnAttachStateChangeListener;
+import com.actionbarsherlock.internal.widget.CapitalizingButton;
 
-import static com.actionbarsherlock.internal.ActionBarSherlockCompat.getResources_getBoolean;
+import static com.actionbarsherlock.internal.ResourcesCompat.getResources_getBoolean;
 
 /**
  * @hide
@@ -53,7 +53,7 @@ public class ActionMenuItemView extends LinearLayout
     private MenuBuilder.ItemInvoker mItemInvoker;
 
     private ImageButton mImageButton;
-    private Button mTextButton;
+    private CapitalizingButton mTextButton;
     private boolean mAllowTextWithIcon;
     private boolean mExpandedFormat;
     private int mMinWidth;
@@ -110,7 +110,7 @@ public class ActionMenuItemView extends LinearLayout
     public void onFinishInflate() {
 
         mImageButton = (ImageButton) findViewById(R.id.abs__imageButton);
-        mTextButton = (Button) findViewById(R.id.abs__textButton);
+        mTextButton = (CapitalizingButton) findViewById(R.id.abs__textButton);
         mImageButton.setOnClickListener(this);
         mTextButton.setOnClickListener(this);
         mImageButton.setOnLongClickListener(this);
@@ -201,7 +201,7 @@ public class ActionMenuItemView extends LinearLayout
     public void setTitle(CharSequence title) {
         mTitle = title;
 
-        mTextButton.setText(mTitle);
+        mTextButton.setTextCompat(mTitle);
 
         setContentDescription(mTitle);
         updateTextButtonVisibility();
