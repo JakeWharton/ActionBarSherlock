@@ -1,5 +1,5 @@
 /*
- * Copyright 2009 Michael Burton
+ * Copyright 2012 Jake Wharton
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
