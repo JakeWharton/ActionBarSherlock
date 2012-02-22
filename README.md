@@ -5,6 +5,10 @@ ActionBarSherlock is an extension of the [compatibility library][1] designed
 to facilitate the use of the action bar design pattern across all versions of
 Android through a single API.
 
+**NEW USERS: Version 4.0 is under heavy development and is almost ready for
+release. You are probably better off taking a look at it instead of 3.x. See
+http://beta.abs.io for more information.**
+
 The library will automatically use the [native ActionBar][2] implementation on
 Android 3.0 or later. For previous versions which do not include ActionBar, a
 custom action bar implementation will automatically be wrapped around the
