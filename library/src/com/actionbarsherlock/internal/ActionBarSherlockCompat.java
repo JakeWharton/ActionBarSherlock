@@ -28,6 +28,8 @@ import android.view.Window;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 import com.actionbarsherlock.ActionBarSherlock;
 import com.actionbarsherlock.R;
 import com.actionbarsherlock.app.ActionBar;
@@ -102,6 +104,13 @@ public class ActionBarSherlockCompat extends ActionBarSherlock implements MenuBu
     private ActionMode mActionMode;
     /** Parent view in which the context action bar is displayed. */
     private ActionBarContextView mActionModeView;
+
+    /** Title view used with dialogs. */
+    private TextView mTitleView;
+    /** Current activity title. */
+    private CharSequence mTitle = null;
+    /** Whether or not this "activity" is floating (i.e., a dialog) */
+    private boolean mIsFloating;
 
 
 
@@ -367,12 +376,15 @@ public class ActionBarSherlockCompat extends ActionBarSherlock implements MenuBu
     public void dispatchTitleChanged(CharSequence title, int color) {
         if (DEBUG) Log.d(TAG, "[dispatchTitleChanged] title: " + title + ", color: " + color);
 
-        if (mIsDelegate && !mIsTitleReady) {
-            return;
+        if (!mIsDelegate || mIsTitleReady) {
+            if (mTitleView != null) {
+                mTitleView.setText(title);
+            } else if (wActionBar != null) {
+                wActionBar.setWindowTitle(title);
+            }
         }
-        if (wActionBar != null) {
-            wActionBar.setWindowTitle(title);
-        }
+
+        mTitle = title;
     }
 
     @Override
@@ -893,59 +905,71 @@ public class ActionBarSherlockCompat extends ActionBarSherlock implements MenuBu
                 }
             }
 
-            wActionBar = (ActionBarView)mDecor.findViewById(R.id.abs__action_bar);
-            if (wActionBar != null) {
-                wActionBar.setWindowCallback(this);
-                if (wActionBar.getTitle() == null) {
-                    wActionBar.setWindowTitle(mActivity.getTitle());
-                }
-                if (hasFeature(Window.FEATURE_PROGRESS)) {
-                    wActionBar.initProgress();
-                }
-                if (hasFeature(Window.FEATURE_INDETERMINATE_PROGRESS)) {
-                    wActionBar.initIndeterminateProgress();
-                }
-
-                //Since we don't require onCreate dispatching, parse for uiOptions here
-                int uiOptions = loadUiOptionsFromManifest(mActivity);
-                if (uiOptions != 0) {
-                    mUiOptions = uiOptions;
-                }
-
-                boolean splitActionBar = false;
-                final boolean splitWhenNarrow = (mUiOptions & ActivityInfo.UIOPTION_SPLIT_ACTION_BAR_WHEN_NARROW) != 0;
-                if (splitWhenNarrow) {
-                    splitActionBar = getResources_getBoolean(mActivity, R.bool.abs__split_action_bar_is_narrow);
-                } else {
-                    splitActionBar = mActivity.getTheme()
-                            .obtainStyledAttributes(R.styleable.SherlockTheme)
-                            .getBoolean(R.styleable.SherlockTheme_windowSplitActionBar, false);
-                }
-                final ActionBarContainer splitView = (ActionBarContainer)mDecor.findViewById(R.id.abs__split_action_bar);
-                if (splitView != null) {
-                    wActionBar.setSplitView(splitView);
-                    wActionBar.setSplitActionBar(splitActionBar);
-                    wActionBar.setSplitWhenNarrow(splitWhenNarrow);
-
-                    mActionModeView = (ActionBarContextView)mDecor.findViewById(R.id.abs__action_context_bar);
-                    mActionModeView.setSplitView(splitView);
-                    mActionModeView.setSplitActionBar(splitActionBar);
-                    mActionModeView.setSplitWhenNarrow(splitWhenNarrow);
-                } else if (splitActionBar) {
-                    Log.e(TAG, "Requested split action bar with incompatible window decor! Ignoring request.");
-                }
-
-                // Post the panel invalidate for later; avoid application onCreateOptionsMenu
-                // being called in the middle of onCreate or similar.
-                mDecor.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        //Invalidate if the panel menu hasn't been created before this.
-                        if (mMenu == null) {
-                            dispatchInvalidateOptionsMenu();
-                        }
+            mTitleView = (TextView)mDecor.findViewById(android.R.id.title);
+            if (mTitleView != null) {
+                if (hasFeature(Window.FEATURE_NO_TITLE)) {
+                    mTitleView.setVisibility(View.GONE);
+                    if (mContentParent instanceof FrameLayout) {
+                        ((FrameLayout)mContentParent).setForeground(null);
                     }
-                });
+                } else {
+                    mTitleView.setText(mTitle);
+                }
+            } else {
+                wActionBar = (ActionBarView)mDecor.findViewById(R.id.abs__action_bar);
+                if (wActionBar != null) {
+                    wActionBar.setWindowCallback(this);
+                    if (wActionBar.getTitle() == null) {
+                        wActionBar.setWindowTitle(mActivity.getTitle());
+                    }
+                    if (hasFeature(Window.FEATURE_PROGRESS)) {
+                        wActionBar.initProgress();
+                    }
+                    if (hasFeature(Window.FEATURE_INDETERMINATE_PROGRESS)) {
+                        wActionBar.initIndeterminateProgress();
+                    }
+
+                    //Since we don't require onCreate dispatching, parse for uiOptions here
+                    int uiOptions = loadUiOptionsFromManifest(mActivity);
+                    if (uiOptions != 0) {
+                        mUiOptions = uiOptions;
+                    }
+
+                    boolean splitActionBar = false;
+                    final boolean splitWhenNarrow = (mUiOptions & ActivityInfo.UIOPTION_SPLIT_ACTION_BAR_WHEN_NARROW) != 0;
+                    if (splitWhenNarrow) {
+                        splitActionBar = getResources_getBoolean(mActivity, R.bool.abs__split_action_bar_is_narrow);
+                    } else {
+                        splitActionBar = mActivity.getTheme()
+                                .obtainStyledAttributes(R.styleable.SherlockTheme)
+                                .getBoolean(R.styleable.SherlockTheme_windowSplitActionBar, false);
+                    }
+                    final ActionBarContainer splitView = (ActionBarContainer)mDecor.findViewById(R.id.abs__split_action_bar);
+                    if (splitView != null) {
+                        wActionBar.setSplitView(splitView);
+                        wActionBar.setSplitActionBar(splitActionBar);
+                        wActionBar.setSplitWhenNarrow(splitWhenNarrow);
+
+                        mActionModeView = (ActionBarContextView)mDecor.findViewById(R.id.abs__action_context_bar);
+                        mActionModeView.setSplitView(splitView);
+                        mActionModeView.setSplitActionBar(splitActionBar);
+                        mActionModeView.setSplitWhenNarrow(splitWhenNarrow);
+                    } else if (splitActionBar) {
+                        Log.e(TAG, "Requested split action bar with incompatible window decor! Ignoring request.");
+                    }
+
+                    // Post the panel invalidate for later; avoid application onCreateOptionsMenu
+                    // being called in the middle of onCreate or similar.
+                    mDecor.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            //Invalidate if the panel menu hasn't been created before this.
+                            if (mMenu == null) {
+                                dispatchInvalidateOptionsMenu();
+                            }
+                        }
+                    });
+                }
             }
         }
     }
@@ -956,6 +980,9 @@ public class ActionBarSherlockCompat extends ActionBarSherlock implements MenuBu
         // Apply data from current theme.
 
         TypedArray a = mActivity.getTheme().obtainStyledAttributes(R.styleable.SherlockTheme);
+
+        mIsFloating = a.getBoolean(R.styleable.SherlockTheme_android_windowIsFloating, false);
+
         if (!a.hasValue(R.styleable.SherlockTheme_windowActionBar)) {
             throw new IllegalStateException("You must use Theme.Sherlock, Theme.Sherlock.Light, Theme.Sherlock.Light.DarkActionBar, or a derivative.");
         }
@@ -978,11 +1005,19 @@ public class ActionBarSherlockCompat extends ActionBarSherlock implements MenuBu
         a.recycle();
 
         int layoutResource;
-        if (hasFeature(Window.FEATURE_ACTION_BAR) && !hasFeature(Window.FEATURE_NO_TITLE)) {
-            if (hasFeature(Window.FEATURE_ACTION_BAR_OVERLAY)) {
-                layoutResource = R.layout.abs__screen_action_bar_overlay;
+        if (!hasFeature(Window.FEATURE_NO_TITLE)) {
+            if (mIsFloating) {
+                //Trash original dialog LinearLayout
+                mDecor = (ViewGroup)mDecor.getParent();
+                mDecor.removeAllViews();
+
+                layoutResource = R.layout.abs__dialog_title_holo;
             } else {
-                layoutResource = R.layout.abs__screen_action_bar;
+                if (hasFeature(Window.FEATURE_ACTION_BAR_OVERLAY)) {
+                    layoutResource = R.layout.abs__screen_action_bar_overlay;
+                } else {
+                    layoutResource = R.layout.abs__screen_action_bar;
+                }
             }
         } else if (hasFeature(Window.FEATURE_ACTION_MODE_OVERLAY) && !hasFeature(Window.FEATURE_NO_TITLE)) {
             layoutResource = R.layout.abs__screen_simple_overlay_action_mode;

@@ -149,6 +149,39 @@
     </style>
     
     
-    <style name="Theme.Sherlock.Dialog" parent="android:Theme">
+    <style name="Theme.Sherlock.Dialog" parent="android:Theme.Dialog">
+        <item name="android:windowTitleStyle">@style/DialogWindowTitle.Sherlock</item>
+        <item name="android:windowBackground">@drawable/abs__dialog_full_holo_dark</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+        <item name="android:windowNoTitle">true</item>
+
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        
+        <item name="android:textColorPrimary">@color/abs__primary_text_holo_dark</item>
+        <item name="android:textColorPrimaryInverse">@color/abs__primary_text_holo_light</item>
+        
+        <item name="windowActionBar">false</item>
+        <item name="windowContentOverlay">@null</item>
+    </style>
+    <style name="Theme.Sherlock.Light.Dialog" parent="android:Theme.Dialog">
+        <item name="android:windowTitleStyle">@style/DialogWindowTitle.Sherlock.Light</item>
+        <item name="android:windowBackground">@drawable/abs__dialog_full_holo_light</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        
+        <item name="android:textColorPrimary">@color/abs__primary_text_holo_light</item>
+        <item name="android:textColorPrimaryInverse">@color/abs__primary_text_holo_dark</item>
+        
+        <item name="windowActionBar">false</item>
+        <item name="windowContentOverlay">@null</item>
     </style>
 </resources>
