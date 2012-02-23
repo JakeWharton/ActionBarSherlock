@@ -1,12 +1,12 @@
 package com.actionbarsherlock.internal.widget;
 
-import com.actionbarsherlock.internal.nineoldandroids.widget.NineLinearLayout;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
+import com.actionbarsherlock.internal.nineoldandroids.widget.NineLinearLayout;
 
 /**
  * A simple extension of a regular linear layout that supports the divider API
@@ -87,16 +87,25 @@ public class IcsLinearLayout extends NineLinearLayout {
     }
 
     @Override
+    protected void measureChildWithMargins(View child, int parentWidthMeasureSpec, int widthUsed, int parentHeightMeasureSpec, int heightUsed) {
+        final int index = indexOfChild(child);
+        if (hasDividerBeforeChildAt(index)) {
+            //Account for the divider by pushing everything left
+            ((LayoutParams)child.getLayoutParams()).leftMargin = mDividerWidth;
+        }
+        super.measureChildWithMargins(child, parentWidthMeasureSpec, widthUsed, parentHeightMeasureSpec, heightUsed);
+    }
+
+    @Override
     protected void onDraw(Canvas canvas) {
         if (mDivider != null) {
             final int count = getChildCount();
-            final int halfDividerWidth = mDividerWidth / 2;
             for (int i = 0; i < count; i++) {
                 final View child = getChildAt(i);
                 if (child != null && child.getVisibility() != GONE) {
                     if (hasDividerBeforeChildAt(i)) {
                         final LayoutParams lp = (LayoutParams) child.getLayoutParams();
-                        final int left = child.getLeft() - lp.leftMargin - halfDividerWidth;
+                        final int left = child.getLeft() - lp.leftMargin;
                         drawVerticalDivider(canvas, left);
                     }
                 }
