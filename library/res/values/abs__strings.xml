@@ -23,4 +23,7 @@
     <string name="abs__action_bar_up_description">Navigate up</string>
     <!-- Content description for the action menu overflow button. [CHAR LIMIT=NONE] -->
     <string name="abs__action_menu_overflow_description">More options</string>
+
+    <!-- Label for the "Done" button on the far left of action mode toolbars. -->
+    <string name="abs__action_mode_done">Done</string>
 </resources>
