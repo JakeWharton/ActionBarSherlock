@@ -110,6 +110,9 @@
         <attr name="textAppearanceListItemSmall" format="reference" />
         
         
+        <attr name="windowMinWidthMajor" format="dimension" />
+        <attr name="windowMinWidthMinor" format="dimension" />
+        
         
 
         <!-- Drawable to use for generic vertical dividers. -->
@@ -130,6 +133,8 @@
         
         <!-- Specified if we are forcing an action item overflow menu. -->
         <attr name="absForceOverflow" format="boolean" />
+        
+        <attr name="android:windowIsFloating" />
     </declare-styleable>
     
 
