@@ -20,11 +20,11 @@ This is an optimized layout for a screen, with the minimum set of features
 enabled.
 -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.actionbarsherlock.internal.widget.FakeDialogPhoneWindow xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:fitsSystemWindows="true">
     <TextView android:id="@android:id/title" style="?android:attr/windowTitleStyle"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:minHeight="@dimen/abs__alert_dialog_title_height"
         android:paddingLeft="16dip"
@@ -35,7 +35,7 @@ enabled.
             android:layout_height="2dip"
             android:background="@color/abs__holo_blue_light" />
     <FrameLayout
-        android:layout_width="fill_parent" android:layout_height="wrap_content"
+        android:layout_width="wrap_content" android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="vertical"
         android:foreground="?attr/windowContentOverlay">
@@ -43,4 +43,4 @@ enabled.
             android:layout_width="fill_parent"
             android:layout_height="fill_parent" />
     </FrameLayout>
-</LinearLayout>
+</com.actionbarsherlock.internal.widget.FakeDialogPhoneWindow>

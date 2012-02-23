@@ -110,6 +110,9 @@
         <attr name="textAppearanceListItemSmall" format="reference" />
         
         
+        <attr name="windowMinWidthMajor" format="dimension" />
+        <attr name="windowMinWidthMinor" format="dimension" />
+        
         
 
         <!-- Drawable to use for generic vertical dividers. -->
