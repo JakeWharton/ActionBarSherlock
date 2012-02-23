@@ -101,7 +101,7 @@ public class IcsLinearLayout extends NineLinearLayout {
                     }
                 }
             }
-    
+
             if (hasDividerBeforeChildAt(count)) {
                 final View child = getChildAt(count - 1);
                 int right = 0;
