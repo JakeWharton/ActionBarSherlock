@@ -741,8 +741,8 @@ public class ActionBarView extends AbsActionBarView {
                 if (mSpinner == null) {
                     mSpinner = new Spinner(mContext, null,
                             R.attr.actionDropDownStyle);
-                    mListNavLayout = new IcsLinearLayout(mContext, null,
-                            R.attr.actionBarTabBarStyle);
+                    mListNavLayout = (IcsLinearLayout) LayoutInflater.from(mContext)
+                            .inflate(R.layout.abs__action_bar_tab_bar_view, null);
                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                             LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
                     params.gravity = Gravity.CENTER;
