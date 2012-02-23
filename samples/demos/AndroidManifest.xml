@@ -85,7 +85,8 @@
         
         <activity
             android:name=".Dialog"
-            android:label="@string/dialog">
+            android:label="@string/dialog"
+            android:theme="@style/Theme.Sherlock.Dialog">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
