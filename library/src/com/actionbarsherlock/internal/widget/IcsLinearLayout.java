@@ -22,6 +22,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
@@ -33,6 +34,7 @@ import android.view.ViewGroup;
  * only horizontal layouts.
  */
 public class IcsLinearLayout extends NineViewGroup {
+    private static final boolean IS_HONEYCOMB = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
 
     private static final int[] LinearLayout = new int[] {
         /* 0 */ android.R.attr.baselineAlignedChildIndex,
@@ -547,7 +549,12 @@ public class IcsLinearLayout extends NineViewGroup {
         widthSize = Math.max(widthSize, getSuggestedMinimumWidth());
 
         // Reconcile our calculated size with the widthMeasureSpec
-        int widthSizeAndState = IcsView.resolveSizeAndState(widthSize, widthMeasureSpec, 0);
+        int widthSizeAndState;
+        if (IS_HONEYCOMB) {
+            widthSizeAndState = View.resolveSizeAndState(widthSize, widthMeasureSpec, 0);
+        } else {
+            widthSizeAndState = View.resolveSize(widthSize, widthMeasureSpec);
+        }
         widthSize = widthSizeAndState & MEASURED_SIZE_MASK;
 
         // Either expand children with weight to take up available space or
@@ -699,9 +706,14 @@ public class IcsLinearLayout extends NineViewGroup {
         // Check against our minimum height
         maxHeight = Math.max(maxHeight, getSuggestedMinimumHeight());
 
-        setMeasuredDimension(widthSizeAndState | (childState&MEASURED_STATE_MASK),
-                IcsView.resolveSizeAndState(maxHeight, heightMeasureSpec,
-                        (childState<<MEASURED_HEIGHT_STATE_SHIFT)));
+        if (IS_HONEYCOMB) {
+            setMeasuredDimension(widthSizeAndState | (childState&MEASURED_STATE_MASK),
+                    View.resolveSizeAndState(maxHeight, heightMeasureSpec,
+                            (childState<<MEASURED_HEIGHT_STATE_SHIFT)));
+        } else {
+            setMeasuredDimension(widthSizeAndState | (childState&MEASURED_STATE_MASK),
+                    View.resolveSize(maxHeight, heightMeasureSpec));
+        }
 
         if (matchHeight) {
             forceUniformHeight(count, widthMeasureSpec);
