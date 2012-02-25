@@ -22,13 +22,6 @@ import com.actionbarsherlock.app.SherlockActivity;
 public class Dialog extends SherlockActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //Used for theme switching in samples
-        int themeRes = R.style.Theme_Sherlock_Dialog;
-        if (SampleList.THEME == R.style.Theme_Sherlock_Light || SampleList.THEME == R.style.Theme_Sherlock_Light_DarkActionBar) {
-            themeRes = R.style.Theme_Sherlock_Light_Dialog;
-        }
-        setTheme(themeRes);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.text);
         ((TextView)findViewById(R.id.text)).setText(R.string.dialog_content);

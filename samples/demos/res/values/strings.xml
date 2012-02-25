@@ -24,7 +24,7 @@
     <string name="custom_navigation_content">If you find that list and tab navigation are not suitable for your application you may replace it with a custom layout.</string>
     
     <string name="dialog">Dialog</string>
-    <string name="dialog_content">Dialog, bro</string>
+    <string name="dialog_content">This is a demonstration of how you can give an activity the look of a dialog.\n\nWhile there is a light version of this theme, it cannot be set programmatically without disabling the fancy transparent outer background. In order for this effect the theme must be set in the manifest.</string>
     
     <string name="feature_toggles">Feature Toggles</string>
     <string name="feature_toggles_content">Use these buttons to create various configurations with the action bar to see how it behaves.</string>
