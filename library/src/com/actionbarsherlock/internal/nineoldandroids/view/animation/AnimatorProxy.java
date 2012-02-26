@@ -5,6 +5,7 @@ import java.util.WeakHashMap;
 import android.graphics.Matrix;
 import android.graphics.RectF;
 import android.os.Build;
+import android.util.FloatMath;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
@@ -144,10 +145,10 @@ public final class AnimatorProxy extends Animation {
         after.union(mBefore);
 
         parent.invalidate(
-                (int) Math.floor(after.left),
-                (int) Math.floor(after.top),
-                (int) Math.ceil(after.right),
-                (int) Math.ceil(after.bottom));
+                (int) FloatMath.floor(after.left),
+                (int) FloatMath.floor(after.top),
+                (int) FloatMath.ceil(after.right),
+                (int) FloatMath.ceil(after.bottom));
     }
 
     private void computeRect(final RectF r, View view) {
