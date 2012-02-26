@@ -33,7 +33,7 @@
               android:layout_gravity="center"
               android:layout_marginLeft="4dip"
               android:layout_marginRight="16dip"
-              android:textAppearance="?android:attr/textAppearanceSmall"
+              android:textAppearance="?attr/actionModeCloseTextAppearance"
               android:textSize="12sp"
               android:textAllCaps="true"
               android:text="@string/abs__action_mode_done" />

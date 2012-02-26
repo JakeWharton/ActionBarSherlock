@@ -124,6 +124,7 @@
         <item name="actionMenuTextColor">?android:attr/textColorPrimaryInverse</item>
         <item name="actionModeStyle">@style/Widget.Sherlock.Light.ActionMode.Inverse</item>
         <item name="actionModeCloseButtonStyle">@style/Widget.Sherlock.ActionButton.CloseMode</item>
+        <item name="actionModeCloseTextAppearance">@style/TextAppearance.Sherlock.Light.Small.Inverse</item>
         <item name="actionModePopupWindowStyle">@style/Widget.Sherlock.PopupWindow.ActionMode</item>
     </style>
     
