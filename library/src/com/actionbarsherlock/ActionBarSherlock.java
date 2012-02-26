@@ -152,7 +152,7 @@ public abstract class ActionBarSherlock {
      * @return Boolean indicating whether the class was removed.
      */
     public static boolean unregisterImplementation(Class<? extends ActionBarSherlock> implementationClass) {
-        return IMPLEMENTATIONS.remove(implementationClass) != null;
+        return IMPLEMENTATIONS.remove(implementationClass.getAnnotation(Implementation.class)) != null;
     }
 
     /**
@@ -181,6 +181,7 @@ public abstract class ActionBarSherlock {
         HashMap<Implementation, Class<? extends ActionBarSherlock>> impls =
                 new HashMap<Implementation, Class<? extends ActionBarSherlock>>(IMPLEMENTATIONS);
         boolean hasQualfier;
+        final boolean isTvDpi = activity.getResources().getDisplayMetrics().densityDpi == DisplayMetrics.DENSITY_TV;
 
         /* DPI FILTERING */
         hasQualfier = false;
@@ -192,7 +193,7 @@ public abstract class ActionBarSherlock {
             }
         }
         if (hasQualfier) {
-            final boolean isTvDpi = activity.getResources().getDisplayMetrics().densityDpi == DisplayMetrics.DENSITY_TV;
+            //final boolean isTvDpi = activity.getResources().getDisplayMetrics().densityDpi == DisplayMetrics.DENSITY_TV;
             for (Iterator<Implementation> keys = impls.keySet().iterator(); keys.hasNext(); ) {
                 int keyDpi = keys.next().dpi();
                 if ((isTvDpi && keyDpi != DisplayMetrics.DENSITY_TV)
@@ -235,7 +236,7 @@ public abstract class ActionBarSherlock {
             throw new IllegalStateException("No implementations match configuration.");
         }
         Class<? extends ActionBarSherlock> impl = impls.values().iterator().next();
-
+        if(DEBUG) Log.d(TAG, "[wrap] Using Implementation: " + impl.getSimpleName());
         try {
             Constructor<? extends ActionBarSherlock> ctor = impl.getConstructor(CONSTRUCTOR_ARGS);
             return ctor.newInstance(activity, flags);

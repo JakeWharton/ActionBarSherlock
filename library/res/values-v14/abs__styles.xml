@@ -115,4 +115,8 @@
     </style>
     <style name="TextAppearance.Sherlock.Light.Widget.PopupMenu.Small" parent="android:TextAppearance.Holo.Widget.PopupMenu.Small">
     </style>
+    <style name="TextAppearance.Sherlock.Light.Small" parent="android:TextAppearance.Holo.Small">
+    </style>
+    <style name="TextAppearance.Sherlock.Light.Small.Inverse" parent="android:TextAppearance.Holo.Small.Inverse">
+    </style>
 </resources>

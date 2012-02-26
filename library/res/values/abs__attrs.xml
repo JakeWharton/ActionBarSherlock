@@ -60,6 +60,8 @@
         <attr name="actionModeSplitBackground" format="reference" />
         <!-- Drawable to use for the close action mode button -->
         <attr name="actionModeCloseDrawable" format="reference" />
+        <!-- TextAppearance for the close action mode button -->
+        <attr name="actionModeCloseTextAppearance" format="reference" />
 
         <!-- PopupWindow style to use for action modes when showing as a window overlay. -->
         <attr name="actionModePopupWindowStyle" format="reference" />
