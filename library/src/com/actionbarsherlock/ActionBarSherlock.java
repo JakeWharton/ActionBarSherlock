@@ -181,7 +181,6 @@ public abstract class ActionBarSherlock {
         HashMap<Implementation, Class<? extends ActionBarSherlock>> impls =
                 new HashMap<Implementation, Class<? extends ActionBarSherlock>>(IMPLEMENTATIONS);
         boolean hasQualfier;
-        final boolean isTvDpi = activity.getResources().getDisplayMetrics().densityDpi == DisplayMetrics.DENSITY_TV;
 
         /* DPI FILTERING */
         hasQualfier = false;
@@ -193,7 +192,7 @@ public abstract class ActionBarSherlock {
             }
         }
         if (hasQualfier) {
-            //final boolean isTvDpi = activity.getResources().getDisplayMetrics().densityDpi == DisplayMetrics.DENSITY_TV;
+            final boolean isTvDpi = activity.getResources().getDisplayMetrics().densityDpi == DisplayMetrics.DENSITY_TV;
             for (Iterator<Implementation> keys = impls.keySet().iterator(); keys.hasNext(); ) {
                 int keyDpi = keys.next().dpi();
                 if ((isTvDpi && keyDpi != DisplayMetrics.DENSITY_TV)
