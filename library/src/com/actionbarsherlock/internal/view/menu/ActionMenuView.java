@@ -17,6 +17,7 @@ package com.actionbarsherlock.internal.view.menu;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.graphics.Canvas;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -31,6 +32,7 @@ import com.actionbarsherlock.internal.widget.IcsLinearLayout;
  */
 public class ActionMenuView extends IcsLinearLayout implements MenuBuilder.ItemInvoker, MenuView {
     //UNUSED private static final String TAG = "ActionMenuView";
+    private static final boolean IS_FROYO = Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO;
 
     static final int MIN_CELL_SIZE = 56; // dips
     static final int GENERATED_ITEM_PADDING = 4; // dips
@@ -44,6 +46,8 @@ public class ActionMenuView extends IcsLinearLayout implements MenuBuilder.ItemI
     private int mMinCellSize;
     private int mGeneratedItemPadding;
     //UNUSED private int mMeasuredExtraWidth;
+
+    private boolean mFirst = true;
 
     public ActionMenuView(Context context) {
         this(context, null);
@@ -67,7 +71,7 @@ public class ActionMenuView extends IcsLinearLayout implements MenuBuilder.ItemI
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
+        if (IS_FROYO) {
             super.onConfigurationChanged(newConfig);
         }
         mPresenter.updateMenuView(false);
@@ -75,6 +79,17 @@ public class ActionMenuView extends IcsLinearLayout implements MenuBuilder.ItemI
         if (mPresenter != null && mPresenter.isOverflowMenuShowing()) {
             mPresenter.hideOverflowMenu();
             mPresenter.showOverflowMenu();
+        }
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        //Need to trigger a relayout since we may have been added extremely
+        //late in the initial rendering (e.g., when contained in a ViewPager).
+        //See: https://github.com/JakeWharton/ActionBarSherlock/issues/272
+        if (!IS_FROYO && mFirst) {
+            mFirst = false;
+            requestLayout();
         }
     }
 
