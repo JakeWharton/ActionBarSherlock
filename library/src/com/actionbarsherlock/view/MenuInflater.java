@@ -23,12 +23,15 @@ import java.lang.reflect.Method;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.content.res.XmlResourceParser;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.Xml;
 import android.view.InflateException;
 import android.view.View;
+
+import com.actionbarsherlock.R;
 import com.actionbarsherlock.internal.view.menu.MenuItemImpl;
 
 /**
@@ -306,107 +309,107 @@ public class MenuInflater {
          * Called when the parser is pointing to a group tag.
          */
         public void readGroup(AttributeSet attrs) {
-            //TypedArray a = mContext.obtainStyledAttributes(attrs, com.android.internal.R.styleable.MenuGroup);
+            TypedArray a = mContext.obtainStyledAttributes(attrs, R.styleable.SherlockMenuGroup);
 
-            //groupId = a.getResourceId(com.android.internal.R.styleable.MenuGroup_id, defaultGroupId);
-            groupId = attrs.getAttributeResourceValue(XML_NS, "id", defaultGroupId);
+            groupId = a.getResourceId(R.styleable.SherlockMenuGroup_android_id, defaultGroupId);
+            //groupId = attrs.getAttributeResourceValue(XML_NS, "id", defaultGroupId);
 
-            //groupCategory = a.getInt(com.android.internal.R.styleable.MenuGroup_menuCategory, defaultItemCategory);
-            groupCategory = attrs.getAttributeIntValue(XML_NS, "menuCategory", defaultItemCategory);
+            groupCategory = a.getInt(R.styleable.SherlockMenuGroup_android_menuCategory, defaultItemCategory);
+            //groupCategory = attrs.getAttributeIntValue(XML_NS, "menuCategory", defaultItemCategory);
 
-            //groupOrder = a.getInt(com.android.internal.R.styleable.MenuGroup_orderInCategory, defaultItemOrder);
-            groupOrder = attrs.getAttributeIntValue(XML_NS, "orderInCategory", defaultItemOrder);
+            groupOrder = a.getInt(R.styleable.SherlockMenuGroup_android_orderInCategory, defaultItemOrder);
+            //groupOrder = attrs.getAttributeIntValue(XML_NS, "orderInCategory", defaultItemOrder);
 
-            //groupCheckable = a.getInt(com.android.internal.R.styleable.MenuGroup_checkableBehavior, defaultItemCheckable);
-            groupCheckable = attrs.getAttributeIntValue(XML_NS, "checkableBehavior", defaultItemCheckable);
+            groupCheckable = a.getInt(R.styleable.SherlockMenuGroup_android_checkableBehavior, defaultItemCheckable);
+            //groupCheckable = attrs.getAttributeIntValue(XML_NS, "checkableBehavior", defaultItemCheckable);
 
-            //groupVisible = a.getBoolean(com.android.internal.R.styleable.MenuGroup_visible, defaultItemVisible);
-            groupVisible = attrs.getAttributeBooleanValue(XML_NS, "visible", defaultItemVisible);
+            groupVisible = a.getBoolean(R.styleable.SherlockMenuGroup_android_visible, defaultItemVisible);
+            //groupVisible = attrs.getAttributeBooleanValue(XML_NS, "visible", defaultItemVisible);
 
-            //groupEnabled = a.getBoolean(com.android.internal.R.styleable.MenuGroup_enabled, defaultItemEnabled);
-            groupEnabled = attrs.getAttributeBooleanValue(XML_NS, "enabled", defaultItemEnabled);
+            groupEnabled = a.getBoolean(R.styleable.SherlockMenuGroup_android_enabled, defaultItemEnabled);
+            //groupEnabled = attrs.getAttributeBooleanValue(XML_NS, "enabled", defaultItemEnabled);
 
-            //a.recycle();
+            a.recycle();
         }
 
         /**
          * Called when the parser is pointing to an item tag.
          */
         public void readItem(AttributeSet attrs) {
-            //TypedArray a = mContext.obtainStyledAttributes(attrs, com.android.internal.R.styleable.MenuItem);
+            TypedArray a = mContext.obtainStyledAttributes(attrs, R.styleable.SherlockMenuItem);
 
             // Inherit attributes from the group as default value
 
-            //itemId = a.getResourceId(com.android.internal.R.styleable.MenuItem_id, defaultItemId);
-            itemId = attrs.getAttributeResourceValue(XML_NS, "id", defaultItemId);
+            itemId = a.getResourceId(R.styleable.SherlockMenuItem_android_id, defaultItemId);
+            // itemId = attrs.getAttributeResourceValue(XML_NS, "id", defaultItemId);
 
-            //final int category = a.getInt(com.android.internal.R.styleable.MenuItem_menuCategory, groupCategory);
-            final int category = attrs.getAttributeIntValue(XML_NS, "menuCategory", groupCategory);
+            final int category = a.getInt(R.styleable.SherlockMenuItem_android_menuCategory, groupCategory);
+            //final int category = attrs.getAttributeIntValue(XML_NS, "menuCategory", groupCategory);
 
-            //final int order = a.getInt(com.android.internal.R.styleable.MenuItem_orderInCategory, groupOrder);
-            final int order = attrs.getAttributeIntValue(XML_NS, "orderInCategory", groupOrder);
+            final int order = a.getInt(R.styleable.SherlockMenuItem_android_orderInCategory, groupOrder);
+            //final int order = attrs.getAttributeIntValue(XML_NS, "orderInCategory", groupOrder);
 
             itemCategoryOrder = (category & Menu.CATEGORY_MASK) | (order & Menu.USER_MASK);
 
-            //itemTitle = a.getString(com.android.internal.R.styleable.MenuItem_title);
-            final int itemTitleId = attrs.getAttributeResourceValue(XML_NS, "title", 0);
-            if (itemTitleId != 0) {
-                itemTitle = mContext.getString(itemTitleId);
-            } else {
-                itemTitle = attrs.getAttributeValue(XML_NS, "title");
-            }
+            itemTitle = a.getString(R.styleable.SherlockMenuItem_android_title);
+            // final int itemTitleId = attrs.getAttributeResourceValue(XML_NS, "title", 0);
+            // if (itemTitleId != 0) {
+            //     itemTitle = mContext.getString(itemTitleId);
+            // } else {
+            //     itemTitle = attrs.getAttributeValue(XML_NS, "title");
+            // }
 
-            //itemTitleCondensed = a.getString(com.android.internal.R.styleable.MenuItem_titleCondensed);
-            final int itemTitleCondensedId = attrs.getAttributeResourceValue(XML_NS, "titleCondensed", 0);
-            if (itemTitleCondensedId != 0) {
-                itemTitleCondensed = mContext.getString(itemTitleCondensedId);
-            } else {
-                itemTitleCondensed = attrs.getAttributeValue(XML_NS, "titleCondensed");
-            }
+            itemTitleCondensed = a.getString(R.styleable.SherlockMenuItem_android_titleCondensed);
+            // final int itemTitleCondensedId = attrs.getAttributeResourceValue(XML_NS, "titleCondensed", 0);
+            // if (itemTitleCondensedId != 0) {
+            //     itemTitleCondensed = mContext.getString(itemTitleCondensedId);
+            // } else {
+            //     itemTitleCondensed = attrs.getAttributeValue(XML_NS, "titleCondensed");
+            // }
 
-            //itemIconResId = a.getResourceId(com.android.internal.R.styleable.MenuItem_icon, 0);
-            itemIconResId = attrs.getAttributeResourceValue(XML_NS, "icon", 0);
+            itemIconResId = a.getResourceId(R.styleable.SherlockMenuItem_android_icon, 0);
+            //itemIconResId = attrs.getAttributeResourceValue(XML_NS, "icon", 0);
 
-            //itemAlphabeticShortcut = getShortcut(a.getString(com.android.internal.R.styleable.MenuItem_alphabeticShortcut));
-            itemAlphabeticShortcut = getShortcut(attrs.getAttributeValue(XML_NS, "alphabeticShortcut"));
+            itemAlphabeticShortcut = getShortcut(a.getString(R.styleable.SherlockMenuItem_android_alphabeticShortcut));
+            //itemAlphabeticShortcut = getShortcut(attrs.getAttributeValue(XML_NS, "alphabeticShortcut"));
 
-            //itemNumericShortcut = getShortcut(a.getString(com.android.internal.R.styleable.MenuItem_numericShortcut));
-            itemNumericShortcut = getShortcut(attrs.getAttributeValue(XML_NS, "numericShortcut"));
+            itemNumericShortcut = getShortcut(a.getString(R.styleable.SherlockMenuItem_android_numericShortcut));
+            //itemNumericShortcut = getShortcut(attrs.getAttributeValue(XML_NS, "numericShortcut"));
 
-            //if (a.hasValue(com.android.internal.R.styleable.MenuItem_checkable)) {
-            if (attrs.getAttributeValue(XML_NS, "checkable") != null) {
+            if (a.hasValue(R.styleable.SherlockMenuItem_android_checkable)) {
+            //if (attrs.getAttributeValue(XML_NS, "checkable") != null) {
                 // Item has attribute checkable, use it
-                //itemCheckable = a.getBoolean(com.android.internal.R.styleable.MenuItem_checkable, false) ? 1 : 0;
-                itemCheckable = attrs.getAttributeBooleanValue(XML_NS, "checkable", false) ? 1 : 0;
+                itemCheckable = a.getBoolean(R.styleable.SherlockMenuItem_android_checkable, false) ? 1 : 0;
+                //itemCheckable = attrs.getAttributeBooleanValue(XML_NS, "checkable", false) ? 1 : 0;
             } else {
                 // Item does not have attribute, use the group's (group can have one more state
                 // for checkable that represents the exclusive checkable)
                 itemCheckable = groupCheckable;
             }
 
-            //itemChecked = a.getBoolean(com.android.internal.R.styleable.MenuItem_checked, defaultItemChecked);
-            itemChecked = attrs.getAttributeBooleanValue(XML_NS, "checked", defaultItemChecked);
+            itemChecked = a.getBoolean(R.styleable.SherlockMenuItem_android_checked, defaultItemChecked);
+            //itemChecked = attrs.getAttributeBooleanValue(XML_NS, "checked", defaultItemChecked);
 
-            //itemVisible = a.getBoolean(com.android.internal.R.styleable.MenuItem_visible, groupVisible);
-            itemVisible = attrs.getAttributeBooleanValue(XML_NS, "visible", groupVisible);
+            itemVisible = a.getBoolean(R.styleable.SherlockMenuItem_android_visible, groupVisible);
+            //itemVisible = attrs.getAttributeBooleanValue(XML_NS, "visible", groupVisible);
 
-            //itemEnabled = a.getBoolean(com.android.internal.R.styleable.MenuItem_enabled, groupEnabled);
-            itemEnabled = attrs.getAttributeBooleanValue(XML_NS, "enabled", groupEnabled);
+            itemEnabled = a.getBoolean(R.styleable.SherlockMenuItem_android_enabled, groupEnabled);
+            //itemEnabled = attrs.getAttributeBooleanValue(XML_NS, "enabled", groupEnabled);
 
-            //itemShowAsAction = a.getInt(com.android.internal.R.styleable.MenuItem_showAsAction, -1);
-            itemShowAsAction = attrs.getAttributeIntValue(XML_NS, "showAsAction", -1);
+            itemShowAsAction = a.getInt(R.styleable.SherlockMenuItem_android_showAsAction, -1);
+            //itemShowAsAction = attrs.getAttributeIntValue(XML_NS, "showAsAction", -1);
 
-            //itemListenerMethodName = a.getString(com.android.internal.R.styleable.MenuItem_onClick);
-            itemListenerMethodName = attrs.getAttributeValue(XML_NS, "onClick");
+            itemListenerMethodName = a.getString(R.styleable.SherlockMenuItem_android_onClick);
+            //itemListenerMethodName = attrs.getAttributeValue(XML_NS, "onClick");
 
-            //itemActionViewLayout = a.getResourceId(com.android.internal.R.styleable.MenuItem_actionLayout, 0);
-            itemActionViewLayout = attrs.getAttributeResourceValue(XML_NS, "actionLayout", 0);
+            itemActionViewLayout = a.getResourceId(R.styleable.SherlockMenuItem_android_actionLayout, 0);
+            //itemActionViewLayout = attrs.getAttributeResourceValue(XML_NS, "actionLayout", 0);
 
-            //itemActionViewClassName = a.getString(com.android.internal.R.styleable.MenuItem_actionViewClass);
-            itemActionViewClassName = attrs.getAttributeValue(XML_NS, "actionViewClass");
+            itemActionViewClassName = a.getString(R.styleable.SherlockMenuItem_android_actionViewClass);
+            //itemActionViewClassName = attrs.getAttributeValue(XML_NS, "actionViewClass");
 
-            //itemActionProviderClassName = a.getString(com.android.internal.R.styleable.MenuItem_actionProviderClass);
-            itemActionProviderClassName = attrs.getAttributeValue(XML_NS, "actionProviderClass");
+            itemActionProviderClassName = a.getString(R.styleable.SherlockMenuItem_android_actionProviderClass);
+            //itemActionProviderClassName = attrs.getAttributeValue(XML_NS, "actionProviderClass");
 
             final boolean hasActionProvider = itemActionProviderClassName != null;
             if (hasActionProvider && itemActionViewLayout == 0 && itemActionViewClassName == null) {
@@ -421,7 +424,7 @@ public class MenuInflater {
                 itemActionProvider = null;
             }
 
-            //a.recycle();
+            a.recycle();
 
             itemAdded = false;
         }
