@@ -152,7 +152,7 @@ public abstract class ActionBarSherlock {
      * @return Boolean indicating whether the class was removed.
      */
     public static boolean unregisterImplementation(Class<? extends ActionBarSherlock> implementationClass) {
-        return IMPLEMENTATIONS.remove(implementationClass) != null;
+        return IMPLEMENTATIONS.values().remove(implementationClass);
     }
 
     /**
