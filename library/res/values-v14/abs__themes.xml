@@ -12,15 +12,6 @@
         <item name="dropdownListPreferredItemHeight">48dp</item>
     </style>
     
-    <style name="Theme.Sherlock.NoActionBar">
-        <item name="android:windowActionBar">false</item>
-        <item name="android:windowNoTitle">false</item>
-    </style>
-    <style name="Theme.Sherlock.Light.NoActionBar">
-        <item name="android:windowActionBar">false</item>
-        <item name="android:windowNoTitle">false</item>
-    </style>
-    
     <style name="Theme.Sherlock.Dialog" parent="android:Theme.Holo.Dialog">
     </style>
     <style name="Theme.Sherlock.Light.Dialog" parent="android:Theme.Holo.Light.Dialog">
