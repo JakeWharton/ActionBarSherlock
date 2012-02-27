@@ -90,7 +90,9 @@ public class ActionMenuView extends IcsLinearLayout implements MenuBuilder.ItemI
         if (!IS_FROYO && mFirst) {
             mFirst = false;
             requestLayout();
+            return;
         }
+        super.onDraw(canvas);
     }
 
     @Override
