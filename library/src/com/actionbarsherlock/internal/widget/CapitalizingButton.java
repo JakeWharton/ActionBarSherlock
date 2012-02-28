@@ -27,7 +27,7 @@ public class CapitalizingButton extends Button {
     }
 
     public void setTextCompat(CharSequence text) {
-        if (SANS_ICE_CREAM && mAllCaps) {
+        if (SANS_ICE_CREAM && mAllCaps && text != null) {
             if (IS_GINGERBREAD) {
                 setText(text.toString().toUpperCase(Locale.ROOT));
             } else {
