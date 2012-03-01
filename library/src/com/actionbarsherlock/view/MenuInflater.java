@@ -20,6 +20,8 @@ package com.actionbarsherlock.view;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+
+import android.os.Build;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import android.content.Context;
@@ -350,7 +352,11 @@ public class MenuInflater {
             itemChecked = a.getBoolean(R.styleable.SherlockMenuItem_android_checked, defaultItemChecked);
             itemVisible = a.getBoolean(R.styleable.SherlockMenuItem_android_visible, groupVisible);
             itemEnabled = a.getBoolean(R.styleable.SherlockMenuItem_android_enabled, groupEnabled);
-            itemShowAsAction = a.getInt(R.styleable.SherlockMenuItem_android_showAsAction, -1);
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                itemShowAsAction = a.getInt(R.styleable.SherlockMenuItem_android_showAsAction, -1);
+            } else { // Grab it the old style way
+                itemShowAsAction = attrs.getAttributeIntValue("http://schemas.android.com/apk/res/android", "showAsAction", -1);
+            }
             itemListenerMethodName = a.getString(R.styleable.SherlockMenuItem_android_onClick);
             itemActionViewLayout = a.getResourceId(R.styleable.SherlockMenuItem_android_actionLayout, 0);
             itemActionViewClassName = a.getString(R.styleable.SherlockMenuItem_android_actionViewClass);
