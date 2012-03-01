@@ -27,6 +27,7 @@ import android.content.res.TypedArray;
 import android.content.res.XmlResourceParser;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.TypedValue;
 import android.util.Xml;
 import android.view.InflateException;
 import android.view.View;
@@ -350,7 +351,11 @@ public class MenuInflater {
             itemChecked = a.getBoolean(R.styleable.SherlockMenuItem_android_checked, defaultItemChecked);
             itemVisible = a.getBoolean(R.styleable.SherlockMenuItem_android_visible, groupVisible);
             itemEnabled = a.getBoolean(R.styleable.SherlockMenuItem_android_enabled, groupEnabled);
-            itemShowAsAction = a.getInt(R.styleable.SherlockMenuItem_android_showAsAction, -1);
+
+            TypedValue value = new TypedValue();
+            a.getValue(R.styleable.SherlockMenuItem_android_showAsAction, value);
+            itemShowAsAction = value.type == TypedValue.TYPE_INT_HEX ? value.data : -1;
+
             itemListenerMethodName = a.getString(R.styleable.SherlockMenuItem_android_onClick);
             itemActionViewLayout = a.getResourceId(R.styleable.SherlockMenuItem_android_actionLayout, 0);
             itemActionViewClassName = a.getString(R.styleable.SherlockMenuItem_android_actionViewClass);
