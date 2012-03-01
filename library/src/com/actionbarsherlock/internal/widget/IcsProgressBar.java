@@ -50,6 +50,8 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.Transformation;
 import android.widget.RemoteViews.RemoteView;
 
+import com.actionbarsherlock.TargetApi;
+
 
 /**
  * <p>
@@ -183,6 +185,7 @@ import android.widget.RemoteViews.RemoteView;
  * @attr ref android.R.styleable#ProgressBar_secondaryProgress
  */
 @RemoteView
+@TargetApi(TargetApi.CURRENT)
 public class IcsProgressBar extends View {
     private static final boolean IS_HONEYCOMB = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
     private static final int MAX_LEVEL = 10000;

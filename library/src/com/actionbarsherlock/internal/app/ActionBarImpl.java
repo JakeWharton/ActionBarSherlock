@@ -16,8 +16,8 @@
 
 package com.actionbarsherlock.internal.app;
 
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
+import static com.actionbarsherlock.internal.ResourcesCompat.getResources_getBoolean;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -33,13 +33,15 @@ import android.view.View;
 import android.view.Window;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.SpinnerAdapter;
+
 import com.actionbarsherlock.R;
+import com.actionbarsherlock.TargetApi;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.internal.nineoldandroids.animation.Animator;
+import com.actionbarsherlock.internal.nineoldandroids.animation.Animator.AnimatorListener;
 import com.actionbarsherlock.internal.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.actionbarsherlock.internal.nineoldandroids.animation.AnimatorSet;
 import com.actionbarsherlock.internal.nineoldandroids.animation.ObjectAnimator;
-import com.actionbarsherlock.internal.nineoldandroids.animation.Animator.AnimatorListener;
 import com.actionbarsherlock.internal.nineoldandroids.widget.NineFrameLayout;
 import com.actionbarsherlock.internal.view.menu.MenuBuilder;
 import com.actionbarsherlock.internal.view.menu.MenuPopupHelper;
@@ -52,7 +54,9 @@ import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import static com.actionbarsherlock.internal.ResourcesCompat.getResources_getBoolean;
+
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 
 /**
  * ActionBarImpl is the ActionBar implementation used
@@ -61,6 +65,7 @@ import static com.actionbarsherlock.internal.ResourcesCompat.getResources_getBoo
  * the top of the screen and a horizontal LinearLayout at the bottom
  * which is normally hidden.
  */
+@TargetApi(TargetApi.CURRENT)
 public class ActionBarImpl extends ActionBar {
     //UNUSED private static final String TAG = "ActionBarImpl";
 
@@ -107,6 +112,7 @@ public class ActionBarImpl extends ActionBar {
 
     final AnimatorListener mHideListener = new AnimatorListenerAdapter() {
         @Override
+        @TargetApi(TargetApi.CURRENT)
         public void onAnimationEnd(Animator animation) {
             if (mContentView != null) {
                 mContentView.setTranslationY(0);

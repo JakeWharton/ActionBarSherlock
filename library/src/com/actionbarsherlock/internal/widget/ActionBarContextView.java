@@ -29,6 +29,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.actionbarsherlock.R;
+import com.actionbarsherlock.TargetApi;
 import com.actionbarsherlock.internal.nineoldandroids.animation.Animator;
 import com.actionbarsherlock.internal.nineoldandroids.animation.Animator.AnimatorListener;
 import com.actionbarsherlock.internal.nineoldandroids.animation.AnimatorSet;
@@ -43,6 +44,7 @@ import com.actionbarsherlock.view.ActionMode;
 /**
  * @hide
  */
+@TargetApi(TargetApi.CURRENT)
 public class ActionBarContextView extends AbsActionBarView implements AnimatorListener {
     //UNUSED private static final String TAG = "ActionBarContextView";
 

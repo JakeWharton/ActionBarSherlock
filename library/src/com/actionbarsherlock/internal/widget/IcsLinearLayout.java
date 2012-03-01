@@ -6,12 +6,15 @@ import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
+
+import com.actionbarsherlock.TargetApi;
 import com.actionbarsherlock.internal.nineoldandroids.widget.NineLinearLayout;
 
 /**
  * A simple extension of a regular linear layout that supports the divider API
  * of Android 4.0+.
  */
+@TargetApi(TargetApi.CURRENT)
 public class IcsLinearLayout extends NineLinearLayout {
     private static final int[] LinearLayout = new int[] {
         /* 0 */ android.R.attr.divider,

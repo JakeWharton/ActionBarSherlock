@@ -1,12 +1,16 @@
 package com.actionbarsherlock.internal.widget;
 
-import java.util.Locale;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
+import com.actionbarsherlock.TargetApi;
+
+import java.util.Locale;
+
+@TargetApi(TargetApi.CURRENT)
 public class CapitalizingTextView extends TextView {
     private static final boolean SANS_ICE_CREAM = Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH;
     private static final boolean IS_GINGERBREAD = Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD;

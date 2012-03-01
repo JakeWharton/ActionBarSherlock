@@ -16,8 +16,8 @@
 
 package com.actionbarsherlock.internal.view.menu;
 
-import java.util.HashSet;
-import java.util.Set;
+import static com.actionbarsherlock.internal.ResourcesCompat.getResources_getBoolean;
+
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Rect;
@@ -34,15 +34,18 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.actionbarsherlock.R;
+import com.actionbarsherlock.TargetApi;
 import com.actionbarsherlock.internal.view.View_HasStateListenerSupport;
 import com.actionbarsherlock.internal.view.View_OnAttachStateChangeListener;
 import com.actionbarsherlock.internal.widget.CapitalizingButton;
 
-import static com.actionbarsherlock.internal.ResourcesCompat.getResources_getBoolean;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @hide
  */
+@TargetApi(TargetApi.CURRENT)
 public class ActionMenuItemView extends LinearLayout
         implements MenuView.ItemView, View.OnClickListener, View.OnLongClickListener,
         ActionMenuView.ActionMenuChildView, View_HasStateListenerSupport {

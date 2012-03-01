@@ -1,8 +1,5 @@
 package com.actionbarsherlock.internal.app;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Context;
@@ -10,8 +7,13 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.SpinnerAdapter;
 
+import com.actionbarsherlock.TargetApi;
 import com.actionbarsherlock.app.ActionBar;
 
+import java.util.HashSet;
+import java.util.Set;
+
+@TargetApi(TargetApi.CURRENT)
 public class ActionBarWrapper extends ActionBar implements android.app.ActionBar.OnNavigationListener, android.app.ActionBar.OnMenuVisibilityListener {
     private final android.app.ActionBar mActionBar;
     private ActionBar.OnNavigationListener mNavigationListener;
@@ -205,6 +207,7 @@ public class ActionBarWrapper extends ActionBar implements android.app.ActionBar
         return mActionBar.getDisplayOptions();
     }
 
+    @TargetApi(TargetApi.CURRENT)
     public static class TabWrapper extends ActionBar.Tab implements android.app.ActionBar.TabListener {
         final android.app.ActionBar.Tab mNativeTab;
         private Object mTag;
