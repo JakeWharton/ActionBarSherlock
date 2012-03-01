@@ -4,8 +4,10 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 
+import com.actionbarsherlock.TargetApi;
 import com.actionbarsherlock.internal.nineoldandroids.view.animation.AnimatorProxy;
 
+@TargetApi(TargetApi.CURRENT)
 public abstract class NineViewGroup extends ViewGroup {
     private final AnimatorProxy mProxy;
 

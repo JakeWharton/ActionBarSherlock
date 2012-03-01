@@ -1,11 +1,14 @@
+
 package com.actionbarsherlock.internal.nineoldandroids.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
+import com.actionbarsherlock.TargetApi;
 import com.actionbarsherlock.internal.nineoldandroids.view.animation.AnimatorProxy;
 
+@TargetApi(TargetApi.CURRENT)
 public class NineLinearLayout extends LinearLayout {
     private final AnimatorProxy mProxy;
 
@@ -13,10 +16,12 @@ public class NineLinearLayout extends LinearLayout {
         super(context);
         mProxy = AnimatorProxy.NEEDS_PROXY ? AnimatorProxy.wrap(this) : null;
     }
+
     public NineLinearLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         mProxy = AnimatorProxy.NEEDS_PROXY ? AnimatorProxy.wrap(this) : null;
     }
+
     public NineLinearLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         mProxy = AnimatorProxy.NEEDS_PROXY ? AnimatorProxy.wrap(this) : null;
@@ -41,6 +46,7 @@ public class NineLinearLayout extends LinearLayout {
             return super.getAlpha();
         }
     }
+
     public void setAlpha(float alpha) {
         if (AnimatorProxy.NEEDS_PROXY) {
             mProxy.setAlpha(alpha);
@@ -48,6 +54,7 @@ public class NineLinearLayout extends LinearLayout {
             super.setAlpha(alpha);
         }
     }
+
     public float getTranslationX() {
         if (AnimatorProxy.NEEDS_PROXY) {
             return mProxy.getTranslationX();
@@ -55,6 +62,7 @@ public class NineLinearLayout extends LinearLayout {
             return super.getTranslationX();
         }
     }
+
     public void setTranslationX(float translationX) {
         if (AnimatorProxy.NEEDS_PROXY) {
             mProxy.setTranslationX(translationX);

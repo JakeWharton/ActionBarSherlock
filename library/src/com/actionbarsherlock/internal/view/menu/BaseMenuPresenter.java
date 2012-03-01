@@ -16,18 +16,22 @@
 
 package com.actionbarsherlock.internal.view.menu;
 
-import java.util.ArrayList;
 import android.content.Context;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.actionbarsherlock.TargetApi;
+
+import java.util.ArrayList;
+
 /**
  * Base class for MenuPresenters that have a consistent container view and item
  * views. Behaves similarly to an AdapterView in that existing item views will
  * be reused if possible when items change.
  */
+@TargetApi(TargetApi.CURRENT)
 public abstract class BaseMenuPresenter implements MenuPresenter {
     private static final boolean IS_HONEYCOMB = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
 

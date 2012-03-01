@@ -16,7 +16,8 @@
 
 package com.actionbarsherlock.internal.widget;
 
-import org.xmlpull.v1.XmlPullParser;
+import static com.actionbarsherlock.internal.ResourcesCompat.getResources_getBoolean;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
@@ -49,6 +50,7 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import com.actionbarsherlock.R;
+import com.actionbarsherlock.TargetApi;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
 import com.actionbarsherlock.internal.ActionBarSherlockCompat;
@@ -65,11 +67,12 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
 
-import static com.actionbarsherlock.internal.ResourcesCompat.getResources_getBoolean;
+import org.xmlpull.v1.XmlPullParser;
 
 /**
  * @hide
  */
+@TargetApi(TargetApi.CURRENT)
 public class ActionBarView extends AbsActionBarView {
     private static final String TAG = "ActionBarView";
     private static final boolean DEBUG = false;
@@ -1287,6 +1290,7 @@ public class ActionBarView extends AbsActionBarView {
         };
     }
 
+    @TargetApi(TargetApi.CURRENT)
     public static class HomeView extends FrameLayout {
         private View mUpView;
         private ImageView mIconView;

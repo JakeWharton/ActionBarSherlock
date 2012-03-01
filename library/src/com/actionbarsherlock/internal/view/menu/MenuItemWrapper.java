@@ -2,13 +2,16 @@ package com.actionbarsherlock.internal.view.menu;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.View;
+
+import com.actionbarsherlock.TargetApi;
 import com.actionbarsherlock.internal.view.ActionProviderWrapper;
 import com.actionbarsherlock.view.ActionProvider;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.SubMenu;
 
+@TargetApi(TargetApi.CURRENT)
 public class MenuItemWrapper implements MenuItem, android.view.MenuItem.OnMenuItemClickListener, android.view.MenuItem.OnActionExpandListener {
     private final android.view.MenuItem mNativeItem;
     private SubMenu mSubMenu = null;

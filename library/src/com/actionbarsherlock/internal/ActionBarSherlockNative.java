@@ -1,20 +1,23 @@
 package com.actionbarsherlock.internal;
 
-import com.actionbarsherlock.ActionBarSherlock;
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.internal.app.ActionBarWrapper;
-import com.actionbarsherlock.internal.view.menu.MenuWrapper;
-import com.actionbarsherlock.view.ActionMode;
-import com.actionbarsherlock.view.MenuInflater;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 import android.view.View;
-import android.view.Window;
 import android.view.ViewGroup.LayoutParams;
+import android.view.Window;
 
+import com.actionbarsherlock.ActionBarSherlock;
+import com.actionbarsherlock.TargetApi;
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.internal.app.ActionBarWrapper;
+import com.actionbarsherlock.internal.view.menu.MenuWrapper;
+import com.actionbarsherlock.view.ActionMode;
+import com.actionbarsherlock.view.MenuInflater;
+
+@TargetApi(TargetApi.CURRENT)
 @ActionBarSherlock.Implementation(api = 14)
 public class ActionBarSherlockNative extends ActionBarSherlock {
     private ActionBarWrapper mActionBar;
@@ -213,6 +216,7 @@ public class ActionBarSherlockNative extends ActionBarSherlock {
         return mActionMode;
     }
 
+    @TargetApi(TargetApi.CURRENT)
     private class ActionModeCallbackWrapper implements android.view.ActionMode.Callback {
         private final ActionMode.Callback mCallback;
 
@@ -244,6 +248,7 @@ public class ActionBarSherlockNative extends ActionBarSherlock {
         }
     }
 
+    @TargetApi(TargetApi.CURRENT)
     private class ActionModeWrapper extends ActionMode {
         private final android.view.ActionMode mActionMode;
         private MenuWrapper mMenu = null;

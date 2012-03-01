@@ -1,18 +1,20 @@
+
 package com.actionbarsherlock.internal.view;
 
-import com.actionbarsherlock.internal.view.menu.SubMenuWrapper;
-import com.actionbarsherlock.view.ActionProvider;
 import android.view.View;
 
+import com.actionbarsherlock.TargetApi;
+import com.actionbarsherlock.internal.view.menu.SubMenuWrapper;
+import com.actionbarsherlock.view.ActionProvider;
+
+@TargetApi(TargetApi.CURRENT)
 public class ActionProviderWrapper extends android.view.ActionProvider {
     private final ActionProvider mProvider;
 
-
     public ActionProviderWrapper(ActionProvider provider) {
-        super(null/*TODO*/); //XXX this *should* be unused
+        super(null/* TODO */); // XXX this *should* be unused
         mProvider = provider;
     }
-
 
     public ActionProvider unwrap() {
         return mProvider;
