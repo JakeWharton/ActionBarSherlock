@@ -41,9 +41,11 @@
         
         <item name="dividerVertical">@drawable/abs__list_divider_holo_dark</item>
         
+        <item name="spinnerDropDownItemStyle">@style/Widget.Sherlock.DropDownItem.Spinner</item>
         <item name="spinnerItemStyle">@style/Widget.Sherlock.TextView.SpinnerItem</item>
         
         <item name="textColorPrimary">@color/abs__primary_text_holo_dark</item>
+        <item name="textColorPrimaryDisableOnly">@color/abs__primary_text_disable_only_holo_dark</item>
         <item name="textColorPrimaryInverse">@color/abs__primary_text_holo_light</item>
         
         <!-- Internal --><item name="dropdownListPreferredItemHeight">48dip</item>
@@ -87,9 +89,11 @@
         
         <item name="dividerVertical">@drawable/abs__list_divider_holo_light</item>
         
+        <item name="spinnerDropDownItemStyle">@style/Widget.Sherlock.Light.DropDownItem.Spinner</item>
         <item name="spinnerItemStyle">@style/Widget.Sherlock.TextView.SpinnerItem</item>
         
         <item name="textColorPrimary">@color/abs__primary_text_holo_light</item>
+        <item name="textColorPrimaryDisableOnly">@color/abs__primary_text_disable_only_holo_light</item>
         <item name="textColorPrimaryInverse">@color/abs__primary_text_holo_dark</item>
         
         <!-- Internal --><item name="dropdownListPreferredItemHeight">48dip</item>

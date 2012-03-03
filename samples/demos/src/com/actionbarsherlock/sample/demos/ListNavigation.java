@@ -25,7 +25,7 @@ public class ListNavigation extends SherlockActivity implements ActionBar.OnNavi
         // list navigation because before Android 3.0 the built-in layout did
         // not take into account different spinner backgrounds.
         int layoutRes = R.layout.sherlock_spinner_item;
-        int dropRes = android.R.layout.simple_spinner_dropdown_item;
+        int dropRes = R.layout.sherlock_spinner_dropdown_item;
 
         if (SampleList.THEME == R.style.Theme_Sherlock_Light_DarkActionBar) {
              // If you are using a light theme with a dark action bar an additional
