@@ -235,6 +235,7 @@ public abstract class ActionBarSherlock {
             throw new IllegalStateException("No implementations match configuration.");
         }
         Class<? extends ActionBarSherlock> impl = impls.values().iterator().next();
+        if (DEBUG) Log.i(TAG, "Using implementation: " + impl.getSimpleName());
 
         try {
             Constructor<? extends ActionBarSherlock> ctor = impl.getConstructor(CONSTRUCTOR_ARGS);
