@@ -221,6 +221,8 @@ public abstract class SherlockFragmentActivity extends FragmentActivity implemen
 
     @Override
     public boolean onCreatePanelMenu(int featureId, Menu menu) {
+        if (DEBUG) Log.d(TAG, "[onCreatePanelMenu] featureId: " + featureId + ", menu: " + menu);
+
         if (featureId == Window.FEATURE_OPTIONS_PANEL) {
             boolean result = onCreateOptionsMenu(menu);
 
@@ -239,6 +241,8 @@ public abstract class SherlockFragmentActivity extends FragmentActivity implemen
 
     @Override
     public boolean onPreparePanel(int featureId, View view, Menu menu) {
+        if (DEBUG) Log.d(TAG, "[onPreparePanel] featureId: " + featureId + ", view: " + view + " menu: " + menu);
+
         if (featureId == Window.FEATURE_OPTIONS_PANEL) {
             boolean result = onPrepareOptionsMenu(menu);
 
@@ -257,6 +261,8 @@ public abstract class SherlockFragmentActivity extends FragmentActivity implemen
 
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
+        if (DEBUG) Log.d(TAG, "[onMenuItemSelected] featureId: " + featureId + ", item: " + item);
+
         if (featureId == Window.FEATURE_OPTIONS_PANEL) {
             boolean result = onOptionsItemSelected(item);
 
