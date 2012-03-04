@@ -20,7 +20,7 @@ public class SherlockListFragment extends ListFragment {
     @Override
     public void onAttach(Activity activity) {
         if (!(activity instanceof SherlockFragmentActivity)) {
-            throw new IllegalStateException("SherlockFragment must be attached only to a SherlockFragmenActivity.");
+            throw new IllegalStateException("SherlockFragment must be attached only to a SherlockFragmentActivity.");
         }
         mActivity = (SherlockFragmentActivity)activity;
 
