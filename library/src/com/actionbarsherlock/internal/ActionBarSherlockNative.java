@@ -53,7 +53,7 @@ public class ActionBarSherlockNative extends ActionBarSherlock {
     public boolean dispatchCreateOptionsMenu(android.view.Menu menu) {
         if (DEBUG) Log.d(TAG, "[dispatchCreateOptionsMenu] menu: " + menu);
 
-        if (mMenu == null) {
+        if (mMenu == null || menu != mMenu.unwrap()) {
             mMenu = new MenuWrapper(menu);
         }
 
