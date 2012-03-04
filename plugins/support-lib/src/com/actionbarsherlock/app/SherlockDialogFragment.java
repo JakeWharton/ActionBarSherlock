@@ -9,7 +9,7 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
 public class SherlockDialogFragment extends DialogFragment {
-    private static final String TAG = "SherlockFragment";
+    private static final String TAG = "SherlockDialogFragment";
 
     private SherlockFragmentActivity mActivity;
 
@@ -20,7 +20,7 @@ public class SherlockDialogFragment extends DialogFragment {
     @Override
     public void onAttach(Activity activity) {
         if (!(activity instanceof SherlockFragmentActivity)) {
-            throw new IllegalStateException("SherlockFragment must be attached only to a SherlockFragmenActivity.");
+            throw new IllegalStateException(TAG + " must be attached to a SherlockFragmentActivity.");
         }
         mActivity = (SherlockFragmentActivity)activity;
 
