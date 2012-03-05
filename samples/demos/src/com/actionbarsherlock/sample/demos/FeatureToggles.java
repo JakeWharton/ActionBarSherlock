@@ -2,6 +2,7 @@ package com.actionbarsherlock.sample.demos;
 
 import java.util.Random;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -45,16 +46,9 @@ public class FeatureToggles extends SherlockActivity implements ActionBar.TabLis
         getSupportActionBar().setDisplayShowCustomEnabled(false);
         getSupportActionBar().setDisplayShowHomeEnabled(false);
 
-        //See 'ListNavigation.java' for an explanation about this:
-        int layoutRes = R.layout.sherlock_spinner_item;
-        int dropRes = R.layout.sherlock_spinner_dropdown_item;
-        if (SampleList.THEME == R.style.Theme_Sherlock_Light_DarkActionBar) {
-            layoutRes = R.layout.sherlock_spinner_item_light_dark;
-            dropRes = R.layout.sherlock_spinner_dropdown_item_light_dark;
-        }
-
-        ArrayAdapter<CharSequence> listAdapter = ArrayAdapter.createFromResource(this, R.array.locations, layoutRes);
-        listAdapter.setDropDownViewResource(dropRes);
+        Context context = getSupportActionBar().getThemedContext();
+        ArrayAdapter<CharSequence> listAdapter = ArrayAdapter.createFromResource(context, R.array.locations, R.layout.sherlock_spinner_item);
+        listAdapter.setDropDownViewResource(R.layout.sherlock_spinner_dropdown_item);
 
         getSupportActionBar().setListNavigationCallbacks(listAdapter, null);
 
