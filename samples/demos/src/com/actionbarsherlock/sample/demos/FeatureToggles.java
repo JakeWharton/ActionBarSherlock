@@ -47,7 +47,7 @@ public class FeatureToggles extends SherlockActivity implements ActionBar.TabLis
 
         //See 'ListNavigation.java' for an explanation about this:
         int layoutRes = R.layout.sherlock_spinner_item;
-        int dropRes = android.R.layout.simple_spinner_dropdown_item;
+        int dropRes = R.layout.sherlock_spinner_dropdown_item;
         if (SampleList.THEME == R.style.Theme_Sherlock_Light_DarkActionBar) {
             layoutRes = R.layout.sherlock_spinner_item_light_dark;
             dropRes = R.layout.sherlock_spinner_dropdown_item_light_dark;
