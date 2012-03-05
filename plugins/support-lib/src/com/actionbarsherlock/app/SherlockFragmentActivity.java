@@ -1,6 +1,7 @@
 package com.actionbarsherlock.app;
 
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -27,6 +28,7 @@ public abstract class SherlockFragmentActivity extends FragmentActivity implemen
     private boolean mIgnoreNativeCreate = false;
     private boolean mIgnoreNativePrepare = false;
     private boolean mIgnoreNativeSelected = false;
+    private Boolean mOverrideNativeCreate = null;
 
     protected final ActionBarSherlock getSherlock() {
         if (mSherlock == null) {
@@ -157,7 +159,7 @@ public abstract class SherlockFragmentActivity extends FragmentActivity implemen
 
     @Override
     public final boolean onCreateOptionsMenu(android.view.Menu menu) {
-        return true;
+        return (mOverrideNativeCreate != null) ? mOverrideNativeCreate.booleanValue() : true;
     }
 
     @Override
@@ -228,7 +230,15 @@ public abstract class SherlockFragmentActivity extends FragmentActivity implemen
 
             //Dispatch to parent panel creation for fragment dispatching
             if (DEBUG) Log.d(TAG, "[onCreatePanelMenu] dispatching to native with mule");
-            result |= super.onCreatePanelMenu(featureId, new MenuMule(menu));
+            mOverrideNativeCreate = result;
+            boolean fragResult = super.onCreatePanelMenu(featureId, new MenuMule(menu));
+            mOverrideNativeCreate = null;
+
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+                result |= menu.hasVisibleItems();
+            } else {
+                result |= fragResult;
+            }
 
             return result;
         }
