@@ -28,11 +28,6 @@
 			<version>${project.version}</version>
 			<type>apklib</type>
 		</dependency>
-		<dependency>
-			<groupId>com.actionbarsherlock</groupId>
-			<artifactId>plugin-support-lib</artifactId>
-			<version>${project.version}</version>
-		</dependency>
 	</dependencies>
 
 	<build>

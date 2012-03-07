@@ -21,7 +21,6 @@
 
 	<modules>
 		<module>library</module>
-		<module>plugins</module>
 		<module>samples</module>
 		<!--module>test</module-->
 	</modules>

@@ -1,4 +1,4 @@
-package com.actionbarsherlock.app;
+package com.actionbarsherlock.internal.view.menu;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -8,7 +8,8 @@ import android.view.SubMenu;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 
-class MenuItemMule implements MenuItem {
+/** Used to carry an instance of our version of MenuItem through a native channel. */
+public class MenuItemMule implements MenuItem {
     private static final String ERROR = "Cannot interact with object designed for temporary "
             + "instance passing. Make sure you using both SherlockFragmentActivity and "
             + "SherlockFragment.";

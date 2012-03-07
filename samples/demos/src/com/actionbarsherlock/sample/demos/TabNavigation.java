@@ -1,6 +1,7 @@
 package com.actionbarsherlock.sample.demos;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -28,15 +29,15 @@ public class TabNavigation extends SherlockActivity implements ActionBar.TabList
     }
 
     @Override
-    public void onTabReselected(Tab tab) {
+    public void onTabReselected(Tab tab, FragmentTransaction transaction) {
     }
 
     @Override
-    public void onTabSelected(Tab tab) {
+    public void onTabSelected(Tab tab, FragmentTransaction transaction) {
         mSelected.setText("Selected: " + tab.getText());
     }
 
     @Override
-    public void onTabUnselected(Tab tab) {
+    public void onTabUnselected(Tab tab, FragmentTransaction transaction) {
     }
 }

@@ -4,6 +4,7 @@ import java.util.Random;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -261,11 +262,11 @@ public class FeatureToggles extends SherlockActivity implements ActionBar.TabLis
     }
 
     @Override
-    public void onTabSelected(Tab tab) {}
+    public void onTabSelected(Tab tab, FragmentTransaction transaction) {}
 
     @Override
-    public void onTabUnselected(Tab tab) {}
+    public void onTabUnselected(Tab tab, FragmentTransaction transaction) {}
 
     @Override
-    public void onTabReselected(Tab tab) {}
+    public void onTabReselected(Tab tab, FragmentTransaction transaction) {}
 }

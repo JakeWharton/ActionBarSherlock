@@ -4,21 +4,25 @@ import java.util.HashSet;
 import java.util.Set;
 
 import android.app.Activity;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.SpinnerAdapter;
 
 import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 
 public class ActionBarWrapper extends ActionBar implements android.app.ActionBar.OnNavigationListener, android.app.ActionBar.OnMenuVisibilityListener {
+    private final Activity mActivity;
     private final android.app.ActionBar mActionBar;
     private ActionBar.OnNavigationListener mNavigationListener;
     private Set<OnMenuVisibilityListener> mMenuVisibilityListeners = new HashSet<OnMenuVisibilityListener>(1);
+    private FragmentTransaction mFragmentTransaction;
 
 
     public ActionBarWrapper(Activity activity) {
+        mActivity = activity;
         mActionBar = activity.getActionBar();
         if (mActionBar != null) {
             mActionBar.addOnMenuVisibilityListener(this);
@@ -205,7 +209,7 @@ public class ActionBarWrapper extends ActionBar implements android.app.ActionBar
         return mActionBar.getDisplayOptions();
     }
 
-    public static class TabWrapper extends ActionBar.Tab implements android.app.ActionBar.TabListener {
+    public class TabWrapper extends ActionBar.Tab implements android.app.ActionBar.TabListener {
         final android.app.ActionBar.Tab mNativeTab;
         private Object mTag;
         private TabListener mListener;
@@ -312,23 +316,47 @@ public class ActionBarWrapper extends ActionBar implements android.app.ActionBar
         }
 
         @Override
-        public void onTabReselected(android.app.ActionBar.Tab tab, FragmentTransaction ft) {
+        public void onTabReselected(android.app.ActionBar.Tab tab, android.app.FragmentTransaction ft) {
             if (mListener != null) {
-                mListener.onTabReselected(this);
+                FragmentTransaction trans = null;
+                if (mActivity instanceof SherlockFragmentActivity) {
+                    trans = ((SherlockFragmentActivity)mActivity).getSupportFragmentManager().beginTransaction()
+                            .disallowAddToBackStack();
+                }
+
+                mListener.onTabReselected(this, trans);
+
+                if (trans != null && !trans.isEmpty()) {
+                    trans.commit();
+                }
             }
         }
 
         @Override
-        public void onTabSelected(android.app.ActionBar.Tab tab, FragmentTransaction ft) {
+        public void onTabSelected(android.app.ActionBar.Tab tab, android.app.FragmentTransaction ft) {
             if (mListener != null) {
-                mListener.onTabSelected(this);
+                mListener.onTabSelected(this, mFragmentTransaction);
+
+                if (mFragmentTransaction != null) {
+                    if (!mFragmentTransaction.isEmpty()) {
+                        mFragmentTransaction.commit();
+                    }
+                    mFragmentTransaction = null;
+                }
             }
         }
 
         @Override
-        public void onTabUnselected(android.app.ActionBar.Tab tab, FragmentTransaction ft) {
+        public void onTabUnselected(android.app.ActionBar.Tab tab, android.app.FragmentTransaction ft) {
             if (mListener != null) {
-                mListener.onTabUnselected(this);
+                FragmentTransaction trans = null;
+                if (mActivity instanceof SherlockFragmentActivity) {
+                    trans = ((SherlockFragmentActivity)mActivity).getSupportFragmentManager().beginTransaction()
+                            .disallowAddToBackStack();
+                    mFragmentTransaction = trans;
+                }
+
+                mListener.onTabUnselected(this, trans);
             }
         }
     }

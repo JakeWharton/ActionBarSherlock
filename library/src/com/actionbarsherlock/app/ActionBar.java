@@ -18,6 +18,7 @@ package com.actionbarsherlock.app;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.v4.app.FragmentTransaction;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
@@ -863,7 +864,7 @@ public abstract class ActionBar {
          *        executed in a single transaction. This FragmentTransaction does not support
          *        being added to the back stack.
          */
-        public void onTabSelected(Tab tab); //XXX, FragmentTransaction ft);
+        public void onTabSelected(Tab tab, FragmentTransaction ft);
 
         /**
          * Called when a tab exits the selected state.
@@ -874,7 +875,7 @@ public abstract class ActionBar {
          *        will be executed in a single transaction. This FragmentTransaction does not
          *        support being added to the back stack.
          */
-        public void onTabUnselected(Tab tab); //XXX, FragmentTransaction ft);
+        public void onTabUnselected(Tab tab, FragmentTransaction ft);
 
         /**
          * Called when a tab that is already selected is chosen again by the user.
@@ -885,7 +886,7 @@ public abstract class ActionBar {
          *        once this method returns. This FragmentTransaction does not support
          *        being added to the back stack.
          */
-        public void onTabReselected(Tab tab); //XXX, FragmentTransaction ft);
+        public void onTabReselected(Tab tab, FragmentTransaction ft);
     }
 
     /**

@@ -4,6 +4,8 @@ import static com.actionbarsherlock.app.SherlockFragmentActivity.DEBUG;
 import android.app.Activity;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
+import com.actionbarsherlock.internal.view.menu.MenuItemMule;
+import com.actionbarsherlock.internal.view.menu.MenuMule;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;

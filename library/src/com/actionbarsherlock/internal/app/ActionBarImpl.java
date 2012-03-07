@@ -26,6 +26,7 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
+import android.support.v4.app.FragmentTransaction;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
@@ -35,6 +36,7 @@ import android.view.accessibility.AccessibilityEvent;
 import android.widget.SpinnerAdapter;
 import com.actionbarsherlock.R;
 import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.internal.nineoldandroids.animation.Animator;
 import com.actionbarsherlock.internal.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.actionbarsherlock.internal.nineoldandroids.animation.AnimatorSet;
@@ -66,7 +68,7 @@ public class ActionBarImpl extends ActionBar {
 
     private Context mContext;
     private Context mThemedContext;
-    //UNUSED private Activity mActivity;
+    private Activity mActivity;
     //UNUSED private Dialog mDialog;
 
     private ActionBarContainer mContainerView;
@@ -131,7 +133,7 @@ public class ActionBarImpl extends ActionBar {
     };
 
     public ActionBarImpl(Activity activity, int features) {
-        //UNUSED mActivity = activity;
+        mActivity = activity;
         Window window = activity.getWindow();
         View decor = window.getDecorView();
         init(decor);
@@ -503,32 +505,31 @@ public class ActionBarImpl extends ActionBar {
             return;
         }
 
-        /* XXX
-        final FragmentTransaction trans = mActivity.getFragmentManager().beginTransaction()
-                .disallowAddToBackStack();
-        */
+        FragmentTransaction trans = null;
+        if (mActivity instanceof SherlockFragmentActivity) {
+            trans = ((SherlockFragmentActivity)mActivity).getSupportFragmentManager().beginTransaction()
+                    .disallowAddToBackStack();
+        }
 
         if (mSelectedTab == tab) {
             if (mSelectedTab != null) {
-                mSelectedTab.getCallback().onTabReselected(mSelectedTab); //XXX, trans);
+                mSelectedTab.getCallback().onTabReselected(mSelectedTab, trans);
                 mTabScrollView.animateToTab(tab.getPosition());
             }
         } else {
             mTabScrollView.setTabSelected(tab != null ? tab.getPosition() : Tab.INVALID_POSITION);
             if (mSelectedTab != null) {
-                mSelectedTab.getCallback().onTabUnselected(mSelectedTab); //XXX, trans);
+                mSelectedTab.getCallback().onTabUnselected(mSelectedTab, trans);
             }
             mSelectedTab = (TabImpl) tab;
             if (mSelectedTab != null) {
-                mSelectedTab.getCallback().onTabSelected(mSelectedTab); //XXX, trans);
+                mSelectedTab.getCallback().onTabSelected(mSelectedTab, trans);
             }
         }
 
-        /* XXX
-        if (!trans.isEmpty()) {
+        if (trans != null && !trans.isEmpty()) {
             trans.commit();
         }
-        */
     }
 
     @Override
