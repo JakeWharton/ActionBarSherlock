@@ -61,21 +61,21 @@ $(function() {
 		$.each(data, function() {
 			if (/apk$/.test(this.html_url)) {
 				samples.append(
-					$('<dt class="normal"/>').html(this.description.substring(0, 26) === "ActionBarSherlock Sample: " ? this.description.substring(26) :  this.description),
+					$('<dt class="normal"/>').html(this.description.substring(0, 8) === "Sample: " ? this.description.substring(8) : this.description),
 					$('<dd class="sample-app"/>').append(
 						$('<a/>').attr('href', this.html_url).html('APK'),
 						' &middot; ',
 						$('<a/>').attr('href', 'http://chart.apis.google.com/chart?chs=545x545&cht=qr&chl=' + this.html_url + '&.png').html('QR Code').colorbox()
 					)
 				);
-			} else if (/jar$/.test(this.html_url)) {
+			}/* else if (/jar$/.test(this.html_url)) {
 				plugins.append(
 					$('<dt class="normal"/>').html(this.description.substring(0, 26) === "ActionBarSherlock Plugin: " ? this.description.substring(26) : this.description),
 					$('<dd class="plugin"/>').append(
 						$('<a/>').attr('href', this.html_url).html('JAR')
 					)
 				);
-			}
+			}*/
 		});
 	});
 });
@@ -89,10 +89,10 @@ $(function() {
 		<p><a class="img dl" id="latest-tarball" href="https://github.com/JakeWharton/ActionBarSherlock/downloads"><img src="static/down_grey.png" alt="Tarball"/> Download .tgz</a></p>
 		<!-- Download icon by Ddate Kaspar / Franziska Sponsel -->
 
-		<h3>Plugins</h3>
+		<!--h3>Plugins</h3>
 		<dl id="plugins">
 			<dt class="normal">(loading)</dt>
-		</dl>
+		</dl-->
 
 		<h3>Sample Applications</h3>
 		<dl id="sample-apps">
