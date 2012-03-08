@@ -17,6 +17,15 @@ Complete rewrite of the library to backport the Android 4.0 action bar.
    requirement of using one of the provided base activities.
 
 
+Version 3.5.1 *(2012-01-03)*
+----------------------------
+
+ * Fix: `NullPointerException` in `FragmentManager` can no longer occur when an
+   attempt is being made to save to a `Bundle` that has not yet been created.
+ * Fix: Pre-3.0 action item submenu dialogs now properly dismiss themselves when
+   an item of theirs is selected.
+
+
 Version 3.5.0 *(2011-12-18)*
 ----------------------------
 
