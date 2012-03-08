@@ -23,7 +23,7 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
 public abstract class SherlockFragmentActivity extends FragmentActivity implements OnCreatePanelMenuListener, OnPreparePanelListener, OnMenuItemSelectedListener, OnActionModeStartedListener, OnActionModeFinishedListener {
-    static final boolean DEBUG = true;
+    static final boolean DEBUG = false;
     private static final String TAG = "SherlockFragmentActivity";
 
     private ActionBarSherlock mSherlock;

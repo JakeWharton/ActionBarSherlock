@@ -41,7 +41,7 @@ import com.actionbarsherlock.view.MenuItem;
  */
 public abstract class ActionBarSherlock {
     protected static final String TAG = "ActionBarSherlock";
-    protected static final boolean DEBUG = true;
+    protected static final boolean DEBUG = false;
 
     private static final Class<?>[] CONSTRUCTOR_ARGS = new Class[] { Activity.class, int.class };
     private static final HashMap<Implementation, Class<? extends ActionBarSherlock>> IMPLEMENTATIONS =
