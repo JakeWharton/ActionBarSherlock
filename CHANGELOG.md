@@ -1,8 +1,8 @@
 Change Log
 ===============================================================================
 
-Version 4.0.0 *(In Development)*
---------------------------------
+Version 4.0.0 *(2012-03-07)*
+----------------------------
 
 Complete rewrite of the library to backport the Android 4.0 action bar.
 
