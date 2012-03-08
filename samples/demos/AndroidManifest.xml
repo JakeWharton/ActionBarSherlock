@@ -34,7 +34,7 @@
             android:label="@string/action_items">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+                <category android:name="com.actionbarsherlock.sample.demos.EXAMPLE" />
             </intent-filter>
         </activity>
 
@@ -43,7 +43,7 @@
             android:label="@string/action_modes">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+                <category android:name="com.actionbarsherlock.sample.demos.EXAMPLE" />
             </intent-filter>
         </activity>
 
@@ -52,7 +52,7 @@
             android:label="@string/action_modes_no_action_bar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+                <category android:name="com.actionbarsherlock.sample.demos.EXAMPLE" />
             </intent-filter>
         </activity>
 
@@ -61,7 +61,7 @@
             android:label="@string/action_providers">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+                <category android:name="com.actionbarsherlock.sample.demos.EXAMPLE" />
             </intent-filter>
         </activity>
 
@@ -70,7 +70,7 @@
             android:label="@string/collapsible">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+                <category android:name="com.actionbarsherlock.sample.demos.EXAMPLE" />
             </intent-filter>
         </activity>
 
@@ -79,7 +79,7 @@
             android:label="@string/custom_navigation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+                <category android:name="com.actionbarsherlock.sample.demos.EXAMPLE" />
             </intent-filter>
         </activity>
         
@@ -89,7 +89,7 @@
             android:theme="@style/Theme.Sherlock.Dialog">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+                <category android:name="com.actionbarsherlock.sample.demos.EXAMPLE" />
             </intent-filter>
         </activity>
         
@@ -98,7 +98,7 @@
             android:label="@string/feature_toggles">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+                <category android:name="com.actionbarsherlock.sample.demos.EXAMPLE" />
             </intent-filter>
         </activity>
         
@@ -107,7 +107,7 @@
             android:label="@string/forced_overflow">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+                <category android:name="com.actionbarsherlock.sample.demos.EXAMPLE" />
             </intent-filter>
         </activity>
         
@@ -116,7 +116,7 @@
             android:label="@string/iprogress">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+                <category android:name="com.actionbarsherlock.sample.demos.EXAMPLE" />
             </intent-filter>
         </activity>
         
@@ -125,7 +125,7 @@
             android:label="@string/list_navigation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+                <category android:name="com.actionbarsherlock.sample.demos.EXAMPLE" />
             </intent-filter>
         </activity>
         
@@ -134,7 +134,7 @@
             android:label="@string/overlay">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+                <category android:name="com.actionbarsherlock.sample.demos.EXAMPLE" />
             </intent-filter>
         </activity>
 
@@ -143,7 +143,7 @@
             android:label="@string/preference">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+                <category android:name="com.actionbarsherlock.sample.demos.EXAMPLE" />
             </intent-filter>
         </activity>
 
@@ -152,7 +152,7 @@
             android:label="@string/progress">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+                <category android:name="com.actionbarsherlock.sample.demos.EXAMPLE" />
             </intent-filter>
         </activity>
         
@@ -161,7 +161,7 @@
             android:label="@string/simple">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+                <category android:name="com.actionbarsherlock.sample.demos.EXAMPLE" />
             </intent-filter>
         </activity>
         
@@ -171,7 +171,7 @@
             android:uiOptions="splitActionBarWhenNarrow">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+                <category android:name="com.actionbarsherlock.sample.demos.EXAMPLE" />
             </intent-filter>
         </activity>
         
@@ -181,7 +181,7 @@
             android:uiOptions="splitActionBarWhenNarrow">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+                <category android:name="com.actionbarsherlock.sample.demos.EXAMPLE" />
             </intent-filter>
         </activity>
         
@@ -190,7 +190,7 @@
             android:label="@string/static_attach">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+                <category android:name="com.actionbarsherlock.sample.demos.EXAMPLE" />
             </intent-filter>
         </activity>
         
@@ -201,7 +201,7 @@
             android:uiOptions="splitActionBarWhenNarrow">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+                <category android:name="com.actionbarsherlock.sample.demos.EXAMPLE" />
             </intent-filter>
         </activity>
         
@@ -210,7 +210,7 @@
             android:label="@string/submenus">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+                <category android:name="com.actionbarsherlock.sample.demos.EXAMPLE" />
             </intent-filter>
         </activity>
         
@@ -219,7 +219,7 @@
             android:label="@string/tab_navigation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+                <category android:name="com.actionbarsherlock.sample.demos.EXAMPLE" />
             </intent-filter>
         </activity>
         
@@ -228,7 +228,7 @@
             android:label="@string/tab_navigation_collapsed">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.actionbarsherlock.sample.demos.SUPPORT4_SAMPLE_CODE" />
+                <category android:name="com.actionbarsherlock.sample.demos.EXAMPLE" />
             </intent-filter>
         </activity>
 
