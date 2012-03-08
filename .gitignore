@@ -1,17 +1,20 @@
 #Android generated
 bin
 gen
+lint.xml
 
 #Eclipse
 .project
 .classpath
 .settings
+.checkstyle
 
 #IntelliJ IDEA
 .idea
 *.iml
 *.ipr
 *.iws
+classes
 
 #Maven
 target
@@ -25,5 +28,6 @@ build.xml
 local.properties
 proguard.cfg
 
-#OSX
+#Other
 .DS_Store
+tmp

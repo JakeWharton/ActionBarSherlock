@@ -1,25 +1,25 @@
-Action Bar Sherlock
-===================
+ActionBarSherlock
+=================
 
-ActionBarSherlock is an extension of the [compatibility library][1] designed
-to facilitate the use of the action bar design pattern across all versions of
-Android through a single API.
-
-**NEW USERS: Version 4.0 is under heavy development and is almost ready for
-release. You are probably better off taking a look at it instead of 3.x. See
-http://beta.abs.io for more information.**
+ActionBarSherlock is an standalone library designed to facilitate the use of
+the action bar design pattern across all versions of Android through a single
+API.
 
 The library will automatically use the [native ActionBar][2] implementation on
-Android 3.0 or later. For previous versions which do not include ActionBar, a
-custom action bar implementation will automatically be wrapped around the
-layout. Support for this goes all the way back to Android 1.6.
-
-Try out the sample applications on the Android Market: [Feature Demos][4],
-[Shakespeare][5], and [Styled Action Bar][6].
+Android 4.0 or later. For previous versions which do not include ActionBar, a
+custom action bar implementation based on the sources of Ice Cream Sandwich
+will automatically be wrapped around the layout. Support for this goes all the
+way back to Android 2.1.
 
 **See http://actionbarsherlock.com for more information.**
 
 ![Example Image][3]
+
+Try out the sample applications on the Android Market: [Feature Demos][4],
+[Shakespeare][5], and [Styled Action Bar][6].
+
+Continuous integration is provided by a CloudBees FOSS Jenkins instance at
+[jakewharton.ci.cloudbees.com][7].
 
 
 
@@ -33,7 +33,7 @@ Developed By
 License
 =======
 
-    Copyright 2011 Jake Wharton
+    Copyright 2012 Jake Wharton
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -57,3 +57,4 @@ License
  [4]: https://market.android.com/details?id=com.actionbarsherlock.sample.demos
  [5]: https://market.android.com/details?id=com.actionbarsherlock.sample.shakespeare
  [6]: https://market.android.com/details?id=com.actionbarsherlock.sample.styledactionbar
+ [7]: http://jakewharton.ci.cloudbees.com/job/ActionBarSherlock/

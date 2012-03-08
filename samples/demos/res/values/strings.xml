@@ -1,143 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2007 The Android Open Source Project
 
-     Licensed under the Apache License, Version 2.0 (the "License");
-     you may not use this file except in compliance with the License.
-     You may obtain a copy of the License at
-
-          http://www.apache.org/licenses/LICENSE-2.0
-
-     Unless required by applicable law or agreed to in writing, software
-     distributed under the License is distributed on an "AS IS" BASIS,
-     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-     See the License for the specific language governing permissions and
-     limitations under the License.
--->
-
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="activity_sample_code">ABS: Support Demos</string>
-
-    <string name="hello_world"><b>Hello, <i>World!</i></b></string>
-    <string name="hello_actionbar">Hello, ActionBar!</string>
-    
-    <string name="alert_dialog_two_buttons_title">
-        Lorem ipsum dolor sit aie consectetur adipiscing\nPlloaso mako nuto
-        siwuf cakso dodtos anr koop.
-    </string>
-    <string name="alert_dialog_ok">OK</string>
-    <string name="alert_dialog_cancel">Cancel</string>
-    
-    <string name="initial_text">Initial text.</string>
-    
-    <string name="pick_result">Pick a result to send, or BACK to cancel.</string>
-    <string name="corky">Corky</string>
-    <string name="violet">Violet</string>
-    <string name="receive_result_instructions">Press the button to get an activity result, which will be displayed here:</string>
-    <string name="receive_result_result">Get Result</string>
+<resources>
+    <string name="application_name">ActionBarSherlock Demos</string>
+    <string name="activity_name">ABS: Demos</string>
     
     
-    <string name="actionbar_feature_toggles">Action Bar/Feature Toggles</string>
-    <string name="actionbar_list_navigation">Action Bar/List Navigation</string>
-    <string name="actionbar_tab_navigation">Action Bar/Tab Navigation</string>
-    <string name="actionbar_tabs_pager">Action Bar/Tabs and Pager</string>
-    <string name="actionbar_overlay">Action Bar/Overlay</string>
-    <string name="actionbar_menu_support">Action Bar/Menu Support</string>
-    <string name="actionbar_iprogress">Action Bar/Indeterminate Progress</string>
     
-    <string name="actionbar_pagerfragmentmenus">Action Bar/Pager + Fragment Menus</string>
-    <string name="actionbar_pagerfragmentmenus_content">Only the selected fragment contributes menu items to the action bar.</string>
+    <string name="action_items">Action Items</string>
+    <string name="action_items_content">The action bar creates a unified and persistant navigation experience for your application and action items are a great way to provide a clear indication of what the user can do.</string>
     
-    <string name="actionbar_customnavigation">Action Bar/Custom Navigation</string>
-    <string name="actionbar_customnavigation_content">If you find that list and tab navigation are not suitable for your application you may replace it with a custom layout.</string>
+    <string name="action_modes">Action Modes</string>
+    <string name="action_modes_content">Action modes are used to display contextual information based on some interaction made by the user (long press, checkbox selection, etc). Like the normal action bar they also support splitting the action items to the bottom of the screen on small devices.</string>
     
-    <string name="actionbar_actionitemtext">Action Bar/Action Item Text</string>
-    <string name="actionbar_actionitemtext_content">Controlling the display of action item text on phones is as easy as requesting a window feature. See the source code for this activity for specific usage.</string>
+    <string name="action_modes_no_action_bar">Action Modes (No Action Bar)</string>
     
-    <string name="actionbar_actionitemcustom">Action Bar/Action Item Custom View</string>
-    <string name="actionbar_actionitemcustom_content">You can use custom views for action items for more complex layouts and even interactivity.</string>
+    <string name="action_providers">Action Providers</string>
+    <string name="action_providers_content">This activity demonstrates how to implement an ActionProvider for adding functionality to the Action Bar. In particular this demo creates an ActionProvider for launching the system settings and adds a menu item with that provider.</string>
     
-    <string name="actionbar_simple">Action Bar/Simple</string>
-    <string name="actionbar_simple_dark">Action Bar/Simple (Light-Dark Theme)</string>
-    <string name="actionbar_simple_content">This is a simple showcase of how easy it is to add the action bar to your activities. Take a look at the source code, it\'s surprisingly simple!</string>
+    <string name="collapsible">Collapsible Action Items</string>
+    <string name="collapsible_content">This activity is a demonstration of how collapsible action items work. When you are concerned about the available room for items on small screens you should use this feature.</string>
     
-    <string name="actionbar_submenus">Action Bar/Sub-menus</string>
-    <string name="actionbar_submenus_content">This activity is a demonstration of how sub-menus work when they are either an action item or an item in the overflow menu.</string>
+    <string name="custom_navigation">Custom Navigation</string>
+    <string name="custom_navigation_content">If you find that list and tab navigation are not suitable for your application you may replace it with a custom layout.</string>
     
-    <string name="actionbar_styles">Action Bar/Styles</string>
-    <string name="actionbar_styles_dark">Dark Theme</string>
-    <string name="actionbar_styles_light">Light Theme</string>
-    <string name="actionbar_styles_custom">Custom Theme</string>
+    <string name="dialog">Dialog</string>
+    <string name="dialog_content">This is a demonstration of how you can give an activity the look of a dialog.\n\nWhile there is a light version of this theme, it cannot be set programmatically without disabling the fancy transparent outer background. In order for this effect the theme must be set in the manifest.</string>
+    
+    <string name="feature_toggles">Feature Toggles</string>
+    <string name="feature_toggles_content">Use these buttons to create various configurations with the action bar to see how it behaves.</string>
+    
+    <string name="forced_overflow">Forced Overflow Item</string>
+    <string name="forced_overflow_content">If you choose, you can force the presence of the overflow menu as an action item. Google\'s own research indicates that the regular options menu is lost on most users and doing this will place it always on screen. You can use a theme ending in `ForceOverflow` or add the `absForceOverflow` attribute to a custom theme.\n\nNote: This will only work on the pre-ICS action bar.</string>
+    
+    <string name="iprogress">Indeterminate Progress</string>
+    <string name="iprogress_content">The action bar includes a standard indeterminate progress bar. The methods for accessing it are prefixed with `support`. See the source for this demo for more information.</string>
+    
+    <string name="list_navigation">List Navigation</string>
+    <string name="list_navigation_content">List navigation requires the use of a special layout for the spinner item. Failure to use it will result in your spinner text being the same color as the action bar background on pre-3.0. See the source code of this demo for more information.</string>
+    
+    <string name="overlay">Overlay</string>
+    <string name="overlay_content">Overlay can be useful if you have a lot of scrolling content, especially if that content is images. Remember to lead your content with a margin so that it starts below the action bar when scrolled to the top.</string>
+    
+    <string name="preference">Preference</string>
+    <string name="preference_content">You can use the `SherlockPreferenceActivity` base class to place the action bar on top of a normal `PreferenceActivity`.\n\nThis does not yet support the use of `PreferenceFragments`, however.</string>
+    
+    <string name="progress">Progress</string>
+    <string name="progress_content">The action bar includes a standard progress bar. The methods for accessing it are prefixed with `support`. See the source for this demo for more information.</string>
+    
+    <string name="simple">Simple</string>
+    <string name="simple_content">This is a simple showcase of how easy it is to add the action bar to your activities. Take a look at the source code, it\'s surprisingly simple!</string>
+    
+    <string name="split">Split Action Items</string>
+    <string name="split_content">This activity is a demonstration of how split action items work. When you are concerned about the available room for items on small screens you should use this feature.</string>
+    
+    <string name="split_action_modes">Split Action Modes</string>
+    
+    <string name="static_attach">Static Attachment</string>
+    <string name="static_attach_content">This is a simple showcase of how easy it is to add the action bar to your activities without having to extend from a custom activity. Take a look at the source code, it\'s surprisingly simple!</string>
+    
+    <string name="styled">Styled</string>
+    <string name="styled_content">This is a simple showcase of how to style the action bar to your liking. Be sure to remember that you need to consider both the custom and native action bar when styling. Looking at this activity\'s style is a good way to start.</string>
+    
+    <string name="submenus">Sub-menus</string>
+    <string name="submenus_content">This activity is a demonstration of how sub-menus work when they are either an action item or an item in the overflow menu.</string>
+    
+    <string name="tab_navigation">Tab Navigation</string>
+    <string name="tab_navigation_content">Tabs can be useful for switching between a limited number of items. You can also collapse the main body of the action bar on small devices so that only the tab bar is displayed. See the source for more information.</string>
+    
+    <string name="tab_navigation_collapsed">Tab Navigation (Collapsed)</string>
     
     
-    <string name="fragment_alert_dialog_support">Fragment/Alert Dialog</string>
-
-    <string name="fragment_arguments_support">Fragment/Arguments</string>
-    <string name="fragment_arguments_msg">Demonstrates a fragment that takes arguments
-        as a Bundle at runtime (on the right) or from attributes in a layout (on the left).</string>
-    <string name="fragment_arguments_embedded">From Attributes</string>
-    <string name="fragment_arguments_embedded_land">Landscape Only</string>
-
-    <string name="fragment_custom_animation_support">Fragment/Custom Animation</string>
-
-    <string name="fragment_hide_show_support">Fragment/Hide and Show</string>
-
-    <string name="fragment_context_menu_support">Fragment/Context Menu</string>
-    <string name="fragment_context_menu_msg">Fragment populating a context
-            menu; long press the button to see.</string>
-    <string name="long_press">Long press me</string>
-
-    <string name="fragment_dialog_support">Fragment/Dialog</string>
-    <string name="show">Show</string>
-
-    <string name="fragment_dialog_or_activity_support">Fragment/Dialog or Activity</string>
-    <string name="fragment_dialog_or_activity_msg">Demonstrates the same fragment
-            being shown as a dialog and embedded inside of an activity.</string>
-    <string name="fragment_dialog_or_activity_inline">Fragment embedded inside
-            of the activity:</string>
-
-    <string name="fragment_layout_support">Fragment/Layout</string>
-
-    <string name="fragment_list_array_support">Fragment/List Array</string>
-
-    <string name="fragment_menu_support">Fragment/Menu</string>
-    <string name="fragment_menu_msg">Build menus from two fragments, allowing
-        you to hide them to remove them..</string>
-    <string name="fragment1menu">Show fragment 1 menu</string>
-    <string name="fragment2menu">Show fragment 2 menu</string>
-
-    <string name="fragment_retain_instance_support">Fragment/Retain Instance</string>
-    <string name="fragment_retain_instance_msg">Current progress of retained fragment;
-    restarts if fragment is re-created.</string>
-    <string name="restart">Restart</string>
-
-    <string name="fragment_receive_result_support">Fragment/Receive Result</string>
-
-    <string name="fragment_stack_support">Fragment/Stack</string>
-    <string name="new_fragment">New fragment</string>
-
-    <string name="fragment_tabs">Fragment/Tabs</string>
-
-    <string name="fragment_tabs_pager">Fragment/Tabs and Pager</string>
-
-    <string name="fragment_pager_support">Fragment/Pager</string>
-    <string name="first">First</string>
-    <string name="last">Last</string>
     
-    <string name="fragment_pagermenus">Fragment/Pager + Menus</string>
-    <string name="fragment_pagermenus_content">Only the selected fragment contributes items to the options menu.</string>
+    <string name="inline_preferences">In-line preferences</string>
+    <string name="dialog_based_preferences">Dialog-based preferences</string>
+    <string name="launch_preferences">Launch preferences</string>
+    <string name="preference_attributes">Preference attributes</string>
 
-    <string name="fragment_state_pager_support">Fragment/State Pager</string>
+    <string name="title_checkbox_preference">Checkbox preference</string>
+    <string name="summary_checkbox_preference">This is a checkbox</string>
 
-    <string name="loader_cursor_support">Loader/Cursor</string>
-    
-    <string name="loader_custom_support">Loader/Custom</string>
+    <string name="title_edittext_preference">Edit text preference</string>
+    <string name="summary_edittext_preference">An example that uses an edit text dialog</string>
+    <string name="dialog_title_edittext_preference">Enter your favorite animal</string>
 
-    <string name="loader_throttle_support">Loader/Throttle</string>
+    <string name="title_list_preference">List preference</string>
+    <string name="summary_list_preference">An example that uses a list dialog</string>
+    <string name="dialog_title_list_preference">Choose one</string>
 
-    <string name="local_service_broadcaster">Content/Local Service Broadcaster</string>
+    <string name="title_screen_preference">Screen preference</string>
+    <string name="summary_screen_preference">Shows another screen of preferences</string>
 
-    <string name="local_service_broadcaster_msg">Demonstrates use of LocalBroadcastManager
-        to communicate from a Service to an Activity.</string>
-    <string name="start_service">Start Service</string>
-    <string name="stop_service">Stop Service</string>
+    <string name="title_next_screen_toggle_preference">Toggle preference</string>
+    <string name="summary_next_screen_toggle_preference">Preference that is on the next screen but same hierarchy</string>
+
+    <string name="title_intent_preference">Intent preference</string>
+    <string name="summary_intent_preference">Launches an Activity from an Intent</string>
+
+    <string name="title_my_preference">My preference</string>
+    <string name="summary_my_preference">This is a custom counter preference</string>
+
+    <string name="title_advanced_toggle_preference">Haunted preference</string>
+    <string name="summary_on_advanced_toggle_preference">I\'m on! :)</string>
+    <string name="summary_off_advanced_toggle_preference">I\'m off! :(</string>
+
+    <string name="title_parent_preference">Parent checkbox preference</string>
+    <string name="summary_parent_preference">This is visually a parent</string>
+    <string name="title_child_preference">Child checkbox preference</string>
+    <string name="summary_child_preference">This is visually a child</string>
+
+    <string name="example_preference_dependency">Example preference dependency</string>
+    <string name="title_wifi">WiFi</string>
+    <string name="title_wifi_settings">WiFi settings</string>
+
+    <string name="default_value_list_preference">beta</string>
+    <string name="default_value_edittext_preference">Default value</string>
 </resources>

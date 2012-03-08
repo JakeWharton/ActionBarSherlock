@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="application_label">ABS: Shakespeare Sample</string>
-    
-    <string name="activity_titles">Shakespeare Titles</string>
-    <string name="activity_details">Shakespeare Details</string>
-</resources>

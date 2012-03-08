@@ -20,6 +20,15 @@
 		<script type="text/javascript" src="static/jquery.colorbox-min.js"></script>
 		<script type="text/javascript" src="static/showdown.js"></script>
 		<script type="text/javascript">
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-3637749-12']);
+			_gaq.push(['_trackPageview']);
+			(function() {
+				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+			})();
+
 			(function() {
 				var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
 				s.type = 'text/javascript';
@@ -32,9 +41,6 @@
 	<body>
 		<div class="container">
 			<div class="row">
-				<div class="whole announce">
-					<p>Version 4.0 is coming with the Ice Cream Sandwich action bar! Read the <a href="http://jakewharton.com/something-beta-this-way-comes/">announcement</a> and try out the <a href="http://beta.abs.io/">betas</a> today.</p>
-				</div>
 				<div class="whole">
 					<p id="header" class="small"><a class="img" href="index.html"><img src="static/logo_small.png" alt="Home"/></a></p>
 				</div>
@@ -57,7 +63,7 @@
 
 			<div class="row" id="footer">
 				<div class="half">
-					<p>&copy; 2011 Jake Wharton &mdash; <a href="http://twitter.com/JakeWharton">@JakeWharton</a> &middot; <a href="http://profiles.google.com/jakewharton">+JakeWharton</a></p>
+					<p>&copy; 2011 Jake Wharton &mdash; <a href="http://twitter.com/JakeWharton">@JakeWharton</a></p>
 				</div>
 				<div class="half last social">
 					<g:plusone size="medium" href="http://actionbarsherlock.com"></g:plusone>
@@ -68,18 +74,5 @@
 				</div>
 			</div>
 		</div>
-		<script type="text/javascript">
-			var _gauges = _gauges || [];
-			(function() {
-				var t   = document.createElement('script');
-				t.type  = 'text/javascript';
-				t.async = true;
-				t.id    = 'gauges-tracker';
-				t.setAttribute('data-site-id', '4f455953f5a1f51c10000075');
-				t.src = '//secure.gaug.es/track.js';
-				var s = document.getElementsByTagName('script')[0];
-				s.parentNode.insertBefore(t, s);
-			})();
-		</script>
 	</body>
 </html>
