@@ -8,15 +8,16 @@ API.
 The library will automatically use the [native ActionBar][2] implementation on
 Android 4.0 or later. For previous versions which do not include ActionBar, a
 custom action bar implementation based on the sources of Ice Cream Sandwich
-will automatically be wrapped around the layout. Support for this goes all the
-way back to Android 2.1.
+will automatically be wrapped around the layout. This allows you to easily
+develop an application with an action bar for every version of Android from 2.x
+and up.
 
 **See http://actionbarsherlock.com for more information.**
 
 ![Example Image][3]
 
 Try out the sample applications on the Android Market: [Feature Demos][4],
-[Shakespeare][5], and [Styled Action Bar][6].
+[Fragments][5], and [RoboGuice][6].
 
 Continuous integration is provided by a CloudBees FOSS Jenkins instance at
 [jakewharton.ci.cloudbees.com][7].
@@ -55,6 +56,6 @@ License
  [2]: http://developer.android.com/guide/topics/ui/actionbar.html
  [3]: http://actionbarsherlock.com/static/feature.png
  [4]: https://market.android.com/details?id=com.actionbarsherlock.sample.demos
- [5]: https://market.android.com/details?id=com.actionbarsherlock.sample.shakespeare
- [6]: https://market.android.com/details?id=com.actionbarsherlock.sample.styledactionbar
+ [5]: https://market.android.com/details?id=com.actionbarsherlock.sample.fragments
+ [6]: https://market.android.com/details?id=com.actionbarsherlock.sample.roboguice
  [7]: http://jakewharton.ci.cloudbees.com/job/ActionBarSherlock/
