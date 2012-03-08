@@ -109,7 +109,7 @@
 					<plugin>
 						<groupId>com.jayway.maven.plugins.android.generation2</groupId>
 						<artifactId>android-maven-plugin</artifactId>
-						<version>${android-maven-plugin}</version>
+						<version>${android-maven.version}</version>
 						<inherited>true</inherited>
 						<configuration>
 							<zipalign>
