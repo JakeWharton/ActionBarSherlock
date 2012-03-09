@@ -45,7 +45,6 @@ public class FeatureToggles extends SherlockActivity implements ActionBar.TabLis
 
         getSupportActionBar().setCustomView(R.layout.custom_view);
         getSupportActionBar().setDisplayShowCustomEnabled(false);
-        getSupportActionBar().setDisplayShowHomeEnabled(false);
 
         Context context = getSupportActionBar().getThemedContext();
         ArrayAdapter<CharSequence> listAdapter = ArrayAdapter.createFromResource(context, R.array.locations, R.layout.sherlock_spinner_item);
