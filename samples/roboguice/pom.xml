@@ -112,12 +112,22 @@
 						<version>${android-maven.version}</version>
 						<inherited>true</inherited>
 						<configuration>
+							<manifest>
+								<versionCodeAutoIncrement>true</versionCodeAutoIncrement>
+							</manifest>
 							<zipalign>
 								<inputApk>${project.build.directory}/${project.build.finalName}.apk</inputApk>
 								<outputApk>${project.build.directory}/${apk.prefix}-${project.artifactId}.apk</outputApk>
 							</zipalign>
 						</configuration>
 						<executions>
+							<execution>
+								<id>manifestUpdate</id>
+								<phase>process-resources</phase>
+								<goals>
+									<goal>manifest-update</goal>
+								</goals>
+							</execution>
 							<execution>
 								<id>alignApk</id>
 								<phase>package</phase>
