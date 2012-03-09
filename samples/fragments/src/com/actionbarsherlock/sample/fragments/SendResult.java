@@ -22,12 +22,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import com.actionbarsherlock.app.SherlockActivity;
 
 
 /**
  * Example of receiving a result from another activity.
  */
-public class SendResult extends Activity
+public class SendResult extends SherlockActivity
 {
     /**
      * Initialization of the Activity after it is first created.  Must at least
@@ -37,6 +38,7 @@ public class SendResult extends Activity
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+        setTheme(SampleList.THEME); //Used for theme switching in samples
         // Be sure to call the super class.
         super.onCreate(savedInstanceState);
 

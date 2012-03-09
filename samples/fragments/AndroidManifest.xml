@@ -51,10 +51,7 @@
             </intent-filter>
         </activity>
 
-
-        <activity android:name=".SendResult"
-                android:theme="@style/ThemeDialogWhenLarge">
-        </activity>
+        <activity android:name=".SendResult" />
         
         <!-- Fragment Support Samples -->
 
