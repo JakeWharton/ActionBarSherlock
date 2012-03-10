@@ -13,7 +13,7 @@ import java.util.Random;
 
 import com.actionbarsherlock.sample.roboguice.R;
 import com.actionbarsherlock.sample.roboguice.controller.Astroboy;
-import com.actionbarsherlock.sample.roboguice.RoboSherlockActivity;
+import com.actionbarsherlock.sample.roboguice.SherlockRoboActivity;
 import com.google.inject.Inject;
 
 /**
@@ -22,7 +22,7 @@ import com.google.inject.Inject;
  *     - How to use RoboAsyncTask to do background tasks with injection
  *     - What it means to be a @Singleton
  */
-public class FightForcesOfEvilActivity extends RoboSherlockActivity {
+public class FightForcesOfEvilActivity extends SherlockRoboActivity {
 
     @InjectView(R.id.expletive) TextView expletiveText;
 

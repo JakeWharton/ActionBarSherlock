@@ -15,7 +15,7 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
 import com.actionbarsherlock.sample.roboguice.R;
-import com.actionbarsherlock.sample.roboguice.RoboSherlockActivity;
+import com.actionbarsherlock.sample.roboguice.SherlockRoboActivity;
 import com.actionbarsherlock.sample.roboguice.controller.AstroboyRemoteControl;
 import com.google.inject.Inject;
 
@@ -32,7 +32,7 @@ import com.google.inject.Inject;
  *     like call getSystemService()
  */
 @ContentView(R.layout.main)
-public class AstroboyMasterConsole extends RoboSherlockActivity {
+public class AstroboyMasterConsole extends SherlockRoboActivity {
 
     // Various views that we inject into the activity.
     // Equivalent to calling findViewById() in your onCreate(), except more succinct
