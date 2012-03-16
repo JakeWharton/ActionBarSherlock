@@ -42,6 +42,10 @@ layout: default
 				<td><strong>Yes.</strong> ActionBarSherlock is built as an extension of the Android compatibility library and requires that it be included.</td>
 			</tr>
 			<tr>
+				<th>I get the following exception when using fragments: <em>&quot;Cannot interact with object designed for temporary instance passing.&quot;</em></th>
+				<td>In order to provide the full ICS menu API the library provides its own fragment base classes. Like the activities, they are prefixed with 'Sherlock' and are provided for each of the fragment classes from the support library (e.g., <code>SherlockFragment</code>, <code>SherlockDialogFragment</code>).</td>
+			</tr>
+			<tr>
 				<th>I use Proguard. Are there any lines I should include to ensure functionality of the library?</th>
 				<td>
 					<p>Add the following lines:</p>
