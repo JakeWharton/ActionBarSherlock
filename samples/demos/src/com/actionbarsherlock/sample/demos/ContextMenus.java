@@ -44,6 +44,13 @@ public class ContextMenus extends SherlockActivity {
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //This uses the imported MenuItem from ActionBarSherlock
+        Toast.makeText(this, "Got click: " + item.toString(), Toast.LENGTH_SHORT).show();
+        return true;
+    }
+
+    @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         menu.add("One");
         menu.add("Two");
