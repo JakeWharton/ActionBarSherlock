@@ -20,6 +20,9 @@
     <string name="collapsible">Collapsible Action Items</string>
     <string name="collapsible_content">This activity is a demonstration of how collapsible action items work. When you are concerned about the available room for items on small screens you should use this feature.</string>
     
+    <string name="context_menus">Context Menus</string>
+    <string name="context_menus_content">Since both ActionBarSherlock and Android use \'Menu\' and \'MenuItem\' class names you must take extra care when using context menus. It is still very much possible to use both in a single activity.</string>
+    
     <string name="custom_navigation">Custom Navigation</string>
     <string name="custom_navigation_content">If you find that list and tab navigation are not suitable for your application you may replace it with a custom layout.</string>
     
