@@ -35,7 +35,7 @@ layout: default
 		<h3>Action Bar API</h3>
 		<p>When creating an activity to use the action bar on all versions of Android, you must declare your activity to extend any of the activity classes that start with 'Sherlock' (e.g., <code>SherlockActivity</code>, <code>SherlockFragmentActivity</code>). Interaction with the action bar is handled by calling <code>getSupportActionBar()</code> (instead of <a href="http://developer.android.com/reference/android/app/Activity.html#getActionBar()"><code>getActionBar()</code></a>).</p>
 		<p>The API exposed by the <code>ActionBar</code> instance is an exact duplicate of <a href="http://developer.android.com/reference/android/app/ActionBar.html">that which the native method exposes</a>. Refer to its documentation as well as the articles on how to utilize its functionality in the &quot;Related Links&quot; section.</p>
-		<p><em>Note: When using <code>SherlockFragmentActivity</code> there are also 'Sherlock'-prefixed fragment classes which you should use to ensure proper functionality (e.g. <code>SherlockFragment</code>, <code>SherlockListFragment</code>). The activity will still function with the normal fragment classes but you will not be able to use any of the menu-related methods.</p>
+		<p><strong>NOTE</strong>: When using <code>SherlockFragmentActivity</code> there are also 'Sherlock'-prefixed fragment classes which you should use to ensure proper functionality (e.g. <code>SherlockFragment</code>, <code>SherlockListFragment</code>). The activity will still function with the normal fragment classes but you will not be able to use any of the menu-related methods.</p>
 
 		<h3>Imports</h3>
 		<p>In order to provide functionality that was not available on version of Android prior to 3.0, the library includes and uses a lot of classes that are named the same as their native counterparts. The three most common are:</p>
@@ -43,9 +43,11 @@ layout: default
 			<li><code>com.actionbarsherlock.app.ActionBar</code></li>
 			<li><code>com.actionbarsherlock.view.Menu</code></li>
 			<li><code>com.actionbarsherlock.view.MenuItem</code></li>
+			<li><code>com.actionbarsherlock.view.MenuInflater</code></li>
 		</ul>
 		<p>It is important to ensure that you are using these types where appropriate since they contain the additional functionality required to support the action bar.</p>
 		<p><strong>NOTE</strong>: The majority of errors regarding the <code>@Override</code>-ing of methods from the activities are a result of using the incorrect imports. All of the classes which exist in the <code>com.actionbarsherlock.*</code> package whose names match that of a native class extend from that native class and as such can be used in their place.</p>
+		<p><strong>NOTE</strong>: In order to inflate your menu from XML you should call <code>getSupportMenuInflater()</code> in your activities. The fragment callbacks will already have an instance of the inflater as an argument.</p>
 
 		<h3>See Also...</h3>
 		<p>This library was meant to be as behind-the-scenes as possible and require a minimal amount of changes to support. The core usage of the action bar itself is no different than if you were interacting with the native action bar.</p>
