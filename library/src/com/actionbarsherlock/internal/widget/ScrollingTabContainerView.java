@@ -360,6 +360,14 @@ public class ScrollingTabContainerView extends HorizontalScrollView
     public void onNothingSelected(IcsAdapterView<?> parent) {
     }
 
+    public float getAlpha() {
+    	return mTabLayout.getAlpha();
+    }
+    
+    public void setAlpha(float alpha) {
+    	mTabLayout.setAlpha(alpha);
+    }
+    
     public static class TabView extends LinearLayout {
         private ScrollingTabContainerView mParent;
         private ActionBar.Tab mTab;
