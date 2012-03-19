@@ -263,33 +263,30 @@ public class MenuItemWrapper implements MenuItem, android.view.MenuItem.OnMenuIt
     @Override
     public MenuItem setOnActionExpandListener(OnActionExpandListener listener) {
         mActionExpandListener = listener;
-        
-		if (mNativeActionExpandListener == null) {
-			mNativeActionExpandListener = new android.view.MenuItem.OnActionExpandListener() {
-				@Override
-				public boolean onMenuItemActionExpand(
-						android.view.MenuItem menuItem) {
-					if (mActionExpandListener != null) {
-						return mActionExpandListener
-								.onMenuItemActionCollapse(MenuItemWrapper.this);
-					}
-					return false;
-				}
 
-				@Override
-				public boolean onMenuItemActionCollapse(
-						android.view.MenuItem menuItem) {
-					if (mActionExpandListener != null) {
-						return mActionExpandListener
-								.onMenuItemActionExpand(MenuItemWrapper.this);
-					}
-					return false;
-				}
-			};
-		}
+        if (mNativeActionExpandListener == null) {
+            mNativeActionExpandListener = new android.view.MenuItem.OnActionExpandListener() {
+                @Override
+                public boolean onMenuItemActionExpand(android.view.MenuItem menuItem) {
+                    if (mActionExpandListener != null) {
+                        return mActionExpandListener.onMenuItemActionCollapse(MenuItemWrapper.this);
+                    }
+                    return false;
+                }
 
-        //Register our inner-class as the listener to proxy method calls
-        mNativeItem.setOnActionExpandListener(mNativeActionExpandListener);
+                @Override
+                public boolean onMenuItemActionCollapse(android.view.MenuItem menuItem) {
+                    if (mActionExpandListener != null) {
+                        return mActionExpandListener.onMenuItemActionExpand(MenuItemWrapper.this);
+                    }
+                    return false;
+                }
+            };
+
+            //Register our inner-class as the listener to proxy method calls
+            mNativeItem.setOnActionExpandListener(mNativeActionExpandListener);
+        }
+
         return this;
     }
 }
