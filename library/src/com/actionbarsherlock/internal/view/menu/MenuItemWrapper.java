@@ -14,24 +14,7 @@ public class MenuItemWrapper implements MenuItem, android.view.MenuItem.OnMenuIt
     private SubMenu mSubMenu = null;
     private OnMenuItemClickListener mMenuItemClickListener = null;
     private OnActionExpandListener mActionExpandListener = null;
-
-    private final android.view.MenuItem.OnActionExpandListener mNativeActionExpandListener = new android.view.MenuItem.OnActionExpandListener() {
-        @Override
-        public boolean onMenuItemActionExpand(android.view.MenuItem menuItem) {
-            if (mActionExpandListener != null) {
-                return mActionExpandListener.onMenuItemActionCollapse(MenuItemWrapper.this);
-            }
-            return false;
-        }
-
-        @Override
-        public boolean onMenuItemActionCollapse(android.view.MenuItem menuItem) {
-            if (mActionExpandListener != null) {
-                return mActionExpandListener.onMenuItemActionExpand(MenuItemWrapper.this);
-            }
-            return false;
-        }
-    };
+    private android.view.MenuItem.OnActionExpandListener mNativeActionExpandListener = null;
 
 
     public MenuItemWrapper(android.view.MenuItem nativeItem) {
@@ -280,6 +263,31 @@ public class MenuItemWrapper implements MenuItem, android.view.MenuItem.OnMenuIt
     @Override
     public MenuItem setOnActionExpandListener(OnActionExpandListener listener) {
         mActionExpandListener = listener;
+        
+		if (mNativeActionExpandListener == null) {
+			mNativeActionExpandListener = new android.view.MenuItem.OnActionExpandListener() {
+				@Override
+				public boolean onMenuItemActionExpand(
+						android.view.MenuItem menuItem) {
+					if (mActionExpandListener != null) {
+						return mActionExpandListener
+								.onMenuItemActionCollapse(MenuItemWrapper.this);
+					}
+					return false;
+				}
+
+				@Override
+				public boolean onMenuItemActionCollapse(
+						android.view.MenuItem menuItem) {
+					if (mActionExpandListener != null) {
+						return mActionExpandListener
+								.onMenuItemActionExpand(MenuItemWrapper.this);
+					}
+					return false;
+				}
+			};
+		}
+
         //Register our inner-class as the listener to proxy method calls
         mNativeItem.setOnActionExpandListener(mNativeActionExpandListener);
         return this;
