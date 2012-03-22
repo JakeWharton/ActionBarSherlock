@@ -36,6 +36,8 @@
         <item name="actionMenuTextColor">?attr/textColorPrimary</item>
         <item name="actionBarDivider">?attr/dividerVertical</item>
         <item name="actionBarItemBackground">@drawable/abs__item_background_holo_dark</item>
+
+        <item name="buttonStyleSmall">@style/Widget.Sherlock.Button.Small</item>
         
         <item name="homeAsUpIndicator">@drawable/abs__ic_ab_back_holo_dark</item>
         
@@ -50,7 +52,8 @@
         
         <!-- Internal --><item name="dropdownListPreferredItemHeight">48dip</item>
         <item name="dropDownListViewStyle">@style/Widget.Sherlock.ListView.DropDown</item>
-        
+
+        <item name="textAppearanceSmall">@style/TextAppearance.Sherlock.Small</item>
         <item name="textAppearanceLargePopupMenu">@style/TextAppearance.Sherlock.Widget.PopupMenu.Large</item>
         <item name="textAppearanceSmallPopupMenu">@style/TextAppearance.Sherlock.Widget.PopupMenu.Small</item>
         
@@ -84,6 +87,8 @@
         <item name="actionMenuTextColor">?attr/textColorPrimary</item>
         <item name="actionBarDivider">?attr/dividerVertical</item>
         <item name="actionBarItemBackground">@drawable/abs__item_background_holo_light</item>
+
+        <item name="buttonStyleSmall">@style/Widget.Sherlock.Light.Button.Small</item>
         
         <item name="homeAsUpIndicator">@drawable/abs__ic_ab_back_holo_light</item>
         
@@ -98,7 +103,8 @@
         
         <!-- Internal --><item name="dropdownListPreferredItemHeight">48dip</item>
         <item name="dropDownListViewStyle">@style/Widget.Sherlock.Light.ListView.DropDown</item>
-        
+
+        <item name="textAppearanceSmall">@style/TextAppearance.Sherlock.Light.Small</item>
         <item name="textAppearanceLargePopupMenu">@style/TextAppearance.Sherlock.Light.Widget.PopupMenu.Large</item>
         <item name="textAppearanceSmallPopupMenu">@style/TextAppearance.Sherlock.Light.Widget.PopupMenu.Small</item>
         
