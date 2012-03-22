@@ -19,5 +19,6 @@
 		<module>demos</module>
 		<module>fragments</module>
 		<module>roboguice</module>
+		<module>styled</module>
 	</modules>
 </project>
