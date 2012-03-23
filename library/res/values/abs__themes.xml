@@ -131,7 +131,7 @@
         <item name="actionBarTabTextStyle">@style/Widget.Sherlock.Light.ActionBar.TabText.Inverse</item>
         <item name="actionBarDivider">@drawable/abs__list_divider_holo_dark</item>
         <item name="actionBarItemBackground">@drawable/abs__item_background_holo_dark</item>
-        <item name="actionMenuTextColor">?android:attr/textColorPrimaryInverse</item>
+        <item name="actionMenuTextColor">?attr/textColorPrimaryInverse</item>
         <item name="actionModeStyle">@style/Widget.Sherlock.Light.ActionMode.Inverse</item>
         <item name="actionModeCloseButtonStyle">@style/Widget.Sherlock.ActionButton.CloseMode</item>
         <item name="actionModePopupWindowStyle">@style/Widget.Sherlock.PopupWindow.ActionMode</item>
