@@ -336,11 +336,9 @@ public class ActionBarWrapper extends ActionBar implements android.app.ActionBar
         public void onTabSelected(android.app.ActionBar.Tab tab, android.app.FragmentTransaction ft) {
             if (mListener != null) {
                 
-                if (mFragmentTransaction == null) {
-                    if (mActivity instanceof SherlockFragmentActivity) {
-                        mFragmentTransaction = ((SherlockFragmentActivity)mActivity).getSupportFragmentManager().beginTransaction()
-                                .disallowAddToBackStack();
-                    }
+                if (mFragmentTransaction == null && mActivity instanceof SherlockFragmentActivity) {
+                    mFragmentTransaction = ((SherlockFragmentActivity)mActivity).getSupportFragmentManager().beginTransaction()
+                            .disallowAddToBackStack();
                 }
                 
                 mListener.onTabSelected(this, mFragmentTransaction);
