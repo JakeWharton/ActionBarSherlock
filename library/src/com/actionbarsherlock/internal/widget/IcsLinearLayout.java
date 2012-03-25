@@ -136,7 +136,7 @@ public class IcsLinearLayout extends NineLinearLayout {
                 if (orientation == VERTICAL) {
                     params.bottomMargin = mDividerHeight;
                 } else {
-                    params.rightMargin = mDividerHeight;
+                    params.rightMargin = mDividerWidth;
                 }
             }
         }

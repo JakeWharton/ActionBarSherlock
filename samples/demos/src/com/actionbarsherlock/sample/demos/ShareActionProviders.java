@@ -44,16 +44,17 @@ public class ShareActionProviders extends SherlockActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        setTheme(SampleList.THEME); //Used for theme switching in samples
         super.onCreate(savedInstanceState);
         setContentView(R.layout.text);
-        ((TextView)findViewById(R.id.text)).setText(R.string.actionbar_share_action_providers_content);
+        ((TextView)findViewById(R.id.text)).setText(R.string.share_action_providers_content);
         copyPrivateRawResuorceToPubliclyAccessibleFile();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate your menu.
-        getSupportMenuInflater().inflate(R.menu.action_bar_share_action_provider, menu);
+        getSupportMenuInflater().inflate(R.menu.share_action_provider, menu);
 
         // Set file with share history to the provider and set the share intent.
         MenuItem actionItem = menu.findItem(R.id.menu_item_share_action_provider_action_bar);
@@ -63,15 +64,16 @@ public class ShareActionProviders extends SherlockActivity {
         // say when the user has selected an image.
         actionProvider.setShareIntent(createShareIntent());
 
+        //XXX: For now, ShareActionProviders must be displayed on the action bar
         // Set file with share history to the provider and set the share intent.
-        MenuItem overflowItem = menu.findItem(R.id.menu_item_share_action_provider_overflow);
-        ShareActionProvider overflowProvider =
-            (ShareActionProvider) overflowItem.getActionProvider();
-        overflowProvider.setShareHistoryFileName(
-            ShareActionProvider.DEFAULT_SHARE_HISTORY_FILE_NAME);
+        //MenuItem overflowItem = menu.findItem(R.id.menu_item_share_action_provider_overflow);
+        //ShareActionProvider overflowProvider =
+        //    (ShareActionProvider) overflowItem.getActionProvider();
+        //overflowProvider.setShareHistoryFileName(
+        //    ShareActionProvider.DEFAULT_SHARE_HISTORY_FILE_NAME);
         // Note that you can set/change the intent any time,
         // say when the user has selected an image.
-        overflowProvider.setShareIntent(createShareIntent());
+        //overflowProvider.setShareIntent(createShareIntent());
 
         return true;
     }

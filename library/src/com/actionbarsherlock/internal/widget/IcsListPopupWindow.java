@@ -75,7 +75,7 @@ public class IcsListPopupWindow {
     public static final int POSITION_PROMPT_BELOW = 1;
 
     public IcsListPopupWindow(Context context) {
-        this(context, null, 0);
+        this(context, null, R.attr.listPopupWindowStyle);
     }
 
     public IcsListPopupWindow(Context context, AttributeSet attrs, int defStyleAttr) {

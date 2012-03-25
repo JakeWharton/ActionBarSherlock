@@ -20,9 +20,10 @@
         android:title="@string/action_bar_share_with"
         android:actionProviderClass="com.actionbarsherlock.widget.ShareActionProvider" />
 
-    <item android:id="@+id/menu_item_share_action_provider_overflow"
+    <!-- XXX: For now, ShareActionProviders must be displayed on the action bar -->
+    <!--item android:id="@+id/menu_item_share_action_provider_overflow"
         android:showAsAction="never"
         android:title="@string/action_bar_share_with"
-        android:actionProviderClass="com.actionbarsherlock.widget.ShareActionProvider" />
+        android:actionProviderClass="com.actionbarsherlock.widget.ShareActionProvider" /-->
 
 </menu>

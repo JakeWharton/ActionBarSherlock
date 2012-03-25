@@ -64,42 +64,42 @@
                 <category android:name="com.actionbarsherlock.sample.demos.EXAMPLE"/>
             </intent-filter>
         </activity>
-        
+
         <activity android:label="@string/dialog" android:name=".Dialog" android:theme="@style/Theme.Sherlock.Dialog">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="com.actionbarsherlock.sample.demos.EXAMPLE"/>
             </intent-filter>
         </activity>
-        
+
         <activity android:label="@string/feature_toggles" android:name=".FeatureToggles">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="com.actionbarsherlock.sample.demos.EXAMPLE"/>
             </intent-filter>
         </activity>
-        
+
         <activity android:label="@string/forced_overflow" android:name=".ForcedOverflowItem">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="com.actionbarsherlock.sample.demos.EXAMPLE"/>
             </intent-filter>
         </activity>
-        
+
         <activity android:label="@string/iprogress" android:name=".IndeterminateProgress">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="com.actionbarsherlock.sample.demos.EXAMPLE"/>
             </intent-filter>
         </activity>
-        
+
         <activity android:label="@string/list_navigation" android:name=".ListNavigation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="com.actionbarsherlock.sample.demos.EXAMPLE"/>
             </intent-filter>
         </activity>
-        
+
         <activity android:label="@string/overlay" android:name=".Overlay">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -120,14 +120,14 @@
                 <category android:name="com.actionbarsherlock.sample.demos.EXAMPLE"/>
             </intent-filter>
         </activity>
-        
+
         <activity android:label="@string/simple" android:name=".Simple">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="com.actionbarsherlock.sample.demos.EXAMPLE"/>
             </intent-filter>
         </activity>
-        
+
         <activity android:label="@string/split" android:name=".SplitActionItems" android:uiOptions="splitActionBarWhenNarrow">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -135,48 +135,48 @@
             </intent-filter>
         </activity>
 
-        <activity android:label="@string/actionbar_share_action_providers" android:name=".ShareActionProviders">
+        <activity android:label="@string/share_action_providers" android:name=".ShareActionProviders">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.actionbarsherlock.sample.demos.EXAMPLE"/>
             </intent-filter>
         </activity>
-        
+
         <activity android:label="@string/split_action_modes" android:name=".SplitActionModes" android:uiOptions="splitActionBarWhenNarrow">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="com.actionbarsherlock.sample.demos.EXAMPLE"/>
             </intent-filter>
         </activity>
-        
+
         <activity android:label="@string/static_attach" android:name=".StaticAttachment">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="com.actionbarsherlock.sample.demos.EXAMPLE"/>
             </intent-filter>
         </activity>
-        
+
         <activity android:label="@string/styled" android:name=".Styled" android:theme="@style/Theme.Styled" android:uiOptions="splitActionBarWhenNarrow">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="com.actionbarsherlock.sample.demos.EXAMPLE"/>
             </intent-filter>
         </activity>
-        
+
         <activity android:label="@string/submenus" android:name=".SubMenus">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="com.actionbarsherlock.sample.demos.EXAMPLE"/>
             </intent-filter>
         </activity>
-        
+
         <activity android:label="@string/tab_navigation" android:name=".TabNavigation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="com.actionbarsherlock.sample.demos.EXAMPLE"/>
             </intent-filter>
         </activity>
-        
+
         <activity android:label="@string/tab_navigation_collapsed" android:name=".TabNavigationCollapsed">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

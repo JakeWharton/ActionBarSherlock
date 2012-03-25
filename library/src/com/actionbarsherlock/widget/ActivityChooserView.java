@@ -16,6 +16,7 @@
 
 package com.actionbarsherlock.widget;
 
+import android.os.Build;
 import com.actionbarsherlock.R;
 import com.actionbarsherlock.internal.widget.IcsLinearLayout;
 import com.actionbarsherlock.internal.widget.IcsListPopupWindow;
@@ -611,6 +612,14 @@ class ActivityChooserView extends ViewGroup implements ActivityChooserModelClien
         }
     }
 
+    private static class SetActivated {
+        public static void invoke(View view, boolean activated) {
+            view.setActivated(activated);
+        }
+    }
+
+    private static final boolean IS_HONEYCOMB = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
+
     /**
      * Adapter for backing the list of activities shown in the popup.
      */
@@ -720,11 +729,13 @@ class ActivityChooserView extends ViewGroup implements ActivityChooserModelClien
                     // Set the title.
                     TextView titleView = (TextView) convertView.findViewById(R.id.abs__title);
                     titleView.setText(activity.loadLabel(packageManager));
-                    // Highlight the default.
-                    if (mShowDefaultActivity && position == 0 && mHighlightDefaultActivity) {
-                        convertView.setActivated(true);
-                    } else {
-                        convertView.setActivated(false);
+                    if (IS_HONEYCOMB) {
+                        // Highlight the default.
+                        if (mShowDefaultActivity && position == 0 && mHighlightDefaultActivity) {
+                            SetActivated.invoke(convertView, true);
+                        } else {
+                            SetActivated.invoke(convertView, false);
+                        }
                     }
                     return convertView;
                 default:

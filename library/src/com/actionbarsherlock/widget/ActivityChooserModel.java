@@ -612,7 +612,7 @@ class ActivityChooserModel extends DataSetObservable {
             mHistoricalRecordsChanged = false;
             mCanReadHistoricalData = true;
             if (!TextUtils.isEmpty(mHistoryFileName)) {
-                AsyncTask.SERIAL_EXECUTOR.execute(new HistoryPersister());
+                /*AsyncTask.*/SERIAL_EXECUTOR.execute(new HistoryPersister());
             }
         }
     }
