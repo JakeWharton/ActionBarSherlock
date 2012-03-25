@@ -20,7 +20,6 @@ import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Build;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
@@ -33,7 +32,7 @@ import com.actionbarsherlock.internal.nineoldandroids.view.NineViewGroup;
 import com.actionbarsherlock.internal.view.menu.ActionMenuPresenter;
 import com.actionbarsherlock.internal.view.menu.ActionMenuView;
 
-import static com.actionbarsherlock.internal.ActionBarSherlockCompat.getResources_getBoolean;
+import static com.actionbarsherlock.internal.ResourcesCompat.getResources_getBoolean;
 
 public abstract class AbsActionBarView extends NineViewGroup {
     protected ActionMenuView mMenuView;
@@ -67,13 +66,6 @@ public abstract class AbsActionBarView extends NineViewGroup {
         mContext = context;
     }
 
-
-    @Override
-    public boolean onInterceptTouchEvent(MotionEvent ev) {
-        //Workaround for #209
-        return getVisibility() != VISIBLE;
-    }
-
     /*
      * Must be public so we can dispatch pre-2.2 via ActionBarImpl.
      */
@@ -81,6 +73,8 @@ public abstract class AbsActionBarView extends NineViewGroup {
     public void onConfigurationChanged(Configuration newConfig) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
             super.onConfigurationChanged(newConfig);
+        } else if (mMenuView != null) {
+            mMenuView.onConfigurationChanged(newConfig);
         }
 
         // Action bar can change size on configuration changes.

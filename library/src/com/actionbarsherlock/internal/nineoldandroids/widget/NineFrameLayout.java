@@ -22,6 +22,18 @@ public class NineFrameLayout extends FrameLayout {
         mProxy = AnimatorProxy.NEEDS_PROXY ? AnimatorProxy.wrap(this) : null;
     }
 
+    @Override
+    public void setVisibility(int visibility) {
+        if (mProxy != null) {
+            if (visibility == GONE) {
+                clearAnimation();
+            } else if (visibility == VISIBLE) {
+                setAnimation(mProxy);
+            }
+        }
+        super.setVisibility(visibility);
+    }
+
     public float getAlpha() {
         if (AnimatorProxy.NEEDS_PROXY) {
             return mProxy.getAlpha();

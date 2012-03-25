@@ -32,6 +32,7 @@ import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.RoundRectShape;
 import android.graphics.drawable.shapes.Shape;
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.os.SystemClock;
@@ -183,6 +184,7 @@ import android.widget.RemoteViews.RemoteView;
  */
 @RemoteView
 public class IcsProgressBar extends View {
+    private static final boolean IS_HONEYCOMB = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
     private static final int MAX_LEVEL = 10000;
     private static final int ANIMATION_RESOLUTION = 200;
     private static final int TIMEOUT_SEND_ACCESSIBILITY_EVENT = 200;
@@ -236,6 +238,8 @@ public class IcsProgressBar extends View {
     private Transformation mTransformation;
     private AlphaAnimation mAnimation;
     private Drawable mIndeterminateDrawable;
+    private int mIndeterminateRealLeft;
+    private int mIndeterminateRealTop;
     private Drawable mProgressDrawable;
     private Drawable mCurrentDrawable;
     Bitmap mSampleTile;
@@ -986,7 +990,9 @@ public class IcsProgressBar extends View {
                     }
                 }
             }
-            mIndeterminateDrawable.setBounds(left, top, right, bottom);
+            mIndeterminateDrawable.setBounds(0, 0, right - left, bottom - top);
+            mIndeterminateRealLeft = left;
+            mIndeterminateRealTop = top;
         }
 
         if (mProgressDrawable != null) {
@@ -1003,7 +1009,7 @@ public class IcsProgressBar extends View {
             // Translate canvas so a indeterminate circular progress bar with padding
             // rotates properly in its animation
             canvas.save();
-            canvas.translate(getPaddingLeft(), getPaddingTop());
+            canvas.translate(getPaddingLeft() + mIndeterminateRealLeft, getPaddingTop() + mIndeterminateRealTop);
             long time = getDrawingTime();
             if (mAnimation != null) {
                 mAnimation.getTransformation(time, mTransformation);
@@ -1042,8 +1048,13 @@ public class IcsProgressBar extends View {
         dw += getPaddingLeft() + getPaddingRight();
         dh += getPaddingTop() + getPaddingBottom();
 
-        setMeasuredDimension(IcsView.resolveSizeAndState(dw, widthMeasureSpec, 0),
-                IcsView.resolveSizeAndState(dh, heightMeasureSpec, 0));
+        if (IS_HONEYCOMB) {
+            setMeasuredDimension(View.resolveSizeAndState(dw, widthMeasureSpec, 0),
+                    View.resolveSizeAndState(dh, heightMeasureSpec, 0));
+        } else {
+            setMeasuredDimension(View.resolveSize(dw, widthMeasureSpec),
+                    View.resolveSize(dh, heightMeasureSpec));
+        }
     }
 
     @Override

@@ -11,12 +11,14 @@
 	<parent>
 		<groupId>com.actionbarsherlock</groupId>
 		<artifactId>parent</artifactId>
-		<version>4.0.0-SNAPSHOT</version>
+		<version>4.0.1-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
 	<modules>
 		<module>demos</module>
-		<module>plugins</module>
+		<module>fragments</module>
+		<module>roboguice</module>
+		<module>styled</module>
 	</modules>
 </project>

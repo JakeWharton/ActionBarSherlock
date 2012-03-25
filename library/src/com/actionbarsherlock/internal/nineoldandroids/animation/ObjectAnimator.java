@@ -32,6 +32,7 @@ import java.util.ArrayList;
  * @see #setPropertyName(String)
  *
  */
+@SuppressWarnings("rawtypes")
 public final class ObjectAnimator extends ValueAnimator {
     private static final boolean DBG = false;
 

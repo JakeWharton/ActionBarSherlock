@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.ViewGroup.LayoutParams;
 
+@ActionBarSherlock.Implementation(api = 14)
 public class ActionBarSherlockNative extends ActionBarSherlock {
     private ActionBarWrapper mActionBar;
     private ActionModeWrapper mActionMode;
@@ -34,6 +35,10 @@ public class ActionBarSherlockNative extends ActionBarSherlock {
     }
 
     private void initActionBar() {
+        if (mActionBar != null || mActivity.getActionBar() == null) {
+            return;
+        }
+
         mActionBar = new ActionBarWrapper(mActivity);
     }
 
@@ -48,7 +53,7 @@ public class ActionBarSherlockNative extends ActionBarSherlock {
     public boolean dispatchCreateOptionsMenu(android.view.Menu menu) {
         if (DEBUG) Log.d(TAG, "[dispatchCreateOptionsMenu] menu: " + menu);
 
-        if (mMenu == null) {
+        if (mMenu == null || menu != mMenu.unwrap()) {
             mMenu = new MenuWrapper(menu);
         }
 
@@ -68,7 +73,7 @@ public class ActionBarSherlockNative extends ActionBarSherlock {
 
     @Override
     public boolean dispatchOptionsItemSelected(android.view.MenuItem item) {
-        if (DEBUG) Log.d(TAG, "[dispatchOptionsItemSelected] item: " + item);
+        if (DEBUG) Log.d(TAG, "[dispatchOptionsItemSelected] item: " + item.getTitleCondensed());
 
         final boolean result = callbackOptionsItemSelected(mMenu.findItem(item));
         if (DEBUG) Log.d(TAG, "[dispatchOptionsItemSelected] returning " + result);

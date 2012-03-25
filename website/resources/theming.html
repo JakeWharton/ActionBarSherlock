@@ -3,66 +3,45 @@ title: Theming
 layout: default
 ---
 
-
 <div class="row">
 	<div class="whole" id="theming">
 		<h1>Theming</h1>
 
-		<p>Theming of the action bar to work on both pre-3.0 and 3.0+ devices is a very straightforward and simple process. You should follow the existing theming recommendations for <a href="http://android-developers.blogspot.com/2011/04/customizing-action-bar.html">customizing the native action bar</a> except for what is noted below.</p>
-		<p>An example of a customized action bar can be seen in the &ldquo;Styled&rdquo; application on the <a href="/samples.html">samples page</a>.</p>
+		<p>Theming of the action bar to work on all devices is a very straightforward and simple process. You should follow the existing theming recommendations for <a href="http://android-developers.blogspot.com/2011/04/customizing-action-bar.html">customizing the native action bar</a> with some minor tweaks.</p>
+		<p>An example of a customized action bar can be seen in the &ldquo;Styled&rdquo; example in the 'Demos' sample.</p>
 
 		<h3>Parent Themes</h3>
-		<p>In order for the action bar to function on pre-3.0 devices your activity must use <code>Theme.Sherlock</code> or <code>Theme.Sherlock.Light</code>, or your custom theme must use one of the aforementioned two as its parent.</p>
-		<p>These two themes serve as baseline configurations for the pre-3.0 action bar as well as mapping the attributes to their native versions on 3.0+.</p>
-		<p>The themes should be defined in your manifest for the entire application or on a per-activity basis. You may also define the theme in the code of each activity <em>before</em> calling <code>super.onCreate(Bundle)</code>. This must be done for every activity on which you extend from <code>FragmentActivity</code> and intend to use the action bar. More information on how to specify a theme can be found in the <a href="http://developer.android.com/guide/topics/ui/themes.html#ApplyATheme">official Android documentation</a>.</p>
+		<p>In order for the custom action bar implementation to function your application must use <code>Theme.Sherlock</code>, <code>Theme.Sherlock.Light</code>, or <code>Theme.Sherlock.Light.DarkActionBar</code>, or your custom theme must use one of the aforementioned as its parent.</p>
+		<p>The themes should be defined in your manifest for the entire application or on a per-activity basis. You may also define the theme in the code of each activity <em>before</em> calling <code>super.onCreate(Bundle)</code>. This must be done for every activity on which you extend from one of the 'Sherlock' activity base classes and intend to use the action bar. More information on how to specify a theme can be found in the <a href="http://developer.android.com/guide/topics/ui/themes.html#ApplyATheme">official Android documentation</a>.</p>
 
-		<h3>Attributes</h3>
-		<p>ActionBarSherlock themes expose non-namespaced versions of the action bar-related attributes which are used to style various elements. Each attribute has an appropriate default value set in the two parent themes so that you may only override the value you wish to change.</p>
+		<h3>Mirrored Attributes</h3>
+		<p>Due to limitations in Android's theming system any theme customizations must be declared in two attributes. The normal <code>android</code>-prefixed attributes apply the theme to the native action bar and the unprefixed attributes are for the custom implementation. Since both theming APIs are exactly the same you need only reference your customizations twice rather than having to implement them twice.</p>
+		<p>The easiest way to convey exactly what this entails is with an example. The following is the full theme from the &ldquo;Styled&rdquo; example mentioned above:</p>
+		<pre>&lt;style name="Theme.Styled" parent="Theme.Sherlock.Light.DarkActionBar">
+    &lt;item name="actionBarStyle">@style/Widget.Styled.ActionBar&lt;/item>
+    &lt;item name="android:actionBarStyle">@style/Widget.Styled.ActionBar&lt;/item>
+&lt;/style>
+
+&lt;style name="Widget.Styled.ActionBar" parent="Widget.Sherlock.Light.ActionBar.Solid.Inverse">
+    &lt;item name="background">@drawable/bg_striped&lt;/item>
+    &lt;item name="android:background">@drawable/bg_striped&lt;/item>
+
+    &lt;item name="backgroundSplit">@drawable/bg_striped_split&lt;/item>
+    &lt;item name="android:backgroundSplit">@drawable/bg_striped_split&lt;/item>
+&lt;/style></pre>
+
+		<h3>Dialog</h3>
+		<p>If you have a full activity that you wish to theme in the manner of a dialog there is also <code>Theme.Sherlock.Dialog</code> and <code>Theme.Sherlock.Light.Dialog</code> themes which will provide a consistent Ice Cream Sandwich look.</p>
+		<p>No additional dialog themes will be included. If you require some of the more advanced features of dialogs they must be implemented yourself.</p>
+
+		<h3>Extras</h3>
+		<p>There are also three additional themes built-in which will allow you to force the use of the overflow menu item on Android 2.x.</p>
 		<ul>
-			<li><code>actionBarSize</code> - Height of the action bar container.</li>
-			<li><code>actionBarTabStyle</code> - Style to change the appearance of the individual tabs.</li>
-			<li><code>actionBarTabBarStyle</code> - Style to change the appearance of the tab bar.</li>
-			<li><code>actionBarTabTextStyle</code> - Style to change the appearance of the tab text.</li>
-			<li><code>actionButtonStyle</code> - Style to change the appearance of the action items.</li>
-			<li><code>actionDropDownStyle</code></li>
-			<li><code>actionMenuTextAppearance</code> - Style to change the appearance of the action mode text.</li>
-			<li><code>actionMenuTextColor</code> - Color of the action mode text.</li>
-			<li><code>actionModeBackground</code> - Action mode background.</li>
-			<li><code>actionModeCloseDrawable</code> - Drawable to use as the close button of an action mode.</li>
-			<li><code>actionModeCloseButtonStyle</code> - Style to change the appearance of the action mode close button.</li>
-			<li><code>actionOverflowButtonStyle</code> - Style to change the appearance of the overflow button.</li>
-			<li><code>actionSpinnerItemStyle</code></li>
-			<li><code>dropDownListViewStyle</code></li>
-			<li><code>popupMenuStyle</code></li>
-			<li><code>selectableItemBackground</code></li>
-			<li><code>windowActionBar</code> - Boolean indicating whether to attach the action bar to the current activity or not.</li>
-			<li><code>windowActionModeOverlay</code> - Boolean indicating whether an action mode should overlay the activity contents.</li>
+			<li><code>Theme.Sherlock.ForceOverflow</code></li>
+			<li><code>Theme.Sherlock.Light.ForceOverflow</code></li>
+			<li><code>Theme.Sherlock.Light.DarkActionBar.ForceOverflow</code></li>
 		</ul>
-		<p>There is also additional attributes which applies only to the pre-3.0 action bar to allow for specific customization that is not available on the native action bar.</p>
-		<ul>
-			<li><code>actionHomeButtonStyle</code> - Style of the home button. This style should use <code>Widget.Sherlock.ActionButton.Home</code> as its parent.</li>
-			<li><code>homeAsUpIndicator</code> - Drawable to use to indicate that the home item will go "up" for the pre-3.0 action bar.</li>
-			<li><code>abBackgroundStacked</code> - Drawable which is used on the tab bar when the action bar is stacked. This attribute is <em>NOT</em> reflected on Android 4.0+</li>
-		</ul>
-		<p>With version 3.1 of the library came new attributes directly in the theme to style the various feature of the action bar without using a seperate style.</p>
-		<ul>
-			<li><code>abBackground</code> - Action bar background.</li>
-			<li><code>abCustomNavigationLayout</code> - Layout resource for a custom navigaton view.</li>
-			<li><code>abDisplayOptions</code> - Combination of one or more of: <code>useLogo</code>, <code>showHome</code>, <code>homeAsUp</code>, <code>showTitle</code>, and <code>showCustom</code>.</li>
-			<li><code>abDivider</code> - Drawable to use between action items on the pre-3.0 action bar.</li>
-			<li><code>abHeight</code> - Action bar height (defaults to match <code>actionBarSize</code>).</li>
-			<li><code>abHomeLayout</code> - Layout to use for the home item.</code>
-			<li><code>abIcon</code> - Icon to display (defaults to activity icon).</li>
-			<li><code>abIndeterminateProgressStyle</code> - Style to change the appearance of the indeterminate progress bar.</code>
-			<li><code>abItemPadding</code> - Padding to use on action items.</code>
-			<li><code>abLogo</code> - Logo to display when the appropriate flag is set.</code>
-			<li><code>abNavigationMode</code> - One of: <code>normal</code>, <code>listMode</code>, or <code>tabMode</code>.</li>
-			<li><code>abTitle</code> - Activity title (defaults to title specified in the manifest).</li>
-			<li><code>abTitleTextStyle</code> - Style to change the appearance of the title text.</li>
-			<li><code>abProgressBarPadding</code> - Padding to use on the determinate progress bar.</code>
-			<li><code>abProgressBarStyle</code> - Style to change the appearance of the determinate progress bar.</li>
-			<li><code>abSubtitle</code> - Activity subtitle.</li>
-			<li><code>abSubtitleTextStyle</code> - Style to change the appearance of the subtitle text.</li>
-		</ul>
+		<p>If you are using a custom theme you can also include the <code>absForceOverflow</code> attribute set to <code>true</code> rather than extend from one of the aforementioned themes.</p>
+		<p><strong>There is no way to control the presence of the overflow action item on Android 4.0 and newer. The force overflow will ONLY affect 2.x and 3.x.</strong></p>
 	</div>
 </div>

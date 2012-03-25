@@ -10,31 +10,20 @@ layout: default
 		<p>Have a question that is not listed on this page? See the &quot;Direct Contact&quot; section of the <a href="support.html">support page</a>.</p>
 		<table id="faq-table">
 			<tr>
-				<th>What action bar library is used on pre-3.0 devices?</th>
-				<td>
-					<p>The widget is a custom implementation that was purpose-built to mimic the API, functionality, and look of the native action bar on 3.0+ devices.</p>
-					<p>The basis for the widget was <a href="https://github.com/johannilsson/android-actionbar/pull/25">work done</a> on Johan Nilsson's <a href="https://github.com/johannilsson/android-actionbar">Android-ActionBar</a> library. The first two versions of ActionBarSherlock used his library directly for support on pre-3.0 devices and without his work the current version of the library would not be possible.</p>
-				</td>
+				<th>What action bar library is used on pre-4.0 devices?</th>
+				<td>The widget is a custom implementation that was purpose-built to mimic the API, functionality, and look of the native action bar on 4.0+ devices. It is primarily comprised of the sources from the Android Open Source Project with heavy modifications to ensure that it works on the earlier API levels.</td>
 			</tr>
 			<tr>
-				<th>What API level should I target if I want to use the library?</th>
-				<td>The library itself must be built against Android 3.2 (API level 13). Your project should be built using the latest version of the SDK as possible (it is best to try and use the same version as the library). This is not a requirement, however, and you may build against any version of the SDK that is Android 3.0 (API level 11) or newer.</td>
+				<th>Why isn't the native action bar used on Android 3.x?</th>
+				<td>The action bar on Android 3.x (also known as Honeycomb) does not implement all of the features of the one in Android 4.x (Ice Cream Sandwich). In order to provide a full action bar API on all platforms as well as unify the styling across all versions of Android the custom implementation is used.</p>
 			</tr>
 			<tr>
-				<th>Why do I have to target at least API level 11 or newer?</th>
-				<td>Targetting API level 11 or newer will cause Android to automatically add the native action bar when run on devices using Android 3.0+. Since you will be compiling against new APIs but your app will likely be run on devices with older versions of Android extra care must be taken to either avoid using or properly check and call any methods that were introduced after your minimum SDK version.</td>
+				<th>What API level should I compile with if I want to use the library?</th>
+				<td>The library itself must be built against Android 4.0 (API level 14). Your project should be built using the latest version of the SDK as possible as long as it is 4.0 or newer.</td>
 			</tr>
 			<tr>
-				<th>Why do action modes not work on pre-3.0 devices?</th>
-				<td>Action mode support is still being worked on for pre-3.0 devices and will be released with a future version of the library.</td>
-			</tr>
-			<tr>
-				<th>Why doesn't the logo defined on the activity/application entry in the manifest get displayed?</th>
-				<td>Despite there being support for loading the logo for activities and applications since API level 9, the underlying implementation in Android is broken and does not work at all. In order to specify a logo on these platforms you should use the <code>abLogo</code> attribute in a <a href="theming.html">custom theme</a>.</td>
-			</tr>
-			<tr>
-				<th>List and tab navigation hide the title on pre-3.0 devices. Can this be changed?</th>
-				<td>Due to the relatively small space to display items on phones, this cannot currently be changed. Future versions of the library will behave more like the native action bar on larger displays (e.g., Nook Color, Archos 101).</td>
+				<th>What API level should I target in my manifest when using the library?</th>
+				<td>Targetting API level 11 or newer is required as it will cause Android to automatically add the native action bar when run on newer devices. Since you will be compiling against new APIs but your app will likely be run on devices with older versions of Android extra care must be taken to either avoid using or properly check and call any methods that were introduced after your minimum SDK version.</td>
 			</tr>
 			<tr>
 				<th>Can you add functionality *X* to the action bar?</th>
@@ -42,19 +31,19 @@ layout: default
 			</tr>
 			<tr>
 				<th>Why is ActionBarSherlock a library project whereas the original compatibility library is only a <code>.jar</code>?</th>
-				<td>ActionBarWatson, the custom action bar implementation within ActionBarSherlock for pre-3.0 devices, relies on styles, themes, layouts, and drawables in order to display properly. Due to the limitations of Android and <code>.jar</code> files, it can not be accomplished any other way.</td>
+				<td>The custom action bar implementation within ActionBarSherlock relies on styles, themes, layouts, and drawables in order to display properly. Due to the limitations of Android and <code>.jar</code> files, this currently can not be accomplished any other way.</td>
 			</tr>
 			<tr>
 				<th>I found a bug, what should I do?</th>
 				<td>See the <a href="support.html">support page</a> and create an issue on GitHub, post to the Google Group, or contact me directly. Or do all three! The worst thing you can do is to not report it. Please try to include as much information as possible in your report.</td>
 			</tr>
 			<tr>
-				<th>What causes the following error: <code>Binary XML file line #8: You must supply a layout_height attribute</code>?</th>
-				<td>You application or activity is not using a theme from the application. See the &quot;Parent Themes&quot; section of <a href="theming.html">the theming page</a>.</td>
+				<th>Do I need to include the <code>.jar</code> file for the Android compatibility library when using ActionBarSherlock?</th>
+				<td><strong>Yes.</strong> ActionBarSherlock is built as an extension of the Android compatibility library and requires that it be included.</td>
 			</tr>
 			<tr>
-				<th>Do I need to include the <code>.jar</code> file for the Android compatability library when using ActionBarSherlock?</th>
-				<td>No. ActionBarSherlock is built on top of the Android compatability library and comes bundled with its class files. Including the <code>.jar</code> will result in a very large number of compile-time errors.</td>
+				<th>I get the following exception when using fragments: <em>&quot;Cannot interact with object designed for temporary instance passing.&quot;</em></th>
+				<td>In order to provide the full ICS menu API the library provides its own fragment base classes. Like the activities, they are prefixed with 'Sherlock' and are provided for each of the fragment classes from the support library (e.g., <code>SherlockFragment</code>, <code>SherlockDialogFragment</code>).</td>
 			</tr>
 			<tr>
 				<th>I use Proguard. Are there any lines I should include to ensure functionality of the library?</th>
@@ -63,8 +52,10 @@ layout: default
 					<code><pre>
 -keep class android.support.v4.app.** { *; }
 -keep interface android.support.v4.app.** { *; }
--keep class com.actionbarsherlock.internal.** { *; }
--keep interface com.actionbarsherlock.internal.** { *; }
+-keep class com.actionbarsherlock.** { *; }
+-keep interface com.actionbarsherlock.** { *; }
+
+-keepattributes *Annotation*
 					</pre></code>
 				</td>
 			</tr>

@@ -3,8 +3,8 @@
 <resources>
     <attr name="titleTextStyle" format="reference" />
     <attr name="subtitleTextStyle" format="reference" />
-    <attr name="background" format="reference" />
-    <attr name="backgroundSplit" format="reference" />
+    <attr name="background" format="reference|color" />
+    <attr name="backgroundSplit" format="reference|color" />
     <attr name="height" format="dimension" />
     <attr name="divider" format="reference" />
     
@@ -91,8 +91,11 @@
         <attr name="textAppearanceSmall" format="reference" />
         
         <attr name="textColorPrimary" format="color" />
+        <attr name="textColorPrimaryDisableOnly" format="color" />
+        <attr name="textColorPrimaryInverse" format="color" />
         
-        
+        <attr name="spinnerItemStyle" format="reference" />
+        <attr name="spinnerDropDownItemStyle" format="reference" />
 
         <!-- =========== -->
         <!-- List styles -->
@@ -110,6 +113,9 @@
         <!-- The preferred TextAppearance for the primary text of small list items. -->
         <attr name="textAppearanceListItemSmall" format="reference" />
         
+        
+        <attr name="windowMinWidthMajor" format="dimension" />
+        <attr name="windowMinWidthMinor" format="dimension" />
         
         
 
@@ -137,6 +143,8 @@
         
         <!-- Specified if we are forcing an action item overflow menu. -->
         <attr name="absForceOverflow" format="boolean" />
+        
+        <attr name="android:windowIsFloating" />
     </declare-styleable>
     
 
@@ -244,5 +252,125 @@
              give a clue that sharing is to be performed.
          -->
         <attr name="expandActivityOverflowButtonDrawable" format="reference" />
+    </declare-styleable>
+
+    <!-- Base attributes that are available to all groups. -->
+    <declare-styleable name="SherlockMenuGroup">
+
+        <!-- The ID of the group. -->
+        <attr name="android:id" />
+
+        <!-- The category applied to all items within this group.
+             (This will be or'ed with the orderInCategory attribute.) -->
+        <attr name="android:menuCategory" />
+
+        <!-- The order within the category applied to all items within this group.
+             (This will be or'ed with the category attribute.) -->
+        <attr name="android:orderInCategory" />
+
+        <!-- Whether the items are capable of displaying a check mark. -->
+        <attr name="android:checkableBehavior" />
+
+        <!-- Whether the items are shown/visible. -->
+        <attr name="android:visible" />
+
+        <!-- Whether the items are enabled. -->
+        <attr name="android:enabled" />
+
+    </declare-styleable>
+
+    <!-- Base attributes that are available to all Item objects. -->
+    <declare-styleable name="SherlockMenuItem">
+
+        <!-- The ID of the item. -->
+        <attr name="android:id" />
+
+        <!-- The category applied to the item.
+             (This will be or'ed with the orderInCategory attribute.) -->
+        <attr name="android:menuCategory" />
+
+        <!-- The order within the category applied to the item.
+             (This will be or'ed with the category attribute.) -->
+        <attr name="android:orderInCategory" />
+
+        <!-- The title associated with the item. -->
+        <attr name="android:title" />
+
+        <!-- The condensed title associated with the item.  This is used in situations where the
+             normal title may be too long to be displayed. -->
+        <attr name="android:titleCondensed" />
+
+        <!-- The icon associated with this item.  This icon will not always be shown, so
+             the title should be sufficient in describing this item. -->
+        <attr name="android:icon" />
+
+        <!-- The alphabetic shortcut key.  This is the shortcut when using a keyboard
+             with alphabetic keys. -->
+        <attr name="android:alphabeticShortcut" />
+
+        <!-- The numeric shortcut key.  This is the shortcut when using a numeric (e.g., 12-key)
+             keyboard. -->
+        <attr name="android:numericShortcut" />
+
+        <!-- Whether the item is capable of displaying a check mark. -->
+        <attr name="android:checkable" />
+
+        <!-- Whether the item is checked.  Note that you must first have enabled checking with
+             the checkable attribute or else the check mark will not appear. -->
+        <attr name="android:checked" />
+
+        <!-- Whether the item is shown/visible. -->
+        <attr name="android:visible" />
+
+        <!-- Whether the item is enabled. -->
+        <attr name="android:enabled" />
+
+        <!-- Name of a method on the Context used to inflate the menu that will be
+             called when the item is clicked. -->
+        <attr name="android:onClick" />
+
+        <!-- How this item should display in the Action Bar, if present. -->
+        <attr name="android:showAsAction" />
+
+        <!-- An optional layout to be used as an action view.
+             See {@link android.view.MenuItem#setActionView(android.view.View)}
+             for more info. -->
+        <attr name="android:actionLayout" />
+
+        <!-- The name of an optional View class to instantiate and use as an
+             action view. See {@link android.view.MenuItem#setActionView(android.view.View)}
+             for more info. -->
+        <attr name="android:actionViewClass" />
+
+        <!-- The name of an optional ActionProvider class to instantiate an action view
+             and perform operations such as default action for that menu item.
+             See {@link android.view.MenuItem#setActionProvider(android.view.ActionProvider)}
+             for more info. -->
+        <attr name="android:actionProviderClass" />
+
+    </declare-styleable>
+    
+    <declare-styleable name="SherlockSpinner">
+        <!-- The prompt to display when the spinner's dialog is shown. -->
+        <attr name="android:prompt" />
+        <!-- List selector to use for spinnerMode="dropdown" display. -->
+        <attr name="android:dropDownSelector" />
+        <!-- Background drawable to use for the dropdown in spinnerMode="dropdown". -->
+        <attr name="android:popupBackground" />
+        <!-- Vertical offset from the spinner widget for positioning the dropdown in
+             spinnerMode="dropdown". -->
+        <attr name="android:dropDownVerticalOffset" />
+        <!-- Horizontal offset from the spinner widget for positioning the dropdown
+             in spinnerMode="dropdown". -->
+        <attr name="android:dropDownHorizontalOffset" />
+        <!-- Width of the dropdown in spinnerMode="dropdown". -->
+        <attr name="android:dropDownWidth" />
+        <!-- Reference to a layout to use for displaying a prompt in the dropdown for
+             spinnerMode="dropdown". This layout must contain a TextView with the id
+             @android:id/text1 to be populated with the prompt text. -->
+        <attr name="android:popupPromptView" />
+        <!-- Gravity setting for positioning the currently selected item. -->
+        <attr name="android:gravity" />
+>>>>>>> dev
     </declare-styleable>
 </resources>

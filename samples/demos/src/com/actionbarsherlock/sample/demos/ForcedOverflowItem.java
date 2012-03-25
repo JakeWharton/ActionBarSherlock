@@ -25,28 +25,31 @@ import com.actionbarsherlock.view.MenuItem;
 public class ForcedOverflowItem extends SherlockActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        //Used to put dark icons on light action bar
+        boolean isLight = SampleList.THEME == R.style.Theme_Sherlock_Light;
+
         menu.add("Save")
-            .setIcon(R.drawable.ic_compose)
+            .setIcon(isLight ? R.drawable.ic_compose_inverse : R.drawable.ic_compose)
             .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
         menu.add("Search")
-            .setIcon(R.drawable.ic_search)
+            .setIcon(isLight ? R.drawable.ic_search_inverse : R.drawable.ic_search)
             .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
         menu.add("Refresh")
-            .setIcon(R.drawable.ic_refresh)
+            .setIcon(isLight ? R.drawable.ic_refresh_inverse : R.drawable.ic_refresh)
             .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
         menu.add("Save")
-            .setIcon(R.drawable.ic_compose)
+            .setIcon(isLight ? R.drawable.ic_compose_inverse : R.drawable.ic_compose)
             .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
         menu.add("Search")
-            .setIcon(R.drawable.ic_search)
+            .setIcon(isLight ? R.drawable.ic_search_inverse : R.drawable.ic_search)
             .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
         menu.add("Refresh")
-            .setIcon(R.drawable.ic_refresh)
+            .setIcon(isLight ? R.drawable.ic_refresh_inverse : R.drawable.ic_refresh)
             .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
         return true;
@@ -54,8 +57,17 @@ public class ForcedOverflowItem extends SherlockActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Used for theme switching in samples
+        int theme = R.style.Theme_Sherlock_ForceOverflow;
+        if (SampleList.THEME == R.style.Theme_Sherlock_Light) {
+            theme = R.style.Theme_Sherlock_Light_ForceOverflow;
+        } else if (SampleList.THEME == R.style.Theme_Sherlock_Light_DarkActionBar) {
+            theme = R.style.Theme_Sherlock_Light_DarkActionBar_ForceOverflow;
+        }
+        setTheme(theme);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.text);
-        ((TextView)findViewById(R.id.text)).setText(R.string.actionbar_forced_overflow_content);
+        ((TextView)findViewById(R.id.text)).setText(R.string.forced_overflow_content);
     }
 }

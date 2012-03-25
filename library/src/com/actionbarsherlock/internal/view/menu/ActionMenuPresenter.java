@@ -16,10 +16,10 @@
 
 package com.actionbarsherlock.internal.view.menu;
 
+import static com.actionbarsherlock.internal.ResourcesCompat.getResources_getInteger;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -34,7 +34,6 @@ import android.view.View.MeasureSpec;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-
 import com.actionbarsherlock.R;
 import com.actionbarsherlock.internal.view.View_HasStateListenerSupport;
 import com.actionbarsherlock.internal.view.View_OnAttachStateChangeListener;
@@ -88,7 +87,6 @@ public class ActionMenuPresenter extends BaseMenuPresenter
 
         if (!mReserveOverflowSet) {
             mReserveOverflow = reserveOverflow(mContext);
-            mReserveOverflowSet = true;
         }
 
         if (!mWidthLimitSet) {
@@ -97,7 +95,7 @@ public class ActionMenuPresenter extends BaseMenuPresenter
 
         // Measure for initial configuration
         if (!mMaxItemsSet) {
-            mMaxItems = res.getInteger(R.integer.abs__max_action_buttons);
+            mMaxItems = getResources_getInteger(context, R.integer.abs__max_action_buttons);
         }
 
         int width = mWidthLimit;
@@ -132,13 +130,19 @@ public class ActionMenuPresenter extends BaseMenuPresenter
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
             return (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB);
         } else {
-            return !ViewConfiguration.get(context).hasPermanentMenuKey();
+            return !HasPermanentMenuKey.get(context);
+        }
+    }
+
+    private static class HasPermanentMenuKey {
+        public static boolean get(Context context) {
+            return ViewConfiguration.get(context).hasPermanentMenuKey();
         }
     }
 
     public void onConfigurationChanged(Configuration newConfig) {
         if (!mMaxItemsSet) {
-            mMaxItems = mContext.getResources().getInteger(
+            mMaxItems = getResources_getInteger(mContext,
                     R.integer.abs__max_action_buttons);
             if (mMenu != null) {
                 mMenu.onItemsChanged(true);
@@ -324,6 +328,7 @@ public class ActionMenuPresenter extends BaseMenuPresenter
     public boolean hideOverflowMenu() {
         if (mPostedOpenRunnable != null && mMenuView != null) {
             ((View) mMenuView).removeCallbacks(mPostedOpenRunnable);
+            mPostedOpenRunnable = null;
             return true;
         }
 
@@ -680,6 +685,7 @@ public class ActionMenuPresenter extends BaseMenuPresenter
     }
 
     private class PopupPresenterCallback implements MenuPresenter.Callback {
+
         @Override
         public boolean onOpenSubMenu(MenuBuilder subMenu) {
             if (subMenu == null) return false;
@@ -705,10 +711,11 @@ public class ActionMenuPresenter extends BaseMenuPresenter
 
         public void run() {
             mMenu.changeMenuMode();
-            if (mPopup.tryShow()) {
+            final View menuView = (View) mMenuView;
+            if (menuView != null && menuView.getWindowToken() != null && mPopup.tryShow()) {
                 mOverflowPopup = mPopup;
-                mPostedOpenRunnable = null;
             }
+            mPostedOpenRunnable = null;
         }
     }
 }

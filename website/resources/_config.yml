@@ -1,7 +1,2 @@
 url: "http://actionbarsherlock.com"
-pygments: true
-markdown: kramdown
 auto: true
-
-kramdown:
-  entity_output: symbolic

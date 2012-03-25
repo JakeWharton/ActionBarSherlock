@@ -26,6 +26,7 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
+import android.support.v4.app.FragmentTransaction;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
@@ -35,6 +36,7 @@ import android.view.accessibility.AccessibilityEvent;
 import android.widget.SpinnerAdapter;
 import com.actionbarsherlock.R;
 import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.internal.nineoldandroids.animation.Animator;
 import com.actionbarsherlock.internal.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.actionbarsherlock.internal.nineoldandroids.animation.AnimatorSet;
@@ -43,7 +45,6 @@ import com.actionbarsherlock.internal.nineoldandroids.animation.Animator.Animato
 import com.actionbarsherlock.internal.nineoldandroids.widget.NineFrameLayout;
 import com.actionbarsherlock.internal.view.menu.MenuBuilder;
 import com.actionbarsherlock.internal.view.menu.MenuPopupHelper;
-import com.actionbarsherlock.internal.view.menu.MenuPresenter;
 import com.actionbarsherlock.internal.view.menu.SubMenuBuilder;
 import com.actionbarsherlock.internal.widget.ActionBarContainer;
 import com.actionbarsherlock.internal.widget.ActionBarContextView;
@@ -53,7 +54,7 @@ import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-import static com.actionbarsherlock.internal.ActionBarSherlockCompat.getResources_getBoolean;
+import static com.actionbarsherlock.internal.ResourcesCompat.getResources_getBoolean;
 
 /**
  * ActionBarImpl is the ActionBar implementation used
@@ -67,7 +68,7 @@ public class ActionBarImpl extends ActionBar {
 
     private Context mContext;
     private Context mThemedContext;
-    //UNUSED private Activity mActivity;
+    private Activity mActivity;
     //UNUSED private Dialog mDialog;
 
     private ActionBarContainer mContainerView;
@@ -132,7 +133,7 @@ public class ActionBarImpl extends ActionBar {
     };
 
     public ActionBarImpl(Activity activity, int features) {
-        //UNUSED mActivity = activity;
+        mActivity = activity;
         Window window = activity.getWindow();
         View decor = window.getDecorView();
         init(decor);
@@ -169,16 +170,10 @@ public class ActionBarImpl extends ActionBar {
 
         // Older apps get the home button interaction enabled by default.
         // Newer apps need to enable it explicitly.
-        //setHomeButtonEnabled(mContext.getApplicationInfo().targetSdkVersion < 14);
-        // We're all new brotha!  This. Is. ActionBarSherlock!
-        setHomeButtonEnabled(false);
+        setHomeButtonEnabled(mContext.getApplicationInfo().targetSdkVersion < 14);
 
         setHasEmbeddedTabs(getResources_getBoolean(mContext,
                 R.bool.abs__action_bar_embed_tabs));
-    }
-
-    public void setMenu(Menu menu, MenuPresenter.Callback cb) {
-        mActionView.setMenu(menu, cb);
     }
 
     public void onConfigurationChanged(Configuration newConfig) {
@@ -510,28 +505,31 @@ public class ActionBarImpl extends ActionBar {
             return;
         }
 
-        /* XXX final FragmentTransaction trans = mActivity.getSupportFragmentManager().beginTransaction()
-                .disallowAddToBackStack();*/
+        FragmentTransaction trans = null;
+        if (mActivity instanceof SherlockFragmentActivity) {
+            trans = ((SherlockFragmentActivity)mActivity).getSupportFragmentManager().beginTransaction()
+                    .disallowAddToBackStack();
+        }
 
         if (mSelectedTab == tab) {
             if (mSelectedTab != null) {
-                mSelectedTab.getCallback().onTabReselected(mSelectedTab); //XXX, trans);
+                mSelectedTab.getCallback().onTabReselected(mSelectedTab, trans);
                 mTabScrollView.animateToTab(tab.getPosition());
             }
         } else {
             mTabScrollView.setTabSelected(tab != null ? tab.getPosition() : Tab.INVALID_POSITION);
             if (mSelectedTab != null) {
-                mSelectedTab.getCallback().onTabUnselected(mSelectedTab); //XXX, trans);
+                mSelectedTab.getCallback().onTabUnselected(mSelectedTab, trans);
             }
             mSelectedTab = (TabImpl) tab;
             if (mSelectedTab != null) {
-                mSelectedTab.getCallback().onTabSelected(mSelectedTab); //XXX, trans);
+                mSelectedTab.getCallback().onTabSelected(mSelectedTab, trans);
             }
         }
 
-        /* XXX if (!trans.isEmpty()) {
+        if (trans != null && !trans.isEmpty()) {
             trans.commit();
-        }*/
+        }
     }
 
     @Override

@@ -24,17 +24,15 @@ import com.actionbarsherlock.view.Window;
 public class IndeterminateProgress extends SherlockActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(SampleList.THEME); //Used for theme switching in samples
         super.onCreate(savedInstanceState);
 
         //This has to be called before setContentView and you must use the
-        //class in android.support.v4.view and NOT android.view
+        //class in com.actionbarsherlock.view and NOT android.view
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 
         setContentView(R.layout.iprogress);
 
-        //Bind to the buttons which enable and disable the progress spinner.
-        //Notice how we *MUST* pass TRUE/FALSE objects rather than the native
-        //true/false values.
         findViewById(R.id.enable).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {

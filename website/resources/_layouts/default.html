@@ -15,28 +15,8 @@
 
 		<script type="text/javascript" src="static/css3-mediaqueries.js"></script><!-- http://code.google.com/p/css3-mediaqueries-js/ -->
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
-		<script type="text/javascript" src="http://apis.google.com/js/plusone.js"></script>
-		<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 		<script type="text/javascript" src="static/jquery.colorbox-min.js"></script>
 		<script type="text/javascript" src="static/showdown.js"></script>
-		<script type="text/javascript">
-			var _gaq = _gaq || [];
-			_gaq.push(['_setAccount', 'UA-3637749-12']);
-			_gaq.push(['_trackPageview']);
-			(function() {
-				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-			})();
-
-			(function() {
-				var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
-				s.type = 'text/javascript';
-				s.async = true;
-				s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto';
-				t.parentNode.insertBefore(s, t);
-			})();
-		</script>
 	</head>
 	<body>
 		<div class="container">
@@ -63,7 +43,7 @@
 
 			<div class="row" id="footer">
 				<div class="half">
-					<p>&copy; 2011 Jake Wharton &mdash; <a href="http://twitter.com/JakeWharton">@JakeWharton</a></p>
+					<p>&copy; 2012 Jake Wharton <small>( <a href="http://twitter.com/JakeWharton">@</a> / <a href="http://profiles.google.com/jakewharton">+</a> )</small></p>
 				</div>
 				<div class="half last social">
 					<g:plusone size="medium" href="http://actionbarsherlock.com"></g:plusone>
@@ -74,5 +54,42 @@
 				</div>
 			</div>
 		</div>
+		<script type="text/javascript">
+			var _gauges = _gauges || [];
+			(function() {
+				var t   = document.createElement('script');
+				t.type  = 'text/javascript';
+				t.async = true;
+				t.id    = 'gauges-tracker';
+				t.setAttribute('data-site-id', '4f455953f5a1f51c10000075');
+				t.src = '//secure.gaug.es/track.js';
+				var s = document.getElementsByTagName('script')[0];
+				s.parentNode.insertBefore(t, s);
+			})();
+
+			(function() {
+				var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
+				s.type = 'text/javascript';
+				s.async = true;
+				s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto';
+				t.parentNode.insertBefore(s, t);
+			})();
+
+			(function() {
+				var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
+				s.type = 'text/javascript';
+				s.async = true;
+				s.src = 'http://apis.google.com/js/plusone.js';
+				t.parentNode.insertBefore(s, t);
+			})();
+
+			(function() {
+				var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
+				s.type = 'text/javascript';
+				s.async = true;
+				s.src = 'http://platform.twitter.com/widgets.js';
+				t.parentNode.insertBefore(s, t);
+			})();
+		</script>
 	</body>
 </html>

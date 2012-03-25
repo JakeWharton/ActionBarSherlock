@@ -28,9 +28,10 @@ import com.actionbarsherlock.app.SherlockActivity;
 public class CustomNavigation extends SherlockActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(SampleList.THEME); //Used for theme switching in samples
         super.onCreate(savedInstanceState);
         setContentView(R.layout.text);
-        ((TextView)findViewById(R.id.text)).setText(R.string.actionbar_customnavigation_content);
+        ((TextView)findViewById(R.id.text)).setText(R.string.custom_navigation_content);
 
         //Inflate the custom view
         View customNav = LayoutInflater.from(this).inflate(R.layout.custom_view, null);

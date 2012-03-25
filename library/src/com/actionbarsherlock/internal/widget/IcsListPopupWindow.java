@@ -7,8 +7,10 @@ import android.content.res.Resources;
 import android.database.DataSetObserver;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Handler;
 import android.util.AttributeSet;
+import android.view.ContextThemeWrapper;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.MeasureSpec;
@@ -69,8 +71,8 @@ public class IcsListPopupWindow {
 
     private boolean mModal;
 
-    private static final int POSITION_PROMPT_ABOVE = 0;
-    private static final int POSITION_PROMPT_BELOW = 1;
+    public static final int POSITION_PROMPT_ABOVE = 0;
+    public static final int POSITION_PROMPT_BELOW = 1;
 
     public IcsListPopupWindow(Context context) {
         this(context, null, 0);
@@ -79,6 +81,17 @@ public class IcsListPopupWindow {
     public IcsListPopupWindow(Context context, AttributeSet attrs, int defStyleAttr) {
         mContext = context;
         mPopup = new PopupWindow(context, attrs, defStyleAttr);
+        mPopup.setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);
+    }
+
+    public IcsListPopupWindow(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        mContext = context;
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+            Context wrapped = new ContextThemeWrapper(context, defStyleRes);
+            mPopup = new PopupWindow(wrapped, attrs, defStyleAttr);
+        } else {
+            mPopup = new PopupWindow(context, attrs, defStyleAttr, defStyleRes);
+        }
         mPopup.setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);
     }
 
@@ -98,13 +111,30 @@ public class IcsListPopupWindow {
         }
     }
 
+    public void setPromptPosition(int position) {
+        mPromptPosition = position;
+    }
+
     public void setModal(boolean modal) {
         mModal = true;
         mPopup.setFocusable(modal);
     }
 
+    public void setBackgroundDrawable(Drawable d) {
+        mPopup.setBackgroundDrawable(d);
+    }
+
     public void setAnchorView(View anchor) {
         mDropDownAnchorView = anchor;
+    }
+
+    public void setHorizontalOffset(int offset) {
+        mDropDownHorizontalOffset = offset;
+    }
+
+    public void setVerticalOffset(int offset) {
+        mDropDownVerticalOffset = offset;
+        mDropDownVerticalOffsetSet = true;
     }
 
     public void setContentWidth(int width) {

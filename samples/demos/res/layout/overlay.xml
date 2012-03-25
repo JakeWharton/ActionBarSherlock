@@ -5,13 +5,24 @@
     android:layout_height="fill_parent">
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:paddingLeft="10dip"
-        android:paddingRight="10dip">
-        <TextView
-            android:id="@+id/bunch_of_text"
+        android:layout_height="fill_parent">
+        <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-        	android:paddingTop="?actionBarSize" />
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="?actionBarSize"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="30dp"
+                android:text="@string/overlay_content" />
+            <TextView
+                android:id="@+id/bunch_of_text"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
     </ScrollView>
 </FrameLayout>

@@ -25,33 +25,31 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Spinner;
-import android.widget.TextView;
 import com.actionbarsherlock.R;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.internal.nineoldandroids.animation.Animator;
 import com.actionbarsherlock.internal.nineoldandroids.animation.ObjectAnimator;
+import com.actionbarsherlock.internal.nineoldandroids.widget.NineHorizontalScrollView;
 
 /**
  * This widget implements the dynamic action bar tab behavior that can change
  * across different configurations or circumstances.
  */
-public class ScrollingTabContainerView extends HorizontalScrollView
-        implements AdapterView.OnItemSelectedListener {
+public class ScrollingTabContainerView extends NineHorizontalScrollView
+        implements IcsAdapterView.OnItemSelectedListener {
     //UNUSED private static final String TAG = "ScrollingTabContainerView";
     Runnable mTabSelector;
     private TabClickListener mTabClickListener;
 
     private IcsLinearLayout mTabLayout;
-    private Spinner mTabSpinner;
+    private IcsSpinner mTabSpinner;
     private boolean mAllowCollapse;
 
     private LayoutInflater mInflater;
@@ -80,7 +78,7 @@ public class ScrollingTabContainerView extends HorizontalScrollView
 
         mTabLayout = createTabLayout();
         addView(mTabLayout, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.FILL_PARENT));
+                ViewGroup.LayoutParams.MATCH_PARENT));
     }
 
     @Override
@@ -148,7 +146,7 @@ public class ScrollingTabContainerView extends HorizontalScrollView
         }
         removeView(mTabLayout);
         addView(mTabSpinner, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.FILL_PARENT));
+                ViewGroup.LayoutParams.MATCH_PARENT));
         if (mTabSpinner.getAdapter() == null) {
             mTabSpinner.setAdapter(new TabAdapter());
         }
@@ -164,7 +162,7 @@ public class ScrollingTabContainerView extends HorizontalScrollView
 
         removeView(mTabSpinner);
         addView(mTabLayout, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.FILL_PARENT));
+                ViewGroup.LayoutParams.MATCH_PARENT));
         setTabSelected(mTabSpinner.getSelectedItemPosition());
         return false;
     }
@@ -188,17 +186,18 @@ public class ScrollingTabContainerView extends HorizontalScrollView
     }
 
     private IcsLinearLayout createTabLayout() {
-        final IcsLinearLayout tabLayout = new IcsLinearLayout(getContext(), null, R.attr.actionBarTabBarStyle);
+        final IcsLinearLayout tabLayout = (IcsLinearLayout) LayoutInflater.from(getContext())
+                .inflate(R.layout.abs__action_bar_tab_bar_view, null);
         tabLayout.setLayoutParams(new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
         return tabLayout;
     }
 
-    private Spinner createSpinner() {
-        final Spinner spinner = new Spinner(getContext(), null,
+    private IcsSpinner createSpinner() {
+        final IcsSpinner spinner = new IcsSpinner(getContext(), null,
                 R.attr.actionDropDownStyle);
         spinner.setLayoutParams(new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.FILL_PARENT));
+                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
         spinner.setOnItemSelectedListener(this);
         return spinner;
     }
@@ -278,7 +277,7 @@ public class ScrollingTabContainerView extends HorizontalScrollView
 
         if (forAdapter) {
             tabView.setBackgroundDrawable(null);
-            tabView.setLayoutParams(new ListView.LayoutParams(ListView.LayoutParams.FILL_PARENT,
+            tabView.setLayoutParams(new ListView.LayoutParams(ListView.LayoutParams.MATCH_PARENT,
                     mContentHeight));
         } else {
             tabView.setFocusable(true);
@@ -294,7 +293,7 @@ public class ScrollingTabContainerView extends HorizontalScrollView
     public void addTab(ActionBar.Tab tab, boolean setSelected) {
         TabView tabView = createTabView(tab, false);
         mTabLayout.addView(tabView, new IcsLinearLayout.LayoutParams(0,
-                LayoutParams.FILL_PARENT, 1));
+                LayoutParams.MATCH_PARENT, 1));
         if (mTabSpinner != null) {
             ((TabAdapter) mTabSpinner.getAdapter()).notifyDataSetChanged();
         }
@@ -309,7 +308,7 @@ public class ScrollingTabContainerView extends HorizontalScrollView
     public void addTab(ActionBar.Tab tab, int position, boolean setSelected) {
         final TabView tabView = createTabView(tab, false);
         mTabLayout.addView(tabView, position, new IcsLinearLayout.LayoutParams(
-                0, LayoutParams.FILL_PARENT, 1));
+                0, LayoutParams.MATCH_PARENT, 1));
         if (mTabSpinner != null) {
             ((TabAdapter) mTabSpinner.getAdapter()).notifyDataSetChanged();
         }
@@ -352,19 +351,19 @@ public class ScrollingTabContainerView extends HorizontalScrollView
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+    public void onItemSelected(IcsAdapterView<?> parent, View view, int position, long id) {
         TabView tabView = (TabView) view;
         tabView.getTab().select();
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> parent) {
+    public void onNothingSelected(IcsAdapterView<?> parent) {
     }
 
     public static class TabView extends LinearLayout {
         private ScrollingTabContainerView mParent;
         private ActionBar.Tab mTab;
-        private TextView mTextView;
+        private CapitalizingTextView mTextView;
         private ImageView mIconView;
         private View mCustomView;
 
@@ -404,7 +403,11 @@ public class ScrollingTabContainerView extends HorizontalScrollView
             final ActionBar.Tab tab = mTab;
             final View custom = tab.getCustomView();
             if (custom != null) {
-                addView(custom);
+                final ViewParent customParent = custom.getParent();
+                if (customParent != this) {
+                    if (customParent != null) ((ViewGroup) customParent).removeView(custom);
+                    addView(custom);
+                }
                 mCustomView = custom;
                 if (mTextView != null) mTextView.setVisibility(GONE);
                 if (mIconView != null) {
@@ -439,7 +442,7 @@ public class ScrollingTabContainerView extends HorizontalScrollView
 
                 if (text != null) {
                     if (mTextView == null) {
-                        TextView textView = new TextView(getContext(), null,
+                        CapitalizingTextView textView = new CapitalizingTextView(getContext(), null,
                                 R.attr.actionBarTabTextStyle);
                         textView.setEllipsize(TruncateAt.END);
                         LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT,
@@ -449,7 +452,7 @@ public class ScrollingTabContainerView extends HorizontalScrollView
                         addView(textView);
                         mTextView = textView;
                     }
-                    mTextView.setText(text);
+                    mTextView.setTextCompat(text);
                     mTextView.setVisibility(VISIBLE);
                 } else if (mTextView != null) {
                     mTextView.setVisibility(GONE);
