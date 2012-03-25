@@ -35,11 +35,11 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -565,7 +565,7 @@ class ActivityChooserModel extends DataSetObservable {
     private static final SerialExecutor SERIAL_EXECUTOR = new SerialExecutor();
 
     private static class SerialExecutor implements Executor {
-        final ArrayDeque<Runnable> mTasks = new ArrayDeque<Runnable>();
+        final LinkedList<Runnable> mTasks = new LinkedList<Runnable>();
         Runnable mActive;
 
         public synchronized void execute(final Runnable r) {
