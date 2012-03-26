@@ -5,13 +5,14 @@
 
 	<groupId>com.actionbarsherlock</groupId>
 	<artifactId>sample-styled</artifactId>
+  <version>4.0.0</version>
 	<name>Sample: Styled</name>
 	<packaging>apk</packaging>
 
 	<parent>
 		<groupId>com.actionbarsherlock</groupId>
 		<artifactId>parent-sample</artifactId>
-		<version>4.0.1</version>
+		<version>4.0.2-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -30,7 +31,7 @@
 		<dependency>
 			<groupId>com.actionbarsherlock</groupId>
 			<artifactId>library</artifactId>
-			<version>${project.version}</version>
+			<version>4.0.2-SNAPSHOT</version>
 			<type>apklib</type>
 		</dependency>
 		<dependency>
