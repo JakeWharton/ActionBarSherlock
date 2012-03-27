@@ -11,7 +11,7 @@
 	<parent>
 		<groupId>com.actionbarsherlock</groupId>
 		<artifactId>parent</artifactId>
-		<version>4.0.1-SNAPSHOT</version>
+		<version>4.0.2-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -19,5 +19,6 @@
 		<module>demos</module>
 		<module>fragments</module>
 		<module>roboguice</module>
+		<module>styled</module>
 	</modules>
 </project>

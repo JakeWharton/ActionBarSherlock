@@ -15,6 +15,7 @@ lint.xml
 *.ipr
 *.iws
 classes
+gen-external-apklibs
 
 #Maven
 target

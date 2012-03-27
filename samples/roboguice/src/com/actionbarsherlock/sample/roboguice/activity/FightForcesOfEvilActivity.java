@@ -1,20 +1,18 @@
 package com.actionbarsherlock.sample.roboguice.activity;
 
-import roboguice.inject.InjectResource;
-import roboguice.inject.InjectView;
-import roboguice.util.RoboAsyncTask;
-
 import android.content.Context;
 import android.os.Bundle;
 import android.view.animation.Animation;
 import android.widget.TextView;
-
-import java.util.Random;
-
 import com.actionbarsherlock.sample.roboguice.R;
 import com.actionbarsherlock.sample.roboguice.controller.Astroboy;
-import com.actionbarsherlock.sample.roboguice.SherlockRoboActivity;
+import com.github.rtyley.android.sherlock.roboguice.activity.RoboSherlockActivity;
 import com.google.inject.Inject;
+import roboguice.inject.InjectResource;
+import roboguice.inject.InjectView;
+import roboguice.util.RoboAsyncTask;
+
+import java.util.Random;
 
 /**
  * Things you'll learn in this class:
@@ -22,7 +20,7 @@ import com.google.inject.Inject;
  *     - How to use RoboAsyncTask to do background tasks with injection
  *     - What it means to be a @Singleton
  */
-public class FightForcesOfEvilActivity extends SherlockRoboActivity {
+public class FightForcesOfEvilActivity extends RoboSherlockActivity {
 
     @InjectView(R.id.expletive) TextView expletiveText;
 

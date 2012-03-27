@@ -57,7 +57,6 @@ $(function() {
 		;
 
 		var samples = $('#sample-apps').empty();
-		var plugins = $('#plugins').empty();
 		$.each(data, function() {
 			if (/apk$/.test(this.html_url)) {
 				samples.append(
@@ -89,14 +88,21 @@ $(function() {
 		<p><a class="img dl" id="latest-tarball" href="https://github.com/JakeWharton/ActionBarSherlock/downloads"><img src="static/down_grey.png" alt="Tarball"/> Download .tgz</a></p>
 		<!-- Download icon by Ddate Kaspar / Franziska Sponsel -->
 
-		<!--h3>Plugins</h3>
+		<h3>Plugins</h3>
 		<dl id="plugins">
-			<dt class="normal">(loading)</dt>
-		</dl-->
+			<dt class="normal"><a href="https://github.com/JakeWharton/ActionBarSherlock-Plugin-Maps/downloads">Google Maps</a></dt>
+			<dd class="plugin">Base activity which extends from <code>MapActivity</code>.</dd>
+		</dl>
 
 		<h3>Sample Applications</h3>
 		<dl id="sample-apps">
 			<dt class="normal">(loading)</dt>
+		</dl>
+
+		<h3>Third-Party Plugins</h3>
+		<dl id="third-party">
+			<dt class="normal"><a href="https://github.com/rtyley/roboguice-sherlock">RoboGuice-Sherlock</a> &mdash; Roberto Tyley</dt>
+			<dd class="plugin">Base activities and base fragments which allow for easy use of RoboGuice and ActionBarSherlock together.</dd>
 		</dl>
 	</div>
 	<div class="fourth last">
@@ -107,5 +113,3 @@ $(function() {
 		<p><a href="https://github.com/JakeWharton/ActionBarSherlock/tags">View all &raquo;</a></p>
 	</div>
 </div>
-
-<!-- ZIP AND TARBALL ICONS COURTESY FATCOW.COM -->

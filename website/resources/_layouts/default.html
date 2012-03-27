@@ -15,19 +15,8 @@
 
 		<script type="text/javascript" src="static/css3-mediaqueries.js"></script><!-- http://code.google.com/p/css3-mediaqueries-js/ -->
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
-		<script type="text/javascript" src="http://apis.google.com/js/plusone.js"></script>
-		<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 		<script type="text/javascript" src="static/jquery.colorbox-min.js"></script>
 		<script type="text/javascript" src="static/showdown.js"></script>
-		<script type="text/javascript">
-			(function() {
-				var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
-				s.type = 'text/javascript';
-				s.async = true;
-				s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto';
-				t.parentNode.insertBefore(s, t);
-			})();
-		</script>
 	</head>
 	<body>
 		<div class="container">
@@ -76,6 +65,30 @@
 				t.src = '//secure.gaug.es/track.js';
 				var s = document.getElementsByTagName('script')[0];
 				s.parentNode.insertBefore(t, s);
+			})();
+
+			(function() {
+				var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
+				s.type = 'text/javascript';
+				s.async = true;
+				s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto';
+				t.parentNode.insertBefore(s, t);
+			})();
+
+			(function() {
+				var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
+				s.type = 'text/javascript';
+				s.async = true;
+				s.src = 'http://apis.google.com/js/plusone.js';
+				t.parentNode.insertBefore(s, t);
+			})();
+
+			(function() {
+				var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
+				s.type = 'text/javascript';
+				s.async = true;
+				s.src = 'http://platform.twitter.com/widgets.js';
+				t.parentNode.insertBefore(s, t);
 			})();
 		</script>
 	</body>

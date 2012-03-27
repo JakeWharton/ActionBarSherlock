@@ -38,8 +38,12 @@ layout: default
 				<td>See the <a href="support.html">support page</a> and create an issue on GitHub, post to the Google Group, or contact me directly. Or do all three! The worst thing you can do is to not report it. Please try to include as much information as possible in your report.</td>
 			</tr>
 			<tr>
-				<th>Do I need to include the <code>.jar</code> file for the Android compatability library when using ActionBarSherlock?</th>
-				<td><strong>Yes.</strong> ActionBarSherlock is built as an extension of the Android compatability library and requires that it be included.</td>
+				<th>Do I need to include the <code>.jar</code> file for the Android compatibility library when using ActionBarSherlock?</th>
+				<td><strong>Yes.</strong> ActionBarSherlock is built as an extension of the Android compatibility library and requires that it be included.</td>
+			</tr>
+			<tr>
+				<th>I get the following exception when using fragments: <em>&quot;Cannot interact with object designed for temporary instance passing.&quot;</em></th>
+				<td>In order to provide the full ICS menu API the library provides its own fragment base classes. Like the activities, they are prefixed with 'Sherlock' and are provided for each of the fragment classes from the support library (e.g., <code>SherlockFragment</code>, <code>SherlockDialogFragment</code>).</td>
 			</tr>
 			<tr>
 				<th>I use Proguard. Are there any lines I should include to ensure functionality of the library?</th>
@@ -50,6 +54,8 @@ layout: default
 -keep interface android.support.v4.app.** { *; }
 -keep class com.actionbarsherlock.** { *; }
 -keep interface com.actionbarsherlock.** { *; }
+
+-keepattributes *Annotation*
 					</pre></code>
 				</td>
 			</tr>

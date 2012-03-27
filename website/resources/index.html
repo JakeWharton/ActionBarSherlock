@@ -15,17 +15,8 @@
 
 		<script type="text/javascript" src="static/css3-mediaqueries.js"></script><!-- http://code.google.com/p/css3-mediaqueries-js/ -->
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
-		<script type="text/javascript" src="http://apis.google.com/js/plusone.js"></script>
-		<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 		<script type="text/javascript" src="static/jquery.cross-slide.min.js"></script>
 		<script type="text/javascript">
-			(function() {
-				var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
-				s.type = 'text/javascript';
-				s.async = true;
-				s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto';
-				t.parentNode.insertBefore(s, t);
-			})();
 
 			$(function() {
 				$.getJSON('https://api.github.com/repos/JakeWharton/ActionBarSherlock/tags?callback=?', function(response) {
@@ -96,7 +87,7 @@
 						<dt><a href="faq.html">Frequently Asked Questions</a></dt>
 						<dd>Common pitfals and their solutions.</dd>
 						<dt><a href="support.html">Help &amp; Support</a></dt>
-						<dd>Places to go when you need assitance with implementation.</dd>
+						<dd>Places to go when you need assistance with implementation.</dd>
 						<dt><a href="development.html">Development</a></dt>
 						<dd>Contribute to the libary.</dd>
 						<dt><a href="merch-and-donations.html">Merchandise &amp; Donations</a></dt>
@@ -111,19 +102,19 @@
 				</div>
 				<div class="whole">
 					<div class="half app">
+						<img src="static/apps/com.squareup.cardcase.png"/>
+						<div class="info">
+							<h4>Pay with Square</h4>
+							<p class="desc">Pay with your name using Square. Leave your wallet at home and simply give your name at checkout. Find businesses you love, share favorites and be rewarded.</p>
+							<p class="links"><a href="https://play.google.com/store/apps/details?id=com.squareup.cardcase">View on Play Market</a></p>
+						</div>
+					</div>
+					<div class="half app last">
 						<img src="static/apps/com.github.android.gauges.png"/>
 						<div class="info">
 							<h4>GitHub Gaug.es</h4>
 							<p class="desc">Gaug.es is the most simple and beautiful way to track multiple sites and see live reporting on all of them from one convenient dashboard.</p>
 							<p class="links"><a href="https://play.google.com/store/apps/details?id=com.github.mobile.gauges">View on Play Market</a> &middot; <a href="https://github.com/GitHub/gauges-android">View GitHub project</a></p>
-						</div>
-					</div>
-					<div class="half app last">
-						<img src="static/apps/uk.co.senab.blueNotifyFree.png"/>
-						<div class="info">
-							<h4>FriendCaster</h4>
-							<p class="desc">FriendCaster for Facebook gives you the best Facebook experience on Android devices!</p>
-							<p class="links">View on Play Market: <a href="https://play.google.com/store/apps/details?id=uk.co.senab.blueNotifyFree">Free</a> &middot; <a href="https://play.google.com/store/apps/details?id=uk.co.senab.blueNotify">Pro</a></p>
 						</div>
 					</div>
 				</div>
@@ -171,6 +162,30 @@
 				t.src = '//secure.gaug.es/track.js';
 				var s = document.getElementsByTagName('script')[0];
 				s.parentNode.insertBefore(t, s);
+			})();
+
+			(function() {
+				var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
+				s.type = 'text/javascript';
+				s.async = true;
+				s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto';
+				t.parentNode.insertBefore(s, t);
+			})();
+
+			(function() {
+				var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
+				s.type = 'text/javascript';
+				s.async = true;
+				s.src = 'http://apis.google.com/js/plusone.js';
+				t.parentNode.insertBefore(s, t);
+			})();
+
+			(function() {
+				var s = document.createElement('script'), t = document.getElementsByTagName('script')[0];
+				s.type = 'text/javascript';
+				s.async = true;
+				s.src = 'http://platform.twitter.com/widgets.js';
+				t.parentNode.insertBefore(s, t);
 			})();
 		</script>
 	</body>
