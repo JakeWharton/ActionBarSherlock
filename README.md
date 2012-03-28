@@ -55,7 +55,7 @@ License
  [1]: http://android-developers.blogspot.com/2011/03/fragments-for-all.html
  [2]: http://developer.android.com/guide/topics/ui/actionbar.html
  [3]: http://actionbarsherlock.com/static/feature.png
- [4]: https://market.android.com/details?id=com.actionbarsherlock.sample.demos
- [5]: https://market.android.com/details?id=com.actionbarsherlock.sample.fragments
- [6]: https://market.android.com/details?id=com.actionbarsherlock.sample.roboguice
+ [4]: https://play.google.com/store/apps/details?id=com.actionbarsherlock.sample.demos
+ [5]: https://play.google.com/store/apps/details?id=com.actionbarsherlock.sample.fragments
+ [6]: https://play.google.com/store/apps/details?id=com.actionbarsherlock.sample.roboguice
  [7]: http://jakewharton.ci.cloudbees.com/job/ActionBarSherlock/
