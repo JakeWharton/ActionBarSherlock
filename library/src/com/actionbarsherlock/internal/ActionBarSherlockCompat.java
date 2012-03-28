@@ -968,7 +968,7 @@ public class ActionBarSherlockCompat extends ActionBarSherlock implements MenuBu
                         @Override
                         public void run() {
                             //Invalidate if the panel menu hasn't been created before this.
-                            if (mMenu == null) {
+                            if (!mActivity.isFinishing() && mMenu == null) {
                                 dispatchInvalidateOptionsMenu();
                             }
                         }
