@@ -138,7 +138,7 @@ public abstract class SherlockFragmentActivity extends FragmentActivity implemen
         getSherlock().dispatchInvalidateOptionsMenu();
     }
 
-    protected void supportInvalidateOptionsMenu() {
+    public void supportInvalidateOptionsMenu() {
         if (DEBUG) Log.d(TAG, "[supportInvalidateOptionsMenu]");
 
         invalidateOptionsMenu();
