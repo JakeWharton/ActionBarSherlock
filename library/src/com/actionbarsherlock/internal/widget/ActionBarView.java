@@ -132,8 +132,6 @@ public class ActionBarView extends AbsActionBarView {
     private SpinnerAdapter mSpinnerAdapter;
     private OnNavigationListener mCallback;
 
-    private Runnable mTabSelector;
-
     private ExpandedActionViewMenuPresenter mExpandedMenuPresenter;
     View mExpandedActionView;
 
@@ -383,7 +381,6 @@ public class ActionBarView extends AbsActionBarView {
     @Override
     public void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        removeCallbacks(mTabSelector);
         if (mActionMenuPresenter != null) {
             mActionMenuPresenter.hideOverflowMenu();
             mActionMenuPresenter.hideSubMenus();
