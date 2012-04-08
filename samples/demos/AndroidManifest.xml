@@ -121,6 +121,13 @@
             </intent-filter>
         </activity>
 
+        <activity android:label="@string/search_views" android:name=".SearchViews">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="com.actionbarsherlock.sample.demos.EXAMPLE"/>
+            </intent-filter>
+        </activity>
+
         <activity android:label="@string/simple" android:name=".Simple">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

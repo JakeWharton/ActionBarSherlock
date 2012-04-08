@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import com.actionbarsherlock.internal.view.ActionProviderWrapper;
+import com.actionbarsherlock.internal.widget.ActionViewWrapper;
 import com.actionbarsherlock.view.ActionProvider;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.SubMenu;
@@ -215,13 +216,16 @@ public class MenuItemWrapper implements MenuItem, android.view.MenuItem.OnMenuIt
 
     @Override
     public MenuItem setActionView(View view) {
-        mNativeItem.setActionView(view);
+        mNativeItem.setActionView(new ActionViewWrapper(view));
         return this;
     }
 
     @Override
     public MenuItem setActionView(int resId) {
+        //Allow the native menu to inflate the resource
         mNativeItem.setActionView(resId);
+        //Grab it, wrap it, and re-set it
+        mNativeItem.setActionView(new ActionViewWrapper(mNativeItem.getActionView()));
         return this;
     }
 

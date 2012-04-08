@@ -14,6 +14,8 @@
         <item name="android:actionBarWidgetTheme">@style/Theme.Sherlock</item>
         <!-- For crazy people who use IcsSpinner. -->
         <item name="dropDownListViewStyle">?android:attr/dropDownListViewStyle</item>
+        <!-- Needed for out SearchView implementation. -->
+        <item name="selectableItemBackground">?android:attr/selectableItemBackground</item>
     </style>
 
     <style name="Theme.Sherlock.NoActionBar">
