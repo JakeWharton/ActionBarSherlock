@@ -112,7 +112,7 @@
         <item name="android:background">?attr/actionBarItemBackground</item>
         <item name="android:minHeight">?attr/actionBarSize</item>
 
-        <item name="android:minWidth">56dip</item>
+        <item name="android:minWidth">@dimen/abs__action_button_min_width</item>
         <item name="android:gravity">center</item>
         <item name="android:paddingLeft">12dip</item>
         <item name="android:paddingRight">12dip</item>
