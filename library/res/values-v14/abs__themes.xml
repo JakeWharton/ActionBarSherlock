@@ -12,6 +12,8 @@
         <item name="dropdownListPreferredItemHeight">48dp</item>
         <!-- Needed for our ShareActionProvider implementation. -->
         <item name="android:actionBarWidgetTheme">@style/Theme.Sherlock</item>
+        <!-- For crazy people who use IcsSpinner. -->
+        <item name="dropDownListViewStyle">?android:attr/dropDownListViewStyle</item>
     </style>
 
     <style name="Theme.Sherlock.NoActionBar">
