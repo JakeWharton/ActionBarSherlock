@@ -148,9 +148,30 @@
 						<sdk>
 							<platform>${android.platform}</platform>
 						</sdk>
+						<sign>
+							<debug>false</debug>
+						</sign>
 						<undeployBeforeDeploy>true</undeployBeforeDeploy>
+						<zipalign>
+							<inputApk>${project.build.directory}/${project.build.finalName}.apk</inputApk>
+							<outputApk>${project.build.directory}/${apk.prefix}-${project.artifactId}-${project.version}.apk</outputApk>
+						</zipalign>
 					</configuration>
 					<extensions>true</extensions>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jarsigner-plugin</artifactId>
+					<version>1.2</version>
+					<configuration>
+						<archive>${project.build.directory}/${apk.prefix}-${project.artifactId}-${project.version}.apk</archive>
+						<alias>ActionBarSherlock</alias>
+						<keypass>ActionBarSherlock</keypass>
+						<storepass>ActionBarSherlock</storepass>
+						<!-- Is always run from samples/xxx/ directory. -->
+						<keystore>../../debug.keystore</keystore>
+					</configuration>
 				</plugin>
 
 				<plugin>
