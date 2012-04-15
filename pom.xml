@@ -73,7 +73,7 @@
 		<android-support.version>r7</android-support.version>
 
 		<android-maven.version>3.1.1</android-maven.version>
-		<robolectric.version>1.0</robolectric.version>
+		<robolectric.version>1.1</robolectric.version>
 		<junit.version>4.10</junit.version>
 	</properties>
 

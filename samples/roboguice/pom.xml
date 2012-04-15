@@ -21,11 +21,6 @@
 			<artifactId>android</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>com.google.android</groupId>
-			<artifactId>support-v4</artifactId>
-			<version>r6</version>
-		</dependency>
 
 		<dependency>
 			<groupId>com.actionbarsherlock</groupId>
