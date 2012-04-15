@@ -126,6 +126,7 @@
 					<groupId>com.jayway.maven.plugins.android.generation2</groupId>
 					<artifactId>android-maven-plugin</artifactId>
 					<version>${android-maven.version}</version>
+					<extensions>true</extensions>
 					<configuration>
 						<sdk>
 							<platform>${android.platform}</platform>
@@ -139,7 +140,6 @@
 							<outputApk>${project.build.directory}/${apk.prefix}-${project.artifactId}-${project.version}.apk</outputApk>
 						</zipalign>
 					</configuration>
-					<extensions>true</extensions>
 				</plugin>
 
 				<plugin>
