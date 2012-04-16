@@ -15,9 +15,10 @@ layout: default
 		<p>Since the library is an extension of the official support library you must also have the <code>android-support-v4.jar</code> referenced by your project.</p>
 
 		<h3>Including In Your Project</h3>
-		<p>There are two ways to leverage ActionBarSherlock in your projects:</p>
+		<p>There are a few ways to leverage ActionBarSherlock in your projects:</p>
 		<ol>
-			<li>If you’re using the <a href="http://www.eclipse.org/">Eclipse Development Environment</a> with the <a href="http://developer.android.com/sdk/eclipse-adt.html">ADT plugin</a> version 0.9.7 or greater you can include this as a library project. Create a new Android project in Eclipse using the <code>library/</code> folder as the existing source. Then, in your project properties, add the created project under the ‘Libraries’ section of the ‘Android’ category.</li>
+			<li><p>If you’re using the <a href="http://www.eclipse.org/">Eclipse Development Environment</a> with the <a href="http://developer.android.com/sdk/eclipse-adt.html">ADT plugin</a> version 0.9.7 or greater you can include ActionBarSherlock as a library project. Create a new Android project in Eclipse using the <code>library/</code> folder as the existing source. Then, in your project properties, add the created project under the ‘Libraries’ section of the ‘Android’ category.</p></li>
+			<li><p>If you use <code>ant</code> to compile from the command line you will need to run <code>android update project -p .</code> inside the <code>library/</code> folder of the project. Once completed, you can reference the <code>library/</code> folder of ActionBarSherlock from your application's <code>project.properties</code> file. For more information please see the <a href="http://developer.android.com/guide/developing/projects/projects-cmdline.html#ReferencingLibraryProject">Android developer guide</a> for referencing library projects.</p></li>
 			<li>
 				<p>If you use maven to build your Android project you can simply add a dependency for this library.</p>
 				<code><pre>
