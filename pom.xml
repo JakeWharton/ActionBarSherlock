@@ -75,6 +75,9 @@
 		<android-maven.version>3.1.1</android-maven.version>
 		<robolectric.version>1.1</robolectric.version>
 		<junit.version>4.10</junit.version>
+
+		<github.downloads.repositoryOwner>JakeWharton</github.downloads.repositoryOwner>
+		<github.downloads.repositoryName>ActionBarSherlock</github.downloads.repositoryName>
 	</properties>
 
 	<dependencyManagement>
@@ -171,6 +174,23 @@
 					<version>3.0</version>
 					<configuration>
 						<skip>true</skip>
+					</configuration>
+				</plugin>
+
+				<plugin>
+					<groupId>comm.github.github</groupId>
+					<artifactId>downloads-maven-plugin</artifactId>
+					<version>0.4</version>
+					<configuration>
+						<description>${project.name}</description>
+						<override>true</override>
+						<includeAttached>true</includeAttached>
+						<includes>
+							<include>*.apk</include>
+						</includes>
+						<excludes>
+							<exclude>*-unaligned.apk</exclude>
+						</excludes>
 					</configuration>
 				</plugin>
 			</plugins>
