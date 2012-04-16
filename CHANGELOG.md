@@ -1,6 +1,19 @@
 Change Log
 ===============================================================================
 
+Version 4.0.2 *(2012-04-15)*
+----------------------------
+
+ * Upgrade to r7 support library.
+ * Fix: Do not trigger menu creation is activity is finishing.
+ * Fix: Prevent overflow from displaying if there are no overflow action items.
+ * Fix: Long-pressing menu key no longer triggers overflow.
+ * Fix: Use proper tab state-list drawable to mimic ICS.
+ * Fix: Ensure dispatching menu creation and preparation to fragments can
+   properly return `false` when appropriate to avoid rendering artifacts.
+ * Fix: Properly save and fetch action mode tag on ICS.
+
+
 Version 4.0.1 *(2012-03-25)*
 ----------------------------
 
