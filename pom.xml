@@ -203,6 +203,7 @@
 				<version>2.2.2</version>
 				<configuration>
 					<autoVersionSubmodules>true</autoVersionSubmodules>
+					<releaseProfiles>abs-release</releaseProfiles>
 				</configuration>
 			</plugin>
 

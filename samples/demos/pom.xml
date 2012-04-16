@@ -90,13 +90,7 @@
 
 	<profiles>
 		<profile>
-			<id>release</id>
-			<activation>
-				<property>
-					<name>performRelease</name>
-					<value>true</value>
-				</property>
-			</activation>
+			<id>abs-release</id>
 			<build>
 				<plugins>
 					<plugin>
