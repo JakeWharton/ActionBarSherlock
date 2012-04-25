@@ -68,7 +68,8 @@ public class MenuItemMule implements MenuItem {
 
     @Override
     public int getItemId() {
-        throw new IllegalStateException(ERROR);
+        return mItem.getItemId();
+        //throw new IllegalStateException(ERROR);
     }
 
     @Override

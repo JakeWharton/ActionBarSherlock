@@ -75,7 +75,8 @@ public class MenuMule implements Menu {
 
     @Override
     public void clear() {
-        throw new IllegalStateException(ERROR);
+        mMenu.clear();
+        //throw new IllegalStateException(ERROR);
     }
 
     @Override
