@@ -413,7 +413,7 @@ public class ActionBarSherlockCompat extends ActionBarSherlock implements MenuBu
             }
 
             // Next collapse any expanded action views.
-            if (aActionBar != null && wActionBar.hasExpandedActionView()) {
+            if (wActionBar != null && wActionBar.hasExpandedActionView()) {
                 if (action == KeyEvent.ACTION_UP) {
                     wActionBar.collapseActionView();
                 }
