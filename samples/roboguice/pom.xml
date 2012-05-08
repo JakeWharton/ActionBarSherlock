@@ -38,6 +38,7 @@
 		<dependency>
 			<groupId>com.actionbarsherlock</groupId>
 			<artifactId>library</artifactId>
+			<version>4.0.2</version>
 			<type>jar</type>
 			<scope>provided</scope>
 		</dependency>
