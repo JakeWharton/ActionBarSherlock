@@ -8,9 +8,9 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
-import static android.support.v4.app._ActionBarSherlockTrojanHorse.OnCreateOptionsMenuListener;
-import static android.support.v4.app._ActionBarSherlockTrojanHorse.OnOptionsItemSelectedListener;
-import static android.support.v4.app._ActionBarSherlockTrojanHorse.OnPrepareOptionsMenuListener;
+import static com.actionbarsherlock.app.SherlockFragmentActivity.OnCreateOptionsMenuListener;
+import static com.actionbarsherlock.app.SherlockFragmentActivity.OnOptionsItemSelectedListener;
+import static com.actionbarsherlock.app.SherlockFragmentActivity.OnPrepareOptionsMenuListener;
 
 public class SherlockDialogFragment extends DialogFragment implements OnCreateOptionsMenuListener, OnPrepareOptionsMenuListener, OnOptionsItemSelectedListener {
     private SherlockFragmentActivity mActivity;

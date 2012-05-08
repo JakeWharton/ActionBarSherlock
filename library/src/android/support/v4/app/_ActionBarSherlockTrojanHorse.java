@@ -21,6 +21,7 @@ import com.actionbarsherlock.view.MenuItem;
 
 import java.util.ArrayList;
 
+/** I'm in ur package. Stealing ur variables. */
 public abstract class _ActionBarSherlockTrojanHorse extends FragmentActivity implements OnCreatePanelMenuListener, OnPreparePanelListener, OnMenuItemSelectedListener, OnActionModeStartedListener, OnActionModeFinishedListener {
     static final boolean DEBUG = false;
     private static final String TAG = "SherlockFragmentActivity";
