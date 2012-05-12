@@ -428,7 +428,7 @@ public class ActionBarSherlockCompat extends ActionBarSherlock implements MenuBu
                 mMenuKeyIsLongPress = true;
             } else if (event.getAction() == KeyEvent.ACTION_UP) {
                 if (!mMenuKeyIsLongPress) {
-                    if (mActionMode == null) {
+                    if (mActionMode == null && wActionBar != null) {
                         if (wActionBar.isOverflowMenuShowing()) {
                             wActionBar.hideOverflowMenu();
                         } else {
