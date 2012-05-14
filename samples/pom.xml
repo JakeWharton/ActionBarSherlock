@@ -18,6 +18,7 @@
 	<modules>
 		<module>demos</module>
 		<module>fragments</module>
+		<module>known-bugs</module>
 		<module>roboguice</module>
 		<module>styled</module>
 	</modules>
