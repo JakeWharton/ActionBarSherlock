@@ -83,6 +83,12 @@ public class SherlockFragmentActivity extends _ActionBarSherlockTrojanHorse impl
     }
 
     @Override
+    protected void onDestroy() {
+        getSherlock().dispatchDestroy();
+        super.onDestroy();
+    }
+
+    @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         getSherlock().dispatchPostCreate(savedInstanceState);
         super.onPostCreate(savedInstanceState);
