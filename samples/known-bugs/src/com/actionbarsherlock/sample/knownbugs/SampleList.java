@@ -41,7 +41,7 @@ import static java.util.Locale.ENGLISH;
 
 public class SampleList extends SherlockListActivity implements ActionBar.TabListener {
     private final IntentAdapter mAdapter = new IntentAdapter();
-    private String CATEGORY = "OPEN";
+    private String mCategory = "OPEN";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,7 +63,7 @@ public class SampleList extends SherlockListActivity implements ActionBar.TabLis
 
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
-        CATEGORY = tab.getText().toString().toUpperCase(ENGLISH);
+        mCategory = tab.getText().toString().toUpperCase(ENGLISH);
         mAdapter.refresh();
     }
 
@@ -91,7 +91,7 @@ public class SampleList extends SherlockListActivity implements ActionBar.TabLis
             mIntents.clear();
 
             final Intent mainIntent = new Intent(ACTION_MAIN, null);
-            mainIntent.addCategory("com.actionbarsherlock.sample.knownbugs." + CATEGORY);
+            mainIntent.addCategory("com.actionbarsherlock.sample.knownbugs." + mCategory);
 
             PackageManager pm = getPackageManager();
             final List<ResolveInfo> matches = pm.queryIntentActivities(mainIntent, 0);

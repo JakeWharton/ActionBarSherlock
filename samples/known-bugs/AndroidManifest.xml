@@ -29,7 +29,7 @@
         <!-- CLOSED BUGS -->
 
         <activity android:label="Issue #425" android:name=".Issue435">
-            <!-- Fixed in 4.0.3 -->
+            <!-- Fixed in 4.1.0 -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="com.actionbarsherlock.sample.knownbugs.CLOSED"/>
