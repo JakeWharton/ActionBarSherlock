@@ -18,7 +18,6 @@ import static android.graphics.drawable.GradientDrawable.Orientation.TOP_BOTTOM;
 public class Issue435 extends SherlockActivity implements View.OnClickListener, ActionBar.TabListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.Theme_Sherlock_Light_DarkActionBar);
         super.onCreate(savedInstanceState);
 
         LinearLayout layout = new LinearLayout(this);
