@@ -12,7 +12,7 @@
 	<groupId>com.actionbarsherlock</groupId>
 	<artifactId>parent</artifactId>
 	<packaging>pom</packaging>
-	<version>4.0.3-SNAPSHOT</version>
+	<version>4.1.0</version>
 
 	<name>ActionBarSherlock (Parent)</name>
 	<description>Android library for implementing the action bar design pattern using the backported sources of Ice Cream Sandwich.</description>
