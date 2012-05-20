@@ -17,6 +17,13 @@
 
 
         <!-- OPEN BUGS -->
+        
+        <activity android:label="Issue #272" android:name=".Issue272">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="com.actionbarsherlock.sample.knownbugs.OPEN"/>
+            </intent-filter>
+        </activity>
 
         <activity android:label="Issue #331" android:name=".Issue331">
             <intent-filter>
