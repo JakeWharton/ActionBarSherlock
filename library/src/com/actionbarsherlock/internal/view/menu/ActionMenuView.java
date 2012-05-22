@@ -518,7 +518,7 @@ public class ActionMenuView extends IcsLinearLayout implements MenuBuilder.ItemI
         mMenu = menu;
     }
 
-    //@Override
+    @Override
     protected boolean hasDividerBeforeChildAt(int childIndex) {
         final View childBefore = getChildAt(childIndex - 1);
         final View child = getChildAt(childIndex);
@@ -532,6 +532,7 @@ public class ActionMenuView extends IcsLinearLayout implements MenuBuilder.ItemI
         return result;
     }
 
+    @Override
     public boolean dispatchPopulateAccessibilityEvent(AccessibilityEvent event) {
         return false;
     }
@@ -555,7 +556,7 @@ public class ActionMenuView extends IcsLinearLayout implements MenuBuilder.ItemI
         }
 
         public LayoutParams(LayoutParams other) {
-            super((LinearLayout.LayoutParams) other);
+            super(other);
             isOverflowButton = other.isOverflowButton;
         }
 

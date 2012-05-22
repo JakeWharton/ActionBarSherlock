@@ -34,6 +34,7 @@ public abstract class NineViewGroup extends ViewGroup {
         super.setVisibility(visibility);
     }
 
+    @Override
     public float getAlpha() {
         if (AnimatorProxy.NEEDS_PROXY) {
             return mProxy.getAlpha();
@@ -41,6 +42,8 @@ public abstract class NineViewGroup extends ViewGroup {
             return super.getAlpha();
         }
     }
+
+    @Override
     public void setAlpha(float alpha) {
         if (AnimatorProxy.NEEDS_PROXY) {
             mProxy.setAlpha(alpha);
@@ -48,6 +51,8 @@ public abstract class NineViewGroup extends ViewGroup {
             super.setAlpha(alpha);
         }
     }
+
+    @Override
     public float getTranslationX() {
         if (AnimatorProxy.NEEDS_PROXY) {
             return mProxy.getTranslationX();
@@ -55,6 +60,8 @@ public abstract class NineViewGroup extends ViewGroup {
             return super.getTranslationX();
         }
     }
+
+    @Override
     public void setTranslationX(float translationX) {
         if (AnimatorProxy.NEEDS_PROXY) {
             mProxy.setTranslationX(translationX);
@@ -62,6 +69,8 @@ public abstract class NineViewGroup extends ViewGroup {
             super.setTranslationX(translationX);
         }
     }
+
+    @Override
     public float getTranslationY() {
         if (AnimatorProxy.NEEDS_PROXY) {
             return mProxy.getTranslationY();
@@ -69,6 +78,8 @@ public abstract class NineViewGroup extends ViewGroup {
             return super.getTranslationY();
         }
     }
+
+    @Override
     public void setTranslationY(float translationY) {
         if (AnimatorProxy.NEEDS_PROXY) {
             mProxy.setTranslationY(translationY);

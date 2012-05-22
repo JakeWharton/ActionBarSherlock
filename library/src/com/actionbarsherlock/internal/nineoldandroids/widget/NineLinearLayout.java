@@ -34,6 +34,7 @@ public class NineLinearLayout extends LinearLayout {
         super.setVisibility(visibility);
     }
 
+    @Override
     public float getAlpha() {
         if (AnimatorProxy.NEEDS_PROXY) {
             return mProxy.getAlpha();
@@ -41,6 +42,8 @@ public class NineLinearLayout extends LinearLayout {
             return super.getAlpha();
         }
     }
+
+    @Override
     public void setAlpha(float alpha) {
         if (AnimatorProxy.NEEDS_PROXY) {
             mProxy.setAlpha(alpha);
@@ -48,6 +51,8 @@ public class NineLinearLayout extends LinearLayout {
             super.setAlpha(alpha);
         }
     }
+
+    @Override
     public float getTranslationX() {
         if (AnimatorProxy.NEEDS_PROXY) {
             return mProxy.getTranslationX();
@@ -55,6 +60,8 @@ public class NineLinearLayout extends LinearLayout {
             return super.getTranslationX();
         }
     }
+
+    @Override
     public void setTranslationX(float translationX) {
         if (AnimatorProxy.NEEDS_PROXY) {
             mProxy.setTranslationX(translationX);

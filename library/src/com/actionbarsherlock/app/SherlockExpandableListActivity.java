@@ -125,6 +125,7 @@ public abstract class SherlockExpandableListActivity extends ExpandableListActiv
         return getSherlock().getMenuInflater();
     }
 
+    @Override
     public void invalidateOptionsMenu() {
         getSherlock().dispatchInvalidateOptionsMenu();
     }

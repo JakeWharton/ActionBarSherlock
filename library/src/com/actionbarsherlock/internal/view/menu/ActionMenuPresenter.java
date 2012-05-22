@@ -263,6 +263,7 @@ public class ActionMenuPresenter extends BaseMenuPresenter
         return super.filterLeftoverView(parent, childIndex);
     }
 
+    @Override
     public boolean onSubMenuSelected(SubMenuBuilder subMenu) {
         if (!subMenu.hasVisibleItems()) return false;
 
@@ -377,6 +378,7 @@ public class ActionMenuPresenter extends BaseMenuPresenter
         return mReserveOverflow;
     }
 
+    @Override
     public boolean flagActionItems() {
         final ArrayList<MenuItemImpl> visibleItems = mMenu.getVisibleItems();
         final int itemsSize = visibleItems.size();

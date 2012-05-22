@@ -136,6 +136,7 @@ public class ActionBarContextView extends AbsActionBarView implements AnimatorLi
         }
     }
 
+    @Override
     public void setContentHeight(int height) {
         mContentHeight = height;
     }

@@ -506,9 +506,13 @@ public final class AnimatorSet extends Animator {
             mDelayAnim.setDuration(mStartDelay);
             mDelayAnim.addListener(new AnimatorListenerAdapter() {
                 boolean canceled = false;
+
+                @Override
                 public void onAnimationCancel(Animator anim) {
                     canceled = true;
                 }
+
+                @Override
                 public void onAnimationEnd(Animator anim) {
                     if (!canceled) {
                         int numNodes = nodesToStart.size();

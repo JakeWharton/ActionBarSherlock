@@ -69,6 +69,7 @@ public class IcsLinearLayout extends NineLinearLayout {
      *                     {@link #SHOW_DIVIDER_MIDDLE}, or {@link #SHOW_DIVIDER_END},
      *                     or {@link #SHOW_DIVIDER_NONE} to show no dividers.
      */
+    @Override
     public void setShowDividers(int showDividers) {
         if (showDividers != mShowDividers) {
             requestLayout();
@@ -81,6 +82,7 @@ public class IcsLinearLayout extends NineLinearLayout {
      * @return A flag set indicating how dividers should be shown around items.
      * @see #setShowDividers(int)
      */
+    @Override
     public int getShowDividers() {
         return mShowDividers;
     }
@@ -90,6 +92,7 @@ public class IcsLinearLayout extends NineLinearLayout {
      * @param divider Drawable that will divide each item.
      * @see #setShowDividers(int)
      */
+    @Override
     public void setDividerDrawable(Drawable divider) {
         if (divider == mDivider) {
             return;
@@ -115,6 +118,7 @@ public class IcsLinearLayout extends NineLinearLayout {
      * @see #setDividerDrawable(Drawable)
      * @see #getDividerPadding()
      */
+    @Override
     public void setDividerPadding(int padding) {
         mDividerPadding = padding;
     }
@@ -126,6 +130,7 @@ public class IcsLinearLayout extends NineLinearLayout {
      * @see #setDividerDrawable(Drawable)
      * @see #setDividerPadding(int)
      */
+    @Override
     public int getDividerPadding() {
         return mDividerPadding;
     }
@@ -199,7 +204,7 @@ public class IcsLinearLayout extends NineLinearLayout {
             if (child == null) {
                 bottom = getHeight() - getPaddingBottom() - mDividerHeight;
             } else {
-                final LayoutParams lp = (LayoutParams) child.getLayoutParams();
+                /*final LayoutParams lp = (LayoutParams) child.getLayoutParams();*/
                 bottom = child.getBottom()/* + lp.bottomMargin*/;
             }
             drawHorizontalDivider(canvas, bottom);
@@ -226,7 +231,7 @@ public class IcsLinearLayout extends NineLinearLayout {
             if (child == null) {
                 right = getWidth() - getPaddingRight() - mDividerWidth;
             } else {
-                final LayoutParams lp = (LayoutParams) child.getLayoutParams();
+                /*final LayoutParams lp = (LayoutParams) child.getLayoutParams();*/
                 right = child.getRight()/* + lp.rightMargin*/;
             }
             drawVerticalDivider(canvas, right);

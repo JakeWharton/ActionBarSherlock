@@ -142,6 +142,7 @@ public class StandaloneActionMode extends ActionMode implements MenuBuilder.Call
         mContextView.showOverflowMenu();
     }
 
+    @Override
     public boolean isUiFocusable() {
         return mFocusable;
     }

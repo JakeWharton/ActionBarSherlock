@@ -125,6 +125,7 @@ public abstract class SherlockPreferenceActivity extends PreferenceActivity impl
         return getSherlock().getMenuInflater();
     }
 
+    @Override
     public void invalidateOptionsMenu() {
         getSherlock().dispatchInvalidateOptionsMenu();
     }
