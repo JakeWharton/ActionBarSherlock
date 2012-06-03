@@ -2,7 +2,7 @@ package com.actionbarsherlock.app;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.app.ʞɔolɹǝɥsɹɐquoıʇɔɐ;
+import android.support.v4.app.Watson;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -17,8 +17,8 @@ import com.actionbarsherlock.view.MenuItem;
 import static com.actionbarsherlock.ActionBarSherlock.OnActionModeFinishedListener;
 import static com.actionbarsherlock.ActionBarSherlock.OnActionModeStartedListener;
 
-/** @see {@link android.support.v4.app.ʞɔolɹǝɥsɹɐquoıʇɔɐ} */
-public class SherlockFragmentActivity extends ʞɔolɹǝɥsɹɐquoıʇɔɐ implements OnActionModeStartedListener, OnActionModeFinishedListener {
+/** @see {@link android.support.v4.app.Watson} */
+public class SherlockFragmentActivity extends Watson implements OnActionModeStartedListener, OnActionModeFinishedListener {
     private static final boolean DEBUG = false;
     private static final String TAG = "SherlockFragmentActivity";
 
