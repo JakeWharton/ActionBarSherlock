@@ -24,6 +24,7 @@ public class NineHorizontalScrollView extends HorizontalScrollView {
         super.setVisibility(visibility);
     }
 
+    @Override
     public float getAlpha() {
         if (AnimatorProxy.NEEDS_PROXY) {
             return mProxy.getAlpha();
@@ -31,6 +32,8 @@ public class NineHorizontalScrollView extends HorizontalScrollView {
             return super.getAlpha();
         }
     }
+
+    @Override
     public void setAlpha(float alpha) {
         if (AnimatorProxy.NEEDS_PROXY) {
             mProxy.setAlpha(alpha);

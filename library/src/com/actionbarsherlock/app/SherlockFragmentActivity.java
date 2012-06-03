@@ -127,18 +127,21 @@ public class SherlockFragmentActivity extends _ActionBarSherlockTrojanHorse impl
     // Native menu handling
     ///////////////////////////////////////////////////////////////////////////
 
+    @Override
     public MenuInflater getSupportMenuInflater() {
         if (DEBUG) Log.d(TAG, "[getSupportMenuInflater]");
 
         return getSherlock().getMenuInflater();
     }
 
+    @Override
     public void invalidateOptionsMenu() {
         if (DEBUG) Log.d(TAG, "[invalidateOptionsMenu]");
 
         getSherlock().dispatchInvalidateOptionsMenu();
     }
 
+    @Override
     public void supportInvalidateOptionsMenu() {
         if (DEBUG) Log.d(TAG, "[supportInvalidateOptionsMenu]");
 
@@ -224,14 +227,17 @@ public class SherlockFragmentActivity extends _ActionBarSherlockTrojanHorse impl
     // Sherlock menu handling
     ///////////////////////////////////////////////////////////////////////////
 
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return true;
     }
 
+    @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         return true;
     }
 
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return false;
     }

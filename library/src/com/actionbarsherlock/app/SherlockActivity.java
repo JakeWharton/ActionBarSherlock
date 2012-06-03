@@ -125,6 +125,7 @@ public abstract class SherlockActivity extends Activity implements OnCreatePanel
         return getSherlock().getMenuInflater();
     }
 
+    @Override
     public void invalidateOptionsMenu() {
         getSherlock().dispatchInvalidateOptionsMenu();
     }
