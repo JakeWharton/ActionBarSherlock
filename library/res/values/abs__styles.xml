@@ -182,6 +182,7 @@
         <item name="android:divider">?attr/dividerVertical</item>
         <item name="android:showDividers">middle</item>
         <item name="android:dividerPadding">6dip</item>
+        <item name="android:minHeight">?attr/actionBarSize</item>
     </style>
     <style name="Widget.Sherlock.ActivityChooserView" parent="Sherlock.__Widget.ActivityChooserView">
     </style>
