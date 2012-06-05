@@ -1,6 +1,13 @@
 Change Log
 ===============================================================================
 
+Version 4.1.1 *(In Development)*
+--------------------------------
+
+ * Fix: `ShareActionProvider` in the split action bar no longer fills the entire
+   screen.
+
+
 Version 4.1.0 *(2012-05-17)*
 ----------------------------
 
