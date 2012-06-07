@@ -178,6 +178,8 @@ public class ScrollingTabContainerView extends NineHorizontalScrollView
                 animateToTab(position);
             }
         }
+        if(mTabSpinner != null)
+            mTabSpinner.setSelection(position);
     }
 
     public void setContentHeight(int contentHeight) {
