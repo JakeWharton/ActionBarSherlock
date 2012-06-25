@@ -16,13 +16,13 @@
 
 package com.actionbarsherlock.internal.nineoldandroids.animation;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import android.view.animation.Interpolator;
-
 import com.actionbarsherlock.internal.nineoldandroids.animation.Keyframe.FloatKeyframe;
 import com.actionbarsherlock.internal.nineoldandroids.animation.Keyframe.IntKeyframe;
 import com.actionbarsherlock.internal.nineoldandroids.animation.Keyframe.ObjectKeyframe;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * This class holds a collection of Keyframe objects and is called by ValueAnimator to calculate
@@ -218,10 +218,10 @@ class KeyframeSet {
 
     @Override
     public String toString() {
-        String returnVal = " ";
+        StringBuilder returnVal = new StringBuilder(" ");
         for (int i = 0; i < mNumKeyframes; ++i) {
-            returnVal += mKeyframes.get(i).getValue() + "  ";
+            returnVal.append(mKeyframes.get(i).getValue()).append("  ");
         }
-        return returnVal;
+        return returnVal.toString();
     }
 }

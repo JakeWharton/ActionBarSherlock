@@ -479,13 +479,13 @@ public final class ObjectAnimator extends ValueAnimator {
 
     @Override
     public String toString() {
-        String returnVal = "ObjectAnimator@" + Integer.toHexString(hashCode()) + ", target " +
-            mTarget;
+        StringBuilder returnVal = new StringBuilder("ObjectAnimator@" + Integer.toHexString(hashCode()) + ", target " +
+            mTarget);
         if (mValues != null) {
             for (int i = 0; i < mValues.length; ++i) {
-                returnVal += "\n    " + mValues[i].toString();
+                returnVal.append("\n    ").append(mValues[i].toString());
             }
         }
-        return returnVal;
+        return returnVal.toString();
     }
 }

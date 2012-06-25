@@ -1254,12 +1254,12 @@ public class ValueAnimator extends Animator {
 
     @Override
     public String toString() {
-        String returnVal = "ValueAnimator@" + Integer.toHexString(hashCode());
+        StringBuilder returnVal = new StringBuilder("ValueAnimator@" + Integer.toHexString(hashCode()));
         if (mValues != null) {
             for (int i = 0; i < mValues.length; ++i) {
-                returnVal += "\n    " + mValues[i].toString();
+                returnVal.append("\n    ").append(mValues[i].toString());
             }
         }
-        return returnVal;
+        return returnVal.toString();
     }
 }
