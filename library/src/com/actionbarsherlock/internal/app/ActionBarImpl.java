@@ -37,7 +37,6 @@ import android.view.accessibility.AccessibilityEvent;
 import android.widget.SpinnerAdapter;
 import com.actionbarsherlock.R;
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.internal.nineoldandroids.animation.Animator;
 import com.actionbarsherlock.internal.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.actionbarsherlock.internal.nineoldandroids.animation.AnimatorSet;

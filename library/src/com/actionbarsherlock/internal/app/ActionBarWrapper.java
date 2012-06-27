@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.SpinnerAdapter;
 
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 
 public class ActionBarWrapper extends ActionBar implements android.app.ActionBar.OnNavigationListener, android.app.ActionBar.OnMenuVisibilityListener {
     private final Activity mActivity;
@@ -320,10 +319,10 @@ public class ActionBarWrapper extends ActionBar implements android.app.ActionBar
         public void onTabReselected(android.app.ActionBar.Tab tab, android.app.FragmentTransaction ft) {
             if (mListener != null) {
                 FragmentTransaction trans = null;
-		        if (mActivity instanceof FragmentActivity) {
-		            trans = ((FragmentActivity)mActivity).getSupportFragmentManager().beginTransaction()
-		                    .disallowAddToBackStack();
-		        }
+                if (mActivity instanceof FragmentActivity) {
+                    trans = ((FragmentActivity)mActivity).getSupportFragmentManager().beginTransaction()
+                            .disallowAddToBackStack();
+                }
 
                 mListener.onTabReselected(this, trans);
 
