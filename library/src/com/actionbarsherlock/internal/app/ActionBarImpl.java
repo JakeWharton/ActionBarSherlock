@@ -26,6 +26,7 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
@@ -506,8 +507,8 @@ public class ActionBarImpl extends ActionBar {
         }
 
         FragmentTransaction trans = null;
-        if (mActivity instanceof SherlockFragmentActivity) {
-            trans = ((SherlockFragmentActivity)mActivity).getSupportFragmentManager().beginTransaction()
+        if (mActivity instanceof FragmentActivity) {
+            trans = ((FragmentActivity)mActivity).getSupportFragmentManager().beginTransaction()
                     .disallowAddToBackStack();
         }
 
