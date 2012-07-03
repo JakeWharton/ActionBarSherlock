@@ -16,8 +16,10 @@
 
 package com.actionbarsherlock.app;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -887,6 +889,14 @@ public abstract class ActionBar {
          *        being added to the back stack.
          */
         public void onTabReselected(Tab tab, FragmentTransaction ft);
+    }
+
+    protected FragmentTransaction beginTabChangeTransaction(final Activity activity) {
+      if (activity instanceof FragmentActivity) {
+          return ((FragmentActivity)activity).getSupportFragmentManager().beginTransaction()
+                  .disallowAddToBackStack();
+      }
+      return null;
     }
 
     /**
