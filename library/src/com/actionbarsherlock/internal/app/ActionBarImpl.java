@@ -187,6 +187,7 @@ public class ActionBarImpl extends ActionBar {
                 mContextView.onConfigurationChanged(newConfig);
             }
         }
+        recreateTabs();
     }
 
     private void setHasEmbeddedTabs(boolean hasEmbeddedTabs) {
@@ -338,6 +339,25 @@ public class ActionBarImpl extends ActionBar {
             mTabScrollView.removeAllTabs();
         }
         mSavedTabPosition = INVALID_POSITION;
+    }
+
+    private void recreateTabs() {
+        if(mTabScrollView == null) {
+            return;
+        }
+        ArrayList<TabImpl> tabs = new ArrayList<TabImpl>(mTabs);
+        int tabPosition = getSelectedNavigationIndex();
+        cleanupTabs();
+        mTabScrollView.onDetachedFromWindow();
+        mTabScrollView = null;
+        ensureTabsExist();
+        for(ActionBar.Tab tab : tabs) {
+            addTab(tab, false);
+        }
+        if(tabPosition != INVALID_POSITION) {
+            selectTab(tabs.get(tabPosition));
+        }
+
     }
 
     public void setTitle(CharSequence title) {
