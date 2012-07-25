@@ -644,7 +644,11 @@ public class ActionMenuPresenter extends BaseMenuPresenter
         @Override
         public void onDismiss() {
             super.onDismiss();
-            mMenu.close();
+            try{
+            	mMenu.close();
+            }catch(Exception e){
+            	e.printStackTrace();
+            }
             mOverflowPopup = null;
         }
     }
