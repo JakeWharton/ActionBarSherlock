@@ -216,7 +216,10 @@ public class MenuItemWrapper implements MenuItem, android.view.MenuItem.OnMenuIt
 
     @Override
     public MenuItem setActionView(View view) {
-        mNativeItem.setActionView(new ActionViewWrapper(view));
+        if (view != null) {
+            view = new ActionViewWrapper(view);
+        }
+        mNativeItem.setActionView(view);
         return this;
     }
 
@@ -224,8 +227,10 @@ public class MenuItemWrapper implements MenuItem, android.view.MenuItem.OnMenuIt
     public MenuItem setActionView(int resId) {
         //Allow the native menu to inflate the resource
         mNativeItem.setActionView(resId);
-        //Grab it, wrap it, and re-set it
-        mNativeItem.setActionView(new ActionViewWrapper(mNativeItem.getActionView()));
+        if (resId != 0) {
+            //Grab it, wrap it, and re-set it
+            mNativeItem.setActionView(new ActionViewWrapper(mNativeItem.getActionView()));
+        }
         return this;
     }
 
