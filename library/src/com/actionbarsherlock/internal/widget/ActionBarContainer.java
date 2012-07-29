@@ -22,6 +22,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -63,7 +64,7 @@ public class ActionBarContainer extends NineFrameLayout {
                 R.styleable.SherlockActionBar_backgroundStacked);
 
         //Fix for issue #379
-        if (mStackedBackground instanceof ColorDrawable) {
+        if (mStackedBackground instanceof ColorDrawable && Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
             Bitmap bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
             Canvas c = new Canvas(bitmap);
             mStackedBackground.draw(c);
