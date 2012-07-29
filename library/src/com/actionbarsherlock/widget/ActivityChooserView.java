@@ -405,7 +405,11 @@ class ActivityChooserView extends ViewGroup implements ActivityChooserModelClien
         super.onDetachedFromWindow();
         ActivityChooserModel dataModel = mAdapter.getDataModel();
         if (dataModel != null) {
-            dataModel.unregisterObserver(mModelDataSetOberver);
+            try {
+                dataModel.unregisterObserver(mModelDataSetOberver);
+            } catch (IllegalStateException e) {
+                //Oh, well... fixes issue #557
+            }
         }
         ViewTreeObserver viewTreeObserver = getViewTreeObserver();
         if (viewTreeObserver.isAlive()) {
