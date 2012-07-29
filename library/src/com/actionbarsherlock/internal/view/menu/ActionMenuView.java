@@ -520,13 +520,14 @@ public class ActionMenuView extends IcsLinearLayout implements MenuBuilder.ItemI
 
     //@Override
     protected boolean hasDividerBeforeChildAt(int childIndex) {
-        final View childBefore = getChildAt(childIndex - 1);
-        final View child = getChildAt(childIndex);
+        int count = getChildCount();
+        final View childBefore = childIndex >= 1 && childIndex <= count ? getChildAt(childIndex - 1) : null;
+        final View child = childIndex >= 0 && childIndex < count ? getChildAt(childIndex) : null;
         boolean result = false;
-        if (childIndex < getChildCount() && childBefore instanceof ActionMenuChildView) {
+        if (childBefore instanceof ActionMenuChildView) {
             result |= ((ActionMenuChildView) childBefore).needsDividerAfter();
         }
-        if (childIndex > 0 && child instanceof ActionMenuChildView) {
+        if (child instanceof ActionMenuChildView) {
             result |= ((ActionMenuChildView) child).needsDividerBefore();
         }
         return result;
