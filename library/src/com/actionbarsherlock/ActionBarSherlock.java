@@ -769,7 +769,7 @@ public abstract class ActionBarSherlock {
         // Make sure that action views can get an appropriate theme.
         if (mMenuInflater == null) {
             if (getActionBar() != null) {
-                mMenuInflater = new MenuInflater(getThemedContext());
+                mMenuInflater = new MenuInflater(getThemedContext(), mActivity);
             } else {
                 mMenuInflater = new MenuInflater(mActivity);
             }
