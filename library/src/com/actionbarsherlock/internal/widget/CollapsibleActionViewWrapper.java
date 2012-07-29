@@ -7,10 +7,10 @@ import com.actionbarsherlock.view.CollapsibleActionView;
 /**
  * Wraps an ABS collapsible action view in a native container that delegates the calls.
  */
-public class ActionViewWrapper extends FrameLayout implements android.view.CollapsibleActionView {
+public class CollapsibleActionViewWrapper extends FrameLayout implements android.view.CollapsibleActionView {
   private final CollapsibleActionView child;
 
-  public ActionViewWrapper(View child) {
+  public CollapsibleActionViewWrapper(View child) {
     super(child.getContext());
     this.child = (CollapsibleActionView) child;
     addView(child);
