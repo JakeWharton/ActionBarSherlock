@@ -209,6 +209,9 @@ public class ActionBarSherlockNative extends ActionBarSherlock {
         //to pass it through to the sherlock callbacks and the call below
         //will not have returned yet to store its value.
         mActivity.startActionMode(wrapped);
+        if (mActivity instanceof OnActionModeStartedListener) {
+            ((OnActionModeStartedListener)mActivity).onActionModeStarted(mActionMode);
+        }
 
         return mActionMode;
     }
@@ -241,6 +244,9 @@ public class ActionBarSherlockNative extends ActionBarSherlock {
         @Override
         public void onDestroyActionMode(android.view.ActionMode mode) {
             mCallback.onDestroyActionMode(mActionMode);
+            if (mActivity instanceof OnActionModeFinishedListener) {
+                ((OnActionModeFinishedListener)mActivity).onActionModeFinished(mActionMode);
+            }
         }
     }
 
