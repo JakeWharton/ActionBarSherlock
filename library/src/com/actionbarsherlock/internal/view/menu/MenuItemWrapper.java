@@ -241,7 +241,11 @@ public class MenuItemWrapper implements MenuItem, android.view.MenuItem.OnMenuIt
 
     @Override
     public View getActionView() {
-        return mNativeItem.getActionView();
+        View actionView = mNativeItem.getActionView();
+        if (actionView instanceof CollapsibleActionViewWrapper) {
+            return ((CollapsibleActionViewWrapper)actionView).unwrap();
+        }
+        return actionView;
     }
 
     @Override
