@@ -653,7 +653,11 @@ class ActivityChooserView extends ViewGroup implements ActivityChooserModelClien
         public void setDataModel(ActivityChooserModel dataModel) {
             ActivityChooserModel oldDataModel = mAdapter.getDataModel();
             if (oldDataModel != null && isShown()) {
-                oldDataModel.unregisterObserver(mModelDataSetOberver);
+                try {
+                    oldDataModel.unregisterObserver(mModelDataSetOberver);
+                } catch (IllegalStateException e) {
+                    //Oh, well... fixes issue #557
+                }
             }
             mDataModel = dataModel;
             if (dataModel != null && isShown()) {
