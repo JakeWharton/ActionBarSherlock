@@ -135,7 +135,7 @@
 									<pluginExecutionFilter>
 										<groupId>com.google.code.maven-replacer-plugin</groupId>
 										<artifactId>maven-replacer-plugin</artifactId>
-										<versionRange>[1.4.1,)</versionRange>
+										<versionRange>[1.4.0,)</versionRange>
 										<goals>
 											<goal>replace</goal>
 										</goals>
