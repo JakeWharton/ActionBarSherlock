@@ -18,11 +18,11 @@
 
 	<!-- custom -->
 	<item android:id="@+id/menu_search" android:showAsAction="ifRoom"
-		android:title="@string/action_label_search" android:actionViewClass="android.widget.SearchView" />
+		android:title="@string/action_label_search" android:actionViewClass="?android:attr/actionViewClass" />
 
 	<!-- icon -->
 	<item android:id="@+id/menu_refresh" android:showAsAction="ifRoom"
-		android:title="@string/action_label_refresh" android:icon="@drawable/ic_menu_refresh_holo_light" />
+		android:title="?attr/refreshLabel" android:icon="?attr/refreshIcon" />
 
 	<!-- icon + text -->
 	<item android:id="@+id/menu_both" android:showAsAction="ifRoom|withText"

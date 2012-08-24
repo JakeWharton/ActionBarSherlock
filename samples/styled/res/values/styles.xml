@@ -31,6 +31,10 @@
         <item name="android:listChoiceIndicatorMultiple">@drawable/ad_btn_check_holo_light</item>
         <item name="android:listChoiceIndicatorSingle">@drawable/ad_btn_radio_holo_light</item>
         <!--<item name="android:actionOverflowButtonStyle">@style/MyOverflowButton</item>-->
+
+		<item name="android:actionViewClass">android.widget.SearchView</item>
+		<item name="refreshIcon">@drawable/ic_menu_refresh_holo_light</item>
+		<item name="refreshLabel">@string/action_label_refresh</item>
     </style>
 
     <!-- style the overflow menu -->

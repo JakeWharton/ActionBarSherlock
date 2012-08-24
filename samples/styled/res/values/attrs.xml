@@ -1,0 +1,7 @@
+<resources>
+	<declare-styleable name="AndroidDevelopersTheme">
+		<attr name="android:actionViewClass" />
+		<attr name="refreshIcon" format="reference" />
+		<attr name="refreshLabel" format="string" />
+	</declare-styleable>
+</resources>
