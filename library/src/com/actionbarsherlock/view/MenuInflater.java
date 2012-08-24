@@ -373,8 +373,16 @@ public class MenuInflater {
 
             itemListenerMethodName = a.getString(R.styleable.SherlockMenuItem_android_onClick);
             itemActionViewLayout = a.getResourceId(R.styleable.SherlockMenuItem_android_actionLayout, 0);
-            itemActionViewClassName = a.getString(R.styleable.SherlockMenuItem_android_actionViewClass);
-            itemActionProviderClassName = a.getString(R.styleable.SherlockMenuItem_android_actionProviderClass);
+
+            // itemActionViewClassName = a.getString(R.styleable.SherlockMenuItem_android_actionViewClass);
+            value = new TypedValue();
+            a.getValue(R.styleable.SherlockMenuItem_android_actionViewClass, value);
+            itemActionViewClassName = value.type == TypedValue.TYPE_STRING ? value.string.toString() : null;
+
+            // itemActionProviderClassName = a.getString(R.styleable.SherlockMenuItem_android_actionProviderClass);
+            value = new TypedValue();
+            a.getValue(R.styleable.SherlockMenuItem_android_actionProviderClass, value);
+            itemActionProviderClassName = value.type == TypedValue.TYPE_STRING ? value.string.toString() : null;
 
             final boolean hasActionProvider = itemActionProviderClassName != null;
             if (hasActionProvider && itemActionViewLayout == 0 && itemActionViewClassName == null) {
