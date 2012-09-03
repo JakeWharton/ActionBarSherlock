@@ -280,7 +280,7 @@
 
 
 
-    <style name="Sherlock.__Widget.AutoCompleteTextView" parent="Widget">
+    <style name="Sherlock.__Widget.AutoCompleteTextView" parent="android:Widget.EditText">
         <item name="android:focusable">true</item>
         <item name="android:focusableInTouchMode">true</item>
         <item name="android:clickable">true</item>
