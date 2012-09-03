@@ -138,6 +138,20 @@
                     android:contentDescription="@string/abs__searchview_description_submit"
                     />
 
+            <ImageView
+                    android:id="@+id/abs__search_voice_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:paddingLeft="16dip"
+                    android:paddingRight="16dip"
+                    android:src="?attr/searchViewVoiceIcon"
+                    android:background="?attr/selectableItemBackground"
+                    android:visibility="gone"
+                    android:focusable="true"
+                    android:contentDescription="@string/abs__searchview_description_voice"
+                    />
+
         </LinearLayout>
     </LinearLayout>
 
