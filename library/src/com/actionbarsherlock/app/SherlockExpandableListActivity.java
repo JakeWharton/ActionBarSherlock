@@ -47,16 +47,6 @@ public abstract class SherlockExpandableListActivity extends ExpandableListActiv
     @Override
     public void onActionModeFinished(ActionMode mode) {}
 
-    @Override
-    public final void onActionModeStarted(android.view.ActionMode mode) {
-        super.onActionModeStarted(mode);
-    }
-
-    @Override
-    public final void onActionModeFinished(android.view.ActionMode mode) {
-        super.onActionModeFinished(mode);
-    }
-
 
     ///////////////////////////////////////////////////////////////////////////
     // General lifecycle/callback dispatching
