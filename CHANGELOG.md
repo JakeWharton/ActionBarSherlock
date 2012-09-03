@@ -4,7 +4,7 @@ Change Log
 Version 4.2.0 *(In Development)*
 --------------------------------
 
- * Add `SearchView` widget for standard search interaction.
+ * Add `SearchView` widget for standard search interaction (API 8+ only)
  * Fix: `ShareActionProvider` in the split action bar no longer fills the entire
    screen.
  * Fix: Automatically correct `ColorDrawable` not respecting bounds when used as
