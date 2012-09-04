@@ -280,7 +280,7 @@
 
 
 
-    <style name="Sherlock.__Widget.AutoCompleteTextView" parent="Widget">
+    <style name="Sherlock.__Widget.SearchAutoCompleteTextView" parent="Widget">
         <item name="android:focusable">true</item>
         <item name="android:focusableInTouchMode">true</item>
         <item name="android:clickable">true</item>
@@ -291,11 +291,11 @@
         <item name="android:completionThreshold">2</item>
         <item name="android:dropDownWidth">wrap_content</item>
     </style>
-    <style name="Widget.Sherlock.AutoCompleteTextView" parent="Sherlock.__Widget.AutoCompleteTextView">
+    <style name="Widget.Sherlock.SearchAutoCompleteTextView" parent="Sherlock.__Widget.SearchAutoCompleteTextView">
         <item name="android:dropDownSelector">@drawable/abs__list_selector_holo_dark</item>
         <item name="android:popupBackground">@drawable/abs__menu_dropdown_panel_holo_dark</item>
     </style>
-    <style name="Widget.Sherlock.Light.AutoCompleteTextView" parent="Sherlock.__Widget.AutoCompleteTextView">
+    <style name="Widget.Sherlock.Light.SearchAutoCompleteTextView" parent="Sherlock.__Widget.SearchAutoCompleteTextView">
         <item name="android:dropDownSelector">@drawable/abs__list_selector_holo_light</item>
         <item name="android:popupBackground">@drawable/abs__menu_dropdown_panel_holo_light</item>
     </style>

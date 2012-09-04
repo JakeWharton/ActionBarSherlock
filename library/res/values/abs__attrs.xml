@@ -104,6 +104,8 @@
         <!-- SearchView styles and assets -->
         <!-- ============================ -->
         <eat-comment />
+        <!-- SearchView AutoCompleteTextView style -->
+        <attr name="searchAutoCompleteTextView" format="reference" />
         <!-- SearchView dropdown background -->
         <attr name="searchDropdownBackground" format="reference" />
         <!-- SearchView close button icon -->
