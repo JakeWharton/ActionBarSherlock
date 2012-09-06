@@ -621,6 +621,8 @@ public class ActionMenuPresenter extends BaseMenuPresenter
             for (View_OnAttachStateChangeListener listener : mListeners) {
                 listener.onViewDetachedFromWindow(this);
             }
+
+            if (mOverflowPopup != null) mOverflowPopup.dismiss();
         }
 
         @Override
