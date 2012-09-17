@@ -7,6 +7,7 @@ Version 4.2.0 *(In Development)*
  * Add `SearchView` widget for standard search interaction (API 8+ only)
  * Fix: `ShareActionProvider` in the split action bar no longer fills the entire
    screen.
+ * Fix: `ShareActionProvider` now does file I/O on a background thread.
  * Fix: Automatically correct `ColorDrawable` not respecting bounds when used as
    a stacked background.
  * Fix: Ensure fragments collection is present before dispatching events.
@@ -18,8 +19,6 @@ Version 4.2.0 *(In Development)*
    `FragmentActivity`.
  * Fix: Ensure `CollapsibleActionView` callbacks are dispatched in both native
    and compatbility action bars.
- * Fix: Correct `ColorDrawable` ignoring bounds when used for the stacked
-   background.
 
 
 Version 4.1.0 *(2012-05-17)*
