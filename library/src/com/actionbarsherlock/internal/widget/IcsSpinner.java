@@ -640,6 +640,7 @@ public class IcsSpinner extends IcsAbsSpinner implements OnClickListener {
     private class DropdownPopup extends IcsListPopupWindow implements SpinnerPopup {
         private CharSequence mHintText;
         private ListAdapter mAdapter;
+        private int mHorisontalOffset;
 
         public DropdownPopup(Context context, AttributeSet attrs, int defStyleRes) {
             super(context, attrs, 0, defStyleRes);
@@ -654,6 +655,16 @@ public class IcsSpinner extends IcsAbsSpinner implements OnClickListener {
                     dismiss();
                 }
             });
+            
+            final Drawable background = getBackground();
+            int bgOffset = 0;
+            if (background != null) {
+                background.getPadding(mTempRect);
+                bgOffset = -mTempRect.left;
+            }
+            
+            mHorisontalOffset = bgOffset + IcsSpinner.this.getPaddingLeft();
+            super.setHorizontalOffset(mHorisontalOffset);
         }
 
         @Override
@@ -669,6 +680,11 @@ public class IcsSpinner extends IcsAbsSpinner implements OnClickListener {
         public void setPromptText(CharSequence hintText) {
             // Hint text is ignored for dropdowns, but maintain it here.
             mHintText = hintText;
+        }
+        
+        @Override
+        public void setHorizontalOffset(int offset) {
+        	super.setHorizontalOffset(mHorisontalOffset + offset);
         }
 
         @Override
@@ -687,13 +703,7 @@ public class IcsSpinner extends IcsAbsSpinner implements OnClickListener {
             } else {
                 setContentWidth(mDropDownWidth);
             }
-            final Drawable background = getBackground();
-            int bgOffset = 0;
-            if (background != null) {
-                background.getPadding(mTempRect);
-                bgOffset = -mTempRect.left;
-            }
-            setHorizontalOffset(bgOffset + spinnerPaddingLeft);
+            
             setInputMethodMode(PopupWindow.INPUT_METHOD_NOT_NEEDED);
             super.show();
             getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
