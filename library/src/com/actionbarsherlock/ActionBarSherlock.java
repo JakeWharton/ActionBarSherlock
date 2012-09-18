@@ -537,6 +537,9 @@ public abstract class ActionBarSherlock {
      */
     public void dispatchDestroy() {}
 
+    public void dispatchSaveInstanceState(Bundle outState) {}
+
+    public void dispatchRestoreInstanceState(Bundle savedInstanceState) {}
 
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
