@@ -279,9 +279,9 @@ public class IcsListPopupWindow {
     public ListView getListView() {
         return mDropDownList;
     }
-	
-	public void setDropdownSelector(Drawable selector) {
-    	mDropDownListHighlight = selector;
+    
+    public void setDropdownSelector(Drawable selector) {
+        mDropDownListHighlight = selector;
     }
 
     private int buildDropDown() {

@@ -119,9 +119,9 @@ public class IcsSpinner extends IcsAbsSpinner implements OnClickListener {
         if (horizontalOffset != 0) {
             popup.setHorizontalOffset(horizontalOffset);
         }
-		
-		popup.setDropdownSelector(a.getDrawable(
-        		R.styleable.SherlockSpinner_android_dropDownSelector));
+
+        popup.setDropdownSelector(a.getDrawable(
+                R.styleable.SherlockSpinner_android_dropDownSelector));
 
         mPopup = popup;
 
@@ -687,7 +687,7 @@ public class IcsSpinner extends IcsAbsSpinner implements OnClickListener {
         
         @Override
         public void setHorizontalOffset(int offset) {
-        	super.setHorizontalOffset(mHorisontalOffset + offset);
+            super.setHorizontalOffset(mHorisontalOffset + offset);
         }
 
         @Override
