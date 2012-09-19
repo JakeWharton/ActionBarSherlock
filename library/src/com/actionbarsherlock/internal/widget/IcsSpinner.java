@@ -120,6 +120,9 @@ public class IcsSpinner extends IcsAbsSpinner implements OnClickListener {
             popup.setHorizontalOffset(horizontalOffset);
         }
 
+        popup.setDropdownSelector(a.getDrawable(
+                R.styleable.SherlockSpinner_android_dropDownSelector));
+
         mPopup = popup;
 
         mGravity = a.getInt(R.styleable.SherlockSpinner_android_gravity, Gravity.CENTER);
@@ -640,6 +643,7 @@ public class IcsSpinner extends IcsAbsSpinner implements OnClickListener {
     private class DropdownPopup extends IcsListPopupWindow implements SpinnerPopup {
         private CharSequence mHintText;
         private ListAdapter mAdapter;
+        private int mHorizontalOffset;
 
         public DropdownPopup(Context context, AttributeSet attrs, int defStyleRes) {
             super(context, attrs, 0, defStyleRes);
@@ -654,6 +658,15 @@ public class IcsSpinner extends IcsAbsSpinner implements OnClickListener {
                     dismiss();
                 }
             });
+
+            final Drawable background = getBackground();
+            int bgOffset = 0;
+            if (background != null) {
+                background.getPadding(mTempRect);
+                bgOffset = -mTempRect.left;
+            }
+            mHorizontalOffset = bgOffset + IcsSpinner.this.getPaddingLeft();
+            super.setHorizontalOffset(mHorizontalOffset);
         }
 
         @Override
@@ -672,6 +685,11 @@ public class IcsSpinner extends IcsAbsSpinner implements OnClickListener {
         }
 
         @Override
+        public void setHorizontalOffset(int offset) {
+            super.setHorizontalOffset(mHorizontalOffset + offset);
+        }
+
+        @Override
         public void show() {
             final int spinnerPaddingLeft = IcsSpinner.this.getPaddingLeft();
             if (mDropDownWidth == WRAP_CONTENT) {
@@ -687,13 +705,6 @@ public class IcsSpinner extends IcsAbsSpinner implements OnClickListener {
             } else {
                 setContentWidth(mDropDownWidth);
             }
-            final Drawable background = getBackground();
-            int bgOffset = 0;
-            if (background != null) {
-                background.getPadding(mTempRect);
-                bgOffset = -mTempRect.left;
-            }
-            setHorizontalOffset(bgOffset + spinnerPaddingLeft);
             setInputMethodMode(PopupWindow.INPUT_METHOD_NOT_NEEDED);
             super.show();
             getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);

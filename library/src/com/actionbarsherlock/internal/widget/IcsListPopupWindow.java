@@ -280,6 +280,10 @@ public class IcsListPopupWindow {
         return mDropDownList;
     }
 
+    public void setDropdownSelector(Drawable selector) {
+        mDropDownListHighlight = selector;
+    }
+
     private int buildDropDown() {
         ViewGroup dropDownView;
         int otherHeights = 0;
