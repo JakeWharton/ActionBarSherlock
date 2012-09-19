@@ -658,14 +658,13 @@ public class IcsSpinner extends IcsAbsSpinner implements OnClickListener {
                     dismiss();
                 }
             });
-            
+
             final Drawable background = getBackground();
             int bgOffset = 0;
             if (background != null) {
                 background.getPadding(mTempRect);
                 bgOffset = -mTempRect.left;
             }
-            
             mHorizontalOffset = bgOffset + IcsSpinner.this.getPaddingLeft();
             super.setHorizontalOffset(mHorizontalOffset);
         }
@@ -684,7 +683,7 @@ public class IcsSpinner extends IcsAbsSpinner implements OnClickListener {
             // Hint text is ignored for dropdowns, but maintain it here.
             mHintText = hintText;
         }
-        
+
         @Override
         public void setHorizontalOffset(int offset) {
             super.setHorizontalOffset(mHorizontalOffset + offset);
