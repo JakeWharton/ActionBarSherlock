@@ -20,6 +20,7 @@
 	<inceptionYear>2011</inceptionYear>
 
 	<modules>
+        <module>actionbarsherlock-library</module>
 		<module>library</module>
 		<module>samples</module>
 	</modules>
