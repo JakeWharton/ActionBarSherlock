@@ -247,26 +247,4 @@
         <item name="windowActionBar">false</item>
         <item name="windowContentOverlay">@null</item>
     </style>
-
-    <!-- DeviceDefault -->
-    <style name="Theme.Sherlock.DeviceDefault" parent="Theme.Sherlock">
-    </style>
-    <style name="Theme.Sherlock.DeviceDefault.Light" parent="Theme.Sherlock.Light">
-    </style>
-    <style name="Theme.Sherlock.DeviceDefault.Light.DarkActionBar" parent="Theme.Sherlock.Light.DarkActionBar">
-    </style>
-    <style name="Theme.Sherlock.DeviceDefault.NoActionBar" parent="Theme.Sherlock.NoActionBar">
-    </style>
-    <style name="Theme.Sherlock.DeviceDefault.Light.NoActionBar" parent="Theme.Sherlock.Light.NoActionBar">
-    </style>
-    <style name="Theme.Sherlock.DeviceDefault.ForceOverflow" parent="Theme.Sherlock.ForceOverflow">
-    </style>
-    <style name="Theme.Sherlock.DeviceDefault.Light.ForceOverflow" parent="Theme.Sherlock.Light.ForceOverflow">
-    </style>
-    <style name="Theme.Sherlock.DeviceDefault.Light.DarkActionBar.ForceOverflow" parent="Theme.Sherlock.Light.DarkActionBar.ForceOverflow">
-    </style>
-    <style name="Theme.Sherlock.DeviceDefault.Dialog" parent="Theme.Sherlock.Dialog">
-    </style>
-    <style name="Theme.Sherlock.DeviceDefault.Light.Dialog" parent="Theme.Sherlock.Light.Dialog">
-    </style>
 </resources>
