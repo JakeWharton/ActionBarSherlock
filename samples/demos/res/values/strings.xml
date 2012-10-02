@@ -21,7 +21,7 @@
     <string name="action_providers_content">This activity demonstrates how to implement an ActionProvider for adding functionality to the Action Bar. In particular this demo creates an ActionProvider for launching the system settings and adds a menu item with that provider.</string>
 
     <string name="collapsible">Collapsible Action Items</string>
-    <string name="collapsible_content">This activity is a demonstration of how collapsible action items work. When you are concerned about the available room for items on small screens you should use this feature.</string>
+    <string name="collapsible_content">This activity is a demonstration of how collapsible action items work. When you are concerned about the available room for items on small screens you should use this feature.\n\nIf you are looking for a proper SearchView implementation, see this "Search Views" example.</string>
 
     <string name="context_menus">Context Menus</string>
     <string name="context_menus_content">Since both ActionBarSherlock and Android use \'Menu\' and \'MenuItem\' class names you must take extra care when using context menus. It is still very much possible to use both in a single activity.</string>
@@ -34,9 +34,6 @@
 
     <string name="feature_toggles">Feature Toggles</string>
     <string name="feature_toggles_content">Use these buttons to create various configurations with the action bar to see how it behaves.</string>
-
-    <string name="forced_overflow">Forced Overflow Item</string>
-    <string name="forced_overflow_content">If you choose, you can force the presence of the overflow menu as an action item. Google\'s own research indicates that the regular options menu is lost on most users and doing this will place it always on screen. You can use a theme ending in `ForceOverflow` or add the `absForceOverflow` attribute to a custom theme.\n\nNote: This will only work on the pre-ICS action bar.</string>
 
     <string name="iprogress">Indeterminate Progress</string>
     <string name="iprogress_content">The action bar includes a standard indeterminate progress bar. The methods for accessing it are prefixed with `support`. See the source for this demo for more information.</string>
@@ -52,6 +49,9 @@
 
     <string name="progress">Progress</string>
     <string name="progress_content">The action bar includes a standard progress bar. The methods for accessing it are prefixed with `support`. See the source for this demo for more information.</string>
+
+    <string name="search_views">Search Views</string>
+    <string name="search_views_content">SearchView allows you provide a unified mechanism of searching with optional featurs such as auto-completion and an always-expanded mode.</string>
 
     <string name="simple">Simple</string>
     <string name="simple_content">This is a simple showcase of how easy it is to add the action bar to your activities. Take a look at the source code, it\'s surprisingly simple!</string>
@@ -77,7 +77,7 @@
 
 
 
-    <string name="action_bar_share_with">Share with...</string>
+    <string name="action_bar_share_with">Share with…</string>
 
 
 

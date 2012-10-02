@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.SpinnerAdapter;
 
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 
 public class ActionBarWrapper extends ActionBar implements android.app.ActionBar.OnNavigationListener, android.app.ActionBar.OnMenuVisibilityListener {
     private final Activity mActivity;
@@ -318,11 +317,7 @@ public class ActionBarWrapper extends ActionBar implements android.app.ActionBar
         @Override
         public void onTabReselected(android.app.ActionBar.Tab tab, android.app.FragmentTransaction ft) {
             if (mListener != null) {
-                FragmentTransaction trans = null;
-                if (mActivity instanceof SherlockFragmentActivity) {
-                    trans = ((SherlockFragmentActivity)mActivity).getSupportFragmentManager().beginTransaction()
-                            .disallowAddToBackStack();
-                }
+                final FragmentTransaction trans = beginTabChangeTransaction(mActivity);
 
                 mListener.onTabReselected(this, trans);
 
@@ -336,10 +331,7 @@ public class ActionBarWrapper extends ActionBar implements android.app.ActionBar
         public void onTabSelected(android.app.ActionBar.Tab tab, android.app.FragmentTransaction ft) {
             if (mListener != null) {
 
-                if (mFragmentTransaction == null && mActivity instanceof SherlockFragmentActivity) {
-                    mFragmentTransaction = ((SherlockFragmentActivity)mActivity).getSupportFragmentManager().beginTransaction()
-                            .disallowAddToBackStack();
-                }
+                if (mFragmentTransaction == null) { mFragmentTransaction = beginTabChangeTransaction(mActivity); }
 
                 mListener.onTabSelected(this, mFragmentTransaction);
 
@@ -355,13 +347,7 @@ public class ActionBarWrapper extends ActionBar implements android.app.ActionBar
         @Override
         public void onTabUnselected(android.app.ActionBar.Tab tab, android.app.FragmentTransaction ft) {
             if (mListener != null) {
-                FragmentTransaction trans = null;
-                if (mActivity instanceof SherlockFragmentActivity) {
-                    trans = ((SherlockFragmentActivity)mActivity).getSupportFragmentManager().beginTransaction()
-                            .disallowAddToBackStack();
-                    mFragmentTransaction = trans;
-                }
-
+                mFragmentTransaction = beginTabChangeTransaction(mActivity);
                 mListener.onTabUnselected(this, trans);
             }
         }

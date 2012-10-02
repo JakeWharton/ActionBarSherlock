@@ -52,6 +52,7 @@ public class ActionBarSherlockCompat extends ActionBarSherlock implements MenuBu
     /** Window features which are enabled by default. */
     protected static final int DEFAULT_FEATURES = 0;
 
+    static private final String PANELS_TAG = "sherlock:Panels";
 
     public ActionBarSherlockCompat(Activity activity, int flags) {
         super(activity, flags);
@@ -293,7 +294,10 @@ public class ActionBarSherlockCompat extends ActionBarSherlock implements MenuBu
             return false;
         }
 
-        return wActionBar.hideOverflowMenu();
+        if (wActionBar != null) {
+            return wActionBar.hideOverflowMenu();
+        }
+        return false;
     }
 
     @Override
@@ -452,6 +456,19 @@ public class ActionBarSherlockCompat extends ActionBarSherlock implements MenuBu
         mIsDestroyed = true;
     }
 
+    @Override
+    public void dispatchSaveInstanceState(Bundle outState) {
+        if (mMenu != null) {
+            mMenuFrozenActionViewState = new Bundle();
+            mMenu.saveActionViewStates(mMenuFrozenActionViewState);
+        }
+        outState.putParcelable(PANELS_TAG, mMenuFrozenActionViewState);
+    }
+
+    @Override
+    public void dispatchRestoreInstanceState(Bundle savedInstanceState) {
+        mMenuFrozenActionViewState = savedInstanceState.getParcelable(PANELS_TAG);
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     // Menu callback lifecycle and creation

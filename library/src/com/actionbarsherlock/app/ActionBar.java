@@ -16,8 +16,11 @@
 
 package com.actionbarsherlock.app;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -889,12 +892,24 @@ public abstract class ActionBar {
         public void onTabReselected(Tab tab, FragmentTransaction ft);
     }
 
+    protected FragmentTransaction beginTabChangeTransaction(final Activity activity) {
+      if (activity instanceof FragmentActivity) {
+          return ((FragmentActivity)activity).getSupportFragmentManager().beginTransaction()
+                  .disallowAddToBackStack();
+      }
+      return null;
+    }
+
     /**
      * Per-child layout information associated with action bar custom views.
      *
      * @attr ref android.R.styleable#ActionBar_LayoutParams_layout_gravity
      */
     public static class LayoutParams extends MarginLayoutParams {
+        private static final int[] ATTRS = new int[] {
+                android.R.attr.layout_gravity
+        };
+
         /**
          * Gravity for the view associated with these LayoutParams.
          *
@@ -918,6 +933,10 @@ public abstract class ActionBar {
 
         public LayoutParams(Context c, AttributeSet attrs) {
             super(c, attrs);
+
+            TypedArray a = c.obtainStyledAttributes(attrs, ATTRS);
+            gravity = a.getInt(0, -1);
+            a.recycle();
         }
 
         public LayoutParams(int width, int height) {
