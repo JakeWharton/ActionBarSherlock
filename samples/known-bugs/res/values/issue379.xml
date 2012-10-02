@@ -1,0 +1,17 @@
+<resources>
+    <style name="Theme.Issue379" parent="@style/Theme.Sherlock">
+        <item name="android:actionBarStyle">@style/Widget.Issue379.ActionBar</item>
+        <item name="actionBarStyle">@style/Widget.Issue379.ActionBar</item>
+    </style>
+
+    <style name="Widget.Issue379.ActionBar" parent="@style/Widget.Sherlock.ActionBar">
+        <item name="android:background">#ffff0000</item>
+        <item name="background">#ffff0000</item>
+
+        <item name="android:backgroundStacked">#ff00ff00</item>
+        <item name="backgroundStacked">#ff00ff00</item>
+
+        <item name="android:backgroundSplit">#ff0000ff</item>
+        <item name="backgroundSplit">#ff0000ff</item>
+    </style>
+</resources>

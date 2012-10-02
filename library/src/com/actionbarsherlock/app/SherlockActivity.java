@@ -47,16 +47,6 @@ public abstract class SherlockActivity extends Activity implements OnCreatePanel
     @Override
     public void onActionModeFinished(ActionMode mode) {}
 
-    @Override
-    public final void onActionModeStarted(android.view.ActionMode mode) {
-        super.onActionModeStarted(mode);
-    }
-
-    @Override
-    public final void onActionModeFinished(android.view.ActionMode mode) {
-        super.onActionModeFinished(mode);
-    }
-
 
     ///////////////////////////////////////////////////////////////////////////
     // General lifecycle/callback dispatching
@@ -126,6 +116,17 @@ public abstract class SherlockActivity extends Activity implements OnCreatePanel
         return super.dispatchKeyEvent(event);
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        getSherlock().dispatchSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        getSherlock().dispatchRestoreInstanceState(savedInstanceState);
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     // Native menu handling

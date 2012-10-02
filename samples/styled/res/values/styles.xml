@@ -17,7 +17,7 @@
 <resources>
 
     <!-- Variation on the Holo Light theme that styles the Action Bar -->
-    <style name="Theme.AndroidDevelopers" parent="Theme.Sherlock.Light.ForceOverflow">
+    <style name="Theme.AndroidDevelopers" parent="Theme.Sherlock.Light">
         <item name="android:actionBarItemBackground">@drawable/ad_selectable_background</item>
         <item name="actionBarItemBackground">@drawable/ad_selectable_background</item>
         <item name="android:popupMenuStyle">@style/MyPopupMenu</item>
