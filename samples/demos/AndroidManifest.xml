@@ -79,13 +79,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:label="@string/forced_overflow" android:name=".ForcedOverflowItem">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="com.actionbarsherlock.sample.demos.EXAMPLE"/>
-            </intent-filter>
-        </activity>
-
         <activity android:label="@string/iprogress" android:name=".IndeterminateProgress">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

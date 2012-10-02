@@ -19,6 +19,7 @@ Version 4.2.0 *(In Development)*
    `FragmentActivity`.
  * Fix: Ensure `CollapsibleActionView` callbacks are dispatched in both native
    and compatbility action bars.
+ * Fix: Remove `.ForceOverflow` themes. These never should have been included.
 
 
 Version 4.1.0 *(2012-05-17)*

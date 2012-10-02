@@ -184,17 +184,6 @@
     </style>
 
 
-    <style name="Theme.Sherlock.ForceOverflow">
-        <item name="absForceOverflow">true</item>
-    </style>
-    <style name="Theme.Sherlock.Light.ForceOverflow">
-        <item name="absForceOverflow">true</item>
-    </style>
-    <style name="Theme.Sherlock.Light.DarkActionBar.ForceOverflow">
-        <item name="absForceOverflow">true</item>
-    </style>
-
-
     <style name="Theme.Sherlock.Dialog" parent="android:Theme">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowTitleStyle">@style/DialogWindowTitle.Sherlock</item>

@@ -181,9 +181,6 @@
         <!-- Drawable used as a background for activated items. -->
         <attr name="activatedBackgroundIndicator" format="reference" />
 
-        <!-- Specified if we are forcing an action item overflow menu. -->
-        <attr name="absForceOverflow" format="boolean" />
-
         <attr name="android:windowIsFloating" />
     </declare-styleable>
 
