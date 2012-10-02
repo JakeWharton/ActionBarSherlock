@@ -123,7 +123,7 @@ public abstract class Watson extends FragmentActivity implements OnCreatePanelMe
             if (mFragments.mAdded != null) {
                 for (int i = 0; i < mFragments.mAdded.size(); i++) {
                     Fragment f = mFragments.mAdded.get(i);
-                    if (f != null && !f.mHidden && f.mHasMenu && f.mMenuVisible && f instanceof OnOptionsItemSelectedListener) {
+                    if (f != null && !f.mHidden && !f.isInBackStack() && f.mHasMenu && f.mMenuVisible && f instanceof OnOptionsItemSelectedListener) {
                         if (((OnOptionsItemSelectedListener)f).onOptionsItemSelected(item)) {
                             return true;
                         }
