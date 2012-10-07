@@ -31,34 +31,12 @@
 
 	<build>
 		<sourceDirectory>src</sourceDirectory>
-		<finalName>${apk.prefix}-${project.artifactId}-${project.version}-unaligned</finalName>
 
 		<plugins>
 			<plugin>
 				<groupId>com.jayway.maven.plugins.android.generation2</groupId>
 				<artifactId>android-maven-plugin</artifactId>
 				<extensions>true</extensions>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>zipalign</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jarsigner-plugin</artifactId>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>sign</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 
 			<plugin>
