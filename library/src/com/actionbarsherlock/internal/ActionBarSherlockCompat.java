@@ -72,8 +72,6 @@ public class ActionBarSherlockCompat extends ActionBarSherlock implements MenuBu
     private MenuBuilder mMenu;
     /** Map between native options items and sherlock items. */
     protected HashMap<android.view.MenuItem, MenuItemImpl> mNativeItemMap;
-    /** Indication of a long-press on the hardware menu key. */
-    private boolean mMenuKeyIsLongPress = false;
 
     /** Parent view of the window decoration (action bar, mode, etc.). */
     private ViewGroup mDecor;
@@ -428,27 +426,8 @@ public class ActionBarSherlockCompat extends ActionBarSherlock implements MenuBu
             }
         }
 
-        boolean result = false;
-        if (keyCode == KeyEvent.KEYCODE_MENU && isReservingOverflow()) {
-            if (event.getAction() == KeyEvent.ACTION_DOWN && event.isLongPress()) {
-                mMenuKeyIsLongPress = true;
-            } else if (event.getAction() == KeyEvent.ACTION_UP) {
-                if (!mMenuKeyIsLongPress) {
-                    if (mActionMode == null && wActionBar != null) {
-                        if (wActionBar.isOverflowMenuShowing()) {
-                            wActionBar.hideOverflowMenu();
-                        } else {
-                            wActionBar.showOverflowMenu();
-                        }
-                    }
-                    result = true;
-                }
-                mMenuKeyIsLongPress = false;
-            }
-        }
-
-        if (DEBUG) Log.d(TAG, "[dispatchKeyEvent] returning " + result);
-        return result;
+        if (DEBUG) Log.d(TAG, "[dispatchKeyEvent] returning false");
+        return false;
     }
 
     @Override
