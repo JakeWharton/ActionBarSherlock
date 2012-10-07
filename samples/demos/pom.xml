@@ -23,7 +23,7 @@
 
 		<dependency>
 			<groupId>com.actionbarsherlock</groupId>
-			<artifactId>library</artifactId>
+			<artifactId>actionbarsherlock</artifactId>
 			<version>${project.version}</version>
 			<type>apklib</type>
 		</dependency>
@@ -86,26 +86,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
-	<profiles>
-		<profile>
-			<id>abs-release</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>com.github.github</groupId>
-						<artifactId>downloads-maven-plugin</artifactId>
-						<executions>
-							<execution>
-								<phase>deploy</phase>
-								<goals>
-									<goal>upload</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
 </project>

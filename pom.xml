@@ -72,8 +72,7 @@
 		<android.platform>14</android.platform>
 		<android-support.version>r7</android-support.version>
 
-		<android-maven.version>3.1.1</android-maven.version>
-		<robolectric.version>1.1</robolectric.version>
+		<android-maven.version>3.3.2</android-maven.version>
 		<junit.version>4.10</junit.version>
 
 		<github.downloads.repositoryOwner>JakeWharton</github.downloads.repositoryOwner>
@@ -94,11 +93,6 @@
 			</dependency>
 
 			<dependency>
-				<groupId>com.pivotallabs</groupId>
-				<artifactId>robolectric</artifactId>
-				<version>${robolectric.version}</version>
-			</dependency>
-			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
 				<version>${junit.version}</version>
@@ -112,7 +106,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
-					<version>2.3.2</version>
+					<version>2.5</version>
 					<configuration>
 						<source>${java.version}</source>
 						<target>${java.version}</target>
@@ -176,23 +170,6 @@
 						<skip>true</skip>
 					</configuration>
 				</plugin>
-
-				<plugin>
-					<groupId>comm.github.github</groupId>
-					<artifactId>downloads-maven-plugin</artifactId>
-					<version>0.4</version>
-					<configuration>
-						<description>${project.name}</description>
-						<override>true</override>
-						<includeAttached>true</includeAttached>
-						<includes>
-							<include>*.apk</include>
-						</includes>
-						<excludes>
-							<exclude>*-unaligned.apk</exclude>
-						</excludes>
-					</configuration>
-				</plugin>
 			</plugins>
 		</pluginManagement>
 
@@ -203,21 +180,7 @@
 				<version>2.2.2</version>
 				<configuration>
 					<autoVersionSubmodules>true</autoVersionSubmodules>
-					<releaseProfiles>abs-release</releaseProfiles>
 				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-deploy-plugin</artifactId>
-				<version>2.7</version>
-				<dependencies>
-					<dependency>
-						<groupId>org.apache.maven.wagon</groupId>
-						<artifactId>wagon-ssh</artifactId>
-						<version>1.0-beta-7</version>
-					</dependency>
-				</dependencies>
 			</plugin>
 
 			<plugin>
@@ -238,18 +201,5 @@
 				</configuration>
 			</plugin>
 		</plugins>
-
-		<extensions>
-			<extension>
-				<groupId>org.apache.maven.scm</groupId>
-				<artifactId>maven-scm-provider-gitexe</artifactId>
-				<version>1.4</version>
-			</extension>
-			<extension>
-				<groupId>org.apache.maven.scm</groupId>
-				<artifactId>maven-scm-manager-plexus</artifactId>
-				<version>1.4</version>
-			</extension>
-		</extensions>
 	</build>
 </project>
