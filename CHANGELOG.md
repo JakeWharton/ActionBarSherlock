@@ -4,7 +4,7 @@ Change Log
 Version 4.2.0 *(2012-10-07)*
 ----------------------------
 
-**Maven `artifactId` is now to 'actionbarsherlock'.**
+**Maven `artifactId` is now 'actionbarsherlock'.**
 
 Note: The `.Dialog` themes are now deprecated. These will be removed in a future
 version of the library.
