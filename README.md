@@ -19,7 +19,7 @@ and up.
 Try out the sample applications on the Android Market: [Feature Demos][4],
 [Fragments][5], and [RoboGuice][6].
 
-Continuous integration is provided by [CloudBees BuildHive][7].
+Continuous integration is provided by [Travis CI][7].
 
 
 
@@ -57,4 +57,4 @@ License
  [4]: https://play.google.com/store/apps/details?id=com.actionbarsherlock.sample.demos
  [5]: https://play.google.com/store/apps/details?id=com.actionbarsherlock.sample.fragments
  [6]: https://play.google.com/store/apps/details?id=com.actionbarsherlock.sample.roboguice
- [7]: https://buildhive.cloudbees.com/job/JakeWharton/job/ActionBarSherlock/
+ [7]: https://travis-ci.org/JakeWharton/ActionBarSherlock
