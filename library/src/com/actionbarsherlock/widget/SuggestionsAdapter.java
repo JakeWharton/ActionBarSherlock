@@ -66,6 +66,7 @@ class SuggestionsAdapter extends ResourceCursorAdapter implements OnClickListene
     static final int REFINE_ALL = 2;
 
     private SearchManager mSearchManager;
+    private SearchableInfo mSearchable;
     private SearchView mSearchView;
     private Context mProviderContext;
     private WeakHashMap<String, Drawable.ConstantState> mOutsideDrawablesCache;
@@ -94,12 +95,13 @@ class SuggestionsAdapter extends ResourceCursorAdapter implements OnClickListene
     //private static final long DELETE_KEY_POST_DELAY = 500L;
 
     public SuggestionsAdapter(Context context, SearchView searchView,
-                SearchableInfo mSearchable, WeakHashMap<String, Drawable.ConstantState> outsideDrawablesCache) {
+                              SearchableInfo searchable, WeakHashMap<String, Drawable.ConstantState> outsideDrawablesCache) {
         super(context,
             R.layout.abs__search_dropdown_item_icons_2line,
             null,   // no initial cursor
             true);  // auto-requery
         mSearchManager = (SearchManager) mContext.getSystemService(Context.SEARCH_SERVICE);
+        mSearchable = searchable;
         mProviderContext = mContext;
         mSearchView = searchView;
 
@@ -199,25 +201,48 @@ class SuggestionsAdapter extends ResourceCursorAdapter implements OnClickListene
     }
 
     public Cursor getSuggestions(String query, int limit) {
+        if (mSearchable == null) {
+            return null;
+        }
+
+        String authority = mSearchable.getSuggestAuthority();
+        if (authority == null) {
+            return null;
+        }
+
         Uri.Builder uriBuilder = new Uri.Builder()
                 .scheme(ContentResolver.SCHEME_CONTENT)
+                .authority(authority)
                 .query("")  // TODO: Remove, workaround for a bug in Uri.writeToParcel()
                 .fragment("");  // TODO: Remove, workaround for a bug in Uri.writeToParcel()
+
+        // if content path provided, insert it now
+        final String contentPath = mSearchable.getSuggestPath();
+        if (contentPath != null) {
+            uriBuilder.appendEncodedPath(contentPath);
+        }
 
         // append standard suggestion query path
         uriBuilder.appendPath(SearchManager.SUGGEST_URI_PATH_QUERY);
 
+        // get the query selection, may be null
+        String selection = mSearchable.getSuggestSelection();
         // inject query, either as selection args or inline
-        uriBuilder.appendPath(query);
+        String[] selArgs = null;
+        if (selection != null) {    // use selection if provided
+            selArgs = new String[] { query };
+        } else {                    // no selection, use REST pattern
+            uriBuilder.appendPath(query);
+        }
 
         if (limit > 0) {
-            uriBuilder.appendQueryParameter(SearchManager.SUGGEST_PARAMETER_LIMIT, String.valueOf(limit));
+            uriBuilder.appendQueryParameter("limit", String.valueOf(limit));
         }
 
         Uri uri = uriBuilder.build();
 
         // finally, make the query
-        return mContext.getContentResolver().query(uri, null, null, null, null);
+        return mContext.getContentResolver().query(uri, null, selection, selArgs, null);
     }
 
     public void close() {
