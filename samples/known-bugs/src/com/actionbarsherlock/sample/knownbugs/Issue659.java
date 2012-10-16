@@ -1,9 +1,5 @@
-/**
- * 
- */
 package com.actionbarsherlock.sample.knownbugs;
 
-import android.annotation.TargetApi;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -30,7 +26,6 @@ public class Issue659 extends SherlockActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
         setContentView(new FrameLayout(this));
 
         Intent intent  = getIntent();
@@ -43,9 +38,8 @@ public class Issue659 extends SherlockActivity {
             Toast.makeText(this, "Search called with: " + query, Toast.LENGTH_LONG).show();
         }
     }
-    
+
     @Override
-    @TargetApi(11)
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getSupportMenuInflater();
         inflater.inflate(R.menu.issue659_menu, menu);
@@ -53,14 +47,14 @@ public class Issue659 extends SherlockActivity {
         // Get the SearchView and set the searchable configuration
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         ((SearchView) menu.findItem(R.id.action_search).getActionView()).setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        
+
         // uncommenting the following code will allow recent search suggestions to work on honeycomb and above
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 //            android.widget.SearchView searchView = new android.widget.SearchView(getSupportActionBar().getThemedContext());
 //            searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 //            menu.findItem(R.id.action_search).setActionView(searchView);
         }
-        
+
         return true;
     }
 }

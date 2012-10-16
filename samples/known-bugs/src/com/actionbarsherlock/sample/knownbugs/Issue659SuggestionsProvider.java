@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.actionbarsherlock.sample.knownbugs;
 
 import android.content.SearchRecentSuggestionsProvider;
