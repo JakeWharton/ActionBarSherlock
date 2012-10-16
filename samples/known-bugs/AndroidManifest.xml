@@ -15,8 +15,23 @@
             </intent-filter>
         </activity>
 
+        <provider android:name=".Issue659SuggestionsProvider"
+              android:authorities="com.actionbarsherlock.sample.knownbugs.Issue659SuggestionsProvider" />
 
         <!-- OPEN BUGS -->
+        
+        <activity android:label="Issue #659" android:name=".Issue659" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="com.actionbarsherlock.sample.knownbugs.OPEN"/>
+            </intent-filter>
+            <meta-data android:name="android.app.searchable"
+                        android:value=".Issue659"
+                       android:resource="@xml/searchable_issue659"/>
+        </activity>
 
         <activity android:label="Issue #240" android:name=".Issue240">
             <intent-filter>
