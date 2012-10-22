@@ -1159,7 +1159,7 @@ public class SearchView extends LinearLayout implements CollapsibleActionView {
          * Called when the input method default action key is pressed.
          */
         public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-           if (event.getAction() == KeyEvent.ACTION_UP) {
+           if (event != null && event.getAction() == KeyEvent.ACTION_UP) {
               onSubmitQuery();
               return true;
            }
