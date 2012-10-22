@@ -18,6 +18,7 @@ package com.actionbarsherlock.internal.view.menu;
 
 import java.util.HashSet;
 import java.util.Set;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Rect;
@@ -186,6 +187,8 @@ public class ActionMenuItemView extends LinearLayout
         } else {
             mImageButton.setVisibility(GONE);
         }
+        //If you disable the action, this icon will become transparent.
+		mImageButton.setAlpha(mItemData.isEnabled() == false ? 64 : 255);
 
         updateTextButtonVisibility();
     }
@@ -207,13 +210,15 @@ public class ActionMenuItemView extends LinearLayout
         updateTextButtonVisibility();
     }
 
-    @Override
+    @SuppressLint("NewApi")
+	@Override
     public boolean dispatchPopulateAccessibilityEvent(AccessibilityEvent event) {
         onPopulateAccessibilityEvent(event);
         return true;
     }
 
-    @Override
+    @SuppressLint("NewApi")
+	@Override
     public void onPopulateAccessibilityEvent(AccessibilityEvent event) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
             super.onPopulateAccessibilityEvent(event);
@@ -224,7 +229,8 @@ public class ActionMenuItemView extends LinearLayout
         }
     }
 
-    @Override
+    @SuppressLint("NewApi")
+	@Override
     public boolean dispatchHoverEvent(MotionEvent event) {
         // Don't allow children to hover; we want this to be treated as a single component.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
