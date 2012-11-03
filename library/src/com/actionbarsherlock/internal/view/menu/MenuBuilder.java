@@ -355,10 +355,10 @@ public class MenuBuilder implements Menu {
                 getActionViewStatesKey());
 
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB && viewStates == null){
-        	//Fixes Issue #652 with sdk <= 2.3.6
-        	return;
+            //Fixes Issue #652 with sdk <= 2.3.6
+            return;
         }
-        
+
         final int itemCount = size();
         for (int i = 0; i < itemCount; i++) {
             final MenuItem item = getItem(i);
