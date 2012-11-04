@@ -526,6 +526,9 @@ class ActivityChooserView extends ViewGroup implements ActivityChooserModelClien
                         mDefaultActionButtonContentDescription, label);
                 mDefaultActivityButton.setContentDescription(contentDescription);
             }
+
+            // Work-around for #415.
+            mAdapter.setShowDefaultActivity(false, false);
         } else {
             mDefaultActivityButton.setVisibility(View.GONE);
         }
@@ -648,7 +651,8 @@ class ActivityChooserView extends ViewGroup implements ActivityChooserModelClien
 
         private int mMaxActivityCount = MAX_ACTIVITY_COUNT_DEFAULT;
 
-        private boolean mShowDefaultActivity;
+        // Work-around for #415.
+        private boolean mShowDefaultActivity = true;
 
         private boolean mHighlightDefaultActivity;
 
