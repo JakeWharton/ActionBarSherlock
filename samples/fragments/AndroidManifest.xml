@@ -159,6 +159,6 @@
             </intent-filter>
         </activity>
 
-        <provider android:authorities="com.example.android.apis.supportv4.app.LoaderThrottle" android:name=".LoaderThrottleSupport$SimpleProvider"/>
+        <provider android:authorities="com.actionbarsherlock.sample.fragments.LoaderThrottle" android:name=".LoaderThrottleSupport$SimpleProvider"/>
     </application>
 </manifest>
