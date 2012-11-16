@@ -26,7 +26,7 @@ public class IcsColorDrawable extends Drawable {
     @Override
     public void setAlpha(int alpha) {
         if (alpha != (color >>> 24)) {
-            color = (color & 0x00FFFFFF) & (alpha << 24);
+            color = (color & 0x00FFFFFF) | (alpha << 24);
             invalidateSelf();
         }
     }
