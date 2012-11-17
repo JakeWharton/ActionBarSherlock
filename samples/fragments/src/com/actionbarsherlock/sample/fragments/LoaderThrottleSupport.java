@@ -61,7 +61,7 @@ public class LoaderThrottleSupport extends SherlockFragmentActivity {
     /**
      * The authority we use to get to our sample provider.
      */
-    public static final String AUTHORITY = "com.example.android.apis.supportv4.app.LoaderThrottle";
+    public static final String AUTHORITY = "com.actionbarsherlock.sample.fragments.LoaderThrottle";
 
     /**
      * Definition of the contract for the main table of our provider.
