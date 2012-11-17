@@ -143,6 +143,7 @@
 					<version>2.9.1</version>
 					<configuration>
 						<failsOnError>true</failsOnError>
+						<consoleOutput>true</consoleOutput>
 					</configuration>
 				</plugin>
 
