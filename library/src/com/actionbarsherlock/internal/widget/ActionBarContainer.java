@@ -18,7 +18,6 @@ package com.actionbarsherlock.internal.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -27,7 +26,6 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.actionbarsherlock.R;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.internal.nineoldandroids.widget.NineFrameLayout;
@@ -65,12 +63,7 @@ public class ActionBarContainer extends NineFrameLayout {
 
         //Fix for issue #379
         if (mStackedBackground instanceof ColorDrawable && Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-            Bitmap bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
-            Canvas c = new Canvas(bitmap);
-            mStackedBackground.draw(c);
-            int color = bitmap.getPixel(0, 0);
-            bitmap.recycle();
-            mStackedBackground = new IcsColorDrawable(color);
+            mStackedBackground = new IcsColorDrawable((ColorDrawable) mStackedBackground);
         }
 
         if (getId() == R.id.abs__split_action_bar) {

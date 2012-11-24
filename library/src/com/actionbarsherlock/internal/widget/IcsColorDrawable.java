@@ -1,8 +1,10 @@
 package com.actionbarsherlock.internal.widget;
 
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
 import android.graphics.Paint;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 
 /**
@@ -12,8 +14,12 @@ public class IcsColorDrawable extends Drawable {
     private int color;
     private final Paint paint = new Paint();
 
-    public IcsColorDrawable(int color) {
-        this.color = color;
+    public IcsColorDrawable(ColorDrawable drawable) {
+        Bitmap bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(bitmap);
+        drawable.draw(c);
+        this.color = bitmap.getPixel(0, 0);
+        bitmap.recycle();
     }
 
     @Override public void draw(Canvas canvas) {

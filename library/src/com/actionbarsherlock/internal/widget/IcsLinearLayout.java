@@ -3,7 +3,9 @@ package com.actionbarsherlock.internal.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -100,6 +102,12 @@ public class IcsLinearLayout extends NineLinearLayout {
         if (divider == mDivider) {
             return;
         }
+
+        //Fix for issue #379
+        if (divider instanceof ColorDrawable && Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+            divider = new IcsColorDrawable((ColorDrawable) divider);
+        }
+
         mDivider = divider;
         if (divider != null) {
             mDividerWidth = divider.getIntrinsicWidth();
