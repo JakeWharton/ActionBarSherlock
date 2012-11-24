@@ -3,7 +3,9 @@ package com.actionbarsherlock.internal.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -46,12 +48,16 @@ public class IcsLinearLayout extends NineLinearLayout {
      */
     public static final int SHOW_DIVIDER_END = 4;
 
+    
+    private static final boolean IS_HONEYCOMB = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
 
+    
     private Drawable mDivider;
     private int mDividerWidth;
     private int mDividerHeight;
     private int mShowDividers;
     private int mDividerPadding;
+    private boolean mClipDivider;
 
     private boolean mUseLargestChild;
 
@@ -101,6 +107,7 @@ public class IcsLinearLayout extends NineLinearLayout {
             return;
         }
         mDivider = divider;
+        mClipDivider = divider instanceof ColorDrawable;
         if (divider != null) {
             mDividerWidth = divider.getIntrinsicWidth();
             mDividerHeight = divider.getIntrinsicHeight();
@@ -240,15 +247,31 @@ public class IcsLinearLayout extends NineLinearLayout {
     }
 
     void drawHorizontalDivider(Canvas canvas, int top) {
-        mDivider.setBounds(getPaddingLeft() + mDividerPadding, top,
-                getWidth() - getPaddingRight() - mDividerPadding, top + mDividerHeight);
-        mDivider.draw(canvas);
+        if(mClipDivider && !IS_HONEYCOMB) {
+            canvas.save();
+            canvas.clipRect(getPaddingLeft() + mDividerPadding, top,
+                    getWidth() - getPaddingRight() - mDividerPadding, top + mDividerHeight);
+            mDivider.draw(canvas);
+            canvas.restore();
+        } else {
+            mDivider.setBounds(getPaddingLeft() + mDividerPadding, top,
+                    getWidth() - getPaddingRight() - mDividerPadding, top + mDividerHeight);
+            mDivider.draw(canvas);
+        }
     }
 
     void drawVerticalDivider(Canvas canvas, int left) {
-        mDivider.setBounds(left, getPaddingTop() + mDividerPadding,
-                left + mDividerWidth, getHeight() - getPaddingBottom() - mDividerPadding);
-        mDivider.draw(canvas);
+        if(mClipDivider && !IS_HONEYCOMB) {
+            canvas.save();
+            canvas.clipRect(left, getPaddingTop() + mDividerPadding,
+                    left + mDividerWidth, getHeight() - getPaddingBottom() - mDividerPadding);
+            mDivider.draw(canvas);
+            canvas.restore();
+        } else {
+            mDivider.setBounds(left, getPaddingTop() + mDividerPadding,
+                    left + mDividerWidth, getHeight() - getPaddingBottom() - mDividerPadding);
+            mDivider.draw(canvas);
+        }
     }
 
     /**
