@@ -8,6 +8,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.content.res.XmlResourceParser;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.AndroidRuntimeException;
 import android.util.Log;
@@ -29,8 +30,8 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.internal.app.ActionBarImpl;
 import com.actionbarsherlock.internal.view.StandaloneActionMode;
 import com.actionbarsherlock.internal.view.menu.ActionMenuPresenter;
+import com.actionbarsherlock.internal.view.menu.ListMenuPresenter;
 import com.actionbarsherlock.internal.view.menu.MenuBuilder;
-import com.actionbarsherlock.internal.view.menu.MenuItemImpl;
 import com.actionbarsherlock.internal.view.menu.MenuPresenter;
 import com.actionbarsherlock.internal.widget.ActionBarContainer;
 import com.actionbarsherlock.internal.widget.ActionBarContextView;
@@ -40,7 +41,6 @@ import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import org.xmlpull.v1.XmlPullParser;
 
@@ -48,14 +48,21 @@ import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static com.actionbarsherlock.internal.ResourcesCompat.getResources_getBoolean;
 
 @ActionBarSherlock.Implementation(api = 7)
-public class ActionBarSherlockCompat extends ActionBarSherlock implements MenuBuilder.Callback, com.actionbarsherlock.view.Window.Callback, MenuPresenter.Callback, android.view.MenuItem.OnMenuItemClickListener {
+public class ActionBarSherlockCompat extends ActionBarSherlock implements MenuBuilder.Callback, com.actionbarsherlock.view.Window.Callback, MenuPresenter.Callback {
     /** Window features which are enabled by default. */
     protected static final int DEFAULT_FEATURES = 0;
 
-    static private final String PANELS_TAG = "sherlock:Panels";
+    private static final String PANELS_TAG = "sherlock:panels";
 
     public ActionBarSherlockCompat(Activity activity, int flags) {
         super(activity, flags);
+
+        TypedArray a = activity.obtainStyledAttributes(R.styleable.SherlockTheme);
+        panelMenuIsCompact = a.getBoolean(R.styleable.SherlockTheme_panelMenuIsCompact, true);
+        listPresenterTheme = a.getResourceId(
+                /*com.android.internal.*/R.styleable.SherlockTheme_panelMenuListTheme,
+                /*com.android.internal.*/R.style.Theme_Sherlock_CompactMenu);
+        a.recycle();
     }
 
 
@@ -70,8 +77,13 @@ public class ActionBarSherlockCompat extends ActionBarSherlock implements MenuBu
 
     /** Current menu instance for managing action items. */
     private MenuBuilder mMenu;
-    /** Map between native options items and sherlock items. */
-    protected HashMap<android.view.MenuItem, MenuItemImpl> mNativeItemMap;
+
+    /** Theme used for custom overflow menu. */
+    private final int listPresenterTheme;
+    /** Whether or not to use the compact menu. */
+    private final boolean panelMenuIsCompact;
+    /** Custom overflow presenter for pre-Honeycomb. */
+    private ListMenuPresenter listMenuPresenter;
 
     /** Parent view of the window decoration (action bar, mode, etc.). */
     private ViewGroup mDecor;
@@ -314,6 +326,23 @@ public class ActionBarSherlockCompat extends ActionBarSherlock implements MenuBu
     }
 
     @Override
+    public View dispatchCreatePanelView(int featureId) {
+        if (featureId != Window.FEATURE_OPTIONS_PANEL
+                || Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB
+                || !panelMenuIsCompact) {
+            return null;
+        }
+
+        listMenuPresenter = new ListMenuPresenter(
+                /*com.android.internal.*/R.layout.abs__list_menu_item_layout, listPresenterTheme);
+        //listMenuPresenter.setCallback(cb);
+        listMenuPresenter.setId(/*com.android.internal.*/R.id.abs__list_menu_presenter);
+        mMenu.addMenuPresenter(listMenuPresenter);
+
+        return (View) listMenuPresenter.getMenuView(mDecor);
+    }
+
+    @Override
     public boolean dispatchPrepareOptionsMenu(android.view.Menu menu) {
         if (BuildConfig.DEBUG) Log.d(TAG, "[dispatchPrepareOptionsMenu] android.view.Menu: " + menu);
 
@@ -330,19 +359,15 @@ public class ActionBarSherlockCompat extends ActionBarSherlock implements MenuBu
             return false;
         }
 
-        if (mNativeItemMap == null) {
-            mNativeItemMap = new HashMap<android.view.MenuItem, MenuItemImpl>();
-        } else {
-            mNativeItemMap.clear();
-        }
-
         if (mMenu == null) {
             return false;
         }
 
-        boolean result = mMenu.bindNativeOverflow(menu, this, mNativeItemMap);
-        if (BuildConfig.DEBUG) Log.d(TAG, "[dispatchPrepareOptionsMenu] returning " + result);
-        return result;
+        return true;
+
+        //boolean result = mMenu.bindNativeOverflow(menu, this, mNativeItemMap);
+        //if (BuildConfig.DEBUG) Log.d(TAG, "[dispatchPrepareOptionsMenu] returning " + result);
+        //return result;
     }
 
     @Override
@@ -531,7 +556,6 @@ public class ActionBarSherlockCompat extends ActionBarSherlock implements MenuBu
             } else {
                 wActionBar.hideOverflowMenu();
             }
-            return;
         }
     }
 
@@ -579,20 +603,6 @@ public class ActionBarSherlockCompat extends ActionBarSherlock implements MenuBu
     @Override
     public void onCloseMenu(MenuBuilder menu, boolean allMenusAreClosing) {
         checkCloseActionMenu(menu);
-    }
-
-    @Override
-    public boolean onMenuItemClick(android.view.MenuItem item) {
-        if (BuildConfig.DEBUG) Log.d(TAG, "[mNativeItemListener.onMenuItemClick] item: " + item);
-
-        final MenuItemImpl sherlockItem = mNativeItemMap.get(item);
-        if (sherlockItem != null) {
-            sherlockItem.invoke();
-        } else {
-            Log.e(TAG, "Options item \"" + item + "\" not found in mapping");
-        }
-
-        return true; //Do not allow continuation of native handling
     }
 
     @Override

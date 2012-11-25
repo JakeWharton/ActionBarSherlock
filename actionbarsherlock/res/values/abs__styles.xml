@@ -227,6 +227,10 @@
         <item name="android:divider">@drawable/abs__list_divider_holo_dark</item>
         <item name="android:listSelector">@drawable/abs__list_selector_holo_dark</item>
     </style>
+    <style name="Sherlock.__Widget.Holo.Light.ListView" parent="android:Widget.ListView">
+        <item name="android:divider">@drawable/abs__list_divider_holo_light</item>
+        <item name="android:listSelector">@drawable/abs__list_selector_holo_light</item>
+    </style>
     <style name="Widget.Sherlock.ListView.DropDown" parent="Sherlock.__Widget.Holo.ListView">
     </style>
     <style name="Widget.Sherlock.Light.ListView.DropDown" parent="Sherlock.__Widget.Holo.ListView">
@@ -408,5 +412,13 @@
     <style name="TextAppearance.Sherlock.Light.SearchResult.Subtitle">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">?android:attr/textColorSecondary</item>
+    </style>
+
+
+    <style name="Animation">
+    </style>
+    <style name="Animation.Sherlock.DropDownUp" parent="Animation">
+        <item name="android:windowEnterAnimation">@anim/abs__grow_fade_in_from_bottom</item>
+        <item name="android:windowExitAnimation">@anim/abs__shrink_fade_out_from_bottom</item>
     </style>
 </resources>
