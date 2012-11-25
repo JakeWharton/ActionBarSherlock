@@ -36,7 +36,7 @@ import com.actionbarsherlock.view.MenuItem;
  * Android 4.0 source code. The exposed API mirrors that of its native
  * counterpart and you should refer to its documentation for instruction.</p>
  *
- * @author Jake Wharton <jakewharton@gmail.com>
+ * @author Jake Wharton (jakewharton@gmail.com)
  */
 public abstract class ActionBarSherlock {
     protected static final String TAG = "ActionBarSherlock";
@@ -447,6 +447,18 @@ public abstract class ActionBarSherlock {
      * @return {@code true} since we always want to say that we have a native
      */
     public abstract boolean dispatchCreateOptionsMenu(android.view.Menu menu);
+
+    /**
+     * Notify the action bar that the Activity is constructing a menu panel. On
+     * pre-Honeycomb this can optionally be used to make a custom panel which
+     * more closely matches that of the native menu on newer platforms.
+     *
+     * @param featureId Which panel is being created.
+     * @return {@link View} instance or {@code null} to delegate to native panel.
+     */
+    public View dispatchCreatePanelView(int featureId) {
+        return null;
+    }
 
     /**
      * Notify the action bar that the Activity has triggered a menu preparation

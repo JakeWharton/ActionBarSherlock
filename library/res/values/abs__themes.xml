@@ -59,6 +59,11 @@
         <!-- Internal --><item name="dropdownListPreferredItemHeight">48dip</item>
         <item name="dropDownListViewStyle">@style/Widget.Sherlock.ListView.DropDown</item>
 
+        <item name="listPreferredItemHeightSmall">48dip</item>
+        <item name="textAppearanceListItemSmall">?android:attr/textAppearanceMedium</item>
+        <item name="listPreferredItemPaddingLeft">8dip</item>
+        <item name="listPreferredItemPaddingRight">8dip</item>
+
         <item name="textAppearanceSmall">@style/TextAppearance.Sherlock.Small</item>
         <item name="textAppearanceLargePopupMenu">@style/TextAppearance.Sherlock.Widget.PopupMenu.Large</item>
         <item name="textAppearanceSmallPopupMenu">@style/TextAppearance.Sherlock.Widget.PopupMenu.Small</item>
@@ -84,6 +89,10 @@
         <item name="windowActionBar">true</item>
         <item name="windowActionModeOverlay">false</item>
         <item name="windowContentOverlay">@null</item>
+
+        <item name="panelMenuIsCompact">true</item>
+        <item name="panelMenuListWidth">250dip</item>
+        <item name="panelMenuListTheme">@style/Theme.Sherlock.CompactMenu</item>
     </style>
     <style name="Theme.Sherlock.Light" parent="Sherlock.__Theme.Light">
         <!-- Action bar styles (from Theme.Holo) -->
@@ -132,6 +141,11 @@
         <!-- Internal --><item name="dropdownListPreferredItemHeight">48dip</item>
         <item name="dropDownListViewStyle">@style/Widget.Sherlock.Light.ListView.DropDown</item>
 
+        <item name="listPreferredItemHeightSmall">48dip</item>
+        <item name="textAppearanceListItemSmall">?android:attr/textAppearanceMedium</item>
+        <item name="listPreferredItemPaddingLeft">8dip</item>
+        <item name="listPreferredItemPaddingRight">8dip</item>
+
         <item name="textAppearanceSmall">@style/TextAppearance.Sherlock.Light.Small</item>
         <item name="textAppearanceLargePopupMenu">@style/TextAppearance.Sherlock.Light.Widget.PopupMenu.Large</item>
         <item name="textAppearanceSmallPopupMenu">@style/TextAppearance.Sherlock.Light.Widget.PopupMenu.Small</item>
@@ -157,6 +171,10 @@
         <item name="windowActionBar">true</item>
         <item name="windowActionModeOverlay">false</item>
         <item name="windowContentOverlay">@null</item>
+
+        <item name="panelMenuIsCompact">true</item>
+        <item name="panelMenuListWidth">250dip</item>
+        <item name="panelMenuListTheme">@style/Theme.Sherlock.Light.CompactMenu</item>
     </style>
     <style name="Theme.Sherlock.Light.DarkActionBar" parent="Sherlock.__Theme.DarkActionBar">
         <item name="windowContentOverlay">@drawable/abs__ab_solid_shadow_holo</item>
@@ -194,6 +212,24 @@
         <item name="android:dropDownHintAppearance">@style/TextAppearance.Sherlock.Widget.DropDownHint</item>
         <item name="searchViewEditQuery">@drawable/abs__ic_commit_search_api_holo_dark</item>
     </style>
+
+
+
+    <style name="Theme.Sherlock.CompactMenu">
+        <!-- Menu/item attributes -->
+        <item name="android:itemTextAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:listViewStyle">@style/Sherlock.__Widget.Holo.ListView</item>
+        <item name="android:windowAnimationStyle">@style/Animation.Sherlock.DropDownUp</item>
+        <item name="android:background">@null</item>
+    </style>
+    <style name="Theme.Sherlock.Light.CompactMenu">
+        <!-- Menu/item attributes -->
+        <item name="android:itemTextAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:listViewStyle">@style/Sherlock.__Widget.Holo.Light.ListView</item>
+        <item name="android:windowAnimationStyle">@style/Animation.Sherlock.DropDownUp</item>
+        <item name="android:background">@null</item>
+    </style>
+
 
 
     <style name="Theme.Sherlock.NoActionBar">

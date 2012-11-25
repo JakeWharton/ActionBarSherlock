@@ -5,8 +5,8 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.Window;
 import android.view.ViewGroup.LayoutParams;
+import android.view.Window;
 import com.actionbarsherlock.ActionBarSherlock;
 import com.actionbarsherlock.ActionBarSherlock.OnActionModeFinishedListener;
 import com.actionbarsherlock.ActionBarSherlock.OnActionModeStartedListener;
@@ -142,6 +142,11 @@ public abstract class SherlockListActivity extends ListActivity implements OnCre
 
     public void supportInvalidateOptionsMenu() {
         invalidateOptionsMenu();
+    }
+
+    @Override
+    public View onCreatePanelView(int featureId) {
+        return getSherlock().dispatchCreatePanelView(featureId);
     }
 
     @Override

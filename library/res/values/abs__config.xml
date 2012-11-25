@@ -40,4 +40,8 @@
          extremely limited. -->
     <bool name="abs__config_allowActionMenuItemTextWithIcon">false</bool>
 
+    <!-- The duration (in milliseconds) of the activity open/close and fragment open/close animations. -->
+    <integer name="abs__config_activityShortDur">150</integer>
+    <integer name="abs__config_activityDefaultDur">220</integer>
+
 </resources>

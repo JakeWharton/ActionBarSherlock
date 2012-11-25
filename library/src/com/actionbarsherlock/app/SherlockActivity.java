@@ -145,6 +145,11 @@ public abstract class SherlockActivity extends Activity implements OnCreatePanel
     }
 
     @Override
+    public View onCreatePanelView(int featureId) {
+        return getSherlock().dispatchCreatePanelView(featureId);
+    }
+
+    @Override
     public final boolean onCreateOptionsMenu(android.view.Menu menu) {
         return getSherlock().dispatchCreateOptionsMenu(menu);
     }
