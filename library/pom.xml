@@ -8,7 +8,7 @@
 	<packaging>apklib</packaging>
 
 	<parent>
-		<groupId>com.actionbarsherlock</groupId>
+		<groupId>com.actionbarsherlock.digipom-fork</groupId>
 		<artifactId>parent</artifactId>
 		<version>4.2.0</version>
 		<relativePath>../pom.xml</relativePath>
