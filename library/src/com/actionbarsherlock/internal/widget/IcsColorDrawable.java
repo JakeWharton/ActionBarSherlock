@@ -22,6 +22,10 @@ public class IcsColorDrawable extends Drawable {
         bitmap.recycle();
     }
 
+    public IcsColorDrawable(int color) {
+        this.color = color;
+    }
+
     @Override public void draw(Canvas canvas) {
         if ((color >>> 24) != 0) {
             paint.setColor(color);
