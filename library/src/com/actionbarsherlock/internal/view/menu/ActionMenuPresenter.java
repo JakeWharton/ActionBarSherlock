@@ -20,6 +20,8 @@ import static com.actionbarsherlock.internal.ResourcesCompat.getResources_getInt
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -43,6 +45,7 @@ import com.actionbarsherlock.view.MenuItem;
 /**
  * MenuPresenter for building action menus as seen in the action bar and action modes.
  */
+@TargetApi(14)
 public class ActionMenuPresenter extends BaseMenuPresenter
         implements ActionProvider.SubUiVisibilityListener {
     //UNUSED private static final String TAG = "ActionMenuPresenter";

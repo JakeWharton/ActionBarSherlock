@@ -16,6 +16,7 @@
 
 package com.actionbarsherlock.internal.widget;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.graphics.Rect;
@@ -34,6 +35,7 @@ import android.widget.SpinnerAdapter;
  *
  * @attr ref android.R.styleable#AbsSpinner_entries
  */
+@TargetApi(11)
 public abstract class IcsAbsSpinner extends IcsAdapterView<SpinnerAdapter> {
     private static final boolean IS_HONEYCOMB = Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
 

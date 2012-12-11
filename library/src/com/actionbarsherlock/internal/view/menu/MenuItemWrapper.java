@@ -1,5 +1,6 @@
 package com.actionbarsherlock.internal.view.menu;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -11,6 +12,7 @@ import com.actionbarsherlock.view.CollapsibleActionView;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.SubMenu;
 
+@TargetApi(14)
 public class MenuItemWrapper implements MenuItem, android.view.MenuItem.OnMenuItemClickListener {
     private final android.view.MenuItem mNativeItem;
     private SubMenu mSubMenu = null;

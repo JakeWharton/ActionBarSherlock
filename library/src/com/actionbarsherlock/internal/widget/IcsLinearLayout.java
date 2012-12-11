@@ -1,5 +1,6 @@
 package com.actionbarsherlock.internal.widget;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -17,6 +18,7 @@ import com.actionbarsherlock.internal.nineoldandroids.widget.NineLinearLayout;
  * same orientation as the layout you should wrap the child in a simple
  * {@link android.widget.FrameLayout} so it can receive the margin.
  */
+@TargetApi(11)
 public class IcsLinearLayout extends NineLinearLayout {
     private static final int[] R_styleable_LinearLayout = new int[] {
         /* 0 */ android.R.attr.divider,

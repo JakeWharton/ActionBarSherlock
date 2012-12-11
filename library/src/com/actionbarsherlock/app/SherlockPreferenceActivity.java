@@ -1,5 +1,6 @@
 package com.actionbarsherlock.app;
 
+import android.annotation.TargetApi;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
@@ -18,6 +19,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
+@TargetApi(11)
 public abstract class SherlockPreferenceActivity extends PreferenceActivity implements OnCreatePanelMenuListener, OnPreparePanelListener, OnMenuItemSelectedListener, OnActionModeStartedListener, OnActionModeFinishedListener {
     private ActionBarSherlock mSherlock;
 

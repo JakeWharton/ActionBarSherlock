@@ -17,6 +17,8 @@
 package com.actionbarsherlock.internal.widget;
 
 import org.xmlpull.v1.XmlPullParser;
+
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
@@ -68,6 +70,7 @@ import static com.actionbarsherlock.internal.ResourcesCompat.getResources_getBoo
 /**
  * @hide
  */
+@TargetApi(9)
 public class ActionBarView extends AbsActionBarView {
     private static final String TAG = "ActionBarView";
     private static final boolean DEBUG = false;
@@ -1285,6 +1288,7 @@ public class ActionBarView extends AbsActionBarView {
         };
     }
 
+    @TargetApi(14)
     public static class HomeView extends FrameLayout {
         private View mUpView;
         private ImageView mIconView;

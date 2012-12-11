@@ -2,6 +2,7 @@ package com.actionbarsherlock.internal.widget;
 
 import com.actionbarsherlock.R;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Resources;
 import android.database.DataSetObserver;
@@ -27,6 +28,7 @@ import android.widget.PopupWindow;
 /**
  * A proxy between pre- and post-Honeycomb implementations of this class.
  */
+@TargetApi(11)
 public class IcsListPopupWindow {
     /**
      * This value controls the length of time that the user

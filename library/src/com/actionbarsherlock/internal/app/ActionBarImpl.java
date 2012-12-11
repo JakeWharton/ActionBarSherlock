@@ -18,6 +18,8 @@ package com.actionbarsherlock.internal.app;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -63,6 +65,7 @@ import static com.actionbarsherlock.internal.ResourcesCompat.getResources_getBoo
  * the top of the screen and a horizontal LinearLayout at the bottom
  * which is normally hidden.
  */
+@TargetApi(11)
 public class ActionBarImpl extends ActionBar {
     //UNUSED private static final String TAG = "ActionBarImpl";
 
