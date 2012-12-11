@@ -16,6 +16,7 @@
 
 package com.actionbarsherlock.widget;
 
+import android.annotation.TargetApi;
 import android.os.Build;
 import com.actionbarsherlock.R;
 import com.actionbarsherlock.internal.widget.IcsLinearLayout;
@@ -617,6 +618,7 @@ class ActivityChooserView extends ViewGroup implements ActivityChooserModelClien
         }
     }
 
+    @TargetApi(11)
     private static class SetActivated {
         public static void invoke(View view, boolean activated) {
             view.setActivated(activated);

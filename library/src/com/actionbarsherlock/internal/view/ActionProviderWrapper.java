@@ -2,8 +2,11 @@ package com.actionbarsherlock.internal.view;
 
 import com.actionbarsherlock.internal.view.menu.SubMenuWrapper;
 import com.actionbarsherlock.view.ActionProvider;
+
+import android.annotation.TargetApi;
 import android.view.View;
 
+@TargetApi(14)
 public class ActionProviderWrapper extends android.view.ActionProvider {
     private final ActionProvider mProvider;
 

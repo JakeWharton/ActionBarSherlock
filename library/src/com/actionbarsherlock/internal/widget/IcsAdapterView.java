@@ -16,6 +16,7 @@
 
 package com.actionbarsherlock.internal.widget;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.os.Parcelable;
@@ -47,6 +48,7 @@ import android.widget.ListView;
  * <a href="{@docRoot}guide/topics/ui/binding.html">Binding to Data with AdapterView</a>
  * developer guide.</p></div>
  */
+@TargetApi(14)
 public abstract class IcsAdapterView<T extends Adapter> extends ViewGroup {
 
     /**

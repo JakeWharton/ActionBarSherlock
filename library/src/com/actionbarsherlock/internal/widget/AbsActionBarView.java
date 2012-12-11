@@ -15,6 +15,7 @@
  */
 package com.actionbarsherlock.internal.widget;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
@@ -34,6 +35,7 @@ import com.actionbarsherlock.internal.view.menu.ActionMenuView;
 
 import static com.actionbarsherlock.internal.ResourcesCompat.getResources_getBoolean;
 
+@TargetApi(11)
 public abstract class AbsActionBarView extends NineViewGroup {
     protected ActionMenuView mMenuView;
     protected ActionMenuPresenter mActionMenuPresenter;

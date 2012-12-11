@@ -16,6 +16,7 @@
 
 package com.actionbarsherlock.widget;
 
+import android.annotation.TargetApi;
 import android.app.PendingIntent;
 import android.app.SearchManager;
 import android.app.SearchableInfo;
@@ -100,6 +101,7 @@ import static com.actionbarsherlock.widget.SuggestionsAdapter.getColumnString;
  * @attr ref android.R.styleable#SearchView_maxWidth
  * @attr ref android.R.styleable#SearchView_queryHint
  */
+@TargetApi(14)
 public class SearchView extends LinearLayout implements CollapsibleActionView {
 
     private static final boolean DBG = false;

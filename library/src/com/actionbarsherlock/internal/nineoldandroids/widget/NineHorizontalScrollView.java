@@ -1,9 +1,11 @@
 package com.actionbarsherlock.internal.nineoldandroids.widget;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.widget.HorizontalScrollView;
 import com.actionbarsherlock.internal.nineoldandroids.view.animation.AnimatorProxy;
 
+@TargetApi(11)
 public class NineHorizontalScrollView extends HorizontalScrollView {
     private final AnimatorProxy mProxy;
 

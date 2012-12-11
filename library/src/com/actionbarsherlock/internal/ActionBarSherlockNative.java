@@ -6,6 +6,8 @@ import com.actionbarsherlock.internal.app.ActionBarWrapper;
 import com.actionbarsherlock.internal.view.menu.MenuWrapper;
 import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.MenuInflater;
+
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
@@ -16,6 +18,7 @@ import android.view.Window;
 import android.view.ViewGroup.LayoutParams;
 
 @ActionBarSherlock.Implementation(api = 14)
+@TargetApi(14)
 public class ActionBarSherlockNative extends ActionBarSherlock {
     private ActionBarWrapper mActionBar;
     private ActionModeWrapper mActionMode;
@@ -252,6 +255,7 @@ public class ActionBarSherlockNative extends ActionBarSherlock {
         }
     }
 
+    @TargetApi(14)
     private class ActionModeWrapper extends ActionMode {
         private final android.view.ActionMode mActionMode;
         private MenuWrapper mMenu = null;

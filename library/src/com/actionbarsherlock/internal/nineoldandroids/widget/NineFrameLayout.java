@@ -1,11 +1,13 @@
 package com.actionbarsherlock.internal.nineoldandroids.widget;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
 import com.actionbarsherlock.internal.nineoldandroids.view.animation.AnimatorProxy;
 
+@TargetApi(11)
 public class NineFrameLayout extends FrameLayout {
     private final AnimatorProxy mProxy;
 
