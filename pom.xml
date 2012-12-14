@@ -117,6 +117,10 @@
 					<configuration>
 						<source>${java.version}</source>
 						<target>${java.version}</target>
+						<showWarnings>true</showWarnings>
+						<compilerArguments>
+							<Xlint />
+						</compilerArguments>
 					</configuration>
 				</plugin>
 

@@ -582,6 +582,7 @@ public class ValueAnimator extends Animator {
          * active animations to process.
          */
         @Override
+        @SuppressWarnings("fallthrough")
         public void handleMessage(Message msg) {
             boolean callAgain = true;
             ArrayList<ValueAnimator> animations = sAnimations.get();
