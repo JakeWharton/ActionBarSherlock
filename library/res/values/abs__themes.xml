@@ -90,6 +90,9 @@
         <item name="windowActionModeOverlay">false</item>
         <item name="windowContentOverlay">@null</item>
 
+        <!-- Panel attributes -->
+        <item name="panelBackground">@drawable/abs__menu_hardkey_panel_holo_dark</item>
+
         <item name="panelMenuIsCompact">true</item>
         <item name="panelMenuListWidth">250dip</item>
         <item name="panelMenuListTheme">@style/Theme.Sherlock.CompactMenu</item>
@@ -171,6 +174,9 @@
         <item name="windowActionBar">true</item>
         <item name="windowActionModeOverlay">false</item>
         <item name="windowContentOverlay">@null</item>
+
+        <!-- Panel attributes -->
+        <item name="panelBackground">@drawable/abs__menu_hardkey_panel_holo_light</item>
 
         <item name="panelMenuIsCompact">true</item>
         <item name="panelMenuListWidth">250dip</item>
