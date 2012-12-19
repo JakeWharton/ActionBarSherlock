@@ -183,6 +183,8 @@
 
         <attr name="android:windowIsFloating" />
 
+        <attr name="android:panelBackground"/>
+
         <attr name="panelMenuIsCompact" format="boolean" />
         <attr name="panelMenuListWidth" format="dimension" />
         <attr name="panelMenuListTheme" format="reference" />
