@@ -26,6 +26,10 @@ public class ActionBarWrapper extends ActionBar implements android.app.ActionBar
         mActionBar = activity.getActionBar();
         if (mActionBar != null) {
             mActionBar.addOnMenuVisibilityListener(this);
+
+            // Fixes issue #746
+            int displayOptions = mActionBar.getDisplayOptions();
+            mActionBar.setHomeButtonEnabled((displayOptions & DISPLAY_HOME_AS_UP) != 0);
         }
     }
 
@@ -132,11 +136,19 @@ public class ActionBarWrapper extends ActionBar implements android.app.ActionBar
     @Override
     public void setDisplayOptions(int options) {
         mActionBar.setDisplayOptions(options);
+
+        // Fixes issue #746
+        mActionBar.setHomeButtonEnabled((options & DISPLAY_HOME_AS_UP) != 0);
     }
 
     @Override
     public void setDisplayOptions(int options, int mask) {
         mActionBar.setDisplayOptions(options, mask);
+
+        // Fixes issue #746
+        if ((mask & DISPLAY_HOME_AS_UP) != 0) {
+            mActionBar.setHomeButtonEnabled((options & DISPLAY_HOME_AS_UP) != 0);
+        }
     }
 
     @Override
