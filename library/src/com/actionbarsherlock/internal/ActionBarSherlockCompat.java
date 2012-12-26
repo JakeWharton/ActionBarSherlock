@@ -1200,4 +1200,13 @@ public class ActionBarSherlockCompat extends ActionBarSherlock implements MenuBu
             mActionMode = null;
         }
     }
+
+    @Override
+    public void ensureActionBar() {
+        if (DEBUG) Log.d(TAG, "[ensureActionBar]");
+
+        if (mDecor == null) {
+            initActionBar();
+        }
+    }
 }

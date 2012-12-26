@@ -276,6 +276,12 @@ public class SherlockFragmentActivity extends Watson implements OnActionModeStar
         getSherlock().requestFeature((int)featureId);
     }
 
+    @Override
+    public View findViewById(int id) {
+        getSherlock().ensureActionBar();
+        return super.findViewById(id);
+    }
+
 
     ///////////////////////////////////////////////////////////////////////////
     // Progress Indication
