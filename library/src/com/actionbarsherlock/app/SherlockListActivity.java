@@ -243,6 +243,12 @@ public abstract class SherlockListActivity extends ListActivity implements OnCre
         getSherlock().requestFeature((int)featureId);
     }
 
+    @Override
+    public View findViewById(int id) {
+        getSherlock().ensureActionBar();
+        return super.findViewById(id);
+    }
+
 
     ///////////////////////////////////////////////////////////////////////////
     // Progress Indication

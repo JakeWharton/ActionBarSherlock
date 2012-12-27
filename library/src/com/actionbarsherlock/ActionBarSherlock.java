@@ -791,4 +791,9 @@ public abstract class ActionBarSherlock {
      * @see ActionMode
      */
     public abstract ActionMode startActionMode(ActionMode.Callback callback);
+
+    /**
+     * Ensure that the action bar is attached.
+     */
+    public void ensureActionBar() {}
 }

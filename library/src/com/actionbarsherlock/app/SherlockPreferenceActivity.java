@@ -243,6 +243,12 @@ public abstract class SherlockPreferenceActivity extends PreferenceActivity impl
         getSherlock().requestFeature((int)featureId);
     }
 
+    @Override
+    public View findViewById(int id) {
+        getSherlock().ensureActionBar();
+        return super.findViewById(id);
+    }
+
 
     ///////////////////////////////////////////////////////////////////////////
     // Progress Indication
