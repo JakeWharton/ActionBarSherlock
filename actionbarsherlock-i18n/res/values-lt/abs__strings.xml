@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="abs__action_bar_home_description">"Naršyti pagrindinį puslapį"</string>
+    <string name="abs__action_bar_up_description">"Naršyti į viršų"</string>
+    <string name="abs__action_menu_overflow_description">"Daugiau parinkčių"</string>
+    <string name="abs__action_mode_done">"Atlikta"</string>
+    <string name="abs__activity_chooser_view_dialog_title_default">"Pasirinkti veiklą"</string>
+    <string name="abs__activity_chooser_view_see_all">"Žr. viską"</string>
+    <string name="abs__activitychooserview_choose_application">"Pasirinkite programą"</string>
+    <string name="abs__searchview_description_clear">"Išvalyti užklausą"</string>
+    <string name="abs__searchview_description_query">"Paieškos užklausa"</string>
+    <string name="abs__searchview_description_search">"Ieškoti"</string>
+    <string name="abs__searchview_description_submit">"Patvirtinti užklausą"</string>
+    <string name="abs__searchview_description_voice">"Paieška balsu"</string>
+    <string name="abs__share_action_provider_share_with">"Bendrinti su"</string>
+    <string name="abs__shareactionprovider_share_with">"Bendrinti su"</string>
+    <string name="abs__shareactionprovider_share_with_application">"Bendrinti su „%s“"</string>
+</resources>

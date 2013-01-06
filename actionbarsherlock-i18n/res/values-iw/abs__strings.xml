@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="abs__action_bar_home_description">"נווט לדף הבית"</string>
+    <string name="abs__action_bar_up_description">"נווט למעלה"</string>
+    <string name="abs__action_menu_overflow_description">"אפשרויות נוספות"</string>
+    <string name="abs__action_mode_done">"סיום"</string>
+    <string name="abs__activity_chooser_view_dialog_title_default">"בחר פעילות"</string>
+    <string name="abs__activity_chooser_view_see_all">"הצג הכל"</string>
+    <string name="abs__activitychooserview_choose_application">"בחר יישום"</string>
+    <string name="abs__searchview_description_clear">"נקה שאילתה"</string>
+    <string name="abs__searchview_description_query">"שאילתת חיפוש"</string>
+    <string name="abs__searchview_description_search">"חיפוש"</string>
+    <string name="abs__searchview_description_submit">"שלח שאילתה"</string>
+    <string name="abs__searchview_description_voice">"חיפוש קולי"</string>
+    <string name="abs__share_action_provider_share_with">"שתף עם"</string>
+    <string name="abs__shareactionprovider_share_with">"שתף עם"</string>
+    <string name="abs__shareactionprovider_share_with_application">"שתף עם %s"</string>
+</resources>

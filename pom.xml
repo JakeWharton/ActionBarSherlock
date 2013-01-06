@@ -22,6 +22,7 @@
 	<modules>
 		<module>actionbarsherlock</module>
 		<module>actionbarsherlock-samples</module>
+		<module>actionbarsherlock-i18n</module>
 	</modules>
 
 	<scm>

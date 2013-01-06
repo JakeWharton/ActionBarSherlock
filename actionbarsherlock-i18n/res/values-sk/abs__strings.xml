@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="abs__action_bar_home_description">"Prejsť na plochu"</string>
+    <string name="abs__action_bar_up_description">"Prejsť na"</string>
+    <string name="abs__action_menu_overflow_description">"Viac možností"</string>
+    <string name="abs__action_mode_done">"Hotovo"</string>
+    <string name="abs__activity_chooser_view_dialog_title_default">"Vybrať aktivitu"</string>
+    <string name="abs__activity_chooser_view_see_all">"Zobraziť všetky"</string>
+    <string name="abs__activitychooserview_choose_application">"Zvoľte aplikáciu"</string>
+    <string name="abs__searchview_description_clear">"Jasný dopyt"</string>
+    <string name="abs__searchview_description_query">"Vyhľadávací dopyt"</string>
+    <string name="abs__searchview_description_search">"Hľadať"</string>
+    <string name="abs__searchview_description_submit">"Odoslať dopyt"</string>
+    <string name="abs__searchview_description_voice">"Hlasové vyhľadávanie"</string>
+    <string name="abs__share_action_provider_share_with">"Zdieľať s"</string>
+    <string name="abs__shareactionprovider_share_with">"Zdieľať s"</string>
+    <string name="abs__shareactionprovider_share_with_application">"Zdieľať s aplikáciou %s"</string>
+</resources>

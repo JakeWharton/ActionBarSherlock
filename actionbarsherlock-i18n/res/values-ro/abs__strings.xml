@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="abs__action_bar_home_description">"Navigaţi la ecranul de pornire"</string>
+    <string name="abs__action_bar_up_description">"Navigaţi în sus"</string>
+    <string name="abs__action_menu_overflow_description">"Mai multe opţiuni"</string>
+    <string name="abs__action_mode_done">"Terminat"</string>
+    <string name="abs__activity_chooser_view_dialog_title_default">"Alegeţi activitatea"</string>
+    <string name="abs__activity_chooser_view_see_all">"Afişaţi-le pe toate"</string>
+    <string name="abs__activitychooserview_choose_application">"Alegeţi o aplicaţie"</string>
+    <string name="abs__searchview_description_clear">"Ştergeţi interogarea"</string>
+    <string name="abs__searchview_description_query">"Interogare de căutare"</string>
+    <string name="abs__searchview_description_search">"Căutaţi"</string>
+    <string name="abs__searchview_description_submit">"Trimiteţi interogarea"</string>
+    <string name="abs__searchview_description_voice">"Căutare vocală"</string>
+    <string name="abs__share_action_provider_share_with">"Distribuiţi pentru"</string>
+    <string name="abs__shareactionprovider_share_with">"Permiteţi accesul pentru"</string>
+    <string name="abs__shareactionprovider_share_with_application">"Permiteţi accesul pentru %s"</string>
+</resources>

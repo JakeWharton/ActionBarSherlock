@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="abs__action_bar_home_description">"Siirry etusivulle"</string>
+    <string name="abs__action_bar_up_description">"Siirry ylös"</string>
+    <string name="abs__action_menu_overflow_description">"Lisää asetuksia"</string>
+    <string name="abs__action_mode_done">"Valmis"</string>
+    <string name="abs__activity_chooser_view_dialog_title_default">"Valitse toiminto"</string>
+    <string name="abs__activity_chooser_view_see_all">"Näytä kaikki"</string>
+    <string name="abs__activitychooserview_choose_application">"Valitse sovellus"</string>
+    <string name="abs__searchview_description_clear">"Tyhjennä kysely"</string>
+    <string name="abs__searchview_description_query">"Hakulauseke"</string>
+    <string name="abs__searchview_description_search">"Haku"</string>
+    <string name="abs__searchview_description_submit">"Lähetä kysely"</string>
+    <string name="abs__searchview_description_voice">"Puhehaku"</string>
+    <string name="abs__share_action_provider_share_with">"Jaa seuraavien kanssa"</string>
+    <string name="abs__shareactionprovider_share_with">"Jaa seuraavien kanssa:"</string>
+    <string name="abs__shareactionprovider_share_with_application">"Jaa sovelluksessa %s"</string>
+</resources>

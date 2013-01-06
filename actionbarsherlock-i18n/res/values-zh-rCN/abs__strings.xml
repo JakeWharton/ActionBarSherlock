@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="abs__action_bar_home_description">"导航首页"</string>
+    <string name="abs__action_bar_up_description">"向上导航"</string>
+    <string name="abs__action_menu_overflow_description">"更多选项"</string>
+    <string name="abs__action_mode_done">"完成"</string>
+    <string name="abs__activity_chooser_view_dialog_title_default">"选择活动"</string>
+    <string name="abs__activity_chooser_view_see_all">"查看全部"</string>
+    <string name="abs__activitychooserview_choose_application">"选择应用"</string>
+    <string name="abs__searchview_description_clear">"清除查询"</string>
+    <string name="abs__searchview_description_query">"搜索查询"</string>
+    <string name="abs__searchview_description_search">"搜索"</string>
+    <string name="abs__searchview_description_submit">"提交查询"</string>
+    <string name="abs__searchview_description_voice">"语音搜索"</string>
+    <string name="abs__share_action_provider_share_with">"分享对象"</string>
+    <string name="abs__shareactionprovider_share_with">"共享对象"</string>
+    <string name="abs__shareactionprovider_share_with_application">"与“%s”共享"</string>
+</resources>

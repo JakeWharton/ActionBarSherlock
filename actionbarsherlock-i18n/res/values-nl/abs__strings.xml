@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="abs__action_bar_home_description">"Navigeren naar startpositie"</string>
+    <string name="abs__action_bar_up_description">"Omhoog navigeren"</string>
+    <string name="abs__action_menu_overflow_description">"Meer opties"</string>
+    <string name="abs__action_mode_done">"Gereed"</string>
+    <string name="abs__activity_chooser_view_dialog_title_default">"Een activiteit kiezen"</string>
+    <string name="abs__activity_chooser_view_see_all">"Alles weergeven"</string>
+    <string name="abs__activitychooserview_choose_application">"Een app selecteren"</string>
+    <string name="abs__searchview_description_clear">"Zoekopdracht wissen"</string>
+    <string name="abs__searchview_description_query">"Zoekopdracht"</string>
+    <string name="abs__searchview_description_search">"Zoeken"</string>
+    <string name="abs__searchview_description_submit">"Zoekopdracht verzenden"</string>
+    <string name="abs__searchview_description_voice">"Spraakgestuurd zoeken"</string>
+    <string name="abs__share_action_provider_share_with">"Delen met"</string>
+    <string name="abs__shareactionprovider_share_with">"Delen met"</string>
+    <string name="abs__shareactionprovider_share_with_application">"Delen met %s"</string>
+</resources>
