@@ -97,7 +97,8 @@ public class LoaderCursorSupport extends SherlockFragmentActivity {
             MenuItem item = menu.add("Search");
             item.setIcon(android.R.drawable.ic_menu_search);
             item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-            View searchView = SearchViewCompat.newSearchView(getActivity());
+            SherlockFragmentActivity activity = (SherlockFragmentActivity)getActivity();
+            View searchView = SearchViewCompat.newSearchView(activity.getSupportActionBar().getThemedContext());
             if (searchView != null) {
                 SearchViewCompat.setOnQueryTextListener(searchView,
                         new OnQueryTextListenerCompat() {
