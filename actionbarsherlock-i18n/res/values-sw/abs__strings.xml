@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="abs__action_bar_home_description">"Abiri nyumbani"</string>
+    <string name="abs__action_bar_up_description">"Ongoza"</string>
+    <string name="abs__action_menu_overflow_description">"Chaguo zaidi"</string>
+    <string name="abs__action_mode_done">"Kwisha"</string>
+    <string name="abs__activity_chooser_view_dialog_title_default">"Chagua shughuli"</string>
+    <string name="abs__activity_chooser_view_see_all">"Angalia zote"</string>
+    <string name="abs__activitychooserview_choose_application">"Chagua programu"</string>
+    <string name="abs__searchview_description_clear">"Futa swali"</string>
+    <string name="abs__searchview_description_query">"Hoja ya utafutaji"</string>
+    <string name="abs__searchview_description_search">"Tafuta"</string>
+    <string name="abs__searchview_description_submit">"Wasilisha hoja"</string>
+    <string name="abs__searchview_description_voice">"Utafutaji wa sauti"</string>
+    <string name="abs__share_action_provider_share_with">"Shiriki na"</string>
+    <string name="abs__shareactionprovider_share_with">"Gawa na"</string>
+    <string name="abs__shareactionprovider_share_with_application">"Gawa na %s"</string>
+</resources>

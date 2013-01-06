@@ -1,0 +1,22 @@
+{
+    "grab": [
+        "action_bar_home_description", 
+        "action_bar_up_description", 
+        "action_menu_overflow_description", 
+        "action_mode_done", 
+        "activity_chooser_view_see_all", 
+        "activity_chooser_view_dialog_title_default", 
+        "share_action_provider_share_with", 
+        "activitychooserview_choose_application", 
+        "shareactionprovider_share_with", 
+        "shareactionprovider_share_with_application", 
+        "searchview_description_search", 
+        "searchview_description_query", 
+        "searchview_description_clear", 
+        "searchview_description_submit", 
+        "searchview_description_voice"
+    ],
+    "prefix": "abs__",
+    "filename_pattern": "abs__%s.xml",
+    "ignore_default_locale": true
+}

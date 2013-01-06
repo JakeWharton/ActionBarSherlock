@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="abs__action_bar_home_description">"นำทางไปหน้าแรก"</string>
+    <string name="abs__action_bar_up_description">"นำทางขึ้น"</string>
+    <string name="abs__action_menu_overflow_description">"ตัวเลือกเพิ่มเติม"</string>
+    <string name="abs__action_mode_done">"เสร็จสิ้น"</string>
+    <string name="abs__activity_chooser_view_dialog_title_default">"เลือกกิจกรรม"</string>
+    <string name="abs__activity_chooser_view_see_all">"ดูทั้งหมด"</string>
+    <string name="abs__activitychooserview_choose_application">"เลือกแอปพลิเคชัน"</string>
+    <string name="abs__searchview_description_clear">"ล้างข้อความค้นหา"</string>
+    <string name="abs__searchview_description_query">"คำค้นหา"</string>
+    <string name="abs__searchview_description_search">"ค้นหา"</string>
+    <string name="abs__searchview_description_submit">"ส่งข้อความค้นหา"</string>
+    <string name="abs__searchview_description_voice">"ค้นหาด้วยเสียง"</string>
+    <string name="abs__share_action_provider_share_with">"แบ่งปันกับ"</string>
+    <string name="abs__shareactionprovider_share_with">"แบ่งปันกับ"</string>
+    <string name="abs__shareactionprovider_share_with_application">"แบ่งปันด้วย %s"</string>
+</resources>

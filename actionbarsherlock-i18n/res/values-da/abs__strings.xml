@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="abs__action_bar_home_description">"Naviger hjem"</string>
+    <string name="abs__action_bar_up_description">"Naviger op"</string>
+    <string name="abs__action_menu_overflow_description">"Flere valgmuligheder"</string>
+    <string name="abs__action_mode_done">"Udført"</string>
+    <string name="abs__activity_chooser_view_dialog_title_default">"Vælg aktivitet"</string>
+    <string name="abs__activity_chooser_view_see_all">"Se alle"</string>
+    <string name="abs__activitychooserview_choose_application">"Vælg en app"</string>
+    <string name="abs__searchview_description_clear">"Ryd forespørgslen"</string>
+    <string name="abs__searchview_description_query">"Søgeforespørgsel"</string>
+    <string name="abs__searchview_description_search">"Søg"</string>
+    <string name="abs__searchview_description_submit">"Indsend forespørgslen"</string>
+    <string name="abs__searchview_description_voice">"Stemmesøgning"</string>
+    <string name="abs__share_action_provider_share_with">"Del med"</string>
+    <string name="abs__shareactionprovider_share_with">"Del med"</string>
+    <string name="abs__shareactionprovider_share_with_application">"Del med %s"</string>
+</resources>

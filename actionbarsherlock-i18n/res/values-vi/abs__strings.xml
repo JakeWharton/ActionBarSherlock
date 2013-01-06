@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="abs__action_bar_home_description">"Điều hướng về trang chủ"</string>
+    <string name="abs__action_bar_up_description">"Điều hướng lên trên"</string>
+    <string name="abs__action_menu_overflow_description">"Tùy chọn khác"</string>
+    <string name="abs__action_mode_done">"Xong"</string>
+    <string name="abs__activity_chooser_view_dialog_title_default">"Chọn hoạt động"</string>
+    <string name="abs__activity_chooser_view_see_all">"Xem tất cả"</string>
+    <string name="abs__activitychooserview_choose_application">"Chọn một ứng dụng"</string>
+    <string name="abs__searchview_description_clear">"Xóa truy vấn"</string>
+    <string name="abs__searchview_description_query">"Truy vấn tìm kiếm"</string>
+    <string name="abs__searchview_description_search">"Tìm kiếm"</string>
+    <string name="abs__searchview_description_submit">"Gửi truy vấn"</string>
+    <string name="abs__searchview_description_voice">"Tìm kiếm bằng giọng nói"</string>
+    <string name="abs__share_action_provider_share_with">"Chia sẻ với"</string>
+    <string name="abs__shareactionprovider_share_with">"Chia sẻ với"</string>
+    <string name="abs__shareactionprovider_share_with_application">"Chia sẻ với %s"</string>
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="abs__action_bar_home_description">"홈 탐색"</string>
+    <string name="abs__action_bar_up_description">"위로 탐색"</string>
+    <string name="abs__action_menu_overflow_description">"옵션 더보기"</string>
+    <string name="abs__action_mode_done">"완료"</string>
+    <string name="abs__activity_chooser_view_dialog_title_default">"작업 선택"</string>
+    <string name="abs__activity_chooser_view_see_all">"전체 보기"</string>
+    <string name="abs__activitychooserview_choose_application">"앱 선택"</string>
+    <string name="abs__searchview_description_clear">"검색어 삭제"</string>
+    <string name="abs__searchview_description_query">"검색어"</string>
+    <string name="abs__searchview_description_search">"검색"</string>
+    <string name="abs__searchview_description_submit">"검색어 보내기"</string>
+    <string name="abs__searchview_description_voice">"음성 검색"</string>
+    <string name="abs__share_action_provider_share_with">"공유 대상"</string>
+    <string name="abs__shareactionprovider_share_with">"공유 대상:"</string>
+    <string name="abs__shareactionprovider_share_with_application">"%s와(과) 공유"</string>
+</resources>

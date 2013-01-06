@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="abs__action_bar_home_description">"Ana sayfaya git"</string>
+    <string name="abs__action_bar_up_description">"Yukarı git"</string>
+    <string name="abs__action_menu_overflow_description">"Diğer seçenekler"</string>
+    <string name="abs__action_mode_done">"Bitti"</string>
+    <string name="abs__activity_chooser_view_dialog_title_default">"Etkinlik seçin"</string>
+    <string name="abs__activity_chooser_view_see_all">"Tümünü göster"</string>
+    <string name="abs__activitychooserview_choose_application">"Bir uygulama seçin"</string>
+    <string name="abs__searchview_description_clear">"Sorguyu temizle"</string>
+    <string name="abs__searchview_description_query">"Arama sorgusu"</string>
+    <string name="abs__searchview_description_search">"Ara"</string>
+    <string name="abs__searchview_description_submit">"Sorguyu gönder"</string>
+    <string name="abs__searchview_description_voice">"Sesli arama"</string>
+    <string name="abs__share_action_provider_share_with">"Şununla paylaş:"</string>
+    <string name="abs__shareactionprovider_share_with">"Şununla paylaş:"</string>
+    <string name="abs__shareactionprovider_share_with_application">"%s ile paylaş"</string>
+</resources>

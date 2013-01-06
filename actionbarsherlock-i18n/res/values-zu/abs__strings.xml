@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="abs__action_bar_home_description">"Zulazulela ekhaya"</string>
+    <string name="abs__action_bar_up_description">"Zulazulela phezulu"</string>
+    <string name="abs__action_menu_overflow_description">"Izinketho ezingaphezulu"</string>
+    <string name="abs__action_mode_done">"Kwenziwe"</string>
+    <string name="abs__activity_chooser_view_dialog_title_default">"Khetha okwenziwayo"</string>
+    <string name="abs__activity_chooser_view_see_all">"Buka konke"</string>
+    <string name="abs__activitychooserview_choose_application">"Khetha insiza"</string>
+    <string name="abs__searchview_description_clear">"xazulula umbuzo"</string>
+    <string name="abs__searchview_description_query">"Umbuzo wosesho"</string>
+    <string name="abs__searchview_description_search">"Sesha"</string>
+    <string name="abs__searchview_description_submit">"Thumela umbuzo"</string>
+    <string name="abs__searchview_description_voice">"Ukusesha ngezwi"</string>
+    <string name="abs__share_action_provider_share_with">"Yabelana no"</string>
+    <string name="abs__shareactionprovider_share_with">"Yabelana no"</string>
+    <string name="abs__shareactionprovider_share_with_application">"Yabelana no %s"</string>
+</resources>
