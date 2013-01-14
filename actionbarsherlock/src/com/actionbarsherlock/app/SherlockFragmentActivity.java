@@ -173,7 +173,7 @@ public class SherlockFragmentActivity extends Watson implements OnActionModeStar
 
     @Override
     public View onCreatePanelView(int featureId) {
-        if (DEBUG) Log.d(TAG, "[onCreatePanelView] featureId: " + featureId);
+        if (BuildConfig.DEBUG) Log.d(TAG, "[onCreatePanelView] featureId: " + featureId);
 
         return getSherlock().dispatchCreatePanelView(featureId);
     }
