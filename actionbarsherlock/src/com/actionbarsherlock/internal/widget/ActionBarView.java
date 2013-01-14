@@ -32,7 +32,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -58,6 +57,7 @@ import com.actionbarsherlock.internal.view.menu.MenuItemImpl;
 import com.actionbarsherlock.internal.view.menu.MenuPresenter;
 import com.actionbarsherlock.internal.view.menu.MenuView;
 import com.actionbarsherlock.internal.view.menu.SubMenuBuilder;
+import com.actionbarsherlock.log.LogManager;
 import com.actionbarsherlock.view.CollapsibleActionView;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
@@ -200,7 +200,7 @@ public class ActionBarView extends AbsActionBarView {
                     try {
                         mLogo = pm.getActivityLogo(((Activity) context).getComponentName());
                     } catch (NameNotFoundException e) {
-                        Log.e(TAG, "Activity component name not found!", e);
+                    	LogManager.getLogger().e(TAG, "Activity component name not found!", e);
                     }
                 }
                 if (mLogo == null) {
@@ -215,7 +215,7 @@ public class ActionBarView extends AbsActionBarView {
                 try {
                     mIcon = pm.getActivityIcon(((Activity) context).getComponentName());
                 } catch (NameNotFoundException e) {
-                    Log.e(TAG, "Activity component name not found!", e);
+                	LogManager.getLogger().e(TAG, "Activity component name not found!", e);
                 }
             }
             if (mIcon == null) {
@@ -277,7 +277,7 @@ public class ActionBarView extends AbsActionBarView {
         int logo = 0;
         try {
             final String thisPackage = activity.getClass().getName();
-            if (DEBUG) Log.i(TAG, "Parsing AndroidManifest.xml for " + thisPackage);
+            if (DEBUG) LogManager.getLogger().i(TAG, "Parsing AndroidManifest.xml for " + thisPackage);
 
             final String packageName = activity.getApplicationInfo().packageName;
             final AssetManager am = activity.createPackageContext(packageName, 0).getAssets();
@@ -290,10 +290,10 @@ public class ActionBarView extends AbsActionBarView {
 
                     if ("application".equals(name)) {
                         //Check if the <application> has the attribute
-                        if (DEBUG) Log.d(TAG, "Got <application>");
+                        if (DEBUG) LogManager.getLogger().d(TAG, "Got <application>");
 
                         for (int i = xml.getAttributeCount() - 1; i >= 0; i--) {
-                            if (DEBUG) Log.d(TAG, xml.getAttributeName(i) + ": " + xml.getAttributeValue(i));
+                            if (DEBUG) LogManager.getLogger().d(TAG, xml.getAttributeName(i) + ": " + xml.getAttributeValue(i));
 
                             if ("logo".equals(xml.getAttributeName(i))) {
                                 logo = xml.getAttributeResourceValue(i, 0);
@@ -302,13 +302,13 @@ public class ActionBarView extends AbsActionBarView {
                         }
                     } else if ("activity".equals(name)) {
                         //Check if the <activity> is us and has the attribute
-                        if (DEBUG) Log.d(TAG, "Got <activity>");
+                        if (DEBUG) LogManager.getLogger().d(TAG, "Got <activity>");
                         Integer activityLogo = null;
                         String activityPackage = null;
                         boolean isOurActivity = false;
 
                         for (int i = xml.getAttributeCount() - 1; i >= 0; i--) {
-                            if (DEBUG) Log.d(TAG, xml.getAttributeName(i) + ": " + xml.getAttributeValue(i));
+                            if (DEBUG) LogManager.getLogger().d(TAG, xml.getAttributeName(i) + ": " + xml.getAttributeValue(i));
 
                             //We need both uiOptions and name attributes
                             String attrName = xml.getAttributeName(i);
@@ -340,7 +340,7 @@ public class ActionBarView extends AbsActionBarView {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (DEBUG) Log.i(TAG, "Returning " + Integer.toHexString(logo));
+        if (DEBUG) LogManager.getLogger().i(TAG, "Returning " + Integer.toHexString(logo));
         return logo;
     }
 

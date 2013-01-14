@@ -26,7 +26,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.content.res.XmlResourceParser;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.util.Xml;
 import android.view.InflateException;
@@ -34,6 +33,7 @@ import android.view.View;
 
 import com.actionbarsherlock.R;
 import com.actionbarsherlock.internal.view.menu.MenuItemImpl;
+import com.actionbarsherlock.log.LogManager;
 
 /**
  * This class is used to instantiate menu XML files into Menu objects.
@@ -391,7 +391,7 @@ public class MenuInflater {
                             mActionProviderConstructorArguments);
             } else {
                 if (hasActionProvider) {
-                    Log.w(LOG_TAG, "Ignoring attribute 'actionProviderClass'."
+                	LogManager.getLogger().w(LOG_TAG, "Ignoring attribute 'actionProviderClass'."
                             + " Action view already specified.");
                 }
                 itemActionProvider = null;
@@ -454,7 +454,7 @@ public class MenuInflater {
                     item.setActionView(itemActionViewLayout);
                     actionViewSpecified = true;
                 } else {
-                    Log.w(LOG_TAG, "Ignoring attribute 'itemActionViewLayout'."
+                	LogManager.getLogger().w(LOG_TAG, "Ignoring attribute 'itemActionViewLayout'."
                             + " Action view already specified.");
                 }
             }
@@ -487,7 +487,7 @@ public class MenuInflater {
                 Constructor<?> constructor = clazz.getConstructor(constructorSignature);
                 return (T) constructor.newInstance(arguments);
             } catch (Exception e) {
-                Log.w(LOG_TAG, "Cannot instantiate class: " + className, e);
+            	LogManager.getLogger().w(LOG_TAG, "Cannot instantiate class: " + className, e);
             }
             return null;
         }

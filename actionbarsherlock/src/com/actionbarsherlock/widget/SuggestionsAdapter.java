@@ -35,7 +35,6 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.TextAppearanceSpan;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -43,6 +42,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.actionbarsherlock.R;
+import com.actionbarsherlock.log.LogManager;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -171,7 +171,7 @@ class SuggestionsAdapter extends ResourceCursorAdapter implements OnClickListene
      */
     @Override
     public Cursor runQueryOnBackgroundThread(CharSequence constraint) {
-        if (DBG) Log.d(LOG_TAG, "runQueryOnBackgroundThread(" + constraint + ")");
+        if (DBG) LogManager.getLogger().d(LOG_TAG, "runQueryOnBackgroundThread(" + constraint + ")");
         String query = (constraint == null) ? "" : constraint.toString();
         /**
          * for in app search we show the progress spinner until the cursor is returned with
@@ -192,7 +192,7 @@ class SuggestionsAdapter extends ResourceCursorAdapter implements OnClickListene
                 return cursor;
             }
         } catch (RuntimeException e) {
-            Log.w(LOG_TAG, "Search suggestions query threw an exception.", e);
+        	LogManager.getLogger().w(LOG_TAG, "Search suggestions query threw an exception.", e);
         }
         // If cursor is null or an exception was thrown, stop the spinner and return null.
         // changeCursor doesn't get called if cursor is null
@@ -246,14 +246,14 @@ class SuggestionsAdapter extends ResourceCursorAdapter implements OnClickListene
     }
 
     public void close() {
-        if (DBG) Log.d(LOG_TAG, "close()");
+        if (DBG) LogManager.getLogger().d(LOG_TAG, "close()");
         changeCursor(null);
         mClosed = true;
     }
 
     @Override
     public void notifyDataSetChanged() {
-        if (DBG) Log.d(LOG_TAG, "notifyDataSetChanged");
+        if (DBG) LogManager.getLogger().d(LOG_TAG, "notifyDataSetChanged");
         super.notifyDataSetChanged();
 
         // mSearchView.onDataSetChanged(); // TODO:
@@ -263,7 +263,7 @@ class SuggestionsAdapter extends ResourceCursorAdapter implements OnClickListene
 
     @Override
     public void notifyDataSetInvalidated() {
-        if (DBG) Log.d(LOG_TAG, "notifyDataSetInvalidated");
+        if (DBG) LogManager.getLogger().d(LOG_TAG, "notifyDataSetInvalidated");
         super.notifyDataSetInvalidated();
 
         updateSpinnerState(getCursor());
@@ -272,7 +272,7 @@ class SuggestionsAdapter extends ResourceCursorAdapter implements OnClickListene
     private void updateSpinnerState(Cursor cursor) {
         Bundle extras = cursor != null ? cursor.getExtras() : null;
         if (DBG) {
-            Log.d(LOG_TAG, "updateSpinnerState - extra = "
+        	LogManager.getLogger().d(LOG_TAG, "updateSpinnerState - extra = "
                     + (extras != null
                     ? extras.getBoolean(SearchManager.CURSOR_EXTRA_KEY_IN_PROGRESS)
                     : null));
@@ -292,10 +292,10 @@ class SuggestionsAdapter extends ResourceCursorAdapter implements OnClickListene
      */
     @Override
     public void changeCursor(Cursor c) {
-        if (DBG) Log.d(LOG_TAG, "changeCursor(" + c + ")");
+        if (DBG) LogManager.getLogger().d(LOG_TAG, "changeCursor(" + c + ")");
 
         if (mClosed) {
-            Log.w(LOG_TAG, "Tried to change cursor after adapter was closed.");
+        	LogManager.getLogger().w(LOG_TAG, "Tried to change cursor after adapter was closed.");
             if (c != null) c.close();
             return;
         }
@@ -312,7 +312,7 @@ class SuggestionsAdapter extends ResourceCursorAdapter implements OnClickListene
                 mFlagsCol = c.getColumnIndex(SearchManager.SUGGEST_COLUMN_FLAGS);
             }
         } catch (Exception e) {
-            Log.e(LOG_TAG, "error changing cursor and caching columns", e);
+        	LogManager.getLogger().e(LOG_TAG, "error changing cursor and caching columns", e);
         }
     }
 
@@ -510,7 +510,7 @@ class SuggestionsAdapter extends ResourceCursorAdapter implements OnClickListene
         try {
             return super.getView(position, convertView, parent);
         } catch (RuntimeException e) {
-            Log.w(LOG_TAG, "Search suggestions cursor threw exception.", e);
+        	LogManager.getLogger().w(LOG_TAG, "Search suggestions cursor threw exception.", e);
             // Put exception string in item title
             View v = newView(mContext, mCursor, parent);
             if (v != null) {
@@ -573,7 +573,7 @@ class SuggestionsAdapter extends ResourceCursorAdapter implements OnClickListene
             return drawable;
         } catch (Resources.NotFoundException nfe) {
             // It was an integer, but it couldn't be found, bail out
-            Log.w(LOG_TAG, "Icon resource not found: " + drawableId);
+        	LogManager.getLogger().w(LOG_TAG, "Icon resource not found: " + drawableId);
             return null;
         }
     }
@@ -605,12 +605,12 @@ class SuggestionsAdapter extends ResourceCursorAdapter implements OnClickListene
                     try {
                         stream.close();
                     } catch (IOException ex) {
-                        Log.e(LOG_TAG, "Error closing icon stream for " + uri, ex);
+                    	LogManager.getLogger().e(LOG_TAG, "Error closing icon stream for " + uri, ex);
                     }
                 }
             }
         } catch (FileNotFoundException fnfe) {
-            Log.w(LOG_TAG, "Icon not found: " + uri + ", " + fnfe.getMessage());
+        	LogManager.getLogger().w(LOG_TAG, "Icon not found: " + uri + ", " + fnfe.getMessage());
             return null;
         }
     }
@@ -655,7 +655,7 @@ class SuggestionsAdapter extends ResourceCursorAdapter implements OnClickListene
         if (cached == null) {
             return null;
         }
-        if (DBG) Log.d(LOG_TAG, "Found icon in cache: " + resourceUri);
+        if (DBG) LogManager.getLogger().d(LOG_TAG, "Found icon in cache: " + resourceUri);
         return cached.newDrawable();
     }
 
@@ -714,7 +714,7 @@ class SuggestionsAdapter extends ResourceCursorAdapter implements OnClickListene
         try {
             activityInfo = pm.getActivityInfo(component, PackageManager.GET_META_DATA);
         } catch (NameNotFoundException ex) {
-            Log.w(LOG_TAG, ex.toString());
+        	LogManager.getLogger().w(LOG_TAG, ex.toString());
             return null;
         }
         int iconId = activityInfo.getIconResource();
@@ -722,7 +722,7 @@ class SuggestionsAdapter extends ResourceCursorAdapter implements OnClickListene
         String pkg = component.getPackageName();
         Drawable drawable = pm.getDrawable(pkg, iconId, activityInfo.applicationInfo);
         if (drawable == null) {
-            Log.w(LOG_TAG, "Invalid icon resource " + iconId + " for "
+        	LogManager.getLogger().w(LOG_TAG, "Invalid icon resource " + iconId + " for "
                     + component.flattenToShortString());
             return null;
         }
@@ -749,7 +749,7 @@ class SuggestionsAdapter extends ResourceCursorAdapter implements OnClickListene
         try {
             return cursor.getString(col);
         } catch (Exception e) {
-            Log.e(LOG_TAG,
+        	LogManager.getLogger().e(LOG_TAG,
                     "unexpected error retrieving valid column from cursor, "
                             + "did the remote process die?", e);
             return null;
