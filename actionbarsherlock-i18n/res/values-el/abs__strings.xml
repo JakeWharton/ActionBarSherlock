@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="abs__action_bar_home_description">"Πλοήγηση στην αρχική σελίδα"</string>
+    <string name="abs__action_bar_up_description">"Πλοήγηση προς τα επάνω"</string>
+    <string name="abs__action_menu_overflow_description">"Περισσότερες επιλογές"</string>
+    <string name="abs__action_mode_done">"Ολοκληρώθηκε"</string>
+    <string name="abs__activity_chooser_view_dialog_title_default">"Επιλογή δραστηριότητας"</string>
+    <string name="abs__activity_chooser_view_see_all">"Εμφάνιση όλων"</string>
+    <string name="abs__activitychooserview_choose_application">"Επιλέξτε κάποια εφαρμογή"</string>
+    <string name="abs__searchview_description_clear">"Απαλοιφή ερωτήματος"</string>
+    <string name="abs__searchview_description_query">"Ερώτημα αναζήτησης"</string>
+    <string name="abs__searchview_description_search">"Αναζήτηση"</string>
+    <string name="abs__searchview_description_submit">"Υποβολή ερωτήματος"</string>
+    <string name="abs__searchview_description_voice">"Φωνητική αναζήτηση"</string>
+    <string name="abs__share_action_provider_share_with">"Κοινή χρήση με"</string>
+    <string name="abs__shareactionprovider_share_with">"Κοινή χρήση με"</string>
+    <string name="abs__shareactionprovider_share_with_application">"Κοινή χρήση με %s"</string>
+</resources>

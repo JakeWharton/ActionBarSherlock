@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="abs__action_bar_home_description">"Перейти на главную"</string>
+    <string name="abs__action_bar_up_description">"Перейти вверх"</string>
+    <string name="abs__action_menu_overflow_description">"Ещё"</string>
+    <string name="abs__action_mode_done">"Готово"</string>
+    <string name="abs__activity_chooser_view_dialog_title_default">"Выберите"</string>
+    <string name="abs__activity_chooser_view_see_all">"Просмотреть все"</string>
+    <string name="abs__activitychooserview_choose_application">"Выберите приложение"</string>
+    <string name="abs__searchview_description_clear">"Удалить запрос"</string>
+    <string name="abs__searchview_description_query">"Поисковый запрос"</string>
+    <string name="abs__searchview_description_search">"Поиск"</string>
+    <string name="abs__searchview_description_submit">"Отправить запрос"</string>
+    <string name="abs__searchview_description_voice">"Голосовой поиск"</string>
+    <string name="abs__share_action_provider_share_with">"Открыть доступ"</string>
+    <string name="abs__shareactionprovider_share_with">"Открыть доступ:"</string>
+    <string name="abs__shareactionprovider_share_with_application">"Открыть доступ приложению \"%s\""</string>
+</resources>

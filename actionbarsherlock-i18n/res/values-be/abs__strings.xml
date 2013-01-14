@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="abs__action_bar_home_description">"Перайсці да пачатковай старонкі"</string>
+    <string name="abs__action_bar_up_description">"Перайсці ўверх"</string>
+    <string name="abs__action_menu_overflow_description">"Больш налад"</string>
+    <string name="abs__action_mode_done">"Гатова"</string>
+    <string name="abs__activity_chooser_view_dialog_title_default">"Выберыце працэс"</string>
+    <string name="abs__activity_chooser_view_see_all">"Прагледзець усё"</string>
+    <string name="abs__activitychooserview_choose_application">"Выберыце прыкладанне"</string>
+    <string name="abs__searchview_description_clear">"Выдаліць запыт"</string>
+    <string name="abs__searchview_description_query">"Запыт на пошук"</string>
+    <string name="abs__searchview_description_search">"Пошук"</string>
+    <string name="abs__searchview_description_submit">"Адправіць запыт"</string>
+    <string name="abs__searchview_description_voice">"Галасавы пошук"</string>
+    <string name="abs__share_action_provider_share_with">"Апублікаваць з дапамогай"</string>
+    <string name="abs__shareactionprovider_share_with">"Апублікаваць з дапамогай"</string>
+    <string name="abs__shareactionprovider_share_with_application">"Адправiць з дапамогай прыкладання %s"</string>
+</resources>

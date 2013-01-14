@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="abs__action_bar_home_description">"होम पर नेविगेट करें"</string>
+    <string name="abs__action_bar_up_description">"ऊपर नेविगेट करें"</string>
+    <string name="abs__action_menu_overflow_description">"अधिक विकल्प"</string>
+    <string name="abs__action_mode_done">"पूर्ण"</string>
+    <string name="abs__activity_chooser_view_dialog_title_default">"गतिविधि चुनें"</string>
+    <string name="abs__activity_chooser_view_see_all">"सभी देखें"</string>
+    <string name="abs__activitychooserview_choose_application">"कोई एप्‍लिकेशन चुनें"</string>
+    <string name="abs__searchview_description_clear">"क्‍वेरी साफ़ करें"</string>
+    <string name="abs__searchview_description_query">"खोज क्वेरी"</string>
+    <string name="abs__searchview_description_search">"खोजें"</string>
+    <string name="abs__searchview_description_submit">"क्वेरी सबमिट करें"</string>
+    <string name="abs__searchview_description_voice">"ध्वनि खोज"</string>
+    <string name="abs__share_action_provider_share_with">"इसके साथ साझा करें:"</string>
+    <string name="abs__shareactionprovider_share_with">"इसके साथ साझा करें:"</string>
+    <string name="abs__shareactionprovider_share_with_application">"%s के साथ साझा करें"</string>
+</resources>

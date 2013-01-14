@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="abs__action_bar_home_description">"Navigeer tuis"</string>
+    <string name="abs__action_bar_up_description">"Navigeer op"</string>
+    <string name="abs__action_menu_overflow_description">"Meer opsies"</string>
+    <string name="abs__action_mode_done">"Klaar"</string>
+    <string name="abs__activity_chooser_view_dialog_title_default">"Kies aktiwiteit"</string>
+    <string name="abs__activity_chooser_view_see_all">"Sien alle"</string>
+    <string name="abs__activitychooserview_choose_application">"Kies \'n program"</string>
+    <string name="abs__searchview_description_clear">"Maak navraag skoon"</string>
+    <string name="abs__searchview_description_query">"Soeknavraag"</string>
+    <string name="abs__searchview_description_search">"Soek"</string>
+    <string name="abs__searchview_description_submit">"Dien navraag in"</string>
+    <string name="abs__searchview_description_voice">"Stemsoektog"</string>
+    <string name="abs__share_action_provider_share_with">"Deel met"</string>
+    <string name="abs__shareactionprovider_share_with">"Deel met"</string>
+    <string name="abs__shareactionprovider_share_with_application">"Deel met %s"</string>
+</resources>

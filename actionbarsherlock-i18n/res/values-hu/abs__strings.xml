@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="abs__action_bar_home_description">"Ugrás a főoldalra"</string>
+    <string name="abs__action_bar_up_description">"Felfele mozgás"</string>
+    <string name="abs__action_menu_overflow_description">"További lehetőségek"</string>
+    <string name="abs__action_mode_done">"Kész"</string>
+    <string name="abs__activity_chooser_view_dialog_title_default">"Tevékenység kiválasztása"</string>
+    <string name="abs__activity_chooser_view_see_all">"Összes megtekintése"</string>
+    <string name="abs__activitychooserview_choose_application">"Válasszon ki egy alkalmazást"</string>
+    <string name="abs__searchview_description_clear">"Lekérdezés törlése"</string>
+    <string name="abs__searchview_description_query">"Keresési lekérdezés"</string>
+    <string name="abs__searchview_description_search">"Keresés"</string>
+    <string name="abs__searchview_description_submit">"Lekérdezés küldése"</string>
+    <string name="abs__searchview_description_voice">"Hangalapú keresés"</string>
+    <string name="abs__share_action_provider_share_with">"Megosztás"</string>
+    <string name="abs__shareactionprovider_share_with">"Megosztás a következővel:"</string>
+    <string name="abs__shareactionprovider_share_with_application">"Ossza meg a következő alkalmazással: %s"</string>
+</resources>

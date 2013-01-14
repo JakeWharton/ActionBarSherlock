@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="abs__action_bar_home_description">"Перейти на головну"</string>
+    <string name="abs__action_bar_up_description">"Перейти вгору"</string>
+    <string name="abs__action_menu_overflow_description">"Інші варіанти"</string>
+    <string name="abs__action_mode_done">"Готово"</string>
+    <string name="abs__activity_chooser_view_dialog_title_default">"Вибрати дію"</string>
+    <string name="abs__activity_chooser_view_see_all">"Переглянути всі"</string>
+    <string name="abs__activitychooserview_choose_application">"Вибрати програму"</string>
+    <string name="abs__searchview_description_clear">"Очистити запит"</string>
+    <string name="abs__searchview_description_query">"Пошуковий запит"</string>
+    <string name="abs__searchview_description_search">"Пошук"</string>
+    <string name="abs__searchview_description_submit">"Наіслати запит"</string>
+    <string name="abs__searchview_description_voice">"Голосовий пошук"</string>
+    <string name="abs__share_action_provider_share_with">"Спільний доступ для:"</string>
+    <string name="abs__shareactionprovider_share_with">"Надіслати через"</string>
+    <string name="abs__shareactionprovider_share_with_application">"Надіслати через %s"</string>
+</resources>

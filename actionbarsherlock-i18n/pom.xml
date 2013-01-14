@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>actionbarsherlock-i18n</artifactId>
+	<name>ActionBarSherlock Internationalization</name>
+	<packaging>apklib</packaging>
+
+	<parent>
+		<groupId>com.actionbarsherlock</groupId>
+		<artifactId>parent</artifactId>
+		<version>4.2.1-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.actionbarsherlock</groupId>
+			<artifactId>actionbarsherlock</artifactId>
+			<version>${project.version}</version>
+			<type>apklib</type>
+		</dependency>
+		<dependency>
+			<groupId>com.google.android</groupId>
+			<artifactId>android</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.android</groupId>
+			<artifactId>support-v4</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.jayway.maven.plugins.android.generation2</groupId>
+				<artifactId>android-maven-plugin</artifactId>
+				<extensions>true</extensions>
+			</plugin>
+		</plugins>
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.holoeverywhere</groupId>
+					<artifactId>translator</artifactId>
+					<version>1.4.2</version>
+					<extensions>true</extensions>
+					<configuration>
+						<outputDir>${project.basedir}/res</outputDir>
+						<includeDir>${project.basedir}</includeDir>
+						<input>
+							<param>abs__strings.json</param>
+						</input>
+					</configuration>
+					<!-- Uncomment it for rebuild translates in every build -->
+					<!--executions>
+						<execution>
+							<goals>
+								<goal>build</goal>
+							</goals>
+							<phase>initialize</phase>
+						</execution>
+					</executions-->
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>
