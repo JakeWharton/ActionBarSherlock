@@ -180,8 +180,6 @@
         <attr name="activityChooserViewStyle" format="reference" />
         <!-- Drawable used as a background for activated items. -->
         <attr name="activatedBackgroundIndicator" format="reference" />
-
-        <attr name="android:windowIsFloating" />
     </declare-styleable>
 
 

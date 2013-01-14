@@ -1,9 +1,10 @@
 Change Log
 ===============================================================================
 
-Version 4.2.1 *(In Development)*
+Version 4.3.0 *(In Development)*
 --------------------------------
 
+ * Removed dialog themes.
  * Fix: `SearchView` suggestions now work properly.
 
 

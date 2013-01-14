@@ -9,8 +9,6 @@
     </style>
     <style name="Sherlock.__Theme.DarkActionBar" parent="Theme.Sherlock.Light">
     </style>
-    <style name="Sherlock.__Theme.Dialog" parent="android:Theme.Dialog">
-    </style>
 
     <style name="Theme.Sherlock" parent="Sherlock.__Theme">
         <!-- Action bar styles (from Theme.Holo) -->
@@ -203,59 +201,5 @@
     <style name="Theme.Sherlock.Light.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-    </style>
-
-
-    <style name="Theme.Sherlock.Dialog" parent="android:Theme">
-        <item name="android:windowFrame">@null</item>
-        <item name="android:windowTitleStyle">@style/DialogWindowTitle.Sherlock</item>
-        <item name="android:windowBackground">@drawable/abs__dialog_full_holo_dark</item>
-        <item name="android:windowIsFloating">true</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
-        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
-
-        <item name="android:windowActionBar">false</item>
-        <item name="android:windowActionModeOverlay">true</item>
-        <item name="android:windowCloseOnTouchOutside">true</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:backgroundDimAmount">0.6</item>
-
-        <item name="android:colorBackgroundCacheHint">@null</item>
-
-        <item name="android:textColorPrimary">@color/abs__primary_text_holo_dark</item>
-        <item name="android:textColorPrimaryInverse">@color/abs__primary_text_holo_light</item>
-
-        <item name="windowMinWidthMajor">@dimen/abs__dialog_min_width_major</item>
-        <item name="windowMinWidthMinor">@dimen/abs__dialog_min_width_minor</item>
-
-        <item name="windowActionBar">false</item>
-        <item name="windowContentOverlay">@null</item>
-    </style>
-    <style name="Theme.Sherlock.Light.Dialog" parent="android:Theme.Light">
-        <item name="android:windowFrame">@null</item>
-        <item name="android:windowTitleStyle">@style/DialogWindowTitle.Sherlock.Light</item>
-        <item name="android:windowBackground">@drawable/abs__dialog_full_holo_light</item>
-        <item name="android:windowIsFloating">true</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
-        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
-
-        <item name="android:windowActionBar">false</item>
-        <item name="android:windowActionModeOverlay">true</item>
-        <item name="android:windowCloseOnTouchOutside">true</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:backgroundDimAmount">0.6</item>
-
-        <item name="android:colorBackgroundCacheHint">@null</item>
-
-        <item name="android:textColorPrimary">@color/abs__primary_text_holo_light</item>
-        <item name="android:textColorPrimaryInverse">@color/abs__primary_text_holo_dark</item>
-
-        <item name="windowMinWidthMajor">@dimen/abs__dialog_min_width_major</item>
-        <item name="windowMinWidthMinor">@dimen/abs__dialog_min_width_minor</item>
-
-        <item name="windowActionBar">false</item>
-        <item name="windowContentOverlay">@null</item>
     </style>
 </resources>
