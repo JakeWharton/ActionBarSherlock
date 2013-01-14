@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>actionbarsherlock-i18n</artifactId>
-	<name>ActionBarSherlock Internationalization</name>
+	<name>ActionBarSherlock i18n</name>
 	<packaging>apklib</packaging>
 
 	<parent>
@@ -28,6 +28,7 @@
 		<dependency>
 			<groupId>com.google.android</groupId>
 			<artifactId>support-v4</artifactId>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 
@@ -38,33 +39,18 @@
 				<artifactId>android-maven-plugin</artifactId>
 				<extensions>true</extensions>
 			</plugin>
-		</plugins>
 
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.holoeverywhere</groupId>
-					<artifactId>translator</artifactId>
-					<version>1.4.2</version>
-					<extensions>true</extensions>
-					<configuration>
-						<outputDir>${project.basedir}/res</outputDir>
-						<includeDir>${project.basedir}</includeDir>
-						<input>
-							<param>abs__strings.json</param>
-						</input>
-					</configuration>
-					<!-- Uncomment it for rebuild translates in every build -->
-					<!--executions>
-						<execution>
-							<goals>
-								<goal>build</goal>
-							</goals>
-							<phase>initialize</phase>
-						</execution>
-					</executions-->
-				</plugin>
-			</plugins>
-		</pluginManagement>
+			<plugin>
+				<groupId>org.holoeverywhere</groupId>
+				<artifactId>translator</artifactId>
+				<configuration>
+					<outputDir>${project.basedir}/res</outputDir>
+					<includeDir>${project.basedir}</includeDir>
+					<input>
+						<param>abs__strings.json</param>
+					</input>
+				</configuration>
+			</plugin>
+		</plugins>
 	</build>
 </project>
