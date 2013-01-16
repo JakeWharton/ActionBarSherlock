@@ -48,7 +48,7 @@ public class ShareActionProviders extends SherlockActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.text);
         ((TextView)findViewById(R.id.text)).setText(R.string.share_action_providers_content);
-        copyPrivateRawResuorceToPubliclyAccessibleFile();
+        copyPrivateRawResourceToPubliclyAccessibleFile();
     }
 
     @Override
@@ -95,7 +95,7 @@ public class ShareActionProviders extends SherlockActivity {
      * Copies a private raw resource content to a publicly readable
      * file such that the latter can be shared with other applications.
      */
-    private void copyPrivateRawResuorceToPubliclyAccessibleFile() {
+    private void copyPrivateRawResourceToPubliclyAccessibleFile() {
         InputStream inputStream = null;
         FileOutputStream outputStream = null;
         try {
