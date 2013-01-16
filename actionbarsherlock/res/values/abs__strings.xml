@@ -29,10 +29,6 @@
 
     <!-- Title for a button to expand the list of activities in ActivityChooserView [CHAR LIMIT=25] -->
     <string name="abs__activity_chooser_view_see_all">See all...</string>
-    <!-- Title default for a dialog showing possible activities in ActivityChooserView [CHAR LIMIT=25] -->
-    <string name="abs__activity_chooser_view_dialog_title_default">Select activity</string>
-    <!-- Title for a dialog showing possible activities for sharing in ShareActionProvider [CHAR LIMIT=25] -->
-    <string name="abs__share_action_provider_share_with">Share with...</string>
     <!-- Description of the shwoing of a popup window with activities to choose from. [CHAR LIMIT=NONE] -->
     <string name="abs__activitychooserview_choose_application">Choose an application</string>
     <!-- Description of the choose target button in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] -->
