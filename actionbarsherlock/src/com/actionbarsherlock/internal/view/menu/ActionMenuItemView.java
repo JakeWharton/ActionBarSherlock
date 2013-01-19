@@ -31,6 +31,7 @@ import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.actionbarsherlock.R;
 import com.actionbarsherlock.internal.view.View_HasStateListenerSupport;
@@ -263,7 +264,7 @@ public class ActionMenuItemView extends LinearLayout
         final int midy = screenPos[1] + height / 2;
         final int screenWidth = context.getResources().getDisplayMetrics().widthPixels;
 
-        IcsToast cheatSheet = IcsToast.makeText(context, mItemData.getTitle(), IcsToast.LENGTH_SHORT);
+        Toast cheatSheet = IcsToast.makeText(context, mItemData.getTitle(), IcsToast.LENGTH_SHORT);
         if (midy < displayFrame.height()) {
             // Show along the top; follow action buttons
             cheatSheet.setGravity(Gravity.TOP | Gravity.RIGHT,

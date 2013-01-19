@@ -4,16 +4,22 @@ package com.actionbarsherlock.internal.widget;
 import android.content.Context;
 import android.util.Log;
 import android.view.Gravity;
+import android.os.Build.VERSION;
+import android.os.Build.VERSION_CODES;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.actionbarsherlock.R;
 
-public class IcsToast extends android.widget.Toast {
-    public static final int LENGTH_LONG = android.widget.Toast.LENGTH_LONG;
-    public static final int LENGTH_SHORT = android.widget.Toast.LENGTH_SHORT;
+public class IcsToast extends Toast {
+    public static final int LENGTH_LONG = Toast.LENGTH_LONG;
+    public static final int LENGTH_SHORT = Toast.LENGTH_SHORT;
     private static final String TAG = "Toast";
 
-    public static IcsToast makeText(Context context, CharSequence s, int duration) {
+    public static Toast makeText(Context context, CharSequence s, int duration) {
+        if(VERSION.SDK_INT >= VERSION_CODES.HONEYCOMB) {
+            return Toast.makeText(context, s, duration);
+        }
         IcsToast toast = new IcsToast(context);
         toast.setDuration(duration);
         TextView view = new TextView(context);
@@ -25,9 +31,8 @@ public class IcsToast extends android.widget.Toast {
         return toast;
     }
 
-    public static IcsToast makeText(Context context, int resId, int duration) {
-        return IcsToast.makeText(context, context.getResources().getString(resId),
-                duration);
+    public static Toast makeText(Context context, int resId, int duration) {
+        return makeText(context, context.getResources().getString(resId), duration);
     }
 
     public IcsToast(Context context) {
@@ -36,13 +41,17 @@ public class IcsToast extends android.widget.Toast {
 
     @Override
     public void setText(CharSequence s) {
+        if(VERSION.SDK_INT >= VERSION_CODES.HONEYCOMB) {
+            super.setText(s);
+            return;
+        }
         if (getView() == null) {
             return;
         }
         try {
             ((TextView) getView()).setText(s);
         } catch (ClassCastException e) {
-            Log.e(IcsToast.TAG, "This IcsToast was not created with IcsToast.makeText", e);
+            Log.e(IcsToast.TAG, "This Toast was not created with IcsToast.makeText", e);
         }
     }
 }
