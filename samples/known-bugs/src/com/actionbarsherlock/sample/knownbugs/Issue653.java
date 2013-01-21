@@ -33,7 +33,7 @@ public class Issue653 extends SherlockActivity  {
 		searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
 	}
 
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+	@SuppressLint("NewApi")
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
