@@ -1623,8 +1623,8 @@ public class SearchView extends LinearLayout implements CollapsibleActionView {
 
     private void forceSuggestionQuery() {
         try {
-            Method before = SearchAutoComplete.class.getMethod("doBeforeTextChanged");
-            Method after = SearchAutoComplete.class.getMethod("doAfterTextChanged");
+            Method before = AutoCompleteTextView.class.getDeclaredMethod("doBeforeTextChanged");
+            Method after = AutoCompleteTextView.class.getDeclaredMethod("doAfterTextChanged");
             before.setAccessible(true);
             after.setAccessible(true);
             before.invoke(mQueryTextView);
