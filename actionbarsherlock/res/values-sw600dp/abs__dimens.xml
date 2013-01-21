@@ -34,5 +34,5 @@
     <integer name="abs__max_action_buttons">5</integer>
 
     <!-- Minimum width for an action button in the menu area of an action bar -->
-    <dimen name="action_button_min_width">64dip</dimen>
+    <dimen name="abs__action_button_min_width">64dip</dimen>
 </resources>
