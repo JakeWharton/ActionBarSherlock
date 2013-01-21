@@ -45,6 +45,25 @@
             </intent-filter>
         </activity>
 
+        <activity android:label="Issue #653" android:name=".Issue653" android:launchMode="singleTask" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="com.actionbarsherlock.sample.knownbugs.OPEN"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/issue653searchable" />
+        </activity>
+
+        
+        <provider
+            android:exported="false"
+            android:name=".Issue653SuggestionProvider"
+            android:authorities="Issue653" />
 
         <!-- CLOSED BUGS -->
 

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<searchable xmlns:android="http://schemas.android.com/apk/res/android"
+    android:hint="issue653 reproduce"
+    android:label="@string/activity_name"
+    android:searchMode="queryRewriteFromText"
+    android:searchSuggestAuthority="Issue653"
+    android:searchSuggestIntentAction="android.intent.action.VIEW"
+    android:searchSuggestPath="friends"
+    android:searchSuggestSelection=" ?" >
+
+</searchable>
