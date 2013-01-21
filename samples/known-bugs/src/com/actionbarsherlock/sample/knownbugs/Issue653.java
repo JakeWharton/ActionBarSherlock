@@ -1,23 +1,19 @@
 package com.actionbarsherlock.sample.knownbugs;
 
-import android.annotation.TargetApi;
+import android.annotation.SuppressLint;
 import android.app.SearchManager;
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
+import android.widget.SearchView;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-
-
 /*
  * search suggestion can be fired if import android.widget.SearchView
  * search suggestion can not be fired if com.actionbarsherlock.widget.SearchView
  */
-
 //import com.actionbarsherlock.widget.SearchView;
-import android.widget.SearchView;
 
 
 
