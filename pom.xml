@@ -21,8 +21,9 @@
 
   <modules>
     <module>actionbarsherlock</module>
-    <module>actionbarsherlock-samples</module>
+    <module>actionbarsherlock-fest</module>
     <module>actionbarsherlock-i18n</module>
+    <module>actionbarsherlock-samples</module>
   </modules>
 
   <scm>
@@ -72,6 +73,7 @@
     <!-- Compilation dependencies -->
     <android.version>4.0.1.2</android.version>
     <android-support.version>r7</android-support.version>
+    <fest.android.version>1.0.0</fest.android.version>
 
     <!-- Sample dependencies -->
     <nineoldandroids.version>2.4.0</nineoldandroids.version>
@@ -119,6 +121,11 @@
         <groupId>com.pivotallabs</groupId>
         <artifactId>robolectric</artifactId>
         <version>${robolectric.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.squareup</groupId>
+        <artifactId>fest-android</artifactId>
+        <version>${fest.android.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
