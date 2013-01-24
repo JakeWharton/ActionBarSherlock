@@ -33,10 +33,10 @@ public class Issue331 extends SherlockActivity {
         if (mShow) {
             menu.add("Refresh").setIcon(R.drawable.ic_refresh).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         }
-        return true;
+        return mShow;
     }
 
-    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         ImageView iv = (ImageView) LayoutInflater.from(this).inflate(R.layout.issue331_action_view, null);
         Animation r = AnimationUtils.loadAnimation(this, R.anim.issue331_refresh);
         r.setRepeatCount(Animation.INFINITE);

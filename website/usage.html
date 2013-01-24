@@ -4,11 +4,27 @@ layout: default
 ---
 
 
+<script type="text/javascript">
+$(function() {
+	$.getJSON('https://api.github.com/repos/JakeWharton/ActionBarSherlock/tags?callback=?', function(response) {
+		var meta = response.meta
+		  , data = response.data
+		;
+
+		data.sort(function(o1, o2) {
+			return (o1.name > o2.name) ? -1 : 1;
+		});
+
+		var last = data[0];
+		$('.latest-version').html(last.name);
+	});
+});
+</script>
+
 <div class="row">
 	<div class="three-fourths">
 		<h1>Usage</h1>
 		<p>Sticking with the theme of the official compatability library, ActionBarSherlock aims to allow the use of the action bar design pattern by mimicking the experience that would be found natively on Android Ice Cream Sandwich with as little effort as required.</p>
-		<p><strong>Are you migrating an application from version 3.x to 4.x?</strong> Check out the <a href="migration.html">migration guide</a> for detailed steps that will get your app up and running with the new version.</p>
 
 		<h3>Requirements</h3>
 		<p>Due to its use of the native action bar and its related classes on Ice Cream Sandwich, the library requires that both it and your project are compiled with Android 4.0 or newer. The project also requires that you are compiling with JDK 1.6 in both your editor and any build systems that you may be using.</p>
@@ -25,7 +41,7 @@ layout: default
 &lt;dependency>
   &lt;groupId>com.actionbarsherlock&lt;/groupId>
   &lt;artifactId>library&lt;/artifactId>
-  &lt;version><span class="latest-version">4.0.0</span>&lt;/version>
+  &lt;version><span class="latest-version">4.1.0</span>&lt;/version>
   &lt;type>apklib&lt;/type>
 &lt;/dependency>
 </pre></code>

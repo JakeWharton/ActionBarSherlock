@@ -3,7 +3,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.actionbarsherlock</groupId>
 	<artifactId>sample-known-bugs</artifactId>
 	<name>Sample: Known Bugs</name>
 	<packaging>apk</packaging>
@@ -11,7 +10,7 @@
 	<parent>
 		<groupId>com.actionbarsherlock</groupId>
 		<artifactId>parent-sample</artifactId>
-		<version>4.1.0</version>
+		<version>4.2.0</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -24,7 +23,7 @@
 
 		<dependency>
 			<groupId>com.actionbarsherlock</groupId>
-			<artifactId>library</artifactId>
+			<artifactId>actionbarsherlock</artifactId>
 			<version>${project.version}</version>
 			<type>apklib</type>
 		</dependency>
@@ -32,34 +31,12 @@
 
 	<build>
 		<sourceDirectory>src</sourceDirectory>
-		<finalName>${apk.prefix}-${project.artifactId}-${project.version}-unaligned</finalName>
 
 		<plugins>
 			<plugin>
 				<groupId>com.jayway.maven.plugins.android.generation2</groupId>
 				<artifactId>android-maven-plugin</artifactId>
 				<extensions>true</extensions>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>zipalign</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jarsigner-plugin</artifactId>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>sign</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 
 			<plugin>
@@ -87,26 +64,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
-	<profiles>
-		<profile>
-			<id>abs-release</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>com.github.github</groupId>
-						<artifactId>downloads-maven-plugin</artifactId>
-						<executions>
-							<execution>
-								<phase>deploy</phase>
-								<goals>
-									<goal>upload</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
 </project>

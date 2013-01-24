@@ -1,6 +1,32 @@
 Change Log
 ===============================================================================
 
+Version 4.2.0 *(2012-10-07)*
+----------------------------
+
+**Maven `artifactId` is now to 'actionbarsherlock'.**
+
+Note: The `.Dialog` themes are now deprecated. These will be removed in a future
+version of the library.
+
+ * Add `SearchView` widget for standard search interaction (API 8+ only)
+ * Fix: `ShareActionProvider` in the split action bar no longer fills the entire
+   screen.
+ * Fix: `ShareActionProvider` now does file I/O on a background thread.
+ * Fix: Automatically correct `ColorDrawable` not respecting bounds when used as
+   a stacked background.
+ * Fix: Ensure fragments collection is present before dispatching events.
+ * Fix: XML-defined `onClick` searches the correct context for the declared
+   method.
+ * Fix: Ensure action mode start/finish callbacks are invoked on the activity
+   for the native action bar.
+ * Fix: Allow tab callbacks to have a fragment transaction instance for any
+   `FragmentActivity`.
+ * Fix: Ensure `CollapsibleActionView` callbacks are dispatched in both native
+   and compatbility action bars.
+ * Fix: Remove `.ForceOverflow` themes. These never should have been included.
+
+
 Version 4.1.0 *(2012-05-17)*
 ----------------------------
 
