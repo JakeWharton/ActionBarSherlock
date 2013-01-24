@@ -1286,7 +1286,6 @@ public class SearchView extends LinearLayout implements CollapsibleActionView {
         mExpandedInActionView = true;
         mCollapsedImeOptions = mQueryTextView.getImeOptions();
         mQueryTextView.setImeOptions(mCollapsedImeOptions | EditorInfo.IME_FLAG_NO_FULLSCREEN);
-        mQueryTextView.setText("");
         setIconified(false);
     }
 
