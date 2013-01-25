@@ -50,4 +50,7 @@
     <string name="abs__searchview_description_submit">Submit query</string>
     <!-- SearchView accessibility description for voice button [CHAR LIMIT=NONE] -->
     <string name="abs__searchview_description_voice">Voice search</string>
+    
+    <string name="typeface_normal">normal</string>
+    <string name="typeface_bold">bold</string>
 </resources>

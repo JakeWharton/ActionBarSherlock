@@ -7,6 +7,8 @@
     <attr name="backgroundSplit" format="reference|color" />
     <attr name="height" format="dimension" />
     <attr name="divider" format="reference" />
+    <attr name="titleFont" format="integer" />
+    <attr name="titleTypeface" format="integer" />
 
     <declare-styleable name="SherlockTheme">
         <!-- =================== -->
@@ -211,6 +213,10 @@
         <attr name="subtitle" format="string" />
         <!-- Specifies a style to use for title text. -->
         <attr name="titleTextStyle" />
+        <!-- Specifies a title font style -->
+		<attr name="titleFont" />
+		<!-- Specifies a title typeface style -->
+        <attr name="titleTypeface" />
         <!-- Specifies a style to use for subtitle text. -->
         <attr name="subtitleTextStyle" />
         <!-- Specifies the drawable used for the application icon. -->

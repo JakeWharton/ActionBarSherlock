@@ -62,6 +62,7 @@ import com.actionbarsherlock.view.CollapsibleActionView;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
+import com.actionbarsherlock.view.font.CustomFontHelper;
 
 import static com.actionbarsherlock.internal.ResourcesCompat.getResources_getBoolean;
 
@@ -114,6 +115,8 @@ public class ActionBarView extends AbsActionBarView {
     private int mItemPadding;
 
     private int mTitleStyleRes;
+    private int mTitleFontRes;
+    private int mTitleTypefaceRes;
     private int mSubtitleStyleRes;
     private int mProgressStyle;
     private int mIndeterminateProgressStyle;
@@ -238,6 +241,8 @@ public class ActionBarView extends AbsActionBarView {
                 R.string.abs__action_bar_up_description));
 
         mTitleStyleRes = a.getResourceId(R.styleable.SherlockActionBar_titleTextStyle, 0);
+        mTitleFontRes = a.getResourceId(R.styleable.SherlockActionBar_titleFont, 0);
+        mTitleTypefaceRes = a.getResourceId(R.styleable.SherlockActionBar_titleTypeface, 0);
         mSubtitleStyleRes = a.getResourceId(R.styleable.SherlockActionBar_subtitleTextStyle, 0);
         mProgressStyle = a.getResourceId(R.styleable.SherlockActionBar_progressBarStyle, 0);
         mIndeterminateProgressStyle = a.getResourceId(
@@ -831,6 +836,12 @@ public class ActionBarView extends AbsActionBarView {
 
             if (mTitleStyleRes != 0) {
                 mTitleView.setTextAppearance(mContext, mTitleStyleRes);
+            }
+            if (mTitleFontRes != 0 && getContext() != null) {
+            	String customFont = getContext().getString(mTitleFontRes);
+                String customTypeFace = getContext().getString(R.string.typeface_normal);
+                if(mTitleStyleRes != 0) customTypeFace = getContext().getString(R.string.typeface_normal);
+                CustomFontHelper.getInstance().setCustomFont(mTitleView, getContext(), customFont, customTypeFace);
             }
             if (mTitle != null) {
                 mTitleView.setText(mTitle);
