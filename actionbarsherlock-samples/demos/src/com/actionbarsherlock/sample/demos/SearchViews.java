@@ -17,7 +17,6 @@ package com.actionbarsherlock.sample.demos;
 
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.os.Bundle;
