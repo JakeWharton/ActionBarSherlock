@@ -223,6 +223,10 @@ public interface MenuItem {
      */
     public Drawable getIcon();
 
+    public MenuItem setLegacyIcon(Drawable icon);
+    public MenuItem setLegacyIcon(int iconRes);
+    public Drawable getLegacyIcon();
+
     /**
      * Change the Intent associated with this item.  By default there is no
      * Intent associated with a menu item.  If you set one, and nothing

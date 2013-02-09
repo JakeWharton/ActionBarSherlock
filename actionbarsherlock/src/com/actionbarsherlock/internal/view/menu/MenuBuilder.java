@@ -1320,7 +1320,13 @@ public class MenuBuilder implements Menu {
                 nativeItem = menu.add(nonActionItem.getGroupId(), nonActionItem.getItemId(),
                         nonActionItem.getOrder(), nonActionItem.getTitle());
             }
-            nativeItem.setIcon(nonActionItem.getIcon());
+
+            if (nonActionItem.getLegacyIcon() != null) {
+                nativeItem.setIcon(nonActionItem.getLegacyIcon());
+            } else {
+                nativeItem.setIcon(nonActionItem.getIcon());
+            }
+
             nativeItem.setOnMenuItemClickListener(listener);
             nativeItem.setEnabled(nonActionItem.isEnabled());
             nativeItem.setIntent(nonActionItem.getIntent());

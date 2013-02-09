@@ -264,6 +264,7 @@ public class MenuInflater {
         private CharSequence itemTitle;
         private CharSequence itemTitleCondensed;
         private int itemIconResId;
+        private int itemLegacyIconResId;
         private char itemAlphabeticShortcut;
         private char itemNumericShortcut;
         /**
@@ -350,6 +351,7 @@ public class MenuInflater {
             itemTitle = a.getText(R.styleable.SherlockMenuItem_android_title);
             itemTitleCondensed = a.getText(R.styleable.SherlockMenuItem_android_titleCondensed);
             itemIconResId = a.getResourceId(R.styleable.SherlockMenuItem_android_icon, 0);
+            itemLegacyIconResId = a.getResourceId(R.styleable.SherlockMenuItem_legacyIcon, 0);
             itemAlphabeticShortcut =
                     getShortcut(a.getString(R.styleable.SherlockMenuItem_android_alphabeticShortcut));
             itemNumericShortcut =
@@ -417,6 +419,7 @@ public class MenuInflater {
                 .setCheckable(itemCheckable >= 1)
                 .setTitleCondensed(itemTitleCondensed)
                 .setIcon(itemIconResId)
+                .setLegacyIcon(itemLegacyIconResId)
                 .setAlphabeticShortcut(itemAlphabeticShortcut)
                 .setNumericShortcut(itemNumericShortcut);
 

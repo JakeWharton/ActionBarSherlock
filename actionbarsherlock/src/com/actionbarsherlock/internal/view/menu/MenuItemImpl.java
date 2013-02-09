@@ -60,6 +60,9 @@ public final class MenuItemImpl implements MenuItem {
      */
     private int mIconResId = NO_ICON;
 
+    private Drawable mLegacyIconDrawable;
+    private int mLegacyIconResId = NO_ICON;
+
     /** The menu to which this item belongs */
     private MenuBuilder mMenu;
     /** If this item should launch a sub menu, this is the sub menu to launch */
@@ -398,6 +401,36 @@ public final class MenuItemImpl implements MenuItem {
     public MenuItem setIcon(int iconResId) {
         mIconDrawable = null;
         mIconResId = iconResId;
+
+        // If we have a view, we need to push the Drawable to them
+        mMenu.onItemsChanged(false);
+
+        return this;
+    }
+
+    public Drawable getLegacyIcon() {
+        if (mLegacyIconDrawable != null) {
+            return mLegacyIconDrawable;
+        }
+
+        if (mLegacyIconResId != NO_ICON) {
+            return mMenu.getResources().getDrawable(mLegacyIconResId);
+        }
+
+        return null;
+    }
+
+    public MenuItem setLegacyIcon(Drawable icon) {
+        mLegacyIconResId = NO_ICON;
+        mLegacyIconDrawable = icon;
+        mMenu.onItemsChanged(false);
+
+        return this;
+    }
+
+    public MenuItem setLegacyIcon(int iconResId) {
+        mLegacyIconDrawable = null;
+        mLegacyIconResId = iconResId;
 
         // If we have a view, we need to push the Drawable to them
         mMenu.onItemsChanged(false);

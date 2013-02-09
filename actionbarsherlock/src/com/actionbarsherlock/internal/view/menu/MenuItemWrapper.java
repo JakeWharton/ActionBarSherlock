@@ -307,4 +307,21 @@ public class MenuItemWrapper implements MenuItem, android.view.MenuItem.OnMenuIt
 
         return this;
     }
+
+    @Override
+    public MenuItem setLegacyIcon(Drawable icon) {
+        // Do nothing
+        return this;
+    }
+
+    @Override
+    public MenuItem setLegacyIcon(int iconRes) {
+        // Do nothing
+        return this;
+    }
+
+    @Override
+    public Drawable getLegacyIcon() {
+        return null;
+    }
 }
