@@ -12,7 +12,6 @@ import com.actionbarsherlock.ActionBarSherlock.OnActionModeStartedListener;
 import com.actionbarsherlock.ActionBarSherlock.OnCreatePanelMenuListener;
 import com.actionbarsherlock.ActionBarSherlock.OnMenuItemSelectedListener;
 import com.actionbarsherlock.ActionBarSherlock.OnPreparePanelListener;
-import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
