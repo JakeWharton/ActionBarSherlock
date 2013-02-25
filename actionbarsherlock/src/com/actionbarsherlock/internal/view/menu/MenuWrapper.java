@@ -115,17 +115,17 @@ public class MenuWrapper implements Menu {
         mNativeMap.clear();
         mNativeMenu.clear();
     }
-    
+
     public void invalidate() {
         if (mNativeMap.isEmpty()) { return; }
-  
+
         final WeakHashMap<android.view.MenuItem, MenuItem> menuMapCopy = new WeakHashMap<android.view.MenuItem, MenuItem>(mNativeMap.size());
-  
+
         for (int i = 0; i < mNativeMenu.size(); i++) {
           final android.view.MenuItem item = mNativeMenu.getItem(i);
           menuMapCopy.put(item, mNativeMap.get(item));
         }
-  
+
         mNativeMap.clear();
         mNativeMap.putAll(menuMapCopy);
     }
