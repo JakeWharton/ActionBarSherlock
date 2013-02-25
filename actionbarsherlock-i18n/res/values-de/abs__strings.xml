@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="abs__action_bar_home_description">"Zur Startseite navigieren"</string>
+    <string name="abs__action_bar_up_description">"Nach oben navigieren"</string>
+    <string name="abs__action_menu_overflow_description">"Weitere Optionen"</string>
+    <string name="abs__action_mode_done">"Fertig"</string>
+    <string name="abs__activity_chooser_view_dialog_title_default">"Aktivität wählen"</string>
+    <string name="abs__activity_chooser_view_see_all">"Alle anzeigen"</string>
+    <string name="abs__activitychooserview_choose_application">"App auswählen"</string>
+    <string name="abs__searchview_description_clear">"Anfrage löschen"</string>
+    <string name="abs__searchview_description_query">"Suchanfrage"</string>
+    <string name="abs__searchview_description_search">"Suche"</string>
+    <string name="abs__searchview_description_submit">"Anfrage senden"</string>
+    <string name="abs__searchview_description_voice">"Sprachsuche"</string>
+    <string name="abs__share_action_provider_share_with">"Teilen mit"</string>
+    <string name="abs__shareactionprovider_share_with">"Teilen mit"</string>
+    <string name="abs__shareactionprovider_share_with_application">"Mit %s teilen"</string>
+</resources>

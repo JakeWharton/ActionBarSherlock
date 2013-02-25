@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="abs__action_bar_home_description">"رفتن به صفحهٔ اصلی"</string>
+    <string name="abs__action_bar_up_description">"حرکت به بالا"</string>
+    <string name="abs__action_menu_overflow_description">"سایر گزینه‌ها"</string>
+    <string name="abs__action_mode_done">"انجام شد"</string>
+    <string name="abs__activity_chooser_view_dialog_title_default">"انتخاب فعالیت"</string>
+    <string name="abs__activity_chooser_view_see_all">"مشاهده همه"</string>
+    <string name="abs__activitychooserview_choose_application">"انتخاب برنامه"</string>
+    <string name="abs__searchview_description_clear">"پاک کردن عبارت جستجو"</string>
+    <string name="abs__searchview_description_query">"درخواست جستجو"</string>
+    <string name="abs__searchview_description_search">"جستجو"</string>
+    <string name="abs__searchview_description_submit">"ارسال عبارت جستجو"</string>
+    <string name="abs__searchview_description_voice">"جستجوی صوتی"</string>
+    <string name="abs__share_action_provider_share_with">"اشتراک‌گذاری با"</string>
+    <string name="abs__shareactionprovider_share_with">"اشتراک‌گذاری با"</string>
+    <string name="abs__shareactionprovider_share_with_application">"اشتراک‌گذاری با %s"</string>
+</resources>

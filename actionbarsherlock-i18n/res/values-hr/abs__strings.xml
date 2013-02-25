@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="abs__action_bar_home_description">"Kreni na početnu"</string>
+    <string name="abs__action_bar_up_description">"Kreni gore"</string>
+    <string name="abs__action_menu_overflow_description">"Više opcija"</string>
+    <string name="abs__action_mode_done">"Gotovo"</string>
+    <string name="abs__activity_chooser_view_dialog_title_default">"Odabir aktivnosti"</string>
+    <string name="abs__activity_chooser_view_see_all">"Prikaži sve"</string>
+    <string name="abs__activitychooserview_choose_application">"Odabir aplikacije"</string>
+    <string name="abs__searchview_description_clear">"Izbriši upit"</string>
+    <string name="abs__searchview_description_query">"Upit za pretraživanje"</string>
+    <string name="abs__searchview_description_search">"Pretraživanje"</string>
+    <string name="abs__searchview_description_submit">"Pošalji upit"</string>
+    <string name="abs__searchview_description_voice">"Glasovno pretraživanje"</string>
+    <string name="abs__share_action_provider_share_with">"Dijeljenje s"</string>
+    <string name="abs__shareactionprovider_share_with">"Dijeljenje sa"</string>
+    <string name="abs__shareactionprovider_share_with_application">"Dijeli s aplikacijom %s"</string>
+</resources>

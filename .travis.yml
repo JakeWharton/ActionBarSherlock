@@ -1,5 +1,9 @@
 language: java
 
+branches:
+  excludes:
+    - gh-pages
+
 notifications:
   email: false
 
@@ -8,4 +12,7 @@ before_install:
   - tar -zxf android-sdk_r20.0.3-linux.tgz
   - export ANDROID_HOME=~/builds/JakeWharton/ActionBarSherlock/android-sdk-linux
   - export PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
-  - android update sdk --filter 1,5 --no-ui --force
+  - TOOLS=$(android list sdk --no-ui | grep "Android SDK Platform-tools" | cut -d"-" -f1)
+  - android update sdk --filter "$TOOLS" --no-ui --force
+  - SDK=$(android list sdk --no-ui | grep ", API 14," | cut -d"-" -f1)
+  - android update sdk --filter "$SDK" --no-ui --force

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="abs__action_bar_home_description">"Torna a la pàgina d\'inici"</string>
+    <string name="abs__action_bar_up_description">"Mou cap a dalt"</string>
+    <string name="abs__action_menu_overflow_description">"Més opcions"</string>
+    <string name="abs__action_mode_done">"Fet"</string>
+    <string name="abs__activity_chooser_view_dialog_title_default">"Selecció de l\'activitat"</string>
+    <string name="abs__activity_chooser_view_see_all">"Mostra-les totes"</string>
+    <string name="abs__activitychooserview_choose_application">"Selecciona una aplicació"</string>
+    <string name="abs__searchview_description_clear">"Neteja la consulta"</string>
+    <string name="abs__searchview_description_query">"Consulta de cerca"</string>
+    <string name="abs__searchview_description_search">"Cerca"</string>
+    <string name="abs__searchview_description_submit">"Envia la consulta"</string>
+    <string name="abs__searchview_description_voice">"Cerca per veu"</string>
+    <string name="abs__share_action_provider_share_with">"Comparteix amb"</string>
+    <string name="abs__shareactionprovider_share_with">"Comparteix amb"</string>
+    <string name="abs__shareactionprovider_share_with_application">"Comparteix amb %s"</string>
+</resources>

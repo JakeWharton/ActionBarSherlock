@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<searchable xmlns:android="http://schemas.android.com/apk/res/android"
+    android:label="@string/application_name"
+    android:hint="@string/search_hint"
+    android:searchSuggestAuthority="com.actionbarsherlock.sample.knownbugs.Issue659SuggestionsProvider"
+    android:searchSuggestSelection=" ?" >
+</searchable>

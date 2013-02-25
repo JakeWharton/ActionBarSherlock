@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="abs__action_bar_home_description">"Navigasi ke beranda"</string>
+    <string name="abs__action_bar_up_description">"Navigasi naik"</string>
+    <string name="abs__action_menu_overflow_description">"Opsi lainnya"</string>
+    <string name="abs__action_mode_done">"Selesai"</string>
+    <string name="abs__activity_chooser_view_dialog_title_default">"Pilih kegiatan"</string>
+    <string name="abs__activity_chooser_view_see_all">"Lihat semua"</string>
+    <string name="abs__activitychooserview_choose_application">"Pilih apl"</string>
+    <string name="abs__searchview_description_clear">"Hapus kueri"</string>
+    <string name="abs__searchview_description_query">"Kueri penelusuran"</string>
+    <string name="abs__searchview_description_search">"Penelusuran"</string>
+    <string name="abs__searchview_description_submit">"Mengirimkan kueri"</string>
+    <string name="abs__searchview_description_voice">"Penelusuran suara"</string>
+    <string name="abs__share_action_provider_share_with">"Berbagi dengan"</string>
+    <string name="abs__shareactionprovider_share_with">"Berbagi dengan"</string>
+    <string name="abs__shareactionprovider_share_with_application">"Berbagi dengan %s"</string>
+</resources>

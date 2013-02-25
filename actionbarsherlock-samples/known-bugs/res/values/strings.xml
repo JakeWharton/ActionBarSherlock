@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="application_name">ActionBarSherlock Known Bugs</string>
+    <string name="activity_name">ABS: Bugs</string>
+    <string name="search_hint">Sample Search Hint</string>
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="abs__action_bar_home_description">"Magnabiga sa home"</string>
+    <string name="abs__action_bar_up_description">"Magnabiga pataas"</string>
+    <string name="abs__action_menu_overflow_description">"Higit pang mga pagpipilian"</string>
+    <string name="abs__action_mode_done">"Tapos na"</string>
+    <string name="abs__activity_chooser_view_dialog_title_default">"Pumili ng aktibidad"</string>
+    <string name="abs__activity_chooser_view_see_all">"Tingnan lahat"</string>
+    <string name="abs__activitychooserview_choose_application">"Pumili ng isang app"</string>
+    <string name="abs__searchview_description_clear">"I-clear ang query"</string>
+    <string name="abs__searchview_description_query">"Query sa paghahanap"</string>
+    <string name="abs__searchview_description_search">"Paghahanap"</string>
+    <string name="abs__searchview_description_submit">"Isumite ang query"</string>
+    <string name="abs__searchview_description_voice">"Paghahanap gamit ang boses"</string>
+    <string name="abs__share_action_provider_share_with">"Ibahagi sa"</string>
+    <string name="abs__shareactionprovider_share_with">"Ibahagi sa"</string>
+    <string name="abs__shareactionprovider_share_with_application">"Ibahagi sa %s"</string>
+</resources>

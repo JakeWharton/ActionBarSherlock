@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="abs__action_bar_home_description">"መነሻ ዳስስ"</string>
+    <string name="abs__action_bar_up_description">"አስስ"</string>
+    <string name="abs__action_menu_overflow_description">"ተጨማሪ አማራጮች"</string>
+    <string name="abs__action_mode_done">"ተከናውኗል"</string>
+    <string name="abs__activity_chooser_view_dialog_title_default">"እንቅስቃሴ ምረጥ"</string>
+    <string name="abs__activity_chooser_view_see_all">"ሁሉንም ተመልከት"</string>
+    <string name="abs__activitychooserview_choose_application">"መተግበሪያ ምረጥ"</string>
+    <string name="abs__searchview_description_clear">"ጥያቄ አጥራ"</string>
+    <string name="abs__searchview_description_query">"ጥያቄ ፍለጋ"</string>
+    <string name="abs__searchview_description_search">"ፈልግ"</string>
+    <string name="abs__searchview_description_submit">"ጥያቄ አስረክብ"</string>
+    <string name="abs__searchview_description_voice">"የድምፅ ፍለጋ"</string>
+    <string name="abs__share_action_provider_share_with">"ተጋራ ከ"</string>
+    <string name="abs__shareactionprovider_share_with">"ተጋራ ከ"</string>
+    <string name="abs__shareactionprovider_share_with_application">"ከ %s ጋር ተጋራ"</string>
+</resources>

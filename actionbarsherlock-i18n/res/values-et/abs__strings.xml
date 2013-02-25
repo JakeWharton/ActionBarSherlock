@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><resources>
+    <string name="abs__action_bar_home_description">"Liigu avalehele"</string>
+    <string name="abs__action_bar_up_description">"Liigu üles"</string>
+    <string name="abs__action_menu_overflow_description">"Rohkem valikuid"</string>
+    <string name="abs__action_mode_done">"Valmis"</string>
+    <string name="abs__activity_chooser_view_dialog_title_default">"Tegevuse valimine"</string>
+    <string name="abs__activity_chooser_view_see_all">"Kuva kõik"</string>
+    <string name="abs__activitychooserview_choose_application">"Valige rakendus"</string>
+    <string name="abs__searchview_description_clear">"Tühjenda päring"</string>
+    <string name="abs__searchview_description_query">"Otsingupäring"</string>
+    <string name="abs__searchview_description_search">"Otsing"</string>
+    <string name="abs__searchview_description_submit">"Päringu esitamine"</string>
+    <string name="abs__searchview_description_voice">"Häälotsing"</string>
+    <string name="abs__share_action_provider_share_with">"Jagamine rakendusega:"</string>
+    <string name="abs__shareactionprovider_share_with">"Jaga:"</string>
+    <string name="abs__shareactionprovider_share_with_application">"Jaga rakendusega %s"</string>
+</resources>
