@@ -101,8 +101,8 @@ public class MenuWrapper implements Menu {
     @Override
     public void removeGroup(int groupId) {
         for (int i = 0; i < mNativeMenu.size(); i++) {
-          final android.view.MenuItem item = mNativeMenu.getItem(i);
-          if (item.getGroupId() == groupId) { mNativeMap.remove(item); }
+            final android.view.MenuItem item = mNativeMenu.getItem(i);
+            if (item.getGroupId() == groupId) { mNativeMap.remove(item); }
         }
         mNativeMenu.removeGroup(groupId);
     }
@@ -114,13 +114,13 @@ public class MenuWrapper implements Menu {
     }
 
     public void invalidate() {
-        if (mNativeMap.isEmpty()) { return; }
+        if (mNativeMap.isEmpty()) return;
 
         final WeakHashMap<android.view.MenuItem, MenuItem> menuMapCopy = new WeakHashMap<android.view.MenuItem, MenuItem>(mNativeMap.size());
 
         for (int i = 0; i < mNativeMenu.size(); i++) {
-          final android.view.MenuItem item = mNativeMenu.getItem(i);
-          menuMapCopy.put(item, mNativeMap.get(item));
+            final android.view.MenuItem item = mNativeMenu.getItem(i);
+            menuMapCopy.put(item, mNativeMap.get(item));
         }
 
         mNativeMap.clear();
