@@ -1,9 +1,11 @@
 package com.actionbarsherlock.internal.view.menu;
 
 import java.util.WeakHashMap;
+
 import android.content.ComponentName;
 import android.content.Intent;
 import android.view.KeyEvent;
+
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.SubMenu;
@@ -94,11 +96,17 @@ public class MenuWrapper implements Menu {
 
     @Override
     public void removeItem(int id) {
+        final android.view.MenuItem item = mNativeMenu.findItem(id);
+        mNativeMap.remove(item);
         mNativeMenu.removeItem(id);
     }
 
     @Override
     public void removeGroup(int groupId) {
+        for (int i = 0; i < mNativeMenu.size(); i++) {
+          final android.view.MenuItem item = mNativeMenu.getItem(i);
+          if (item.getGroupId() == groupId) { mNativeMap.remove(item); }
+        }
         mNativeMenu.removeGroup(groupId);
     }
 
@@ -106,6 +114,20 @@ public class MenuWrapper implements Menu {
     public void clear() {
         mNativeMap.clear();
         mNativeMenu.clear();
+    }
+    
+    public void invalidate() {
+        if (mNativeMap.isEmpty()) { return; }
+  
+        final WeakHashMap<android.view.MenuItem, MenuItem> menuMapCopy = new WeakHashMap<android.view.MenuItem, MenuItem>(mNativeMap.size());
+  
+        for (int i = 0; i < mNativeMenu.size(); i++) {
+          final android.view.MenuItem item = mNativeMenu.getItem(i);
+          menuMapCopy.put(item, mNativeMap.get(item));
+        }
+  
+        mNativeMap.clear();
+        mNativeMap.putAll(menuMapCopy);
     }
 
     @Override
