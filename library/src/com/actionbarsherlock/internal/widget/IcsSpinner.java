@@ -167,6 +167,12 @@ public class IcsSpinner extends IcsAbsSpinner implements OnClickListener {
         }
     }
 
+    public void closeSpinnerPopup() {
+        if ((mPopup != null) && mPopup.isShowing()) {
+            mPopup.dismiss();
+        }
+    }
+
     @Override
     public void setAdapter(SpinnerAdapter adapter) {
         super.setAdapter(adapter);
