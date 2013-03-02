@@ -76,6 +76,10 @@ public class ActionBarSherlockNative extends ActionBarSherlock {
     public boolean dispatchOptionsItemSelected(android.view.MenuItem item) {
         if (BuildConfig.DEBUG) Log.d(TAG, "[dispatchOptionsItemSelected] item: " + item.getTitleCondensed());
 
+        if (mMenu == null) {
+            Log.w(TAG, "[dispatchOptionsItemSelected] Ignoring click of " + item + " before options menu creation");
+            return false;
+        }
         final boolean result = callbackOptionsItemSelected(mMenu.findItem(item));
         if (BuildConfig.DEBUG) Log.d(TAG, "[dispatchOptionsItemSelected] returning " + result);
         return result;
