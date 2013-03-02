@@ -62,6 +62,28 @@
       </plugin>
 
       <plugin>
+        <groupId>com.google.code.maven-replacer-plugin</groupId>
+        <artifactId>maven-replacer-plugin</artifactId>
+        <version>1.4.0</version>
+        <executions>
+          <execution>
+            <phase>process-sources</phase>
+            <goals>
+              <goal>replace</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <ignoreMissingFile>false</ignoreMissingFile>
+          <file>target/generated-sources/r/com/actionbarsherlock/R.java</file>
+          <outputFile>target/generated-sources/r/com/actionbarsherlock/R.java</outputFile>
+          <regex>false</regex>
+          <token>static final int</token>
+          <value>static int</value>
+        </configuration>
+      </plugin>
+
+      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>build-helper-maven-plugin</artifactId>
         <executions>
