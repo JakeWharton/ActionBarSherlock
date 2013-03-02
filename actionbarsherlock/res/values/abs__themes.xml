@@ -79,6 +79,7 @@
         <item name="searchViewEditQueryBackground">?selectableItemBackground</item>
         <item name="searchResultListItemHeight">58dp</item>
 
+        <item name="windowNoTitle">false</item>
         <item name="windowActionBar">true</item>
         <item name="windowActionModeOverlay">false</item>
         <item name="windowContentOverlay">@null</item>
@@ -152,6 +153,7 @@
         <item name="searchViewEditQueryBackground">?selectableItemBackground</item>
         <item name="searchResultListItemHeight">58dp</item>
 
+        <item name="windowNoTitle">false</item>
         <item name="windowActionBar">true</item>
         <item name="windowActionModeOverlay">false</item>
         <item name="windowContentOverlay">@null</item>
