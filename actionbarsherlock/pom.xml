@@ -36,7 +36,7 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>com.pivotallabs</groupId>
+      <groupId>org.robolectric</groupId>
       <artifactId>robolectric</artifactId>
       <scope>test</scope>
     </dependency>

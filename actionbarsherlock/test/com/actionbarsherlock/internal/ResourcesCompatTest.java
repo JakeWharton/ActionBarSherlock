@@ -1,8 +1,8 @@
 package com.actionbarsherlock.internal;
 
-import com.xtremelabs.robolectric.RobolectricTestRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
 
 import static com.actionbarsherlock.internal.ActionBarSherlockCompat.cleanActivityName;
 import static org.fest.assertions.api.Assertions.assertThat;

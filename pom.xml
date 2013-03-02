@@ -81,8 +81,8 @@
 
     <!-- Test dependencies -->
     <junit.version>4.10</junit.version>
-    <fest.version>2.0M8</fest.version>
-    <robolectric.version>1.1</robolectric.version>
+    <fest.version>2.0M10</fest.version>
+    <robolectric.version>2.0-alpha-2</robolectric.version>
   </properties>
 
   <dependencyManagement>
@@ -118,7 +118,7 @@
         <version>${fest.version}</version>
       </dependency>
       <dependency>
-        <groupId>com.pivotallabs</groupId>
+        <groupId>org.robolectric</groupId>
         <artifactId>robolectric</artifactId>
         <version>${robolectric.version}</version>
       </dependency>
