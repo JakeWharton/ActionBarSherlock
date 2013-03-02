@@ -12,9 +12,11 @@ import com.actionbarsherlock.ActionBarSherlock;
 import com.actionbarsherlock.BuildConfig;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.internal.app.ActionBarWrapper;
+import com.actionbarsherlock.internal.view.menu.MenuItemWrapper;
 import com.actionbarsherlock.internal.view.menu.MenuWrapper;
 import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 
 @ActionBarSherlock.Implementation(api = 14)
 public class ActionBarSherlockNative extends ActionBarSherlock {
@@ -76,11 +78,17 @@ public class ActionBarSherlockNative extends ActionBarSherlock {
     public boolean dispatchOptionsItemSelected(android.view.MenuItem item) {
         if (BuildConfig.DEBUG) Log.d(TAG, "[dispatchOptionsItemSelected] item: " + item.getTitleCondensed());
 
+        MenuItem wrapped;
         if (mMenu == null) {
-            Log.w(TAG, "[dispatchOptionsItemSelected] Ignoring click of " + item + " before options menu creation");
-            return false;
+            if (item.getItemId() != android.R.id.home) {
+                throw new IllegalStateException("Non-home action item clicked before onCreateOptionsMenu with ID " + item.getItemId());
+            }
+            // Create a throw-away wrapper for now.
+            wrapped = new MenuItemWrapper(item);
+        } else {
+            wrapped = mMenu.findItem(item);
         }
-        final boolean result = callbackOptionsItemSelected(mMenu.findItem(item));
+        final boolean result = callbackOptionsItemSelected(wrapped);
         if (BuildConfig.DEBUG) Log.d(TAG, "[dispatchOptionsItemSelected] returning " + result);
         return result;
     }
