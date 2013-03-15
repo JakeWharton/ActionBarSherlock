@@ -395,7 +395,11 @@ class ActivityChooserView extends ViewGroup implements ActivityChooserModelClien
         super.onAttachedToWindow();
         ActivityChooserModel dataModel = mAdapter.getDataModel();
         if (dataModel != null) {
-            dataModel.registerObserver(mModelDataSetOberver);
+            try {
+                dataModel.registerObserver(mModelDataSetOberver);
+            } catch (IllegalStateException e) {
+                // Related to #557.
+            }
         }
         mIsAttachedToWindow = true;
     }
@@ -665,7 +669,11 @@ class ActivityChooserView extends ViewGroup implements ActivityChooserModelClien
             }
             mDataModel = dataModel;
             if (dataModel != null && isShown()) {
-                dataModel.registerObserver(mModelDataSetOberver);
+                try {
+                    dataModel.registerObserver(mModelDataSetOberver);
+                } catch (IllegalStateException e) {
+                    // Related to #557.
+                }
             }
             notifyDataSetChanged();
         }
