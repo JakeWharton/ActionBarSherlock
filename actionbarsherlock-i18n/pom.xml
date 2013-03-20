@@ -42,13 +42,14 @@
 
       <plugin>
         <groupId>org.holoeverywhere</groupId>
-        <artifactId>translator</artifactId>
+        <artifactId>resbuilder</artifactId>
         <configuration>
-          <outputDir>${project.basedir}/res</outputDir>
-          <includeDir>${project.basedir}</includeDir>
-          <input>
-            <param>abs__strings.json</param>
-          </input>
+          <includeDirs>
+            <dir>${project.basedir}</dir>
+          </includeDirs>
+          <inputFiles>
+            <file>strings.json:strings</file>
+          </inputFiles>
         </configuration>
       </plugin>
     </plugins>
