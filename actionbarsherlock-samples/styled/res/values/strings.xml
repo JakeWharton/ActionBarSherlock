@@ -33,4 +33,5 @@
     <string name="action_label_bak_none">None</string>
     <string name="action_label_bak_gradient">Gradient</string>
     <string name="action_label_bak_image">Image</string>
+    <string name="action_label_actionmode">Action Mode</string>
 </resources>

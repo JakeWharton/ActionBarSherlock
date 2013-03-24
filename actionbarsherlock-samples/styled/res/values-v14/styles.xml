@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- File created by the Android Action Bar Style Generator
+
+     Copyright (C) 2012 readyState Software Ltd
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+  
+          http://www.apache.org/licenses/LICENSE-2.0
+  
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<resources>
+
+    <!-- Variation on the Holo Light theme that styles the Action Bar -->
+    <style name="Theme.AndroidDevelopers" parent="@style/Theme.Sherlock.Light">
+        <item name="android:actionBarItemBackground">@drawable/selectable_background_androiddevelopers</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu.AndroidDevelopers</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListView.AndroidDevelopers</item>
+        <item name="android:actionBarTabStyle">@style/ActionBarTabStyle.AndroidDevelopers</item>
+        <item name="android:actionDropDownStyle">@style/DropDownNav.AndroidDevelopers</item>
+        <item name="android:actionBarStyle">@style/ActionBar.Solid.AndroidDevelopers</item>
+        <item name="android:actionModeBackground">@drawable/cab_background_top_androiddevelopers</item>
+        <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_androiddevelopers</item>
+        <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.AndroidDevelopers</item> 
+        <item name="android:listChoiceIndicatorMultiple">@drawable/btn_check_androiddevelopers</item>
+        <item name="android:listChoiceIndicatorSingle">@drawable/btn_radio_androiddevelopers</item>
+<!--    <item name="android:actionOverflowButtonStyle">@style/MyOverflowButton</item> -->
+    </style>
+
+    <!-- style the solid action bar -->
+    <style name="ActionBar.Solid.AndroidDevelopers" parent="@style/Widget.Sherlock.Light.ActionBar.Solid">
+        <item name="android:background">@drawable/ab_solid_androiddevelopers</item>
+        <item name="android:backgroundStacked">@drawable/ab_stacked_solid_androiddevelopers</item>
+        <item name="android:backgroundSplit">@drawable/ab_bottom_solid_androiddevelopers</item>
+        <item name="android:progressBarStyle">@style/ProgressBar.AndroidDevelopers</item>
+    </style>
+
+    <!-- style the transparent action bar -->
+    <style name="ActionBar.Transparent.AndroidDevelopers" parent="@style/Widget.Sherlock.Light.ActionBar">
+        <item name="android:background">@drawable/ab_transparent_androiddevelopers</item>
+        <item name="android:progressBarStyle">@style/ProgressBar.AndroidDevelopers</item>
+    </style>
+    
+</resources>

@@ -18,7 +18,9 @@
 
 	<!-- custom -->
 	<item android:id="@+id/menu_search" android:showAsAction="ifRoom"
-		android:title="@string/action_label_search" android:actionViewClass="android.widget.SearchView" />
+		android:title="@string/action_label_search" 
+		android:icon="@drawable/ic_action_search"
+		android:actionViewClass="android.widget.SearchView" />
 
 	<!-- icon -->
 	<item android:id="@+id/menu_refresh" android:showAsAction="ifRoom"
@@ -31,6 +33,9 @@
 	<!-- text -->
 	<item android:id="@+id/menu_text" android:showAsAction="ifRoom"
 		android:title="@string/action_label_text" />
+	
+	<item android:id="@+id/menu_actionmode" android:showAsAction="ifRoom"
+		android:title="@string/action_label_actionmode" />
 
 	<item android:id="@+id/menu_logo" android:showAsAction="ifRoom"
 		android:checkable="true" android:checked="false" android:title="@string/action_label_logo" />
@@ -59,11 +64,11 @@
 			<group android:id="@+id/menu_bak_group"
 				android:checkableBehavior="single">
 				
-				<item android:id="@+id/menu_bak_none" android:title="@string/action_label_bak_none" android:checked="true" />
+				<item android:id="@+id/menu_bak_none" android:title="@string/action_label_bak_none"  />
 
 				<item android:id="@+id/menu_bak_gradient" android:title="@string/action_label_bak_gradient" />
 
-				<!--<item android:id="@+id/menu_bak_9_patch" android:title="@string/action_label_image" />-->
+				<item android:id="@+id/menu_bak_9_patch" android:title="@string/action_label_bak_image" android:checked="true" />
 			</group>
 		</menu>
 	</item>

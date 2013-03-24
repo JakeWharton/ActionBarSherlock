@@ -20,14 +20,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.ArrayAdapter;
+
 import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.ActionBar.OnNavigationListener;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.MenuItem.OnMenuItemClickListener;
 import com.nineoldandroids.animation.ObjectAnimator;
-
-import static com.actionbarsherlock.app.ActionBar.OnNavigationListener;
-import static com.actionbarsherlock.view.MenuItem.OnMenuItemClickListener;
 
 public class MainActivity extends SherlockFragmentActivity implements ActionBar.TabListener {
 
@@ -130,6 +131,7 @@ public class MainActivity extends SherlockFragmentActivity implements ActionBar.
         case R.id.menu_logo:
             useLogo = !useLogo;
             item.setChecked(useLogo);
+            getSupportActionBar().setDisplayShowTitleEnabled(!useLogo);
             getSupportActionBar().setDisplayUseLogoEnabled(useLogo);
             return true;
         case R.id.menu_up:
@@ -152,14 +154,31 @@ public class MainActivity extends SherlockFragmentActivity implements ActionBar.
         case R.id.menu_bak_none:
             item.setChecked(true);
             getSupportActionBar().setBackgroundDrawable(null);
+            forceABBackgroundRefresh();
             return true;
         case R.id.menu_bak_gradient:
             item.setChecked(true);
             getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.ad_action_bar_gradient_bak));
+            forceABBackgroundRefresh();
             return true;
+        case R.id.menu_bak_9_patch:
+            item.setChecked(true);
+            getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.drawable.ab_solid_androiddevelopers));
+            forceABBackgroundRefresh();
+            return true;
+        case R.id.menu_actionmode:
+        	startActionMode(new AnActionModeOfEpicProportions());
+        	return true;
         default:
             return super.onOptionsItemSelected(item);
         }
+    }
+    
+    private void forceABBackgroundRefresh() {
+    	getSupportActionBar().setNavigationMode(getSupportActionBar().getNavigationMode());
+    	if (getSupportActionBar().getNavigationMode() != ActionBar.NAVIGATION_MODE_STANDARD) {
+    		getSupportActionBar().setSelectedNavigationItem(getSupportActionBar().getSelectedNavigationIndex());
+    	}
     }
 
     private void rotateLeftFrag() {
@@ -188,7 +207,7 @@ public class MainActivity extends SherlockFragmentActivity implements ActionBar.
     private void showTabsNav() {
         ActionBar ab = getSupportActionBar();
         if (ab.getNavigationMode() != ActionBar.NAVIGATION_MODE_TABS) {
-            ab.setDisplayShowTitleEnabled(false);
+            ab.setDisplayShowTitleEnabled(true);
             ab.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         }
     }
@@ -205,6 +224,59 @@ public class MainActivity extends SherlockFragmentActivity implements ActionBar.
 
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
         // FIXME implement this
+    }
+    
+    private final class AnActionModeOfEpicProportions implements ActionMode.Callback {
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            
+            mode.setTitle("Action Mode");
+
+            menu.add("Star")
+                .setIcon(R.drawable.ic_menu_star_holo_light)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
+            menu.add("Copy")
+                .setIcon(R.drawable.ic_menu_star_holo_light)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+            
+            menu.add("Forward")
+        		.setIcon(R.drawable.ic_menu_star_holo_light)
+        		.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+            
+            menu.add("Tag")
+            	.setIcon(R.drawable.ic_menu_star_holo_light)
+            	.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+            
+            menu.add("Delete")
+            	.setIcon(R.drawable.ic_menu_star_holo_light)
+            	.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
+            menu.add("Search")
+                .setIcon(R.drawable.ic_menu_star_holo_light)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
+            menu.add("Refresh")
+                .setIcon(R.drawable.ic_menu_star_holo_light)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
+            return true;
+        }
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            return false;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+        	mode.finish();
+            return true;
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+        }
     }
 
 }
