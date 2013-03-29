@@ -15,7 +15,6 @@ before_install:
   - export PWD=$(pwd)
   - export ANDROID_HOME=${PWD}/android-sdk-linux
   - export PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
-  - TOOLS=$(android list sdk --no-ui | grep "Android SDK Platform-tools" | cut -d"-" -f1)
-  - android update sdk --filter "$TOOLS" --no-ui --force
-  - SDK=$(android list sdk --no-ui | grep ", API 14," | cut -d"-" -f1)
-  - android update sdk --filter "$SDK" --no-ui --force
+  - android update sdk --filter tool,platform-tool,android-14 --no-ui --force
+
+install: mvn install -DskipTests=true
