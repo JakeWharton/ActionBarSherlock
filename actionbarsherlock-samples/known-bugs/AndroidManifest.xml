@@ -44,7 +44,13 @@
                 <category android:name="com.actionbarsherlock.sample.knownbugs.OPEN"/>
             </intent-filter>
         </activity>
-
+        
+        <activity android:label="Issue #882" android:name=".Issue882">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="com.actionbarsherlock.sample.knownbugs.OPEN"/>
+            </intent-filter>
+        </activity>
 
         <!-- CLOSED BUGS -->
 
