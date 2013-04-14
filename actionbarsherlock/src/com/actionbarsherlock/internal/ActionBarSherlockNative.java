@@ -50,6 +50,8 @@ public class ActionBarSherlockNative extends ActionBarSherlock {
         if (BuildConfig.DEBUG) Log.d(TAG, "[dispatchInvalidateOptionsMenu]");
 
         mActivity.getWindow().invalidatePanelMenu(Window.FEATURE_OPTIONS_PANEL);
+
+        if (mMenu != null) mMenu.invalidate();
     }
 
     @Override
@@ -301,6 +303,7 @@ public class ActionBarSherlockNative extends ActionBarSherlock {
         @Override
         public void invalidate() {
             mActionMode.invalidate();
+            if (mMenu != null) mMenu.invalidate();
         }
 
         @Override
