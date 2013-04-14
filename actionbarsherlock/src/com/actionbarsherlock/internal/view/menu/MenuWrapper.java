@@ -102,7 +102,9 @@ public class MenuWrapper implements Menu {
     public void removeGroup(int groupId) {
         for (int i = 0; i < mNativeMenu.size(); i++) {
             final android.view.MenuItem item = mNativeMenu.getItem(i);
-            if (item.getGroupId() == groupId) { mNativeMap.remove(item); }
+            if (item.getGroupId() == groupId) {
+                mNativeMap.remove(item);
+            }
         }
         mNativeMenu.removeGroup(groupId);
     }
