@@ -73,7 +73,7 @@
     <!-- Compilation dependencies -->
     <android.version>4.0.1.2</android.version>
     <android-support.version>r7</android-support.version>
-    <fest.android.version>1.0.0</fest.android.version>
+    <fest.android.version>1.0.4</fest.android.version>
 
     <!-- Sample dependencies -->
     <nineoldandroids.version>2.4.0</nineoldandroids.version>
@@ -150,7 +150,7 @@
         <plugin>
           <groupId>com.jayway.maven.plugins.android.generation2</groupId>
           <artifactId>android-maven-plugin</artifactId>
-          <version>3.5.1</version>
+          <version>3.5.3</version>
           <configuration>
             <nativeLibrariesDirectory>ignored</nativeLibrariesDirectory>
             <sdk>
@@ -191,6 +191,12 @@
             <skip>true</skip>
           </configuration>
         </plugin>
+
+        <plugin>
+          <groupId>com.google.code.maven-replacer-plugin</groupId>
+          <artifactId>maven-replacer-plugin</artifactId>
+          <version>1.4.0</version>
+        </plugin>
       </plugins>
     </pluginManagement>
 
@@ -207,7 +213,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>2.9.1</version>
+        <version>2.10</version>
         <configuration>
           <failsOnError>true</failsOnError>
           <consoleOutput>true</consoleOutput>
@@ -221,25 +227,6 @@
             </goals>
           </execution>
         </executions>
-      </plugin>
-
-      <plugin>
-        <groupId>com.github.github</groupId>
-        <artifactId>site-maven-plugin</artifactId>
-        <version>0.7</version>
-        <inherited>false</inherited>
-        <executions>
-          <execution>
-            <phase>site</phase>
-            <goals>
-              <goal>site</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <message>Creating site for ${project.version}.</message>
-          <outputDirectory>website</outputDirectory>
-        </configuration>
       </plugin>
     </plugins>
   </build>
