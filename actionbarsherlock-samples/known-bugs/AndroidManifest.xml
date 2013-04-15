@@ -37,15 +37,8 @@
                 <category android:name="com.actionbarsherlock.sample.knownbugs.OPEN"/>
             </intent-filter>
         </activity>
-        
+
         <activity android:label="Issue #738" android:name=".Issue738">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="com.actionbarsherlock.sample.knownbugs.OPEN"/>
-            </intent-filter>
-        </activity>
-        
-        <activity android:label="Issue #882" android:name=".Issue882">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="com.actionbarsherlock.sample.knownbugs.OPEN"/>
@@ -85,6 +78,13 @@
 
         <provider android:name=".Issue659SuggestionsProvider"
                   android:authorities="com.actionbarsherlock.sample.knownbugs.Issue659SuggestionsProvider" />
+
+      <activity android:label="Issue #882" android:name=".Issue882">
+        <intent-filter>
+          <action android:name="android.intent.action.MAIN"/>
+          <category android:name="com.actionbarsherlock.sample.knownbugs.CLOSED"/>
+        </intent-filter>
+      </activity>
 
     </application>
 </manifest>
