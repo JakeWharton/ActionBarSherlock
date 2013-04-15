@@ -74,7 +74,7 @@
         <item name="searchViewGoIcon">@drawable/abs__ic_go</item>
         <item name="searchViewVoiceIcon">@drawable/abs__ic_voice_search</item>
         <item name="searchAutoCompleteTextView">@style/Widget.Sherlock.SearchAutoCompleteTextView</item>
-        <item name="android:dropDownHintAppearance">@style/TextAppearance.Sherlock.Widget.DropDownHint</item>
+        <item name="dropDownHintAppearance">@style/TextAppearance.Sherlock.Widget.DropDownHint</item>
         <item name="searchViewEditQuery">@drawable/abs__ic_commit_search_api_holo_dark</item>
         <item name="searchViewEditQueryBackground">?selectableItemBackground</item>
         <item name="searchResultListItemHeight">58dp</item>
@@ -148,7 +148,7 @@
         <item name="searchViewGoIcon">@drawable/abs__ic_go_search_api_holo_light</item>
         <item name="searchViewVoiceIcon">@drawable/abs__ic_voice_search_api_holo_light</item>
         <item name="searchAutoCompleteTextView">@style/Widget.Sherlock.Light.SearchAutoCompleteTextView</item>
-        <item name="android:dropDownHintAppearance">@style/TextAppearance.Sherlock.Widget.DropDownHint</item>
+        <item name="dropDownHintAppearance">@style/TextAppearance.Sherlock.Widget.DropDownHint</item>
         <item name="searchViewEditQuery">@drawable/abs__ic_commit_search_api_holo_light</item>
         <item name="searchViewEditQueryBackground">?selectableItemBackground</item>
         <item name="searchResultListItemHeight">58dp</item>
@@ -191,7 +191,7 @@
         <item name="searchViewGoIcon">@drawable/abs__ic_go</item>
         <item name="searchViewVoiceIcon">@drawable/abs__ic_voice_search</item>
         <item name="searchAutoCompleteTextView">@style/Widget.Sherlock.SearchAutoCompleteTextView</item>
-        <item name="android:dropDownHintAppearance">@style/TextAppearance.Sherlock.Widget.DropDownHint</item>
+        <item name="dropDownHintAppearance">@style/TextAppearance.Sherlock.Widget.DropDownHint</item>
         <item name="searchViewEditQuery">@drawable/abs__ic_commit_search_api_holo_dark</item>
     </style>
 
