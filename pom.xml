@@ -179,8 +179,8 @@
 
         <plugin>
           <groupId>org.holoeverywhere</groupId>
-          <artifactId>translator</artifactId>
-          <version>1.4.2</version>
+          <artifactId>resbuilder</artifactId>
+          <version>1.5.0</version>
         </plugin>
 
         <plugin>
