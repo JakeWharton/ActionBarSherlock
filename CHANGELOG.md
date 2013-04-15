@@ -4,8 +4,19 @@ Change Log
 Version 4.3.0 *(In Development)*
 --------------------------------
 
+ * New: FEST module for testing ActionBarSherlock classes.
+ * New: i18n module for including internationalized strings used by actionbar.
  * Removed dialog themes.
  * Fix: `SearchView` suggestions now work properly.
+ * Fix: Prevent rare NPE when restoring state on pre-Honeycomb devices.
+ * Fix: Correct behavior of `IcsColorDrawable`'s `setAlpha` method.
+ * Fix: Handle cases where `Locale.ROOT` is not present on pre-Honeycomb.
+ * Fix: Correct tab measurement edge-case on pre-Honeycomb.
+ * Use custom Toast layout to ensure consistent look and feel.
+ * Fix: Prevent monkey runners from uselessly crashing.
+ * Fix: Do not hold on to old menu items after a call to `invalidateOptionsMenu`.
+ * Fix: Ensure `ShareActionProvider` works when only one intent is available.
+ * Fix: Scroll list navigation to the selected item when opened.
 
 
 Version 4.2.0 *(2012-10-07)*
