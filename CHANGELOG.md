@@ -1,8 +1,8 @@
 Change Log
 ===============================================================================
 
-Version 4.3.0 *(In Development)*
---------------------------------
+Version 4.3.0 *(2013-04-15)*
+----------------------------
 
  * New: FEST module for testing ActionBarSherlock classes.
  * New: i18n module for including internationalized strings used by actionbar.
