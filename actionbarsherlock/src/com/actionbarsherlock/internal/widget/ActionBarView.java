@@ -17,6 +17,8 @@
 package com.actionbarsherlock.internal.widget;
 
 import com.actionbarsherlock.internal.ResourcesCompat;
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
@@ -164,6 +166,7 @@ public class ActionBarView extends AbsActionBarView {
         }
     };
 
+    @SuppressLint("NewApi")
     public ActionBarView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
@@ -1229,6 +1232,7 @@ public class ActionBarView extends AbsActionBarView {
             return true;
         }
 
+        @SuppressLint("NewApi")
         @Override
         public void onPopulateAccessibilityEvent(AccessibilityEvent event) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
@@ -1240,6 +1244,7 @@ public class ActionBarView extends AbsActionBarView {
             }
         }
 
+        @SuppressLint("NewApi")
         @Override
         public boolean dispatchHoverEvent(MotionEvent event) {
             // Don't allow children to hover; we want this to be treated as a single component.
