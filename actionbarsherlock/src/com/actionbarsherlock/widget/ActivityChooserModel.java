@@ -23,11 +23,12 @@ import android.content.pm.ResolveInfo;
 import android.database.DataSetObservable;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.Xml;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlSerializer;
+
+import com.actionbarsherlock.log.LogManager;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -699,7 +700,7 @@ class ActivityChooserModel extends DataSetObservable {
         for (int i = 0; i < pruneCount; i++) {
             HistoricalRecord prunedRecord = choiceRecords.remove(0);
             if (DEBUG) {
-                Log.i(LOG_TAG, "Pruned: " + prunedRecord);
+            	LogManager.getLogger().i(LOG_TAG, "Pruned: " + prunedRecord);
             }
         }
     }
@@ -918,7 +919,7 @@ class ActivityChooserModel extends DataSetObservable {
 
             if (DEBUG) {
                 for (int i = 0; i < activityCount; i++) {
-                    Log.i(LOG_TAG, "Sorted: " + activities.get(i));
+                	LogManager.getLogger().i(LOG_TAG, "Sorted: " + activities.get(i));
                 }
             }
         }
@@ -935,7 +936,7 @@ class ActivityChooserModel extends DataSetObservable {
                 fis = mContext.openFileInput(mHistoryFileName);
             } catch (FileNotFoundException fnfe) {
                 if (DEBUG) {
-                    Log.i(LOG_TAG, "Could not open historical records file: " + mHistoryFileName);
+                	LogManager.getLogger().i(LOG_TAG, "Could not open historical records file: " + mHistoryFileName);
                 }
                 return;
             }
@@ -979,12 +980,12 @@ class ActivityChooserModel extends DataSetObservable {
                     readRecords.add(readRecord);
 
                     if (DEBUG) {
-                        Log.i(LOG_TAG, "Read " + readRecord.toString());
+                    	LogManager.getLogger().i(LOG_TAG, "Read " + readRecord.toString());
                     }
                 }
 
                 if (DEBUG) {
-                    Log.i(LOG_TAG, "Read " + readRecords.size() + " historical records.");
+                	LogManager.getLogger().i(LOG_TAG, "Read " + readRecords.size() + " historical records.");
                 }
 
                 synchronized (mInstanceLock) {
@@ -1023,9 +1024,9 @@ class ActivityChooserModel extends DataSetObservable {
                     });
                 }
             } catch (XmlPullParserException xppe) {
-                Log.e(LOG_TAG, "Error reading historical recrod file: " + mHistoryFileName, xppe);
+            	LogManager.getLogger().e(LOG_TAG, "Error reading historical recrod file: " + mHistoryFileName, xppe);
             } catch (IOException ioe) {
-                Log.e(LOG_TAG, "Error reading historical recrod file: " + mHistoryFileName, ioe);
+            	LogManager.getLogger().e(LOG_TAG, "Error reading historical recrod file: " + mHistoryFileName, ioe);
             } finally {
                 if (fis != null) {
                     try {
@@ -1054,7 +1055,7 @@ class ActivityChooserModel extends DataSetObservable {
             try {
                 fos = mContext.openFileOutput(mHistoryFileName, Context.MODE_PRIVATE);
             } catch (FileNotFoundException fnfe) {
-                Log.e(LOG_TAG, "Error writing historical recrod file: " + mHistoryFileName, fnfe);
+            	LogManager.getLogger().e(LOG_TAG, "Error writing historical recrod file: " + mHistoryFileName, fnfe);
                 return;
             }
 
@@ -1074,7 +1075,7 @@ class ActivityChooserModel extends DataSetObservable {
                     serializer.attribute(null, ATTRIBUTE_WEIGHT, String.valueOf(record.weight));
                     serializer.endTag(null, TAG_HISTORICAL_RECORD);
                     if (DEBUG) {
-                        Log.i(LOG_TAG, "Wrote " + record.toString());
+                    	LogManager.getLogger().i(LOG_TAG, "Wrote " + record.toString());
                     }
                 }
 
@@ -1082,14 +1083,14 @@ class ActivityChooserModel extends DataSetObservable {
                 serializer.endDocument();
 
                 if (DEBUG) {
-                    Log.i(LOG_TAG, "Wrote " + recordCount + " historical records.");
+                	LogManager.getLogger().i(LOG_TAG, "Wrote " + recordCount + " historical records.");
                 }
             } catch (IllegalArgumentException iae) {
-                Log.e(LOG_TAG, "Error writing historical recrod file: " + mHistoryFileName, iae);
+            	LogManager.getLogger().e(LOG_TAG, "Error writing historical recrod file: " + mHistoryFileName, iae);
             } catch (IllegalStateException ise) {
-                Log.e(LOG_TAG, "Error writing historical recrod file: " + mHistoryFileName, ise);
+            	LogManager.getLogger().e(LOG_TAG, "Error writing historical recrod file: " + mHistoryFileName, ise);
             } catch (IOException ioe) {
-                Log.e(LOG_TAG, "Error writing historical recrod file: " + mHistoryFileName, ioe);
+            	LogManager.getLogger().e(LOG_TAG, "Error writing historical recrod file: " + mHistoryFileName, ioe);
             } finally {
                 if (fos != null) {
                     try {
