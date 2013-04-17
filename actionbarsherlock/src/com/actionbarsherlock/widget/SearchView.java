@@ -46,7 +46,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.style.ImageSpan;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -66,6 +65,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import com.actionbarsherlock.R;
+import com.actionbarsherlock.log.LogManager;
 import com.actionbarsherlock.view.CollapsibleActionView;
 
 import java.lang.reflect.Method;
@@ -929,7 +929,7 @@ public class SearchView extends LinearLayout implements CollapsibleActionView {
             }
 
             if (DBG) {
-                Log.d(LOG_TAG, "mTextListener.onKey(" + keyCode + "," + event + "), selection: "
+            	LogManager.getLogger().d(LOG_TAG, "mTextListener.onKey(" + keyCode + "," + event + "), selection: "
                         + mQueryTextView.getListSelection());
             }
 
@@ -1244,7 +1244,7 @@ public class SearchView extends LinearLayout implements CollapsibleActionView {
         } catch (ActivityNotFoundException e) {
             // Should not happen, since we check the availability of
             // voice search before showing the button. But just in case...
-            Log.w(LOG_TAG, "Could not find voice search activity");
+        	LogManager.getLogger().w(LOG_TAG, "Could not find voice search activity");
         }
     }
 
@@ -1345,7 +1345,7 @@ public class SearchView extends LinearLayout implements CollapsibleActionView {
          * Implements OnItemClickListener
          */
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            if (DBG) Log.d(LOG_TAG, "onItemClick() position " + position);
+            if (DBG) LogManager.getLogger().d(LOG_TAG, "onItemClick() position " + position);
             onItemClicked(position, KeyEvent.KEYCODE_UNKNOWN, null);
         }
     };
@@ -1356,7 +1356,7 @@ public class SearchView extends LinearLayout implements CollapsibleActionView {
          * Implements OnItemSelectedListener
          */
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            if (DBG) Log.d(LOG_TAG, "onItemSelected() position " + position);
+            if (DBG) LogManager.getLogger().d(LOG_TAG, "onItemSelected() position " + position);
             SearchView.this.onItemSelected(position);
         }
 
@@ -1365,7 +1365,7 @@ public class SearchView extends LinearLayout implements CollapsibleActionView {
          */
         public void onNothingSelected(AdapterView<?> parent) {
             if (DBG)
-                Log.d(LOG_TAG, "onNothingSelected()");
+            	LogManager.getLogger().d(LOG_TAG, "onNothingSelected()");
         }
     };
 
@@ -1431,7 +1431,7 @@ public class SearchView extends LinearLayout implements CollapsibleActionView {
             // component here.
             getContext().startActivity(intent);
         } catch (RuntimeException ex) {
-            Log.e(LOG_TAG, "Failed launch activity: " + intent, ex);
+        	LogManager.getLogger().e(LOG_TAG, "Failed launch activity: " + intent, ex);
         }
     }
 
@@ -1615,7 +1615,7 @@ public class SearchView extends LinearLayout implements CollapsibleActionView {
             } catch (RuntimeException e2 ) {
                 rowNum = -1;
             }
-            Log.w(LOG_TAG, "Search suggestions cursor at row " + rowNum +
+            LogManager.getLogger().w(LOG_TAG, "Search suggestions cursor at row " + rowNum +
                             " returned exception.", e);
             return null;
         }

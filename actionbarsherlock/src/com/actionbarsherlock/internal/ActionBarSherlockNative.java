@@ -9,11 +9,11 @@ import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import com.actionbarsherlock.ActionBarSherlock;
-import com.actionbarsherlock.BuildConfig;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.internal.app.ActionBarWrapper;
 import com.actionbarsherlock.internal.view.menu.MenuItemWrapper;
 import com.actionbarsherlock.internal.view.menu.MenuWrapper;
+import com.actionbarsherlock.log.LogManager;
 import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
@@ -31,7 +31,7 @@ public class ActionBarSherlockNative extends ActionBarSherlock {
 
     @Override
     public ActionBar getActionBar() {
-        if (BuildConfig.DEBUG) Log.d(TAG, "[getActionBar]");
+        if (DEBUG) LogManager.getLogger().d(TAG, "[getActionBar]");
 
         initActionBar();
         return mActionBar;
@@ -47,7 +47,7 @@ public class ActionBarSherlockNative extends ActionBarSherlock {
 
     @Override
     public void dispatchInvalidateOptionsMenu() {
-        if (BuildConfig.DEBUG) Log.d(TAG, "[dispatchInvalidateOptionsMenu]");
+        if (DEBUG) LogManager.getLogger().d(TAG, "[dispatchInvalidateOptionsMenu]");
 
         mActivity.getWindow().invalidatePanelMenu(Window.FEATURE_OPTIONS_PANEL);
 
@@ -56,29 +56,29 @@ public class ActionBarSherlockNative extends ActionBarSherlock {
 
     @Override
     public boolean dispatchCreateOptionsMenu(android.view.Menu menu) {
-        if (BuildConfig.DEBUG) Log.d(TAG, "[dispatchCreateOptionsMenu] menu: " + menu);
+        if (DEBUG) LogManager.getLogger().d(TAG, "[dispatchCreateOptionsMenu] menu: " + menu);
 
         if (mMenu == null || menu != mMenu.unwrap()) {
             mMenu = new MenuWrapper(menu);
         }
 
         final boolean result = callbackCreateOptionsMenu(mMenu);
-        if (BuildConfig.DEBUG) Log.d(TAG, "[dispatchCreateOptionsMenu] returning " + result);
+        if (DEBUG) LogManager.getLogger().d(TAG, "[dispatchCreateOptionsMenu] returning " + result);
         return result;
     }
 
     @Override
     public boolean dispatchPrepareOptionsMenu(android.view.Menu menu) {
-        if (BuildConfig.DEBUG) Log.d(TAG, "[dispatchPrepareOptionsMenu] menu: " + menu);
+        if (DEBUG) LogManager.getLogger().d(TAG, "[dispatchPrepareOptionsMenu] menu: " + menu);
 
         final boolean result = callbackPrepareOptionsMenu(mMenu);
-        if (BuildConfig.DEBUG) Log.d(TAG, "[dispatchPrepareOptionsMenu] returning " + result);
+        if (DEBUG) LogManager.getLogger().d(TAG, "[dispatchPrepareOptionsMenu] returning " + result);
         return result;
     }
 
     @Override
     public boolean dispatchOptionsItemSelected(android.view.MenuItem item) {
-        if (BuildConfig.DEBUG) Log.d(TAG, "[dispatchOptionsItemSelected] item: " + item.getTitleCondensed());
+        if (DEBUG) LogManager.getLogger().d(TAG, "[dispatchOptionsItemSelected] item: " + item.getTitleCondensed());
 
         MenuItem wrapped;
         if (mMenu == null) {
@@ -91,45 +91,45 @@ public class ActionBarSherlockNative extends ActionBarSherlock {
             wrapped = mMenu.findItem(item);
         }
         final boolean result = callbackOptionsItemSelected(wrapped);
-        if (BuildConfig.DEBUG) Log.d(TAG, "[dispatchOptionsItemSelected] returning " + result);
+        if (DEBUG) LogManager.getLogger().d(TAG, "[dispatchOptionsItemSelected] returning " + result);
         return result;
     }
 
     @Override
     public boolean hasFeature(int feature) {
-        if (BuildConfig.DEBUG) Log.d(TAG, "[hasFeature] feature: " + feature);
+        if (DEBUG) LogManager.getLogger().d(TAG, "[hasFeature] feature: " + feature);
 
         final boolean result = mActivity.getWindow().hasFeature(feature);
-        if (BuildConfig.DEBUG) Log.d(TAG, "[hasFeature] returning " + result);
+        if (DEBUG) LogManager.getLogger().d(TAG, "[hasFeature] returning " + result);
         return result;
     }
 
     @Override
     public boolean requestFeature(int featureId) {
-        if (BuildConfig.DEBUG) Log.d(TAG, "[requestFeature] featureId: " + featureId);
+        if (DEBUG) LogManager.getLogger().d(TAG, "[requestFeature] featureId: " + featureId);
 
         final boolean result = mActivity.getWindow().requestFeature(featureId);
-        if (BuildConfig.DEBUG) Log.d(TAG, "[requestFeature] returning " + result);
+        if (DEBUG) LogManager.getLogger().d(TAG, "[requestFeature] returning " + result);
         return result;
     }
 
     @Override
     public void setUiOptions(int uiOptions) {
-        if (BuildConfig.DEBUG) Log.d(TAG, "[setUiOptions] uiOptions: " + uiOptions);
+        if (DEBUG) LogManager.getLogger().d(TAG, "[setUiOptions] uiOptions: " + uiOptions);
 
         mActivity.getWindow().setUiOptions(uiOptions);
     }
 
     @Override
     public void setUiOptions(int uiOptions, int mask) {
-        if (BuildConfig.DEBUG) Log.d(TAG, "[setUiOptions] uiOptions: " + uiOptions + ", mask: " + mask);
+        if (DEBUG) LogManager.getLogger().d(TAG, "[setUiOptions] uiOptions: " + uiOptions + ", mask: " + mask);
 
         mActivity.getWindow().setUiOptions(uiOptions, mask);
     }
 
     @Override
     public void setContentView(int layoutResId) {
-        if (BuildConfig.DEBUG) Log.d(TAG, "[setContentView] layoutResId: " + layoutResId);
+        if (DEBUG) LogManager.getLogger().d(TAG, "[setContentView] layoutResId: " + layoutResId);
 
         mActivity.getWindow().setContentView(layoutResId);
         initActionBar();
@@ -137,7 +137,7 @@ public class ActionBarSherlockNative extends ActionBarSherlock {
 
     @Override
     public void setContentView(View view, LayoutParams params) {
-        if (BuildConfig.DEBUG) Log.d(TAG, "[setContentView] view: " + view + ", params: " + params);
+        if (DEBUG) LogManager.getLogger().d(TAG, "[setContentView] view: " + view + ", params: " + params);
 
         mActivity.getWindow().setContentView(view, params);
         initActionBar();
@@ -145,7 +145,7 @@ public class ActionBarSherlockNative extends ActionBarSherlock {
 
     @Override
     public void addContentView(View view, LayoutParams params) {
-        if (BuildConfig.DEBUG) Log.d(TAG, "[addContentView] view: " + view + ", params: " + params);
+        if (DEBUG) LogManager.getLogger().d(TAG, "[addContentView] view: " + view + ", params: " + params);
 
         mActivity.getWindow().addContentView(view, params);
         initActionBar();
@@ -153,42 +153,42 @@ public class ActionBarSherlockNative extends ActionBarSherlock {
 
     @Override
     public void setTitle(CharSequence title) {
-        if (BuildConfig.DEBUG) Log.d(TAG, "[setTitle] title: " + title);
+        if (DEBUG) LogManager.getLogger().d(TAG, "[setTitle] title: " + title);
 
         mActivity.getWindow().setTitle(title);
     }
 
     @Override
     public void setProgressBarVisibility(boolean visible) {
-        if (BuildConfig.DEBUG) Log.d(TAG, "[setProgressBarVisibility] visible: " + visible);
+        if (DEBUG) LogManager.getLogger().d(TAG, "[setProgressBarVisibility] visible: " + visible);
 
         mActivity.setProgressBarVisibility(visible);
     }
 
     @Override
     public void setProgressBarIndeterminateVisibility(boolean visible) {
-        if (BuildConfig.DEBUG) Log.d(TAG, "[setProgressBarIndeterminateVisibility] visible: " + visible);
+        if (DEBUG) LogManager.getLogger().d(TAG, "[setProgressBarIndeterminateVisibility] visible: " + visible);
 
         mActivity.setProgressBarIndeterminateVisibility(visible);
     }
 
     @Override
     public void setProgressBarIndeterminate(boolean indeterminate) {
-        if (BuildConfig.DEBUG) Log.d(TAG, "[setProgressBarIndeterminate] indeterminate: " + indeterminate);
+        if (DEBUG) LogManager.getLogger().d(TAG, "[setProgressBarIndeterminate] indeterminate: " + indeterminate);
 
         mActivity.setProgressBarIndeterminate(indeterminate);
     }
 
     @Override
     public void setProgress(int progress) {
-        if (BuildConfig.DEBUG) Log.d(TAG, "[setProgress] progress: " + progress);
+        if (DEBUG) LogManager.getLogger().d(TAG, "[setProgress] progress: " + progress);
 
         mActivity.setProgress(progress);
     }
 
     @Override
     public void setSecondaryProgress(int secondaryProgress) {
-        if (BuildConfig.DEBUG) Log.d(TAG, "[setSecondaryProgress] secondaryProgress: " + secondaryProgress);
+        if (DEBUG) LogManager.getLogger().d(TAG, "[setSecondaryProgress] secondaryProgress: " + secondaryProgress);
 
         mActivity.setSecondaryProgress(secondaryProgress);
     }
@@ -209,7 +209,7 @@ public class ActionBarSherlockNative extends ActionBarSherlock {
 
     @Override
     public ActionMode startActionMode(com.actionbarsherlock.view.ActionMode.Callback callback) {
-        if (BuildConfig.DEBUG) Log.d(TAG, "[startActionMode] callback: " + callback);
+        if (DEBUG) LogManager.getLogger().d(TAG, "[startActionMode] callback: " + callback);
 
         if (mActionMode != null) {
             mActionMode.finish();

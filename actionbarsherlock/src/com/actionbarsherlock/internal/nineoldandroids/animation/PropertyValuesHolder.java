@@ -18,13 +18,14 @@ package com.actionbarsherlock.internal.nineoldandroids.animation;
 
 //import android.util.FloatProperty;
 //import android.util.IntProperty;
-import android.util.Log;
 //import android.util.Property;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+
+import com.actionbarsherlock.log.LogManager;
 
 /**
  * This class holds information about a property and the values that that property
@@ -385,7 +386,7 @@ public class PropertyValuesHolder implements Cloneable {
             try {
                 returnVal = targetClass.getMethod(methodName, args);
             } catch (NoSuchMethodException e) {
-                Log.e("PropertyValuesHolder", targetClass.getSimpleName() + " - " +
+            	LogManager.getLogger().e("PropertyValuesHolder", targetClass.getSimpleName() + " - " +
                         "Couldn't find no-arg method for property " + mPropertyName + ": " + e);
             }
         } else {
@@ -413,7 +414,7 @@ public class PropertyValuesHolder implements Cloneable {
                 }
             }
             // If we got here, then no appropriate function was found
-            Log.e("PropertyValuesHolder",
+            LogManager.getLogger().e("PropertyValuesHolder",
                     "Couldn't find " + prefix + "ter property " + mPropertyName +
                             " for " + targetClass.getSimpleName() +
                             " with value type "+ mValueType);
@@ -497,7 +498,7 @@ public class PropertyValuesHolder implements Cloneable {
         //        }
         //        return;
         //    } catch (ClassCastException e) {
-        //        Log.e("PropertyValuesHolder","No such property (" + mProperty.getName() +
+        //        LogManager.getLogger().e("PropertyValuesHolder","No such property (" + mProperty.getName() +
         //                ") on target object " + target + ". Trying reflection instead");
         //        mProperty = null;
         //    }
@@ -514,9 +515,9 @@ public class PropertyValuesHolder implements Cloneable {
                 try {
                     kf.setValue(mGetter.invoke(target));
                 } catch (InvocationTargetException e) {
-                    Log.e("PropertyValuesHolder", e.toString());
+                	LogManager.getLogger().e("PropertyValuesHolder", e.toString());
                 } catch (IllegalAccessException e) {
-                    Log.e("PropertyValuesHolder", e.toString());
+                	LogManager.getLogger().e("PropertyValuesHolder", e.toString());
                 }
             }
         }
@@ -540,9 +541,9 @@ public class PropertyValuesHolder implements Cloneable {
             }
             kf.setValue(mGetter.invoke(target));
         } catch (InvocationTargetException e) {
-            Log.e("PropertyValuesHolder", e.toString());
+        	LogManager.getLogger().e("PropertyValuesHolder", e.toString());
         } catch (IllegalAccessException e) {
-            Log.e("PropertyValuesHolder", e.toString());
+        	LogManager.getLogger().e("PropertyValuesHolder", e.toString());
         }
     }
 
@@ -601,9 +602,9 @@ public class PropertyValuesHolder implements Cloneable {
                 mTmpValueArray[0] = getAnimatedValue();
                 mSetter.invoke(target, mTmpValueArray);
             } catch (InvocationTargetException e) {
-                Log.e("PropertyValuesHolder", e.toString());
+            	LogManager.getLogger().e("PropertyValuesHolder", e.toString());
             } catch (IllegalAccessException e) {
-                Log.e("PropertyValuesHolder", e.toString());
+            	LogManager.getLogger().e("PropertyValuesHolder", e.toString());
             }
         }
     }
@@ -822,9 +823,9 @@ public class PropertyValuesHolder implements Cloneable {
                     mTmpValueArray[0] = mIntAnimatedValue;
                     mSetter.invoke(target, mTmpValueArray);
                 } catch (InvocationTargetException e) {
-                    Log.e("PropertyValuesHolder", e.toString());
+                	LogManager.getLogger().e("PropertyValuesHolder", e.toString());
                 } catch (IllegalAccessException e) {
-                    Log.e("PropertyValuesHolder", e.toString());
+                	LogManager.getLogger().e("PropertyValuesHolder", e.toString());
                 }
             }
         }
@@ -856,7 +857,7 @@ public class PropertyValuesHolder implements Cloneable {
             //        }
             //    }
             //} catch (NoSuchMethodError e) {
-            //    Log.d("PropertyValuesHolder",
+            //    LogManager.getLogger().d("PropertyValuesHolder",
             //            "Can't find native method using JNI, use reflection" + e);
             //} finally {
             //    mPropertyMapLock.writeLock().unlock();
@@ -958,9 +959,9 @@ public class PropertyValuesHolder implements Cloneable {
                     mTmpValueArray[0] = mFloatAnimatedValue;
                     mSetter.invoke(target, mTmpValueArray);
                 } catch (InvocationTargetException e) {
-                    Log.e("PropertyValuesHolder", e.toString());
+                	LogManager.getLogger().e("PropertyValuesHolder", e.toString());
                 } catch (IllegalAccessException e) {
-                    Log.e("PropertyValuesHolder", e.toString());
+                	LogManager.getLogger().e("PropertyValuesHolder", e.toString());
                 }
             }
         }
@@ -992,7 +993,7 @@ public class PropertyValuesHolder implements Cloneable {
             //        }
             //    }
             //} catch (NoSuchMethodError e) {
-            //    Log.d("PropertyValuesHolder",
+            //    LogManager.getLogger().d("PropertyValuesHolder",
             //            "Can't find native method using JNI, use reflection" + e);
             //} finally {
             //    mPropertyMapLock.writeLock().unlock();

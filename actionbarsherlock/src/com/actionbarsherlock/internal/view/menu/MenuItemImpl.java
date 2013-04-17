@@ -20,13 +20,13 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewDebug;
 import android.widget.LinearLayout;
 
+import com.actionbarsherlock.log.LogManager;
 import com.actionbarsherlock.view.ActionProvider;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.SubMenu;
@@ -159,7 +159,7 @@ public final class MenuItemImpl implements MenuItem {
                 mMenu.getContext().startActivity(mIntent);
                 return true;
             } catch (ActivityNotFoundException e) {
-                Log.e(TAG, "Can't find activity to handle intent; ignoring", e);
+            	LogManager.getLogger().e(TAG, "Can't find activity to handle intent; ignoring", e);
             }
         }
 

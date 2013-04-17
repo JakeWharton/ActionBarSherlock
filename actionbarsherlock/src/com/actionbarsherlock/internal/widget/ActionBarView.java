@@ -30,7 +30,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -55,6 +54,7 @@ import com.actionbarsherlock.internal.view.menu.MenuItemImpl;
 import com.actionbarsherlock.internal.view.menu.MenuPresenter;
 import com.actionbarsherlock.internal.view.menu.MenuView;
 import com.actionbarsherlock.internal.view.menu.SubMenuBuilder;
+import com.actionbarsherlock.log.LogManager;
 import com.actionbarsherlock.view.CollapsibleActionView;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
@@ -196,7 +196,7 @@ public class ActionBarView extends AbsActionBarView {
                     try {
                         mLogo = pm.getActivityLogo(((Activity) context).getComponentName());
                     } catch (NameNotFoundException e) {
-                        Log.e(TAG, "Activity component name not found!", e);
+                    	LogManager.getLogger().e(TAG, "Activity component name not found!", e);
                     }
                 }
                 if (mLogo == null) {
@@ -211,7 +211,7 @@ public class ActionBarView extends AbsActionBarView {
                 try {
                     mIcon = pm.getActivityIcon(((Activity) context).getComponentName());
                 } catch (NameNotFoundException e) {
-                    Log.e(TAG, "Activity component name not found!", e);
+                	LogManager.getLogger().e(TAG, "Activity component name not found!", e);
                 }
             }
             if (mIcon == null) {
