@@ -36,7 +36,7 @@ public class SherlockDialogFragment extends DialogFragment implements OnCreateOp
     }
 
     @Override
-    public final void onCreateOptionsMenu(android.view.Menu menu, android.view.MenuInflater inflater) {
+    public void onCreateOptionsMenu(android.view.Menu menu, android.view.MenuInflater inflater) {
         onCreateOptionsMenu(new MenuWrapper(menu), mActivity.getSupportMenuInflater());
     }
 
@@ -56,7 +56,7 @@ public class SherlockDialogFragment extends DialogFragment implements OnCreateOp
     }
 
     @Override
-    public final boolean onOptionsItemSelected(android.view.MenuItem item) {
+    public boolean onOptionsItemSelected(android.view.MenuItem item) {
         return onOptionsItemSelected(new MenuItemWrapper(item));
     }
 

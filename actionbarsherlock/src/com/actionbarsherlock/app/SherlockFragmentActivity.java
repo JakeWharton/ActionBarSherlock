@@ -101,7 +101,7 @@ public class SherlockFragmentActivity extends Watson implements OnActionModeStar
     }
 
     @Override
-    public final boolean onMenuOpened(int featureId, android.view.Menu menu) {
+    public boolean onMenuOpened(int featureId, android.view.Menu menu) {
         if (getSherlock().dispatchMenuOpened(featureId, menu)) {
             return true;
         }
@@ -157,7 +157,7 @@ public class SherlockFragmentActivity extends Watson implements OnActionModeStar
     }
 
     @Override
-    public final boolean onCreatePanelMenu(int featureId, android.view.Menu menu) {
+    public boolean onCreatePanelMenu(int featureId, android.view.Menu menu) {
         if (BuildConfig.DEBUG) Log.d(TAG, "[onCreatePanelMenu] featureId: " + featureId + ", menu: " + menu);
 
         if (featureId == Window.FEATURE_OPTIONS_PANEL && !mIgnoreNativeCreate) {
@@ -172,12 +172,12 @@ public class SherlockFragmentActivity extends Watson implements OnActionModeStar
     }
 
     @Override
-    public final boolean onCreateOptionsMenu(android.view.Menu menu) {
+    public boolean onCreateOptionsMenu(android.view.Menu menu) {
         return true;
     }
 
     @Override
-    public final boolean onPreparePanel(int featureId, View view, android.view.Menu menu) {
+    public boolean onPreparePanel(int featureId, View view, android.view.Menu menu) {
         if (BuildConfig.DEBUG) Log.d(TAG, "[onPreparePanel] featureId: " + featureId + ", view: " + view + ", menu: " + menu);
 
         if (featureId == Window.FEATURE_OPTIONS_PANEL && !mIgnoreNativePrepare) {
@@ -192,12 +192,12 @@ public class SherlockFragmentActivity extends Watson implements OnActionModeStar
     }
 
     @Override
-    public final boolean onPrepareOptionsMenu(android.view.Menu menu) {
+    public boolean onPrepareOptionsMenu(android.view.Menu menu) {
         return true;
     }
 
     @Override
-    public final boolean onMenuItemSelected(int featureId, android.view.MenuItem item) {
+    public boolean onMenuItemSelected(int featureId, android.view.MenuItem item) {
         if (BuildConfig.DEBUG) Log.d(TAG, "[onMenuItemSelected] featureId: " + featureId + ", item: " + item);
 
         if (featureId == Window.FEATURE_OPTIONS_PANEL && !mIgnoreNativeSelected) {
@@ -212,7 +212,7 @@ public class SherlockFragmentActivity extends Watson implements OnActionModeStar
     }
 
     @Override
-    public final boolean onOptionsItemSelected(android.view.MenuItem item) {
+    public boolean onOptionsItemSelected(android.view.MenuItem item) {
         return false;
     }
 

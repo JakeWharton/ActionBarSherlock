@@ -95,7 +95,7 @@ public abstract class SherlockExpandableListActivity extends ExpandableListActiv
     }
 
     @Override
-    public final boolean onMenuOpened(int featureId, android.view.Menu menu) {
+    public boolean onMenuOpened(int featureId, android.view.Menu menu) {
         if (getSherlock().dispatchMenuOpened(featureId, menu)) {
             return true;
         }
@@ -134,17 +134,17 @@ public abstract class SherlockExpandableListActivity extends ExpandableListActiv
     }
 
     @Override
-    public final boolean onCreateOptionsMenu(android.view.Menu menu) {
+    public boolean onCreateOptionsMenu(android.view.Menu menu) {
         return getSherlock().dispatchCreateOptionsMenu(menu);
     }
 
     @Override
-    public final boolean onPrepareOptionsMenu(android.view.Menu menu) {
+    public boolean onPrepareOptionsMenu(android.view.Menu menu) {
         return getSherlock().dispatchPrepareOptionsMenu(menu);
     }
 
     @Override
-    public final boolean onOptionsItemSelected(android.view.MenuItem item) {
+    public boolean onOptionsItemSelected(android.view.MenuItem item) {
         return getSherlock().dispatchOptionsItemSelected(item);
     }
 

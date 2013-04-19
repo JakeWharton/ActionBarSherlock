@@ -36,7 +36,7 @@ public class SherlockFragment extends Fragment implements OnCreateOptionsMenuLis
     }
 
     @Override
-    public final void onCreateOptionsMenu(android.view.Menu menu, android.view.MenuInflater inflater) {
+    public void onCreateOptionsMenu(android.view.Menu menu, android.view.MenuInflater inflater) {
         onCreateOptionsMenu(new MenuWrapper(menu), mActivity.getSupportMenuInflater());
     }
 
@@ -46,7 +46,7 @@ public class SherlockFragment extends Fragment implements OnCreateOptionsMenuLis
     }
 
     @Override
-    public final void onPrepareOptionsMenu(android.view.Menu menu) {
+    public void onPrepareOptionsMenu(android.view.Menu menu) {
         onPrepareOptionsMenu(new MenuWrapper(menu));
     }
 
@@ -56,7 +56,7 @@ public class SherlockFragment extends Fragment implements OnCreateOptionsMenuLis
     }
 
     @Override
-    public final boolean onOptionsItemSelected(android.view.MenuItem item) {
+    public boolean onOptionsItemSelected(android.view.MenuItem item) {
         return onOptionsItemSelected(new MenuItemWrapper(item));
     }
 
