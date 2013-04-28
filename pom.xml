@@ -173,12 +173,6 @@
         </plugin>
 
         <plugin>
-          <groupId>org.eclipse.m2e</groupId>
-          <artifactId>lifecycle-mapping</artifactId>
-          <version>1.0.0</version>
-        </plugin>
-
-        <plugin>
           <groupId>org.holoeverywhere</groupId>
           <artifactId>resbuilder</artifactId>
           <version>1.5.0</version>
