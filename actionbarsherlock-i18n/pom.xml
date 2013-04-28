@@ -44,6 +44,7 @@
         <groupId>org.holoeverywhere</groupId>
         <artifactId>resbuilder</artifactId>
         <configuration>
+          <androidSdkPath>${env.ANDROID_HOME}</androidSdkPath>
           <includeDirs>
             <dir>${project.basedir}</dir>
           </includeDirs>
