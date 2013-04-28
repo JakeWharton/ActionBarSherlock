@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="abs__action_bar_home_description">Navegar para o início</string>
+  <string name="abs__action_bar_up_description">Navegar até</string>
+  <string name="abs__action_menu_overflow_description">Mais opções</string>
+  <string name="abs__action_mode_done">Feito</string>
+  <string name="abs__activity_chooser_view_see_all">Ver todos…</string>
+  <string name="abs__activitychooserview_choose_application">Escolha um aplicativo</string>
+  <string name="abs__shareactionprovider_share_with">Compartilhe com</string>
+  <string name="abs__shareactionprovider_share_with_application">Compartinhar com </string>
+  <string name="abs__searchview_description_search">Busca</string>
+  <string name="abs__searchview_description_query">Consulta de pesquisa</string>
+  <string name="abs__searchview_description_clear">Limpar Consulta</string>
+  <string name="abs__searchview_description_submit">Enviar consulta</string>
+  <string name="abs__searchview_description_voice">Pesquisa de voz</string>
+</resources>
