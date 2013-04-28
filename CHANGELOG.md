@@ -1,8 +1,8 @@
 Change Log
 ===============================================================================
 
-Version 4.3.1 *(In Development)*
---------------------------------
+Version 4.3.1 *(2013-04-28)*
+----------------------------
 
  * Fix: Importing library into Eclipse as a Maven module now works correctly.
  * Prevent dispatching touch events to both action bar and content view on API
