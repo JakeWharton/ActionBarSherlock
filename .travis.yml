@@ -8,11 +8,12 @@ notifications:
   email: false
 
 before_install:
-  - wget http://dl.google.com/android/android-sdk_r20.0.3-linux.tgz
-  - tar -zxf android-sdk_r20.0.3-linux.tgz
-  - export ANDROID_HOME=~/builds/JakeWharton/ActionBarSherlock/android-sdk-linux
-  - export PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
-  - TOOLS=$(android list sdk --no-ui | grep "Android SDK Platform-tools" | cut -d"-" -f1)
-  - android update sdk --filter "$TOOLS" --no-ui --force
-  - SDK=$(android list sdk --no-ui | grep ", API 14," | cut -d"-" -f1)
-  - android update sdk --filter "$SDK" --no-ui --force
+  - sudo apt-get update -qq
+  - if [ `uname -m` = x86_64 ]; then sudo apt-get install -qq --force-yes libgd2-xpm ia32-libs ia32-libs-multiarch; fi
+  - wget http://dl.google.com/android/android-sdk_r21-linux.tgz
+  - tar -zxf android-sdk_r21-linux.tgz
+  - export ANDROID_HOME=`pwd`/android-sdk-linux
+  - export PATH=${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools:${PATH}
+  - android update sdk --filter platform-tools,android-14 --no-ui --force
+  
+script: echo Tests skipped
