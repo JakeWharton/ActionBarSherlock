@@ -343,6 +343,8 @@
              the title should be sufficient in describing this item. -->
         <attr name="android:icon" />
 
+        <attr name="legacyIcon" format="reference|integer" />
+
         <!-- The alphabetic shortcut key.  This is the shortcut when using a keyboard
              with alphabetic keys. -->
         <attr name="android:alphabeticShortcut" />
