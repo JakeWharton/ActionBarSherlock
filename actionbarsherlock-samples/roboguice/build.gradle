@@ -1,0 +1,19 @@
+apply plugin: 'android'
+
+dependencies {
+  compile project(':actionbarsherlock')
+  compile 'com.github.rtyley:roboguice-sherlock:1.5'
+}
+
+android {
+  compileSdkVersion 14
+  buildToolsVersion '17'
+
+  sourceSets {
+    main {
+      manifest.srcFile 'AndroidManifest.xml'
+      java.srcDirs = ['src']
+      res.srcDirs = ['res']
+    }
+  }
+}

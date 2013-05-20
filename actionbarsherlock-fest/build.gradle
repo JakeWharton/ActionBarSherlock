@@ -1,0 +1,7 @@
+apply plugin: 'java'
+
+dependencies {
+  compile 'com.squareup:fest-android:1.0.4'
+
+  runtime project(':actionbarsherlock')
+}

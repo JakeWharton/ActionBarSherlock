@@ -1,14 +1,10 @@
-#Android generated
-bin
-gen
-
-#Eclipse
+# Eclipse
 .project
 .classpath
 .settings
 .checkstyle
 
-#IntelliJ IDEA
+# IntelliJ IDEA
 .idea
 *.iml
 *.ipr
@@ -16,18 +12,24 @@ gen
 classes
 gen-external-apklibs
 
-#Maven
+# Gradle
+.gradle
+build
+
+# Maven
 target
 release.properties
 pom.xml.*
 
-#Ant
+# Ant
+bin
+gen
 build.xml
 ant.properties
 local.properties
 proguard.cfg
 proguard-project.txt
 
-#Other
+# Other
 .DS_Store
 tmp
