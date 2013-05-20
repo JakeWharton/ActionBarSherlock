@@ -83,7 +83,7 @@
     <!-- Test dependencies -->
     <junit.version>4.10</junit.version>
     <fest.version>2.0M10</fest.version>
-    <robolectric.version>2.0-alpha-2</robolectric.version>
+    <robolectric.version>2.0</robolectric.version>
   </properties>
 
   <dependencyManagement>
