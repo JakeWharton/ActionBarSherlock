@@ -154,7 +154,7 @@ Version 3.5.0 *(2011-12-18)*
  *  Fix: Invisible sub-menu items are no longer shown on the pre-3.0 popup list.
 
 
-Version 3.4.2 *(2001-11-09)*
+Version 3.4.2 *(2011-11-09)*
 ----------------------------
 
  * Fix: Stacked action bar now properly sets the tab bar background based on
