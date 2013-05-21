@@ -444,6 +444,20 @@ public abstract class ActionBar {
      * @param d Background drawable for the split bar
      */
     public void setSplitBackgroundDrawable(Drawable d) { }
+    
+    /**
+     * Set the ActionBar's Up Indicator to a custom drawable.
+     * 
+     * @param drawable Drawable for the up indicator
+     */
+    public abstract void setHomeAsUpIndicator(Drawable drawable);
+    
+    /**
+     * Set the Home Action content description
+     * 
+     * @param contentResId Resource Id of the content description
+     */
+    public abstract void setHomeActionContentDescription(int contentResId);
 
     /**
      * @return The current custom view.
