@@ -202,6 +202,7 @@ public class ActionBarDrawerToggle implements DrawerLayout.DrawerListener {
             } else {
                 mDrawerLayout.openDrawer(GravityCompat.START);
             }
+            return true;
         }
         return false;
     }
