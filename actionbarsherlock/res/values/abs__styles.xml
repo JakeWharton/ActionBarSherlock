@@ -191,13 +191,13 @@
     </style>
 
     <style name="Widget.Sherlock.Button.Small" parent="Widget">
-      <item name="android:textAppearance">?attr/textAppearanceSmall</item>
+      <item name="android:textAppearance">?attr/abs_textAppearanceSmall</item>
       <item name="android:textColor">@color/abs__primary_text_holo_dark</item>
       <item name="android:minHeight">48dip</item>
       <item name="android:minWidth">48dip</item>
     </style>
     <style name="Widget.Sherlock.Light.Button.Small" parent="Widget">
-      <item name="android:textAppearance">?attr/textAppearanceSmall</item>
+      <item name="android:textAppearance">?attr/abs_textAppearanceSmall</item>
       <item name="android:textColor">@color/abs__primary_text_holo_light</item>
       <item name="android:minHeight">48dip</item>
       <item name="android:minWidth">48dip</item>

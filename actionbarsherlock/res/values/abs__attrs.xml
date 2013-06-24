@@ -91,7 +91,7 @@
 
 
         <!-- Text color, typeface, size, and style for "small" text. Defaults to secondary text color. -->
-        <attr name="textAppearanceSmall" format="reference" />
+        <attr name="abs_textAppearanceSmall" format="reference" />
 
         <attr name="textColorPrimary" format="color" />
         <attr name="textColorPrimaryDisableOnly" format="color" />
