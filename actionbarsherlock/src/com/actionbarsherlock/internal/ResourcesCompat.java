@@ -7,7 +7,7 @@ import android.content.res.XmlResourceParser;
 import android.os.Build;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import com.actionbarsherlock.BuildConfig;
+import com.actionbarsherlock.ActionBarSherlock;
 import com.actionbarsherlock.R;
 import org.xmlpull.v1.XmlPullParser;
 
