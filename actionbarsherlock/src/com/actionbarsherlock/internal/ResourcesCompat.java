@@ -113,7 +113,7 @@ public final class ResourcesCompat {
         int logo = 0;
         try {
             final String thisPackage = activity.getClass().getName();
-            if (BuildConfig.DEBUG) Log.i(TAG, "Parsing AndroidManifest.xml for " + thisPackage);
+            if (ActionBarSherlock.DEBUG) Log.i(TAG, "Parsing AndroidManifest.xml for " + thisPackage);
 
             final String packageName = activity.getApplicationInfo().packageName;
             final AssetManager am = activity.createPackageContext(packageName, 0).getAssets();
@@ -126,10 +126,10 @@ public final class ResourcesCompat {
 
                     if ("application".equals(name)) {
                         //Check if the <application> has the attribute
-                        if (BuildConfig.DEBUG) Log.d(TAG, "Got <application>");
+                        if (ActionBarSherlock.DEBUG) Log.d(TAG, "Got <application>");
 
                         for (int i = xml.getAttributeCount() - 1; i >= 0; i--) {
-                            if (BuildConfig.DEBUG) Log.d(TAG, xml.getAttributeName(i) + ": " + xml.getAttributeValue(i));
+                            if (ActionBarSherlock.DEBUG) Log.d(TAG, xml.getAttributeName(i) + ": " + xml.getAttributeValue(i));
 
                             if ("logo".equals(xml.getAttributeName(i))) {
                                 logo = xml.getAttributeResourceValue(i, 0);
@@ -138,13 +138,13 @@ public final class ResourcesCompat {
                         }
                     } else if ("activity".equals(name)) {
                         //Check if the <activity> is us and has the attribute
-                        if (BuildConfig.DEBUG) Log.d(TAG, "Got <activity>");
+                        if (ActionBarSherlock.DEBUG) Log.d(TAG, "Got <activity>");
                         Integer activityLogo = null;
                         String activityPackage = null;
                         boolean isOurActivity = false;
 
                         for (int i = xml.getAttributeCount() - 1; i >= 0; i--) {
-                            if (BuildConfig.DEBUG) Log.d(TAG, xml.getAttributeName(i) + ": " + xml.getAttributeValue(i));
+                            if (ActionBarSherlock.DEBUG) Log.d(TAG, xml.getAttributeName(i) + ": " + xml.getAttributeValue(i));
 
                             //We need both uiOptions and name attributes
                             String attrName = xml.getAttributeName(i);
@@ -176,7 +176,7 @@ public final class ResourcesCompat {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (BuildConfig.DEBUG) Log.i(TAG, "Returning " + Integer.toHexString(logo));
+        if (ActionBarSherlock.DEBUG) Log.i(TAG, "Returning " + Integer.toHexString(logo));
         return logo;
     }
 }
