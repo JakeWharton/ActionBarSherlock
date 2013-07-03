@@ -45,13 +45,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:label="Issue #969" android:name=".Issue969" android:theme="@style/Theme.Issue969">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="com.actionbarsherlock.sample.knownbugs.OPEN"/>
-            </intent-filter>
-        </activity>
-
         <!-- CLOSED BUGS -->
 
         <activity android:label="Issue #379" android:name=".Issue379" android:theme="@style/Theme.Issue379" android:uiOptions="splitActionBarWhenNarrow">
@@ -92,6 +85,13 @@
                 <category android:name="com.actionbarsherlock.sample.knownbugs.CLOSED"/>
             </intent-filter>
         </activity>
+
+      <activity android:label="Issue #969" android:name=".Issue969" android:theme="@style/Theme.Issue969">
+        <intent-filter>
+          <action android:name="android.intent.action.MAIN"/>
+          <category android:name="com.actionbarsherlock.sample.knownbugs.CLOSED"/>
+        </intent-filter>
+      </activity>
 
     </application>
 </manifest>
