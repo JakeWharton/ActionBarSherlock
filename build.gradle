@@ -21,6 +21,4 @@ allprojects {
   }
 }
 
-task assemble{}
-
 apply plugin: 'android-reporting'
