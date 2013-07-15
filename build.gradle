@@ -4,7 +4,7 @@ buildscript {
   }
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:0.4.+'
+    classpath 'com.android.tools.build:gradle:0.5.+'
   }
 }
 
@@ -20,5 +20,7 @@ allprojects {
     options.encoding = "UTF-8"
   }
 }
+
+task assemble{}
 
 apply plugin: 'android-reporting'
