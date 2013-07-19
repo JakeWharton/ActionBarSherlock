@@ -1,8 +1,23 @@
 include 'actionbarsherlock'
+project(':actionbarsherlock').projectDir = new File('actionbarsherlock/')
+
 //include 'actionbarsherlock-fest'
+//project(':actionbarsherlock-fest').projectDir = new File('actionbarsherlock-fest/')
+
 include 'actionbarsherlock-i18n'
+project(':actionbarsherlock-i18n').projectDir = new File('actionbarsherlock-i18n/')
+
 include 'actionbarsherlock-samples:demos'
+project(':actionbarsherlock-samples:demos').projectDir = new File('actionbarsherlock-samples/demos')
+
 include 'actionbarsherlock-samples:fragments'
+project(':actionbarsherlock-samples:fragments').projectDir = new File('actionbarsherlock-samples/fragments')
+
 include 'actionbarsherlock-samples:known-bugs'
+project(':actionbarsherlock-samples:known-bugs').projectDir = new File('actionbarsherlock-samples/known-bugs')
+
 include 'actionbarsherlock-samples:roboguice'
+project(':actionbarsherlock-samples:roboguice').projectDir = new File('actionbarsherlock-samples/roboguice')
+
 include 'actionbarsherlock-samples:styled'
+project(':actionbarsherlock-samples:styled').projectDir = new File('actionbarsherlock-samples/styled')
