@@ -11,7 +11,7 @@ buildscript {
 apply plugin: 'android-library'
 
 dependencies {
-  compile 'com.google.android:support-v4:r7'
+  compile 'com.android.support:support-v4:13.0.+'
 }
 
 android {
