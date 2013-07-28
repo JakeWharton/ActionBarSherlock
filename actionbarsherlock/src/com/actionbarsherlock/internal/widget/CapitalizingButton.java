@@ -15,7 +15,7 @@ public class CapitalizingButton extends Button {
         android.R.attr.textAppearance
     };
     private static final int R_styleable_Button_textAppearance = 0;
-    
+
     private static final int[] R_styleable_TextAppearance = new int[] {
         android.R.attr.textAllCaps
     };
