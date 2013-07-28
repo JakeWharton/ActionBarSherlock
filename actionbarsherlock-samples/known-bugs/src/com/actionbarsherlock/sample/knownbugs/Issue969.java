@@ -18,7 +18,7 @@ public class Issue969 extends SherlockActivity {
         setContentView(tv);
     }
 
-    @Override 
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.add("Test").setShowAsAction(SHOW_AS_ACTION_ALWAYS | SHOW_AS_ACTION_WITH_TEXT);
         return true;
