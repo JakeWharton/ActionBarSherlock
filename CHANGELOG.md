@@ -1,6 +1,16 @@
 Change Log
 ===============================================================================
 
+Version 4.4.0 *(2013-07-28)*
+----------------------------
+
+ * Add Gradle support.
+ * Fix: Use 'sw' and 'w' qualifiers on ICS+ only to prevent OEM resource bugs.
+ * Fix: Improve handling of popup windows to prevent leaks.
+ * Fix: Support turning off textAllCaps style attribute on action items.
+ * Fix: Potential logging NullPointerException when a MenuItem title was omitted.
+
+
 Version 4.3.1 *(2013-04-28)*
 ----------------------------
 

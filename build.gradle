@@ -10,7 +10,7 @@ buildscript {
 
 allprojects {
   group = 'com.actionbarsherlock'
-  version = '4.3.2-SNAPSHOT'
+  version = '4.4.0'
 
   repositories {
     mavenCentral()
@@ -20,5 +20,3 @@ allprojects {
     options.encoding = "UTF-8"
   }
 }
-
-apply plugin: 'android-reporting'

@@ -12,7 +12,7 @@
   <groupId>com.actionbarsherlock</groupId>
   <artifactId>parent</artifactId>
   <packaging>pom</packaging>
-  <version>4.3.2-SNAPSHOT</version>
+  <version>4.4.0-SNAPSHOT</version>
 
   <name>ActionBarSherlock (Parent)</name>
   <description>Android library for implementing the action bar design pattern using the backported sources of Ice Cream Sandwich.</description>
@@ -68,13 +68,15 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
+    <gradle.version>4.4.0</gradle.version>
+
     <java.version>1.6</java.version>
     <android.platform>14</android.platform>
 
     <!-- Compilation dependencies -->
     <android.version>4.0.1.2</android.version>
     <android-support.version>r7</android-support.version>
-    <fest.android.version>1.0.4</fest.android.version>
+    <fest.android.version>1.0.5</fest.android.version>
 
     <!-- Sample dependencies -->
     <nineoldandroids.version>2.4.0</nineoldandroids.version>
@@ -161,15 +163,18 @@
         </plugin>
 
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-javadoc-plugin</artifactId>
-          <version>2.9</version>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>build-helper-maven-plugin</artifactId>
+          <version>1.8</version>
         </plugin>
 
         <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>build-helper-maven-plugin</artifactId>
-          <version>1.7</version>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>2.9</version>
+          <configuration>
+            <failOnError>false</failOnError>
+          </configuration>
         </plugin>
 
         <plugin>
@@ -211,6 +216,28 @@
             <goals>
               <goal>checkstyle</goal>
             </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.2.1</version>
+        <inherited>false</inherited>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>gradle</executable>
+              <arguments>
+                <argument>clean</argument>
+                <argument>assemble</argument>
+              </arguments>
+            </configuration>
           </execution>
         </executions>
       </plugin>
