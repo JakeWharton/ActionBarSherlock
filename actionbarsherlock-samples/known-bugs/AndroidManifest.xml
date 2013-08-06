@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="100" android:versionName="4.2.0" package="com.actionbarsherlock.sample.knownbugs">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="440" android:versionName="4.4.0" package="com.actionbarsherlock.sample.knownbugs">
 
-    <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="16"/>
+    <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="17"/>
 
     <uses-feature android:name="android.hardware.touchscreen" android:required="false"/>
 
@@ -85,6 +85,13 @@
                 <category android:name="com.actionbarsherlock.sample.knownbugs.CLOSED"/>
             </intent-filter>
         </activity>
+
+      <activity android:label="Issue #969" android:name=".Issue969" android:theme="@style/Theme.Issue969">
+        <intent-filter>
+          <action android:name="android.intent.action.MAIN"/>
+          <category android:name="com.actionbarsherlock.sample.knownbugs.CLOSED"/>
+        </intent-filter>
+      </activity>
 
     </application>
 </manifest>

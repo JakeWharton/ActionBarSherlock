@@ -8,7 +8,7 @@
   <parent>
     <groupId>com.actionbarsherlock</groupId>
     <artifactId>parent</artifactId>
-    <version>4.3.0</version>
+    <version>4.4.0</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
 
@@ -35,4 +35,29 @@
       <artifactId>fest-android</artifactId>
     </dependency>
   </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>attach-artifact</goal>
+            </goals>
+            <configuration>
+              <artifacts>
+                <artifact>
+                  <type>aar</type>
+                  <file>${project.basedir}/build//libs/${project.artifactId}-${gradle.version}.aar</file>
+                </artifact>
+              </artifacts>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 </project>

@@ -6,7 +6,7 @@
   <parent>
     <groupId>com.actionbarsherlock</groupId>
     <artifactId>parent</artifactId>
-    <version>4.3.0</version>
+    <version>4.4.0</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
 
@@ -97,6 +97,10 @@
                   <type>jar</type>
                   <file>${project.build.directory}/${project.build.finalName}.jar</file>
                 </artifact>
+                <artifact>
+                  <type>aar</type>
+                  <file>${project.basedir}/build/libs/${project.artifactId}-${gradle.version}.aar</file>
+                </artifact>
               </artifacts>
             </configuration>
           </execution>
@@ -110,6 +114,7 @@
         <plugin>
           <groupId>org.eclipse.m2e</groupId>
           <artifactId>lifecycle-mapping</artifactId>
+          <version>1.0.0</version>
           <configuration>
             <lifecycleMappingMetadata>
               <pluginExecutions>

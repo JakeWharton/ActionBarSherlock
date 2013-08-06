@@ -1,8 +1,27 @@
 Change Log
 ===============================================================================
 
-Version 4.3.0 *(In Development)*
---------------------------------
+Version 4.4.0 *(2013-07-28)*
+----------------------------
+
+ * Add Gradle support.
+ * Fix: Use 'sw' and 'w' qualifiers on ICS+ only to prevent OEM resource bugs.
+ * Fix: Improve handling of popup windows to prevent leaks.
+ * Fix: Support turning off textAllCaps style attribute on action items.
+ * Fix: Potential logging NullPointerException when a MenuItem title was omitted.
+
+
+Version 4.3.1 *(2013-04-28)*
+----------------------------
+
+ * Fix: Importing library into Eclipse as a Maven module now works correctly.
+ * Prevent dispatching touch events to both action bar and content view on API
+   11 and up.
+ * Add Hebrew and Brazillian translations to i18n module.
+
+
+Version 4.3.0 *(2013-04-15)*
+----------------------------
 
  * New: FEST module for testing ActionBarSherlock classes.
  * New: i18n module for including internationalized strings used by actionbar.
@@ -145,7 +164,7 @@ Version 3.5.0 *(2011-12-18)*
  *  Fix: Invisible sub-menu items are no longer shown on the pre-3.0 popup list.
 
 
-Version 3.4.2 *(2001-11-09)*
+Version 3.4.2 *(2011-11-09)*
 ----------------------------
 
  * Fix: Stacked action bar now properly sets the tab bar background based on

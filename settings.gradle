@@ -1,0 +1,3 @@
+include 'actionbarsherlock'
+include 'actionbarsherlock-fest'
+include 'actionbarsherlock-i18n'

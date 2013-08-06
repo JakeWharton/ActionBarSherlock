@@ -12,7 +12,7 @@
   <groupId>com.actionbarsherlock</groupId>
   <artifactId>parent</artifactId>
   <packaging>pom</packaging>
-  <version>4.3.0</version>
+  <version>4.4.0</version>
 
   <name>ActionBarSherlock (Parent)</name>
   <description>Android library for implementing the action bar design pattern using the backported sources of Ice Cream Sandwich.</description>
@@ -30,7 +30,7 @@
     <url>https://github.com/JakeWharton/ActionBarSherlock/</url>
     <connection>scm:git:git://github.com/JakeWharton/ActionBarSherlock.git</connection>
     <developerConnection>scm:git:git@github.com:JakeWharton/ActionBarSherlock.git</developerConnection>
-    <tag>4.3.0</tag>
+    <tag>4.4.0</tag>
   </scm>
 
   <developers>
@@ -68,13 +68,15 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
+    <gradle.version>4.4.0</gradle.version>
+
     <java.version>1.6</java.version>
     <android.platform>14</android.platform>
 
     <!-- Compilation dependencies -->
     <android.version>4.0.1.2</android.version>
     <android-support.version>r7</android-support.version>
-    <fest.android.version>1.0.4</fest.android.version>
+    <fest.android.version>1.0.5</fest.android.version>
 
     <!-- Sample dependencies -->
     <nineoldandroids.version>2.4.0</nineoldandroids.version>
@@ -83,7 +85,7 @@
     <!-- Test dependencies -->
     <junit.version>4.10</junit.version>
     <fest.version>2.0M10</fest.version>
-    <robolectric.version>2.0-alpha-2</robolectric.version>
+    <robolectric.version>2.0</robolectric.version>
   </properties>
 
   <dependencyManagement>
@@ -151,7 +153,7 @@
         <plugin>
           <groupId>com.jayway.maven.plugins.android.generation2</groupId>
           <artifactId>android-maven-plugin</artifactId>
-          <version>3.5.3</version>
+          <version>3.6.0</version>
           <configuration>
             <nativeLibrariesDirectory>ignored</nativeLibrariesDirectory>
             <sdk>
@@ -161,36 +163,24 @@
         </plugin>
 
         <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>build-helper-maven-plugin</artifactId>
+          <version>1.8</version>
+        </plugin>
+
+        <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
           <version>2.9</version>
-        </plugin>
-
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>build-helper-maven-plugin</artifactId>
-          <version>1.7</version>
-        </plugin>
-
-        <plugin>
-          <groupId>org.eclipse.m2e</groupId>
-          <artifactId>lifecycle-mapping</artifactId>
-          <version>1.0.0</version>
+          <configuration>
+            <failOnError>false</failOnError>
+          </configuration>
         </plugin>
 
         <plugin>
           <groupId>org.holoeverywhere</groupId>
           <artifactId>resbuilder</artifactId>
           <version>1.5.0</version>
-        </plugin>
-
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-site-plugin</artifactId>
-          <version>3.2</version>
-          <configuration>
-            <skip>true</skip>
-          </configuration>
         </plugin>
 
         <plugin>
@@ -226,6 +216,28 @@
             <goals>
               <goal>checkstyle</goal>
             </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.2.1</version>
+        <inherited>false</inherited>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+            <configuration>
+              <executable>gradle</executable>
+              <arguments>
+                <argument>clean</argument>
+                <argument>assemble</argument>
+              </arguments>
+            </configuration>
           </execution>
         </executions>
       </plugin>
