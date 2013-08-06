@@ -1529,7 +1529,6 @@ public class SearchView extends LinearLayout implements CollapsibleActionView {
         if (mAppSearchData != null) {
             queryExtras.putParcelable(SearchManager.APP_DATA, mAppSearchData);
         }
-        
         // Now build the intent to launch the voice search.  Add all necessary
         // extras to launch the voice recognizer, and then all the necessary extras
         // to forward the results to the searchable activity
