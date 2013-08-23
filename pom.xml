@@ -71,11 +71,11 @@
     <gradle.version>4.4.0</gradle.version>
 
     <java.version>1.6</java.version>
-    <android.platform>14</android.platform>
+    <android.platform>18</android.platform>
 
     <!-- Compilation dependencies -->
-    <android.version>4.0.1.2</android.version>
-    <android-support.version>r7</android-support.version>
+    <android.version>4.3_r1</android.version>
+    <android-support.version>r18</android-support.version>
     <fest.android.version>1.0.5</fest.android.version>
 
     <!-- Sample dependencies -->

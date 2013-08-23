@@ -13,7 +13,7 @@ import android.widget.SpinnerAdapter;
 
 import com.actionbarsherlock.app.ActionBar;
 
-public class ActionBarWrapper extends ActionBar implements android.app.ActionBar.OnNavigationListener, android.app.ActionBar.OnMenuVisibilityListener {
+public class ActionBarWrapperNative extends ActionBar implements android.app.ActionBar.OnNavigationListener, android.app.ActionBar.OnMenuVisibilityListener {
     private final Activity mActivity;
     private final android.app.ActionBar mActionBar;
     private ActionBar.OnNavigationListener mNavigationListener;
@@ -21,7 +21,7 @@ public class ActionBarWrapper extends ActionBar implements android.app.ActionBar
     private FragmentTransaction mFragmentTransaction;
 
 
-    public ActionBarWrapper(Activity activity) {
+    public ActionBarWrapperNative(Activity activity) {
         mActivity = activity;
         mActionBar = activity.getActionBar();
         if (mActionBar != null) {
@@ -476,5 +476,25 @@ public class ActionBarWrapper extends ActionBar implements android.app.ActionBar
         for (OnMenuVisibilityListener listener : mMenuVisibilityListeners) {
             listener.onMenuVisibilityChanged(isVisible);
         }
+    }
+
+    @Override
+    public void setHomeAsUpIndicator(Drawable indicator) {
+        mActionBar.setHomeAsUpIndicator(indicator);
+    }
+
+    @Override
+    public void setHomeAsUpIndicator(int resId) {
+        mActionBar.setHomeAsUpIndicator(resId);
+    }
+
+    @Override
+    public void setHomeActionContentDescription(CharSequence description) {
+        mActionBar.setHomeActionContentDescription(description);
+    }
+
+    @Override
+    public void setHomeActionContentDescription(int resId) {
+        mActionBar.setHomeActionContentDescription(resId);
     }
 }
