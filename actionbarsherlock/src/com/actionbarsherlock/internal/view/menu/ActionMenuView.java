@@ -18,6 +18,7 @@ package com.actionbarsherlock.internal.view.menu;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -572,4 +573,12 @@ public class ActionMenuView extends IcsLinearLayout implements MenuBuilder.ItemI
             this.isOverflowButton = isOverflowButton;
         }
     }
+    
+    @SuppressWarnings("deprecation")
+	public void setBackgroundSherlock(Drawable drawable) {
+		if(android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN)
+			setBackgroundDrawable(drawable);
+		else
+			setBackground(drawable);
+	}
 }

@@ -19,6 +19,7 @@ package com.actionbarsherlock.app;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.v4.app.FragmentTransaction;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -940,10 +941,11 @@ public abstract class ActionBar {
         }
 
         public LayoutParams(int gravity) {
-            this(WRAP_CONTENT, FILL_PARENT, gravity);
+            this(WRAP_CONTENT, getFillOrWrapParent(), gravity);
         }
 
-        public LayoutParams(LayoutParams source) {
+
+		public LayoutParams(LayoutParams source) {
             super(source);
 
             this.gravity = source.gravity;
@@ -951,6 +953,14 @@ public abstract class ActionBar {
 
         public LayoutParams(ViewGroup.LayoutParams source) {
             super(source);
+        }
+
+        @SuppressWarnings("deprecation")
+		private static int getFillOrWrapParent() {
+        	if(android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.FROYO)
+        		return LayoutParams.FILL_PARENT; 
+        		
+        	return LayoutParams.MATCH_PARENT;
         }
     }
 }

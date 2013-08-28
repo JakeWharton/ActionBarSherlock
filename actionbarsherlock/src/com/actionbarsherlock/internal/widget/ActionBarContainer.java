@@ -53,7 +53,7 @@ public class ActionBarContainer extends NineFrameLayout {
     public ActionBarContainer(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        setBackgroundDrawable(null);
+        setBackgroundSherlock(null);
 
         TypedArray a = context.obtainStyledAttributes(attrs,
                 R.styleable.SherlockActionBar);
@@ -76,6 +76,14 @@ public class ActionBarContainer extends NineFrameLayout {
         setWillNotDraw(mIsSplit ? mSplitBackground == null :
                 mBackground == null && mStackedBackground == null);
     }
+    
+    @SuppressWarnings("deprecation")
+	public void setBackgroundSherlock(Drawable drawable) {
+		if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+			setBackground(drawable);
+		else
+			setBackgroundDrawable(drawable);
+	}
 
     @Override
     public void onFinishInflate() {

@@ -370,12 +370,16 @@ class ActivityChooserView extends ViewGroup implements ActivityChooserModelClien
      *
      * @return True if dismissed, false if already dismissed.
      */
-    public boolean dismissPopup() {
+    @SuppressWarnings("deprecation")
+	public boolean dismissPopup() {
         if (isShowingPopup()) {
             getListPopupWindow().dismiss();
             ViewTreeObserver viewTreeObserver = getViewTreeObserver();
             if (viewTreeObserver.isAlive()) {
-                viewTreeObserver.removeGlobalOnLayoutListener(mOnGlobalLayoutListener);
+            	if(android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN)
+            		viewTreeObserver.removeGlobalOnLayoutListener(mOnGlobalLayoutListener);
+            	else
+            		viewTreeObserver.removeOnGlobalLayoutListener(mOnGlobalLayoutListener);
             }
         }
         return true;
@@ -404,7 +408,8 @@ class ActivityChooserView extends ViewGroup implements ActivityChooserModelClien
         mIsAttachedToWindow = true;
     }
 
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         ActivityChooserModel dataModel = mAdapter.getDataModel();
@@ -417,7 +422,10 @@ class ActivityChooserView extends ViewGroup implements ActivityChooserModelClien
         }
         ViewTreeObserver viewTreeObserver = getViewTreeObserver();
         if (viewTreeObserver.isAlive()) {
-            viewTreeObserver.removeGlobalOnLayoutListener(mOnGlobalLayoutListener);
+        	if(android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN)
+        		viewTreeObserver.removeGlobalOnLayoutListener(mOnGlobalLayoutListener);
+        	else
+        		viewTreeObserver.removeOnGlobalLayoutListener(mOnGlobalLayoutListener);
         }
         mIsAttachedToWindow = false;
     }
@@ -534,9 +542,9 @@ class ActivityChooserView extends ViewGroup implements ActivityChooserModelClien
         }
         // Activity chooser content.
         if (mDefaultActivityButton.getVisibility() == VISIBLE) {
-            mActivityChooserContent.setBackgroundDrawable(mActivityChooserContentBackground);
+            mActivityChooserContent.setBackgroundSherlock(mActivityChooserContentBackground);
         } else {
-            mActivityChooserContent.setBackgroundDrawable(null);
+            mActivityChooserContent.setBackgroundSherlock(null);
             mActivityChooserContent.setPadding(0, 0, 0, 0);
         }
     }

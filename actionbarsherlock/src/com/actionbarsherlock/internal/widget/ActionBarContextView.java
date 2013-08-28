@@ -18,6 +18,7 @@ package com.actionbarsherlock.internal.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -78,7 +79,7 @@ public class ActionBarContextView extends AbsActionBarView implements AnimatorLi
         super(context, attrs, defStyle);
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SherlockActionMode, defStyle, 0);
-        setBackgroundDrawable(a.getDrawable(
+        setBackgroundSherlock(a.getDrawable(
                 R.styleable.SherlockActionMode_background));
         mTitleStyleRes = a.getResourceId(
                 R.styleable.SherlockActionMode_titleTextStyle, 0);
@@ -93,6 +94,14 @@ public class ActionBarContextView extends AbsActionBarView implements AnimatorLi
 
         a.recycle();
     }
+    
+    @SuppressWarnings("deprecation")
+	public void setBackgroundSherlock(Drawable drawable) {
+		if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+			setBackground(drawable);
+		else
+			setBackgroundDrawable(drawable);
+	}
 
     @Override
     public void onDetachedFromWindow() {
@@ -112,7 +121,7 @@ public class ActionBarContextView extends AbsActionBarView implements AnimatorLi
                         LayoutParams.MATCH_PARENT);
                 if (!split) {
                     mMenuView = (ActionMenuView) mActionMenuPresenter.getMenuView(this);
-                    mMenuView.setBackgroundDrawable(null);
+                    mMenuView.setBackgroundSherlock(null);
                     final ViewGroup oldParent = (ViewGroup) mMenuView.getParent();
                     if (oldParent != null) oldParent.removeView(mMenuView);
                     addView(mMenuView, layoutParams);
@@ -126,7 +135,7 @@ public class ActionBarContextView extends AbsActionBarView implements AnimatorLi
                     layoutParams.width = LayoutParams.MATCH_PARENT;
                     layoutParams.height = mContentHeight;
                     mMenuView = (ActionMenuView) mActionMenuPresenter.getMenuView(this);
-                    mMenuView.setBackgroundDrawable(mSplitBackground);
+                    mMenuView.setBackgroundSherlock(mSplitBackground);
                     final ViewGroup oldParent = (ViewGroup) mMenuView.getParent();
                     if (oldParent != null) oldParent.removeView(mMenuView);
                     mSplitView.addView(mMenuView, layoutParams);
@@ -228,7 +237,7 @@ public class ActionBarContextView extends AbsActionBarView implements AnimatorLi
         if (!mSplitActionBar) {
             menu.addMenuPresenter(mActionMenuPresenter);
             mMenuView = (ActionMenuView) mActionMenuPresenter.getMenuView(this);
-            mMenuView.setBackgroundDrawable(null);
+            mMenuView.setBackgroundSherlock(null);
             addView(mMenuView, layoutParams);
         } else {
             // Allow full screen width in split mode.
@@ -241,7 +250,7 @@ public class ActionBarContextView extends AbsActionBarView implements AnimatorLi
             layoutParams.height = mContentHeight;
             menu.addMenuPresenter(mActionMenuPresenter);
             mMenuView = (ActionMenuView) mActionMenuPresenter.getMenuView(this);
-            mMenuView.setBackgroundDrawable(mSplitBackground);
+            mMenuView.setBackgroundSherlock(mSplitBackground);
             mSplitView.addView(mMenuView, layoutParams);
         }
 
