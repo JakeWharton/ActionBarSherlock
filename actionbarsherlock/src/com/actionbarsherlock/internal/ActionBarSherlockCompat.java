@@ -23,7 +23,6 @@ import android.view.accessibility.AccessibilityEvent;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import com.actionbarsherlock.ActionBarSherlock;
-import com.actionbarsherlock.BuildConfig;
 import com.actionbarsherlock.R;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.internal.app.ActionBarImpl;
@@ -306,7 +305,7 @@ public class ActionBarSherlockCompat extends ActionBarSherlock implements MenuBu
 
     @Override
     public boolean dispatchCreateOptionsMenu(android.view.Menu menu) {
-        if (BuildConfig.DEBUG) {
+        if (ActionBarSherlock.DEBUG) {
             Log.d(TAG, "[dispatchCreateOptionsMenu] android.view.Menu: " + menu);
             Log.d(TAG, "[dispatchCreateOptionsMenu] returning true");
         }
