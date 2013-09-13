@@ -46,6 +46,15 @@ $(function() {
 &lt;/dependency>
 </pre></code>
 			</li>
+			<li>
+				<p>If you use gradle to build your Android project, you must manually specify the packaging type of 'aar' and the support library dependency:</p>
+				<code><pre>
+dependencies {
+  compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
+  compile 'com.android.support:support-v4:18.0.+'
+}
+</pre></code>
+			</li>
 		</ol>
 
 		<h3>Action Bar API</h3>
@@ -58,7 +67,7 @@ $(function() {
 		<p>See the <a href="theming.html">theming page</a> for more information.</p>
 
 		<h3>Imports</h3>
-		<p>In order to provide functionality that was not available on version of Android prior to 3.0, the library includes and uses a lot of classes that are named the same as their native counterparts. The three most common are:</p>
+		<p>In order to provide functionality that was not available on version of Android prior to 3.0, the library includes and uses a lot of classes that are named the same as their native counterparts. The most common of these are:</p>
 		<ul>
 			<li><code>com.actionbarsherlock.app.ActionBar</code></li>
 			<li><code>com.actionbarsherlock.view.Menu</code></li>
