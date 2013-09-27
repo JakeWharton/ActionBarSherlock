@@ -354,8 +354,8 @@ public class MenuBuilder implements Menu {
         SparseArray<Parcelable> viewStates = states.getSparseParcelableArray(
                 getActionViewStatesKey());
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB && viewStates == null) {
-            //Fixes Issue #652 with sdk <= 2.3.6
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH && viewStates == null) {
+            //Fixes Issues #667 & #652 with sdk <= 3.2
             return;
         }
 
