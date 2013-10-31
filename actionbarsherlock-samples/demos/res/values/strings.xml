@@ -43,7 +43,10 @@
 
     <string name="overlay">Overlay</string>
     <string name="overlay_content">Overlay can be useful if you have a lot of scrolling content, especially if that content is images. Remember to lead your content with a margin so that it starts below the action bar when scrolled to the top.</string>
-
+	
+	<string name="overlay_action">OverlayAction</string>
+    
+    
     <string name="preference">Preference</string>
     <string name="preference_content">You can use the `SherlockPreferenceActivity` base class to place the action bar on top of a normal `PreferenceActivity`.\n\nThis does not yet support the use of `PreferenceFragments`, however.</string>
 
