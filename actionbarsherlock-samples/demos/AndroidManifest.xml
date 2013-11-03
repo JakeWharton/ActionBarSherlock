@@ -16,6 +16,15 @@
         android:icon="@drawable/icon"
         android:label="@string/application_name" >
         <activity
+            android:name=".AnimatedActionItem"
+            android:label="@string/animated_action_item" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="com.actionbarsherlock.sample.demos.EXAMPLE" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".SampleList"
             android:label="@string/activity_name"
             android:theme="@style/Theme.Sherlock" >
@@ -117,8 +126,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Overlay"
-            android:label="@string/overlay" >
+            android:name=".CustomTabs"
+            android:label="@string/custom_tabs" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -126,8 +135,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".OverlayAction"
-            android:label="@string/overlay_action" >
+            android:name=".Overlay"
+            android:label="@string/overlay" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
