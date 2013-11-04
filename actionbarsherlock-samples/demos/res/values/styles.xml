@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.app" parent="@style/Theme.Sherlock.Light">
+        <item name="android:actionBarTabBarStyle">@style/Theme.app.tabbar.style</item>
+        <item name="actionBarTabBarStyle">@style/Widget.app.ActionBar.TabBar</item>
+    </style>
+
+    <style name="Theme.app.tabbar.style" parent="@style/Theme.Sherlock.Light">
+        <item name="android:background">#FF0000</item>
+        <item name="background">#FF0000</item>
+    </style>
+
+    <style name="Widget.app.ActionBar.TabBar" parent="Widget.Sherlock.ActionBar.TabBar">
+        <item name="android:background">#FF0000</item>
+        <item name="background">#FF0000</item>
+    </style>
+
+</resources>

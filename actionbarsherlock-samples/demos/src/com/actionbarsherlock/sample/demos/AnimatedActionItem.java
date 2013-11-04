@@ -1,7 +1,8 @@
 /**
  * @author Mantas Miksys
  * 
- * The AnimatedActionItem contains 
+ * The AnimatedActionItem contains 3 examples of how ActionBar action items 
+ * could be animated. These examples include alpha, translation and scale animations;
  * 
  */
 package com.actionbarsherlock.sample.demos;
@@ -22,22 +23,17 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 
 public class AnimatedActionItem extends SherlockActivity {
-	MenuItem refreshItem;
+	MenuItem mMenuItem;
 	int groupId = 0;
 	int order = 0;
 	int itemId = 12345;
-	RadioGroup rg;
+	RadioGroup mRadioGroup;
 
-	/**
-	 * 
-	 * 
-	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		if (item.getItemId() == itemId) {
-			Toast.makeText(this, "You selected refresh button!",
-					Toast.LENGTH_SHORT).show();
+
 			animate();
 		}
 
@@ -57,7 +53,7 @@ public class AnimatedActionItem extends SherlockActivity {
 						MenuItem.SHOW_AS_ACTION_IF_ROOM
 								| MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 
-		refreshItem = menu.findItem(itemId);
+		mMenuItem = menu.findItem(itemId);
 
 		return true;
 	}
@@ -71,34 +67,33 @@ public class AnimatedActionItem extends SherlockActivity {
 		TextView explTV = (TextView) findViewById(R.id.textView1);
 		explTV.setText(R.string.animated_action_item_content);
 
-		rg = (RadioGroup) findViewById(R.id.radioGroup1);
+		mRadioGroup = (RadioGroup) findViewById(R.id.radioGroup1);
 
 	}
 
 	/**
-	 * Starts the animation from the action bar item.
-	 * 
-	 * This method attaches a rotating imageview instead of current ActionBar
-	 * item.
+	 * Starts the animation for the ActionBar item. The animation is done by
+	 * inflating an ImageView and setting animation to it. Which of animation is
+	 * chosen depends on which RadioButton of mRadioGroup is checked.
 	 * 
 	 */
-	public void animate() {
+	private void animate() {
 		LayoutInflater inflater = (LayoutInflater) this
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		ImageView iv = (ImageView) inflater.inflate(
+		ImageView mImageView = (ImageView) inflater.inflate(
 				R.layout.animated_imageview, null);
 		boolean isLight = SampleList.THEME == R.style.Theme_Sherlock_Light;
 
 		if (isLight)
-			iv.setImageResource(R.drawable.ic_refresh_inverse);
+			mImageView.setImageResource(R.drawable.ic_refresh_inverse);
 
-		int id = rg.getCheckedRadioButtonId();
+		int checkedRadioButtonId = mRadioGroup.getCheckedRadioButtonId();
 
-		int animationId = 0;
+		int animationId = -1;
 
-		switch (id) {
+		switch (checkedRadioButtonId) {
 		case R.id.radio0:
-			animationId = R.anim.animation_scale;
+			animationId = R.anim.animation_rotate;
 			break;
 		case R.id.radio1:
 			animationId = R.anim.animation_translate;
@@ -106,36 +101,49 @@ public class AnimatedActionItem extends SherlockActivity {
 		case R.id.radio2:
 			animationId = R.anim.animation_alpha;
 			break;
+		case R.id.radio3:
+			animationId = R.anim.animation_scale;
+			break;
 		}
 
-		Animation animation = AnimationUtils.loadAnimation(this, animationId);
+		if (animationId > 0) {
+			Animation animation = AnimationUtils.loadAnimation(this,
+					animationId);
 
-		animation.setRepeatCount(3);
-		iv.startAnimation(animation);
-		refreshItem.setActionView(iv);
-		bacgroundProcess();
-
-	}
-
-	private void bacgroundProcess() {
-
-		final Handler handler = new Handler();
-		handler.postDelayed(new Runnable() {
-		  @Override
-		  public void run() {
-		    completeAnimation();
-		  }
-		}, 3000);
+			animation.setRepeatCount(Animation.INFINITE);
+			mImageView.startAnimation(animation);
+			mMenuItem.setActionView(mImageView);
+			backgroundProcess();
+		}
 
 	}
 
 	/**
-	 * Removes the animation from the action bar item.
+	 * Example method to illustrate that some work could possible be done during
+	 * the ActionItem animation. This method waits for 5 seconds and then ends
+	 * animation.
 	 * 
 	 */
-	public void completeAnimation() {
-		refreshItem.getActionView().clearAnimation();
-		refreshItem.setActionView(null);
+	private void backgroundProcess() {
+
+		final Handler handler = new Handler();
+		handler.postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				completeAnimation();
+			}
+		}, 5000);
+
+	}
+
+	/**
+	 * This method removes the animation and the ImageView from the animated
+	 * ActionBar item. This makes ActionBar item clickable again.
+	 * 
+	 */
+	private void completeAnimation() {
+		mMenuItem.getActionView().clearAnimation();
+		mMenuItem.setActionView(null);
 	}
 
 }

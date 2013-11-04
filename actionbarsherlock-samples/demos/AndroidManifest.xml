@@ -99,6 +99,15 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".CustomBackground"
+            android:label="@string/custom_background" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="com.actionbarsherlock.sample.demos.EXAMPLE" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".FeatureToggles"
             android:label="@string/feature_toggles" >
             <intent-filter>
@@ -127,7 +136,8 @@
         </activity>
         <activity
             android:name=".CustomTabs"
-            android:label="@string/custom_tabs" >
+            android:label="@string/custom_tabs"
+            android:uiOptions="splitActionBarWhenNarrow" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

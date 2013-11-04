@@ -15,8 +15,13 @@
     <string name="action_modes_no_action_bar">Action Modes (No Action Bar)</string>
 	    	
 	<string name="animated_action_item">Animated Action Item</string>
-	 <string name="animated_action_item_content">Using animations for your ActionBar items will improve user experience</string>
+	<string name="animated_action_item_content">Using animations for your ActionBar items helps to catch users attention and using them is a great way to make ActionBar more lively.</string>
+	<string name="rotate">Rotate</string>
+	<string name="vibrate">Vibrate</string>
+	<string name="blink">Blink</string>
+	<string name="scale">Scale</string>
     
+	
     <string name="share_action_providers">Share Action Providers</string>
     <string name="share_action_providers_content">This activity demonstrates how to use an ActionProvider for adding functionality to the Action Bar. In particular this demo is adding a menu item with ShareActionProvider as its action provider. The ShareActionProvider is responsible for managing the UI for sharing actions.\n\nFor now, ShareActionProviders must be displayed on the action bar</string>
 
@@ -29,6 +34,8 @@
     <string name="context_menus">Context Menus</string>
     <string name="context_menus_content">Since both ActionBarSherlock and Android use \'Menu\' and \'MenuItem\' class names you must take extra care when using context menus. It is still very much possible to use both in a single activity.</string>
 
+    <string name="custom_background">Custom Background</string>
+    
     <string name="custom_navigation">Custom Navigation</string>
     <string name="custom_navigation_content">If you find that list and tab navigation are not suitable for your application you may replace it with a custom layout.</string>
 	

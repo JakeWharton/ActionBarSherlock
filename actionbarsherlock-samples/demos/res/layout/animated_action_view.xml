@@ -15,19 +15,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="Rotate" />
+            android:text="@string/rotate" />
 
         <RadioButton
             android:id="@+id/radio1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Translation" />
+            android:text="@string/vibrate" />
 
         <RadioButton
             android:id="@+id/radio2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hide" />
+            android:text="@string/blink" />
+
+        <RadioButton
+            android:id="@+id/radio3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/scale" />
     </RadioGroup>
 
     <TextView
@@ -36,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/radioGroup1"
         android:layout_marginLeft="10dp"
-         android:layout_marginRight="10dp"
+        android:layout_marginRight="2dp"
         android:text="Text"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
