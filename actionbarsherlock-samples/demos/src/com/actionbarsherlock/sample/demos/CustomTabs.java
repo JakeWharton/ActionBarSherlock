@@ -6,7 +6,10 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.ViewConfiguration;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -19,6 +22,8 @@ import com.actionbarsherlock.view.Window;
 
 public class CustomTabs extends SherlockActivity implements TabListener {
 	boolean isLight;
+	TextView mSelected;
+	int type = -1;
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -32,7 +37,6 @@ public class CustomTabs extends SherlockActivity implements TabListener {
 		case 2:
 			addTabs(3);
 			return false;
-
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -52,7 +56,6 @@ public class CustomTabs extends SherlockActivity implements TabListener {
 		menu.add(0, 2, 0, "Icons").setShowAsAction(
 				MenuItem.SHOW_AS_ACTION_IF_ROOM
 						| MenuItem.SHOW_AS_ACTION_WITH_TEXT);
-
 		return true;
 	}
 
@@ -60,8 +63,9 @@ public class CustomTabs extends SherlockActivity implements TabListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		setTheme(SampleList.THEME); // Used for theme switching in samples
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.text);
-		setContent((TextView) findViewById(R.id.text));
+		setContentView(R.layout.custom_tab_navigation);
+
+		mSelected = (TextView) findViewById(R.id.text);
 
 		addTabs(0);
 
@@ -74,15 +78,28 @@ public class CustomTabs extends SherlockActivity implements TabListener {
 				menuKeyField.setBoolean(config, false);
 			}
 		} catch (Exception ex) {
-			// Ignore
+			ex.printStackTrace();
 		}
 
 	}
 
+	/**
+	 * 
+	 * Creates different tabs depending on the value of <b>type</b>
+	 * 
+	 * @param type
+	 *            shows what type of Tab navigation should be created.
+	 *            <ol>
+	 *            <li>type = 0 creates tabs with text only</li>
+	 *            <li>type = 1 creates tabs with EditText inside it</li>
+	 *            <li>type = 2 creates tabs with icons and text</li>
+	 *            <li>type = 3 creates tabs with icons only</li>
+	 *            </ol>
+	 */
 	private void addTabs(int type) {
 		getSupportActionBar().removeAllTabs();
 		getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
+		this.type = type;
 		switch (type) {
 		case 0:
 			for (int i = 1; i <= 3; i++) {
@@ -95,8 +112,31 @@ public class CustomTabs extends SherlockActivity implements TabListener {
 		case 1:
 			for (int i = 1; i <= 3; i++) {
 				ActionBar.Tab tab = getSupportActionBar().newTab();
-				tab.setCustomView(R.layout.custom_tab);
+				tab.setCustomView(R.layout.custom_tab_view);
 				tab.setTabListener(this);
+				EditText mEditText = (EditText) tab.getCustomView()
+						.findViewById(R.id.inputfield);
+
+				mEditText.addTextChangedListener(new TextWatcher() {
+
+					@Override
+					public void onTextChanged(CharSequence s, int start,
+							int before, int count) {
+						mSelected.setText("Text in selected tab's EditText: "
+								+ s);
+					}
+
+					@Override
+					public void beforeTextChanged(CharSequence s, int start,
+							int count, int after) {
+
+					}
+
+					@Override
+					public void afterTextChanged(Editable s) {
+
+					}
+				});
 				getSupportActionBar().addTab(tab);
 			}
 			break;
@@ -118,16 +158,21 @@ public class CustomTabs extends SherlockActivity implements TabListener {
 				tab.setTabListener(this);
 				getSupportActionBar().addTab(tab);
 			}
+			break;
 		}
-	}
-
-	protected void setContent(TextView view) {
-		view.setText(R.string.action_items_content);
 	}
 
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
-		// tab.setText("Clicked");
+		if (type == 1) {
+			EditText mEditText = (EditText) tab.getCustomView().findViewById(
+					R.id.inputfield);
+
+			mSelected.setText("Text in selected tab's EditText: "
+					+ mEditText.getText());
+
+		} else
+			mSelected.setText("Selected: " + tab.getText());
 	}
 
 	@Override
