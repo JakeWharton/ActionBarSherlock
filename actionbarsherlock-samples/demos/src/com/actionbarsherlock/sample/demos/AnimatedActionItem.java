@@ -1,8 +1,8 @@
 /**
  * @author Mantas Miksys
  * 
- * The AnimatedActionItem contains 3 examples of how ActionBar action items 
- * could be animated. These examples include alpha, translation and scale animations;
+ * The AnimatedActionItem contains 4 examples of how ActionBar action items 
+ * could be animated. These examples include rotate, alpha, translation and scale animations
  * 
  */
 package com.actionbarsherlock.sample.demos;
@@ -33,10 +33,8 @@ public class AnimatedActionItem extends SherlockActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		if (item.getItemId() == itemId) {
-
-			animate();
+			animateActionItem();
 		}
-
 		return false;
 	}
 
@@ -77,7 +75,7 @@ public class AnimatedActionItem extends SherlockActivity {
 	 * chosen depends on which RadioButton of mRadioGroup is checked.
 	 * 
 	 */
-	private void animate() {
+	private void animateActionItem() {
 		LayoutInflater inflater = (LayoutInflater) this
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		ImageView mImageView = (ImageView) inflater.inflate(

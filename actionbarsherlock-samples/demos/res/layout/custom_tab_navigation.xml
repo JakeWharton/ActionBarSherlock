@@ -6,6 +6,7 @@
     android:orientation="vertical"
     android:padding="20dip">
     <TextView
+        android:id="@+id/tab_navigation_description"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"

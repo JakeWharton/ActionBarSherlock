@@ -40,6 +40,8 @@
     <string name="custom_navigation_content">If you find that list and tab navigation are not suitable for your application you may replace it with a custom layout.</string>
 	
     <string name="custom_tabs">Custom Tabs</string>
+    <string name="custom_view_content">Custom view might be very useful sometimes</string>
+    <string name="icon_tab_content">Using icons is cool</string>
     
     <string name="dialog">Dialog</string>
     <string name="dialog_content">This is a demonstration of how you can give an activity the look of a dialog.\n\nWhile there is a light version of this theme, it cannot be set programmatically without disabling the fancy transparent outer background. In order for this effect the theme must be set in the manifest.</string>

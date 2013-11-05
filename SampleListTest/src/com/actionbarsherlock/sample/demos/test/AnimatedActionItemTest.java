@@ -2,18 +2,18 @@ package com.actionbarsherlock.sample.demos.test;
 
 import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
+import android.test.ViewAsserts;
 import android.test.suitebuilder.annotation.SmallTest;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.actionbarsherlock.sample.demos.AnimatedActionItem;
+import com.jayway.android.robotium.solo.Solo;
 
 public class AnimatedActionItemTest extends
 		ActivityInstrumentationTestCase2<AnimatedActionItem> {
-
+	private Solo solo;
 	private Activity mActivity;
 	private RadioGroup mRadioGroup;
 	private TextView mTextView;
@@ -30,6 +30,8 @@ public class AnimatedActionItemTest extends
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
+		solo = new Solo(getInstrumentation(), getActivity());
+		// check that we have the right activity
 
 		mActivity = this.getActivity();
 		mRadioGroup = (RadioGroup) mActivity
@@ -64,6 +66,29 @@ public class AnimatedActionItemTest extends
 		assertNotNull(mTextView);
 	}
 
+	// checking that the widgets are on screen
+	@SmallTest
+	public void testVisibility() {
+
+		ViewAsserts.assertOnScreen(mActivity.getWindow().getDecorView(),
+				mTextView);
+
+		ViewAsserts.assertOnScreen(mActivity.getWindow().getDecorView(),
+				mRadioGroup);
+
+		ViewAsserts.assertOnScreen(mActivity.getWindow().getDecorView(),
+				mRadioButton0);
+
+		ViewAsserts.assertOnScreen(mActivity.getWindow().getDecorView(),
+				mRadioButton1);
+
+		ViewAsserts.assertOnScreen(mActivity.getWindow().getDecorView(),
+				mRadioButton2);
+
+		ViewAsserts.assertOnScreen(mActivity.getWindow().getDecorView(),
+				mRadioButton3);
+	}
+
 	@SmallTest
 	public void testText() {
 		assertEquals(introText, (String) mTextView.getText());
@@ -71,7 +96,11 @@ public class AnimatedActionItemTest extends
 		assertEquals(mRadioText1, (String) mRadioButton1.getText());
 		assertEquals(mRadioText2, (String) mRadioButton2.getText());
 		assertEquals(mRadioText3, (String) mRadioButton3.getText());
-
 	}
+	
+	  @Override
+	  public void tearDown() throws Exception {
+	    solo.finishOpenedActivities();
+	  }
 
 }

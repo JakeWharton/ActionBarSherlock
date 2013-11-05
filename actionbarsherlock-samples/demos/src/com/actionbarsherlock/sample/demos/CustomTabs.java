@@ -1,3 +1,11 @@
+/**
+ * @author Mantas Miksys
+ * 
+ * The CustomTabs contains 3 examples of how ActionBarSherlock Tabs could
+ * be customised. These examples include using tabs only with icons, with 
+ * icons and text and tabs with custom view from xml layout.
+ * 
+ */
 package com.actionbarsherlock.sample.demos;
 
 import java.lang.reflect.Field;
@@ -22,19 +30,22 @@ import com.actionbarsherlock.view.Window;
 
 public class CustomTabs extends SherlockActivity implements TabListener {
 	boolean isLight;
-	TextView mSelected;
+	TextView mSelected, mDescription;
 	int type = -1;
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case 0:
+			mDescription.setText(R.string.custom_view_content);
 			addTabs(1);
 			return false;
 		case 1:
+			mDescription.setText(R.string.icon_tab_content);
 			addTabs(2);
 			return false;
 		case 2:
+			mDescription.setText(R.string.icon_tab_content);
 			addTabs(3);
 			return false;
 		}
@@ -64,11 +75,9 @@ public class CustomTabs extends SherlockActivity implements TabListener {
 		setTheme(SampleList.THEME); // Used for theme switching in samples
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.custom_tab_navigation);
-
+		mDescription = (TextView) findViewById(R.id.tab_navigation_description);
 		mSelected = (TextView) findViewById(R.id.text);
-
 		addTabs(0);
-
 		try {
 			ViewConfiguration config = ViewConfiguration.get(this);
 			Field menuKeyField = ViewConfiguration.class
@@ -171,8 +180,10 @@ public class CustomTabs extends SherlockActivity implements TabListener {
 			mSelected.setText("Text in selected tab's EditText: "
 					+ mEditText.getText());
 
-		} else
+		} else if (type == 2 || type == 0)
 			mSelected.setText("Selected: " + tab.getText());
+		else
+			mSelected.setText("");
 	}
 
 	@Override
