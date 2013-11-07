@@ -4,6 +4,7 @@
     android:layout_height="match_parent" >
 
     <RadioGroup
+        android:layout_marginTop="15dp"
         android:id="@+id/radioGroup1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -38,6 +39,7 @@
 
     <TextView
         android:id="@+id/textView1"
+        android:layout_marginTop="15dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/radioGroup1"
