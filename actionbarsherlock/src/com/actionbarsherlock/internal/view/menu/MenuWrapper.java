@@ -10,7 +10,11 @@ import com.actionbarsherlock.view.SubMenu;
 
 /**
  * 
- * MenuWrapper class is used
+ * {@code MenuWrapper} class is used to create another {@code Menu} from the
+ * {@code android.view.Menu} that was passed to the constructor. It is done by
+ * putting all the values to
+ * {@code WeakHashMap<android.view.MenuItem, MenuItem>} and invalidating the
+ * view.
  * 
  */
 public class MenuWrapper implements Menu {
@@ -147,7 +151,7 @@ public class MenuWrapper implements Menu {
 	/**
 	 * if {@code mNativeMap} is not empty all of its items are put to
 	 * {@code WeakHashMap} and after clearing {@code mNativeMap} put as its
-	 * values
+	 * values by calling {@code putAll()}.
 	 * 
 	 */
 	public void invalidate() {
@@ -194,11 +198,11 @@ public class MenuWrapper implements Menu {
 	}
 
 	/**
-	 * Checks if the given {@code nativeItem} is not null tries to get
-	 * the value from {@code mNativeMap} using {@code nativeItem} as a
-	 * key.
+	 * Checks if the given {@code nativeItem} is not null tries to get the value
+	 * from {@code mNativeMap} using {@code nativeItem} as a key.
 	 * 
 	 * @param nativeItem
+	 *            see {@link android.view.MenuItem}
 	 * @return new {@code MenuItem} with {@code nativeItem} inside it.
 	 */
 	public MenuItem findItem(android.view.MenuItem nativeItem) {

@@ -1,17 +1,7 @@
-/**
- * @author Mantas Miksys
- * 
- * The CustomTabs contains 3 examples of how ActionBarSherlock Tabs could
- * be customised. These examples include using tabs only with icons, with 
- * icons and text and tabs with custom view from xml layout.
- * 
- */
 package com.actionbarsherlock.sample.demos;
 
 import java.lang.reflect.Field;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
@@ -26,8 +16,16 @@ import com.actionbarsherlock.app.ActionBar.TabListener;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.view.Window;
 
+/**
+ * @author Mantas Miksys
+ * 
+ *         The {@code CustomTabs} contains 3 examples of how
+ *         {@code ActionBarSherlock Tabs} could be customised. These examples
+ *         include using tabs only with icons, with icons and text and tabs with
+ *         custom view from xml layout.
+ * 
+ */
 public class CustomTabs extends SherlockActivity implements TabListener {
 	boolean isLight;
 	TextView mSelected, mDescription;
@@ -94,7 +92,8 @@ public class CustomTabs extends SherlockActivity implements TabListener {
 
 	/**
 	 * 
-	 * Creates different tabs depending on the value of <b>type</b>
+	 * Creates different indication for tabs depending on the value of
+	 * {@code type}
 	 * 
 	 * @param type
 	 *            shows what type of Tab navigation should be created.

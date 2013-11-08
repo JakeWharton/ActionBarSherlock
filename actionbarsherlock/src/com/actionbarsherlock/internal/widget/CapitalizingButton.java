@@ -28,13 +28,16 @@ public class CapitalizingButton extends Button {
 	private boolean mAllCaps;
 
 	/**
-	 * The constructor sets the value of Boolean {@code mAllCaps} to True if
-	 * the passed {@code AttributeSet} contains attribute Boolean stating that
-	 * all letter of the text of {@code Button} are capitals. This is done by creating
-	 * an instance of {@code TypedArray} and getting the Boolean from it.
+	 * The constructor sets the value of Boolean {@code mAllCaps} to True if the
+	 * passed {@code AttributeSet} contains attribute Boolean stating that all
+	 * letter of the text of {@code Button} are capitals. This is done by
+	 * creating an instance of {@code TypedArray} and getting the Boolean from
+	 * it.
 	 * 
-	 * @param context see {@link Context}
-	 * @param attrs contains the attributes to be retrieved
+	 * @param context
+	 *            see {@link Context}
+	 * @param attrs
+	 *            contains the attributes to be retrieved
 	 */
 	public CapitalizingButton(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -59,7 +62,8 @@ public class CapitalizingButton extends Button {
 	 * {@code CapitalizingButton} text using different ways depending on Android
 	 * API version.
 	 * 
-	 * @param text that is set as {@code CapitalizingButton} text.
+	 * @param text
+	 *            that is set as {@code CapitalizingButton} text.
 	 */
 	public void setTextCompat(CharSequence text) {
 		if (SANS_ICE_CREAM && mAllCaps && text != null) {

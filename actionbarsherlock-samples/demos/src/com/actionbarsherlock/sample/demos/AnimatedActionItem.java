@@ -1,8 +1,10 @@
 /**
  * @author Mantas Miksys
  * 
- * The AnimatedActionItem contains 4 examples of how ActionBar action items 
- * could be animated. These examples include rotate, alpha, translation and scale animations
+ * The {@code AnimatedActionItem} contains 4 examples of how {@link ActionBar} {@code ActionItems} 
+ * could be animated. These examples include rotate (e.g. to indicate loading),
+ *  alpha (e.g. to make blinking effect), translation (e.g. to make vibration effect)
+ *  and scale animations (e.g. to catch user's attention that this is important).
  * 
  */
 package com.actionbarsherlock.sample.demos;
@@ -25,8 +27,9 @@ import com.actionbarsherlock.view.MenuItem;
 public class AnimatedActionItem extends SherlockActivity {
 	MenuItem mMenuItem;
 	int groupId = 0;
+	int animationId = -1;
 	int order = 0;
-	int itemId = 12345;
+	int itemId = 0x7f012345;
 	RadioGroup mRadioGroup;
 
 	@Override
@@ -70,9 +73,10 @@ public class AnimatedActionItem extends SherlockActivity {
 	}
 
 	/**
-	 * Starts the animation for the ActionBar item. The animation is done by
-	 * inflating an ImageView and setting animation to it. Which of animation is
-	 * chosen depends on which RadioButton of mRadioGroup is checked.
+	 * Starts the animation for the {@link ActionBar} item. The animation is
+	 * done by inflating an {@link ImageView} and setting animation to it. Which
+	 * of animation is chosen depends on which {@link RadioButton} of
+	 * {@code mRadioGroup} is checked.
 	 * 
 	 */
 	private void animateActionItem() {
@@ -86,8 +90,6 @@ public class AnimatedActionItem extends SherlockActivity {
 			mImageView.setImageResource(R.drawable.ic_refresh_inverse);
 
 		int checkedRadioButtonId = mRadioGroup.getCheckedRadioButtonId();
-
-		int animationId = -1;
 
 		switch (checkedRadioButtonId) {
 		case R.id.radio0:
@@ -118,11 +120,29 @@ public class AnimatedActionItem extends SherlockActivity {
 
 	/**
 	 * Example method to illustrate that some work could possible be done during
-	 * the ActionItem animation. This method waits for 5 seconds and then ends
+	 * the {@link ActionItem} animation. This method shows a {@link Toast} with
+	 * animation which is shown type, waits for 5 seconds and then ends the
 	 * animation.
 	 * 
 	 */
 	private void backgroundProcess() {
+		switch (animationId) {
+		case R.anim.animation_rotate:
+			Toast.makeText(this, R.string.started_rotate, Toast.LENGTH_SHORT)
+					.show();
+			break;
+		case R.anim.animation_translate:
+			Toast.makeText(this, R.string.started_vibrate, Toast.LENGTH_SHORT)
+					.show();
+			break;
+		case R.anim.animation_alpha:
+			Toast.makeText(this, R.string.started_blink, Toast.LENGTH_SHORT)
+					.show();
+			break;
+		case R.anim.animation_scale:
+			Toast.makeText(this, R.string.started_scale, Toast.LENGTH_SHORT).show();
+			break;
+		}
 
 		final Handler handler = new Handler();
 		handler.postDelayed(new Runnable() {
@@ -136,7 +156,8 @@ public class AnimatedActionItem extends SherlockActivity {
 
 	/**
 	 * This method removes the animation and the ImageView from the animated
-	 * ActionBar item. This makes ActionBar item clickable again.
+	 * {@link ActionBar} item. This makes {@code ActionBar} {@link ActionItem}
+	 * clickable again.
 	 * 
 	 */
 	private void completeAnimation() {

@@ -9,6 +9,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.actionbarsherlock.sample.demos.AnimatedActionItem;
+import com.actionbarsherlock.view.MenuItem;
 import com.jayway.android.robotium.solo.Solo;
 
 public class AnimatedActionItemTest extends
@@ -18,7 +19,7 @@ public class AnimatedActionItemTest extends
 	private RadioGroup mRadioGroup;
 	private TextView mTextView;
 	private String introText, mRadioText0, mRadioText1, mRadioText2,
-			mRadioText3;
+			mRadioText3, mToastText0, mToastText1, mToastText2, mToastText3;
 	private RadioButton mRadioButton0, mRadioButton1, mRadioButton2,
 			mRadioButton3;
 
@@ -27,12 +28,11 @@ public class AnimatedActionItemTest extends
 
 	}
 
+	// initialising views and other variables for testing for testing
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 		solo = new Solo(getInstrumentation(), getActivity());
-		// check that we have the right activity
-
 		mActivity = this.getActivity();
 		mRadioGroup = (RadioGroup) mActivity
 				.findViewById(com.actionbarsherlock.sample.demos.R.id.radioGroup1);
@@ -56,13 +56,30 @@ public class AnimatedActionItemTest extends
 				.getString(com.actionbarsherlock.sample.demos.R.string.scale);
 		mRadioButton3 = (RadioButton) mActivity
 				.findViewById(com.actionbarsherlock.sample.demos.R.id.radio3);
+		mToastText0 = mActivity
+				.getString(com.actionbarsherlock.sample.demos.R.string.started_rotate);
+		mToastText1 = mActivity
+				.getString(com.actionbarsherlock.sample.demos.R.string.started_vibrate);
+		mToastText2 = mActivity
+				.getString(com.actionbarsherlock.sample.demos.R.string.started_blink);
+		mToastText3 = mActivity
+				.getString(com.actionbarsherlock.sample.demos.R.string.started_scale);
 
 	}
 
+	// checking that the widgets are not null
 	@SmallTest
 	public void testViews() {
 		assertNotNull(mActivity);
 		assertNotNull(mRadioGroup);
+		assertNotNull(mRadioText0);
+		assertNotNull(mRadioButton0);
+		assertNotNull(mRadioText1);
+		assertNotNull(mRadioButton1);
+		assertNotNull(mRadioText2);
+		assertNotNull(mRadioButton2);
+		assertNotNull(mRadioText3);
+		assertNotNull(mRadioButton3);
 		assertNotNull(mTextView);
 	}
 
@@ -89,6 +106,7 @@ public class AnimatedActionItemTest extends
 				mRadioButton3);
 	}
 
+	// checking if the correct text is shown
 	@SmallTest
 	public void testText() {
 		assertEquals(introText, (String) mTextView.getText());
@@ -97,10 +115,30 @@ public class AnimatedActionItemTest extends
 		assertEquals(mRadioText2, (String) mRadioButton2.getText());
 		assertEquals(mRadioText3, (String) mRadioButton3.getText());
 	}
-	
-	  @Override
-	  public void tearDown() throws Exception {
-	    solo.finishOpenedActivities();
-	  }
+
+	// checking if app does not crash after some actions and the correct Toast
+	// is shown
+	@SmallTest
+	public void testActions() {
+
+		solo.clickOnView(mRadioButton0);
+		solo.clickOnActionBarItem(0);
+		solo.waitForText(mToastText0);
+		solo.clickOnView(mRadioButton1);
+		solo.clickOnActionBarItem(0);
+		solo.waitForText(mToastText1);
+		solo.clickOnView(mRadioButton2);
+		solo.clickOnActionBarItem(0);
+		solo.waitForText(mToastText2);
+		solo.clickOnView(mRadioButton3);
+		solo.clickOnActionBarItem(0);
+		solo.waitForText(mToastText3);
+	}
+
+	// finish the tests
+	@Override
+	public void tearDown() throws Exception {
+		solo.finishOpenedActivities();
+	}
 
 }

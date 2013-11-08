@@ -18,6 +18,12 @@
 	<string name="vibrate">Vibrate</string>
 	<string name="blink">Blink</string>
 	<string name="scale">Scale</string>
+	
+	<string name="started_rotate">You started rotate animation</string>
+	<string name="started_vibrate">You started translate animation</string>
+	<string name="started_blink">You started alpha animation</string>
+	<string name="started_scale">You started scale animation</string>
+
     
 	
     <string name="share_action_providers">Share Action Providers</string>

@@ -14,7 +14,7 @@ import com.actionbarsherlock.R;
  * IcsToast is a child of {@link Toast} and is used to create custom Ice Cream
  * Sandwich {@code Toast}. Some properties of the {@code Toast} are passed in
  * the constructor and are custom, like text inside it and duration for how long
- * it is being shown, however, some value like text color are hard coded.
+ * it is being shown, however, some values like text color are hard coded.
  * 
  */
 public class IcsToast extends Toast {
