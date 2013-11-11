@@ -217,6 +217,7 @@ public class ActionBarView extends AbsActionBarView {
             if (mIcon == null) {
                 mIcon = appInfo.loadIcon(pm);
             }
+            mIcon = mIcon.getConstantState().newDrawable();
         }
 
         final LayoutInflater inflater = LayoutInflater.from(context);
