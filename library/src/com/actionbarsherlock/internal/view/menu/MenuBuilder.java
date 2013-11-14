@@ -353,6 +353,10 @@ public class MenuBuilder implements Menu {
         SparseArray<Parcelable> viewStates = states.getSparseParcelableArray(
                 getActionViewStatesKey());
 
+        if (viewStates == null) {
+            return; // NPE from View.restoreHierarchyState, dispatchRestoreInstanceState:6473.
+        }
+
         final int itemCount = size();
         for (int i = 0; i < itemCount; i++) {
             final MenuItem item = getItem(i);
