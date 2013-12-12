@@ -85,7 +85,7 @@ public class ActionMenuPresenter extends BaseMenuPresenter
         final Resources res = context.getResources();
 
         if (!mReserveOverflowSet) {
-            mReserveOverflow = reserveOverflow(mContext);
+            mReserveOverflow = true;
         }
 
         if (!mWidthLimitSet) {
