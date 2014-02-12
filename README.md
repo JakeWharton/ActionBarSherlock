@@ -1,6 +1,8 @@
 ActionBarSherlock
 =================
 
+[![Build Status](https://secure.travis-ci.org/JakeWharton/ActionBarSherlock.png)](http://travis-ci.org/JakeWharton/ActionBarSherlock)
+
 ActionBarSherlock is an standalone library designed to facilitate the use of
 the action bar design pattern across all versions of Android through a single
 API.
