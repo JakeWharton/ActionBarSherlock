@@ -4,7 +4,7 @@ buildscript {
   }
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:0.5.+'
+    classpath 'com.android.tools.build:gradle:0.13.0'
   }
 }
 
@@ -14,9 +14,5 @@ allprojects {
 
   repositories {
     mavenCentral()
-  }
-
-  tasks.withType(Compile) {
-    options.encoding = "UTF-8"
   }
 }
