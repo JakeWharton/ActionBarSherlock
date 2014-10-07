@@ -1,4 +1,4 @@
-apply plugin: 'android-library'
+apply plugin: 'com.android.library'
 
 dependencies {
   compile project(':actionbarsherlock')
@@ -6,7 +6,7 @@ dependencies {
 
 android {
   compileSdkVersion 14
-  buildToolsVersion '17.0.0'
+  buildToolsVersion '20.0.0'
 
   sourceSets {
     main {
