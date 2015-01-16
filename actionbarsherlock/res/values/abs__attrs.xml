@@ -139,22 +139,6 @@
         <!-- =========== -->
         <eat-comment />
 
-        <!-- A smaller, sleeker list item height. -->
-        <attr name="listPreferredItemHeightSmall" format="dimension" />
-
-        <!-- The preferred padding along the left edge of list items. -->
-        <attr name="listPreferredItemPaddingLeft" format="dimension" />
-        <!-- The preferred padding along the right edge of list items. -->
-        <attr name="listPreferredItemPaddingRight" format="dimension" />
-
-        <!-- The preferred TextAppearance for the primary text of small list items. -->
-        <attr name="textAppearanceListItemSmall" format="reference" />
-
-
-        <attr name="windowMinWidthMajor" format="dimension" />
-        <attr name="windowMinWidthMinor" format="dimension" />
-
-
 
         <!-- Drawable to use for generic vertical dividers. -->
         <attr name="dividerVertical" format="reference" />
@@ -165,7 +149,6 @@
         <attr name="dropDownListViewStyle" format="reference" />
         <attr name="popupMenuStyle" format="reference" />
         <attr name="dropdownListPreferredItemHeight" format="dimension" />
-        <attr name="actionSpinnerItemStyle" format="reference" />
         <attr name="windowNoTitle" format="boolean"/>
         <attr name="windowActionBar" format="boolean"/>
         <attr name="windowActionBarOverlay" format="boolean"/>
@@ -259,18 +242,8 @@
     <declare-styleable name="SherlockMenuView">
         <!-- Default appearance of menu item text. -->
         <attr name="itemTextAppearance" format="reference" />
-        <!-- Default horizontal divider between rows of menu items. -->
-        <attr name="horizontalDivider" format="reference" />
-        <!-- Default vertical divider between menu items. -->
-        <attr name="verticalDivider" format="reference" />
-        <!-- Default background for the menu header. -->
-        <attr name="headerBackground" format="color|reference" />
         <!-- Default background for each menu item. -->
         <attr name="itemBackground" format="color|reference" />
-        <!-- Default animations for the menu. -->
-        <attr name="windowAnimationStyle" format="reference" />
-        <!-- Default disabled icon alpha for each menu item that shows an icon. -->
-        <attr name="itemIconDisabledAlpha" format="float" />
         <!-- Whether space should be reserved in layout when an icon is missing. -->
         <attr name="preserveIconSpacing" format="boolean" />
     </declare-styleable>
