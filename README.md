@@ -3,7 +3,7 @@
 ActionBarSherlock is deprecated. No more development will be taking place. For an up-to-date action bar backport
 use [AppCompat](http://android-developers.blogspot.com/2014/10/appcompat-v21-material-design-for-pre.html).
 
-Thanks for all your support!
+Thanks for all of your support!
 
 
 ActionBarSherlock
