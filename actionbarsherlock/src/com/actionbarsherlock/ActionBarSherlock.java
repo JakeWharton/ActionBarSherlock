@@ -228,6 +228,7 @@ public abstract class ActionBarSherlock {
 
         try {
             Constructor<? extends ActionBarSherlock> ctor = impl.getConstructor(CONSTRUCTOR_ARGS);
+            ctor.setAccessible(true);
             return ctor.newInstance(activity, flags);
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
