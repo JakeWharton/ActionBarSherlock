@@ -34,7 +34,7 @@ public class CustomNavigation extends SherlockActivity {
         ((TextView)findViewById(R.id.text)).setText(R.string.custom_navigation_content);
 
         //Inflate the custom view
-        View customNav = LayoutInflater.from(this).inflate(R.layout.custom_view, null);
+        View customNav = LayoutInflater.from(this).inflate(R.layout.custom_navigation, null);
 
         //Bind to its state change
         ((RadioGroup)customNav.findViewById(R.id.radio_nav)).setOnCheckedChangeListener(new OnCheckedChangeListener() {

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<scale xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="400"
+    android:fillBefore="true"
+    android:pivotX="50%"
+    android:pivotY="50%"
+    android:fromXScale="50%"
+    android:fromYScale="50%"
+    android:repeatMode="reverse"
+    android:toXScale="1.4"
+    android:toYScale="1.4" />

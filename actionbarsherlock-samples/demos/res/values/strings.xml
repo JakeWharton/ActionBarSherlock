@@ -4,16 +4,28 @@
     <string name="application_name">ActionBarSherlock Demos</string>
     <string name="activity_name">ABS: Demos</string>
 
-
-
     <string name="action_items">Action Items</string>
-    <string name="action_items_content">The action bar creates a unified and persistant navigation experience for your application and action items are a great way to provide a clear indication of what the user can do.</string>
+    <string name="action_items_content">The action bar creates a unified and persistent navigation experience for your application and action items are a great way to provide a clear indication of what the user can do.</string>
 
     <string name="action_modes">Action Modes</string>
     <string name="action_modes_content">Action modes are used to display contextual information based on some interaction made by the user (long press, checkbox selection, etc). Like the normal action bar they also support splitting the action items to the bottom of the screen on small devices.</string>
 
     <string name="action_modes_no_action_bar">Action Modes (No Action Bar)</string>
+	    	
+	<string name="animated_action_item">Animated Action Item</string>
+	<string name="animated_action_item_content">Using animations for your ActionBar items helps to catch users attention and using them is a great way to make ActionBar more lively.</string>
+	<string name="rotate">Rotate</string>
+	<string name="vibrate">Vibrate</string>
+	<string name="blink">Blink</string>
+	<string name="scale">Scale</string>
+	
+	<string name="started_rotate">You started rotate animation</string>
+	<string name="started_vibrate">You started translate animation</string>
+	<string name="started_blink">You started alpha animation</string>
+	<string name="started_scale">You started scale animation</string>
 
+    
+	
     <string name="share_action_providers">Share Action Providers</string>
     <string name="share_action_providers_content">This activity demonstrates how to use an ActionProvider for adding functionality to the Action Bar. In particular this demo is adding a menu item with ShareActionProvider as its action provider. The ShareActionProvider is responsible for managing the UI for sharing actions.\n\nFor now, ShareActionProviders must be displayed on the action bar</string>
 
@@ -26,9 +38,15 @@
     <string name="context_menus">Context Menus</string>
     <string name="context_menus_content">Since both ActionBarSherlock and Android use \'Menu\' and \'MenuItem\' class names you must take extra care when using context menus. It is still very much possible to use both in a single activity.</string>
 
+    <string name="custom_background">Custom Background</string>
+    
     <string name="custom_navigation">Custom Navigation</string>
     <string name="custom_navigation_content">If you find that list and tab navigation are not suitable for your application you may replace it with a custom layout.</string>
-
+	
+    <string name="custom_tabs">Custom Tabs</string>
+    <string name="custom_view_content">Using custom view for Tabs might be a good way not only to catch user\'s attention by unusual tab layout but also save some space on screen by adding some functionality to the Tabs</string>
+    <string name="icon_tab_content">Using icons in tabs might help users understand what will happen after pressing this tab and at the same time improve the look of the app.</string>
+    
     <string name="dialog">Dialog</string>
     <string name="dialog_content">This is a demonstration of how you can give an activity the look of a dialog.\n\nWhile there is a light version of this theme, it cannot be set programmatically without disabling the fancy transparent outer background. In order for this effect the theme must be set in the manifest.</string>
 
@@ -42,8 +60,8 @@
     <string name="list_navigation_content">List navigation requires the use of a special layout for the spinner item. Failure to use it will result in your spinner text being the same color as the action bar background on pre-3.0. See the source code of this demo for more information.</string>
 
     <string name="overlay">Overlay</string>
-    <string name="overlay_content">Overlay can be useful if you have a lot of scrolling content, especially if that content is images. Remember to lead your content with a margin so that it starts below the action bar when scrolled to the top.</string>
-
+    <string name="overlay_content">Overlay can be useful if you have a lot of scrolling content, especially if that content is images. Remember to lead your content with a margin so that it starts below the action bar when scrolled to the top.</string>    
+    
     <string name="preference">Preference</string>
     <string name="preference_content">You can use the `SherlockPreferenceActivity` base class to place the action bar on top of a normal `PreferenceActivity`.\n\nThis does not yet support the use of `PreferenceFragments`, however.</string>
 
