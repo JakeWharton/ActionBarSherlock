@@ -57,7 +57,7 @@
         <!-- Internal --><item name="dropdownListPreferredItemHeight">48dip</item>
         <item name="dropDownListViewStyle">@style/Widget.Sherlock.ListView.DropDown</item>
 
-        <item name="textAppearanceSmall">@style/TextAppearance.Sherlock.Small</item>
+        <item name="abs_textAppearanceSmall">@style/TextAppearance.Sherlock.Small</item>
         <item name="textAppearanceLargePopupMenu">@style/TextAppearance.Sherlock.Widget.PopupMenu.Large</item>
         <item name="textAppearanceSmallPopupMenu">@style/TextAppearance.Sherlock.Widget.PopupMenu.Small</item>
         <item name="textAppearanceSearchResultTitle">@style/TextAppearance.Sherlock.SearchResult.Title</item>
@@ -131,7 +131,7 @@
         <!-- Internal --><item name="dropdownListPreferredItemHeight">48dip</item>
         <item name="dropDownListViewStyle">@style/Widget.Sherlock.Light.ListView.DropDown</item>
 
-        <item name="textAppearanceSmall">@style/TextAppearance.Sherlock.Light.Small</item>
+        <item name="abs_textAppearanceSmall">@style/TextAppearance.Sherlock.Light.Small</item>
         <item name="textAppearanceLargePopupMenu">@style/TextAppearance.Sherlock.Light.Widget.PopupMenu.Large</item>
         <item name="textAppearanceSmallPopupMenu">@style/TextAppearance.Sherlock.Light.Widget.PopupMenu.Small</item>
         <item name="textAppearanceSearchResultTitle">@style/TextAppearance.Sherlock.Light.SearchResult.Title</item>
