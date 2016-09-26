@@ -1,0 +1,140 @@
+// actionbarsherlock-samples demos
+
+/*		Android v06.24
+*	http://www.nodeclipse.org/projects/gradle
+* Nodeclipse/Enide build.gradle template for classic Android project
+*	https://github.com/Nodeclipse/nodeclipse-1/blob/master/org.nodeclipse.enide.editors.gradle/docs/android/build.gradle
+* Gradle Plugin User Guide:
+*	http://tools.android.com/tech-docs/new-build-system/user-guide
+* Usage
+*	1. put in project root
+*	2. check version numbers
+*	3. use from command line or with Gradle for Android	http://marketplace.eclipse.org/content/gradle
+* Optionally: import in Android Studio 
+*	1. Ctrl+Alt+C (copy path of) build.gradle
+*	2. in Android Studio File -> Import Project , paste path of build.gradle
+* Support for this template
+*	https://github.com/nodeclipse/nodeclipse-1/issues/
+* History
+*	2014-03-13 android plugin updated to 0.9, see http://tools.android.com/tech-docs/new-build-system/migrating_to_09
+*	2014-04-01 check for gradle version
+*	2014-04-10 wrapper and runAndroidApplication tasks
+*	2014-04-25 rename to run, add <<
+*	2014-05-23 defaut plugin version 0.10.x
+*	2014-06-06 show "boilerplate part"	
+*	2014-06-17 defaut plugin version 0.11.x, requires buildToolsVersion "19.1.0"
+*	2014-06-18 add gradle-android-command-plugin
+*	2014-06-24 add sdk-manager-plugin (enabled by default)
+* @author Paul Verest 
+*/
+println GradleVersion.current().prettyPrint()
+assert gradle.gradleVersion >= "1.10" // android plugin 0.10 requires Gradle 1.10, 1.11, 1.12
+// after `gradle wrapper` it is possible to use './gradlew build' with Gradle version specified
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.12'
+}
+
+//{ "boilerplate part", possible extensions are commented
+buildscript {
+    repositories {
+        mavenCentral()
+        //jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.11.+'
+    	// https://github.com/JakeWharton/sdk-manager-plugin
+    	classpath 'com.jakewharton.sdkmanager:gradle-plugin:0.10.+'
+        // https://github.com/novoda/gradle-android-command-plugin
+        classpath 'com.novoda:gradle-android-command-plugin:1.2.1'
+    }
+}
+// https://github.com/JakeWharton/sdk-manager-plugin says it should be applied before 'android' 
+apply plugin: 'android-sdk-manager'
+apply plugin: 'android'
+
+repositories {
+    mavenCentral()
+    //jcenter()
+}
+
+dependencies {
+    //compile fileTree(dir: 'libs', include: '*.jar')
+    
+    // to use appcomat: in SDK Manager install/update Extras / Android Support Repository
+    // or from command line
+    //	android list sdk
+    //	android update sdk --no-ui --filter <number>
+    //compile 'com.android.support:appcompat-v7:19.+'
+
+    // for multi-module project build (needs `settings.gradle`): 
+    // reference needed modules or App under test (for Eclipse Android Test project)
+    //compile project(':Module')
+
+    //androidTestCompile 'com.jayway.android.robotium:robotium-solo:4.3.1'
+    
+    // http://blog.futurice.com/android_unit_testing_in_ides_and_ci_environments
+    //androidTestCompile 'org.robolectric:robolectric:2.+'
+    //androidTestCompile 'junit:junit:4.+'
+}
+
+dependencies {
+  compile 'com.actionbarsherlock:actionbarsherlock:4.4.0@aar'
+  compile 'com.android.support:support-v4:19.+'
+}
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion "19.1.0" // "19.0.3" for 0.10
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            resources.srcDirs = ['src']
+            aidl.srcDirs = ['src']
+            renderscript.srcDirs = ['src']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
+        }
+
+        // Move the tests to tests/java, tests/res, etc...
+        androidTest.setRoot('tests')
+
+        // Move the build types to build-types/<type>
+        // For instance, build-types/debug/java, build-types/debug/AndroidManifest.xml, ...
+        // This moves them out of them default location under src/<type>/... which would
+        // conflict with src/ being used by the main source set.
+        // Adding new build types or product flavors should be accompanied
+        // by a similar customization.
+        debug.setRoot('build-types/debug')
+        release.setRoot('build-types/release')
+    }
+}
+//} "boilerplate part"
+
+/*
+*/
+android {
+    lintOptions {
+        //checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
+}
+
+// runAndroidApplication
+task run (type: Exec, dependsOn: ':installDebug') << {
+	//TODO update Activity name below or find a way to get it from AndroidManifest.xml
+	if (System.properties['os.name'].toLowerCase().contains('windows')) {
+	    // windows
+	    commandLine 'cmd', '/c', 'adb', 'shell', 'am', 'start', '-n', "com.example.androidapptorun.MainActivity"      
+	} else {
+	    // linux 
+	    commandLine 'adb', 'shell', 'am', 'start', '-n', "com.example.androidapptorun.MainActivity"
+	}
+}
+
+apply plugin: 'android-command'
+// https://github.com/novoda/gradle-android-command-plugin
+// run gradle tasks and see "ADB command tasks" section
