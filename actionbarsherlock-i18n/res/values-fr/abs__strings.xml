@@ -1,17 +1,32 @@
-<?xml version="1.0" encoding="utf-8"?><resources>
-    <string name="abs__action_bar_home_description">"Retour à l\'accueil"</string>
-    <string name="abs__action_bar_up_description">"Parcourir vers le haut"</string>
-    <string name="abs__action_menu_overflow_description">"Plus d\'options"</string>
-    <string name="abs__action_mode_done">"OK"</string>
-    <string name="abs__activity_chooser_view_dialog_title_default">"Sélectionnez une activité"</string>
-    <string name="abs__activity_chooser_view_see_all">"Tout afficher"</string>
-    <string name="abs__activitychooserview_choose_application">"Sélectionnez une application"</string>
-    <string name="abs__searchview_description_clear">"Effacer la requête"</string>
-    <string name="abs__searchview_description_query">"Requête de recherche"</string>
-    <string name="abs__searchview_description_search">"Rechercher"</string>
-    <string name="abs__searchview_description_submit">"Envoyer la requête"</string>
-    <string name="abs__searchview_description_voice">"Recherche vocale"</string>
-    <string name="abs__share_action_provider_share_with">"Partager avec"</string>
-    <string name="abs__shareactionprovider_share_with">"Partager avec"</string>
-    <string name="abs__shareactionprovider_share_with_application">"Partager avec %s"</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] -->
+    <string name="abs__action_bar_home_description">Retour à l\'accueil</string>
+    <!-- Content description for the action bar "up" affordance. [CHAR LIMIT=NONE] -->
+    <string name="abs__action_bar_up_description">Parcourir vers le haut</string>
+    <!-- Content description for the action menu overflow button. [CHAR LIMIT=NONE] -->
+    <string name="abs__action_menu_overflow_description">Plus d\'options</string>
+
+    <!-- Label for the "Done" button on the far left of action mode toolbars. -->
+    <string name="abs__action_mode_done">OK</string>
+
+    <!-- Title for a button to expand the list of activities in ActivityChooserView [CHAR LIMIT=25] -->
+    <string name="abs__activity_chooser_view_see_all">Tout afficher</string>
+    <!-- Description of the shwoing of a popup window with activities to choose from. [CHAR LIMIT=NONE] -->
+    <string name="abs__activitychooserview_choose_application">Sélectionnez une application</string>
+    <!-- Description of the choose target button in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] -->
+    <string name="abs__share_action_provider_share_with">Partager avec</string>
+    <!-- Description of a share target (both in the list of such or the default share button) in a ShareActionProvider (share UI). [CHAR LIMIT=NONE] -->
+    <string name="abs__shareactionprovider_share_with_application">Partager avec <xliff:g id="application_name" example="Bluetooth">%s</xliff:g></string>
+
+    <!-- SearchView accessibility description for search button [CHAR LIMIT=NONE] -->
+    <string name="abs__searchview_description_search">Rechercher</string>
+    <!-- SearchView accessibility description for search text field [CHAR LIMIT=NONE] -->
+    <string name="abs__searchview_description_query">Requête de recherche</string>
+    <!-- SearchView accessibility description for clear button [CHAR LIMIT=NONE] -->
+    <string name="abs__searchview_description_clear">Effacer la requête</string>
+    <!-- SearchView accessibility description for submit button [CHAR LIMIT=NONE] -->
+    <string name="abs__searchview_description_submit">Envoyer la requête</string>
+    <!-- SearchView accessibility description for voice button [CHAR LIMIT=NONE] -->
+    <string name="abs__searchview_description_voice">Recherche vocale</string>
 </resources>
