@@ -77,6 +77,10 @@ public class IcsSpinner extends IcsAbsSpinner implements OnClickListener {
     private boolean mDisableChildrenWhenDisabled;
 
     private Rect mTempRect = new Rect();
+    
+    public IcsSpinner(Context context) {
+    	this(context, null);
+	}
 
     public IcsSpinner(Context context, AttributeSet attrs) {
         this(context, attrs, R.attr.actionDropDownStyle);
