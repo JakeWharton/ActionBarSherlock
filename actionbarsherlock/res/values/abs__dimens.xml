@@ -52,4 +52,7 @@
 
     <!-- Preferred width of the search view. -->
     <dimen name="abs__search_view_preferred_width">320dip</dimen>
+    
+    <!-- Default margin of the home icon. -->
+    <dimen name="abs__action_bar_icon_left_margin">0dip</dimen>
 </resources>
