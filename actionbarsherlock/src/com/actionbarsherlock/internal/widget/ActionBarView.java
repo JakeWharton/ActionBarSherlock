@@ -545,6 +545,10 @@ public class ActionBarView extends AbsActionBarView {
                     R.string.abs__action_bar_home_description));
         }
     }
+    
+    public void setHomeButtonContentDescription(int contentResId) {
+    	mHomeLayout.setContentDescription(mContext.getResources().getText(contentResId));
+    }
 
     public void setDisplayOptions(int options) {
         final int flagsChanged = mDisplayOptions == -1 ? -1 : options ^ mDisplayOptions;

@@ -9,12 +9,14 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.SpinnerAdapter;
 
 import com.actionbarsherlock.app.ActionBar;
 
 public class ActionBarWrapper extends ActionBar implements android.app.ActionBar.OnNavigationListener, android.app.ActionBar.OnMenuVisibilityListener {
-    private final Activity mActivity;
+	private final Activity mActivity;
     private final android.app.ActionBar mActionBar;
     private ActionBar.OnNavigationListener mNavigationListener;
     private Set<OnMenuVisibilityListener> mMenuVisibilityListeners = new HashSet<OnMenuVisibilityListener>(1);
@@ -189,6 +191,36 @@ public class ActionBarWrapper extends ActionBar implements android.app.ActionBar
     @Override
     public void setSplitBackgroundDrawable(Drawable d) {
         mActionBar.setSplitBackgroundDrawable(d);
+    }
+    
+    @Override
+	public void setHomeAsUpIndicator(Drawable drawable) {
+    	final View home = mActivity.findViewById(android.R.id.home);
+        if (home == null) {
+            // Action bar doesn't have a known configuration, an OEM messed with things.
+            return;
+        }
+
+        final ViewGroup parent = (ViewGroup) home.getParent();
+        final int childCount = parent.getChildCount();
+        if (childCount != 2) {
+            // No idea which one will be the right one, an OEM messed with things.
+            return;
+        }
+
+        final View first = parent.getChildAt(0);
+        final View second = parent.getChildAt(1);
+        final View up = first.getId() == android.R.id.home ? second : first;
+
+        if (up instanceof ImageView) {
+            // Jackpot! (Probably...)
+            ImageView upIndicatorView = (ImageView) up;
+            upIndicatorView.setImageDrawable(drawable);
+        }
+    }
+    
+    public void setHomeActionContentDescription(int contentResId) {
+    	// When API v18 comes out, we should call setHomeActionContentDescription on the native Action Bar
     }
 
     @Override
