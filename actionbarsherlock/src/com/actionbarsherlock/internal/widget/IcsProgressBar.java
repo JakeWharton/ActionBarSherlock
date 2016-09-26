@@ -189,23 +189,38 @@ public class IcsProgressBar extends View {
     private static final int ANIMATION_RESOLUTION = 200;
     private static final int TIMEOUT_SEND_ACCESSIBILITY_EVENT = 200;
 
-    private static final int[] ProgressBar = new int[] {
-        android.R.attr.maxWidth,
-        android.R.attr.maxHeight,
-        android.R.attr.max,
-        android.R.attr.progress,
-        android.R.attr.secondaryProgress,
-        android.R.attr.indeterminate,
-        android.R.attr.indeterminateOnly,
-        android.R.attr.indeterminateDrawable,
-        android.R.attr.progressDrawable,
-        android.R.attr.indeterminateDuration,
-        android.R.attr.indeterminateBehavior,
-        android.R.attr.minWidth,
-        android.R.attr.minHeight,
-        android.R.attr.interpolator,
-        android.R.attr.animationResolution,
-    };
+    private static final int[] ProgressBar;
+    
+	static {
+		if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN)
+			ProgressBar = new int[15];
+		else
+			ProgressBar = new int[14];
+
+		fillProgressBar();
+	}
+
+	@SuppressWarnings("deprecation")
+	private static void fillProgressBar() {
+		ProgressBar[0] = android.R.attr.maxWidth;
+		ProgressBar[1] = android.R.attr.maxHeight;
+		ProgressBar[2] = android.R.attr.max;
+		ProgressBar[3] = android.R.attr.progress;
+		ProgressBar[4] = android.R.attr.secondaryProgress;
+		ProgressBar[5] = android.R.attr.indeterminate;
+		ProgressBar[6] = android.R.attr.indeterminateOnly;
+		ProgressBar[7] = android.R.attr.indeterminateDrawable;
+		ProgressBar[8] = android.R.attr.progressDrawable;
+		ProgressBar[9] = android.R.attr.indeterminateDuration;
+		ProgressBar[10] = android.R.attr.indeterminateBehavior;
+		ProgressBar[11] = android.R.attr.minWidth;
+		ProgressBar[12] = android.R.attr.minHeight;
+		ProgressBar[13] = android.R.attr.interpolator;
+
+		if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN)
+			ProgressBar[14] = android.R.attr.animationResolution;
+	};
+    
     private static final int ProgressBar_maxWidth = 0;
     private static final int ProgressBar_maxHeight = 1;
     private static final int ProgressBar_max = 2;

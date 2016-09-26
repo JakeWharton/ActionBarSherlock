@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.content.res.Resources;
 import android.database.DataSetObserver;
+import android.os.Build;
 import android.os.Parcelable;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -104,7 +105,8 @@ public class MenuPopupHelper implements AdapterView.OnItemClickListener, View.On
         }
     }
 
-    public boolean tryShow() {
+    @SuppressWarnings("deprecation")
+	public boolean tryShow() {
         mPopup = new IcsListPopupWindow(mContext, null, R.attr.popupMenuStyle);
         mPopup.setOnDismissListener(this);
         mPopup.setOnItemClickListener(this);
@@ -120,7 +122,10 @@ public class MenuPopupHelper implements AdapterView.OnItemClickListener, View.On
                 ViewTreeObserver vto = anchor.getViewTreeObserver();
                 if (vto != mTreeObserver) {
                     if (mTreeObserver != null && mTreeObserver.isAlive()) {
-                        mTreeObserver.removeGlobalOnLayoutListener(this);
+                        if(android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN)
+                        	mTreeObserver.removeGlobalOnLayoutListener(this);
+                    	else
+                    		mTreeObserver.removeOnGlobalLayoutListener(this);
                     }
                     if ((mTreeObserver = vto) != null) {
                         vto.addOnGlobalLayoutListener(this);
@@ -147,11 +152,18 @@ public class MenuPopupHelper implements AdapterView.OnItemClickListener, View.On
         }
     }
 
-    public void onDismiss() {
+    @SuppressWarnings("deprecation")
+	public void onDismiss() {
         mPopup = null;
         mMenu.close();
         if (mTreeObserver != null) {
-            if (mTreeObserver.isAlive()) mTreeObserver.removeGlobalOnLayoutListener(this);
+            if (mTreeObserver.isAlive()){
+            	if(android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN)
+            		mTreeObserver.removeGlobalOnLayoutListener(this);
+            	else
+            		mTreeObserver.removeOnGlobalLayoutListener(this);
+            }
+            
             mTreeObserver = null;
         } else if (mAnchorView instanceof View_HasStateListenerSupport) {
             ((View_HasStateListenerSupport) mAnchorView).removeOnAttachStateChangeListener(this);

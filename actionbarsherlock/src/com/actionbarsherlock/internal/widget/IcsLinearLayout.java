@@ -277,4 +277,12 @@ public class IcsLinearLayout extends NineLinearLayout {
         }
         return false;
     }
+    
+    @SuppressWarnings("deprecation")
+	public void setBackgroundSherlock(Drawable drawable) {
+		if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+			setBackground(drawable);
+		else
+			setBackgroundDrawable(drawable);
+	}
 }

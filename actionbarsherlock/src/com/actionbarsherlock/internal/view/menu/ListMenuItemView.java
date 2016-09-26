@@ -21,6 +21,7 @@ import com.actionbarsherlock.R;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -74,6 +75,14 @@ public class ListMenuItemView extends LinearLayout implements MenuView.ItemView 
 
         a.recycle();
     }
+    
+    @SuppressWarnings("deprecation")
+	public void setBackgroundSherlock(Drawable drawable) {
+		if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+			setBackground(drawable);
+		else
+			setBackgroundDrawable(drawable);
+	}
 
     public ListMenuItemView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
@@ -83,7 +92,7 @@ public class ListMenuItemView extends LinearLayout implements MenuView.ItemView 
     protected void onFinishInflate() {
         super.onFinishInflate();
 
-        setBackgroundDrawable(mBackground);
+        setBackgroundSherlock(mBackground);
 
         mTitleView = (TextView) findViewById(R.id.abs__title);
         if (mTextAppearance != -1) {

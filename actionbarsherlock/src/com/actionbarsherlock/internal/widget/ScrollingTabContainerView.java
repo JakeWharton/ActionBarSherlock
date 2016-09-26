@@ -19,6 +19,7 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.text.TextUtils.TruncateAt;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -277,7 +278,7 @@ public class ScrollingTabContainerView extends NineHorizontalScrollView
         tabView.init(this, tab, forAdapter);
 
         if (forAdapter) {
-            tabView.setBackgroundDrawable(null);
+            tabView.setBackgroundSherlock(null);
             tabView.setLayoutParams(new ListView.LayoutParams(ListView.LayoutParams.MATCH_PARENT,
                     mContentHeight));
         } else {
@@ -373,7 +374,15 @@ public class ScrollingTabContainerView extends NineHorizontalScrollView
             super(context, attrs);
         }
 
-        public void init(ScrollingTabContainerView parent, ActionBar.Tab tab, boolean forList) {
+        @SuppressWarnings("deprecation")
+		public void setBackgroundSherlock(Drawable drawable) {
+			if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+				setBackground(drawable);
+			else
+				setBackgroundDrawable(drawable);
+		}
+
+		public void init(ScrollingTabContainerView parent, ActionBar.Tab tab, boolean forList) {
             mParent = parent;
             mTab = tab;
 
