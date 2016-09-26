@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.internal.ActionBarSherlockCompat;
+import com.actionbarsherlock.internal.ActionBarSherlockICS;
 import com.actionbarsherlock.internal.ActionBarSherlockNative;
 import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.Menu;
@@ -48,8 +49,9 @@ public abstract class ActionBarSherlock {
             new HashMap<Implementation, Class<? extends ActionBarSherlock>>();
 
     static {
-        //Register our two built-in implementations
+        //Register our built-in implementations
         registerImplementation(ActionBarSherlockCompat.class);
+        registerImplementation(ActionBarSherlockICS.class);
         registerImplementation(ActionBarSherlockNative.class);
     }
 
@@ -266,8 +268,13 @@ public abstract class ActionBarSherlock {
      *
      * @return Action bar instance.
      */
-    public abstract ActionBar getActionBar();
+    public ActionBar getActionBar() {
+        if (ActionBarSherlock.DEBUG) Log.d(TAG, "[getActionBar]");
 
+        return initActionBar();
+    }
+
+    protected abstract ActionBar initActionBar();
 
     ///////////////////////////////////////////////////////////////////////////
     // Lifecycle and interaction callbacks when delegating

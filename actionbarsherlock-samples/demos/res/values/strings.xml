@@ -41,6 +41,9 @@
     <string name="list_navigation">List Navigation</string>
     <string name="list_navigation_content">List navigation requires the use of a special layout for the spinner item. Failure to use it will result in your spinner text being the same color as the action bar background on pre-3.0. See the source code of this demo for more information.</string>
 
+    <string name="navigation_drawer">Navigation Drawer</string>
+    <string name="navigation_drawer_content">The navigation drawer is a panel that transitions in from the left edge of the screen and displays the app\’s main navigation options. See the source code of this demo for more information.</string>
+
     <string name="overlay">Overlay</string>
     <string name="overlay_content">Overlay can be useful if you have a lot of scrolling content, especially if that content is images. Remember to lead your content with a margin so that it starts below the action bar when scrolled to the top.</string>
 
@@ -51,7 +54,7 @@
     <string name="progress_content">The action bar includes a standard progress bar. The methods for accessing it are prefixed with `support`. See the source for this demo for more information.</string>
 
     <string name="search_views">Search Views</string>
-    <string name="search_views_content">SearchView allows you provide a unified mechanism of searching with optional featurs such as auto-completion and an always-expanded mode.</string>
+    <string name="search_views_content">SearchView allows you provide a unified mechanism of searching with optional features such as auto-completion and an always-expanded mode.</string>
 
     <string name="simple">Simple</string>
     <string name="simple_content">This is a simple showcase of how easy it is to add the action bar to your activities. Take a look at the source code, it\'s surprisingly simple!</string>
@@ -118,4 +121,8 @@
 
     <string name="default_value_list_preference">beta</string>
     <string name="default_value_edittext_preference">Default value</string>
+
+    <string name="navigation_drawer_open_title">API Guides</string>
+    <string name="navigation_drawer_open_description">I\'m open.</string>
+    <string name="navigation_drawer_closed_description">I\'m closed.</string>
 </resources>

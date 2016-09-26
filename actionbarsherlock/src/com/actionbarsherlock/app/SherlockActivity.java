@@ -18,7 +18,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
-public abstract class SherlockActivity extends Activity implements OnCreatePanelMenuListener, OnPreparePanelListener, OnMenuItemSelectedListener, OnActionModeStartedListener, OnActionModeFinishedListener {
+public abstract class SherlockActivity extends Activity implements SupportActivity, OnCreatePanelMenuListener, OnPreparePanelListener, OnMenuItemSelectedListener, OnActionModeStartedListener, OnActionModeFinishedListener {
     private ActionBarSherlock mSherlock;
 
     protected final ActionBarSherlock getSherlock() {
@@ -33,6 +33,7 @@ public abstract class SherlockActivity extends Activity implements OnCreatePanel
     // Action bar and mode
     ///////////////////////////////////////////////////////////////////////////
 
+    @Override
     public ActionBar getSupportActionBar() {
         return getSherlock().getActionBar();
     }

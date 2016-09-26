@@ -18,7 +18,7 @@
      own application, the package name must be changed from "com.example.*"
      to come from a domain that you own or have control over. --><manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="440" android:versionName="4.4.0" package="com.actionbarsherlock.sample.fragments">
 
-    <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="17"/>
+    <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="18"/>
 
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
 

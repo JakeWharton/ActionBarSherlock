@@ -10,16 +10,16 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import com.actionbarsherlock.ActionBarSherlock;
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.internal.app.ActionBarWrapper;
+import com.actionbarsherlock.internal.app.ActionBarWrapperNative;
 import com.actionbarsherlock.internal.view.menu.MenuItemWrapper;
 import com.actionbarsherlock.internal.view.menu.MenuWrapper;
 import com.actionbarsherlock.view.ActionMode;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 
-@ActionBarSherlock.Implementation(api = 14)
+@ActionBarSherlock.Implementation(api = 18)
 public class ActionBarSherlockNative extends ActionBarSherlock {
-    private ActionBarWrapper mActionBar;
+    private ActionBarWrapperNative mActionBar;
     private ActionModeWrapper mActionMode;
     private MenuWrapper mMenu;
 
@@ -27,21 +27,13 @@ public class ActionBarSherlockNative extends ActionBarSherlock {
         super(activity, flags);
     }
 
+    protected ActionBar initActionBar() {
+        if (ActionBarSherlock.DEBUG) Log.d(TAG, "[initActionBar]");
 
-    @Override
-    public ActionBar getActionBar() {
-        if (ActionBarSherlock.DEBUG) Log.d(TAG, "[getActionBar]");
-
-        initActionBar();
-        return mActionBar;
-    }
-
-    private void initActionBar() {
-        if (mActionBar != null || mActivity.getActionBar() == null) {
-            return;
+        if (mActionBar == null && mActivity.getActionBar() != null) {
+            mActionBar = new ActionBarWrapperNative(mActivity);
         }
-
-        mActionBar = new ActionBarWrapper(mActivity);
+        return mActionBar;
     }
 
     @Override

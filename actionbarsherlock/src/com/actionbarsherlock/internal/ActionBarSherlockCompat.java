@@ -115,14 +115,7 @@ public class ActionBarSherlockCompat extends ActionBarSherlock implements MenuBu
     ///////////////////////////////////////////////////////////////////////////
 
     @Override
-    public ActionBar getActionBar() {
-        if (ActionBarSherlock.DEBUG) Log.d(TAG, "[getActionBar]");
-
-        initActionBar();
-        return aActionBar;
-    }
-
-    private void initActionBar() {
+    protected ActionBar initActionBar() {
         if (ActionBarSherlock.DEBUG) Log.d(TAG, "[initActionBar]");
 
         // Initializing the window decor can change window feature flags.
@@ -131,16 +124,16 @@ public class ActionBarSherlockCompat extends ActionBarSherlock implements MenuBu
             installDecor();
         }
 
-        if ((aActionBar != null) || !hasFeature(Window.FEATURE_ACTION_BAR) || hasFeature(Window.FEATURE_NO_TITLE) || mActivity.isChild()) {
-            return;
+        if (aActionBar == null && hasFeature(Window.FEATURE_ACTION_BAR) && !hasFeature(Window.FEATURE_NO_TITLE) && !mActivity.isChild()) {
+            aActionBar = new ActionBarImpl(mActivity, mFeatures);
+
+            if (!mIsDelegate) {
+                //We may never get another chance to set the title
+                wActionBar.setWindowTitle(mActivity.getTitle());
+            }
         }
 
-        aActionBar = new ActionBarImpl(mActivity, mFeatures);
-
-        if (!mIsDelegate) {
-            //We may never get another chance to set the title
-            wActionBar.setWindowTitle(mActivity.getTitle());
-        }
+        return aActionBar;
     }
 
     @Override

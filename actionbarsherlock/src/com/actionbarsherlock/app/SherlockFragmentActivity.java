@@ -18,7 +18,7 @@ import static com.actionbarsherlock.ActionBarSherlock.OnActionModeFinishedListen
 import static com.actionbarsherlock.ActionBarSherlock.OnActionModeStartedListener;
 
 /** @see {@link android.support.v4.app.Watson} */
-public class SherlockFragmentActivity extends Watson implements OnActionModeStartedListener, OnActionModeFinishedListener {
+public class SherlockFragmentActivity extends Watson implements OnActionModeStartedListener, OnActionModeFinishedListener, SupportActivity {
     private static final String TAG = "SherlockFragmentActivity";
 
     private ActionBarSherlock mSherlock;
@@ -38,6 +38,7 @@ public class SherlockFragmentActivity extends Watson implements OnActionModeStar
     // Action bar and mode
     ///////////////////////////////////////////////////////////////////////////
 
+    @Override
     public ActionBar getSupportActionBar() {
         return getSherlock().getActionBar();
     }
